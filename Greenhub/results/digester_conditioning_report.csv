@@ -1,0 +1,2 @@
+scenario,enabled,method,inlet_pH_metadata,target_pH_metadata,base_type,base_solution_mass_fraction,base_purity,pure_base_kg_hr,base_solution_kg_hr,reagent_water_kg_hr,dilution_water_kg_hr,trace_nutrients_kg_hr,electricity_kw,limitation
+AD1,True,empirical_dose,7.0,7.2,SodiumHydroxide,0.5,1.0,0.012254031357845835,0.02450806271569167,0.012254031357845835,0.0,0.0,0.0010211692798204864,pH is metadata; no buffering or electrolyte calculation

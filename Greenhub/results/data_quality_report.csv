@@ -1,0 +1,83 @@
+python_name,value,unit,measurement_status,source_class,source_description,warning
+density,1000.0,kg/m3,assumed,E,Placeholder or unknown,Placeholder/unknown quality input; replace before interpreting scenario performance.
+temperature,25.0,degC,assumed,E,Placeholder or unknown,Placeholder/unknown quality input; replace before interpreting scenario performance.
+pressure,101325.0,Pa,assumed,E,Placeholder or unknown,Placeholder/unknown quality input; replace before interpreting scenario performance.
+ph,6.5,pH,assumed,E,Placeholder or unknown,Placeholder/unknown quality input; replace before interpreting scenario performance.
+conductivity,,mS/cm,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+viscosity,,mPa.s,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+turbidity,,NTU,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+alkalinity,,mg CaCO3/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+particle_size,,um,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+water,,mass_fraction,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+glucose,0.0101163379,mass_fraction,assumed,E,Placeholder or unknown,Placeholder/unknown quality input; replace before interpreting scenario performance.
+fructose,,g/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+sucrose,0.0050581689,mass_fraction,assumed,E,Placeholder or unknown,Placeholder/unknown quality input; replace before interpreting scenario performance.
+xylose,,g/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+arabinose,,g/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+galactose,,g/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+mannose,,g/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+maltose,,g/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+acetic_acid,0.0020232676,mass_fraction,assumed,E,Placeholder or unknown,Placeholder/unknown quality input; replace before interpreting scenario performance.
+lactic_acid,0.0010116338,mass_fraction,assumed,E,Placeholder or unknown,Placeholder/unknown quality input; replace before interpreting scenario performance.
+propionic_acid,,g/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+butyric_acid,,g/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+formic_acid,,g/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+succinic_acid,,g/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+citric_acid,,g/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+malic_acid,,g/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+oxalic_acid,,g/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+ammonium,0.0005058169,mass_fraction,assumed,E,Placeholder or unknown,Placeholder/unknown quality input; replace before interpreting scenario performance.
+ammonia,,mg/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+nitrate,,mg/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+nitrite,,mg/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+organic_nitrogen,,mg/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+orthophosphate,,mg/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+organic_phosphorus,,mg/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+particulate_phosphorus,,mg/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+potassium,,mg/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+sodium,,mg/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+magnesium,,mg/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+calcium,,mg/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+chloride,,mg/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+sulfate,,mg/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+bicarbonate,,mg/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+soluble_protein,0.0202326758,mass_fraction,assumed,E,Placeholder or unknown,Placeholder/unknown quality input; replace before interpreting scenario performance.
+suspended_protein,,g/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+peptides,,g/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+amino_acids,,g/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+cellulose,,g/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+hemicellulose,,g/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+lignin,,g/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+pectin,,g/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+starch,,g/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+lipids,,g/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+other_biodegradable_organics,,g/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+non_biodegradable_organics,,g/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+microbial_biomass,,g/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+soluble_inert_solids,,g/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+suspended_solids,0.0455235205,mass_fraction,assumed,E,Placeholder or unknown,Placeholder/unknown quality input; replace before interpreting scenario performance.
+suspended_inert_solids,,g/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+inert_solids,0.0050581689,mass_fraction,assumed,E,Placeholder or unknown,Placeholder/unknown quality input; replace before interpreting scenario performance.
+ash,,g/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+heavy_metals,,mg/kg wet,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+persistent_organics,,mg/kg wet,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+pesticides,,mg/kg wet,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+microplastics,,mg/kg wet,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+pathogen_indicators,,mg/kg wet,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+total_protein,,g/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+total_soluble_sugars,,g/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+total_vfas,,g/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+cod,,mg/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+soluble_cod,,mg/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+particulate_cod,,mg/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+bod5,,mg/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+toc,,mg/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+total_solids,,g/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+volatile_solids,,g/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+total_suspended_solids,,mg/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+volatile_suspended_solids,,mg/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+total_dissolved_solids,,mg/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+total_nitrogen,,mg/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+tkn,,mg/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+total_phosphorus,,mg/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.
+dissolved_phosphorus,,mg/L,not_measured,E,Placeholder or unknown,No value supplied; record was preserved as missing and did not add mass.

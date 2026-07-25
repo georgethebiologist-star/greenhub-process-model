@@ -1,0 +1,12 @@
+element,external_inlet_kg_hr,external_outlet_kg_hr,residual_kg_hr,validation_status
+carbon,90.53150951974514,90.53150951974514,0.0,strict
+hydrogen,54.1463094516761,54.20652826130588,-0.06021880962977377,informational_pseudo_component_limit
+oxygen,415.5114804343759,415.4497366547796,0.06174377959632693,informational_pseudo_component_limit
+nitrogen,3.847345746523745,3.847345746523745,0.0,strict
+phosphorus,0.282258064516129,0.282258064516129,0.0,strict
+sulfur,0.19193548387096776,0.19193548387096776,0.0,strict
+potassium,0.6774193548387096,0.6774193548387096,0.0,informational_pseudo_component_limit
+sodium,0.23825433562442266,0.23825433562442266,0.0,informational_pseudo_component_limit
+magnesium,0.0,0.0,0.0,informational_pseudo_component_limit
+calcium,0.0,0.0,0.0,informational_pseudo_component_limit
+chloride,0.35902150979505115,0.35902150979505115,0.0,informational_pseudo_component_limit

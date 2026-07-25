@@ -1,0 +1,144 @@
+record_type,name,value,unit,concentration_g_L,status
+component,Water,239.67176014649021,kg/hr,977.9302547362776,calculated from upstream stream
+component,Glucose,1.1575038224252157,kg/hr,4.7229511196089184,calculated from upstream stream
+component,Fructose,0.0,kg/hr,0.0,calculated from upstream stream
+component,Sucrose,0.0,kg/hr,0.0,calculated from upstream stream
+component,Xylose,0.0,kg/hr,0.0,calculated from upstream stream
+component,Arabinose,0.0,kg/hr,0.0,calculated from upstream stream
+component,Galactose,0.0,kg/hr,0.0,calculated from upstream stream
+component,Mannose,0.0,kg/hr,0.0,calculated from upstream stream
+component,Maltose,0.0,kg/hr,0.0,calculated from upstream stream
+component,AceticAcid,0.0,kg/hr,0.0,calculated from upstream stream
+component,LacticAcid,0.0,kg/hr,0.0,calculated from upstream stream
+component,PropionicAcid,0.0,kg/hr,0.0,calculated from upstream stream
+component,ButyricAcid,0.0,kg/hr,0.0,calculated from upstream stream
+component,FormicAcid,0.0,kg/hr,0.0,calculated from upstream stream
+component,SuccinicAcid,0.0,kg/hr,0.0,calculated from upstream stream
+component,CitricAcid,0.0,kg/hr,0.0,calculated from upstream stream
+component,MalicAcid,0.0,kg/hr,0.0,calculated from upstream stream
+component,OxalicAcid,0.0,kg/hr,0.0,calculated from upstream stream
+component,Ammonia,0.0,kg/hr,0.0,calculated from upstream stream
+component,Methane,0.0,kg/hr,0.0,calculated from upstream stream
+component,CarbonDioxide,0.0,kg/hr,0.0,calculated from upstream stream
+component,Hydrogen,0.0,kg/hr,0.0,calculated from upstream stream
+component,HydrogenSulfide,0.0,kg/hr,0.0,calculated from upstream stream
+component,Oxygen,0.0,kg/hr,0.0,calculated from upstream stream
+component,Nitrogen,0.0,kg/hr,0.0,calculated from upstream stream
+component,HydrochloricAcid,0.0,kg/hr,0.0,calculated from upstream stream
+component,SulfuricAcid,0.0,kg/hr,0.0,calculated from upstream stream
+component,SodiumHydroxide,0.0,kg/hr,0.0,calculated from upstream stream
+component,CalciumHydroxide,0.0,kg/hr,0.0,calculated from upstream stream
+component,MagnesiumChloride,0.0,kg/hr,0.0,calculated from upstream stream
+component,SodiumChloride,0.5877659837617007,kg/hr,2.3982555887021393,calculated from upstream stream
+component,CalciumCarbonate,0.0,kg/hr,0.0,calculated from upstream stream
+component,HydrogenIon,0.0,kg/hr,0.0,calculated from upstream stream
+component,HydroxideIon,0.0,kg/hr,0.0,calculated from upstream stream
+component,Ammonium,0.09714137208650929,kg/hr,0.39636495635500807,calculated from upstream stream
+component,NitrateIon,0.0,kg/hr,0.0,calculated from upstream stream
+component,NitriteIon,0.0,kg/hr,0.0,calculated from upstream stream
+component,Orthophosphate,0.0,kg/hr,0.0,calculated from upstream stream
+component,PotassiumIon,0.35466521289109904,kg/hr,1.4471368749355251,calculated from upstream stream
+component,SodiumIon,0.0,kg/hr,0.0,calculated from upstream stream
+component,MagnesiumIon,0.0,kg/hr,0.0,calculated from upstream stream
+component,CalciumIon,0.0,kg/hr,0.0,calculated from upstream stream
+component,ChlorideIon,0.0,kg/hr,0.0,calculated from upstream stream
+component,SulfateIon,0.0,kg/hr,0.0,calculated from upstream stream
+component,BicarbonateIon,0.0,kg/hr,0.0,calculated from upstream stream
+component,CarbonateIon,0.0,kg/hr,0.0,calculated from upstream stream
+component,SolubleProtein,0.584269592965898,kg/hr,2.383989300761052,calculated from upstream stream
+component,SuspendedProtein,0.055866774193548394,kg/hr,0.22795263273820016,calculated from upstream stream
+component,PrecipitatedProtein,0.23226272661290331,kg/hr,0.9476992502724154,calculated from upstream stream
+component,HeatCoagulatedProtein,0.030968363548387126,kg/hr,0.1263599000363221,calculated from upstream stream
+component,DegradedProtein,0.0,kg/hr,0.0,calculated from upstream stream
+component,Peptides,0.13167339648733487,kg/hr,0.5372656256629739,calculated from upstream stream
+component,AminoAcids,0.13167339648733487,kg/hr,0.5372656256629739,calculated from upstream stream
+component,Cellulose,0.15241935483870983,kg/hr,0.6219151493403066,calculated from upstream stream
+component,Hemicellulose,0.1481854838709679,kg/hr,0.604639728525298,calculated from upstream stream
+component,Lignin,0.03387096774193553,kg/hr,0.13820336652006815,calculated from upstream stream
+component,Pectin,0.063508064516129,kg/hr,0.25913131222512736,calculated from upstream stream
+component,Starch,0.02116935483870968,kg/hr,0.0863771040750425,calculated from upstream stream
+component,Lipids,0.5816749383604175,kg/hr,2.373402357861566,calculated from upstream stream
+component,OtherBiodegradableOrganics,0.16852682921595824,kg/hr,0.6876383138519403,calculated from upstream stream
+component,NonBiodegradableOrganics,0.3745040649243518,kg/hr,1.528085141893201,calculated from upstream stream
+component,MicrobialBiomass,0.0,kg/hr,0.0,calculated from upstream stream
+component,SolubleInertSolids,0.0,kg/hr,0.0,calculated from upstream stream
+component,SuspendedSolids,0.03387096774193547,kg/hr,0.13820336652006793,calculated from upstream stream
+component,SuspendedInertSolids,0.0,kg/hr,0.0,calculated from upstream stream
+component,InertSolids,0.001524193548387098,kg/hr,0.006219151493403064,calculated from upstream stream
+component,Ash,0.008467741935483877,kg/hr,0.034550841630017017,calculated from upstream stream
+component,OrganicNitrogen,0.29142411625952785,kg/hr,1.189094869065024,calculated from upstream stream
+component,OrganicPhosphorus,0.0,kg/hr,0.0,calculated from upstream stream
+component,ParticulatePhosphorus,0.0009032258064516124,kg/hr,0.003685423107201811,calculated from upstream stream
+component,HeavyMetals,5.645161290322579e-05,kg/hr,0.00023033894420011324,calculated from upstream stream
+component,PersistentOrganics,0.00026983714468474805,kg/hr,0.0011010137676528003,calculated from upstream stream
+component,Pesticides,0.00026983714468474805,kg/hr,0.0011010137676528003,calculated from upstream stream
+component,Microplastics,0.00011290322580645158,kg/hr,0.0004606778884002265,calculated from upstream stream
+component,PathogenIndicators,0.00014112903225806445,kg/hr,0.0005758473605002829,calculated from upstream stream
+component,EntrappedSugars,0.029637096774193544,kg/hr,0.12092794570505946,calculated from upstream stream
+component,ParticulateBiodegradableOrganics,0.053981854838709674,kg/hr,0.22026161539135833,calculated from upstream stream
+component,ParticulateNitrogen,0.0011290322580645154,kg/hr,0.004606778884002263,calculated from upstream stream
+component,DissolvedPhosphorus,0.07692811688467001,kg/hr,0.31388901594174384,calculated from upstream stream
+component,ParticulatePotassium,0.0013830645161290313,kg/hr,0.005643304132902771,calculated from upstream stream
+component,Sand,0.0002709677419354843,kg/hr,0.0011056269321605455,calculated from upstream stream
+component,Litter,0.0008467741935483869,kg/hr,0.0034550841630016983,calculated from upstream stream
+component,Flocculant,0.0,kg/hr,0.0,calculated from upstream stream
+component,Struvite,0.0,kg/hr,0.0,calculated from upstream stream
+component,AmmoniumSulfate,0.0,kg/hr,0.0,calculated from upstream stream
+component,AmmoniumNitrate,0.0,kg/hr,0.0,calculated from upstream stream
+component,CalciumPhosphate,0.0,kg/hr,0.0,calculated from upstream stream
+component,CalciumChloride,0.0,kg/hr,0.0,calculated from upstream stream
+component,SodiumSulfate,0.0,kg/hr,0.0,calculated from upstream stream
+component,CalciumSulfate,0.0,kg/hr,0.0,calculated from upstream stream
+component,ElementalSulfur,0.0,kg/hr,0.0,calculated from upstream stream
+analytical_indicator,total_wet_mass_kg_hr,245.0806271569167,see indicator name,,derived from component metadata
+analytical_indicator,water_mass_kg_hr,239.67176014649021,see indicator name,,derived from component metadata
+analytical_indicator,dry_solids_kg_hr,5.408867010426491,see indicator name,,derived from component metadata
+analytical_indicator,tss_kg_hr,0.8705764933870972,see indicator name,,derived from component metadata
+analytical_indicator,tds_kg_hr,4.5382905170393935,see indicator name,,derived from component metadata
+analytical_indicator,volatile_solids_kg_hr,3.9238442410936765,see indicator name,,derived from component metadata
+analytical_indicator,fixed_solids_kg_hr,1.4850227693328142,see indicator name,,derived from component metadata
+analytical_indicator,cod_kg_hr,5.955806983425235,see indicator name,,derived from component metadata
+analytical_indicator,soluble_cod_kg_hr,4.820825821211722,see indicator name,,derived from component metadata
+analytical_indicator,particulate_cod_kg_hr,1.1349811622135142,see indicator name,,derived from component metadata
+analytical_indicator,toc_kg_hr,2.0257580221018925,see indicator name,,derived from component metadata
+analytical_indicator,total_nitrogen_kg_hr,0.5543562148554457,see indicator name,,derived from component metadata
+analytical_indicator,organic_nitrogen_kg_hr,0.4779106945999841,see indicator name,,derived from component metadata
+analytical_indicator,inorganic_nitrogen_kg_hr,0.07542939122320362,see indicator name,,derived from component metadata
+analytical_indicator,tkn_kg_hr,0.5533400858231877,see indicator name,,derived from component metadata
+analytical_indicator,total_phosphorus_kg_hr,0.07783134269112162,see indicator name,,derived from component metadata
+analytical_indicator,dissolved_phosphorus_kg_hr,0.07692811688467001,see indicator name,,derived from component metadata
+analytical_indicator,particulate_phosphorus_kg_hr,0.0009032258064516124,see indicator name,,derived from component metadata
+analytical_indicator,potassium_kg_hr,0.35604827740722805,see indicator name,,derived from component metadata
+analytical_indicator,soluble_sugars_kg_hr,1.1575038224252157,see indicator name,,derived from component metadata
+analytical_indicator,total_protein_kg_hr,1.1667142502954064,see indicator name,,derived from component metadata
+analytical_indicator,vfa_kg_hr,0.0,see indicator name,,derived from component metadata
+analytical_indicator,c_to_n_ratio,3.654253290242503,see indicator name,,derived from component metadata
+analytical_indicator,cod_to_n_ratio,10.743646095819951,see indicator name,,derived from component metadata
+analytical_indicator,cod_to_p_ratio,76.52196117265014,see indicator name,,derived from component metadata
+analytical_indicator,alkalinity_mg_caco3_L,,see indicator name,,derived from component metadata
+analytical_indicator,carbon_kg_hr,2.0257580221018925,see indicator name,,derived from component metadata
+analytical_indicator,hydrogen_kg_hr,27.13718444680489,see indicator name,,derived from component metadata
+analytical_indicator,oxygen_kg_hr,214.31805589121174,see indicator name,,derived from component metadata
+analytical_indicator,nitrogen_kg_hr,0.5543562148554457,see indicator name,,derived from component metadata
+analytical_indicator,phosphorus_kg_hr,0.07783134269112162,see indicator name,,derived from component metadata
+analytical_indicator,sulfur_kg_hr,0.011667142502954066,see indicator name,,derived from component metadata
+analytical_indicator,sodium_kg_hr,0.23121089249732907,see indicator name,,derived from component metadata
+analytical_indicator,magnesium_kg_hr,0.0,see indicator name,,derived from component metadata
+analytical_indicator,calcium_kg_hr,0.0,see indicator name,,derived from component metadata
+analytical_indicator,chloride_kg_hr,0.3565551013214925,see indicator name,,derived from component metadata
+analytical_indicator,ts_g_L,22.069745263722453,see indicator name,,derived from component metadata
+analytical_indicator,tss_mg_L,3552.2044458850555,see indicator name,,derived from component metadata
+analytical_indicator,tds_mg_L,18517.540817837395,see indicator name,,derived from component metadata
+analytical_indicator,vs_g_L,16.010421903243188,see indicator name,,derived from component metadata
+analytical_indicator,fixed_solids_g_L,6.059323360479264,see indicator name,,derived from component metadata
+analytical_indicator,cod_mg_L,24301.41889432957,see indicator name,,derived from component metadata
+analytical_indicator,soluble_cod_mg_L,19670.36675699835,see indicator name,,derived from component metadata
+analytical_indicator,particulate_cod_mg_L,4631.052137331217,see indicator name,,derived from component metadata
+analytical_indicator,toc_mg_L,8265.679933995229,see indicator name,,derived from component metadata
+analytical_indicator,total_nitrogen_mg_L,2261.934047118749,see indicator name,,derived from component metadata
+analytical_indicator,tkn_mg_L,2257.787946123147,see indicator name,,derived from component metadata
+analytical_indicator,total_phosphorus_mg_L,317.5744390489457,see indicator name,,derived from component metadata
+analytical_indicator,soluble_sugars_g_L,4.7229511196089184,see indicator name,,derived from component metadata
+analytical_indicator,total_protein_g_L,4.760532335133937,see indicator name,,derived from component metadata
+analytical_indicator,vfa_g_L,0.0,see indicator name,,derived from component metadata
+analytical_indicator,vfa_to_alkalinity_ratio,,see indicator name,,derived from component metadata

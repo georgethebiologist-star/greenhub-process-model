@@ -1,0 +1,21 @@
+name,stoichiometry,reactant,category,rigorous,enabled_in_phase_2,comment,mass_balance_error,maximum_atom_balance_error,source_component,target_component
+hcl_dissociation,HydrochloricAcid -> HydrogenIon + ChlorideIon,HydrochloricAcid,acid_base,True,False,Prepared for acid-equivalent accounting; no activity-coefficient model is implied.,2.220446049250313e-15,0.0,,
+naoh_dissociation,SodiumHydroxide -> SodiumIon + HydroxideIon,SodiumHydroxide,acid_base,True,False,Prepared for neutralization accounting.,9.999999974752427e-07,0.0,,
+calcium_hydroxide_dissociation,CalciumHydroxide -> CalciumIon + 2 HydroxideIon,CalciumHydroxide,acid_base,True,False,Prepared for alternative neutralization.,0.0,0.0,,
+magnesium_chloride_dissociation,MagnesiumChloride -> MagnesiumIon + 2 ChlorideIon,MagnesiumChloride,struvite,True,False,Prepared for struvite reagent accounting.,7.105427357601002e-15,0.0,,
+neutralization,HydrogenIon + HydroxideIon -> Water,HydrogenIon,acid_base,True,False,Strong-acid/base equivalent reaction.,1.3322676295501878e-15,0.0,,
+lactic_fermentation,Glucose -> 2 LacticAcid,Glucose,protein_recovery,True,False,Alternative biological acidification.,0.0,0.0,,
+overall_glucose_digestion,Glucose -> 3 Methane + 3 CarbonDioxide,Glucose,digestion,True,False,Theoretical overall conversion only; not a kinetic digester model.,7.105427357601002e-15,0.0,,
+acetoclastic_methanogenesis,AceticAcid -> Methane + CarbonDioxide,AceticAcid,digestion,True,False,Future anaerobic digestion reaction.,0.0,0.0,,
+hydrogenotrophic_methanogenesis,CarbonDioxide + 4 Hydrogen -> Methane + 2 Water,CarbonDioxide,digestion,True,False,Future anaerobic digestion reaction.,-3.552713678800501e-15,0.0,,
+propionate_conversion,PropionicAcid + 2 Water -> AceticAcid + CarbonDioxide + 3 Hydrogen,PropionicAcid,digestion,True,False,Neutral-acid form used for atom-balanced preparation.,-8.881784197001252e-16,0.0,,
+butyrate_conversion,ButyricAcid + 2 Water -> 2 AceticAcid + 2 Hydrogen,ButyricAcid,digestion,True,False,Neutral-acid form used for atom-balanced preparation.,1.7763568394002505e-15,0.0,,
+sulfate_reduction,SulfateIon + 4 Hydrogen + 2 HydrogenIon -> HydrogenSulfide + 4 Water,SulfateIon,digestion,True,False,Optional pathway; conversion remains user-defined.,-8.881784197001252e-16,0.0,,
+struvite_precipitation,MagnesiumIon + Ammonium + Orthophosphate + 6 Water -> Struvite,Orthophosphate,struvite,True,False,"Later limited by Mg, NH4, PO4 and an explicit recovery.",-7.105427357601002e-15,0.0,,
+ammonia_liberation,Ammonium + HydroxideIon -> Ammonia + Water,Ammonium,ammonia_recovery,True,False,Stoichiometric base demand; equilibrium fraction is calculated separately.,0.0,0.0,,
+ammonium_sulfate_absorption,2 Ammonia + SulfuricAcid -> AmmoniumSulfate,Ammonia,ammonia_recovery,True,False,Prepared acid-absorption reaction.,3.552713678800501e-15,0.0,,
+h2s_to_sulfur,2 HydrogenSulfide + Oxygen -> 2 ElementalSulfur + 2 Water,HydrogenSulfide,desulfurization,True,False,Optional activated-carbon oxidation pathway.,-1.7763568394002505e-15,0.0,,
+calcium_carbonate_precipitation,CalciumIon + CarbonateIon -> CalciumCarbonate,CalciumIon,scaling,True,False,Disabled optional scaling pathway.,0.0,0.0,,
+calcium_phosphate_precipitation,3 CalciumIon + 2 Orthophosphate -> CalciumPhosphate,Orthophosphate,scaling,True,False,Disabled competing phosphorus pathway.,-1.4210854715202004e-14,0.0,,
+protein_precipitation,SolubleProtein -> PrecipitatedProtein,,protein_recovery,False,False,Phase transfer/recovery model; acid demand is calculated separately.,0.0,,SolubleProtein,PrecipitatedProtein
+protein_coagulation,SolubleProtein -> PrecipitatedProtein,,protein_recovery,False,False,"Heat-induced state change, not molecular destruction.",0.0,,SolubleProtein,PrecipitatedProtein

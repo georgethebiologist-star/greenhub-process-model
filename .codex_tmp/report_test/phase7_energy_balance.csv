@@ -1,0 +1,14 @@
+unit_id,operation,inlet_enthalpy_kj_hr,outlet_enthalpy_kj_hr,heating_kw,cooling_kw,gross_reported_heat_kw,neutralization_heat_kw,electricity_kw,energy_balance_scope
+T701,Digestate equalization,10169.171723181653,10169.171723181653,0.0,0.0,0.0,0.0,0.03248259201668357,steady-state unit interface; custom-unit enthalpy rigor is screening-level
+S701,Digestate solid-liquid separation,10169.171723181653,10169.171723181655,0.0,0.0,0.0,0.0,0.12180972006256337,steady-state unit interface; custom-unit enthalpy rigor is screening-level
+R711,Struvite crystallization,10049.248203737423,10049.67781615059,0.0,0.0,0.0,0.0,0.012023016539502863,steady-state unit interface; custom-unit enthalpy rigor is screening-level
+S711,Nutrient crystal separation,10049.67781615059,10049.677816150592,0.0,0.0,0.0,0.0,0.0009660980957347538,steady-state unit interface; custom-unit enthalpy rigor is screening-level
+W711,Nutrient-product washing,1.6470367741275505,1.6470367741275505,0.0,0.0,0.0,0.0,0.0,steady-state unit interface; custom-unit enthalpy rigor is screening-level
+D711,Nutrient-product drying,1.6470367741275505,1.6470367741275505,0.0,0.0,0.0,0.0,0.0,steady-state unit interface; custom-unit enthalpy rigor is screening-level
+M721,Alkaline dosing and pH conditioning,10053.58521978085,10057.581003159567,0.0,0.0,0.0,0.0,0.004807918485006833,steady-state unit interface; custom-unit enthalpy rigor is screening-level
+H721,Phase 7 process heater,10057.581003159567,34999.18885552207,7.036149712795237,-0.0,6.684342227155475,0.0,0.0,steady-state unit interface; custom-unit enthalpy rigor is screening-level
+A721,Ammonia stripper,40486.454294188436,43320.40995513003,0.0,0.0,0.0,0.0,0.000193923735022806,steady-state unit interface; custom-unit enthalpy rigor is screening-level
+A722,Ammonia acid absorber,8476.527563965723,9059.852606096483,0.0,0.34883201387792045,0.0,0.34883201387792045,0.0,steady-state unit interface; custom-unit enthalpy rigor is screening-level
+V722,Phase 7 product storage,613.8224434812149,613.8224434812149,0.0,0.0,0.0,0.0,0.0,steady-state unit interface; custom-unit enthalpy rigor is screening-level
+M798,Mixer,0.0,0.0,0.0,0.0,0.0,0.0,0.0,steady-state unit interface; custom-unit enthalpy rigor is screening-level
+M799,Mixer,8446.030162615269,8446.030162615269,0.0,0.0,0.0,0.0,0.0,steady-state unit interface; custom-unit enthalpy rigor is screening-level

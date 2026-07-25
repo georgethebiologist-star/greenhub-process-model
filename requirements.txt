@@ -1,0 +1,6 @@
+biosteam
+thermosteam
+openpyxl
+pandas
+pytest
+graphviz
