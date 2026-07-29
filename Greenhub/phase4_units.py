@@ -15,6 +15,8 @@ from typing import Iterable, Mapping
 
 import biosteam as bst
 
+from Greenhub.scientific_equations import protein_precipitation_mass_balance
+
 from Greenhub.chemicals import chemicals
 from Greenhub.component_groups import COMPONENT_GROUPS
 from Greenhub.component_metadata import COMPONENT_METADATA
@@ -709,8 +711,12 @@ class ProteinPrecipitation(bst.Unit):
             )
         else:
             self.acid_recovery_fraction = 0.0
-        acid_mass = float(slurry.imass["SolubleProtein"]) * self.acid_recovery_fraction
-        slurry.imass["SolubleProtein"] -= acid_mass
+        acid_balance = protein_precipitation_mass_balance(
+            float(slurry.imass["SolubleProtein"]),
+            self.acid_recovery_fraction,
+        )
+        acid_mass = acid_balance.protein_cake_kg_hr
+        slurry.imass["SolubleProtein"] = acid_balance.protein_supernatant_kg_hr
         slurry.imass["PrecipitatedProtein"] += acid_mass
 
         if self.parameters.heat_enabled:
@@ -729,8 +735,12 @@ class ProteinPrecipitation(bst.Unit):
             )
         else:
             self.heat_recovery_fraction = 0.0
-        heat_mass = float(slurry.imass["SolubleProtein"]) * self.heat_recovery_fraction
-        slurry.imass["SolubleProtein"] -= heat_mass
+        heat_balance = protein_precipitation_mass_balance(
+            float(slurry.imass["SolubleProtein"]),
+            self.heat_recovery_fraction,
+        )
+        heat_mass = heat_balance.protein_cake_kg_hr
+        slurry.imass["SolubleProtein"] = heat_balance.protein_supernatant_kg_hr
         slurry.imass["HeatCoagulatedProtein"] += heat_mass
         self.transfers_kg_hr = {
             "SolubleProtein_to_PrecipitatedProtein": acid_mass,

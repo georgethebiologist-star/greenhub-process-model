@@ -1,6 +1,6 @@
 # GreenHub Model Completeness Register
 
-Generated: 2026-07-29T16:49:41.681317+00:00
+Generated: 2026-07-29T18:37:42.613063+00:00
 Selected configuration: `F2/PR3/AD1/BG2/NR4`; order `A`; month `July`.
 Selected connected units represented: **51**.
 Additional implemented scenario-only or compatibility units represented: **38**.

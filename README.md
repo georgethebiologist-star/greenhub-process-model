@@ -6,6 +6,8 @@ The current alpha restoration keeps historically named `phaseX_*` modules as tes
 
 Advanced-model Checkpoint 1 adds read-only governance for the 301-dataset global audit package. It quarantines defective rows and classifies datasets, equations, and cost overlaps without activating literature values or changing process calculations. See [advanced-model plans](docs/advanced_model/integration_plan.md).
 
+Alpha 0.2 Checkpoint 2 adds immutable canonical parameters, deterministic override precedence, versioned simulation/result contracts, isolated application services, structured process graphs, plot and run exports, and a `/api/v1` WSGI adapter. Checkpoint 3A activates one bounded literature pathway only: `REC-001` supplies a 0.34 precipitation-recovery fraction for `PR1` in `literature_default` mode. Structural runs remain unchanged. See [Checkpoint 2 release notes](docs/alpha_0_2_checkpoint_2/release_notes.md).
+
 ## System Boundary
 
 The fibre-rich press cake remains an upstream side stream. Downstream fibre-panel production is excluded.
@@ -60,6 +62,8 @@ From `Model` in PowerShell:
 ```powershell
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
 .\.venv\Scripts\python.exe -m Greenhub.data_governance
+.\.venv\Scripts\python.exe -m Greenhub.parameters
+.\.venv\Scripts\python.exe -m Greenhub.application.schema_export
 .\.venv\Scripts\python.exe -m Greenhub.main
 .\.venv\Scripts\pytest.exe -q
 ```
@@ -75,6 +79,14 @@ os.environ["PATH"] = graphviz_bin + os.pathsep + os.environ.get("PATH", "")
 ```
 
 A Graphviz failure is reported without discarding a valid simulation or blocking tabular reports.
+
+To start the local synchronous development API:
+
+```powershell
+.\.venv\Scripts\python.exe -m api
+```
+
+Use `GET http://127.0.0.1:8000/api/v1/health` for health and `GET /api/v1/openapi.json` for the OpenAPI 3.1 contract. The scientific layer does not depend on HTTP, the API returns run-relative artifact references, and production deployment still requires a real WSGI server and job queue.
 
 ## Master Workbook
 
@@ -148,6 +160,9 @@ The comparison workbook reports common engineering metrics but contains no score
 ```text
 Greenhub/
 |-- integration.py            Canonical integrated facade and process-area views
+|-- application/             Versioned contracts and transport-neutral run services
+|-- parameters/              Canonical registry, precedence, overrides, and provenance
+|-- scientific_equations.py  Approved typed equation registry; no expression evaluation
 |-- integrated_reporting.py   Process-area and complete-plant report
 |-- model_completeness.py     Unit-level maturity and missing-data register
 |-- phase7_inputs.py           Workbook controls, quality gates, and provenance
@@ -161,6 +176,10 @@ Greenhub/
 |-- scenarios.py               F, PR, AD, BG, and NR scenario definitions
 |-- systems.py                 Existing factories plus lazy Phase 7 entry points
 `-- main.py                    Integrated executable with compatibility reports
+
+api/
+|-- app.py                    Thin versioned WSGI adapter
+`-- __main__.py               Local synchronous development server
 ```
 
 See [architecture](docs/architecture.md), [process areas](docs/process_areas.md), [scenario reference](docs/scenario_reference.md), and [migration guide](docs/migration_from_phase_architecture.md).

@@ -1,0 +1,66 @@
+{
+  "files": {
+    "balances": "balances.json",
+    "balances_csv": "balances.csv",
+    "graph": "graph.json",
+    "plot_manifest": "plot_manifest.json",
+    "process_areas": "process_areas.json",
+    "products": "products.json",
+    "products_csv": "products.csv",
+    "provenance": "provenance.json",
+    "resolved_parameters": "resolved_parameters.json",
+    "resolved_parameters_csv": "resolved_parameters.csv",
+    "simulation_request": "simulation_request.json",
+    "simulation_result": "simulation_result.json",
+    "streams": "streams.json",
+    "streams_csv": "streams.csv",
+    "summary": "summary.json",
+    "units": "units.json",
+    "units_csv": "units.csv",
+    "utilities": "utilities.json",
+    "utilities_csv": "utilities.csv",
+    "validation": "validation.json",
+    "validation_csv": "validation.csv"
+  },
+  "reproducibility": {
+    "git_commit": "d278a26c5c9ac8234f0329c38e3416873bcde83a",
+    "software_versions": {
+      "biosteam": "2.53.11",
+      "openpyxl": "3.1.5",
+      "pandas": "3.0.5",
+      "scipy": "1.18.0",
+      "thermosteam": "0.53.5"
+    },
+    "source_dataset_checksum_registry": "data/global_audit_package/source_dataset_checksums.csv",
+    "workbook_checksum_sha256": "aa59a21b80d30c2358f7d3bb700649dff5f5282258e60c2d07bd36896d01fc2c"
+  },
+  "run_id": "615e013d7b8d47d68c1b766eae250630",
+  "schema_version": "1.0.0",
+  "state_history": [
+    [
+      "validating",
+      "2026-07-29T18:29:55.946634+00:00"
+    ],
+    [
+      "resolving_parameters",
+      "2026-07-29T18:29:56.012757+00:00"
+    ],
+    [
+      "building_system",
+      "2026-07-29T18:29:56.018998+00:00"
+    ],
+    [
+      "simulating",
+      "2026-07-29T18:29:57.261625+00:00"
+    ],
+    [
+      "validating_results",
+      "2026-07-29T18:29:57.522994+00:00"
+    ],
+    [
+      "generating_outputs",
+      "2026-07-29T18:29:57.556857+00:00"
+    ]
+  ],
+  "status": "completed"
+}

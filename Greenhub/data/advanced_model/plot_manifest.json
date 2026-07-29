@@ -1,0 +1,37 @@
+[
+  {
+    "availability": "available",
+    "plot_id": "SYS-AREA-MASS",
+    "process_area": "integrated_system",
+    "x_unit": null,
+    "y_unit": "kg/hr"
+  },
+  {
+    "availability": "available",
+    "plot_id": "VALIDATION-RESIDUALS",
+    "process_area": "integrated_system",
+    "x_unit": null,
+    "y_unit": "kg/hr"
+  },
+  {
+    "availability": "available",
+    "plot_id": "SYS-UNIT-POWER",
+    "process_area": "shared_utilities_and_supporting_operations",
+    "x_unit": null,
+    "y_unit": "kW"
+  },
+  {
+    "availability": "available",
+    "plot_id": "DATA-READINESS",
+    "process_area": "data_governance",
+    "x_unit": null,
+    "y_unit": "count"
+  },
+  {
+    "availability": "conditional: PR1 literature_default",
+    "plot_id": "PR-PRECIP-RECOVERY",
+    "process_area": "protein_recovery",
+    "x_unit": null,
+    "y_unit": "fraction"
+  }
+]

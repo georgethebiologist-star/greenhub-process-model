@@ -1,0 +1,13 @@
+field_path,data_type,unit,description
+summary_kpis,object,,Compact run-level key performance indicators.
+process_areas[],ProcessAreaResult,,"Area membership, boundary streams, maturity, and metrics."
+streams[].total_mass,NumericalValue,kg/hr,Total wet stream mass flow.
+streams[].components,object<NumericalValue>,kg/hr,Component mass-flow mapping.
+units[].power,NumericalValue,kW,Unit electricity demand.
+balances[].residual,NumericalValue,kg/hr or kmol/hr,Signed outlet-minus-inlet residual.
+products[].mass_flow,NumericalValue,kg/hr,Product stream wet mass flow.
+resolved_parameters[],ParameterResolutionResult,,"Resolved value, source, status, and warnings."
+validation,ValidationSummary,,Blocking and warning validation findings.
+graph,ProcessGraph,,Frontend-ready unit and stream topology.
+plots[],PlotSpecification,,Stable plot metadata and availability.
+export_references,object<string>,,Run-relative artifact references only.

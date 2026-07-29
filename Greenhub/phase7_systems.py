@@ -536,6 +536,7 @@ def create_phase7_scenario(
         phase3_scenario_id=bundle.phase3_scenario_id,
         selected_month=bundle.selected_month,
         workbook_path=workbook_path,
+        parameter_overrides=parameter_overrides,
     )
     flowsheet = upstream.flowsheet
     units = dict(upstream.units)

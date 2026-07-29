@@ -1,0 +1,29 @@
+{
+  "calculation_mode": "literature_default",
+  "design_overrides": [],
+  "expert_scientific_overrides": [],
+  "export_formats": [
+    "json",
+    "csv"
+  ],
+  "feed_overrides": [],
+  "operating_overrides": [],
+  "project_id": "greenhub-alpha-0.2",
+  "request_id": "comparison-literature",
+  "requested_outputs": [],
+  "requested_plots": [],
+  "resolution_mode": "steady_state",
+  "scenarios": {
+    "anaerobic_digestion": "AD1",
+    "biogas_upgrading": "BG2",
+    "feed_preparation": "F2",
+    "nutrient_recovery": "NR4",
+    "process_order": "A",
+    "protein_recovery": "PR1"
+  },
+  "schema_version": "1.0.0",
+  "selected_month": "July",
+  "strict_validation": true,
+  "time_horizon": null,
+  "user_notes": null
+}

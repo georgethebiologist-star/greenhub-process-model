@@ -1,0 +1,425 @@
+{
+  "$defs": {
+    "numerical_value": {
+      "additionalProperties": false,
+      "properties": {
+        "basis": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "origin": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "uncertainty": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "unit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "value": {
+          "type": [
+            "number",
+            "integer",
+            "null"
+          ]
+        },
+        "warning": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "value",
+        "unit",
+        "basis",
+        "status",
+        "origin",
+        "warning",
+        "uncertainty"
+      ],
+      "type": "object"
+    },
+    "process_graph": {
+      "$defs": {
+        "numerical_value": {
+          "additionalProperties": false,
+          "properties": {
+            "basis": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "origin": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            },
+            "uncertainty": {
+              "type": [
+                "object",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "value": {
+              "type": [
+                "number",
+                "integer",
+                "null"
+              ]
+            },
+            "warning": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "value",
+            "unit",
+            "basis",
+            "status",
+            "origin",
+            "warning",
+            "uncertainty"
+          ],
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "edges": {
+          "items": {
+            "properties": {
+              "active": {
+                "type": "boolean"
+              },
+              "classification": {
+                "type": "string"
+              },
+              "edge_id": {
+                "type": "string"
+              },
+              "mass_flow": {
+                "$ref": "#/$defs/numerical_value"
+              },
+              "phase": {
+                "type": "string"
+              },
+              "principal_components": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "source_node": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "stream_id": {
+                "type": "string"
+              },
+              "target_node": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "warnings": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            "required": [
+              "edge_id",
+              "stream_id",
+              "source_node",
+              "target_node",
+              "mass_flow",
+              "phase",
+              "active"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "nodes": {
+          "items": {
+            "properties": {
+              "active": {
+                "type": "boolean"
+              },
+              "calculation_mode": {
+                "type": "string"
+              },
+              "dashboard_group": {
+                "type": "string"
+              },
+              "display_name": {
+                "type": "string"
+              },
+              "key_kpis": {
+                "type": "object"
+              },
+              "model_maturity": {
+                "type": "string"
+              },
+              "node_id": {
+                "type": "string"
+              },
+              "process_area": {
+                "type": "string"
+              },
+              "technology": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "unit_id": {
+                "type": "string"
+              },
+              "warning_count": {
+                "minimum": 0,
+                "type": "integer"
+              }
+            },
+            "required": [
+              "node_id",
+              "unit_id",
+              "display_name",
+              "process_area",
+              "active",
+              "calculation_mode"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "run_id": {
+          "type": "string"
+        },
+        "schema_version": {
+          "const": "1.0.0"
+        }
+      },
+      "required": [
+        "schema_version",
+        "run_id",
+        "nodes",
+        "edges"
+      ],
+      "title": "GreenHub ProcessGraph",
+      "type": "object"
+    }
+  },
+  "$id": "simulation_result.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "balances": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "calculation_mode": {
+      "type": "string"
+    },
+    "completed_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "dataset_readiness": {
+      "additionalProperties": {
+        "type": "integer"
+      },
+      "type": "object"
+    },
+    "export_references": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "type": "object"
+    },
+    "graph": {
+      "$ref": "#/$defs/process_graph"
+    },
+    "limitations": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "model_maturity": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "type": "object"
+    },
+    "plots": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "process_areas": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "products": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "reproducibility_metadata": {
+      "type": "object"
+    },
+    "request_id": {
+      "type": "string"
+    },
+    "resolution_mode": {
+      "type": "string"
+    },
+    "resolved_parameters": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "run_id": {
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "selected_scenarios": {
+      "additionalProperties": false,
+      "properties": {
+        "anaerobic_digestion": {
+          "default": "AD1",
+          "type": "string"
+        },
+        "biogas_upgrading": {
+          "default": "BG2",
+          "type": "string"
+        },
+        "feed_preparation": {
+          "default": "F2",
+          "type": "string"
+        },
+        "nutrient_recovery": {
+          "default": "NR4",
+          "type": "string"
+        },
+        "process_order": {
+          "default": "A",
+          "enum": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "type": "string"
+        },
+        "protein_recovery": {
+          "default": "PR3",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "status": {
+      "type": "string"
+    },
+    "streams": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "summary_kpis": {
+      "additionalProperties": {
+        "$ref": "#/$defs/numerical_value"
+      },
+      "type": "object"
+    },
+    "units": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "utilities": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "validation": {
+      "type": "object"
+    },
+    "warnings": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema_version",
+    "run_id",
+    "request_id",
+    "status",
+    "selected_scenarios",
+    "calculation_mode",
+    "resolution_mode",
+    "summary_kpis",
+    "process_areas",
+    "streams",
+    "units",
+    "products",
+    "utilities",
+    "balances",
+    "validation",
+    "resolved_parameters",
+    "plots",
+    "graph",
+    "export_references"
+  ],
+  "title": "GreenHub SimulationResult",
+  "type": "object"
+}
