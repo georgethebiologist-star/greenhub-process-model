@@ -1,0 +1,98 @@
+[
+  {
+    "file": "assumption_and_missing_data_register.csv",
+    "rows": 102,
+    "unique_ids": "n/a",
+    "utf8": true,
+    "columns_consistent": true,
+    "populated_values_with_source": true
+  },
+  {
+    "file": "dataset_manifest.csv",
+    "rows": 11,
+    "unique_ids": "n/a",
+    "utf8": true,
+    "columns_consistent": true,
+    "populated_values_with_source": true
+  },
+  {
+    "file": "digestate_ionic_composition.csv",
+    "rows": 13,
+    "unique_ids": true,
+    "utf8": true,
+    "columns_consistent": true,
+    "populated_values_with_source": true
+  },
+  {
+    "file": "digestate_physical_properties.csv",
+    "rows": 8,
+    "unique_ids": true,
+    "utf8": true,
+    "columns_consistent": true,
+    "populated_values_with_source": true
+  },
+  {
+    "file": "digestate_seasonal_variability.csv",
+    "rows": 56,
+    "unique_ids": true,
+    "utf8": true,
+    "columns_consistent": true,
+    "populated_values_with_source": true
+  },
+  {
+    "file": "digestate_separation_equipment.csv",
+    "rows": 20,
+    "unique_ids": true,
+    "utf8": true,
+    "columns_consistent": true,
+    "populated_values_with_source": true
+  },
+  {
+    "file": "digestate_separation_performance.csv",
+    "rows": 31,
+    "unique_ids": true,
+    "utf8": true,
+    "columns_consistent": true,
+    "populated_values_with_source": true
+  },
+  {
+    "file": "digestate_soluble_composition.csv",
+    "rows": 14,
+    "unique_ids": true,
+    "utf8": true,
+    "columns_consistent": true,
+    "populated_values_with_source": true
+  },
+  {
+    "file": "digestate_speciation_inputs.csv",
+    "rows": 9,
+    "unique_ids": true,
+    "utf8": true,
+    "columns_consistent": true,
+    "populated_values_with_source": true
+  },
+  {
+    "file": "digestate_total_composition.csv",
+    "rows": 17,
+    "unique_ids": true,
+    "utf8": true,
+    "columns_consistent": true,
+    "populated_values_with_source": true
+  },
+  {
+    "file": "equation_registry.csv",
+    "rows": 4,
+    "unique_ids": true,
+    "utf8": true,
+    "columns_consistent": true,
+    "populated_values_with_source": true
+  },
+  {
+    "file": "source_register.csv",
+    "rows": 3,
+    "unique_ids": "n/a",
+    "utf8": true,
+    "columns_consistent": true,
+    "populated_values_with_source": true
+  }
+]

@@ -1,0 +1,11 @@
+filename,purpose,row_count,validation_status,integration_readiness,key_limitation
+assumption_and_missing_data_register.csv,assumption and missing data register,14,PASS,partial_ready,"Grass-specific drying observations, quality kinetics, energy and costs remain incomplete."
+drying_equation_registry.csv,drying equation registry,10,PASS,partial_ready,"Grass-specific drying observations, quality kinetics, energy and costs remain incomplete."
+drying_quality_response.csv,drying quality response,10,PASS,partial_ready,"Grass-specific drying observations, quality kinetics, energy and costs remain incomplete."
+drying_scenario_controller.csv,drying scenario controller,3,PASS,partial_ready,"Grass-specific drying observations, quality kinetics, energy and costs remain incomplete."
+drying_thermal_properties.csv,drying thermal properties,6,PASS,partial_ready,"Grass-specific drying observations, quality kinetics, energy and costs remain incomplete."
+freeze_drying_observations.csv,freeze drying observations,18,PASS,partial_ready,"Grass-specific drying observations, quality kinetics, energy and costs remain incomplete."
+freeze_drying_parameters.csv,freeze drying parameters,19,PASS,partial_ready,"Grass-specific drying observations, quality kinetics, energy and costs remain incomplete."
+source_register.csv,source register,10,PASS,partial_ready,"Grass-specific drying observations, quality kinetics, energy and costs remain incomplete."
+spray_drying_observations.csv,spray drying observations,18,PASS,partial_ready,"Grass-specific drying observations, quality kinetics, energy and costs remain incomplete."
+spray_drying_parameters.csv,spray drying parameters,23,PASS,partial_ready,"Grass-specific drying observations, quality kinetics, energy and costs remain incomplete."

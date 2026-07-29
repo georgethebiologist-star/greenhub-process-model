@@ -1,0 +1,5 @@
+﻿equipment_id,equipment_name,role,required,duty,energy_demand,consumables,scale,scaling_factor,data_status,source_id,exact_location,source_url,notes
+MEM_EQP_001,Biogas chiller and condensate separator,Remove bulk water,yes,cooling/demisting,,,industrial,,manufacturer-reported,SGC2013,"Section 2.3.1, pp.31-32",https://lucris.lub.lu.se/ws/files/5465492/4580054.pdf,
+MEM_EQP_002,H2S removal vessel,Protect membrane,yes,H2S polishing,,activated carbon,industrial,,manufacturer-reported,SGC2013,"Section 2.3.1, pp.31-32",https://lucris.lub.lu.se/ws/files/5465492/4580054.pdf,
+MEM_EQP_003,Feed compressor,Create membrane driving force,yes,compress to 6-20 bar(a),see energy_demand.csv,lubricant; oil separation,industrial,,manufacturer-reported,SGC2013,"Section 2.3.1, p.32",https://lucris.lub.lu.se/ws/files/5465492/4580054.pdf,
+MEM_EQP_004,Membrane modules,CO2/CH4 separation,yes,one to three stages,,replacement modules; interval missing,pilot/industrial,,literature-reported,MEM2020,Title and abstract,https://www.sciencedirect.com/science/article/abs/pii/S138589471932755X,

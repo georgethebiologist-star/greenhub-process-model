@@ -1,0 +1,10 @@
+﻿filename,description,row_count,schema_version,encoding,delimiter,integration_status,primary_key
+ad_feed_characterization.csv,Feed composition and physicochemical parameters,53,1.0,UTF-8 with BOM,",",ready_with_documented_gaps,parameter_id
+ad_bmp_observations.csv,"Measured, reported and source-calculated methane-yield observations",79,1.0,UTF-8 with BOM,",",ready_with_documented_gaps,parameter_id
+ad_biochemical_fractionation.csv,Lignocellulosic fractions on explicit source bases,12,1.0,UTF-8 with BOM,",",ready_with_documented_gaps,parameter_id
+ad_inhibition_feed_data.csv,Feed nutrient/inhibition screening values and explicit gaps,9,1.0,UTF-8 with BOM,",",ready_with_documented_gaps,parameter_id
+ad_digestate_characterization.csv,Digestate composition values and explicit gaps,10,1.0,UTF-8 with BOM,",",ready_with_documented_gaps,parameter_id
+ad_source_register.csv,AD-specific source register,4,1.0,UTF-8 with BOM,",",ready_with_documented_gaps,source_id
+source_register.csv,Package-wide source register,4,1.0,UTF-8 with BOM,",",ready_with_documented_gaps,source_id
+equation_registry.csv,Exact source equations and Python expressions,6,1.0,UTF-8 with BOM,",",ready_with_documented_gaps,equation_id
+assumption_and_missing_data_register.csv,Required parameters not safely populated,28,1.0,UTF-8 with BOM,",",ready_with_documented_gaps,register_id

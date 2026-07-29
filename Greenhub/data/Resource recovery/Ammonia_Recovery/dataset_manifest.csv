@@ -1,0 +1,14 @@
+filename,purpose,row_count,populated_rows,missing_rows,dynamic_content,integration_status
+acid_absorption_data.csv,acid absorption data,10,2,8,no,ready_with_documented_gaps
+ammonia_equation_registry.csv,ammonia equation registry,8,0,8,no,ready_with_documented_gaps
+ammonia_equipment_costs.csv,ammonia equipment costs,110,2,108,no,ready_with_documented_gaps
+ammonia_scenario_controller.csv,ammonia scenario controller,4,0,4,no,ready_with_documented_gaps
+ammonia_speciation.csv,ammonia speciation,11,3,8,no,ready_with_documented_gaps
+ammonia_stripping_experiments.csv,ammonia stripping experiments,39,31,8,yes,ready_with_documented_gaps
+ammonium_product_data.csv,ammonium product data,32,0,32,no,ready_with_documented_gaps
+assumption_and_missing_data_register.csv,assumption and missing data register,248,0,248,no,ready_with_documented_gaps
+base_demand.csv,base demand,17,1,16,no,ready_with_documented_gaps
+packing_and_column_data.csv,packing and column data,51,1,50,no,ready_with_documented_gaps
+source_register.csv,source register,8,0,8,no,ready_with_documented_gaps
+stripper_mass_transfer.csv,stripper mass transfer,9,1,8,no,ready_with_documented_gaps
+stripping_energy_data.csv,stripping energy data,12,2,10,no,ready_with_documented_gaps

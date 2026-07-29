@@ -1,0 +1,114 @@
+[
+  {
+    "file": "acid_absorption_data.csv",
+    "rows": 10,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true,
+    "utf8": true
+  },
+  {
+    "file": "ammonia_equation_registry.csv",
+    "rows": 8,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true,
+    "utf8": true
+  },
+  {
+    "file": "ammonia_equipment_costs.csv",
+    "rows": 110,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true,
+    "utf8": true
+  },
+  {
+    "file": "ammonia_scenario_controller.csv",
+    "rows": 4,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true,
+    "utf8": true
+  },
+  {
+    "file": "ammonia_speciation.csv",
+    "rows": 11,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true,
+    "utf8": true
+  },
+  {
+    "file": "ammonia_stripping_experiments.csv",
+    "rows": 39,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true,
+    "utf8": true
+  },
+  {
+    "file": "ammonium_product_data.csv",
+    "rows": 32,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true,
+    "utf8": true
+  },
+  {
+    "file": "assumption_and_missing_data_register.csv",
+    "rows": 248,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true,
+    "utf8": true
+  },
+  {
+    "file": "base_demand.csv",
+    "rows": 17,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true,
+    "utf8": true
+  },
+  {
+    "file": "dataset_manifest.csv",
+    "rows": 13,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true,
+    "utf8": true
+  },
+  {
+    "file": "packing_and_column_data.csv",
+    "rows": 51,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true,
+    "utf8": true
+  },
+  {
+    "file": "source_register.csv",
+    "rows": 8,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true,
+    "utf8": true
+  },
+  {
+    "file": "stripper_mass_transfer.csv",
+    "rows": 9,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true,
+    "utf8": true
+  },
+  {
+    "file": "stripping_energy_data.csv",
+    "rows": 12,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true,
+    "utf8": true
+  }
+]

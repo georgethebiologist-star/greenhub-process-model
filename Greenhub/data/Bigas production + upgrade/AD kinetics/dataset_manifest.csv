@@ -1,0 +1,12 @@
+﻿filename,row_count,encoding,delimiter,primary_key,integration_status,description
+hydrolysis_kinetics.csv,12,UTF-8 with BOM,",",parameter_id,ready_with_documented_gaps,"ADM1 standard, calibrated proxy and explicit grass-specific gaps"
+acidogenesis_kinetics.csv,4,UTF-8 with BOM,",",parameter_id,ready_with_documented_gaps,Sugar and amino-acid Monod/uptake parameters
+acetogenesis_kinetics.csv,10,UTF-8 with BOM,",",parameter_id,ready_with_documented_gaps,"LCFA, C4 and propionate uptake kinetics"
+methanogenesis_kinetics.csv,7,UTF-8 with BOM,",",parameter_id,ready_with_documented_gaps,Acetoclastic and hydrogenotrophic kinetics
+inhibition_parameters.csv,15,UTF-8 with BOM,",",parameter_id,ready_with_documented_gaps,"Ammonia, hydrogen and pH inhibition parameters plus gaps"
+gas_liquid_transfer_parameters.csv,7,UTF-8 with BOM,",",parameter_id,ready_with_documented_gaps,"Henry coefficients, kLa and gas-flow parameters"
+microbial_yields_and_decay.csv,14,UTF-8 with BOM,",",parameter_id,ready_with_documented_gaps,COD-based biomass yields and decay rates
+temperature_corrections.csv,16,UTF-8 with BOM,",",parameter_id,ready_with_documented_gaps,"Reference temperatures, source coefficients and validated relative rates"
+ad_equation_registry.csv,8,UTF-8 with BOM,",",equation_id,ready_with_documented_gaps,Symbolic and Python-readable kinetic/transfer equations
+source_register.csv,6,UTF-8 with BOM,",",source_id,ready_with_documented_gaps,Bibliographic and scope metadata
+assumption_and_missing_data_register.csv,5,UTF-8 with BOM,",",register_id,ready_with_documented_gaps,Unresolved parameters without numerical assumptions

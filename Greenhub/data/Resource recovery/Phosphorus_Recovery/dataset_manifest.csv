@@ -1,0 +1,14 @@
+filename,purpose,row_count,populated_numeric_rows,blank_value_rows,integration_status
+assumption_and_missing_data_register.csv,assumption and missing data register,148,0,148,ready_with_documented_gaps
+calcium_phosphate_equilibrium_and_kinetics.csv,calcium phosphate equilibrium and kinetics,24,4,20,ready_with_documented_gaps
+competing_ion_effects.csv,competing ion effects,6,0,6,ready_with_documented_gaps
+crystal_growth_and_settling.csv,crystal growth and settling,10,0,10,ready_with_documented_gaps
+phosphorus_recovery_equipment_costs.csv,phosphorus recovery equipment costs,76,4,72,ready_with_documented_gaps
+phosphorus_scenario_controller.csv,phosphorus scenario controller,3,0,3,ready_with_documented_gaps
+phosphorus_speciation_data.csv,phosphorus speciation data,15,1,14,ready_with_documented_gaps
+precipitation_equation_registry.csv,precipitation equation registry,5,0,5,ready_with_documented_gaps
+precipitation_experiments.csv,precipitation experiments,14,14,0,ready_with_documented_gaps
+product_purity_and_moisture.csv,product purity and moisture,11,1,10,ready_with_documented_gaps
+reagent_demand.csv,reagent demand,11,0,11,ready_with_documented_gaps
+source_register.csv,source register,9,0,9,ready_with_documented_gaps
+struvite_equilibrium_and_kinetics.csv,struvite equilibrium and kinetics,9,4,5,ready_with_documented_gaps

@@ -1,0 +1,11 @@
+parameter_id,python_variable,value,unit,normalized_si_value,normalized_si_unit,basis,process,material_feed_type,operating_conditions,valid_range,data_status,source_title,authors,year,doi_or_stable_id,exact_location,notes,uncertainty,transferability,source_url
+AC_H2SO4,H2SO4_initial_concentration,1,mol/L,1000,mol/m3,initial absorbent,acid absorption,ammonia-bearing gas,closed loop,,measured,Ammonium recovery from agro-industrial digestate using bioelectrochemical systems,Carucci et al.,2022,10.2166/wst.2022.113,methods,,,medium,https://doi.org/10.2166/wst.2022.113
+AC_STOICH,H2SO4_stoichiometric_moles_per_mol_NH3,0.5,mol/mol,0.5,mol/mol,2 NH3 + H2SO4 -> (NH4)2SO4,acid absorption,ammonia gas,,,calculated_from_source_formula,Ammonium recovery from agro-industrial digestate using bioelectrochemical systems,Carucci et al.,2022,10.2166/wst.2022.113,balanced reaction,"Theoretical stoichiometry, not applied excess.",,high,https://doi.org/10.2166/wst.2022.113
+AC_REQ_acid_volume,acid_volume,,,,,source-specific,acid absorption,ammonia-bearing gas,,,missing,,,,,,Required for absorber design and emissions closure.,,,
+AC_REQ_acid_utilization,acid_utilization,,,,,source-specific,acid absorption,ammonia-bearing gas,,,missing,,,,,,Required for absorber design and emissions closure.,,,
+AC_REQ_NH3_capture_efficiency,NH3_capture_efficiency,,,,,source-specific,acid absorption,ammonia-bearing gas,,,missing,,,,,,Required for absorber design and emissions closure.,,,
+AC_REQ_outlet_NH3,outlet_NH3,,,,,source-specific,acid absorption,ammonia-bearing gas,,,missing,,,,,,Required for absorber design and emissions closure.,,,
+AC_REQ_absorber_temperature,absorber_temperature,,,,,source-specific,acid absorption,ammonia-bearing gas,,,missing,,,,,,Required for absorber design and emissions closure.,,,
+AC_REQ_pressure_drop,pressure_drop,,,,,source-specific,acid absorption,ammonia-bearing gas,,,missing,,,,,,Required for absorber design and emissions closure.,,,
+AC_REQ_acid_makeup,acid_makeup,,,,,source-specific,acid absorption,ammonia-bearing gas,,,missing,,,,,,Required for absorber design and emissions closure.,,,
+AC_REQ_gas_residence_time,gas_residence_time,,,,,source-specific,acid absorption,ammonia-bearing gas,,,missing,,,,,,Required for absorber design and emissions closure.,,,

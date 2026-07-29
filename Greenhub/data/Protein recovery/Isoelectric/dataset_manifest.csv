@@ -1,0 +1,21 @@
+filename,dataset_scope,row_count,required_columns_present,numeric_traceability_check,contains_assumptions_with_blank_values,integration_readiness,limitations
+acid_base_demand.csv,acid base demand,3,yes,passed for populated value fields,yes,partial_ready,See row-level notes and assumption_and_missing_data_register.csv
+aggregation_coagulation_kinetics.csv,aggregation coagulation kinetics,2,yes,passed for populated value fields,yes,partial_ready,See row-level notes and assumption_and_missing_data_register.csv
+assumption_and_missing_data_register.csv,assumption and missing data register,9,yes,passed for populated value fields,yes,partial_ready,See row-level notes and assumption_and_missing_data_register.csv
+equation_registry.csv,equation registry,6,yes,passed for populated value fields,yes,ready_with_scope_limits,See row-level notes and assumption_and_missing_data_register.csv
+equipment_scale_cost_demand.csv,equipment scale cost demand,9,yes,passed for populated value fields,yes,partial_ready,See row-level notes and assumption_and_missing_data_register.csv
+ionic_strength_effects.csv,ionic strength effects,2,yes,passed for populated value fields,yes,partial_ready,See row-level notes and assumption_and_missing_data_register.csv
+precipitation_kinetics.csv,precipitation kinetics,1,yes,passed for populated value fields,yes,partial_ready,See row-level notes and assumption_and_missing_data_register.csv
+product_moisture.csv,product moisture,1,yes,passed for populated value fields,yes,partial_ready,See row-level notes and assumption_and_missing_data_register.csv
+protein_losses.csv,protein losses,3,yes,passed for populated value fields,yes,partial_ready,See row-level notes and assumption_and_missing_data_register.csv
+protein_pI_distributions.csv,protein pI distributions,4,yes,passed for populated value fields,yes,partial_ready,See row-level notes and assumption_and_missing_data_register.csv
+protein_stability.csv,protein stability,2,yes,passed for populated value fields,yes,partial_ready,See row-level notes and assumption_and_missing_data_register.csv
+purity.csv,purity,2,yes,passed for populated value fields,no,ready_with_scope_limits,See row-level notes and assumption_and_missing_data_register.csv
+recovery.csv,recovery,4,yes,passed for populated value fields,no,ready_with_scope_limits,See row-level notes and assumption_and_missing_data_register.csv
+residence_time.csv,residence time,1,yes,passed for populated value fields,yes,partial_ready,See row-level notes and assumption_and_missing_data_register.csv
+separation_efficiency.csv,separation efficiency,1,yes,passed for populated value fields,yes,partial_ready,See row-level notes and assumption_and_missing_data_register.csv
+solubility_versus_pH.csv,solubility versus pH,7,yes,passed for populated value fields,yes,partial_ready,See row-level notes and assumption_and_missing_data_register.csv
+solubility_versus_temperature.csv,solubility versus temperature,2,yes,passed for populated value fields,yes,partial_ready,See row-level notes and assumption_and_missing_data_register.csv
+source_register.csv,source register,8,yes,passed for populated value fields,no,ready_with_scope_limits,See row-level notes and assumption_and_missing_data_register.csv
+titration_curves.csv,titration curves,1,yes,passed for populated value fields,yes,partial_ready,See row-level notes and assumption_and_missing_data_register.csv
+washing_response.csv,washing response,2,yes,passed for populated value fields,yes,partial_ready,See row-level notes and assumption_and_missing_data_register.csv

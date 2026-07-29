@@ -1,0 +1,14 @@
+﻿filename,relative_path,description,row_count,encoding,delimiter,integration_status
+chp_availability_maintenance.csv,Greenhub/data/Biogas production + upgrade/CHP_and_Utilities/chp_availability_maintenance.csv,chp availability maintenance,14,UTF-8 with BOM,",",ready_with_documented_gaps
+chp_emissions.csv,Greenhub/data/Biogas production + upgrade/CHP_and_Utilities/chp_emissions.csv,chp emissions,34,UTF-8 with BOM,",",ready_with_documented_gaps
+chp_engine_performance.csv,Greenhub/data/Biogas production + upgrade/CHP_and_Utilities/chp_engine_performance.csv,chp engine performance,19,UTF-8 with BOM,",",ready_with_documented_gaps
+chp_equipment_costs.csv,Greenhub/data/Biogas production + upgrade/CHP_and_Utilities/chp_equipment_costs.csv,chp equipment costs,14,UTF-8 with BOM,",",ready_with_documented_gaps
+chp_heat_recovery.csv,Greenhub/data/Biogas production + upgrade/CHP_and_Utilities/chp_heat_recovery.csv,chp heat recovery,9,UTF-8 with BOM,",",ready_with_documented_gaps
+chp_parasitic_loads.csv,Greenhub/data/Biogas production + upgrade/CHP_and_Utilities/chp_parasitic_loads.csv,chp parasitic loads,20,UTF-8 with BOM,",",ready_with_documented_gaps
+chp_part_load_curves.csv,Greenhub/data/Biogas production + upgrade/CHP_and_Utilities/chp_part_load_curves.csv,chp part load curves,8,UTF-8 with BOM,",",ready_with_documented_gaps
+chp_scenario_controller.csv,Greenhub/data/Biogas production + upgrade/CHP_and_Utilities/chp_scenario_controller.csv,chp scenario controller,8,UTF-8 with BOM,",",ready_with_documented_gaps
+heat_exchanger_constraints.csv,Greenhub/data/Biogas production + upgrade/CHP_and_Utilities/heat_exchanger_constraints.csv,heat exchanger constraints,6,UTF-8 with BOM,",",ready_with_documented_gaps
+limitation_and_missing_data_register.csv,Greenhub/data/Biogas production + upgrade/CHP_and_Utilities/limitation_and_missing_data_register.csv,limitation and missing data register,6,UTF-8 with BOM,",",ready_with_documented_gaps
+plant_utility_equation_registry.csv,Greenhub/data/Biogas production + upgrade/CHP_and_Utilities/plant_utility_equation_registry.csv,plant utility equation registry,7,UTF-8 with BOM,",",ready_with_documented_gaps
+source_register.csv,Greenhub/data/Biogas production + upgrade/CHP_and_Utilities/source_register.csv,source register,8,UTF-8 with BOM,",",ready_with_documented_gaps
+utility_temperature_levels.csv,Greenhub/data/Biogas production + upgrade/CHP_and_Utilities/utility_temperature_levels.csv,utility temperature levels,7,UTF-8 with BOM,",",ready_with_documented_gaps

@@ -1,0 +1,14 @@
+filename,scope,row_count,validation_status,integration_readiness
+assumption_and_missing_data_register.csv,assumption and missing data register,12,PASS,partial_ready
+cleaning_data.csv,cleaning data,4,PASS,partial_ready
+diafiltration_data.csv,diafiltration data,10,PASS,partial_ready
+energy_data.csv,energy data,5,PASS,partial_ready
+equation_registry.csv,equation registry,7,PASS,partial_ready
+feed_state_database.csv,feed state database,8,PASS,partial_ready
+flux_time_series.csv,flux time series,4,PASS,partial_ready
+fouling_parameters.csv,fouling parameters,8,PASS,partial_ready
+membrane_module_database.csv,membrane module database,7,PASS,partial_ready
+module_lifetime_and_cost.csv,module lifetime and cost,5,PASS,partial_ready
+rejection_data_by_component.csv,rejection data by component,8,PASS,partial_ready
+scenario_controller.csv,scenario controller,3,PASS,partial_ready
+source_register.csv,source register,10,PASS,partial_ready

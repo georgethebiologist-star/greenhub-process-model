@@ -1,0 +1,12 @@
+﻿filename,row_count,encoding,delimiter,integration_status
+digester_geometry_and_sizing.csv,4,UTF-8 with BOM,",",ready_with_documented_gaps
+digester_operating_windows.csv,13,UTF-8 with BOM,",",ready_with_documented_gaps
+digester_mixing_power.csv,6,UTF-8 with BOM,",",ready_with_documented_gaps
+digester_heat_loss_and_heating.csv,11,UTF-8 with BOM,",",ready_with_documented_gaps
+digester_recycle_and_retention.csv,8,UTF-8 with BOM,",",ready_with_documented_gaps
+digester_startup_and_stability.csv,9,UTF-8 with BOM,",",ready_with_documented_gaps
+digester_equipment_costs.csv,19,UTF-8 with BOM,",",ready_with_documented_gaps
+digester_scenario_controller.csv,4,UTF-8 with BOM,",",ready_with_documented_gaps
+digester_engineering_equations.csv,11,UTF-8 with BOM,",",ready_with_documented_gaps
+source_register.csv,10,UTF-8 with BOM,",",ready_with_documented_gaps
+assumption_and_missing_data_register.csv,5,UTF-8 with BOM,",",ready_with_documented_gaps

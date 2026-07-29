@@ -1,0 +1,12 @@
+﻿dataset_id,filename,purpose,row_count,primary_key,encoding,delimiter,integration_readiness,known_limitations
+DS-CEN-001,centrifuge_feed_rheology.csv,Feed properties and gaps,15,parameter_id,UTF-8 with BOM,",",partial,Target rheology/PSD missing.
+DS-CEN-002,centrifuge_geometry_and_operation.csv,Equipment geometry and operating conditions,18,parameter_id,UTF-8 with BOM,",",partial,Sigma and proprietary data incomplete.
+DS-CEN-003,centrifuge_component_capture.csv,Capture and concentration observations,15,parameter_id,UTF-8 with BOM,",",partial,Green-juice mass balances sparse.
+DS-CEN-004,centrifuge_power_and_capacity.csv,"Power, specific energy and capacity",10,parameter_id,UTF-8 with BOM,",",partial,Nameplate and actual power separated.
+DS-CEN-005,centrifuge_dynamic_performance.csv,"Overload, solids inventory and cleaning structures",4,parameter_id,UTF-8 with BOM,",",structure_only,No calibrated time series.
+DS-CEN-006,centrifuge_equation_registry.csv,"Settling, sigma, cut size, residence, power and scale-up equations",10,equation_id,UTF-8 with BOM,",",ready_as_registry,Ideal equations require validation.
+DS-CEN-007,centrifuge_equipment_costs.csv,Historical EU and used-market costs,16,parameter_id,UTF-8 with BOM,",",partial,No current Netherlands quotes.
+DS-CEN-008,centrifuge_scenario_controller.csv,Scenario control and scale guardrails,6,scenario_id,UTF-8 with BOM,",",ready,Predictive use guarded.
+DS-CEN-009,source_register.csv,Source registry,9,source_id,UTF-8 with BOM,",",ready,Some values from indexed summaries.
+DS-CEN-010,assumption_and_missing_data_register.csv,Open measurements,8,register_id,UTF-8 with BOM,",",ready,High-priority gaps remain.
+DS-CEN-011,validation_report.csv,Structural and traceability validation,11,filename,UTF-8 with BOM,",",ready,Does not independently reproduce experiments.

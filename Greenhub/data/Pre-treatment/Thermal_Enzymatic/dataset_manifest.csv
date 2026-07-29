@@ -1,0 +1,11 @@
+﻿dataset_id,filename,purpose,row_count,primary_key,encoding,delimiter,integration_readiness,known_limitations
+DS-TE-001,thermal_treatment_parameters.csv,Thermal conditions and requested response fields,19,parameter_id,UTF-8 with BOM,",",partial,Response and energy fields sparse.
+DS-TE-002,thermal_kinetics.csv,Thermal kinetic parameter registry,3,parameter_id,UTF-8 with BOM,",",structure_only,No source-fitted grass kinetics.
+DS-TE-003,enzyme_database.csv,"Enzyme activities, optima and source/supplier data",5,parameter_id,UTF-8 with BOM,",",partial,Some product details unavailable.
+DS-TE-004,enzymatic_treatment_response.csv,Condition-resolved enzyme experiments and explicit gaps,19,parameter_id,UTF-8 with BOM,",",partial,Abstract-level alfalfa response cannot be allocated to individual conditions.
+DS-TE-005,enzymatic_kinetic_models.csv,Mechanistic enzyme model registry,4,parameter_id,UTF-8 with BOM,",",structure_only,No fitted constants.
+DS-TE-006,thermal_enzymatic_equation_registry.csv,Symbolic and Python-style equations,7,equation_id,UTF-8 with BOM,",",ready_as_registry,Candidate equations require fitting.
+DS-TE-007,thermal_enzymatic_scenario_controller.csv,"No-treatment, thermal, enzyme and combined scenarios",4,scenario_id,UTF-8 with BOM,",",ready,Predictive use guarded by missing-data checks.
+DS-TE-008,source_register.csv,Bibliographic source registry,9,source_id,UTF-8 with BOM,",",ready,Primary full-text access incomplete for some sources.
+DS-TE-009,assumption_and_missing_data_register.csv,Open gaps and required measurements,9,register_id,UTF-8 with BOM,",",ready,High-priority gaps remain.
+DS-TE-010,validation_report.csv,Final structural and traceability validation,10,filename,UTF-8 with BOM,",",ready,Does not independently reproduce experimental measurements.

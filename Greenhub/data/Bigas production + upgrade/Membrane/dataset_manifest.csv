@@ -1,0 +1,13 @@
+﻿filename,relative_path,description,row_count,encoding,delimiter,integration_status
+materials.csv,Greenhub/data/Biogas production + upgrade/Biogas_Upgrading/Membrane/materials.csv,materials,5,UTF-8 with BOM,",",ready_with_documented_gaps
+permeability_selectivity.csv,Greenhub/data/Biogas production + upgrade/Biogas_Upgrading/Membrane/permeability_selectivity.csv,permeability selectivity,4,UTF-8 with BOM,",",ready_with_documented_gaps
+operating_conditions_and_design.csv,Greenhub/data/Biogas production + upgrade/Biogas_Upgrading/Membrane/operating_conditions_and_design.csv,operating conditions and design,6,UTF-8 with BOM,",",ready_with_documented_gaps
+performance_observations.csv,Greenhub/data/Biogas production + upgrade/Biogas_Upgrading/Membrane/performance_observations.csv,performance observations,6,UTF-8 with BOM,",",ready_with_documented_gaps
+ageing_and_humidity.csv,Greenhub/data/Biogas production + upgrade/Biogas_Upgrading/Membrane/ageing_and_humidity.csv,ageing and humidity,4,UTF-8 with BOM,",",ready_with_documented_gaps
+energy_demand.csv,Greenhub/data/Biogas production + upgrade/Biogas_Upgrading/Membrane/energy_demand.csv,energy demand,2,UTF-8 with BOM,",",ready_with_documented_gaps
+cost_dataset.csv,Greenhub/data/Biogas production + upgrade/Biogas_Upgrading/Membrane/cost_dataset.csv,cost dataset,3,UTF-8 with BOM,",",ready_with_documented_gaps
+equipment_and_consumables.csv,Greenhub/data/Biogas production + upgrade/Biogas_Upgrading/Membrane/equipment_and_consumables.csv,equipment and consumables,4,UTF-8 with BOM,",",ready_with_documented_gaps
+equation_registry.csv,Greenhub/data/Biogas production + upgrade/Biogas_Upgrading/Membrane/equation_registry.csv,equation registry,4,UTF-8 with BOM,",",ready_with_documented_gaps
+scenario_controller.csv,Greenhub/data/Biogas production + upgrade/Biogas_Upgrading/Membrane/scenario_controller.csv,scenario controller,4,UTF-8 with BOM,",",ready_with_documented_gaps
+limitation_and_missing_data_register.csv,Greenhub/data/Biogas production + upgrade/Biogas_Upgrading/Membrane/limitation_and_missing_data_register.csv,limitation and missing data register,3,UTF-8 with BOM,",",ready_with_documented_gaps
+source_register.csv,Greenhub/data/Biogas production + upgrade/Biogas_Upgrading/Membrane/source_register.csv,source register,5,UTF-8 with BOM,",",ready_with_documented_gaps

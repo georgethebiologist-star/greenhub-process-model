@@ -1,0 +1,5 @@
+﻿register_id,topic,python_variable,required_value,unit,data_status,reason_missing,recommended_source,affected_files,notes
+MEA_LIM_001,CO2 loading,lean_rich_loading,,mol CO2/mol MEA,missing,Accessible pilot abstract did not provide traceable loading values.,Full pilot paper tables or raw process historian data.,co2_loading_and_absorption.csv,
+MEA_LIM_002,condenser duty,condenser_duty,,kW,missing,No universal duty; depends on reflux and cooling conditions.,Pilot steady-state heat balance.,energy_and_duties.csv,
+MEA_LIM_003,corrosion rate,corrosion_rate,,mm/year,missing,"Material, oxygen, loading, heat-stable salts and temperature dependent.",Coupon or electrochemical tests for selected metallurgy and solvent.,solvent_loss_degradation_corrosion.csv,
+MEA_LIM_004,cost scaling,cost_scaling_exponent,,dimensionless,missing,No tabulated exponent.,Vendor quotations by capacity and cost year.,cost_dataset.csv,No graph digitization performed.

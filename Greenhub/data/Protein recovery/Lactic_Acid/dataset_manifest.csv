@@ -1,0 +1,11 @@
+filename,purpose,row_count,validation_status,integration_readiness,key_limitation
+assumption_and_missing_data_register.csv,assumption and missing data register,14,PASS,partial_ready,See assumption_and_missing_data_register.csv and row-level notes
+feed_composition.csv,feed composition,7,PASS,partial_ready,See assumption_and_missing_data_register.csv and row-level notes
+fermentation_equation_registry.csv,fermentation equation registry,6,PASS,partial_ready,See assumption_and_missing_data_register.csv and row-level notes
+fermentation_time_series.csv,fermentation time series,15,PASS,partial_ready,See assumption_and_missing_data_register.csv and row-level notes
+metabolic_reaction_registry.csv,metabolic reaction registry,3,PASS,partial_ready,See assumption_and_missing_data_register.csv and row-level notes
+protein_recovery_response.csv,protein recovery response,10,PASS,partial_ready,See assumption_and_missing_data_register.csv and row-level notes
+reactor_parameters.csv,reactor parameters,14,PASS,partial_ready,See assumption_and_missing_data_register.csv and row-level notes
+scenario_controller.csv,scenario controller,3,PASS,partial_ready,See assumption_and_missing_data_register.csv and row-level notes
+source_register.csv,source register,9,PASS,partial_ready,See assumption_and_missing_data_register.csv and row-level notes
+strain_database.csv,strain database,5,PASS,partial_ready,See assumption_and_missing_data_register.csv and row-level notes

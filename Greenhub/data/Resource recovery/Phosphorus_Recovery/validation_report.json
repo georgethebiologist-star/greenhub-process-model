@@ -1,0 +1,100 @@
+[
+  {
+    "file": "assumption_and_missing_data_register.csv",
+    "rows": 148,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true
+  },
+  {
+    "file": "calcium_phosphate_equilibrium_and_kinetics.csv",
+    "rows": 24,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true
+  },
+  {
+    "file": "competing_ion_effects.csv",
+    "rows": 6,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true
+  },
+  {
+    "file": "crystal_growth_and_settling.csv",
+    "rows": 10,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true
+  },
+  {
+    "file": "dataset_manifest.csv",
+    "rows": 13,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true
+  },
+  {
+    "file": "phosphorus_recovery_equipment_costs.csv",
+    "rows": 76,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true
+  },
+  {
+    "file": "phosphorus_scenario_controller.csv",
+    "rows": 3,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true
+  },
+  {
+    "file": "phosphorus_speciation_data.csv",
+    "rows": 15,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true
+  },
+  {
+    "file": "precipitation_equation_registry.csv",
+    "rows": 5,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true
+  },
+  {
+    "file": "precipitation_experiments.csv",
+    "rows": 14,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true
+  },
+  {
+    "file": "product_purity_and_moisture.csv",
+    "rows": 11,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true
+  },
+  {
+    "file": "reagent_demand.csv",
+    "rows": 11,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true
+  },
+  {
+    "file": "source_register.csv",
+    "rows": 9,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true
+  },
+  {
+    "file": "struvite_equilibrium_and_kinetics.csv",
+    "rows": 9,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true
+  }
+]

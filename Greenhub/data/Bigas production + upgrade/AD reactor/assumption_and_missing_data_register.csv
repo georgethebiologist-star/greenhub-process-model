@@ -1,0 +1,6 @@
+﻿register_id,parameter_or_topic,numerical_value,unit,data_status,current_coverage,required_for,recommended_source_type,notes
+AMR001,grass-specific CSTR OLR window,,kg VS/m3/d,missing,No safe numeric OLR table,dynamic controller,continuous grass reactor study,Do not infer from manure
+AMR002,two-stage grass HRT and volumes,,d;m3,missing,Scenario structure only,two-stage model,original grass study,stage-specific
+AMR003,industrial gas storage,,m3,missing,small-scale convention only,buffer design,hourly vendor design,do not use 60% industrially
+AMR004,mixer torque and geometry,,,missing,frequency and vendor specific power only,mixing design,manufacturer curve,rheology required
+AMR005,vessel-only CAPEX and scale exponent,,,missing,whole-project costs only,TEA,current vendor quotes,no lab scaling
