@@ -1,7 +1,7 @@
 location,direction,element,flow_kg_hr
 complete Phase 7 boundary,input,chloride,0.3565551013214927
-nutrient_rich_digestate_solids,output,chloride,0.0038233224613636397
-struvite_product,output,chloride,2.3991194948104437e-05
+nutrient_rich_digestate_solids,output,chloride,0.003823322461363637
+struvite_product,output,chloride,2.3991194948104434e-05
 ammonium_salt_product,output,chloride,0.0
 nitrogen_depleted_liquor,output,chloride,0.35270778766518096
 phase7_wastewater,output,chloride,0.0

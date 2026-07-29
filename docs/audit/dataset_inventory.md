@@ -1,5 +1,10 @@
 # Scientific Dataset Inventory
 
+> Historical alpha inventory. Commit `39dcf17` replaced the flat 17-file protein suite
+> with a 301-dataset harmonized package. Current activation decisions are documented in
+> `docs/advanced_model/dataset_activation_matrix.md` and
+> `Greenhub/data/global_audit_package/dataset_activation_matrix.csv`.
+
 Audit date: 2026-07-29
 
 Readiness levels: D0 discovered, D1 documented but structurally unusable, D2 schema
@@ -66,4 +71,3 @@ Recommended next step after approval: implement read-only schema validators and 
 records first, then report dataset readiness. Do not connect calculations until the
 required blanks and filename mismatch are resolved and representative physical trend
 tests are agreed.
-

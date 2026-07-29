@@ -1,14 +1,14 @@
 metric,value
-gross_electricity_kw,0.17228326893451418
+gross_electricity_kw,0.1722832689345142
 chp_electricity_available_kw,0.0
 chp_electricity_used_kw,0.0
-grid_electricity_kw,0.17228326893451418
+grid_electricity_kw,0.1722832689345142
 net_electricity_export_kw,0.0
-gross_heat_demand_kw,7.036149712795237
-temperature_eligible_heat_demand_kw,7.036149712795237
+gross_heat_demand_kw,7.036149712795238
+temperature_eligible_heat_demand_kw,7.036149712795238
 recovered_heat_available_kw,0.0
 recovered_heat_temperature_c,80.0
 recovered_heat_used_kw,0.0
-external_heat_kw,7.036149712795237
+external_heat_kw,7.036149712795238
 cooling_demand_kw,0.34883201387792045
 utility_interface_source,explicit structural interface; current Phase 6 network unavailable

@@ -16,6 +16,7 @@ from Greenhub.component_metadata import COMPONENT_METADATA
 from Greenhub.phase4_validation import sum_stream_component_flows
 from Greenhub.phase6_reporting import _format_workbook, _write_unit_tables
 from Greenhub.phase7_limitations import phase7_limitation_rows
+from Greenhub.reporting_io import atomic_excel_writer
 from Greenhub.scenarios import NUTRIENT_RECOVERY_SCENARIOS
 from Greenhub.settings import RESULTS_DIR, ensure_results_dir
 
@@ -441,7 +442,7 @@ def save_phase7_reports(
 
     comparison_path = results_dir / "phase7_scenario_comparison.xlsx"
     comparison = pd.DataFrame(_comparison_rows(scenario_models))
-    with pd.ExcelWriter(comparison_path, engine="openpyxl") as writer:
+    with atomic_excel_writer(comparison_path) as writer:
         comparison.to_excel(writer, sheet_name="Engineering comparison", index=False)
         comparison.set_index("scenario").transpose().rename_axis("metric").reset_index().to_excel(
             writer, sheet_name="Metrics by scenario", index=False
@@ -460,7 +461,7 @@ def save_phase7_reports(
     paths["scenario_comparison"] = comparison_path
 
     limitations_path = results_dir / "phase7_limitations_and_data_needs.xlsx"
-    with pd.ExcelWriter(limitations_path, engine="openpyxl") as writer:
+    with atomic_excel_writer(limitations_path) as writer:
         pd.DataFrame(limitations).to_excel(writer, sheet_name="Limitation register", index=False)
         pd.DataFrame([row for row in limitations if row["priority"] == "high"]).to_excel(
             writer, sheet_name="High priority data", index=False
@@ -471,7 +472,7 @@ def save_phase7_reports(
     paths["limitations_and_data_needs"] = limitations_path
 
     report_path = results_dir / "phase7_nutrient_recovery_report.xlsx"
-    with pd.ExcelWriter(report_path, engine="openpyxl") as writer:
+    with atomic_excel_writer(report_path) as writer:
         tables["phase7_selected_metrics.csv"].to_excel(writer, sheet_name="Overview", index=False)
         pd.DataFrame([{
             "scenario": model.scenario.scenario_id,

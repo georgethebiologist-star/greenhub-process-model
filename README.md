@@ -4,6 +4,8 @@ This repository contains one connected GreenHub model covering feed characteriza
 
 The current alpha restoration keeps historically named `phaseX_*` modules as tested compatibility layers. New code should use `create_integrated_greenhub_system()` and meaningful process-area views rather than treating development phases as separate plants. Audit evidence, Git findings, dataset readiness, and the restoration plan are under [docs/audit](docs/audit/).
 
+Advanced-model Checkpoint 1 adds read-only governance for the 301-dataset global audit package. It quarantines defective rows and classifies datasets, equations, and cost overlaps without activating literature values or changing process calculations. See [advanced-model plans](docs/advanced_model/integration_plan.md).
+
 ## System Boundary
 
 The fibre-rich press cake remains an upstream side stream. Downstream fibre-panel production is excluded.
@@ -57,6 +59,7 @@ From `Model` in PowerShell:
 
 ```powershell
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m Greenhub.data_governance
 .\.venv\Scripts\python.exe -m Greenhub.main
 .\.venv\Scripts\pytest.exe -q
 ```

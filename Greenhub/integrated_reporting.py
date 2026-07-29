@@ -15,6 +15,7 @@ import pandas as pd
 import thermosteam as tmo
 
 from Greenhub.model_completeness import UnitCompletenessRecord, build_model_completeness
+from Greenhub.reporting_io import atomic_excel_writer, atomic_save_workbook
 from Greenhub.settings import RESULTS_DIR
 
 HEADER_FILL = PatternFill("solid", fgColor="244C3D")
@@ -101,7 +102,7 @@ def _format_integrated_workbook(path: Path) -> None:
         if wrap_columns:
             for row_index in range(2, sheet.max_row + 1):
                 sheet.row_dimensions[row_index].height = 32
-    workbook.save(path)
+    atomic_save_workbook(workbook, path)
 
 
 def _git_commit() -> str:
@@ -332,7 +333,7 @@ def save_integrated_reports(
 
     process_area_frame = pd.DataFrame(_process_area_rows(model))
     process_area_frame.to_csv(summary_path, index=False)
-    with pd.ExcelWriter(workbook_path, engine="openpyxl") as writer:
+    with atomic_excel_writer(workbook_path) as writer:
         pd.DataFrame(_metadata_rows(model)).to_excel(writer, sheet_name="Run Metadata", index=False)
         process_area_frame.to_excel(writer, sheet_name="Process Areas", index=False)
         pd.DataFrame(_balance_rows(model)).to_excel(writer, sheet_name="Integrated Balances", index=False)
