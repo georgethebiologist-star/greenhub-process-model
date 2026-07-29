@@ -80,6 +80,7 @@ PHASE6_TEST_FILES = {
     "test_phase6_reporting.py",
 }
 PHASE7_TEST_FILES = {
+    "test_integrated_interface.py",
     "test_phase7_balance_and_utilities.py",
     "test_phase7_integrated_scenarios.py",
     "test_phase7_orders.py",

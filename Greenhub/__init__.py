@@ -1,4 +1,4 @@
-"""GreenHub BioSTEAM model through Phase 7 nutrient recovery."""
+"""Integrated GreenHub BioSTEAM process model with compatibility APIs."""
 
 from Greenhub.characterization import CharacterizationResult, characterize_feed
 from Greenhub.chemicals import chemicals, create_chemicals, set_thermo, thermo
@@ -12,6 +12,12 @@ from Greenhub.phase5_metrics import SeasonalPhase5Result
 from Greenhub.phase6_inputs import Phase6InputBundle, load_phase6_inputs
 from Greenhub.phase7_inputs import Phase7InputBundle, load_phase7_inputs
 from Greenhub.phase7_metrics import SeasonalPhase7Result
+from Greenhub.integration import (
+    IntegratedGreenHubModel,
+    ProcessAreaView,
+    ScenarioConfiguration,
+    create_integrated_greenhub_system,
+)
 from Greenhub.separator import SeparatorParameters
 from Greenhub.streams import BASELINE_FEED_FLOWS_KG_HR, create_liquid_fraction
 from Greenhub.systems import (
@@ -57,6 +63,7 @@ __all__ = [
     "CharacterizationResult",
     "FeedSpecification",
     "GreenHubModel",
+    "IntegratedGreenHubModel",
     "INPUT_WORKBOOK_PATH",
     "Phase3InputBundle",
     "Phase3Model",
@@ -69,6 +76,8 @@ __all__ = [
     "Phase7InputBundle",
     "Phase7Model",
     "RawLiquidInterface",
+    "ProcessAreaView",
+    "ScenarioConfiguration",
     "SeparatorParameters",
     "SeasonalFrontEndResult",
     "SeasonalPhase4Result",
@@ -81,6 +90,7 @@ __all__ = [
     "create_co2_precipitation_system",
     "create_combined_protein_recovery_system",
     "create_greenhub_system",
+    "create_integrated_greenhub_system",
     "create_heat_coagulation_system",
     "create_lactic_fermentation_protein_system",
     "create_liquid_fraction",

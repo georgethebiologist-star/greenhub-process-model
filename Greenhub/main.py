@@ -1,11 +1,15 @@
-"""Run, validate, compare, and report the integrated GreenHub Phase 7 model."""
+"""Run, validate, compare, and report the integrated GreenHub process model."""
 
 from __future__ import annotations
 
 import gc
 from pathlib import Path
+import shutil
 
 from Greenhub.input_data import INPUT_WORKBOOK_PATH, ensure_input_workbook
+from Greenhub.integrated_reporting import save_integrated_reports
+from Greenhub.integration import create_integrated_greenhub_system
+from Greenhub.model_completeness import write_model_completeness_reports
 from Greenhub.phase7_reporting import save_phase7_reports, snapshot_phase7_comparison
 from Greenhub.phase7_systems import create_phase7_scenario, simulate_phase7_season
 from Greenhub.scenarios import NUTRIENT_RECOVERY_SCENARIOS
@@ -29,7 +33,7 @@ def _print_stream(label: str, stream) -> None:
 
 
 def _save_flowsheet_diagram(system, output_path: Path) -> bool:
-    """Save the complete Phase 7 diagram without making Graphviz mandatory."""
+    """Save the complete plant diagram without making Graphviz mandatory."""
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     try:
@@ -42,7 +46,7 @@ def _save_flowsheet_diagram(system, output_path: Path) -> bool:
             format="png",
             display=False,
             label=True,
-            title="GreenHub Phase 7 Digestate Processing and Nutrient Recovery",
+            title="Integrated GreenHub Biomass Valorization System",
         )
     except Exception as error:  # pragma: no cover - external Graphviz behavior
         print(
@@ -59,7 +63,7 @@ def _save_flowsheet_diagram(system, output_path: Path) -> bool:
 
 
 def _print_scenario_readiness() -> None:
-    print("\nPhase 7 scenario architecture")
+    print("\nNutrient-recovery scenario architecture")
     for scenario in NUTRIENT_RECOVERY_SCENARIOS.values():
         status = "active" if scenario.active else "inactive/data-gated"
         print(
@@ -69,40 +73,30 @@ def _print_scenario_readiness() -> None:
 
 
 def main() -> None:
-    """Configure, simulate, validate, compare, and report Phase 7."""
+    """Configure, simulate, validate, compare, and report the complete plant."""
 
     initialize_environment()
     ensure_results_dir()
     ensure_input_workbook()
-    model = create_phase7_scenario().simulate()
-    phase3 = (
-        model.upstream_model.upstream_model.upstream_model.upstream_model
-    )
-    specification = phase3.feed_specification
+    integrated_model = create_integrated_greenhub_system().simulate()
+    model = integrated_model.legacy_model
+    specification = integrated_model.feed_specification
+    configuration = integrated_model.scenario_configuration
 
-    print("GreenHub Phase 7 summary")
-    print("========================")
+    print("Integrated GreenHub system summary")
+    print("==================================")
     print("System ID:", model.system.ID)
     print("Flowsheet ID:", model.flowsheet.ID)
     print("Input workbook:", INPUT_WORKBOOK_PATH)
-    print("Nutrient-recovery scenario:", model.scenario.scenario_id, "-", model.scenario.name)
-    print("Process order:", model.input_bundle.process_order)
-    print(
-        "Upstream scenarios:",
-        (
-            f"{model.input_bundle.phase3_scenario_id}/"
-            f"{model.input_bundle.phase4_scenario_id}/"
-            f"{model.input_bundle.phase5_scenario_id}/"
-            f"{model.input_bundle.phase6_scenario_id}"
-        ),
-    )
+    print("Scenario chain:", configuration.scenario_chain)
+    print("Nutrient-recovery process order:", configuration.process_order)
     print("Sample:", specification.sample_id)
     print("Selected month:", specification.selected_month)
     print("Monthly feed mass:", f"{specification.monthly_total_mass_kg:.6g} kg")
     print("Average upstream feed flow:", f"{specification.total_mass_flow_kg_hr:.6g} kg/hr")
-    print("Phase 7 structural-test mode:", model.input_bundle.structural_test_mode)
-    print("Phase 7 input basis:", model.input_bundle.input_basis)
-    print("Custom Phase 7 CAPEX: unavailable; no unsupported cost was invented.")
+    print("Structural-test mode:", configuration.structural_test_mode)
+    print("Input basis:", configuration.input_basis)
+    print("Custom-unit CAPEX: unavailable where no approved correlation exists; no unsupported cost was invented.")
     print("Product eligibility: not assessed.")
     print("Configuration comparison: engineering inventories only; not ranked.")
     print("Recovered heat and CHP electricity: zero unless a verified interface is supplied.")
@@ -125,13 +119,17 @@ def main() -> None:
         if stream is not None:
             _print_stream(label, stream)
 
-    print("\nPhase 7 unit results")
-    for unit_id in model.parameters["phase7_unit_ids"]:
-        print(model.units[unit_id].results())
+    print("\nProcess-area unit results")
+    for area in integrated_model.process_areas.values():
+        if not area.units:
+            continue
+        print(f"\n{area.name}")
+        for unit in area.units.values():
+            print(unit.results())
     print("\nSystem results")
     print(model.system.results())
 
-    print("\nSelected Phase 7 metrics")
+    print("\nSelected nutrient-recovery and utility metrics")
     for name in (
         "digestate_processed_kg_hr",
         "nutrient_rich_solids_kg_hr",
@@ -152,17 +150,25 @@ def main() -> None:
         print(f"  {name}: {model.metrics.get(name)}")
     print(f"\n{model.validation.report}")
 
-    print("\nDocumented Phase 7 simplifications")
-    for assumption in model.assumptions:
+    print("\nDocumented integrated-model simplifications")
+    for assumption in integrated_model.assumptions:
         print(f"  - {assumption}")
-    print("\nHigh-priority Phase 7 missing-data limitations")
-    for limitation in model.limitations:
-        if limitation.phase == 7 and limitation.priority == "high":
+    print("\nHigh-priority missing-data limitations")
+    for limitation in integrated_model.limitations:
+        if limitation.priority == "high":
             print(f"  - {limitation.limitation_id}: {limitation.description}")
     _print_scenario_readiness()
 
-    flowsheet_path = RESULTS_DIR / "phase7_flowsheet.png"
-    _save_flowsheet_diagram(model.system, flowsheet_path)
+    flowsheet_path = RESULTS_DIR / "integrated_greenhub_flowsheet.png"
+    diagram_created = _save_flowsheet_diagram(model.system, flowsheet_path)
+    if diagram_created:
+        shutil.copyfile(flowsheet_path, RESULTS_DIR / "phase7_flowsheet.png")
+
+    completeness_outputs = write_model_completeness_reports(integrated_model)
+    integrated_outputs = save_integrated_reports(
+        integrated_model,
+        completeness=integrated_model.model_completeness,
+    )
 
     comparison_models = []
     for scenario_id in ACTIVE_PHASE7_SCENARIOS:
@@ -190,13 +196,18 @@ def main() -> None:
         process_order=model.input_bundle.process_order,
     )
     model.seasonal_result = seasonal_result
-    outputs = save_phase7_reports(
+    compatibility_outputs = save_phase7_reports(
         model,
         flowsheet_path=flowsheet_path,
         scenario_models=tuple(comparison_models),
         seasonal_result=seasonal_result,
     )
-    print("\nGenerated Phase 7 outputs")
+    outputs = {
+        **completeness_outputs,
+        **integrated_outputs,
+        **compatibility_outputs,
+    }
+    print("\nGenerated integrated and compatibility outputs")
     for label, path in outputs.items():
         if path.exists():
             print(f"  {label}: {path}")

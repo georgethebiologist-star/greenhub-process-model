@@ -11,7 +11,7 @@ structural_test_mode,True
 calculation_level,formula-balanced Level-1 engineering model
 digestate_processed_kg_hr,243.61944012512674
 digestate_water_kg_hr,239.27682870442956
-nutrient_rich_solids_kg_hr,3.2071917856415495
+nutrient_rich_solids_kg_hr,3.2071917856415504
 centrate_kg_hr,240.4122483394852
 residual_liquor_kg_hr,238.92158146279831
 treated_water_kg_hr,0.0
@@ -38,12 +38,12 @@ feed_orthophosphate_p_kg_hr,0.0
 feed_particulate_p_kg_hr,0.0006322580645161287
 p_recovered_in_struvite_kg_hr,0.0
 p_recovered_in_calcium_phosphate_kg_hr,0.0
-p_remaining_in_solids_kg_hr,0.004109075755857078
+p_remaining_in_solids_kg_hr,0.0041090757558570785
 p_remaining_in_liquid_kg_hr,0.07353316783013455
 total_p_recovery_fraction,0.0024296009626923053
 theoretical_struvite_kg_hr_from_digestate_species,0.0
 feed_k_kg_hr,0.35604827740722805
-k_in_solids_kg_hr,0.004978662121259115
+k_in_solids_kg_hr,0.004978662121259116
 k_in_centrate_kg_hr,0.351069615285969
 k_in_concentrate_kg_hr,0.0
 k_in_treated_water_kg_hr,0.0
@@ -57,7 +57,7 @@ hydrochloric_acid_kg_hr,0.0
 sodium_chloride_kg_hr,0.0
 struvite_product_kg_hr,0.0
 calcium_phosphate_products_kg_hr,0.0
-phosphorus_product_moisture_fraction,0.25000000000000006
+phosphorus_product_moisture_fraction,0.25
 phosphorus_product_target_mineral_purity_dry_fraction,0.0
 ammonium_salt_kg_hr,1.5955786687313684
 ammonium_salt_mass_fraction,0.28341621312744963
@@ -97,8 +97,8 @@ t701_mixer_electricity,0.03248259201668357
 t701_released_gas,0.0
 s701_feed_throughput,0.24361944012512673
 s701_captured_dry_particulate,0.64143835712831
-s701_liquid_entrainment,0.010722949825127557
-s701_cake_moisture,0.7999999999999999
+s701_liquid_entrainment,0.01072294982512756
+s701_cake_moisture,0.8
 s701_dry_solids_capture,0.1477079791369707
 s701_electricity,0.12180972006256337
 r711_liquid_throughput,0.24046033079005727
@@ -112,10 +112,10 @@ r711_magnesium_reagent,0.0
 r711_base_reagent,0.02404122483394852
 r711_mixer_electricity,0.012023016539502863
 s711_dry_product,0.048304904786737685
-s711_product_moisture,0.25000000000000006
+s711_product_moisture,0.25
 s711_target_mineral_purity,0.0
 s711_crystal_recovery,0.95
-s711_liquid_entrainment,6.801540543251653e-05
+s711_liquid_entrainment,6.801540543251652e-05
 s711_electricity,0.0009660980957347538
 w711_dry_product_feed,0.048304904786737685
 w711_wash_water,0.0
@@ -124,7 +124,7 @@ w711_target_mineral_loss,0.0
 w711_electricity,0.0
 d711_wet_feed,0.06440653971565025
 d711_water_evaporated,0.0
-d711_final_moisture,0.25000000000000006
+d711_final_moisture,0.25
 d711_drying_temperature,35.0
 d711_gross_heat_duty,0.0
 d711_fan_electricity,0.0
@@ -142,7 +142,7 @@ a721_free_ammonia_fraction,0.9939492244137548
 a721_apparent_transfer_units,4.75582431999885
 a721_tan_removal,0.9911474337859977
 a721_ammonia_stripped,0.4154399013278463
-a721_carbon_dioxide_stripped,0.1151027493311917
+a721_carbon_dioxide_stripped,0.11510274933119166
 a721_water_vaporized,1.1841960641397329
 a721_packing_height,6.0
 a721_column_diameter,0.005972016024034409
@@ -162,9 +162,9 @@ v722_residence_time,24.0
 v722_working_mass,135.11537546489072
 mass_balance_error_kg_hr,-3.9093492887332104e-09
 water_balance_error_kg_hr,-2.842170943040401e-14
-carbon_balance_error_kg_hr,0.0
+carbon_balance_error_kg_hr,-2.220446049250313e-16
 nitrogen_balance_error_kg_hr,0.0
-phosphorus_balance_error_kg_hr,0.0
+phosphorus_balance_error_kg_hr,-1.3877787807814457e-17
 potassium_balance_error_kg_hr,0.0
 magnesium_balance_error_kg_hr,0.0
 calcium_balance_error_kg_hr,0.0

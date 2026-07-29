@@ -1,6 +1,8 @@
-# GreenHub BioSTEAM Model - Phase 7
+# GreenHub Integrated BioSTEAM Model - Alpha
 
-This repository contains the modular GreenHub model through liquid-fraction characterization, front-end separation, protein recovery, anaerobic digestion, biogas conditioning/upgrading, digestate processing, and nutrient recovery. Phase 7 produces transparent engineering inventories for later TEA, LCA, uncertainty analysis, regulatory review, and MCDA. It does not rank configurations or claim a commercial design.
+This repository contains one connected GreenHub model covering feed characterization, preparation and primary separation, protein recovery, anaerobic digestion, biogas conditioning/upgrading, digestate processing, and nutrient recovery. It produces transparent engineering inventories for later TEA, LCA, uncertainty analysis, regulatory review, and MCDA. It does not rank configurations or claim a commercial design.
+
+The current alpha restoration keeps historically named `phaseX_*` modules as tested compatibility layers. New code should use `create_integrated_greenhub_system()` and meaningful process-area views rather than treating development phases as separate plants. Audit evidence, Git findings, dataset readiness, and the restoration plan are under [docs/audit](docs/audit/).
 
 ## System Boundary
 
@@ -22,7 +24,19 @@ Measured liquid or roadside-grass front end
 
 The current repository does not contain the CHP and plant-wide utility network described as completed in the Phase 7 specification. `BG1` is still inactive and Phase 6 explicitly defers CHP. Phase 7 therefore calculates gross duties and exposes bounded heat/electricity interfaces, but defaults both recovered heat and CHP electricity to zero.
 
-## Phase 7 Scenarios
+## Integrated Interface
+
+```python
+from Greenhub import create_integrated_greenhub_system
+
+model = create_integrated_greenhub_system().simulate()
+protein_area = model.process_areas["protein_recovery"]
+print(model.system.ID, protein_area.units, model.validation_report.report)
+```
+
+The returned object exposes `system`, `flowsheet`, `process_areas`, `units`, `streams`, `feed_specification`, `scenario_configuration`, `warnings`, `assumptions`, `validation_report`, `metrics`, `report_paths`, `dataset_provenance`, and `model_completeness`. `create_greenhub_system()` remains unchanged for compatibility and still means the historical T101/S101 foundation only.
+
+## Nutrient-Recovery Scenarios
 
 | ID | Active route |
 |---|---|
@@ -63,14 +77,14 @@ A Graphviz failure is reported without discarding a valid simulation or blocking
 
 Edit [greenhub_feed_inputs.xlsx](Greenhub/data/greenhub_feed_inputs.xlsx). [greenhub_feed_inputs_phase6_backup.xlsx](Greenhub/data/greenhub_feed_inputs_phase6_backup.xlsx) preserves the workbook immediately before Phase 7 was added.
 
-`ModelControl` selects the month and F/PR/AD/BG/NR chain. Phase 7 controls are:
+`ModelControl` selects the month and F/PR/AD/BG/NR chain. Nutrient-recovery controls are:
 
 - `selected_phase7_scenario`, default `NR4`;
 - `selected_phase7_process_order`, default `A`;
 - `phase7_structural_test_mode`, default `TRUE`;
 - `phase7_input_basis`, default `structural_test`.
 
-`Phase7Parameters` is a consolidated 130-row register. This follows the existing project architecture instead of adding ten small sheets. It includes values, units, bounds, scenario/month applicability, provenance, quality class, required status, calculation method, and limitation ID.
+`Phase7Parameters` is the historical workbook name for a consolidated 130-row nutrient-recovery register. It includes values, units, bounds, scenario/month applicability, provenance, quality class, required status, calculation method, and limitation ID.
 
 All supplied Phase 7 values are quality-class `E` assumptions. Required blanks are never silently changed to zero. Optional missing laboratory fields remain missing and do not create material. Replace class-E values before design, economic, regulatory, or configuration-selection interpretation.
 
@@ -114,6 +128,10 @@ Existing BioSTEAM cost warnings remain visible. At the structural scale, the Pha
 `python -m Greenhub.main` writes under `Greenhub/results/`:
 
 - `phase7_flowsheet.png`;
+- `integrated_greenhub_flowsheet.png`;
+- `integrated_greenhub_report.xlsx`;
+- `integrated_process_area_summary.csv`;
+- `model_completeness.csv` and `docs/audit/model_completeness.md`;
 - `phase7_nutrient_recovery_report.xlsx`;
 - `phase7_scenario_comparison.xlsx`;
 - `phase7_limitations_and_data_needs.xlsx`;
@@ -126,6 +144,9 @@ The comparison workbook reports common engineering metrics but contains no score
 
 ```text
 Greenhub/
+|-- integration.py            Canonical integrated facade and process-area views
+|-- integrated_reporting.py   Process-area and complete-plant report
+|-- model_completeness.py     Unit-level maturity and missing-data register
 |-- phase7_inputs.py           Workbook controls, quality gates, and provenance
 |-- phase7_specifications.py   Pure stoichiometry, transfer, sizing, and pressure equations
 |-- phase7_units.py            T701 through V741 BioSTEAM unit models
@@ -136,8 +157,10 @@ Greenhub/
 |-- phase7_reporting.py        CSV and Excel outputs
 |-- scenarios.py               F, PR, AD, BG, and NR scenario definitions
 |-- systems.py                 Existing factories plus lazy Phase 7 entry points
-`-- main.py                    Integrated Phase 7 executable
+`-- main.py                    Integrated executable with compatibility reports
 ```
+
+See [architecture](docs/architecture.md), [process areas](docs/process_areas.md), [scenario reference](docs/scenario_reference.md), and [migration guide](docs/migration_from_phase_architecture.md).
 
 ## Missing Data And Simplifications
 
