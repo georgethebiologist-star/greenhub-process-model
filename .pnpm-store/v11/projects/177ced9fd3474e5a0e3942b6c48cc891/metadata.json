@@ -1,0 +1,8 @@
+{
+  "name": "GreenHub BioSTEAM Process Model",
+  "description": "Integrated bioprocess engineering simulation platform covering biomass fractionation, protein recovery, anaerobic digestion, biomethane upgrading, and nutrient recovery.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
