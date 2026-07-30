@@ -279,6 +279,31 @@ def _load_scenario_controls(
     return definitions, candidates
 
 
+def _seasonal_storage_control() -> CanonicalParameter:
+    """Expose storage capacity without inventing a default or source candidate."""
+
+    return CanonicalParameter(
+        parameter_id="seasonal.storage_capacity_kg",
+        display_name="Seasonal biomass storage capacity",
+        description="Maximum wet-biomass inventory. Leave null for an explicitly unbounded structural fallback.",
+        process_area="feedstock_and_characterization",
+        unit_operation="seasonal biomass storage",
+        normalized_unit="kg",
+        data_type="number",
+        evidence_class=ValueStatus.MISSING,
+        physical_lower_bound=0.0,
+        editability_category=EditabilityCategory.EQUIPMENT_DESIGN,
+        editable_mode=EditableMode.DESIGN,
+        rebuild_required=False,
+        readiness_state=ReadinessState.D1,
+        activation_state=ActivationState.ACTIVE,
+        warnings=("No project storage capacity is available; an explicit override is required to calculate overflow.",),
+        input_type="number",
+        affected_outputs=("storage_inventory_series", "throughput_series", "seasonal_summary"),
+        affected_plots=("SEASONAL-INVENTORY",),
+    )
+
+
 def _literature_precipitation_candidate() -> ParameterCandidate:
     quarantine = pd.read_csv(QUARANTINE_PATH)
     blocked = quarantine[
@@ -334,6 +359,7 @@ def _cached_registry(path_text: str, mtime_ns: int, size: int) -> ParameterRegis
     parameters, candidates = _load_workbook_records(workbook)
     control_parameters, control_candidates = _load_scenario_controls(workbook)
     parameters.extend(control_parameters)
+    parameters.append(_seasonal_storage_control())
     candidates.extend(control_candidates)
     candidates.append(_literature_precipitation_candidate())
     updated = []

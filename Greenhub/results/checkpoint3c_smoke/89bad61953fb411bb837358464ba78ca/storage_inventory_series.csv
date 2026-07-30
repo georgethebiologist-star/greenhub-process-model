@@ -1,0 +1,2 @@
+time,inventory_entering_kg,biomass_received_kg,biomass_withdrawn_kg,inventory_remaining_kg,storage_age_h,overflow_kg,unmet_process_demand_kg,water_loss_kg,dry_matter_loss_kg,degradation_status,storage_mass_residual_kg
+2026-06,0.0,380000.0,380000.0,0.0,0.0,0.0,0.0,0.0,0.0,not_implemented_no_eligible_data,0.0

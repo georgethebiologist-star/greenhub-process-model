@@ -1,6 +1,7 @@
 # Dynamic Model Strategy
 
-Status: solver-independent design; no dynamic scientific model activated.
+Status: Checkpoint 3C activates deterministic L4 seasonal inventory and time-profile
+simulation. No calibrated continuous dynamic scientific model is activated.
 
 ## Resolution Policy
 
@@ -18,24 +19,25 @@ Use the lowest defensible level for each operation:
 Mixers and mathematical splitters remain algebraic unless physical inventory is added.
 Connecting a time-series CSV does not by itself increase model level.
 
-## Planned Layer
+## Implemented Checkpoint 3C Layer
 
 ```text
-Greenhub/dynamics/
-    state.py
-    time_grid.py
-    integrators.py
-    schedules.py
-    events.py
-    controllers.py
-    storage.py
-    results.py
+Greenhub/time_grid.py
+Greenhub/feed_profiles.py
+Greenhub/storage_inventory.py
+Greenhub/application/feed_profile_service.py
+Greenhub/application/seasonal_service.py
 ```
 
-The layer will support steady-state, monthly-independent, quasi-dynamic, batch,
-continuous-dynamic, and hybrid-sequential modes. `main.py` will not contain scientific
-time loops. SciPy 1.18.0 is installed, but an ODE integrator will be used only after an
-equation package and all required inputs pass their gates.
+The controller supports monthly and daily quasi-dynamic grids. Each nonzero time step
+rebuilds and simulates the existing integrated model, scales only the feed, evaluates
+eligible unit capacities, and propagates a conserved storage inventory. It does not
+place scientific time loops in `main.py`. Continuous-dynamic, batch, and hybrid modes
+remain blocked until approved equations and required inputs pass their gates.
+
+Profiles may be direct masses, normalized weights scaled to an explicit annual target,
+CSV records, or the existing master workbook. Missing profile periods contribute zero
+with a warning. Monthly workbook data are not interpolated into daily values.
 
 ## Dynamic State Contract
 
@@ -63,5 +65,8 @@ relationship. Events and controller actions are explicit records.
 7. Adsorption/ion-exchange breakthrough and ammonia stripping response.
 8. Plant-wide utility demand and equipment availability.
 
-Checkpoint 1 adds no dynamic state. The existing monthly-independent steady states are
-the compatibility reference for later steady-state-equivalence tests.
+Checkpoint 3C preserves the existing steady-state and monthly-independent paths as
+compatibility references. Storage capacity has no invented default: an omitted
+`seasonal.storage_capacity_kg` means unbounded storage and produces a warning. Storage
+degradation, water and dry-matter loss, growth, and weather response are reported as
+not implemented because no eligible project data or approved equations are available.

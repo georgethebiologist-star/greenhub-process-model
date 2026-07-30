@@ -1,0 +1,30 @@
+[
+  {
+    "residual_output_kg": 221066.73487137057,
+    "time": "2026-05"
+  },
+  {
+    "residual_output_kg": 262516.7476597525,
+    "time": "2026-06"
+  },
+  {
+    "residual_output_kg": 290150.08951867383,
+    "time": "2026-07"
+  },
+  {
+    "residual_output_kg": 276333.4185892131,
+    "time": "2026-08"
+  },
+  {
+    "residual_output_kg": 227975.07033610085,
+    "time": "2026-09"
+  },
+  {
+    "residual_output_kg": 179616.7220829885,
+    "time": "2026-10"
+  },
+  {
+    "residual_output_kg": 138166.7092946065,
+    "time": "2026-11"
+  }
+]

@@ -1,5 +1,89 @@
 {
   "$defs": {
+    "initial_storage_inventory": {
+      "additionalProperties": false,
+      "properties": {
+        "component_mass_fractions": {
+          "additionalProperties": {
+            "minimum": 0,
+            "type": "number"
+          },
+          "type": "object"
+        },
+        "moisture_fraction": {
+          "maximum": 1,
+          "minimum": 0,
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "storage_age_h": {
+          "default": 0,
+          "minimum": 0,
+          "type": "number"
+        },
+        "temperature_k": {
+          "exclusiveMinimum": 0,
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "total_mass_kg": {
+          "default": 0,
+          "minimum": 0,
+          "type": "number"
+        }
+      },
+      "type": "object"
+    },
+    "operating_schedule": {
+      "additionalProperties": false,
+      "properties": {
+        "operating_dates": {
+          "items": {
+            "format": "date",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "operating_days_per_week": {
+          "maximum": 7,
+          "minimum": 0,
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "operating_hours_per_day": {
+          "maximum": 24,
+          "minimum": 0,
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "shutdown_dates": {
+          "items": {
+            "format": "date",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "target_throughput_kg_hr": {
+          "minimum": 0,
+          "type": [
+            "number",
+            "null"
+          ]
+        }
+      },
+      "type": [
+        "object",
+        "null"
+      ]
+    },
     "parameter_override": {
       "additionalProperties": false,
       "properties": {
@@ -104,6 +188,13 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "additionalProperties": false,
   "properties": {
+    "annual_biomass_target": {
+      "exclusiveMinimum": 0,
+      "type": [
+        "number",
+        "null"
+      ]
+    },
     "calculation_mode": {
       "default": "structural",
       "enum": [
@@ -117,6 +208,13 @@
     },
     "design_overrides": {
       "$ref": "#/$defs/parameter_overrides"
+    },
+    "end_date": {
+      "format": "date",
+      "type": [
+        "string",
+        "null"
+      ]
     },
     "expert_scientific_overrides": {
       "$ref": "#/$defs/parameter_overrides"
@@ -134,8 +232,20 @@
     "feed_overrides": {
       "$ref": "#/$defs/parameter_overrides"
     },
+    "feed_supply_profile_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "initial_storage_inventory": {
+      "$ref": "#/$defs/initial_storage_inventory"
+    },
     "operating_overrides": {
       "$ref": "#/$defs/parameter_overrides"
+    },
+    "operating_schedule": {
+      "$ref": "#/$defs/operating_schedule"
     },
     "project_id": {
       "minLength": 1,
@@ -214,6 +324,13 @@
         "null"
       ]
     },
+    "start_date": {
+      "format": "date",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
     "strict_validation": {
       "default": true,
       "type": "boolean"
@@ -231,6 +348,17 @@
       ],
       "type": [
         "array",
+        "null"
+      ]
+    },
+    "time_step": {
+      "enum": [
+        "monthly",
+        "daily",
+        null
+      ],
+      "type": [
+        "string",
         "null"
       ]
     },

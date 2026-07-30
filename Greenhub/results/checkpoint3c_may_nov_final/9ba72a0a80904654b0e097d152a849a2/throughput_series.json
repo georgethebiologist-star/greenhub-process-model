@@ -1,0 +1,72 @@
+[
+  {
+    "actual_throughput_kg": 320000.0,
+    "actual_throughput_kg_hr": 430.10752688172045,
+    "available_operating_hours": 744.0,
+    "backlog_kg": 0.0,
+    "idle_capacity_kg": 1168000.0,
+    "maximum_throughput_kg": 1488000.0,
+    "rejected_or_overflow_kg": 0.0,
+    "time": "2026-05"
+  },
+  {
+    "actual_throughput_kg": 380000.0,
+    "actual_throughput_kg_hr": 527.7777777777778,
+    "available_operating_hours": 720.0,
+    "backlog_kg": 0.0,
+    "idle_capacity_kg": 1060000.0000000002,
+    "maximum_throughput_kg": 1440000.0000000002,
+    "rejected_or_overflow_kg": 0.0,
+    "time": "2026-06"
+  },
+  {
+    "actual_throughput_kg": 420000.0,
+    "actual_throughput_kg_hr": 564.516129032258,
+    "available_operating_hours": 744.0,
+    "backlog_kg": 0.0,
+    "idle_capacity_kg": 1067999.9999999998,
+    "maximum_throughput_kg": 1487999.9999999998,
+    "rejected_or_overflow_kg": 0.0,
+    "time": "2026-07"
+  },
+  {
+    "actual_throughput_kg": 400000.0,
+    "actual_throughput_kg_hr": 537.6344086021505,
+    "available_operating_hours": 744.0,
+    "backlog_kg": 0.0,
+    "idle_capacity_kg": 1088000.0,
+    "maximum_throughput_kg": 1488000.0,
+    "rejected_or_overflow_kg": 0.0,
+    "time": "2026-08"
+  },
+  {
+    "actual_throughput_kg": 330000.0,
+    "actual_throughput_kg_hr": 458.3333333333333,
+    "available_operating_hours": 720.0,
+    "backlog_kg": 0.0,
+    "idle_capacity_kg": 1109999.9999999998,
+    "maximum_throughput_kg": 1439999.9999999998,
+    "rejected_or_overflow_kg": 0.0,
+    "time": "2026-09"
+  },
+  {
+    "actual_throughput_kg": 260000.0,
+    "actual_throughput_kg_hr": 349.4623655913978,
+    "available_operating_hours": 744.0,
+    "backlog_kg": 0.0,
+    "idle_capacity_kg": 1227999.9999999998,
+    "maximum_throughput_kg": 1487999.9999999998,
+    "rejected_or_overflow_kg": 0.0,
+    "time": "2026-10"
+  },
+  {
+    "actual_throughput_kg": 200000.0,
+    "actual_throughput_kg_hr": 277.77777777777777,
+    "available_operating_hours": 720.0,
+    "backlog_kg": 0.0,
+    "idle_capacity_kg": 1239999.9999999998,
+    "maximum_throughput_kg": 1439999.9999999998,
+    "rejected_or_overflow_kg": 0.0,
+    "time": "2026-11"
+  }
+]

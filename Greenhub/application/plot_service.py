@@ -15,7 +15,9 @@ class PlotService:
     def __init__(self, repository=None) -> None:
         self.repository = repository
 
-    def specifications(self, run_id: str, scenario: str, literature_pr1: bool) -> tuple[PlotSpecification, ...]:
+    def specifications(
+        self, run_id: str, scenario: str, literature_pr1: bool, seasonal=None
+    ) -> tuple[PlotSpecification, ...]:
         common = dict(scenario=scenario, run_id=run_id, warnings=(), availability_status="available")
         plots = [
             PlotSpecification(
@@ -35,6 +37,18 @@ class PlotService:
                 "DATA-READINESS", "Dataset readiness distribution", "data_governance",
                 "Readiness class", "Dataset count", None, "count", ("dataset_readiness",), **common,
             ),
+            PlotSpecification(
+                "STATE-FLOW", "Process-state flow by active unit", "integrated_system",
+                "Unit", "Flow", None, "kg/hr", ("process_state_snapshots.flow_kg_hr",), **common,
+            ),
+            PlotSpecification(
+                "STATE-COD", "COD fate by active unit", "integrated_system",
+                "Unit", "COD", None, "kg/hr", ("component_fate.cod_kg_hr",), **common,
+            ),
+            PlotSpecification(
+                "INVENTORY-EVOLUTION", "Quasi-dynamic inventory evolution", "integrated_system",
+                "Inventory", "Final inventory", None, "kg", ("inventory_evolution.final_kg",), **common,
+            ),
         ]
         plots.append(
             PlotSpecification(
@@ -49,6 +63,51 @@ class PlotService:
                 availability_status="available" if literature_pr1 else "unavailable_scenario",
             )
         )
+        if seasonal is not None:
+            plots.extend(self._seasonal_specifications(run_id, scenario, seasonal))
+        return tuple(plots)
+
+    @staticmethod
+    def _seasonal_specifications(run_id: str, scenario: str, seasonal) -> tuple[PlotSpecification, ...]:
+        common = dict(scenario=scenario, run_id=run_id, warnings=(), availability_status="available")
+
+        def spec(plot_id, title, y_label, y_unit, fields, area="integrated_system"):
+            return PlotSpecification(
+                plot_id, title, area, "Time", y_label, None, y_unit, tuple(fields), **common
+            )
+
+        plots = [
+            spec("SEASONAL-FEED", "Biomass available and collected", "Wet biomass", "kg", ("feed_supply_series",), "feedstock_and_characterization"),
+            spec("SEASONAL-PROCESSED", "Biomass processed and unprocessed", "Wet biomass", "kg", ("throughput_series", "storage_inventory_series"), "feedstock_and_characterization"),
+            spec("SEASONAL-INVENTORY", "Storage inventory", "Wet inventory", "kg", ("storage_inventory_series.inventory_remaining_kg",), "feedstock_and_characterization"),
+            spec("SEASONAL-STORAGE-AGE", "Storage age", "Average storage age", "h", ("storage_inventory_series.storage_age_h",), "feedstock_and_characterization"),
+            spec("SEASONAL-THROUGHPUT", "Process throughput", "Throughput", "kg/hr", ("throughput_series.actual_throughput_kg_hr",)),
+            spec("SEASONAL-MASS-RESIDUAL", "Seasonal mass-balance residual", "Residual", "kg", ("balance_residual_series.overall_mass_residual_kg",)),
+        ]
+        if seasonal.capacity_utilization_series:
+            plots.append(spec("SEASONAL-UTILIZATION", "Unit capacity utilization", "Utilization", "fraction", ("capacity_utilization_series",)))
+        if any(item["bottleneck_unit"] for item in seasonal.bottleneck_series):
+            plots.append(spec("SEASONAL-BOTTLENECK", "Bottleneck unit over time", "Bottleneck indicator", "binary", ("bottleneck_series",)))
+        product_names = sorted({name for row in seasonal.product_series for name, value in row["products_kg"].items() if value > 0.0})
+        if product_names:
+            plots.append(spec("SEASONAL-PRODUCTS", "Product generation", "Product mass", "kg", ("product_series",)))
+        if "dry_protein_product" in product_names:
+            plots.append(spec("SEASONAL-PROTEIN", "Protein production", "Dry protein product", "kg", ("product_series.dry_protein_product",), "protein_recovery"))
+        if "biomethane" in product_names:
+            plots.append(spec("SEASONAL-BIOMETHANE", "Biomethane production", "Biomethane", "kg", ("product_series.biomethane",), "biogas_conditioning_and_upgrading"))
+        nutrients = {"phosphorus_product", "ammonium_product", "potassium_concentrate", "nutrient_rich_solids"}
+        if nutrients & set(product_names):
+            plots.append(spec("SEASONAL-NUTRIENTS", "Nutrient product generation", "Product mass", "kg", ("product_series",), "digestate_treatment_and_nutrient_recovery"))
+        for key, plot_id, title in (
+            ("electricity_kwh", "SEASONAL-ELECTRICITY", "Electricity demand"),
+            ("heating_kwh", "SEASONAL-HEATING", "Heating demand"),
+            ("cooling_kwh", "SEASONAL-COOLING", "Cooling demand"),
+        ):
+            if any(float(item[key]) > 0.0 for item in seasonal.utility_series):
+                plots.append(spec(plot_id, title, "Energy", "kWh", (f"utility_series.{key}",), "shared_utilities_and_supporting_operations"))
+        elements = {name for row in seasonal.balance_residual_series for name in row["element_residuals_kg"]}
+        if elements & {"carbon", "nitrogen", "phosphorus", "potassium"}:
+            plots.append(spec("SEASONAL-ELEMENT-RESIDUALS", "C/N/P/K balance residuals", "Residual", "kg", ("balance_residual_series.element_residuals_kg",)))
         return tuple(plots)
 
     def build_plot_data(self, result, plot_id: str) -> PlotData:
@@ -96,9 +155,94 @@ class PlotService:
             unit = next(item for item in result.units if item.unit_id == "R401")
             recovery = unit.design_results["Acid recovery"].value
             series = (PlotSeries("recovery", "Recovery", (result.selected_scenarios.protein_recovery,), (recovery,)),)
+        elif plot_id == "STATE-FLOW":
+            series = (PlotSeries("flow", "Flow", tuple(x["unit_id"] for x in result.process_state_snapshots), tuple(x["flow_kg_hr"] for x in result.process_state_snapshots)),)
+        elif plot_id == "STATE-COD":
+            series = (PlotSeries("cod", "COD", tuple(x["unit_id"] for x in result.component_fate), tuple(x["cod_kg_hr"] for x in result.component_fate)),)
+        elif plot_id == "INVENTORY-EVOLUTION":
+            series = (PlotSeries("inventory", "Final inventory", tuple(x["inventory_id"] for x in result.inventory_evolution), tuple(x["final_kg"] for x in result.inventory_evolution)),)
+        elif plot_id.startswith("SEASONAL-"):
+            series = self._build_seasonal_plot(result, plot_id)
         else:
             series = ()
         return PlotData(specification, series)
+
+    @staticmethod
+    def _build_seasonal_plot(result, plot_id: str) -> tuple[PlotSeries, ...]:
+        if plot_id == "SEASONAL-FEED":
+            rows = result.feed_supply_series
+            x = tuple(item["time"] for item in rows)
+            return (
+                PlotSeries("available", "Available", x, tuple(item["available_wet_biomass_kg"] for item in rows)),
+                PlotSeries("collected", "Collected", x, tuple(item["collected_biomass_kg"] for item in rows)),
+            )
+        if plot_id == "SEASONAL-PROCESSED":
+            rows = result.throughput_series
+            x = tuple(item["time"] for item in rows)
+            return (
+                PlotSeries("processed", "Processed", x, tuple(item["actual_throughput_kg"] for item in rows)),
+                PlotSeries("unprocessed", "Ending inventory", x, tuple(item["backlog_kg"] for item in rows)),
+            )
+        if plot_id in {"SEASONAL-INVENTORY", "SEASONAL-STORAGE-AGE"}:
+            key = "inventory_remaining_kg" if plot_id.endswith("INVENTORY") else "storage_age_h"
+            rows = result.storage_inventory_series
+            return (PlotSeries(key, key.replace("_", " ").title(), tuple(item["time"] for item in rows), tuple(item[key] for item in rows)),)
+        if plot_id == "SEASONAL-THROUGHPUT":
+            rows = result.throughput_series
+            return (PlotSeries("throughput", "Throughput", tuple(item["time"] for item in rows), tuple(item["actual_throughput_kg_hr"] for item in rows)),)
+        if plot_id == "SEASONAL-UTILIZATION":
+            rows = result.capacity_utilization_series
+            times = tuple(item["time"] for item in result.throughput_series)
+            return tuple(
+                PlotSeries(unit, unit, times, tuple(next((row["utilization"] for row in rows if row["time"] == time and row["unit_id"] == unit), 0.0) for time in times))
+                for unit in sorted({item["unit_id"] for item in rows})
+            )
+        if plot_id == "SEASONAL-BOTTLENECK":
+            rows = result.bottleneck_series
+            return tuple(
+                PlotSeries(unit, unit, tuple(item["time"] for item in rows), tuple(1.0 if item["bottleneck_unit"] == unit else 0.0 for item in rows))
+                for unit in sorted({item["bottleneck_unit"] for item in rows if item["bottleneck_unit"]})
+            )
+        if plot_id in {"SEASONAL-PRODUCTS", "SEASONAL-PROTEIN", "SEASONAL-BIOMETHANE", "SEASONAL-NUTRIENTS"}:
+            rows = result.product_series
+            names = sorted({name for item in rows for name, value in item["products_kg"].items() if value > 0.0})
+            filters = {
+                "SEASONAL-PROTEIN": {"dry_protein_product"},
+                "SEASONAL-BIOMETHANE": {"biomethane"},
+                "SEASONAL-NUTRIENTS": {"phosphorus_product", "ammonium_product", "potassium_concentrate", "nutrient_rich_solids"},
+            }
+            if plot_id in filters:
+                names = [name for name in names if name in filters[plot_id]]
+            return tuple(
+                PlotSeries(name, name.replace("_", " ").title(), tuple(item["time"] for item in rows), tuple(item["products_kg"].get(name, 0.0) for item in rows))
+                for name in names
+            )
+        utility_keys = {
+            "SEASONAL-ELECTRICITY": "electricity_kwh",
+            "SEASONAL-HEATING": "heating_kwh",
+            "SEASONAL-COOLING": "cooling_kwh",
+        }
+        if plot_id in utility_keys:
+            key = utility_keys[plot_id]
+            rows = result.utility_series
+            return (PlotSeries(key, key.replace("_", " ").title(), tuple(item["time"] for item in rows), tuple(item[key] for item in rows)),)
+        if plot_id == "SEASONAL-MASS-RESIDUAL":
+            rows = result.balance_residual_series
+            return (PlotSeries("mass_residual", "Mass residual", tuple(item["time"] for item in rows), tuple(item["overall_mass_residual_kg"] for item in rows)),)
+        if plot_id == "SEASONAL-ELEMENT-RESIDUALS":
+            rows = result.balance_residual_series
+            symbols = {
+                "carbon": "C",
+                "nitrogen": "N",
+                "phosphorus": "P",
+                "potassium": "K",
+            }
+            names = [name for name in symbols if any(name in item["element_residuals_kg"] for item in rows)]
+            return tuple(
+                PlotSeries(name, symbols[name], tuple(item["time"] for item in rows), tuple(item["element_residuals_kg"].get(name, 0.0) for item in rows))
+                for name in names
+            )
+        return ()
 
     def list_plots(self, run_id: str):
         return self._result(run_id).plots
@@ -151,7 +295,11 @@ class PlotService:
         figure, axis = plt.subplots(figsize=(9, 5.4))
         for series in data.series:
             positions = list(range(len(series.x)))
-            axis.bar(positions, [0.0 if value is None else value for value in series.y], label=series.label)
+            values = [0.0 if value is None else value for value in series.y]
+            if data.specification.plot_id.startswith("SEASONAL-"):
+                axis.plot(positions, values, marker="o", linewidth=2.0, label=series.label)
+            else:
+                axis.bar(positions, values, label=series.label)
             axis.set_xticks(positions, [str(value) for value in series.x], rotation=35, ha="right")
         axis.set_title(data.specification.title)
         axis.set_xlabel(data.specification.x_axis_label)

@@ -1,0 +1,70 @@
+{
+  "series": [
+    {
+      "label": "Ammonium Product",
+      "series_id": "ammonium_product",
+      "x": [
+        "2026-06"
+      ],
+      "y": [
+        3789.664578515268
+      ]
+    },
+    {
+      "label": "Biomethane",
+      "series_id": "biomethane",
+      "x": [
+        "2026-06"
+      ],
+      "y": [
+        392.08554373550044
+      ]
+    },
+    {
+      "label": "Dry Protein Product",
+      "series_id": "dry_protein_product",
+      "x": [
+        "2026-06"
+      ],
+      "y": [
+        3044.8206736091174
+      ]
+    },
+    {
+      "label": "Nutrient Rich Solids",
+      "series_id": "nutrient_rich_solids",
+      "x": [
+        "2026-06"
+      ],
+      "y": [
+        2158.8982419918543
+      ]
+    },
+    {
+      "label": "Phosphorus Product",
+      "series_id": "phosphorus_product",
+      "x": [
+        "2026-06"
+      ],
+      "y": [
+        43.35480216287769
+      ]
+    }
+  ],
+  "specification": {
+    "availability_status": "available",
+    "plot_id": "SEASONAL-PRODUCTS",
+    "process_area": "integrated_system",
+    "run_id": "89bad61953fb411bb837358464ba78ca",
+    "scenario": "F2/PR3/AD1/BG2/NR4",
+    "source_result_fields": [
+      "product_series"
+    ],
+    "title": "Product generation",
+    "warnings": [],
+    "x_axis_label": "Time",
+    "x_unit": null,
+    "y_axis_label": "Product mass",
+    "y_unit": "kg"
+  }
+}

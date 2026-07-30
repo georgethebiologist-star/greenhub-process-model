@@ -41,6 +41,30 @@ SCENARIO_SELECTION_SCHEMA = {
     },
 }
 
+OPERATING_SCHEDULE_SCHEMA = {
+    "type": ["object", "null"],
+    "additionalProperties": False,
+    "properties": {
+        "operating_days_per_week": {"type": ["number", "null"], "minimum": 0, "maximum": 7},
+        "operating_hours_per_day": {"type": ["number", "null"], "minimum": 0, "maximum": 24},
+        "target_throughput_kg_hr": {"type": ["number", "null"], "minimum": 0},
+        "operating_dates": {"type": "array", "items": {"type": "string", "format": "date"}},
+        "shutdown_dates": {"type": "array", "items": {"type": "string", "format": "date"}},
+    },
+}
+
+INITIAL_INVENTORY_SCHEMA = {
+    "type": "object",
+    "additionalProperties": False,
+    "properties": {
+        "total_mass_kg": {"type": "number", "minimum": 0, "default": 0},
+        "moisture_fraction": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+        "component_mass_fractions": {"type": "object", "additionalProperties": {"type": "number", "minimum": 0}},
+        "temperature_k": {"type": ["number", "null"], "exclusiveMinimum": 0},
+        "storage_age_h": {"type": "number", "minimum": 0, "default": 0},
+    },
+}
+
 SIMULATION_REQUEST_SCHEMA = {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "simulation_request.schema.json",
@@ -107,6 +131,13 @@ SIMULATION_REQUEST_SCHEMA = {
         },
         "strict_validation": {"type": "boolean", "default": True},
         "user_notes": {"type": ["string", "null"]},
+        "start_date": {"type": ["string", "null"], "format": "date"},
+        "end_date": {"type": ["string", "null"], "format": "date"},
+        "time_step": {"type": ["string", "null"], "enum": ["monthly", "daily", None]},
+        "annual_biomass_target": {"type": ["number", "null"], "exclusiveMinimum": 0},
+        "operating_schedule": {"$ref": "#/$defs/operating_schedule"},
+        "initial_storage_inventory": {"$ref": "#/$defs/initial_storage_inventory"},
+        "feed_supply_profile_id": {"type": ["string", "null"]},
     },
     "$defs": {
         "scenario_selection": SCENARIO_SELECTION_SCHEMA,
@@ -115,6 +146,8 @@ SIMULATION_REQUEST_SCHEMA = {
             "type": "array",
             "items": {"$ref": "#/$defs/parameter_override"},
         },
+        "operating_schedule": OPERATING_SCHEDULE_SCHEMA,
+        "initial_storage_inventory": INITIAL_INVENTORY_SCHEMA,
     },
 }
 
@@ -225,6 +258,18 @@ SIMULATION_RESULT_SCHEMA = {
         "graph": {"$ref": "#/$defs/process_graph"},
         "export_references": {"type": "object", "additionalProperties": {"type": "string"}},
         "reproducibility_metadata": {"type": "object"},
+        "time_grid": {"type": "array", "items": {"type": "object"}},
+        "feed_supply_series": {"type": "array", "items": {"type": "object"}},
+        "storage_inventory_series": {"type": "array", "items": {"type": "object"}},
+        "throughput_series": {"type": "array", "items": {"type": "object"}},
+        "capacity_utilization_series": {"type": "array", "items": {"type": "object"}},
+        "bottleneck_series": {"type": "array", "items": {"type": "object"}},
+        "product_series": {"type": "array", "items": {"type": "object"}},
+        "residual_series": {"type": "array", "items": {"type": "object"}},
+        "utility_series": {"type": "array", "items": {"type": "object"}},
+        "balance_residual_series": {"type": "array", "items": {"type": "object"}},
+        "process_state_series": {"type": "array", "items": {"type": "object"}},
+        "seasonal_summary": {"type": ["object", "null"]},
     },
     "$defs": {
         "numerical_value": NUMERICAL_VALUE_SCHEMA,
@@ -249,6 +294,11 @@ RESULT_FIELDS = (
     ("graph", "ProcessGraph", None, "Frontend-ready unit and stream topology."),
     ("plots[]", "PlotSpecification", None, "Stable plot metadata and availability."),
     ("export_references", "object<string>", None, "Run-relative artifact references only."),
+    ("feed_supply_series[]", "object", "kg", "Available, collected, and uncollected wet biomass with provenance."),
+    ("storage_inventory_series[]", "object", "kg", "Storage receipts, withdrawals, overflow, inventory, and age."),
+    ("throughput_series[]", "object", "kg and kg/hr", "Scheduled, capacity-limited process throughput."),
+    ("capacity_utilization_series[]", "object", "fraction", "Eligible unit load, capacity, and utilization."),
+    ("seasonal_summary", "object", None, "Integrated seasonal feed, storage, product, utility, and balance totals."),
 )
 
 
@@ -258,7 +308,47 @@ PLOT_CATALOG = (
     {"plot_id": "SYS-UNIT-POWER", "process_area": "shared_utilities_and_supporting_operations", "x_unit": None, "y_unit": "kW", "availability": "available"},
     {"plot_id": "DATA-READINESS", "process_area": "data_governance", "x_unit": None, "y_unit": "count", "availability": "available"},
     {"plot_id": "PR-PRECIP-RECOVERY", "process_area": "protein_recovery", "x_unit": None, "y_unit": "fraction", "availability": "conditional: PR1 literature_default"},
+    {"plot_id": "SEASONAL-FEED", "process_area": "feedstock_and_characterization", "x_unit": None, "y_unit": "kg", "availability": "conditional: quasi_dynamic"},
+    {"plot_id": "SEASONAL-INVENTORY", "process_area": "feedstock_and_characterization", "x_unit": None, "y_unit": "kg", "availability": "conditional: quasi_dynamic"},
+    {"plot_id": "SEASONAL-THROUGHPUT", "process_area": "integrated_system", "x_unit": None, "y_unit": "kg/hr", "availability": "conditional: quasi_dynamic"},
+    {"plot_id": "SEASONAL-UTILIZATION", "process_area": "integrated_system", "x_unit": None, "y_unit": "fraction", "availability": "conditional: eligible capacity"},
+    {"plot_id": "SEASONAL-PRODUCTS", "process_area": "integrated_system", "x_unit": None, "y_unit": "kg", "availability": "conditional: calculated products"},
+    {"plot_id": "SEASONAL-ELECTRICITY", "process_area": "shared_utilities_and_supporting_operations", "x_unit": None, "y_unit": "kWh", "availability": "conditional: quasi_dynamic"},
+    {"plot_id": "SEASONAL-MASS-RESIDUAL", "process_area": "integrated_system", "x_unit": None, "y_unit": "kg", "availability": "conditional: quasi_dynamic"},
 )
+
+FEED_PROFILE_SCHEMA = {
+    "type": "object",
+    "additionalProperties": False,
+    "required": ["profile_id", "resolution", "points"],
+    "properties": {
+        "profile_id": {"type": "string", "minLength": 1},
+        "display_name": {"type": "string"},
+        "resolution": {"type": "string", "enum": ["monthly", "daily"]},
+        "normalized": {"type": "boolean", "default": False},
+        "provenance": {"type": "string"},
+        "warnings": {"type": "array", "items": {"type": "string"}},
+        "points": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": ["period"],
+                "properties": {
+                    "period": {"type": "string"},
+                    "available_wet_biomass_kg": {"type": ["number", "null"], "minimum": 0},
+                    "normalized_weight": {"type": ["number", "null"], "minimum": 0},
+                    "collection_fraction": {"type": "number", "minimum": 0, "maximum": 1},
+                    "moisture_fraction": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+                    "component_mass_fractions": {"type": "object", "additionalProperties": {"type": "number", "minimum": 0}},
+                    "temperature_k": {"type": ["number", "null"]},
+                    "source": {"type": "string"},
+                    "provenance": {"type": ["string", "null"]},
+                    "warnings": {"type": "array", "items": {"type": "string"}},
+                },
+            },
+        },
+    },
+}
 
 PARAMETER_VALIDATION_REQUEST_SCHEMA = {
     "type": "object",
@@ -347,6 +437,11 @@ def openapi_schema() -> dict[str, object]:
     add("/api/v1/model/info", "GET", "modelInfo")
     add("/api/v1/scenarios", "GET", "listScenarios")
     add("/api/v1/process-areas", "GET", "listProcessAreas")
+    add("/api/v1/feed-profiles", "GET", "listFeedProfiles")
+    add(
+        "/api/v1/feed-profiles", "POST", "registerFeedProfile",
+        request_schema="FeedProfile", created=True,
+    )
     add("/api/v1/parameters", "GET", "listParameters")
     add("/api/v1/parameters/{parameter_id}", "GET", "getParameter")
     add(
@@ -364,6 +459,8 @@ def openapi_schema() -> dict[str, object]:
         ("utilities", "getSimulationUtilities"), ("validation", "getSimulationValidation"),
         ("graph", "getSimulationGraph"), ("plots", "listSimulationPlots"),
         ("provenance", "getSimulationProvenance"), ("exports", "getSimulationExports"),
+        ("time-series", "getSimulationTimeSeries"), ("inventory", "getSimulationInventory"),
+        ("utilization", "getSimulationUtilization"), ("seasonal-summary", "getSeasonalSummary"),
     ):
         add(f"/api/v1/simulations/{{run_id}}/{suffix}", "GET", operation)
     add("/api/v1/simulations/{run_id}/graph", "GET", "getSimulationGraph", response_schema="ProcessGraph")
@@ -391,6 +488,7 @@ def openapi_schema() -> dict[str, object]:
                 "SimulationResult": _component_schema("SimulationResult", SIMULATION_RESULT_SCHEMA),
                 "ProcessGraph": _component_schema("ProcessGraph", PROCESS_GRAPH_SCHEMA),
                 "ParameterValidationRequest": PARAMETER_VALIDATION_REQUEST_SCHEMA,
+                "FeedProfile": FEED_PROFILE_SCHEMA,
                 "Error": {
                     "type": "object",
                     "required": ["error"],

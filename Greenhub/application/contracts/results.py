@@ -200,6 +200,26 @@ class SimulationResult:
     graph: ProcessGraph
     export_references: dict[str, str]
     reproducibility_metadata: dict[str, object]
+    process_state_snapshots: tuple[dict[str, object], ...] = ()
+    process_state_history: tuple[dict[str, object], ...] = ()
+    unit_state_summaries: tuple[dict[str, object], ...] = ()
+    parameter_sensitivity: tuple[dict[str, object], ...] = ()
+    equation_usage: tuple[dict[str, object], ...] = ()
+    component_fate: tuple[dict[str, object], ...] = ()
+    utility_consumption: tuple[dict[str, object], ...] = ()
+    inventory_evolution: tuple[dict[str, object], ...] = ()
+    time_grid: tuple[dict[str, object], ...] = ()
+    feed_supply_series: tuple[dict[str, object], ...] = ()
+    storage_inventory_series: tuple[dict[str, object], ...] = ()
+    throughput_series: tuple[dict[str, object], ...] = ()
+    capacity_utilization_series: tuple[dict[str, object], ...] = ()
+    bottleneck_series: tuple[dict[str, object], ...] = ()
+    product_series: tuple[dict[str, object], ...] = ()
+    residual_series: tuple[dict[str, object], ...] = ()
+    utility_series: tuple[dict[str, object], ...] = ()
+    balance_residual_series: tuple[dict[str, object], ...] = ()
+    process_state_series: tuple[dict[str, object], ...] = ()
+    seasonal_summary: dict[str, object] | None = None
 
     def __post_init__(self) -> None:
         if self.schema_version != RESULT_SCHEMA_VERSION:

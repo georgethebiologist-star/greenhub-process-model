@@ -1,0 +1,58 @@
+# Python virtual environments
+.venv/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# VS Code local settings
+.vscode/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Operating-system files
+.DS_Store
+Thumbs.db
+
+# Logs and temporary files
+*.log
+temp/
+tmp/
+*.tmp
+
+# Generated outputs
+outputs/
+reports/generated/
+figures/generated/
+
+# Build files
+build/
+dist/
+*.egg-info/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Local databases
+*.db
+*.sqlite
+*.sqlite3
+
+# Future frontend packages
+node_modules/
+
+# Confidential datasets
+data/private/
+data/industry/
+data/raw_confidential/
+
+# Large local LCA databases
+*.zolca

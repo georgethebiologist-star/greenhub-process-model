@@ -3,6 +3,8 @@
 from .requests import (
     SCHEMA_VERSION,
     ParameterOverride,
+    InitialStorageInventory,
+    OperatingSchedule,
     RequestedOutput,
     RequestedPlot,
     ScenarioSelection,
@@ -13,6 +15,8 @@ from .results import *
 
 __all__ = (
     "ParameterOverride",
+    "InitialStorageInventory",
+    "OperatingSchedule",
     "RequestedOutput",
     "RequestedPlot",
     "SCHEMA_VERSION",

@@ -1,0 +1,15 @@
+series_id,label,x,y
+processed,Processed,2026-05,320000.0
+processed,Processed,2026-06,380000.0
+processed,Processed,2026-07,420000.0
+processed,Processed,2026-08,400000.0
+processed,Processed,2026-09,330000.0
+processed,Processed,2026-10,260000.0
+processed,Processed,2026-11,200000.0
+unprocessed,Ending inventory,2026-05,0.0
+unprocessed,Ending inventory,2026-06,0.0
+unprocessed,Ending inventory,2026-07,0.0
+unprocessed,Ending inventory,2026-08,0.0
+unprocessed,Ending inventory,2026-09,0.0
+unprocessed,Ending inventory,2026-10,0.0
+unprocessed,Ending inventory,2026-11,0.0

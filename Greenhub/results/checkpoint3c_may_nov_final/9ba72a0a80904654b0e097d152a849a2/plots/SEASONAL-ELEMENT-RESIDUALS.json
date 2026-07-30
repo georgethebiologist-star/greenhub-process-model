@@ -1,0 +1,108 @@
+{
+  "series": [
+    {
+      "label": "C",
+      "series_id": "carbon",
+      "x": [
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09",
+        "2026-10",
+        "2026-11"
+      ],
+      "y": [
+        0.0,
+        0.0,
+        -1.652011860642233e-13,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "label": "N",
+      "series_id": "nitrogen",
+      "x": [
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09",
+        "2026-10",
+        "2026-11"
+      ],
+      "y": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "label": "P",
+      "series_id": "phosphorus",
+      "x": [
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09",
+        "2026-10",
+        "2026-11"
+      ],
+      "y": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "label": "K",
+      "series_id": "potassium",
+      "x": [
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09",
+        "2026-10",
+        "2026-11"
+      ],
+      "y": [
+        0.0,
+        3.9968028886505635e-14,
+        0.0,
+        4.1300296516055823e-14,
+        0.0,
+        -2.0650148258027912e-14,
+        -3.9968028886505635e-14
+      ]
+    }
+  ],
+  "specification": {
+    "availability_status": "available",
+    "plot_id": "SEASONAL-ELEMENT-RESIDUALS",
+    "process_area": "integrated_system",
+    "run_id": "9ba72a0a80904654b0e097d152a849a2",
+    "scenario": "F2/PR3/AD1/BG2/NR4",
+    "source_result_fields": [
+      "balance_residual_series.element_residuals_kg"
+    ],
+    "title": "C/N/P/K balance residuals",
+    "warnings": [],
+    "x_axis_label": "Time",
+    "x_unit": null,
+    "y_axis_label": "Residual",
+    "y_unit": "kg"
+  }
+}

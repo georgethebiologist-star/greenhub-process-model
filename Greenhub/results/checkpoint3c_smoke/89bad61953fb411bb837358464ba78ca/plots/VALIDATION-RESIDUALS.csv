@@ -1,0 +1,13 @@
+series_id,label,x,y
+residual,Residual,overall_mass,-3.654861302493373e-09
+residual,Residual,element_carbon,0.0
+residual,Residual,element_hydrogen,3.552713678800501e-15
+residual,Residual,element_oxygen,2.842170943040401e-14
+residual,Residual,element_nitrogen,0.0
+residual,Residual,element_phosphorus,0.0
+residual,Residual,element_sulfur,-5.551115123125783e-17
+residual,Residual,element_potassium,5.551115123125783e-17
+residual,Residual,element_sodium,5.551115123125783e-17
+residual,Residual,element_magnesium,0.0
+residual,Residual,element_calcium,0.0
+residual,Residual,element_chloride,5.551115123125783e-17

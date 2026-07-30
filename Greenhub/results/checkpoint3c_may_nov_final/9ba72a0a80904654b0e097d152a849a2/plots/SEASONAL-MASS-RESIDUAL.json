@@ -1,0 +1,42 @@
+{
+  "series": [
+    {
+      "label": "Mass residual",
+      "series_id": "mass_residual",
+      "x": [
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09",
+        "2026-10",
+        "2026-11"
+      ],
+      "y": [
+        -2.216074790339917e-06,
+        -2.6315001377952285e-06,
+        -2.9085558708175085e-06,
+        -2.7700511964212637e-06,
+        -2.2852555048302747e-06,
+        -1.80051847564755e-06,
+        -1.385019459121395e-06
+      ]
+    }
+  ],
+  "specification": {
+    "availability_status": "available",
+    "plot_id": "SEASONAL-MASS-RESIDUAL",
+    "process_area": "integrated_system",
+    "run_id": "9ba72a0a80904654b0e097d152a849a2",
+    "scenario": "F2/PR3/AD1/BG2/NR4",
+    "source_result_fields": [
+      "balance_residual_series.overall_mass_residual_kg"
+    ],
+    "title": "Seasonal mass-balance residual",
+    "warnings": [],
+    "x_axis_label": "Time",
+    "x_unit": null,
+    "y_axis_label": "Residual",
+    "y_unit": "kg"
+  }
+}

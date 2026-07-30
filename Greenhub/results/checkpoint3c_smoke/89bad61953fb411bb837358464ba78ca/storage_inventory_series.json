@@ -1,0 +1,16 @@
+[
+  {
+    "biomass_received_kg": 380000.0,
+    "biomass_withdrawn_kg": 380000.0,
+    "degradation_status": "not_implemented_no_eligible_data",
+    "dry_matter_loss_kg": 0.0,
+    "inventory_entering_kg": 0.0,
+    "inventory_remaining_kg": 0.0,
+    "overflow_kg": 0.0,
+    "storage_age_h": 0.0,
+    "storage_mass_residual_kg": 0.0,
+    "time": "2026-06",
+    "unmet_process_demand_kg": 0.0,
+    "water_loss_kg": 0.0
+  }
+]

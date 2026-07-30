@@ -11,3 +11,8 @@ validation,ValidationSummary,,Blocking and warning validation findings.
 graph,ProcessGraph,,Frontend-ready unit and stream topology.
 plots[],PlotSpecification,,Stable plot metadata and availability.
 export_references,object<string>,,Run-relative artifact references only.
+feed_supply_series[],object,kg,"Available, collected, and uncollected wet biomass with provenance."
+storage_inventory_series[],object,kg,"Storage receipts, withdrawals, overflow, inventory, and age."
+throughput_series[],object,kg and kg/hr,"Scheduled, capacity-limited process throughput."
+capacity_utilization_series[],object,fraction,"Eligible unit load, capacity, and utilization."
+seasonal_summary,object,,"Integrated seasonal feed, storage, product, utility, and balance totals."

@@ -33,6 +33,23 @@ class ExportService:
         json_file("units.json", result.units)
         json_file("balances.json", result.balances)
         json_file("utilities.json", result.utilities)
+        for field_name in ("process_state_snapshots", "process_state_history", "unit_state_summaries", "parameter_sensitivity", "equation_usage", "component_fate", "utility_consumption", "inventory_evolution"):
+            json_file(f"{field_name}.json", getattr(result, field_name))
+        seasonal_fields = (
+            "time_grid", "feed_supply_series", "storage_inventory_series", "throughput_series",
+            "capacity_utilization_series", "bottleneck_series", "product_series", "residual_series",
+            "utility_series", "balance_residual_series", "process_state_series",
+        )
+        for field_name in seasonal_fields:
+            values = getattr(result, field_name)
+            json_file(f"{field_name}.json", values)
+            if values:
+                write_records_csv(
+                    root / f"{field_name}.csv",
+                    (to_json_compatible(item) for item in values),
+                )
+                references[f"{field_name}_csv"] = f"{field_name}.csv"
+        json_file("seasonal_summary.json", result.seasonal_summary)
         json_file("products.json", result.products)
         json_file("validation.json", result.validation)
         json_file("graph.json", result.graph)

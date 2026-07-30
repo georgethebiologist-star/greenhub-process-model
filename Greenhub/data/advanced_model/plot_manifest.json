@@ -33,5 +33,54 @@
     "process_area": "protein_recovery",
     "x_unit": null,
     "y_unit": "fraction"
+  },
+  {
+    "availability": "conditional: quasi_dynamic",
+    "plot_id": "SEASONAL-FEED",
+    "process_area": "feedstock_and_characterization",
+    "x_unit": null,
+    "y_unit": "kg"
+  },
+  {
+    "availability": "conditional: quasi_dynamic",
+    "plot_id": "SEASONAL-INVENTORY",
+    "process_area": "feedstock_and_characterization",
+    "x_unit": null,
+    "y_unit": "kg"
+  },
+  {
+    "availability": "conditional: quasi_dynamic",
+    "plot_id": "SEASONAL-THROUGHPUT",
+    "process_area": "integrated_system",
+    "x_unit": null,
+    "y_unit": "kg/hr"
+  },
+  {
+    "availability": "conditional: eligible capacity",
+    "plot_id": "SEASONAL-UTILIZATION",
+    "process_area": "integrated_system",
+    "x_unit": null,
+    "y_unit": "fraction"
+  },
+  {
+    "availability": "conditional: calculated products",
+    "plot_id": "SEASONAL-PRODUCTS",
+    "process_area": "integrated_system",
+    "x_unit": null,
+    "y_unit": "kg"
+  },
+  {
+    "availability": "conditional: quasi_dynamic",
+    "plot_id": "SEASONAL-ELECTRICITY",
+    "process_area": "shared_utilities_and_supporting_operations",
+    "x_unit": null,
+    "y_unit": "kWh"
+  },
+  {
+    "availability": "conditional: quasi_dynamic",
+    "plot_id": "SEASONAL-MASS-RESIDUAL",
+    "process_area": "integrated_system",
+    "x_unit": null,
+    "y_unit": "kg"
   }
 ]

@@ -60,7 +60,7 @@ class GreenHubAPI:
             method = str(environ.get("REQUEST_METHOD", "GET")).upper()
             path = unquote(str(environ.get("PATH_INFO", "/"))).rstrip("/") or "/"
             payload = self._dispatch(method, path, environ)
-            status = 201 if method == "POST" and path == "/api/v1/simulations" else 200
+            status = 201 if method == "POST" and path in {"/api/v1/simulations", "/api/v1/feed-profiles"} else 200
             return self._respond(start_response, status, payload)
         except APIError as error:
             return self._respond(start_response, error.status, self._error_payload(error))
@@ -93,6 +93,10 @@ class GreenHubAPI:
             return self.scenarios.list_scenarios()
         if method == "GET" and path == "/api/v1/process-areas":
             return self.scenarios.list_process_areas()
+        if method == "GET" and path == "/api/v1/feed-profiles":
+            return self.simulations.feed_profiles.list_profiles()
+        if method == "POST" and path == "/api/v1/feed-profiles":
+            return self.simulations.feed_profiles.register_mapping(dict(self._read_json(environ))).metadata()
         if method == "GET" and path == "/api/v1/parameters":
             return self._list_parameters(environ)
         if method == "POST" and path == "/api/v1/parameters/validate":
@@ -208,6 +212,10 @@ class GreenHubAPI:
             "plots": lambda: self.plots.list_plots(run_id),
             "provenance": lambda: self.results.get_provenance(run_id),
             "exports": lambda: self.results.get_exports(run_id),
+            "time-series": lambda: self.results.get_time_series(run_id),
+            "inventory": lambda: self.results.get_inventory(run_id),
+            "utilization": lambda: self.results.get_utilization(run_id),
+            "seasonal-summary": lambda: self.results.get_seasonal_summary(run_id),
         }
         try:
             return resources[resource]()

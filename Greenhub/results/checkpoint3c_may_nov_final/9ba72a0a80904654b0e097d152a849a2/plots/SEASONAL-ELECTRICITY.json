@@ -1,0 +1,42 @@
+{
+  "series": [
+    {
+      "label": "Electricity Kwh",
+      "series_id": "electricity_kwh",
+      "x": [
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09",
+        "2026-10",
+        "2026-11"
+      ],
+      "y": [
+        9968.068832237963,
+        11837.081738282584,
+        13083.090342312329,
+        12460.086040297454,
+        10279.5709832454,
+        8099.055926193347,
+        6230.043020148726
+      ]
+    }
+  ],
+  "specification": {
+    "availability_status": "available",
+    "plot_id": "SEASONAL-ELECTRICITY",
+    "process_area": "shared_utilities_and_supporting_operations",
+    "run_id": "9ba72a0a80904654b0e097d152a849a2",
+    "scenario": "F2/PR3/AD1/BG2/NR4",
+    "source_result_fields": [
+      "utility_series.electricity_kwh"
+    ],
+    "title": "Electricity demand",
+    "warnings": [],
+    "x_axis_label": "Time",
+    "x_unit": null,
+    "y_axis_label": "Energy",
+    "y_unit": "kWh"
+  }
+}

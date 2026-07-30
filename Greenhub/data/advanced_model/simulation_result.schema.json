@@ -242,7 +242,19 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "additionalProperties": false,
   "properties": {
+    "balance_residual_series": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    },
     "balances": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "bottleneck_series": {
       "items": {
         "type": "object"
       },
@@ -250,6 +262,12 @@
     },
     "calculation_mode": {
       "type": "string"
+    },
+    "capacity_utilization_series": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
     },
     "completed_at": {
       "type": [
@@ -271,6 +289,12 @@
         "type": "string"
       },
       "type": "object"
+    },
+    "feed_supply_series": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
     },
     "graph": {
       "$ref": "#/$defs/process_graph"
@@ -299,6 +323,18 @@
       },
       "type": "array"
     },
+    "process_state_series": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "product_series": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    },
     "products": {
       "items": {
         "type": "object"
@@ -310,6 +346,12 @@
     },
     "request_id": {
       "type": "string"
+    },
+    "residual_series": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
     },
     "resolution_mode": {
       "type": "string"
@@ -325,6 +367,12 @@
     },
     "schema_version": {
       "const": "1.0.0"
+    },
+    "seasonal_summary": {
+      "type": [
+        "object",
+        "null"
+      ]
     },
     "selected_scenarios": {
       "additionalProperties": false,
@@ -365,6 +413,12 @@
     "status": {
       "type": "string"
     },
+    "storage_inventory_series": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    },
     "streams": {
       "items": {
         "type": "object"
@@ -377,6 +431,18 @@
       },
       "type": "object"
     },
+    "throughput_series": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "time_grid": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    },
     "units": {
       "items": {
         "type": "object"
@@ -384,6 +450,12 @@
       "type": "array"
     },
     "utilities": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "utility_series": {
       "items": {
         "type": "object"
       },

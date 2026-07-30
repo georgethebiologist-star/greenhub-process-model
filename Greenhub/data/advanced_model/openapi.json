@@ -54,6 +54,113 @@
         ],
         "type": "object"
       },
+      "FeedProfile": {
+        "additionalProperties": false,
+        "properties": {
+          "display_name": {
+            "type": "string"
+          },
+          "normalized": {
+            "default": false,
+            "type": "boolean"
+          },
+          "points": {
+            "items": {
+              "properties": {
+                "available_wet_biomass_kg": {
+                  "minimum": 0,
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "collection_fraction": {
+                  "maximum": 1,
+                  "minimum": 0,
+                  "type": "number"
+                },
+                "component_mass_fractions": {
+                  "additionalProperties": {
+                    "minimum": 0,
+                    "type": "number"
+                  },
+                  "type": "object"
+                },
+                "moisture_fraction": {
+                  "maximum": 1,
+                  "minimum": 0,
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "normalized_weight": {
+                  "minimum": 0,
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "period": {
+                  "type": "string"
+                },
+                "provenance": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "source": {
+                  "type": "string"
+                },
+                "temperature_k": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "warnings": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "period"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "profile_id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "provenance": {
+            "type": "string"
+          },
+          "resolution": {
+            "enum": [
+              "monthly",
+              "daily"
+            ],
+            "type": "string"
+          },
+          "warnings": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "profile_id",
+          "resolution",
+          "points"
+        ],
+        "type": "object"
+      },
       "ParameterValidationRequest": {
         "additionalProperties": false,
         "properties": {
@@ -326,6 +433,90 @@
       },
       "SimulationRequest": {
         "$defs": {
+          "initial_storage_inventory": {
+            "additionalProperties": false,
+            "properties": {
+              "component_mass_fractions": {
+                "additionalProperties": {
+                  "minimum": 0,
+                  "type": "number"
+                },
+                "type": "object"
+              },
+              "moisture_fraction": {
+                "maximum": 1,
+                "minimum": 0,
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "storage_age_h": {
+                "default": 0,
+                "minimum": 0,
+                "type": "number"
+              },
+              "temperature_k": {
+                "exclusiveMinimum": 0,
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "total_mass_kg": {
+                "default": 0,
+                "minimum": 0,
+                "type": "number"
+              }
+            },
+            "type": "object"
+          },
+          "operating_schedule": {
+            "additionalProperties": false,
+            "properties": {
+              "operating_dates": {
+                "items": {
+                  "format": "date",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "operating_days_per_week": {
+                "maximum": 7,
+                "minimum": 0,
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "operating_hours_per_day": {
+                "maximum": 24,
+                "minimum": 0,
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "shutdown_dates": {
+                "items": {
+                  "format": "date",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "target_throughput_kg_hr": {
+                "minimum": 0,
+                "type": [
+                  "number",
+                  "null"
+                ]
+              }
+            },
+            "type": [
+              "object",
+              "null"
+            ]
+          },
           "parameter_override": {
             "additionalProperties": false,
             "properties": {
@@ -428,6 +619,13 @@
         },
         "additionalProperties": false,
         "properties": {
+          "annual_biomass_target": {
+            "exclusiveMinimum": 0,
+            "type": [
+              "number",
+              "null"
+            ]
+          },
           "calculation_mode": {
             "default": "structural",
             "enum": [
@@ -441,6 +639,13 @@
           },
           "design_overrides": {
             "$ref": "#/components/schemas/SimulationRequest/$defs/parameter_overrides"
+          },
+          "end_date": {
+            "format": "date",
+            "type": [
+              "string",
+              "null"
+            ]
           },
           "expert_scientific_overrides": {
             "$ref": "#/components/schemas/SimulationRequest/$defs/parameter_overrides"
@@ -458,8 +663,20 @@
           "feed_overrides": {
             "$ref": "#/components/schemas/SimulationRequest/$defs/parameter_overrides"
           },
+          "feed_supply_profile_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "initial_storage_inventory": {
+            "$ref": "#/components/schemas/SimulationRequest/$defs/initial_storage_inventory"
+          },
           "operating_overrides": {
             "$ref": "#/components/schemas/SimulationRequest/$defs/parameter_overrides"
+          },
+          "operating_schedule": {
+            "$ref": "#/components/schemas/SimulationRequest/$defs/operating_schedule"
           },
           "project_id": {
             "minLength": 1,
@@ -538,6 +755,13 @@
               "null"
             ]
           },
+          "start_date": {
+            "format": "date",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
           "strict_validation": {
             "default": true,
             "type": "boolean"
@@ -555,6 +779,17 @@
             ],
             "type": [
               "array",
+              "null"
+            ]
+          },
+          "time_step": {
+            "enum": [
+              "monthly",
+              "daily",
+              null
+            ],
+            "type": [
+              "string",
               "null"
             ]
           },
@@ -815,7 +1050,19 @@
         },
         "additionalProperties": false,
         "properties": {
+          "balance_residual_series": {
+            "items": {
+              "type": "object"
+            },
+            "type": "array"
+          },
           "balances": {
+            "items": {
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "bottleneck_series": {
             "items": {
               "type": "object"
             },
@@ -823,6 +1070,12 @@
           },
           "calculation_mode": {
             "type": "string"
+          },
+          "capacity_utilization_series": {
+            "items": {
+              "type": "object"
+            },
+            "type": "array"
           },
           "completed_at": {
             "type": [
@@ -844,6 +1097,12 @@
               "type": "string"
             },
             "type": "object"
+          },
+          "feed_supply_series": {
+            "items": {
+              "type": "object"
+            },
+            "type": "array"
           },
           "graph": {
             "$ref": "#/components/schemas/SimulationResult/$defs/process_graph"
@@ -872,6 +1131,18 @@
             },
             "type": "array"
           },
+          "process_state_series": {
+            "items": {
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "product_series": {
+            "items": {
+              "type": "object"
+            },
+            "type": "array"
+          },
           "products": {
             "items": {
               "type": "object"
@@ -883,6 +1154,12 @@
           },
           "request_id": {
             "type": "string"
+          },
+          "residual_series": {
+            "items": {
+              "type": "object"
+            },
+            "type": "array"
           },
           "resolution_mode": {
             "type": "string"
@@ -898,6 +1175,12 @@
           },
           "schema_version": {
             "const": "1.0.0"
+          },
+          "seasonal_summary": {
+            "type": [
+              "object",
+              "null"
+            ]
           },
           "selected_scenarios": {
             "additionalProperties": false,
@@ -938,6 +1221,12 @@
           "status": {
             "type": "string"
           },
+          "storage_inventory_series": {
+            "items": {
+              "type": "object"
+            },
+            "type": "array"
+          },
           "streams": {
             "items": {
               "type": "object"
@@ -950,6 +1239,18 @@
             },
             "type": "object"
           },
+          "throughput_series": {
+            "items": {
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "time_grid": {
+            "items": {
+              "type": "object"
+            },
+            "type": "array"
+          },
           "units": {
             "items": {
               "type": "object"
@@ -957,6 +1258,12 @@
             "type": "array"
           },
           "utilities": {
+            "items": {
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "utility_series": {
             "items": {
               "type": "object"
             },
@@ -1004,6 +1311,66 @@
   },
   "openapi": "3.1.0",
   "paths": {
+    "/api/v1/feed-profiles": {
+      "get": {
+        "operationId": "listFeedProfiles",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": [
+                    "object",
+                    "array"
+                  ]
+                }
+              }
+            },
+            "description": "Successful GreenHub response"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      },
+      "post": {
+        "operationId": "registerFeedProfile",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FeedProfile"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": [
+                    "object",
+                    "array"
+                  ]
+                }
+              }
+            },
+            "description": "Successful GreenHub response"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
     "/api/v1/health": {
       "get": {
         "operationId": "health",
@@ -1370,6 +1737,42 @@
         }
       }
     },
+    "/api/v1/simulations/{run_id}/inventory": {
+      "get": {
+        "operationId": "getSimulationInventory",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": [
+                    "object",
+                    "array"
+                  ]
+                }
+              }
+            },
+            "description": "Successful GreenHub response"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
     "/api/v1/simulations/{run_id}/plots": {
       "get": {
         "operationId": "listSimulationPlots",
@@ -1522,6 +1925,42 @@
         }
       }
     },
+    "/api/v1/simulations/{run_id}/seasonal-summary": {
+      "get": {
+        "operationId": "getSeasonalSummary",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": [
+                    "object",
+                    "array"
+                  ]
+                }
+              }
+            },
+            "description": "Successful GreenHub response"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
     "/api/v1/simulations/{run_id}/status": {
       "get": {
         "operationId": "getSimulationStatus",
@@ -1630,6 +2069,42 @@
         }
       }
     },
+    "/api/v1/simulations/{run_id}/time-series": {
+      "get": {
+        "operationId": "getSimulationTimeSeries",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": [
+                    "object",
+                    "array"
+                  ]
+                }
+              }
+            },
+            "description": "Successful GreenHub response"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
     "/api/v1/simulations/{run_id}/units": {
       "get": {
         "operationId": "getSimulationUnits",
@@ -1669,6 +2144,42 @@
     "/api/v1/simulations/{run_id}/utilities": {
       "get": {
         "operationId": "getSimulationUtilities",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": [
+                    "object",
+                    "array"
+                  ]
+                }
+              }
+            },
+            "description": "Successful GreenHub response"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/api/v1/simulations/{run_id}/utilization": {
+      "get": {
+        "operationId": "getSimulationUtilization",
         "parameters": [
           {
             "in": "path",

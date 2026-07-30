@@ -8,6 +8,8 @@ Advanced-model Checkpoint 1 adds read-only governance for the 301-dataset global
 
 Alpha 0.2 Checkpoint 2 adds immutable canonical parameters, deterministic override precedence, versioned simulation/result contracts, isolated application services, structured process graphs, plot and run exports, and a `/api/v1` WSGI adapter. Checkpoint 3A activates one bounded literature pathway only: `REC-001` supplies a 0.34 precipitation-recovery fraction for `PR1` in `literature_default` mode. Structural runs remain unchanged. See [Checkpoint 2 release notes](docs/alpha_0_2_checkpoint_2/release_notes.md).
 
+Checkpoint 3C adds transport-neutral seasonal and quasi-dynamic simulation. Monthly runs default to May-November, while explicit monthly or daily grids can use direct, normalized, CSV, or workbook feed profiles. Each step conserves feed, storage inventory, overflow, processing, products, utilities, and tracked balance residuals; it rebuilds and simulates the existing integrated BioSTEAM model rather than creating a second process model. See [Checkpoint 3C release notes](docs/alpha_0_2_checkpoint_3c/release_notes.md).
+
 ## System Boundary
 
 The fibre-rich press cake remains an upstream side stream. Downstream fibre-panel production is excluded.
@@ -87,6 +89,8 @@ To start the local synchronous development API:
 ```
 
 Use `GET http://127.0.0.1:8000/api/v1/health` for health and `GET /api/v1/openapi.json` for the OpenAPI 3.1 contract. The scientific layer does not depend on HTTP, the API returns run-relative artifact references, and production deployment still requires a real WSGI server and job queue.
+
+For seasonal simulation, submit `resolution_mode: "quasi_dynamic"` with `start_date`, `end_date`, `time_step`, `feed_supply_profile_id`, and an optional operating schedule, annual biomass target, initial inventory, or `seasonal.storage_capacity_kg` design override. Register direct or normalized profiles through `POST /api/v1/feed-profiles`; inspect outputs through the run `time-series`, `inventory`, `utilization`, and `seasonal-summary` resources. Daily mode requires a daily profile and explicit operating schedule; monthly workbook data are not silently interpolated.
 
 ## Master Workbook
 
@@ -197,5 +201,8 @@ See [architecture](docs/architecture.md), [process areas](docs/process_areas.md)
 - Aggregate contaminants are conserved and co-reported, but compound-specific sorption, co-precipitation, and pathogen fate are unknown.
 - The absent CHP/utility network prevents final heat recovery, grid demand, or net export conclusions.
 - No custom Phase 7 CAPEX, final TEA/LCA, fertilizer compliance, water-reuse claim, uncertainty analysis, ranking, or MCDA is implemented.
+- Seasonal storage capacity is unbounded unless `seasonal.storage_capacity_kg` is supplied; no defensible project capacity is currently available.
+- Storage degradation, water loss, dry-matter loss, crop growth, and weather response remain explicitly unimplemented because no eligible project data or approved equations exist.
+- Quasi-dynamic mode is a deterministic sequence of independent integrated steady-state simulations with a conserved storage state; it is not a continuous ODE model.
 
 The detailed evidence gaps and validation routes are exported in `phase7_model_limitations.csv` and `phase7_limitations_and_data_needs.xlsx`.
