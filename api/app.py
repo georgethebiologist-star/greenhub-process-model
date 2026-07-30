@@ -59,6 +59,8 @@ class GreenHubAPI:
         try:
             method = str(environ.get("REQUEST_METHOD", "GET")).upper()
             path = unquote(str(environ.get("PATH_INFO", "/"))).rstrip("/") or "/"
+            if method == "OPTIONS":
+                return self._respond(start_response, 200, {"status": "ok"})
             payload = self._dispatch(method, path, environ)
             status = 201 if method == "POST" and path in {"/api/v1/simulations", "/api/v1/feed-profiles"} else 200
             return self._respond(start_response, status, payload)
@@ -269,7 +271,13 @@ class GreenHubAPI:
             405: "405 Method Not Allowed", 409: "409 Conflict", 413: "413 Payload Too Large",
             422: "422 Unprocessable Entity", 500: "500 Internal Server Error",
         }[status]
-        start_response(status_line, [("Content-Type", "application/json; charset=utf-8"), ("Content-Length", str(len(encoded)))])
+        start_response(status_line, [
+            ("Content-Type", "application/json; charset=utf-8"),
+            ("Content-Length", str(len(encoded))),
+            ("Access-Control-Allow-Origin", "*"),
+            ("Access-Control-Allow-Headers", "Content-Type, Authorization"),
+            ("Access-Control-Allow-Methods", "GET, POST, OPTIONS"),
+        ])
         return [encoded]
 
 
