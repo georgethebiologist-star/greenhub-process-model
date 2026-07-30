@@ -11,6 +11,7 @@ from typing import Iterable
 from Greenhub.integration import create_integrated_greenhub_system
 from Greenhub.state_engine import build_state_outputs, state_from_stream
 from Greenhub.storage_inventory import StorageInventory
+from Greenhub.storage import StorageModel
 from Greenhub.time_grid import TimeGridStep, generate_time_grid
 
 from .contracts import InitialStorageInventory, OperatingSchedule, SimulationRequest
@@ -205,6 +206,25 @@ class SeasonalSimulationService:
                 actual_mass = actual_rate = 0.0
             withdrawn, withdrawn_components = inventory.withdraw(actual_mass)
             inventory.age(step.duration_hours)
+
+            # Apply optional storage degradation (opt-in via resolved parameter seasonal.storage_degradation_rate_per_day)
+            # Do not change default behavior when the parameter is absent or blocked.
+            step_days = float(step.duration_hours) / 24.0
+            degradation_param = resolved.get("seasonal.storage_degradation_rate_per_day")
+            # helper function defined below will apply degradation proportionally to StorageInventory
+            applied_degradation_kg = 0.0
+            degradation_provenance = {}
+            degradation_status = "not_implemented_no_eligible_data"
+            try:
+                applied_degradation_kg, degradation_provenance, degradation_status = _apply_storage_degradation(
+                    inventory, degradation_param, step_days
+                )
+            except Exception as exc:  # pragma: no cover - defensive: any unexpected error should be surfaced but not hide the simulation
+                # record limitation and continue with zero degradation
+                degradation_provenance = {"error": str(exc)}
+                degradation_status = "degradation_error"
+                applied_degradation_kg = 0.0
+
             if model is not None:
                 representative = model
             ending = inventory.total_mass_kg
@@ -214,7 +234,9 @@ class SeasonalSimulationService:
                 "biomass_withdrawn_kg": withdrawn, "inventory_remaining_kg": ending,
                 "storage_age_h": inventory.average_age_h, "overflow_kg": overflow,
                 "unmet_process_demand_kg": decision["unmet_demand_kg"], "water_loss_kg": 0.0,
-                "dry_matter_loss_kg": 0.0, "degradation_status": "not_implemented_no_eligible_data",
+                "dry_matter_loss_kg": 0.0, "degradation_status": degradation_status,
+                "degradation_loss_kg": applied_degradation_kg,
+                "degradation_provenance": degradation_provenance,
                 "storage_mass_residual_kg": storage_residual,
             })
             max_mass = None if raw_capacity is None else raw_capacity * operating_hours
@@ -280,6 +302,7 @@ class SeasonalSimulationService:
         processed = sum(float(item["actual_throughput_kg"]) for item in throughput_rows)
         overflow_total = sum(float(item["overflow_kg"]) for item in storage_rows)
         final_inventory = inventory.total_mass_kg
+        total_degradation = sum(float(item.get("degradation_loss_kg", 0.0)) for item in storage_rows)
         summary = {
             "total_biomass_available_kg": sum(float(item["available_wet_biomass_kg"]) for item in supply),
             "total_biomass_collected_kg": collected,
@@ -287,6 +310,7 @@ class SeasonalSimulationService:
             "total_biomass_uncollected_kg": sum(float(item["uncollected_biomass_kg"]) for item in supply),
             "total_overflow_kg": overflow_total,
             "final_inventory_kg": final_inventory,
+            "total_degradation_kg": total_degradation,
             "average_inventory_kg": sum(float(item["inventory_remaining_kg"]) for item in storage_rows) / len(storage_rows),
             "peak_inventory_kg": max(float(item["inventory_remaining_kg"]) for item in storage_rows),
             "average_throughput_kg_hr": processed / sum(
@@ -434,6 +458,50 @@ def _inventory_fractions(inventory: StorageInventory) -> dict[str, float]:
     if inventory.total_mass_kg <= 0.0:
         return {}
     return {name: value / inventory.total_mass_kg for name, value in inventory.component_masses_kg.items()}
+
+
+def _apply_storage_degradation(inventory: StorageInventory, resolved_param: object | None, step_days: float) -> tuple[float, dict[str, object], str]:
+    """Apply optional degradation to the provided StorageInventory.
+
+    - resolved_param: the resolved parameter object from the parameter resolver (may be None).
+      The helper tolerates simple objects with attributes `blocked` (bool) and `active_value` (numeric).
+    - step_days: duration of the step in days.
+
+    Returns (applied_degradation_kg, provenance, status) where provenance mirrors StorageModel output.
+    Status is one of: 'not_implemented_no_eligible_data', 'applied', 'degradation_error'.
+    """
+    # Resolve numeric rate safely without depending on global resolved lookup helper
+    def _to_number(item: object | None) -> float | None:
+        if item is None:
+            return None
+        if getattr(item, "blocked", True):
+            return None
+        value = getattr(item, "active_value", None)
+        if value is None:
+            return None
+        try:
+            v = float(value)
+        except Exception:
+            return None
+        return v if v >= 0.0 else None
+
+    k = _to_number(resolved_param)
+    provenance = {"methods": [], "limitations": [], "sources": []}
+    if k is None:
+        provenance["limitations"].append("degradation_not_implemented")
+        provenance["methods"].append({"degradation": "not_implemented"})
+        return 0.0, provenance, "not_implemented_no_eligible_data"
+
+    # Apply first-order loss using StorageModel as a calculation helper (stateless per-step)
+    storage_helper = StorageModel(capacity_kg=None, initial_inventory_kg=inventory.total_mass_kg, degradation_rate_per_day=k)
+    result = storage_helper.simulate_step(inflow_kg=0.0, outflow_kg=0.0, days=step_days)
+    applied = float(result.get("applied_degradation_kg", 0.0))
+    # remove applied mass proportionally from inventory bookkeeping
+    if applied > 0.0:
+        inventory._remove_proportionally(applied)
+    provenance = result.get("provenance", provenance)
+    status = "applied"
+    return applied, provenance, status
 
 
 def _raw_capacity_from_records(raw_rate: float, records: tuple[dict[str, object], ...]) -> float | None:

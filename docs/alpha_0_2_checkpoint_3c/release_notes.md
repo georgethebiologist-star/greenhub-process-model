@@ -30,7 +30,11 @@ No source literature CSV, frontend file, workbook default, or D4 dataset status 
 - Storage is unbounded when `seasonal.storage_capacity_kg` is absent because no validated
   project storage capacity is available.
 - Storage degradation, water loss, dry-matter loss, growth, and weather response are not
-  calculated because eligible rates and equations are unavailable.
+  calculated by default because eligible rates and equations are unavailable. An opt-in
+  first-order degradation model is available: when the resolved parameter
+  `seasonal.storage_degradation_rate_per_day` is supplied, the seasonal controller will
+  apply a first-order mass loss to the stored inventory and record explicit provenance
+  and limitations. Supplying no rate preserves previous behavior (no silent mass loss).
 - Inventory composition is perfectly mixed and withdrawals are proportional.
 - Daily mode requires a daily profile and explicit schedule; monthly data are not silently
   interpolated.

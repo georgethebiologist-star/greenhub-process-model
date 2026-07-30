@@ -134,3 +134,19 @@ def test_parameter_validation_uses_canonical_bounds(tmp_path):
     assert status == 200
     assert response["valid"] is False
     assert response["issues"][0]["blocking"] is True
+
+
+def test_feedstock_resolution_readiness_endpoint_is_json_safe(tmp_path):
+    app = create_app(tmp_path)
+    status, response = invoke(app, "GET", "/api/v1/feedstock-resolution/readiness")
+
+    assert status == 200
+    assert response["category_counts"]["resolvable_now"] >= 1
+    assert "blocked_missing" in response["blocked_category_counts"]
+    assert "requires_user_selection" in response["category_counts"]
+    assert response["artifact_names"] == {
+        "csv": "Greenhub/results/feedstock_resolution_gates.csv",
+        "markdown": "docs/feedstock_resolution_readiness.md",
+    }
+    assert response["top_resolvable_fields"]
+    assert not re.search(r"[A-Za-z]:[\\/]", json.dumps(response, allow_nan=False))

@@ -91,6 +91,8 @@ class GreenHubAPI:
             return openapi_schema()
         if method == "GET" and path == "/api/v1/model/info":
             return self._model_info()
+        if method == "GET" and path == "/api/v1/feedstock-resolution/readiness":
+            return self.results.get_feedstock_resolution_readiness()
         if method == "GET" and path == "/api/v1/scenarios":
             return self.scenarios.list_scenarios()
         if method == "GET" and path == "/api/v1/process-areas":

@@ -304,6 +304,33 @@ def _seasonal_storage_control() -> CanonicalParameter:
     )
 
 
+def _seasonal_degradation_control() -> CanonicalParameter:
+    """Expose an opt-in seasonal degradation rate (1/day) without inventing defaults."""
+
+    return CanonicalParameter(
+        parameter_id="seasonal.storage_degradation_rate_per_day",
+        display_name="Seasonal storage degradation rate (1/day)",
+        description=(
+            "First-order degradation rate constant (1/day) applied to stored wet-biomass when supplied. "
+            "Leave null to preserve previous behaviour (no degradation)."
+        ),
+        process_area="feedstock_and_characterization",
+        unit_operation="seasonal biomass storage",
+        normalized_unit="1/day",
+        data_type="number",
+        evidence_class=ValueStatus.MISSING,
+        physical_lower_bound=0.0,
+        editability_category=EditabilityCategory.SCIENTIFIC_MODEL,
+        editable_mode=EditableMode.EXPERT,
+        rebuild_required=False,
+        readiness_state=ReadinessState.D1,
+        activation_state=ActivationState.ACTIVE,
+        warnings=("No validated degradation rates are available; supply a project or literature value to enable degradation." ,),
+        input_type="number",
+        affected_outputs=("storage_inventory_series", "seasonal_summary"),
+    )
+
+
 def _literature_precipitation_candidate() -> ParameterCandidate:
     quarantine = pd.read_csv(QUARANTINE_PATH)
     blocked = quarantine[
@@ -360,6 +387,7 @@ def _cached_registry(path_text: str, mtime_ns: int, size: int) -> ParameterRegis
     control_parameters, control_candidates = _load_scenario_controls(workbook)
     parameters.extend(control_parameters)
     parameters.append(_seasonal_storage_control())
+    parameters.append(_seasonal_degradation_control())
     candidates.extend(control_candidates)
     candidates.append(_literature_precipitation_candidate())
     updated = []

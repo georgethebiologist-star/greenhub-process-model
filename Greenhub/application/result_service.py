@@ -1,5 +1,7 @@
 """Read-only access to completed structured results."""
 
+from Greenhub.feedstock_resolution import summarize_feedstock_resolution_gates, write_feedstock_resolution_report
+
 from .errors import RunStateError
 
 
@@ -69,3 +71,29 @@ class ResultService:
 
     def get_seasonal_summary(self, run_id):
         return self._result(run_id).seasonal_summary
+
+    def get_feedstock_resolution_readiness(self):
+        write_feedstock_resolution_report()
+        summary = summarize_feedstock_resolution_gates()
+        category_counts = {}
+        for item in summary:
+            category = str(item["category"])
+            category_counts[category] = category_counts.get(category, 0) + int(item["count"])
+        category_counts = dict(sorted(category_counts.items()))
+        resolvable_fields = sorted(
+            {str(item["canonical_field"]) for item in summary if item["category"] == "resolvable_now"}
+        )
+        blocked_category_counts = {
+            category: count
+            for category, count in category_counts.items()
+            if category.startswith("blocked_")
+        }
+        return {
+            "category_counts": category_counts,
+            "artifact_names": {
+                "csv": "Greenhub/results/feedstock_resolution_gates.csv",
+                "markdown": "docs/feedstock_resolution_readiness.md",
+            },
+            "top_resolvable_fields": resolvable_fields,
+            "blocked_category_counts": blocked_category_counts,
+        }
