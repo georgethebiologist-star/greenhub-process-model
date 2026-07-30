@@ -23,8 +23,9 @@ export default function App() {
   const [running, setRunning] = useState(false);
   const [selectedUnit, setSelectedUnit] = useState<UnitOperation | null>(null);
   const [showAdvanced, setShowAdvanced] = useState(false);
+  const [savedRuns, setSavedRuns] = useState<{ label: string; result: SimulationResult; scenario: ScenarioSelection }[]>([]);
 
-  const run = async () => { setRunning(true); const payload = { calculation_mode: mode, selected_month: month, scenarios: scenario, design_overrides: params.map(p => ({ parameter_id: p.parameter_id, value: p.current_value })) }; try { const r = await fetch('/api/v1/simulations', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }); setResult(r.ok ? await r.json() : runSimulation(payload)); } catch { setResult(runSimulation(payload)); } finally { setRunning(false); } };
+  const run = async (saveLabel?: string) => { setRunning(true); const payload = { calculation_mode: mode, selected_month: month, scenarios: scenario, design_overrides: params.map(p => ({ parameter_id: p.parameter_id, value: p.current_value })) }; try { const r = await fetch('/api/v1/simulations', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }); const next = r.ok ? await r.json() : runSimulation(payload); setResult(next); if (saveLabel) setSavedRuns(previous => [...previous.filter(x => x.label !== saveLabel), { label: saveLabel, result: next, scenario }]); } catch { const next = runSimulation(payload); setResult(next); if (saveLabel) setSavedRuns(previous => [...previous.filter(x => x.label !== saveLabel), { label: saveLabel, result: next, scenario }]); } finally { setRunning(false); } };
   useEffect(() => { run(); }, [mode, month]);
   const setScenarioValue = (key: keyof ScenarioSelection, value: string | number) => setScenario(s => ({ ...s, [key]: value }));
   const activeUnits = result.units.filter(u => u.status === 'active').length;
