@@ -911,7 +911,7 @@ export function runSimulation(request: SimulationRequest): SimulationResult {
       description: 'Mass conservation residual error across active BioSTEAM unit operation boundaries (1e-6 kg/h target tolerance).',
       data: units.map((u) => ({
         unit: u.id,
-        residual_error_kgh: u.status === 'active' ? 0.00001 + Math.random() * 0.00003 : 0.0,
+        residual_error_kgh: u.status === 'active' ? 0.00002 : 0.0,
         tolerance_limit: 0.0001
       }))
     },
