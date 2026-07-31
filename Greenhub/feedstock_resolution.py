@@ -8,7 +8,8 @@ from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Iterable
 
-from Greenhub.feedstock_proxy import FeedstockProxyCandidate, feedstock_proxy_resolution_candidates
+from Greenhub.feedstock_proxy import FeedstockProxyCandidate, FeedstockProxyValue, feedstock_proxy_resolution_candidates, load_feedstock_proxies
+from Greenhub.scientific_equations import moisture_wet_basis_from_total_solids
 from Greenhub.time_grid import TimeGridStep, generate_time_grid
 
 
@@ -26,6 +27,11 @@ FEEDSTOCK_BASIS_EXPECTATIONS: dict[str, dict[str, tuple[str, ...] | str]] = {
         "expected_units": ("kg water/kg wet biomass",),
         "compatible_units": ("kg/kg wet biomass",),
         "basis": "wet biomass",
+    },
+    "total_solids_wet_basis": {
+        "expected_units": ("kg/kg wet feed",),
+        "compatible_units": ("kg total solids/kg wet feed", "kg/kg wet biomass"),
+        "basis": "wet feed",
     },
     "volatile_solids_dry_basis": {
         "expected_units": ("kg VS/kg dry matter", "kg VS/kg TS"),
@@ -399,6 +405,49 @@ def build_feedstock_equation_implementation_queue(
     items = sorted(queue.values(), key=lambda item: (str(item["implementation_status"]), str(item["equation_id"])))
     _write_feedstock_equation_queue_report(markdown_path, items)
     return items
+
+
+def derive_feedstock_report_values(
+    allow_derived: bool = False,
+    proxies: dict[str, FeedstockProxyValue] | None = None,
+) -> list[dict[str, object]]:
+    """Return feedstock values for reporting, optionally appending typed derivations."""
+
+    items = dict(proxies) if proxies is not None else load_feedstock_proxies()
+    rows = [_feedstock_proxy_report_row(item) for item in items.values()]
+    if not allow_derived:
+        return rows
+
+    total_solids = items.get("total_solids_wet_basis")
+    if total_solids is None:
+        return rows
+    input_basis = validate_feedstock_candidate_basis("total_solids_wet_basis", total_solids.unit, total_solids.value)
+    output_basis = validate_feedstock_candidate_basis("moisture_wet_basis", "kg water/kg wet biomass")
+    if input_basis["basis_status"] not in {"basis_ok", "requires_basis_conversion"} or output_basis["basis_status"] != "basis_ok":
+        return rows
+
+    derived_value = moisture_wet_basis_from_total_solids(total_solids.value)
+    rows.append(
+        {
+            "canonical_field": "moisture_wet_basis",
+            "value": derived_value,
+            "unit": "kg water/kg wet biomass",
+            "equation_id": "EQ-CALC-001",
+            "source_parameter_id": total_solids.parameter_id,
+            "status": "derived_report_only",
+            "activation_status": "report_only",
+            "provenance": {
+                "mode": "report_only",
+                "source_field": "total_solids_wet_basis",
+                "source_file": total_solids.source_file,
+                "source_unit": total_solids.unit,
+                "input_basis_status": input_basis["basis_status"],
+                "output_basis_status": output_basis["basis_status"],
+                "observed_moisture_overwritten": False,
+            },
+        }
+    )
+    return rows
 
 
 @dataclass(frozen=True)
@@ -776,6 +825,24 @@ def _feedstock_equation_registry_ids() -> set[str]:
 def _read_csv_rows(path: Path) -> list[dict[str, str]]:
     with path.open(newline="", encoding="utf-8-sig") as handle:
         return list(csv.DictReader(handle))
+
+
+def _feedstock_proxy_report_row(item: FeedstockProxyValue) -> dict[str, object]:
+    return {
+        "canonical_field": item.canonical_field,
+        "value": item.value,
+        "unit": item.unit,
+        "equation_id": "",
+        "source_parameter_id": item.parameter_id,
+        "status": item.status,
+        "activation_status": "report_only",
+        "provenance": {
+            "mode": "report_only",
+            "source_file": item.source_file,
+            "direct_or_indirect": item.direct_or_indirect,
+            "notes": item.notes,
+        },
+    }
 
 
 def _typed_equation_ids() -> set[str]:

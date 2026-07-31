@@ -14,6 +14,7 @@ from Greenhub.feedstock_resolution import (
     build_feedstock_equation_implementation_queue,
     can_convert_feedstock_unit,
     default_feedstock_resolution_mode,
+    derive_feedstock_report_values,
     describe_feedstock_resolution_modes,
     describe_feedstock_conversion_policy,
     expected_feedstock_basis,
@@ -410,3 +411,43 @@ def test_eq_calc_001_rejects_invalid_total_solids():
         moisture_wet_basis_from_total_solids(-0.01)
     with pytest.raises(ValueError):
         moisture_wet_basis_from_total_solids(1.01)
+
+
+def test_derive_feedstock_report_values_adds_eq_calc_001_when_allowed():
+    rows = derive_feedstock_report_values(allow_derived=True)
+    derived = next(item for item in rows if item["status"] == "derived_report_only")
+
+    assert derived["canonical_field"] == "moisture_wet_basis"
+    assert derived["value"] == pytest.approx(0.62)
+    assert derived["unit"] == "kg water/kg wet biomass"
+    assert derived["equation_id"] == "EQ-CALC-001"
+    assert derived["source_parameter_id"] == "COMP-CZ-SP-TS"
+    assert derived["activation_status"] == "report_only"
+
+
+def test_derive_feedstock_report_values_does_not_overwrite_direct_moisture_by_default():
+    default_rows = derive_feedstock_report_values()
+    derived_rows = derive_feedstock_report_values(allow_derived=True)
+
+    assert not any(item["status"] == "derived_report_only" for item in default_rows)
+    observed_moisture = [
+        item
+        for item in derived_rows
+        if item["canonical_field"] == "moisture_wet_basis" and item["status"] != "derived_report_only"
+    ]
+    derived_moisture = [
+        item
+        for item in derived_rows
+        if item["canonical_field"] == "moisture_wet_basis" and item["status"] == "derived_report_only"
+    ]
+    assert observed_moisture
+    assert derived_moisture
+
+
+def test_derive_feedstock_report_values_includes_eq_calc_001_provenance():
+    rows = derive_feedstock_report_values(allow_derived=True)
+    derived = next(item for item in rows if item["status"] == "derived_report_only")
+
+    assert derived["provenance"]["mode"] == "report_only"
+    assert derived["provenance"]["source_field"] == "total_solids_wet_basis"
+    assert derived["provenance"]["observed_moisture_overwritten"] is False

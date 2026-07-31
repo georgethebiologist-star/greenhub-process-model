@@ -11,6 +11,7 @@ This is a bridge toward future dynamic gates. It does not enable `ResolutionMode
 - `validate_measured_feedstock_overrides(overrides)`
 - `resolve_with_measured_overrides(canonical_field, time_label, measured_overrides, mode="report_only")`
 - `feedstock_resolution_to_report_rows(records)`
+- `derive_feedstock_report_values(allow_derived=False)`
 
 Only `report_only` mode is accepted.
 
@@ -66,6 +67,14 @@ Each resolution record includes:
 Blocked records and user-selection-only records do not expose a selected value for calculation.
 
 `feedstock_resolution_to_report_rows()` deliberately returns report rows only. It does not include a `model_overrides` key.
+
+## Derived Report Values
+
+`derive_feedstock_report_values()` can append derived report-only candidates from typed equations. By default `allow_derived=False`, so only existing proxy report rows are returned.
+
+When `allow_derived=True`, `EQ-CALC-001` may derive `moisture_wet_basis = 1 - total_solids_wet_basis` from an available `total_solids_wet_basis` proxy row after the basis gate passes. The derived row is marked `derived_report_only`, includes `equation_id = EQ-CALC-001`, and has `activation_status = report_only`.
+
+Derived moisture is added alongside observed moisture and does not overwrite direct measured or direct literature moisture values.
 
 ## Remaining Activation Work
 
