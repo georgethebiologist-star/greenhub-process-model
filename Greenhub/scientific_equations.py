@@ -43,6 +43,20 @@ def protein_precipitation_mass_balance(
     return ProteinPrecipitationBalance(incoming, supernatant, cake, loss, residual)
 
 
+def moisture_wet_basis_from_total_solids(total_solids_wet_basis: float) -> float:
+    """Implement EQ-CALC-001 as a bounded wet-basis mass-fraction identity."""
+
+    total_solids = float(total_solids_wet_basis)
+    if not isfinite(total_solids):
+        raise ValueError("EQ-CALC-001 total_solids_wet_basis must be finite.")
+    if not 0.0 <= total_solids <= 1.0:
+        raise ValueError("EQ-CALC-001 total_solids_wet_basis must be within [0, 1].")
+    moisture = 1.0 - total_solids
+    if not 0.0 <= moisture <= 1.0:
+        raise ValueError("EQ-CALC-001 moisture_wet_basis result must be within [0, 1].")
+    return moisture
+
+
 @dataclass(frozen=True)
 class EquationDefinition:
     equation_id: str
@@ -77,7 +91,23 @@ EQUATION_REGISTRY = {
         limitations="Protein and non-protein nitrogen must not be conflated in experimental interpretation.",
         activation_status="active",
         readiness_state="D4",
-    )
+    ),
+    "EQ-CALC-001": EquationDefinition(
+        equation_id="EQ-CALC-001",
+        function=moisture_wet_basis_from_total_solids,
+        process_area="feedstock",
+        unit_operation="roadside grass feedstock proxy",
+        input_symbols=("total_solids_wet_basis",),
+        canonical_parameter_ids=("moisture_wet_basis",),
+        input_units=("fraction wet basis",),
+        output_units=("fraction wet basis",),
+        applicability="Wet-basis moisture identity from total solids on the same wet basis.",
+        source="Pre-treatment/Feedstock/equation_registry.csv",
+        source_location="EQ-CALC-001; wet-basis moisture from total solids",
+        limitations="Report-only typed helper; not consumed by model calculations.",
+        activation_status="report_only",
+        readiness_state="typed_not_active",
+    ),
 }
 
 
