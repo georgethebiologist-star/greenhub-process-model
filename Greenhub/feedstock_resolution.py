@@ -19,6 +19,7 @@ DEFAULT_MARKDOWN_REPORT = PROJECT_ROOT / "docs" / "feedstock_resolution_readines
 DEFAULT_EQUATION_QUEUE_REPORT = PROJECT_ROOT / "docs" / "feedstock_equation_implementation_queue.md"
 FEEDSTOCK_DATA_DIR = PROJECT_ROOT / "Greenhub" / "data" / "Pre-treatment" / "Feedstock"
 FEEDSTOCK_EQUATION_REGISTRY = FEEDSTOCK_DATA_DIR / "equation_registry.csv"
+FEEDSTOCK_ASSUMPTION_REGISTER = FEEDSTOCK_DATA_DIR / "assumption_and_missing_data_register.csv"
 GLOBAL_EQUATION_ACTIVATION_REGISTRY = PROJECT_ROOT / "Greenhub" / "data" / "global_audit_package" / "equation_activation_registry.csv"
 
 
@@ -100,6 +101,7 @@ FEEDSTOCK_EQUIVALENT_UNIT_LABELS: set[tuple[str, str]] = {
 
 FEEDSTOCK_OBSERVED_VALUE_FIELDS = {
     "moisture_wet_basis",
+    "total_solids_wet_basis",
     "volatile_solids_dry_basis",
     "ash_dry_basis",
     "carbon_dry_basis",
@@ -448,6 +450,29 @@ def derive_feedstock_report_values(
         }
     )
     return rows
+
+
+def build_feedstock_evidence_pool(
+    measured_overrides: Iterable[MeasuredFeedstockOverride] = (),
+    user_overrides: Iterable[MeasuredFeedstockOverride] = (),
+    candidates: Iterable[FeedstockProxyCandidate] | None = None,
+) -> list[dict[str, object]]:
+    """Represent every feedstock evidence type in one report-only pool."""
+
+    rows: list[dict[str, object]] = []
+    rows.extend(_measured_evidence_row(item) for item in measured_overrides)
+    rows.extend(_user_override_evidence_row(item) for item in user_overrides)
+    items = list(candidates) if candidates is not None else feedstock_proxy_resolution_candidates()
+    rows.extend(_candidate_evidence_row(item) for item in items)
+    rows.extend(_engineering_assumption_evidence_rows())
+    return sorted(
+        rows,
+        key=lambda item: (
+            str(item["canonical_field"]),
+            -float(item["confidence_score"]),
+            str(item["parameter_id"]),
+        ),
+    )
 
 
 @dataclass(frozen=True)
@@ -843,6 +868,132 @@ def _feedstock_proxy_report_row(item: FeedstockProxyValue) -> dict[str, object]:
             "notes": item.notes,
         },
     }
+
+
+def _candidate_evidence_row(candidate: FeedstockProxyCandidate) -> dict[str, object]:
+    certainty_class, confidence = _candidate_certainty(candidate)
+    use_status = _candidate_use_status(candidate, certainty_class)
+    return {
+        "canonical_field": candidate.canonical_field,
+        "parameter_id": candidate.parameter_id,
+        "value": candidate.value,
+        "value_min": candidate.value_min,
+        "value_max": candidate.value_max,
+        "raw_value": candidate.raw_value,
+        "unit": candidate.unit,
+        "source": candidate.source_title or candidate.source_file,
+        "certainty_class": certainty_class,
+        "use_status": use_status,
+        "confidence_score": confidence,
+        "requires_user_confirmation": _requires_evidence_confirmation(certainty_class, use_status),
+        "limitation_note": candidate.limitation_note,
+    }
+
+
+def _measured_evidence_row(override: MeasuredFeedstockOverride) -> dict[str, object]:
+    return {
+        "canonical_field": override.canonical_field,
+        "parameter_id": f"measured:{override.canonical_field}",
+        "value": override.value,
+        "value_min": None,
+        "value_max": None,
+        "raw_value": str(override.value),
+        "unit": override.unit,
+        "source": override.source_id or override.lab_reference or "",
+        "certainty_class": "measured_project",
+        "use_status": "report_only_candidate",
+        "confidence_score": 1.0,
+        "requires_user_confirmation": not (override.source_id or override.lab_reference),
+        "limitation_note": override.notes,
+    }
+
+
+def _user_override_evidence_row(override: MeasuredFeedstockOverride) -> dict[str, object]:
+    sourced = bool(override.source_id or override.lab_reference)
+    return {
+        "canonical_field": override.canonical_field,
+        "parameter_id": f"user_override:{override.canonical_field}",
+        "value": override.value,
+        "value_min": None,
+        "value_max": None,
+        "raw_value": str(override.value),
+        "unit": override.unit,
+        "source": override.source_id or override.lab_reference or "",
+        "certainty_class": "user_override",
+        "use_status": "report_only_candidate" if sourced else "requires_confirmation",
+        "confidence_score": 0.6 if sourced else 0.5,
+        "requires_user_confirmation": not sourced,
+        "limitation_note": override.notes,
+    }
+
+
+def _engineering_assumption_evidence_rows() -> list[dict[str, object]]:
+    if not FEEDSTOCK_ASSUMPTION_REGISTER.exists():
+        return []
+    rows = []
+    for row in _read_csv_rows(FEEDSTOCK_ASSUMPTION_REGISTER):
+        if row.get("item_type", "") != "assumption" and row.get("data_status", "") != "assumption":
+            continue
+        value = _optional_float(row.get("numerical_value", ""))
+        rows.append(
+            {
+                "canonical_field": row.get("python_variable", "") or row.get("parameter_id", ""),
+                "parameter_id": row.get("parameter_id", ""),
+                "value": value,
+                "value_min": None,
+                "value_max": None,
+                "raw_value": row.get("numerical_value", ""),
+                "unit": row.get("unit", ""),
+                "source": row.get("related_file", "") or FEEDSTOCK_ASSUMPTION_REGISTER.name,
+                "certainty_class": "engineering_assumption",
+                "use_status": "requires_confirmation",
+                "confidence_score": 0.25,
+                "requires_user_confirmation": True,
+                "limitation_note": row.get("reason_missing_or_assumption", "") or row.get("description", ""),
+            }
+        )
+    return rows
+
+
+def _candidate_certainty(candidate: FeedstockProxyCandidate) -> tuple[str, float]:
+    if candidate.readiness_category == "project_data_ready":
+        return "measured_project", 1.0
+    if candidate.readiness_category == "blocked_missing":
+        return "missing", 0.0
+    if candidate.readiness_category == "sensitivity_only_indirect_proxy":
+        return "indirect_proxy", 0.4
+    if candidate.requires_equation_mapping or _candidate_equation_id(candidate):
+        return "derived_from_literature", 0.65
+    if candidate.direct_or_indirect == "indirect":
+        return "indirect_proxy", 0.4
+    if candidate.readiness_category in {"direct_literature_proxy", "fallback_literature_proxy", "reference_only"}:
+        return "direct_literature", 0.75
+    return "direct_literature", 0.75
+
+
+def _candidate_use_status(candidate: FeedstockProxyCandidate, certainty_class: str) -> str:
+    if certainty_class == "missing":
+        return "blocked_report_only"
+    if candidate.readiness_category in {"blocked_wrong_basis", "blocked_no_equation_mapping"}:
+        return "blocked_report_only"
+    if candidate.readiness_category == "reference_only":
+        return "reference_only"
+    if certainty_class in {"indirect_proxy", "derived_from_literature"}:
+        return "requires_confirmation"
+    return "report_only_candidate"
+
+
+def _requires_evidence_confirmation(certainty_class: str, use_status: str) -> bool:
+    if use_status in {"blocked_report_only", "requires_confirmation", "reference_only"}:
+        return True
+    return certainty_class in {"indirect_proxy", "engineering_assumption", "user_override", "missing"}
+
+
+def _optional_float(value: str) -> float | None:
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return None
 
 
 def _typed_equation_ids() -> set[str]:

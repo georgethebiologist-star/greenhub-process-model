@@ -10,6 +10,7 @@ from .graph_service import GraphService
 from .plot_service import PlotService
 from .feed_profile_service import FeedProfileService
 from .seasonal_service import SeasonalSimulationService
+from .dynamic_feedstock_service import DynamicFeedstockPreviewService
 
 __all__ = (
     "GraphService",
@@ -21,4 +22,5 @@ __all__ = (
     "ScenarioService",
     "SimulationService",
     "SeasonalSimulationService",
+    "DynamicFeedstockPreviewService",
 )
