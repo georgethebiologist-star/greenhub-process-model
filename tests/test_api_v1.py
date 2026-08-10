@@ -31,6 +31,24 @@ def invoke(app, method: str, path: str, payload=None, query: str = ""):
     return captured["status"], json.loads(encoded)
 
 
+def invoke_bytes(app, method: str, path: str):
+    captured = {}
+
+    def start_response(status, headers):
+        captured["status"] = int(status.split()[0])
+        captured["headers"] = dict(headers)
+
+    environ = {
+        "REQUEST_METHOD": method,
+        "PATH_INFO": path,
+        "QUERY_STRING": "",
+        "CONTENT_LENGTH": "0",
+        "wsgi.input": BytesIO(),
+    }
+    encoded = b"".join(app(environ, start_response))
+    return captured["status"], captured["headers"], encoded
+
+
 def request_payload(**updates):
     payload = {
         "schema_version": "1.0.0",
@@ -110,6 +128,7 @@ def test_simulation_and_result_endpoints_return_json_safe_service_results(tmp_pa
     for resource in (
         "status", "summary", "process-areas", "streams", "units", "balances",
         "utilities", "validation", "graph", "plots", "provenance", "exports",
+        "annual-summary",
     ):
         endpoint_status, response = invoke(app, "GET", f"/api/v1/simulations/{run_id}/{resource}")
         assert endpoint_status == 200, resource
@@ -121,6 +140,31 @@ def test_simulation_and_result_endpoints_return_json_safe_service_results(tmp_pa
     assert plot_status == 200
     assert plot["specification"]["plot_id"] == plot_id
     assert plot["series"]
+
+    annual_status, annual = invoke(app, "GET", f"/api/v1/simulations/{run_id}/annual-summary")
+    assert annual_status == 200
+    assert annual["method"] == "steady_state_annualization"
+    assert annual["period"]["operating_hours"] == 8760.0
+    assert annual["feed_processed"]["value"] == pytest.approx(
+        result["summary_kpis"]["boundary_inlet_mass"]["value"] * 8760.0
+    )
+    assert annual["products"]["dry_protein_product"]["unit"] == "kg/year"
+    assert annual["utilities"]["electricity"]["unit"] == "kWh/year"
+    assert annual["balance"]["passed"] is True
+
+    exports_status, exports = invoke(app, "GET", f"/api/v1/simulations/{run_id}/exports")
+    assert exports_status == 200
+    assert exports["annual_summary"] == "annual_summary.json"
+    file_status, headers, contents = invoke_bytes(
+        app, "GET", f"/api/v1/simulations/{run_id}/artifacts/annual_summary.json"
+    )
+    assert file_status == 200
+    assert headers["Content-Disposition"] == 'attachment; filename="annual_summary.json"'
+    assert json.loads(contents)["method"] == "steady_state_annualization"
+
+    missing_status, missing = invoke(app, "GET", f"/api/v1/simulations/{run_id}/artifacts/../simulation_request.json")
+    assert missing_status == 404
+    assert missing["error"]["code"] == "artifact_not_found"
 
 
 def test_parameter_validation_uses_canonical_bounds(tmp_path):

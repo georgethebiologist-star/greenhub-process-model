@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import mimetypes
 import re
 from dataclasses import dataclass
 from io import BytesIO
@@ -43,6 +44,12 @@ class APIError(Exception):
     details: tuple[object, ...] = ()
 
 
+@dataclass(frozen=True)
+class FileResponse:
+    path: Path
+    download_name: str
+
+
 class GreenHubAPI:
     """WSGI application that delegates all scientific work to application services."""
 
@@ -62,6 +69,8 @@ class GreenHubAPI:
             if method == "OPTIONS":
                 return self._respond(start_response, 200, {"status": "ok"})
             payload = self._dispatch(method, path, environ)
+            if isinstance(payload, FileResponse):
+                return self._respond_file(start_response, payload)
             status = 201 if method == "POST" and path in {"/api/v1/simulations", "/api/v1/feed-profiles"} else 200
             return self._respond(start_response, status, payload)
         except APIError as error:
@@ -126,6 +135,9 @@ class GreenHubAPI:
                 return self.plots.get_plot_data(*plot_match.groups())
             except KeyError as error:
                 raise APIError(404, "plot_not_found", str(error).strip("'")) from error
+        artifact_match = re.fullmatch(r"/api/v1/simulations/([a-f0-9]+)/artifacts/(.+)", path)
+        if method == "GET" and artifact_match:
+            return self._artifact(*artifact_match.groups())
         run_match = re.fullmatch(r"/api/v1/simulations/([a-f0-9]+)/([^/]+)", path)
         if method == "GET" and run_match:
             return self._run_resource(*run_match.groups())
@@ -220,11 +232,25 @@ class GreenHubAPI:
             "inventory": lambda: self.results.get_inventory(run_id),
             "utilization": lambda: self.results.get_utilization(run_id),
             "seasonal-summary": lambda: self.results.get_seasonal_summary(run_id),
+            "annual-summary": lambda: self.results.get_annual_summary(run_id),
         }
         try:
             return resources[resource]()
         except KeyError as error:
             raise APIError(404, "resource_not_found", f"Unknown simulation resource '{resource}'.") from error
+
+    def _artifact(self, run_id: str, reference: str) -> FileResponse:
+        context = self.repository.get(run_id)
+        if context.result is None:
+            raise RunStateError(f"Run '{run_id}' has no completed result.")
+        allowed = set(context.result.export_references.values())
+        if reference not in allowed:
+            raise APIError(404, "artifact_not_found", "The requested run artifact is not available.")
+        root = context.run_directory.resolve()
+        candidate = (root / reference).resolve()
+        if root not in candidate.parents or not candidate.is_file():
+            raise APIError(404, "artifact_not_found", "The requested run artifact is not available.")
+        return FileResponse(candidate, candidate.name)
 
     @staticmethod
     def _read_json(environ: Mapping[str, object]) -> Mapping[str, object]:
@@ -278,6 +304,19 @@ class GreenHubAPI:
             ("Content-Length", str(len(encoded))),
             ("Access-Control-Allow-Origin", "*"),
             ("Access-Control-Allow-Headers", "Content-Type, Authorization"),
+            ("Access-Control-Allow-Methods", "GET, POST, OPTIONS"),
+        ])
+        return [encoded]
+
+    @staticmethod
+    def _respond_file(start_response: Callable, response: FileResponse) -> list[bytes]:
+        encoded = response.path.read_bytes()
+        content_type = mimetypes.guess_type(response.download_name)[0] or "application/octet-stream"
+        start_response("200 OK", [
+            ("Content-Type", content_type),
+            ("Content-Length", str(len(encoded))),
+            ("Content-Disposition", f'attachment; filename="{response.download_name}"'),
+            ("Access-Control-Allow-Origin", "*"),
             ("Access-Control-Allow-Methods", "GET, POST, OPTIONS"),
         ])
         return [encoded]

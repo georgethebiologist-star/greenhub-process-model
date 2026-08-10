@@ -207,3 +207,38 @@ export interface SimulationResult {
     issues: Array<{ severity: 'info' | 'warning' | 'error'; message: string }>;
   };
 }
+
+export interface AnnualValue {
+  value: number;
+  unit: string;
+}
+
+export interface AnnualSummary {
+  method: 'quasi_dynamic_integration' | 'steady_state_annualization';
+  method_label: string;
+  basis: string;
+  period: {
+    start_date: string | null;
+    end_date: string | null;
+    operating_hours: number;
+    schedule_source: string;
+  };
+  feed_processed: AnnualValue;
+  products: Record<string, AnnualValue>;
+  utilities: Record<string, AnnualValue>;
+  balance: {
+    overall_closure_pct: number;
+    process_mass_residual_kg: number;
+    storage_mass_residual_kg: number;
+    element_residuals_kg: Record<string, number>;
+    passed: boolean;
+  };
+  monthly: Array<{
+    period: string;
+    feed_processed_kg: number;
+    products_kg: Record<string, number>;
+    utilities_kwh: Record<string, number>;
+    mass_residual_kg: number;
+  }>;
+  warnings: string[];
+}

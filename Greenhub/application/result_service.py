@@ -2,6 +2,7 @@
 
 from Greenhub.feedstock_resolution import summarize_feedstock_resolution_gates, write_feedstock_resolution_report
 
+from .annual_service import build_annual_summary
 from .errors import RunStateError
 
 
@@ -71,6 +72,12 @@ class ResultService:
 
     def get_seasonal_summary(self, run_id):
         return self._result(run_id).seasonal_summary
+
+    def get_annual_summary(self, run_id):
+        context = self.repository.get(run_id)
+        if context.result is None:
+            raise RunStateError(f"Run '{run_id}' has no completed result.")
+        return build_annual_summary(context.result, context.request)
 
     def get_feedstock_resolution_readiness(self):
         write_feedstock_resolution_report()

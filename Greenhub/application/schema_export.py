@@ -461,6 +461,7 @@ def openapi_schema() -> dict[str, object]:
         ("provenance", "getSimulationProvenance"), ("exports", "getSimulationExports"),
         ("time-series", "getSimulationTimeSeries"), ("inventory", "getSimulationInventory"),
         ("utilization", "getSimulationUtilization"), ("seasonal-summary", "getSeasonalSummary"),
+        ("annual-summary", "getAnnualSummary"),
     ):
         add(f"/api/v1/simulations/{{run_id}}/{suffix}", "GET", operation)
     add("/api/v1/simulations/{run_id}/graph", "GET", "getSimulationGraph", response_schema="ProcessGraph")

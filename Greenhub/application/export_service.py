@@ -7,6 +7,8 @@ from pathlib import Path
 from Greenhub.parameters.provenance import provenance_record
 from Greenhub.parameters.serialization import to_json_compatible, write_json, write_records_csv
 
+from .annual_service import build_annual_summary
+
 
 class ExportService:
     def export_run(self, context, result, plot_service) -> dict[str, str]:
@@ -28,6 +30,7 @@ class ExportService:
         references["resolved_parameters_csv"] = "resolved_parameters.csv"
         json_file("provenance.json", tuple(provenance_record(item) for item in context.resolved_parameters))
         json_file("summary.json", result.summary_kpis)
+        json_file("annual_summary.json", build_annual_summary(result, context.request))
         json_file("process_areas.json", result.process_areas)
         json_file("streams.json", result.streams)
         json_file("units.json", result.units)
