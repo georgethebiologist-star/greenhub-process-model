@@ -41,6 +41,6 @@ export function InputStudio({ feed, setFeed, scenario, onRun }: {
       {field('proteinPct','Protein','% dry matter','Shown for review; not sent to the scientific model yet.',100)}
       {field('phosphorusPct','Total phosphorus','% wet basis','Shown for review; not sent to the scientific model yet.',100)}
     </div></div>
-    <div className="input-summary"><div><strong>Selected pathway</strong><span>{scenario.feed_front_end} · {scenario.anaerobic_digestion} · {scenario.nutrient_recovery}</span></div><div><strong>Input status</strong><span>Schedule active · composition planning only</span></div><button className="run-button" onClick={onRun}>Run annual plan</button></div>
+    <div className="input-summary"><div><strong>Selected pathway</strong><span>{scenario.feed_front_end ? 'Feed preparation, digestion and nutrient recovery configured' : 'Choose a process pathway above'}</span></div><div><strong>Input status</strong><span>Schedule active · composition planning only</span></div><button className="run-button" onClick={onRun}>Run annual plan</button></div>
   </section>;
 }

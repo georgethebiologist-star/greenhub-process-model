@@ -48,6 +48,7 @@ dist/
 
 # Future frontend packages
 node_modules/
+.pnpm-store/
 
 # Confidential datasets
 data/private/
