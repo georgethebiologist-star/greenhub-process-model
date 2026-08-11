@@ -1,0 +1,300 @@
+{
+  "balance": {
+    "element_residuals_kg": {
+      "calcium": 0.0,
+      "carbon": -8.260059303211165e-14,
+      "chloride": -3.730349362740526e-14,
+      "hydrogen": -1.807620719773695e-11,
+      "magnesium": 0.0,
+      "nitrogen": 0.0,
+      "oxygen": -1.6507328837178648e-10,
+      "phosphorus": -4.829470157119431e-15,
+      "potassium": -6.261657858885883e-14,
+      "sodium": -1.8451906669270102e-13,
+      "sulfur": -5.861977570020827e-14
+    },
+    "overall_closure_pct": 99.99999999930749,
+    "passed": true,
+    "process_mass_residual_kg": -2.743893492151983e-05,
+    "storage_mass_residual_kg": -1.1641532182693481e-10
+  },
+  "basis": "Mass, product and utility totals are summed from the quasi-dynamic time steps; rates are not multiplied by a generic annual factor.",
+  "feed_processed": {
+    "unit": "kg/year",
+    "value": 3962225.656877898
+  },
+  "method": "quasi_dynamic_integration",
+  "method_label": "Integrated from monthly model steps",
+  "monthly": [
+    {
+      "feed_processed_kg": 223400.3091190108,
+      "mass_residual_kg": -1.5470654943783302e-06,
+      "period": "2026-01",
+      "products_kg": {
+        "ammonium_product": 2227.926942888623,
+        "biomethane": 230.5053465042269,
+        "dry_protein_product": 1790.0365255163983,
+        "nutrient_rich_solids": 1269.2066700459723,
+        "phosphorus_product": 25.488095276264307
+      },
+      "utilities_kwh": {
+        "cooling_kwh": 2976.378572197277,
+        "electricity_kwh": 6958.967682629806,
+        "heating_kwh": 10948.788812153996
+      }
+    },
+    {
+      "feed_processed_kg": 203091.19010819166,
+      "mass_residual_kg": -1.4064216884435154e-06,
+      "period": "2026-02",
+      "products_kg": {
+        "ammonium_product": 2025.3881298987487,
+        "biomethane": 209.5503150038427,
+        "dry_protein_product": 1627.305932287635,
+        "nutrient_rich_solids": 1153.8242454963383,
+        "phosphorus_product": 23.170995705694825
+      },
+      "utilities_kwh": {
+        "cooling_kwh": 2705.798701997537,
+        "electricity_kwh": 6326.334256936188,
+        "heating_kwh": 9951.819761400231
+      }
+    },
+    {
+      "feed_processed_kg": 257248.84080370943,
+      "mass_residual_kg": -1.7814450075093191e-06,
+      "period": "2026-03",
+      "products_kg": {
+        "ammonium_product": 2565.4916312050814,
+        "biomethane": 265.43039900486735,
+        "dry_protein_product": 2061.2541808976703,
+        "nutrient_rich_solids": 1461.5107109620285,
+        "phosphorus_product": 29.349927893880114
+      },
+      "utilities_kwh": {
+        "cooling_kwh": 3427.3450225302304,
+        "electricity_kwh": 8013.356725452503,
+        "heating_kwh": 12563.962096643501
+      }
+    },
+    {
+      "feed_processed_kg": 338485.31684698607,
+      "mass_residual_kg": -2.344108906982001e-06,
+      "period": "2026-04",
+      "products_kg": {
+        "ammonium_product": 3375.6468831645802,
+        "biomethane": 349.2505250064044,
+        "dry_protein_product": 2712.1765538127243,
+        "nutrient_rich_solids": 1923.040409160564,
+        "phosphorus_product": 38.61832617615805
+      },
+      "utilities_kwh": {
+        "cooling_kwh": 4509.664503329217,
+        "electricity_kwh": 10543.890428226978,
+        "heating_kwh": 16416.281603105108
+      }
+    },
+    {
+      "feed_processed_kg": 372000.0,
+      "mass_residual_kg": -2.576144652266521e-06,
+      "period": "2026-05",
+      "products_kg": {
+        "ammonium_product": 3709.8821663359986,
+        "biomethane": 383.83111123580557,
+        "dry_protein_product": 2980.71918574366,
+        "nutrient_rich_solids": 2113.447752686763,
+        "phosphorus_product": 42.44206948576449
+      },
+      "utilities_kwh": {
+        "cooling_kwh": 4956.183065384849,
+        "electricity_kwh": 11587.880017476633,
+        "heating_kwh": 18018.016981739696
+      }
+    },
+    {
+      "feed_processed_kg": 360000.0,
+      "mass_residual_kg": -2.4930432118708268e-06,
+      "period": "2026-06",
+      "products_kg": {
+        "ammonium_product": 3590.208548067098,
+        "biomethane": 371.44946248626354,
+        "dry_protein_product": 2884.5669539454775,
+        "nutrient_rich_solids": 2045.272018729126,
+        "phosphorus_product": 41.07297047009467
+      },
+      "utilities_kwh": {
+        "cooling_kwh": 4796.306192307919,
+        "electricity_kwh": 11214.077436267711,
+        "heating_kwh": 17436.790627490027
+      }
+    },
+    {
+      "feed_processed_kg": 372000.0,
+      "mass_residual_kg": -2.576144652266521e-06,
+      "period": "2026-07",
+      "products_kg": {
+        "ammonium_product": 3709.882166336001,
+        "biomethane": 383.8311112358057,
+        "dry_protein_product": 2980.71918574366,
+        "nutrient_rich_solids": 2113.4477526867636,
+        "phosphorus_product": 42.44206948576449
+      },
+      "utilities_kwh": {
+        "cooling_kwh": 4956.18306538485,
+        "electricity_kwh": 11587.880017476631,
+        "heating_kwh": 18018.016981739696
+      }
+    },
+    {
+      "feed_processed_kg": 372000.0,
+      "mass_residual_kg": -2.576144652266521e-06,
+      "period": "2026-08",
+      "products_kg": {
+        "ammonium_product": 3709.882166336001,
+        "biomethane": 383.8311112358057,
+        "dry_protein_product": 2980.71918574366,
+        "nutrient_rich_solids": 2113.4477526867636,
+        "phosphorus_product": 42.44206948576449
+      },
+      "utilities_kwh": {
+        "cooling_kwh": 4956.18306538485,
+        "electricity_kwh": 11587.880017476631,
+        "heating_kwh": 18018.016981739696
+      }
+    },
+    {
+      "feed_processed_kg": 360000.0,
+      "mass_residual_kg": -2.4930841391324066e-06,
+      "period": "2026-09",
+      "products_kg": {
+        "ammonium_product": 3590.2085480670953,
+        "biomethane": 371.44946248626354,
+        "dry_protein_product": 2884.5669539454775,
+        "nutrient_rich_solids": 2045.272018729126,
+        "phosphorus_product": 41.07297047009467
+      },
+      "utilities_kwh": {
+        "cooling_kwh": 4796.3061923079185,
+        "electricity_kwh": 11214.077436267711,
+        "heating_kwh": 17436.790627490027
+      }
+    },
+    {
+      "feed_processed_kg": 372000.0,
+      "mass_residual_kg": -2.576144652266521e-06,
+      "period": "2026-10",
+      "products_kg": {
+        "ammonium_product": 3709.8821663359986,
+        "biomethane": 383.8311112358057,
+        "dry_protein_product": 2980.71918574366,
+        "nutrient_rich_solids": 2113.4477526867636,
+        "phosphorus_product": 42.44206948576449
+      },
+      "utilities_kwh": {
+        "cooling_kwh": 4956.183065384849,
+        "electricity_kwh": 11587.880017476631,
+        "heating_kwh": 18018.016981739696
+      }
+    },
+    {
+      "feed_processed_kg": 360000.0,
+      "mass_residual_kg": -2.4930432118708268e-06,
+      "period": "2026-11",
+      "products_kg": {
+        "ammonium_product": 3590.208548067096,
+        "biomethane": 371.44946248626354,
+        "dry_protein_product": 2884.5669539454775,
+        "nutrient_rich_solids": 2045.272018729126,
+        "phosphorus_product": 41.07297047009467
+      },
+      "utilities_kwh": {
+        "cooling_kwh": 4796.3061923079185,
+        "electricity_kwh": 11214.077436267708,
+        "heating_kwh": 17436.790627490027
+      }
+    },
+    {
+      "feed_processed_kg": 372000.0,
+      "mass_residual_kg": -2.576144652266521e-06,
+      "period": "2026-12",
+      "products_kg": {
+        "ammonium_product": 3709.8821663360013,
+        "biomethane": 383.8311112358057,
+        "dry_protein_product": 2980.71918574366,
+        "nutrient_rich_solids": 2113.4477526867636,
+        "phosphorus_product": 42.44206948576449
+      },
+      "utilities_kwh": {
+        "cooling_kwh": 4956.18306538485,
+        "electricity_kwh": 11587.880017476631,
+        "heating_kwh": 18018.016981739696
+      }
+    }
+  ],
+  "period": {
+    "end_date": "2026-12-31",
+    "operating_hours": 8760.0,
+    "schedule_source": "Run operating calendar and monthly feed profile",
+    "start_date": "2026-01-01"
+  },
+  "products": {
+    "ammonium_product": {
+      "unit": "kg/year",
+      "value": 39514.49006303832
+    },
+    "biomethane": {
+      "unit": "kg/year",
+      "value": 4088.24052915716
+    },
+    "dry_protein_product": {
+      "unit": "kg/year",
+      "value": 31748.069983069163
+    },
+    "nutrient_rich_solids": {
+      "unit": "kg/year",
+      "value": 22510.6368552861
+    },
+    "phosphorus_product": {
+      "unit": "kg/year",
+      "value": 452.05660389110375
+    },
+    "potassium_concentrate": {
+      "unit": "kg/year",
+      "value": 0.0
+    }
+  },
+  "utilities": {
+    "cooling": {
+      "unit": "kWh/year",
+      "value": 52789.02070390227
+    },
+    "electricity": {
+      "unit": "kWh/year",
+      "value": 123424.18148943178
+    },
+    "heating": {
+      "unit": "kWh/year",
+      "value": 192281.3090644714
+    }
+  },
+  "warnings": [
+    "134 selected Phase 7 parameters use quality class E; replace them before design, fertilizer-quality, economic, or configuration-selection interpretation.",
+    "84 selected Phase 6 parameters use quality class E; replace them before scientific, design, economic, or configuration-selection interpretation.",
+    "80 selected Phase 5 parameters use quality class E; replace them before scientific, design, or economic interpretation.",
+    "69 selected Phase 4 parameters use quality class E; replace them before scientific or economic interpretation.",
+    "67 selected Phase 3 parameters use quality class E; see the assumption register for individual records.",
+    "PEF release and juice-yield enhancement are empirical structural assumptions, not kinetic predictions.",
+    "No transfer pump is active because no pressure-rise requirement is available; pumping electricity is zero.",
+    "U101, U201, S201, C301 have no purchase cost because no approved GreenHub cost correlation is available.",
+    "Structural-test mode is active; quality-class E inputs are not final measured or literature assumptions.",
+    "The protein separator, washer, dewatering unit, dryer, and mixers have no purchase-cost model.",
+    "The low-temperature belt dryer is a structural selection suitable for wet cake; vendor data remain required.",
+    "Phase 4 structural-test mode is active; class E values are placeholders, not design data.",
+    "Phase 5 structural-test mode is active; class E values are placeholders, not design data.",
+    "Phase 6 structural-test mode is active; class-E gas-cleaning and upgrading values are not validated design data.",
+    "Phase 7 structural-test mode is active; quality-class E recoveries, reagent doses, utilities, and design values are placeholders.",
+    "Weights are scaled only to an explicit annual_biomass_target.",
+    "Storage capacity is unavailable; inventory is preserved without an overflow limit until seasonal.storage_capacity_kg is overridden.",
+    "Storage water loss, dry-matter loss, protein degradation, and COD degradation are not implemented because no eligible rates are available."
+  ]
+}

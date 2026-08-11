@@ -18,7 +18,7 @@ LCA, or anaerobic-digestion calculations.
 7. Use the second centrifugation to form wet protein cake and final supernatant.
 8. Dry the wet protein cake by removing Water only.
 9. Combine cell debris and final supernatant as a future biogas-feed candidate.
-10. Record press cake as a system output unless a scenario explicitly routes it.
+10. Record press cake as an external-scope system output; never route it to the in-project biogas candidate.
 
 ## Raw Press Boundary
 
@@ -54,7 +54,8 @@ phase as wet protein cake and routes losses to final supernatant. Drying changes
 only Water mass and reports missing energy data separately.
 
 Final supernatant and cell debris are combined without running AD. Press cake is
-excluded by default and can be included only through explicit scenario routing.
+always excluded from this in-project residual route; any future press-cake use
+requires a separate external-scope scenario and report.
 
 ## Conservative And Demo Policies
 

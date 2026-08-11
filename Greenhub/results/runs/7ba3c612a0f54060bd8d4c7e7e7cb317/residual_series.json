@@ -1,0 +1,50 @@
+[
+  {
+    "residual_output_kg": 154332.4278318581,
+    "time": "2026-01"
+  },
+  {
+    "residual_output_kg": 140302.2071198709,
+    "time": "2026-02"
+  },
+  {
+    "residual_output_kg": 177716.12901850307,
+    "time": "2026-03"
+  },
+  {
+    "residual_output_kg": 233837.01186645174,
+    "time": "2026-04"
+  },
+  {
+    "residual_output_kg": 256990.0792879683,
+    "time": "2026-05"
+  },
+  {
+    "residual_output_kg": 248700.07673029194,
+    "time": "2026-06"
+  },
+  {
+    "residual_output_kg": 256990.0792879682,
+    "time": "2026-07"
+  },
+  {
+    "residual_output_kg": 256990.0792879682,
+    "time": "2026-08"
+  },
+  {
+    "residual_output_kg": 248700.07673029194,
+    "time": "2026-09"
+  },
+  {
+    "residual_output_kg": 256990.0792879682,
+    "time": "2026-10"
+  },
+  {
+    "residual_output_kg": 248700.0767302918,
+    "time": "2026-11"
+  },
+  {
+    "residual_output_kg": 256990.0792879682,
+    "time": "2026-12"
+  }
+]

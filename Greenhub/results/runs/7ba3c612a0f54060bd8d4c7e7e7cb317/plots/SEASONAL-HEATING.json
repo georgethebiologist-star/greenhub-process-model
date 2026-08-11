@@ -1,0 +1,52 @@
+{
+  "series": [
+    {
+      "label": "Heating Kwh",
+      "series_id": "heating_kwh",
+      "x": [
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09",
+        "2026-10",
+        "2026-11",
+        "2026-12"
+      ],
+      "y": [
+        10948.788812153996,
+        9951.819761400231,
+        12563.962096643501,
+        16416.281603105108,
+        18018.016981739696,
+        17436.790627490027,
+        18018.016981739696,
+        18018.016981739696,
+        17436.790627490027,
+        18018.016981739696,
+        17436.790627490027,
+        18018.016981739696
+      ]
+    }
+  ],
+  "specification": {
+    "availability_status": "available",
+    "plot_id": "SEASONAL-HEATING",
+    "process_area": "shared_utilities_and_supporting_operations",
+    "run_id": "7ba3c612a0f54060bd8d4c7e7e7cb317",
+    "scenario": "F2/PR3/AD1/BG2/NR4",
+    "source_result_fields": [
+      "utility_series.heating_kwh"
+    ],
+    "title": "Heating demand",
+    "warnings": [],
+    "x_axis_label": "Time",
+    "x_unit": null,
+    "y_axis_label": "Energy",
+    "y_unit": "kWh"
+  }
+}
