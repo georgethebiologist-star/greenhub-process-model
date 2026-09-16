@@ -1,0 +1,314 @@
+[
+  {
+    "biomass_received_kg": 223400.3091190108,
+    "biomass_withdrawn_kg": 223400.3091190108,
+    "degradation_loss_kg": 0.0,
+    "degradation_provenance": {
+      "limitations": [
+        "degradation_not_implemented"
+      ],
+      "methods": [
+        {
+          "degradation": "not_implemented"
+        }
+      ],
+      "sources": []
+    },
+    "degradation_status": "not_implemented_no_eligible_data",
+    "dry_matter_loss_kg": 0.0,
+    "inventory_entering_kg": 0.0,
+    "inventory_remaining_kg": 0.0,
+    "overflow_kg": 0.0,
+    "storage_age_h": 0.0,
+    "storage_mass_residual_kg": 0.0,
+    "time": "2026-01",
+    "unmet_process_demand_kg": 148599.6908809892,
+    "water_loss_kg": 0.0
+  },
+  {
+    "biomass_received_kg": 203091.19010819166,
+    "biomass_withdrawn_kg": 203091.19010819166,
+    "degradation_loss_kg": 0.0,
+    "degradation_provenance": {
+      "limitations": [
+        "degradation_not_implemented"
+      ],
+      "methods": [
+        {
+          "degradation": "not_implemented"
+        }
+      ],
+      "sources": []
+    },
+    "degradation_status": "not_implemented_no_eligible_data",
+    "dry_matter_loss_kg": 0.0,
+    "inventory_entering_kg": 0.0,
+    "inventory_remaining_kg": 0.0,
+    "overflow_kg": 0.0,
+    "storage_age_h": 0.0,
+    "storage_mass_residual_kg": 0.0,
+    "time": "2026-02",
+    "unmet_process_demand_kg": 132908.80989180834,
+    "water_loss_kg": 0.0
+  },
+  {
+    "biomass_received_kg": 257248.84080370943,
+    "biomass_withdrawn_kg": 257248.84080370943,
+    "degradation_loss_kg": 0.0,
+    "degradation_provenance": {
+      "limitations": [
+        "degradation_not_implemented"
+      ],
+      "methods": [
+        {
+          "degradation": "not_implemented"
+        }
+      ],
+      "sources": []
+    },
+    "degradation_status": "not_implemented_no_eligible_data",
+    "dry_matter_loss_kg": 0.0,
+    "inventory_entering_kg": 0.0,
+    "inventory_remaining_kg": 0.0,
+    "overflow_kg": 0.0,
+    "storage_age_h": 0.0,
+    "storage_mass_residual_kg": 0.0,
+    "time": "2026-03",
+    "unmet_process_demand_kg": 114751.15919629057,
+    "water_loss_kg": 0.0
+  },
+  {
+    "biomass_received_kg": 338485.31684698607,
+    "biomass_withdrawn_kg": 338485.31684698607,
+    "degradation_loss_kg": 0.0,
+    "degradation_provenance": {
+      "limitations": [
+        "degradation_not_implemented"
+      ],
+      "methods": [
+        {
+          "degradation": "not_implemented"
+        }
+      ],
+      "sources": []
+    },
+    "degradation_status": "not_implemented_no_eligible_data",
+    "dry_matter_loss_kg": 0.0,
+    "inventory_entering_kg": 0.0,
+    "inventory_remaining_kg": 0.0,
+    "overflow_kg": 0.0,
+    "storage_age_h": 0.0,
+    "storage_mass_residual_kg": 0.0,
+    "time": "2026-04",
+    "unmet_process_demand_kg": 21514.68315301393,
+    "water_loss_kg": 0.0
+  },
+  {
+    "biomass_received_kg": 433261.2055641422,
+    "biomass_withdrawn_kg": 372000.0,
+    "degradation_loss_kg": 0.0,
+    "degradation_provenance": {
+      "limitations": [
+        "degradation_not_implemented"
+      ],
+      "methods": [
+        {
+          "degradation": "not_implemented"
+        }
+      ],
+      "sources": []
+    },
+    "degradation_status": "not_implemented_no_eligible_data",
+    "dry_matter_loss_kg": 0.0,
+    "inventory_entering_kg": 0.0,
+    "inventory_remaining_kg": 61261.2055641422,
+    "overflow_kg": 0.0,
+    "storage_age_h": 744.0,
+    "storage_mass_residual_kg": 7.275957614183426e-12,
+    "time": "2026-05",
+    "unmet_process_demand_kg": 0.0,
+    "water_loss_kg": 0.0
+  },
+  {
+    "biomass_received_kg": 514497.68160741887,
+    "biomass_withdrawn_kg": 360000.0,
+    "degradation_loss_kg": 0.0,
+    "degradation_provenance": {
+      "limitations": [
+        "degradation_not_implemented"
+      ],
+      "methods": [
+        {
+          "degradation": "not_implemented"
+        }
+      ],
+      "sources": []
+    },
+    "degradation_status": "not_implemented_no_eligible_data",
+    "dry_matter_loss_kg": 0.0,
+    "inventory_entering_kg": 61261.2055641422,
+    "inventory_remaining_kg": 215758.88717156104,
+    "overflow_kg": 0.0,
+    "storage_age_h": 799.1621943755437,
+    "storage_mass_residual_kg": -2.9103830456733704e-11,
+    "time": "2026-06",
+    "unmet_process_demand_kg": 0.0,
+    "water_loss_kg": 0.0
+  },
+  {
+    "biomass_received_kg": 568655.3323029366,
+    "biomass_withdrawn_kg": 372000.0,
+    "degradation_loss_kg": 0.0,
+    "degradation_provenance": {
+      "limitations": [
+        "degradation_not_implemented"
+      ],
+      "methods": [
+        {
+          "degradation": "not_implemented"
+        }
+      ],
+      "sources": []
+    },
+    "degradation_status": "not_implemented_no_eligible_data",
+    "dry_matter_loss_kg": 0.0,
+    "inventory_entering_kg": 215758.88717156104,
+    "inventory_remaining_kg": 412414.2194744976,
+    "overflow_kg": 0.0,
+    "storage_age_h": 963.8154258901164,
+    "storage_mass_residual_kg": 0.0,
+    "time": "2026-07",
+    "unmet_process_demand_kg": 0.0,
+    "water_loss_kg": 0.0
+  },
+  {
+    "biomass_received_kg": 541576.5069551778,
+    "biomass_withdrawn_kg": 372000.0,
+    "degradation_loss_kg": 0.0,
+    "degradation_provenance": {
+      "limitations": [
+        "degradation_not_implemented"
+      ],
+      "methods": [
+        {
+          "degradation": "not_implemented"
+        }
+      ],
+      "sources": []
+    },
+    "degradation_status": "not_implemented_no_eligible_data",
+    "dry_matter_loss_kg": 0.0,
+    "inventory_entering_kg": 412414.2194744976,
+    "inventory_remaining_kg": 581990.7264296754,
+    "overflow_kg": 0.0,
+    "storage_age_h": 1160.6614785382346,
+    "storage_mass_residual_kg": 0.0,
+    "time": "2026-08",
+    "unmet_process_demand_kg": 0.0,
+    "water_loss_kg": 0.0
+  },
+  {
+    "biomass_received_kg": 446800.6182380216,
+    "biomass_withdrawn_kg": 360000.0,
+    "degradation_loss_kg": 0.0,
+    "degradation_provenance": {
+      "limitations": [
+        "degradation_not_implemented"
+      ],
+      "methods": [
+        {
+          "degradation": "not_implemented"
+        }
+      ],
+      "sources": []
+    },
+    "degradation_status": "not_implemented_no_eligible_data",
+    "dry_matter_loss_kg": 0.0,
+    "inventory_entering_kg": 581990.7264296754,
+    "inventory_remaining_kg": 668791.344667697,
+    "overflow_kg": 0.0,
+    "storage_age_h": 1376.5901050145353,
+    "storage_mass_residual_kg": 0.0,
+    "time": "2026-09",
+    "unmet_process_demand_kg": 0.0,
+    "water_loss_kg": 0.0
+  },
+  {
+    "biomass_received_kg": 352024.72952086554,
+    "biomass_withdrawn_kg": 372000.0,
+    "degradation_loss_kg": 0.0,
+    "degradation_provenance": {
+      "limitations": [
+        "degradation_not_implemented"
+      ],
+      "methods": [
+        {
+          "degradation": "not_implemented"
+        }
+      ],
+      "sources": []
+    },
+    "degradation_status": "not_implemented_no_eligible_data",
+    "dry_matter_loss_kg": 0.0,
+    "inventory_entering_kg": 668791.344667697,
+    "inventory_remaining_kg": 648816.0741885626,
+    "overflow_kg": 0.0,
+    "storage_age_h": 1645.8779882759338,
+    "storage_mass_residual_kg": 0.0,
+    "time": "2026-10",
+    "unmet_process_demand_kg": 0.0,
+    "water_loss_kg": 0.0
+  },
+  {
+    "biomass_received_kg": 270788.2534775889,
+    "biomass_withdrawn_kg": 360000.0,
+    "degradation_loss_kg": 0.0,
+    "degradation_provenance": {
+      "limitations": [
+        "degradation_not_implemented"
+      ],
+      "methods": [
+        {
+          "degradation": "not_implemented"
+        }
+      ],
+      "sources": []
+    },
+    "degradation_status": "not_implemented_no_eligible_data",
+    "dry_matter_loss_kg": 0.0,
+    "inventory_entering_kg": 648816.0741885626,
+    "inventory_remaining_kg": 559604.3276661515,
+    "overflow_kg": 0.0,
+    "storage_age_h": 1881.2299581676562,
+    "storage_mass_residual_kg": 0.0,
+    "time": "2026-11",
+    "unmet_process_demand_kg": 0.0,
+    "water_loss_kg": 0.0
+  },
+  {
+    "biomass_received_kg": 230170.01545595055,
+    "biomass_withdrawn_kg": 372000.0,
+    "degradation_loss_kg": 0.0,
+    "degradation_provenance": {
+      "limitations": [
+        "degradation_not_implemented"
+      ],
+      "methods": [
+        {
+          "degradation": "not_implemented"
+        }
+      ],
+      "sources": []
+    },
+    "degradation_status": "not_implemented_no_eligible_data",
+    "dry_matter_loss_kg": 0.0,
+    "inventory_entering_kg": 559604.3276661515,
+    "inventory_remaining_kg": 417774.343122102,
+    "overflow_kg": 0.0,
+    "storage_age_h": 2076.968632235088,
+    "storage_mass_residual_kg": 0.0,
+    "time": "2026-12",
+    "unmet_process_demand_kg": 0.0,
+    "water_loss_kg": 0.0
+  }
+]

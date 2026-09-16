@@ -1,0 +1,122 @@
+[
+  {
+    "products_kg": {
+      "ammonium_product": 2227.926942888623,
+      "biomethane": 230.50534650422694,
+      "dry_protein_product": 1790.0365255163983,
+      "nutrient_rich_solids": 1269.2066700459723,
+      "phosphorus_product": 25.488095276264307
+    },
+    "time": "2026-01"
+  },
+  {
+    "products_kg": {
+      "ammonium_product": 2025.3881298987487,
+      "biomethane": 209.5503150038427,
+      "dry_protein_product": 1627.305932287635,
+      "nutrient_rich_solids": 1153.8242454963383,
+      "phosphorus_product": 23.170995705694825
+    },
+    "time": "2026-02"
+  },
+  {
+    "products_kg": {
+      "ammonium_product": 2565.4916312050814,
+      "biomethane": 265.43039900486735,
+      "dry_protein_product": 2061.2541808976703,
+      "nutrient_rich_solids": 1461.5107109620285,
+      "phosphorus_product": 29.349927893880114
+    },
+    "time": "2026-03"
+  },
+  {
+    "products_kg": {
+      "ammonium_product": 3375.6468831645802,
+      "biomethane": 349.25052500640436,
+      "dry_protein_product": 2712.1765538127243,
+      "nutrient_rich_solids": 1923.040409160564,
+      "phosphorus_product": 38.61832617615806
+    },
+    "time": "2026-04"
+  },
+  {
+    "products_kg": {
+      "ammonium_product": 3709.8821663359986,
+      "biomethane": 383.83111123580557,
+      "dry_protein_product": 2980.71918574366,
+      "nutrient_rich_solids": 2113.447752686763,
+      "phosphorus_product": 42.442069485764485
+    },
+    "time": "2026-05"
+  },
+  {
+    "products_kg": {
+      "ammonium_product": 3590.208548067098,
+      "biomethane": 371.4494624862635,
+      "dry_protein_product": 2884.5669539454775,
+      "nutrient_rich_solids": 2045.272018729125,
+      "phosphorus_product": 41.07297047009466
+    },
+    "time": "2026-06"
+  },
+  {
+    "products_kg": {
+      "ammonium_product": 3709.882166336001,
+      "biomethane": 383.83111123580557,
+      "dry_protein_product": 2980.71918574366,
+      "nutrient_rich_solids": 2113.4477526867636,
+      "phosphorus_product": 42.442069485764485
+    },
+    "time": "2026-07"
+  },
+  {
+    "products_kg": {
+      "ammonium_product": 3709.882166336001,
+      "biomethane": 383.83111123580557,
+      "dry_protein_product": 2980.71918574366,
+      "nutrient_rich_solids": 2113.4477526867636,
+      "phosphorus_product": 42.442069485764485
+    },
+    "time": "2026-08"
+  },
+  {
+    "products_kg": {
+      "ammonium_product": 3590.2085480670953,
+      "biomethane": 371.4494624862635,
+      "dry_protein_product": 2884.5669539454775,
+      "nutrient_rich_solids": 2045.2720187291256,
+      "phosphorus_product": 41.07297047009466
+    },
+    "time": "2026-09"
+  },
+  {
+    "products_kg": {
+      "ammonium_product": 3709.8821663359986,
+      "biomethane": 383.83111123580557,
+      "dry_protein_product": 2980.71918574366,
+      "nutrient_rich_solids": 2113.4477526867636,
+      "phosphorus_product": 42.442069485764485
+    },
+    "time": "2026-10"
+  },
+  {
+    "products_kg": {
+      "ammonium_product": 3590.208548067096,
+      "biomethane": 371.4494624862635,
+      "dry_protein_product": 2884.5669539454775,
+      "nutrient_rich_solids": 2045.2720187291259,
+      "phosphorus_product": 41.07297047009466
+    },
+    "time": "2026-11"
+  },
+  {
+    "products_kg": {
+      "ammonium_product": 3709.8821663360013,
+      "biomethane": 383.83111123580557,
+      "dry_protein_product": 2980.71918574366,
+      "nutrient_rich_solids": 2113.4477526867636,
+      "phosphorus_product": 42.442069485764485
+    },
+    "time": "2026-12"
+  }
+]

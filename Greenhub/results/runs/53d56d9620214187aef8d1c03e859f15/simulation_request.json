@@ -1,0 +1,48 @@
+{
+  "annual_biomass_target": 4380000,
+  "calculation_mode": "structural",
+  "design_overrides": [],
+  "end_date": "2026-12-31",
+  "expert_scientific_overrides": [],
+  "export_formats": [
+    "json",
+    "csv"
+  ],
+  "feed_overrides": [],
+  "feed_supply_profile_id": "workbook_normalized",
+  "initial_storage_inventory": {
+    "component_mass_fractions": {},
+    "moisture_fraction": null,
+    "storage_age_h": 0.0,
+    "temperature_k": null,
+    "total_mass_kg": 0.0
+  },
+  "operating_overrides": [],
+  "operating_schedule": {
+    "operating_dates": [],
+    "operating_days_per_week": 7,
+    "operating_hours_per_day": 24,
+    "shutdown_dates": [],
+    "target_throughput_kg_hr": 500
+  },
+  "project_id": "greenhub-engineering",
+  "request_id": "greenhub-ui-1789566626458",
+  "requested_outputs": [],
+  "requested_plots": [],
+  "resolution_mode": "quasi_dynamic",
+  "scenarios": {
+    "anaerobic_digestion": "AD1",
+    "biogas_upgrading": "BG2",
+    "feed_preparation": "F2",
+    "nutrient_recovery": "NR4",
+    "process_order": "A",
+    "protein_recovery": "PR3"
+  },
+  "schema_version": "1.0.0",
+  "selected_month": "July",
+  "start_date": "2026-01-01",
+  "strict_validation": true,
+  "time_horizon": null,
+  "time_step": "monthly",
+  "user_notes": null
+}
