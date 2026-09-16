@@ -53,6 +53,23 @@ OPERATING_SCHEDULE_SCHEMA = {
     },
 }
 
+BIOMASS_SCHEDULE_SCHEMA = {
+    "type": ["object", "null"],
+    "additionalProperties": False,
+    "properties": {
+        "annual_available_biomass_tonnes": {"type": "number", "minimum": 0, "default": 30000},
+        "annual_processed_biomass_tonnes": {"type": "number", "minimum": 0, "default": 30000},
+        "collection_refinery_fraction": {"type": "number", "minimum": 0, "maximum": 1, "default": 1},
+        "feed_basis": {"type": "string", "enum": ["tonnes_per_year", "kg_per_hr"]},
+        "feed_kg_per_hr": {"type": "number", "minimum": 0},
+        "season_start": {"type": "string", "format": "date"},
+        "season_end": {"type": "string", "format": "date"},
+        "peak_date": {"type": "string", "format": "date"},
+        "spread_days": {"type": "number", "minimum": 1, "maximum": 366},
+        "active_months": {"type": "array", "items": {"type": "integer", "minimum": 1, "maximum": 12}, "uniqueItems": True},
+    },
+}
+
 INITIAL_INVENTORY_SCHEMA = {
     "type": "object",
     "additionalProperties": False,
@@ -136,6 +153,7 @@ SIMULATION_REQUEST_SCHEMA = {
         "time_step": {"type": ["string", "null"], "enum": ["monthly", "daily", None]},
         "annual_biomass_target": {"type": ["number", "null"], "exclusiveMinimum": 0},
         "operating_schedule": {"$ref": "#/$defs/operating_schedule"},
+        "biomass_schedule": {"$ref": "#/$defs/biomass_schedule"},
         "initial_storage_inventory": {"$ref": "#/$defs/initial_storage_inventory"},
         "feed_supply_profile_id": {"type": ["string", "null"]},
     },
@@ -147,6 +165,7 @@ SIMULATION_REQUEST_SCHEMA = {
             "items": {"$ref": "#/$defs/parameter_override"},
         },
         "operating_schedule": OPERATING_SCHEDULE_SCHEMA,
+        "biomass_schedule": BIOMASS_SCHEDULE_SCHEMA,
         "initial_storage_inventory": INITIAL_INVENTORY_SCHEMA,
     },
 }

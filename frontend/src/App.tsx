@@ -22,7 +22,7 @@ import { normalizeResult } from './data/normalizeResult';
 import { ReportCenter, ResultsWorkbench } from './components/ResultsWorkbench';
 import { InputStudio, type FeedInputs } from './components/InputStudio';
 import DynamicCompleteDashboard from './components/DynamicCompleteDashboard';
-import type { CalculationMode, ParameterDefinition, ScenarioSelection, SimulationResult } from './types';
+import type { CalculationMode, EmpiricalBiomassSchedule, ParameterDefinition, ScenarioSelection, SimulationResult } from './types';
 
 type RuntimeSource = 'python' | 'fallback';
 type TabId = 'overview' | 'configure' | 'results' | 'reports' | 'advanced' | 'dynamic-proxy';
@@ -33,6 +33,19 @@ const defaults: ScenarioSelection = {
   feed_front_end: 'F2', protein_recovery: 'PR3', anaerobic_digestion: 'AD1',
   biogas_upgrading: 'BG2', nutrient_recovery: 'NR4', process_order: 'A',
 };
+const scheduleDefaults: EmpiricalBiomassSchedule = {
+  annual_available_biomass_tonnes: 30000,
+  annual_processed_biomass_tonnes: 30000,
+  collection_refinery_fraction: 1,
+  feed_basis: 'tonnes_per_year',
+  feed_kg_per_hr: 1000,
+  season_start: '2026-04-15',
+  season_end: '2026-11-15',
+  peak_date: '2026-07-31',
+  spread_days: 55,
+  active_months: Array.from({length: 12}, (_, index) => index + 1),
+};
+const monthLabels = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const qualityHelp = {
   A: 'Measured or verified', B: 'Strong literature basis', C: 'Engineering estimate',
   D: 'Uncertain or quarantined', E: 'Structural placeholder',
@@ -63,6 +76,7 @@ export default function App() {
   const [scenario, setScenario] = useState<ScenarioSelection>(defaults);
   const [parameters, setParameters] = useState<ParameterDefinition[]>(DEFAULT_PARAMETERS);
   const [feed, setFeed] = useState<FeedInputs>({ feedAmountKgh: 500, operatingDaysPerWeek: 7, operatingHoursPerDay: 24, moisturePct: 78, liquidFractionPct: 62, proteinPct: 18, nitrogenPct: 1.1, phosphorusPct: 0.12 });
+  const [biomassSchedule, setBiomassSchedule] = useState<EmpiricalBiomassSchedule>(scheduleDefaults);
   const fallbackPreview = useMemo(() => runSimulation({ calculation_mode: mode, selected_month: month, scenarios: scenario }), []);
   const [result, setResult] = useState<SimulationResult>(fallbackPreview);
   const [runtime, setRuntime] = useState<RuntimeSource>('fallback');
@@ -82,7 +96,7 @@ export default function App() {
     setRunning(true);
     setRuntimeNote('Submitting configuration to the Python backend…');
     try {
-      const raw = await runPythonSimulation(buildPythonRequest(mode, month, scenario, feed));
+      const raw = await runPythonSimulation(buildPythonRequest(mode, month, scenario, feed, biomassSchedule));
       const envelope = normalizeResult(raw, result);
       const resources = await fetchRunResources(envelope.result.run_id, raw.plots || []);
       const next = {
@@ -157,10 +171,16 @@ export default function App() {
       {tab === 'overview' && <Overview result={result} activeUnits={activeUnits} runtime={runtime} limitations={limitations} onConfigure={() => setTab('configure')} onResults={() => setTab('results')}/>} 
       {tab === 'configure' && <div className="page-stack">
         <PageIntro eyebrow="Configure" title="Set the process pathway" text="Choose the process route, review the inputs that affect the model, then calculate the annual plan."/>
+        <SectionHeading title="Feed schedule" text="Define annual availability and refinery intake. Supply keeps its seasonal shape; lower processing targets create a monthly plateau and explicit unused biomass."/>
+        <FeedScheduleControls value={biomassSchedule} onChange={setBiomassSchedule}/>
+        <SectionHeading title="Process route" text="Choose one empirical route in each process area. These selections remain independent from the dynamic proxy pathway."/>
         <section className="scenario-grid">{scenarioGroups.map(group => <ScenarioCard key={group.key} group={group} value={String(scenario[group.key])} onChange={value => setScenario(current => ({ ...current, [group.key]: value }))}/>)}</section>
         <section className="panel order-panel"><div><span className="eyebrow">Process sequence</span><h3>Nutrient-recovery order</h3><p>Controls the downstream separation sequence where supported.</p></div><select value={scenario.process_order} onChange={event => setScenario(current => ({...current, process_order: event.target.value as any}))}><option value="A">Separation → phosphorus → nitrogen → potassium</option><option value="B">Separation → nitrogen → phosphorus → potassium</option><option value="C">Phosphorus before separation</option><option value="D">Separation only</option></select></section>
         <InputStudio feed={feed} setFeed={setFeed} scenario={scenario} onRun={() => executeRun()}/>
-        <ConfigurationReview scenario={scenario} feed={feed} mode={mode} changed={changedParameters.length} onRun={() => executeRun()} running={running}/>
+        <SectionHeading title="Evidence / model mode" text="The evidence basis changes parameter resolution. The reference month remains visible because empirical composition is month-specific."/>
+        <section className="panel configure-evidence"><label><span>Evidence basis</span><select value={mode} onChange={event => setMode(event.target.value as CalculationMode)}><option value="structural">Structural model</option><option value="literature_default">Literature defaults</option><option value="calibrated">Calibrated data</option></select><small>Controls which eligible evidence layer supplies empirical parameters.</small></label><label><span>Reference composition month</span><select value={month} onChange={event => setMonth(event.target.value)}>{['January','February','March','April','May','June','July','August','September','October','November','December'].map(item => <option key={item}>{item}</option>)}</select><small>Used where a route requires one representative monthly composition.</small></label><div><span>Model status</span><strong>Empirical scientific pathway</strong><small>Dynamic proxy assumptions are not imported into this run.</small></div></section>
+        <section className="panel advanced-link"><div><span className="eyebrow">Advanced parameters</span><h3>{changedParameters.length ? `${changedParameters.length} reviewed values differ from defaults` : 'Review evidence and technical parameters'}</h3><p>Detailed assumptions remain separate from the primary operating-scale controls.</p></div><button className="secondary" onClick={() => setTab('advanced')}>Open advanced parameters</button></section>
+        <ConfigurationReview scenario={scenario} schedule={biomassSchedule} mode={mode} onRun={() => executeRun()} running={running}/>
       </div>}
       {tab === 'results' && <div className="page-stack"><PageIntro eyebrow="Results" title="Understand the process outcome" text="Review annual performance first, then follow the pathway and inspect balance quality or detailed model data."/><ResultsWorkbench result={result} graph={graph} artifacts={artifacts} runtime={runtime === 'python' ? 'Scientific model' : 'Preview data'}/>{limitations.length > 0 && <LimitationsPanel items={limitations}/>}</div>}
       {tab === 'reports' && <div className="page-stack"><PageIntro eyebrow="Reports" title="Download and share the run" text="Exports include the run context needed to trace the pathway, assumptions and validation status."/><ReportCenter result={result} artifacts={artifacts} runtime={runtime === 'python' ? 'Scientific model' : 'Preview data'}/></div>}
@@ -201,6 +221,7 @@ function Overview({ result, activeUnits, runtime, limitations, onConfigure, onRe
       <div className="overview-actions"><button className="run-button" onClick={onConfigure}><Settings2 size={16}/>Configure pathway</button><button className="secondary" onClick={onResults}><Activity size={16}/>View results</button></div>
     </section>
     <section className="kpi-grid">{outcomes.map(([label,value,unit,color]: any[]) => <div className="kpi" key={String(label)}><span>{label}</span><strong className={String(color)}>{Number(value).toLocaleString(undefined,{maximumFractionDigits:1})}</strong><small>{unit}</small></div>)}</section>
+    {annual?.biomass_schedule&&<section className="panel"><PanelTitle icon={<Gauge/>} title="Annual biomass schedule" text="The empirical plan uses the same seasonal availability and monthly cap policy as the dynamic dashboard, without sharing process calculations."/><div className="schedule-facts"><div><span>Available</span><strong>{annual.biomass_schedule.annual_available_tonnes.toLocaleString(undefined,{maximumFractionDigits:0})} t/year</strong></div><div><span>Processed</span><strong>{annual.biomass_schedule.annual_processed_tonnes.toLocaleString(undefined,{maximumFractionDigits:0})} t/year</strong></div><div><span>Unused</span><strong>{annual.biomass_schedule.annual_unused_tonnes.toLocaleString(undefined,{maximumFractionDigits:0})} t/year</strong></div><div><span>Utilization</span><strong>{(annual.biomass_schedule.utilization_fraction*100).toFixed(1)}%</strong></div><div><span>Peak month</span><strong>{annual.biomass_schedule.peak_month_processed_tonnes.toLocaleString(undefined,{maximumFractionDigits:0})} t</strong></div></div></section>}
     <section className="overview-grid">
       <div className="panel"><PanelTitle icon={<Layers3/>} title="Current process pathway" text={`${activeUnits} active units across ${Object.keys(result.process_areas).length} process areas.`}/><div className="process-strip">{Object.values(result.process_areas).map((area:any,index:number) => <React.Fragment key={area.id}><div className="process-node"><span>{String(index+1).padStart(2,'0')}</span><strong>{areaLabels[area.id] || area.name}</strong><small>{area.units.length} units · {area.limitations.length ? 'review notes' : 'active'}</small></div>{index < Object.keys(result.process_areas).length-1 && <b>→</b>}</React.Fragment>)}</div></div>
       <div className="panel"><PanelTitle icon={runtime === 'python' ? <CheckCircle2/> : <AlertTriangle/>} title={runtime === 'python' ? 'Model connected' : 'Preview mode'} text={runtime === 'python' ? 'Results originate from the Python scientific service.' : 'Run the model before using values for decisions.'}/><div className="trust-list"><span><i className="status-dot active"/>Active simulated</span><span><i className="status-dot planned"/>Planned or data-gated</span><span><i className="status-dot warning"/>Provisional assumption</span></div>{limitations.slice(0,2).map((item:string,index:number) => <p className="compact-warning" key={index}>{item}</p>)}</div>
@@ -213,10 +234,26 @@ function ScenarioCard({ group, value, onChange }: any) {
   return <section className="panel scenario-card"><div className="scenario-heading"><div><span className="eyebrow">{group.title}</span><h3>{selected[1]}</h3></div><span className={`status ${selected[2]}`}>{selected[2]}</span></div><select value={value} onChange={event => onChange(event.target.value)}>{group.options.map((item:any[]) => <option value={item[0]} key={item[0]}>{item[1]}{item[2] === 'planned' ? ' (planned)' : ''}</option>)}</select><p>{group.affects}</p><small>{selected[2] === 'planned' ? 'Data gate incomplete; strict validation will reject this option.' : 'Available in the current scientific model.'}</small></section>;
 }
 
-function ConfigurationReview({ scenario, feed, mode, onRun, running }: any) {
-  const hours = Math.min(8760, 365 / 7 * feed.operatingDaysPerWeek * feed.operatingHoursPerDay);
+function FeedScheduleControls({value,onChange}:{value:EmpiricalBiomassSchedule;onChange:React.Dispatch<React.SetStateAction<EmpiricalBiomassSchedule>>}) {
+  const update = <K extends keyof EmpiricalBiomassSchedule>(key:K, next:EmpiricalBiomassSchedule[K]) => onChange(current => ({...current,[key]:next}));
+  return <section className="panel empirical-schedule"><div className="schedule-primary">
+    <label>Annual available biomass <span><input type="number" min="0" step="100" value={value.annual_available_biomass_tonnes} onChange={event=>update('annual_available_biomass_tonnes',+event.target.value)}/><em>t/year</em></span><small>Fresh biomass available before collection and refinery limits.</small></label>
+    <label>Annual processed target <span><input type="number" min="0" step="100" value={value.annual_processed_biomass_tonnes} onChange={event=>update('annual_processed_biomass_tonnes',+event.target.value)}/><em>t/year</em></span><small>Lower targets cap monthly intake rather than rescaling availability.</small></label>
+    <label>Collection / refinery fraction <span><input type="number" min="0" max="100" step="1" value={value.collection_refinery_fraction*100} onChange={event=>update('collection_refinery_fraction',+event.target.value/100)}/><em>%</em></span><small>Maximum share of annual availability entering the refinery plan.</small></label>
+    <label>Capacity basis <select value={value.feed_basis} onChange={event=>update('feed_basis',event.target.value as EmpiricalBiomassSchedule['feed_basis'])}><option value="tonnes_per_year">Annual processed target</option><option value="kg_per_hr">Hourly capacity plus annual target</option></select><small>Hourly mode adds an operating-capacity ceiling.</small></label>
+    {value.feed_basis==='kg_per_hr'&&<label>Hourly processing capacity <span><input type="number" min="0" step="100" value={value.feed_kg_per_hr} onChange={event=>update('feed_kg_per_hr',+event.target.value)}/><em>kg/h</em></span><small>True instantaneous capacity used during active schedule hours.</small></label>}
+  </div><details><summary>Season shape and active months</summary><div className="schedule-primary compact">
+    <label>Season start<input type="date" value={value.season_start} onChange={event=>update('season_start',event.target.value)}/></label>
+    <label>Season end<input type="date" value={value.season_end} onChange={event=>update('season_end',event.target.value)}/></label>
+    <label>Peak date<input type="date" value={value.peak_date} onChange={event=>update('peak_date',event.target.value)}/></label>
+    <label>Spread <span><input type="number" min="1" max="366" value={value.spread_days} onChange={event=>update('spread_days',+event.target.value)}/><em>days</em></span></label>
+  </div><div className="month-selector">{monthLabels.map((label,index)=><label key={label}><input type="checkbox" checked={value.active_months.includes(index+1)} onChange={event=>update('active_months',event.target.checked?[...value.active_months,index+1].sort((a,b)=>a-b):value.active_months.filter(month=>month!==index+1))}/>{label}</label>)}</div></details>
+  <div className="schedule-note"><strong>Default operating scale</strong><span>30,000 t/year · mid-April to mid-November · peak 31 July · 55-day spread</span></div></section>;
+}
+
+function ConfigurationReview({ scenario, schedule, mode, onRun, running }: any) {
   const route = scenarioGroups.map(group => group.options.find(item => item[0] === scenario[group.key])?.[1]).filter(Boolean).join(' · ');
-  return <section className="review-panel"><div><span className="eyebrow">Ready to run</span><h3>Annual configuration reviewed</h3><p>{route}</p></div><div className="review-facts"><span><b>{feed.feedAmountKgh.toLocaleString()} kg/h</b>target throughput</span><span><b>{hours.toLocaleString(undefined,{maximumFractionDigits:0})} hours</b>annual schedule</span><span><b>{modeLabels[mode as CalculationMode]}</b>evidence basis</span><span><b>Monthly</b>seasonal calculation</span></div><button className="run-button" onClick={onRun} disabled={running}><Play size={15}/>{running ? 'Calculating…' : 'Run annual plan'}</button></section>;
+  return <section className="review-panel"><div><span className="eyebrow">Ready to run</span><h3>Annual configuration reviewed</h3><p>{route}</p></div><div className="review-facts"><span><b>{schedule.annual_processed_biomass_tonnes.toLocaleString()} t/year</b>processed target</span><span><b>{(schedule.collection_refinery_fraction*100).toFixed(0)}%</b>collection / refinery</span><span><b>{modeLabels[mode as CalculationMode]}</b>evidence basis</span><span><b>{schedule.season_start.slice(5)} → {schedule.season_end.slice(5)}</b>season window</span></div><button className="run-button" onClick={onRun} disabled={running}><Play size={15}/>{running ? 'Calculating…' : 'Run annual plan'}</button></section>;
 }
 
 function ParameterRow({ parameter }: { parameter: ParameterDefinition; onChange:(value:number|string|boolean)=>void }) {
@@ -237,4 +274,5 @@ function LimitationsPanel({items}:{items:string[]}) {
   return <section className="panel limitation-panel"><AlertTriangle size={18}/><div><h3>Assumptions and limitations</h3>{visible.map((item,index)=><p key={index}>{item}</p>)}{remaining.length>0&&<details><summary>Review {remaining.length} additional model notes</summary><div className="limitation-list">{remaining.map((item,index)=><p key={index}>{item}</p>)}</div></details>}</div></section>;
 }
 function PageIntro({ eyebrow,title,text }: any) { return <header className="page-intro"><span className="eyebrow">{eyebrow}</span><h1>{title}</h1><p>{text}</p></header>; }
+function SectionHeading({title,text}:{title:string;text:string}) { return <header className="configure-section-heading"><span>{title}</span><p>{text}</p></header>; }
 function PanelTitle({ icon,title,text }: any) { return <div className="panel-title"><span className="title-icon">{icon}</span><div><h3>{title}</h3><p>{text}</p></div></div>; }

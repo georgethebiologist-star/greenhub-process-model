@@ -88,6 +88,52 @@ class OperatingSchedule:
 
 
 @dataclass(frozen=True)
+class BiomassSchedule:
+    """Annual biomass availability and refinery plan shared with the proxy dashboard."""
+
+    annual_available_biomass_tonnes: float = 30000.0
+    annual_processed_biomass_tonnes: float = 30000.0
+    collection_refinery_fraction: float = 1.0
+    feed_basis: str = "tonnes_per_year"
+    feed_kg_per_hr: float = 1000.0
+    season_start: str = "2026-04-15"
+    season_end: str = "2026-11-15"
+    peak_date: str = "2026-07-31"
+    spread_days: float = 55.0
+    active_months: tuple[int, ...] = tuple(range(1, 13))
+
+    def __post_init__(self) -> None:
+        numeric = (
+            self.annual_available_biomass_tonnes,
+            self.annual_processed_biomass_tonnes,
+            self.collection_refinery_fraction,
+            self.feed_kg_per_hr,
+            self.spread_days,
+        )
+        if any(isinstance(value, bool) or not isfinite(float(value)) or value < 0.0 for value in numeric):
+            raise ValueError("Biomass-schedule values must be finite non-negative numbers.")
+        if self.collection_refinery_fraction > 1.0:
+            raise ValueError("collection_refinery_fraction must be within [0, 1].")
+        if self.feed_basis not in {"tonnes_per_year", "kg_per_hr"}:
+            raise ValueError("feed_basis must be 'tonnes_per_year' or 'kg_per_hr'.")
+        if not 1.0 <= self.spread_days <= 366.0:
+            raise ValueError("spread_days must be between 1 and 366.")
+        if (
+            not isinstance(self.active_months, (tuple, list))
+            or any(type(month) is not int or month not in range(1, 13) for month in self.active_months)
+            or len(set(self.active_months)) != len(self.active_months)
+        ):
+            raise ValueError("active_months must contain unique month numbers from 1 to 12.")
+        try:
+            start, end, peak = map(date.fromisoformat, (self.season_start, self.season_end, self.peak_date))
+        except (TypeError, ValueError) as error:
+            raise ValueError("Biomass schedule dates must use YYYY-MM-DD.") from error
+        if start.year != end.year or end < start or peak.year != start.year or not start <= peak <= end:
+            raise ValueError("Biomass season and peak dates must be ordered within one calendar year.")
+        object.__setattr__(self, "active_months", tuple(sorted(self.active_months)))
+
+
+@dataclass(frozen=True)
 class InitialStorageInventory:
     """Initial wet inventory and optional measured composition metadata."""
 
@@ -143,6 +189,7 @@ class SimulationRequest:
     time_step: str | None = None
     annual_biomass_target: float | None = None
     operating_schedule: OperatingSchedule | None = None
+    biomass_schedule: BiomassSchedule | None = None
     initial_storage_inventory: InitialStorageInventory = field(default_factory=InitialStorageInventory)
     feed_supply_profile_id: str | None = None
 
@@ -186,7 +233,7 @@ class SimulationRequest:
             "expert_scientific_overrides", "requested_outputs", "requested_plots",
             "export_formats", "strict_validation", "user_notes",
             "start_date", "end_date", "time_step", "annual_biomass_target",
-            "operating_schedule", "initial_storage_inventory", "feed_supply_profile_id",
+            "operating_schedule", "biomass_schedule", "initial_storage_inventory", "feed_supply_profile_id",
         }
         unknown_fields = sorted(set(payload) - allowed_fields)
         if unknown_fields:
@@ -213,6 +260,23 @@ class SimulationRequest:
                 operating_dates=tuple(schedule_payload.get("operating_dates", ())),
                 shutdown_dates=tuple(schedule_payload.get("shutdown_dates", ())),
             ) if schedule_payload else None
+        )
+        biomass_payload = payload.get("biomass_schedule")
+        biomass_schedule = (
+            biomass_payload
+            if isinstance(biomass_payload, BiomassSchedule)
+            else BiomassSchedule(
+                annual_available_biomass_tonnes=float(biomass_payload.get("annual_available_biomass_tonnes", 30000.0)),
+                annual_processed_biomass_tonnes=float(biomass_payload.get("annual_processed_biomass_tonnes", 30000.0)),
+                collection_refinery_fraction=float(biomass_payload.get("collection_refinery_fraction", 1.0)),
+                feed_basis=str(biomass_payload.get("feed_basis", "tonnes_per_year")),
+                feed_kg_per_hr=float(biomass_payload.get("feed_kg_per_hr", 1000.0)),
+                season_start=str(biomass_payload.get("season_start", "2026-04-15")),
+                season_end=str(biomass_payload.get("season_end", "2026-11-15")),
+                peak_date=str(biomass_payload.get("peak_date", "2026-07-31")),
+                spread_days=float(biomass_payload.get("spread_days", 55.0)),
+                active_months=tuple(biomass_payload.get("active_months", range(1, 13))),
+            ) if biomass_payload else None
         )
         inventory_payload = payload.get("initial_storage_inventory") or {}
         inventory = (
@@ -265,6 +329,7 @@ class SimulationRequest:
             time_step=payload.get("time_step"),
             annual_biomass_target=payload.get("annual_biomass_target"),
             operating_schedule=schedule,
+            biomass_schedule=biomass_schedule,
             initial_storage_inventory=inventory,
             feed_supply_profile_id=payload.get("feed_supply_profile_id"),
         )

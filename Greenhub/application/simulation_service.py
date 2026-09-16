@@ -74,7 +74,7 @@ class SimulationService:
             for value in (
                 request.start_date, request.end_date, request.time_step,
                 request.annual_biomass_target, request.operating_schedule,
-                request.feed_supply_profile_id,
+                request.feed_supply_profile_id, request.biomass_schedule,
             )
         ) or request.initial_storage_inventory.total_mass_kg > 0.0
         if seasonal_values_supplied and request.resolution_mode != ResolutionMode.QUASI_DYNAMIC:
@@ -90,15 +90,15 @@ class SimulationService:
         if request.resolution_mode == ResolutionMode.QUASI_DYNAMIC:
             try:
                 grid = generate_time_grid(request.start_date, request.end_date, request.time_step or "monthly")
-                profile = self.feed_profiles.get_profile(request.feed_supply_profile_id)
                 expected_resolution = "daily" if all(item.duration_days == 1 for item in grid) else "monthly"
-                if profile.resolution != expected_resolution:
-                    raise ValueError(
-                        f"Feed profile '{profile.profile_id}' is {profile.resolution}, not {expected_resolution}."
-                    )
+                profile = None if request.biomass_schedule is not None else self.feed_profiles.get_profile(request.feed_supply_profile_id)
+                if request.biomass_schedule is not None and expected_resolution != "monthly":
+                    raise ValueError("The shared annual biomass schedule currently supports monthly empirical runs only.")
+                if profile is not None and profile.resolution != expected_resolution:
+                    raise ValueError(f"Feed profile '{profile.profile_id}' is {profile.resolution}, not {expected_resolution}.")
                 if expected_resolution == "daily" and request.operating_schedule is None:
                     raise ValueError("Daily simulation requires an explicit operating_schedule.")
-                if profile.normalized and request.annual_biomass_target is None:
+                if profile is not None and profile.normalized and request.annual_biomass_target is None:
                     raise ValueError("A normalized feed profile requires annual_biomass_target.")
             except (KeyError, TypeError, ValueError) as error:
                 issues.append(

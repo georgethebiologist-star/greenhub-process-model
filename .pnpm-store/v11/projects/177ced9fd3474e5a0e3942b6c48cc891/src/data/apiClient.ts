@@ -1,5 +1,5 @@
 import type { FeedInputs } from '../components/InputStudio';
-import type { AnnualSummary, CalculationMode, PlotCatalogItem, ScenarioSelection } from '../types';
+import type { AnnualSummary, CalculationMode, EmpiricalBiomassSchedule, PlotCatalogItem, ScenarioSelection } from '../types';
 
 export const API_BASE = (import.meta.env.VITE_GREENHUB_API_URL || 'http://127.0.0.1:8000/api/v1').replace(/\/$/, '');
 
@@ -10,9 +10,8 @@ export interface BackendResources {
   annual: AnnualSummary | null;
 }
 
-export function buildPythonRequest(mode: CalculationMode, month: string, scenario: ScenarioSelection, feed: FeedInputs) {
-  const year = new Date().getFullYear();
-  const annualOperatingHours = Math.min(8760, 365 / 7 * feed.operatingDaysPerWeek * feed.operatingHoursPerDay);
+export function buildPythonRequest(mode: CalculationMode, month: string, scenario: ScenarioSelection, feed: FeedInputs, biomassSchedule: EmpiricalBiomassSchedule) {
+  const year = biomassSchedule.season_start.slice(0, 4);
   return {
     schema_version: '1.0.0',
     request_id: `greenhub-ui-${Date.now()}`,
@@ -31,12 +30,12 @@ export function buildPythonRequest(mode: CalculationMode, month: string, scenari
     start_date: `${year}-01-01`,
     end_date: `${year}-12-31`,
     time_step: 'monthly',
-    annual_biomass_target: feed.feedAmountKgh * annualOperatingHours,
-    feed_supply_profile_id: 'workbook_normalized',
+    annual_biomass_target: biomassSchedule.annual_processed_biomass_tonnes * 1000,
+    biomass_schedule: biomassSchedule,
     operating_schedule: {
       operating_days_per_week: feed.operatingDaysPerWeek,
       operating_hours_per_day: feed.operatingHoursPerDay,
-      target_throughput_kg_hr: feed.feedAmountKgh,
+      target_throughput_kg_hr: biomassSchedule.feed_kg_per_hr,
     },
     requested_plots: [],
     export_formats: ['json', 'csv'],

@@ -76,6 +76,19 @@ export interface SimulationRequest {
   design_overrides?: ParameterOverride[];
 }
 
+export interface EmpiricalBiomassSchedule {
+  annual_available_biomass_tonnes: number;
+  annual_processed_biomass_tonnes: number;
+  collection_refinery_fraction: number;
+  feed_basis: 'tonnes_per_year' | 'kg_per_hr';
+  feed_kg_per_hr: number;
+  season_start: string;
+  season_end: string;
+  peak_date: string;
+  spread_days: number;
+  active_months: number[];
+}
+
 export interface ProcessAreaInfo {
   id: ProcessAreaId;
   name: string;
@@ -237,8 +250,55 @@ export interface AnnualSummary {
     period: string;
     feed_processed_kg: number;
     products_kg: Record<string, number>;
+    intermediate_streams_kg: Record<string, number>;
+    volumetric_products_m3: Record<string, number>;
     utilities_kwh: Record<string, number>;
     mass_residual_kg: number;
   }>;
+  biomass_schedule: {
+    monthly: Array<{
+      time_label: string;
+      available_biomass_tonnes: number;
+      planned_processed_biomass_tonnes: number;
+      processed_biomass_tonnes: number;
+      actual_processed_biomass_tonnes?: number;
+      unused_biomass_tonnes: number;
+      utilization_fraction: number;
+      utilization_percent?: number;
+      operating_hours?: number;
+      basis_feed_kg_per_hr?: number;
+    }>;
+    annual_available_tonnes: number;
+    annual_processed_tonnes: number;
+    annual_unused_tonnes: number;
+    utilization_fraction: number;
+    peak_month_processed_tonnes: number;
+    peak_throughput_kg_per_hr: number;
+    policy_id: string;
+    warning: string;
+  };
+  chart_data: {
+    schedule: Array<Record<string, number | string>>;
+    bulk_streams: Array<Record<string, number | string>>;
+    small_products: Array<Record<string, number | string>>;
+    biomethane: Array<Record<string, number | string>>;
+    energy: Array<Record<string, number | string>>;
+    mass_balance: Array<Record<string, number | string>>;
+    annual_product_mix: Array<Record<string, number | string>>;
+    groups: Record<string, string[]>;
+  };
+  display_utilities: Record<string, AnnualValue>;
+  process_pathway: Array<{
+    stage_id: string;
+    label: string;
+    active_unit_names: string[];
+    unit_count: number;
+    products_kg_hr: Record<string, number>;
+    power_kw: number | null;
+    heat_duty_kw: number | null;
+    limitations: string[];
+    data_quality: string;
+  }>;
+  reporting_status: {model: string; schedule_policy: string; validated_simulation_ready: boolean; note: string};
   warnings: string[];
 }

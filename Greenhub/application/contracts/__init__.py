@@ -2,6 +2,7 @@
 
 from .requests import (
     SCHEMA_VERSION,
+    BiomassSchedule,
     ParameterOverride,
     InitialStorageInventory,
     OperatingSchedule,
@@ -15,6 +16,7 @@ from .results import *
 
 __all__ = (
     "ParameterOverride",
+    "BiomassSchedule",
     "InitialStorageInventory",
     "OperatingSchedule",
     "RequestedOutput",

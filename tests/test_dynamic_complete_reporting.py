@@ -4,6 +4,8 @@ import json
 import pytest
 
 from Greenhub.application.dynamic_complete_scenario import DynamicCompleteScenario, build_biomass_schedule
+from Greenhub.application.biomass_schedule import build_empirical_biomass_schedule
+from Greenhub.application.contracts import BiomassSchedule
 from Greenhub.application.dynamic_complete_reporting_service import (
     METRIC_KINDS, aggregate_rates, build_scenario_summary, default_summary, summarize_biosteam_grid,
 )
@@ -53,6 +55,23 @@ def test_reduced_target_caps_curve_instead_of_rescaling_it():
     assert capped["monthly"][3]["processed_biomass_tonnes"] == pytest.approx(full["monthly"][3]["processed_biomass_tonnes"])
     fractional = build_biomass_schedule(DynamicCompleteScenario(collection_refinery_fraction=.5))
     assert fractional["annual_processed_tonnes"] == pytest.approx(15000)
+
+
+def test_empirical_annual_schedule_uses_the_same_distribution_and_cap_policy():
+    dynamic = build_biomass_schedule(DynamicCompleteScenario())
+    empirical = build_empirical_biomass_schedule(BiomassSchedule())
+    assert empirical["annual_available_tonnes"] == pytest.approx(30000)
+    assert empirical["annual_processed_tonnes"] == pytest.approx(30000)
+    assert [row["available_biomass_tonnes"] for row in empirical["monthly"]] == pytest.approx(
+        [row["available_biomass_tonnes"] for row in dynamic["monthly"]]
+    )
+    capped = build_empirical_biomass_schedule(
+        BiomassSchedule(annual_processed_biomass_tonnes=15000)
+    )
+    midsummer = [capped["monthly"][index]["processed_biomass_tonnes"] for index in (5, 6, 7)]
+    assert midsummer == pytest.approx([midsummer[0]] * 3)
+    assert capped["annual_unused_tonnes"] == pytest.approx(15000)
+    assert empirical["policy_id"] == "shared_normal_supply_monthly_cap_v1"
 
 
 def test_active_months_and_hourly_capacity_do_not_rescale_availability():

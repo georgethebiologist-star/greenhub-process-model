@@ -188,6 +188,58 @@ def test_simulation_and_result_endpoints_return_json_safe_service_results(tmp_pa
     assert missing["error"]["code"] == "artifact_not_found"
 
 
+def test_empirical_annual_reporting_exposes_shared_schedule_and_chart_contract(tmp_path):
+    app = create_app(tmp_path)
+    payload = request_payload(
+        resolution_mode="quasi_dynamic",
+        selected_month="July",
+        start_date="2026-01-01",
+        end_date="2026-12-31",
+        time_step="monthly",
+        annual_biomass_target=30_000_000,
+        biomass_schedule={
+            "annual_available_biomass_tonnes": 30000,
+            "annual_processed_biomass_tonnes": 30000,
+            "collection_refinery_fraction": 1.0,
+            "feed_basis": "tonnes_per_year",
+            "feed_kg_per_hr": 10000,
+            "season_start": "2026-04-15",
+            "season_end": "2026-11-15",
+            "peak_date": "2026-07-31",
+            "spread_days": 55,
+            "active_months": list(range(1, 13)),
+        },
+    )
+    status, result = invoke(app, "POST", "/api/v1/simulations", payload)
+    assert status == 201
+    annual_status, annual = invoke(
+        app, "GET", f'/api/v1/simulations/{result["run_id"]}/annual-summary'
+    )
+    assert annual_status == 200
+    schedule = annual["biomass_schedule"]
+    assert schedule["annual_available_tonnes"] == pytest.approx(30000)
+    assert schedule["annual_processed_tonnes"] == pytest.approx(30000)
+    assert schedule["policy_id"] == "shared_normal_supply_monthly_cap_v1"
+    assert len(schedule["monthly"]) == 12
+    assert {
+        "schedule", "bulk_streams", "small_products", "biomethane", "energy",
+        "mass_balance", "annual_product_mix", "groups",
+    } <= annual["chart_data"].keys()
+    assert annual["chart_data"]["groups"]["large_mass"] == [
+        "feed_processed_tonnes", "press_cake_tonnes", "digestate_tonnes"
+    ]
+    assert "protein_tonnes" in annual["chart_data"]["groups"]["small_products"]
+    assert annual["chart_contract"]["electricity"] == "MWh/month"
+    assert annual["chart_contract"]["heat"] == "GJ/month"
+    assert annual["display_utilities"]["electricity"]["unit"] == "MWh/year"
+    assert annual["display_utilities"]["heating"]["unit"] == "GJ/year"
+    assert [stage["stage_id"] for stage in annual["process_pathway"]] == [
+        "feed", "pretreatment", "protein", "ad", "gas", "nutrients"
+    ]
+    assert annual["reporting_status"]["model"] == "empirical"
+    assert not re.search(r"[A-Za-z]:[\\/]", json.dumps(annual, allow_nan=False))
+
+
 def test_parameter_validation_uses_canonical_bounds(tmp_path):
     app = create_app(tmp_path)
     status, response = invoke(

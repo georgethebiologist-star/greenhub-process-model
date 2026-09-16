@@ -15,6 +15,7 @@ from Greenhub.storage import StorageModel
 from Greenhub.time_grid import TimeGridStep, generate_time_grid
 
 from .contracts import InitialStorageInventory, OperatingSchedule, SimulationRequest
+from .biomass_schedule import build_empirical_biomass_schedule, schedule_feed_rows
 from .feed_profile_service import FeedProfileService
 from .result_factory import build_balances, build_products, build_unit_results, build_utilities
 
@@ -118,13 +119,23 @@ class SeasonalSimulationService:
         model_overrides: dict[str, object],
     ) -> SeasonalComputation:
         grid = generate_time_grid(request.start_date, request.end_date, request.time_step or "monthly")
-        profile = self.profiles.get_profile(request.feed_supply_profile_id)
-        from Greenhub.feed_profiles import resolve_feed_profile
+        schedule_plan = None
+        if request.biomass_schedule is not None:
+            schedule_plan = build_empirical_biomass_schedule(request.biomass_schedule)
+            scheduled = {row["time"]: row for row in schedule_feed_rows(request.biomass_schedule)}
+            supply = [dict(scheduled.get(step.label, _zero_schedule_feed_row(step.label))) for step in grid]
+            profile_warnings = (
+                "Empirical monthly intake follows the shared normal-supply/monthly-cap schedule.",
+            )
+        else:
+            profile = self.profiles.get_profile(request.feed_supply_profile_id)
+            from Greenhub.feed_profiles import resolve_feed_profile
 
-        supply = list(resolve_feed_profile(profile, grid, request.annual_biomass_target))
+            supply = list(resolve_feed_profile(profile, grid, request.annual_biomass_target))
+            profile_warnings = profile.warnings
         resolved = {item.parameter_id: item for item in resolved_parameters}
         storage_capacity = _resolved_number(resolved.get("seasonal.storage_capacity_kg"))
-        warnings = list(profile.warnings)
+        warnings = list(profile_warnings)
         if storage_capacity is None:
             warnings.append(
                 "Storage capacity is unavailable; inventory is preserved without an overflow limit until seasonal.storage_capacity_kg is overridden."
@@ -175,8 +186,13 @@ class SeasonalSimulationService:
                 storage_capacity,
             )
             workbook_days = float(template.feed_specification.operating_days)
-            operating_hours = calculate_operating_hours(step, request.operating_schedule, workbook_days)
-            target_rate = request.operating_schedule.target_throughput_kg_hr if request.operating_schedule else None
+            if schedule_plan is not None:
+                schedule_row = next(row for row in schedule_plan["monthly"] if row["time_label"] == step.label)
+                operating_hours = float(schedule_row["operating_hours"])
+                target_rate = float(schedule_row["basis_feed_kg_per_hr"])
+            else:
+                operating_hours = calculate_operating_hours(step, request.operating_schedule, workbook_days)
+                target_rate = request.operating_schedule.target_throughput_kg_hr if request.operating_schedule else None
             desired = capacity_limited_throughput(inventory.total_mass_kg, operating_hours, target_rate, None)
             desired_mass = desired["actual_mass_kg"]
             desired_rate = desired_mass / operating_hours if operating_hours > 0.0 else 0.0
@@ -254,7 +270,12 @@ class SeasonalSimulationService:
                 utilization_rows.append(row)
                 utilization_totals.setdefault(item["unit_id"], []).append(item["utilization"])
             if model is None:
-                product_rows.append({"time": step.label, "products_kg": {}})
+                product_rows.append({
+                    "time": step.label,
+                    "products_kg": {},
+                    "intermediate_streams_kg": {},
+                    "volumetric_products_m3": {},
+                })
                 residual_rows.append({"time": step.label, "residual_output_kg": 0.0})
                 utility_rows.append({"time": step.label, **{key: 0.0 for key in total_utilities}})
                 balance_rows.append({"time": step.label, "overall_mass_residual_kg": 0.0, "element_residuals_kg": {}})
@@ -266,7 +287,20 @@ class SeasonalSimulationService:
             }
             for name, value in products.items():
                 total_products[name] = total_products.get(name, 0.0) + value
-            product_rows.append({"time": step.label, "products_kg": products})
+            intermediate_streams = {
+                name: float(model.streams[name].F_mass) * operating_hours
+                for name in ("pressed_fibre_cake", "digestate")
+                if name in model.streams
+            }
+            volumetric_products = {
+                "biomethane": float(model.streams["biomethane"].F_vol) * operating_hours
+            } if "biomethane" in model.streams else {}
+            product_rows.append({
+                "time": step.label,
+                "products_kg": products,
+                "intermediate_streams_kg": intermediate_streams,
+                "volumetric_products_m3": volumetric_products,
+            })
             units = build_unit_results(model)
             utilities = build_utilities(units)
             electricity = sum(float(item.demand.value or 0.0) for item in utilities if item.kind == "electricity") * operating_hours
@@ -458,6 +492,23 @@ def _inventory_fractions(inventory: StorageInventory) -> dict[str, float]:
     if inventory.total_mass_kg <= 0.0:
         return {}
     return {name: value / inventory.total_mass_kg for name, value in inventory.component_masses_kg.items()}
+
+
+def _zero_schedule_feed_row(time_label: str) -> dict[str, object]:
+    return {
+        "time": time_label,
+        "start_date": f"{time_label}-01",
+        "available_wet_biomass_kg": 0.0,
+        "collected_biomass_kg": 0.0,
+        "uncollected_biomass_kg": 0.0,
+        "moisture_fraction": None,
+        "dry_matter_kg": None,
+        "component_mass_fractions": {},
+        "temperature_k": None,
+        "source": "shared empirical annual biomass schedule",
+        "provenance": "outside configured schedule horizon",
+        "warnings": ("No scheduled refinery intake for this month.",),
+    }
 
 
 def _apply_storage_degradation(inventory: StorageInventory, resolved_param: object | None, step_days: float) -> tuple[float, dict[str, object], str]:
