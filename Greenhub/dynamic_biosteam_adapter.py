@@ -35,6 +35,8 @@ from Greenhub.time_grid import generate_time_grid
 
 RESULTS_DIR = Path(__file__).resolve().parent / "results"
 ADAPTER_MODE = "shadow_mass_only"
+CALCULATION_ADAPTER_MODE = "calculation_shadow_system_report_only"
+SUPPORTED_ADAPTER_MODES = frozenset((ADAPTER_MODE, CALCULATION_ADAPTER_MODE))
 MASS_TOLERANCE_KG_HR = 1e-7
 _FLOWSHEET_LOCK = threading.RLock()
 
@@ -99,8 +101,9 @@ class DynamicBioSTEAMAdapterConfig:
     def __post_init__(self) -> None:
         if not math.isfinite(float(self.basis_feed_kg_per_hr)) or self.basis_feed_kg_per_hr <= 0:
             raise ValueError("basis_feed_kg_per_hr must be a finite value greater than zero.")
-        if self.adapter_mode != ADAPTER_MODE:
-            raise ValueError("adapter_mode currently supports only 'shadow_mass_only'.")
+        if self.adapter_mode not in SUPPORTED_ADAPTER_MODES:
+            supported = ", ".join(sorted(SUPPORTED_ADAPTER_MODES))
+            raise ValueError(f"adapter_mode must be one of: {supported}.")
         if self.connect_to_empirical_flowsheet:
             raise ValueError("The dynamic adapter cannot connect to the empirical flowsheet.")
         if not self.time_label:
@@ -265,6 +268,231 @@ class DynamicBioSTEAMAdapterGridResult:
             "step_results": [result.to_dict() for result in self.step_results],
             "time_labels": list(self.time_labels),
             "all_steps_close": self.all_steps_close,
+            "all_empirical_flowsheets_unchanged": self.all_empirical_flowsheets_unchanged,
+            "warning_counts": dict(self.warning_counts),
+            "blocker_counts": dict(self.blocker_counts),
+            "provenance": dict(self.provenance),
+            "activation_status": self.activation_status,
+        }
+
+
+@dataclass(frozen=True)
+class DynamicBioSTEAMShadowUnitBalance:
+    """Exact-component balance and target parity for one shadow unit."""
+
+    unit_id: str
+    unit_type: str
+    input_mass_kg_hr: float
+    output_mass_kg_hr: float
+    residual_kg_hr: float
+    component_residuals_kg_hr: dict[str, float]
+    identity_closes: bool
+    outputs_match_adapter_records: bool
+    closes: bool
+
+    def to_dict(self) -> dict[str, object]:
+        return asdict(self)
+
+
+@dataclass(frozen=True)
+class DynamicBioSTEAMShadowSystemBalance:
+    """System-level exact-component and adapter-inclusive validation."""
+
+    input_component_mass_kg_hr: float
+    terminal_component_mass_kg_hr: float
+    exact_component_residual_kg_hr: float
+    component_residuals_kg_hr: dict[str, float]
+    exact_component_identity_closes: bool
+    adapter_full_mass_closes: bool
+    adapter_metadata_identity_closes: bool
+    all_unit_outputs_match_adapter_records: bool
+    unit_balances: tuple[DynamicBioSTEAMShadowUnitBalance, ...]
+    press_cake_boundary_valid: bool
+    empirical_flowsheet_unchanged: bool
+    closes: bool
+    warnings: tuple[str, ...] = ()
+
+    def to_dict(self) -> dict[str, object]:
+        result = asdict(self)
+        result["unit_balances"] = [balance.to_dict() for balance in self.unit_balances]
+        return result
+
+
+@dataclass(frozen=True)
+class DynamicBioSTEAMShadowSystemResult:
+    """One isolated real-BioSTEAM-unit shadow system."""
+
+    config: DynamicBioSTEAMAdapterConfig
+    source_adapter: DynamicBioSTEAMAdapterResult
+    feed_record: DynamicBioSTEAMStreamRecord
+    adapter_records: tuple[DynamicBioSTEAMStreamRecord, ...]
+    system: Any
+    units: dict[str, Any]
+    streams: dict[str, Any]
+    isolated_flowsheet: Any
+    mass_balance: DynamicBioSTEAMShadowSystemBalance
+    warnings: tuple[str, ...]
+    blockers: tuple[str, ...]
+    provenance: dict[str, object]
+    can_drive_shadow_system: bool
+    can_drive_simulation: bool = False
+    validated_simulation_ready: bool = False
+    activation_status: str = "target_output_shadow_system_report_only"
+
+    def to_dict(self) -> dict[str, object]:
+        return {
+            "config": self.config.to_dict(),
+            "source_adapter": self.source_adapter.to_dict(),
+            "feed_record": self.feed_record.to_dict(),
+            "adapter_records": [record.to_dict() for record in self.adapter_records],
+            "system_id": self.system.ID,
+            "unit_ids": {name: unit.ID for name, unit in self.units.items()},
+            "stream_ids": {name: stream.ID for name, stream in self.streams.items()},
+            "isolated_flowsheet_id": self.isolated_flowsheet.ID,
+            "mass_balance": self.mass_balance.to_dict(),
+            "warnings": list(self.warnings),
+            "blockers": list(self.blockers),
+            "provenance": dict(self.provenance),
+            "can_drive_shadow_system": self.can_drive_shadow_system,
+            "can_drive_simulation": self.can_drive_simulation,
+            "validated_simulation_ready": self.validated_simulation_ready,
+            "activation_status": self.activation_status,
+        }
+
+
+@dataclass(frozen=True)
+class DynamicBioSTEAMShadowSystemGridResult:
+    """Seven independent monthly shadow systems with no time integration."""
+
+    config: DynamicBioSTEAMAdapterConfig
+    step_results: tuple[DynamicBioSTEAMShadowSystemResult, ...]
+    time_labels: tuple[str, ...]
+    all_steps_close: bool
+    all_steps_shadow_ready: bool
+    all_empirical_flowsheets_unchanged: bool
+    warning_counts: dict[str, int]
+    blocker_counts: dict[str, int]
+    provenance: dict[str, object]
+    activation_status: str = "target_output_shadow_system_grid_report_only"
+
+    def to_dict(self) -> dict[str, object]:
+        return {
+            "config": self.config.to_dict(),
+            "step_results": [result.to_dict() for result in self.step_results],
+            "time_labels": list(self.time_labels),
+            "all_steps_close": self.all_steps_close,
+            "all_steps_shadow_ready": self.all_steps_shadow_ready,
+            "all_empirical_flowsheets_unchanged": self.all_empirical_flowsheets_unchanged,
+            "warning_counts": dict(self.warning_counts),
+            "blocker_counts": dict(self.blocker_counts),
+            "provenance": dict(self.provenance),
+            "activation_status": self.activation_status,
+        }
+
+
+@dataclass(frozen=True)
+class DynamicBioSTEAMCalculationUnitParity:
+    unit_key: str
+    unit_id: str
+    unit_type: str
+    input_mass_kg_hr: float
+    output_mass_kg_hr: float
+    residual_kg_hr: float
+    parity_residual_kg_hr: float
+    identity_closes: bool
+    target_parity_passed: bool
+    policy_id: str
+    evidence_classes: tuple[str, ...]
+    warnings: tuple[str, ...]
+    blockers: tuple[str, ...]
+
+    def to_dict(self) -> dict[str, object]: return asdict(self)
+
+
+@dataclass(frozen=True)
+class DynamicBioSTEAMCalculationValidation:
+    unit_parities: tuple[DynamicBioSTEAMCalculationUnitParity, ...]
+    all_unit_parity_passed: bool
+    exact_component_identity_closes: bool
+    adapter_full_mass_closes: bool
+    metadata_records_preserved: bool
+    press_cake_boundary_valid: bool
+    empirical_flowsheet_unchanged: bool
+    selected_method: str
+    selected_method_calculation_ready: bool
+    closes: bool
+    warnings: tuple[str, ...] = ()
+
+    def to_dict(self) -> dict[str, object]:
+        result = asdict(self)
+        result["unit_parities"] = [item.to_dict() for item in self.unit_parities]
+        return result
+
+
+@dataclass(frozen=True)
+class DynamicBioSTEAMCalculationSystemResult:
+    config: DynamicBioSTEAMAdapterConfig
+    source_adapter: DynamicBioSTEAMAdapterResult
+    feed_record: DynamicBioSTEAMStreamRecord
+    adapter_records: tuple[DynamicBioSTEAMStreamRecord, ...]
+    payloads: Any
+    system: Any | None
+    units: dict[str, Any]
+    streams: dict[str, Any]
+    isolated_flowsheet: Any | None
+    validation: DynamicBioSTEAMCalculationValidation
+    warnings: tuple[str, ...]
+    blockers: tuple[str, ...]
+    provenance: dict[str, object]
+    can_drive_calculation_shadow_system: bool
+    can_drive_simulation: bool = False
+    validated_simulation_ready: bool = False
+    activation_status: str = "calculation_shadow_system_report_only"
+
+    def to_dict(self) -> dict[str, object]:
+        return {
+            "config": self.config.to_dict(),
+            "source_adapter": self.source_adapter.to_dict(),
+            "feed_record": self.feed_record.to_dict(),
+            "adapter_records": [record.to_dict() for record in self.adapter_records],
+            "payloads": self.payloads.to_dict(),
+            "system_id": self.system.ID if self.system is not None else None,
+            "unit_ids": {name: unit.ID for name, unit in self.units.items()},
+            "stream_ids": {name: stream.ID for name, stream in self.streams.items()},
+            "isolated_flowsheet_id": (
+                self.isolated_flowsheet.ID if self.isolated_flowsheet is not None else None
+            ),
+            "validation": self.validation.to_dict(),
+            "warnings": list(self.warnings),
+            "blockers": list(self.blockers),
+            "provenance": dict(self.provenance),
+            "can_drive_calculation_shadow_system": self.can_drive_calculation_shadow_system,
+            "can_drive_simulation": self.can_drive_simulation,
+            "validated_simulation_ready": self.validated_simulation_ready,
+            "activation_status": self.activation_status,
+        }
+
+
+@dataclass(frozen=True)
+class DynamicBioSTEAMCalculationGridResult:
+    config: DynamicBioSTEAMAdapterConfig
+    step_results: tuple[DynamicBioSTEAMCalculationSystemResult, ...]
+    time_labels: tuple[str, ...]
+    all_steps_parity_passed: bool
+    all_steps_calculation_shadow_ready: bool
+    all_empirical_flowsheets_unchanged: bool
+    warning_counts: dict[str, int]
+    blocker_counts: dict[str, int]
+    provenance: dict[str, object]
+    activation_status: str = "calculation_shadow_system_grid_report_only"
+
+    def to_dict(self) -> dict[str, object]:
+        return {
+            "config": self.config.to_dict(),
+            "step_results": [result.to_dict() for result in self.step_results],
+            "time_labels": list(self.time_labels),
+            "all_steps_parity_passed": self.all_steps_parity_passed,
+            "all_steps_calculation_shadow_ready": self.all_steps_calculation_shadow_ready,
             "all_empirical_flowsheets_unchanged": self.all_empirical_flowsheets_unchanged,
             "warning_counts": dict(self.warning_counts),
             "blocker_counts": dict(self.blocker_counts),
@@ -701,14 +929,983 @@ def write_dynamic_biosteam_adapter_reports(
     return {name: str(path) for name, path in paths.items()}
 
 
+def build_dynamic_biosteam_shadow_system(
+    time_label: str = "2026-05",
+    basis_feed_kg_per_hr: float = 1000.0,
+    *,
+    config: DynamicBioSTEAMAdapterConfig | None = None,
+) -> DynamicBioSTEAMShadowSystemResult:
+    """Build one isolated six-unit target-output BioSTEAM system."""
+
+    if config is None:
+        config = DynamicBioSTEAMAdapterConfig(
+            time_label=time_label,
+            basis_feed_kg_per_hr=basis_feed_kg_per_hr,
+        )
+    elif time_label != "2026-05" or basis_feed_kg_per_hr != 1000.0:
+        config = replace(
+            config,
+            time_label=time_label,
+            basis_feed_kg_per_hr=basis_feed_kg_per_hr,
+        )
+    run = run_dynamic_protein_scenario_step(
+        config.resolved_scenario_config(), config.time_label
+    )
+    return _build_shadow_system_from_run(config, run)
+
+
+def validate_dynamic_biosteam_shadow_system(
+    result: DynamicBioSTEAMShadowSystemResult,
+    *,
+    tolerance_kg_hr: float = MASS_TOLERANCE_KG_HR,
+) -> DynamicBioSTEAMShadowSystemBalance:
+    """Validate every target-output unit and the isolated system boundary."""
+
+    records = {
+        record.source_dynamic_stream_id: record for record in result.adapter_records
+    }
+    unit_output_ids = {
+        "raw_press": (
+            "press_cake",
+            "brown_juice",
+            "raw_press_unrecovered_process_mass",
+        ),
+        "first_centrifuge": ("clarified_juice", "cell_debris"),
+        "protein_extraction": ("protein_rich_phase", "extraction_supernatant"),
+        "second_centrifuge": ("wet_protein_cake", "final_supernatant"),
+        "protein_dryer": ("dried_protein_product", "evaporated_water"),
+        "residual_mixer": ("biogas_feed_candidate",),
+    }
+    unit_balances: list[DynamicBioSTEAMShadowUnitBalance] = []
+    for name, unit in result.units.items():
+        input_components = _stream_component_inventory(unit.ins)
+        output_components = _stream_component_inventory(unit.outs)
+        residuals = _mapping_residuals(input_components, output_components)
+        input_mass = sum(input_components.values())
+        output_mass = sum(output_components.values())
+        residual = input_mass - output_mass
+        identity_closes = all(
+            abs(value) <= tolerance_kg_hr for value in residuals.values()
+        )
+        outputs_match = all(
+            _biosteam_stream_matches_record(
+                result.streams[stream_id], records[stream_id], tolerance_kg_hr
+            )
+            for stream_id in unit_output_ids[name]
+        )
+        unit_balances.append(
+            DynamicBioSTEAMShadowUnitBalance(
+                unit_id=unit.ID,
+                unit_type=type(unit).__name__,
+                input_mass_kg_hr=input_mass,
+                output_mass_kg_hr=output_mass,
+                residual_kg_hr=residual,
+                component_residuals_kg_hr=residuals,
+                identity_closes=identity_closes,
+                outputs_match_adapter_records=outputs_match,
+                closes=abs(residual) <= tolerance_kg_hr and identity_closes and outputs_match,
+            )
+        )
+
+    terminal_ids = FINAL_OUTPUT_STREAM_IDS
+    input_components = dict(result.feed_record.component_masses_kg_hr)
+    terminal_components = _stream_component_inventory(
+        tuple(result.streams[name] for name in terminal_ids)
+    )
+    component_residuals = _mapping_residuals(input_components, terminal_components)
+    input_mass = sum(input_components.values())
+    terminal_mass = sum(terminal_components.values())
+    exact_residual = input_mass - terminal_mass
+    exact_identity_closes = all(
+        abs(value) <= tolerance_kg_hr for value in component_residuals.values()
+    )
+    residual_inputs = {
+        stream.ID for stream in result.units["residual_mixer"].ins
+    }
+    press_boundary = (
+        result.streams["press_cake"].ID not in residual_inputs
+        and residual_inputs
+        == {
+            result.streams["cell_debris"].ID,
+            result.streams["final_supernatant"].ID,
+        }
+    )
+    adapter_balance = result.source_adapter.mass_balance
+    all_outputs_match = all(
+        balance.outputs_match_adapter_records for balance in unit_balances
+    )
+    empirical_unchanged = bool(
+        result.provenance.get("empirical_flowsheet_unchanged")
+    )
+    closes = all(
+        (
+            abs(exact_residual) <= tolerance_kg_hr,
+            exact_identity_closes,
+            adapter_balance.overall_closes,
+            adapter_balance.identity_closes,
+            all(balance.closes for balance in unit_balances),
+            all_outputs_match,
+            press_boundary,
+            empirical_unchanged,
+        )
+    )
+    warnings = () if closes else ("shadow_system_validation_incomplete",)
+    return DynamicBioSTEAMShadowSystemBalance(
+        input_component_mass_kg_hr=input_mass,
+        terminal_component_mass_kg_hr=terminal_mass,
+        exact_component_residual_kg_hr=exact_residual,
+        component_residuals_kg_hr=component_residuals,
+        exact_component_identity_closes=exact_identity_closes,
+        adapter_full_mass_closes=adapter_balance.overall_closes,
+        adapter_metadata_identity_closes=adapter_balance.identity_closes,
+        all_unit_outputs_match_adapter_records=all_outputs_match,
+        unit_balances=tuple(unit_balances),
+        press_cake_boundary_valid=press_boundary,
+        empirical_flowsheet_unchanged=empirical_unchanged,
+        closes=closes,
+        warnings=warnings,
+    )
+
+
+def build_dynamic_biosteam_shadow_system_grid(
+    config: DynamicBioSTEAMAdapterConfig | None = None,
+) -> DynamicBioSTEAMShadowSystemGridResult:
+    """Build seven independent monthly unit systems without time integration."""
+
+    config = config or DynamicBioSTEAMAdapterConfig()
+    source_grid = run_dynamic_protein_scenario_grid(config.resolved_scenario_config())
+    results = tuple(
+        _build_shadow_system_from_run(replace(config, time_label=run.time_label), run)
+        for run in source_grid.runs
+    )
+    warning_counts = Counter(item for result in results for item in result.warnings)
+    blocker_counts = Counter(item for result in results for item in result.blockers)
+    return DynamicBioSTEAMShadowSystemGridResult(
+        config=config,
+        step_results=results,
+        time_labels=tuple(result.config.time_label for result in results),
+        all_steps_close=all(result.mass_balance.closes for result in results),
+        all_steps_shadow_ready=all(result.can_drive_shadow_system for result in results),
+        all_empirical_flowsheets_unchanged=all(
+            result.mass_balance.empirical_flowsheet_unchanged for result in results
+        ),
+        warning_counts=dict(sorted(warning_counts.items())),
+        blocker_counts=dict(sorted(blocker_counts.items())),
+        provenance={
+            "batch_semantics": "independent_monthly_target_output_biosteam_systems",
+            "continuous_dynamic_scheduling_active": False,
+            "calculation_owning_units_active": False,
+            "empirical_model_modified": False,
+            "model_overrides": [],
+        },
+    )
+
+
+def write_dynamic_biosteam_shadow_system_reports(
+    result_or_grid: (
+        DynamicBioSTEAMShadowSystemResult | DynamicBioSTEAMShadowSystemGridResult
+    ),
+    output_dir: str | Path | None = None,
+) -> dict[str, str]:
+    """Write concise unit and system balance reports for shadow systems."""
+
+    target = Path(output_dir) if output_dir is not None else RESULTS_DIR
+    target.mkdir(parents=True, exist_ok=True)
+    paths = {
+        "units": target / "dynamic_biosteam_shadow_units.csv",
+        "balance": target / "dynamic_biosteam_shadow_system_balance.csv",
+    }
+    results = (
+        result_or_grid.step_results
+        if isinstance(result_or_grid, DynamicBioSTEAMShadowSystemGridResult)
+        else (result_or_grid,)
+    )
+    fields = (
+        "time_label",
+        "unit_id",
+        "unit_type",
+        "input_streams",
+        "output_streams",
+        "input_mass_kg_hr",
+        "output_mass_kg_hr",
+        "residual_kg_hr",
+        "identity_closes",
+        "policy_status",
+        "evidence_class",
+        "warning",
+        "blocker",
+    )
+    unit_rows: list[dict[str, object]] = []
+    balance_rows: list[dict[str, object]] = []
+    for result in results:
+        balances = {item.unit_id: item for item in result.mass_balance.unit_balances}
+        for unit in result.units.values():
+            balance = balances[unit.ID]
+            unit_rows.append(
+                {
+                    "time_label": result.config.time_label,
+                    "unit_id": unit.ID,
+                    "unit_type": type(unit).__name__,
+                    "input_streams": "|".join(stream.ID for stream in unit.ins),
+                    "output_streams": "|".join(stream.ID for stream in unit.outs),
+                    "input_mass_kg_hr": balance.input_mass_kg_hr,
+                    "output_mass_kg_hr": balance.output_mass_kg_hr,
+                    "residual_kg_hr": balance.residual_kg_hr,
+                    "identity_closes": balance.identity_closes,
+                    "policy_status": unit.shadow_policy_status,
+                    "evidence_class": "|".join(unit.shadow_evidence_classes),
+                    "warning": "|".join(unit.shadow_warnings),
+                    "blocker": "|".join(unit.shadow_blockers),
+                }
+            )
+        balance_rows.append(
+            {
+                "time_label": result.config.time_label,
+                "unit_id": result.system.ID,
+                "unit_type": "bst.System",
+                "input_streams": result.streams["whole_feed"].ID,
+                "output_streams": "|".join(
+                    result.streams[name].ID for name in FINAL_OUTPUT_STREAM_IDS
+                ),
+                "input_mass_kg_hr": result.source_adapter.mass_balance.basis_feed_kg_hr,
+                "output_mass_kg_hr": result.source_adapter.mass_balance.final_output_mass_kg_hr,
+                "residual_kg_hr": result.source_adapter.mass_balance.overall_residual_kg_hr,
+                "identity_closes": (
+                    result.mass_balance.exact_component_identity_closes
+                    and result.mass_balance.adapter_metadata_identity_closes
+                ),
+                "policy_status": result.activation_status,
+                "evidence_class": "target_output_shadow_from_traceable_dynamic_records",
+                "warning": "|".join(result.warnings),
+                "blocker": "|".join(result.blockers),
+            }
+        )
+    _write_rows(paths["units"], fields, unit_rows)
+    _write_rows(paths["balance"], fields, balance_rows)
+    return {name: str(path) for name, path in paths.items()}
+
+
+def build_dynamic_biosteam_calculation_shadow_system(
+    config: DynamicBioSTEAMAdapterConfig | None = None,
+) -> DynamicBioSTEAMCalculationSystemResult:
+    """Build one isolated system whose units calculate from policy payloads."""
+
+    config = config or DynamicBioSTEAMAdapterConfig(
+        adapter_mode=CALCULATION_ADAPTER_MODE
+    )
+    if config.adapter_mode == ADAPTER_MODE:
+        config = replace(config, adapter_mode=CALCULATION_ADAPTER_MODE)
+    run = run_dynamic_protein_scenario_step(
+        config.resolved_scenario_config(), config.time_label
+    )
+    return _build_calculation_shadow_system_from_run(config, run)
+
+
+def validate_dynamic_biosteam_calculation_shadow_system(
+    result: DynamicBioSTEAMCalculationSystemResult,
+    *,
+    tolerance_kg_hr: float = MASS_TOLERANCE_KG_HR,
+) -> DynamicBioSTEAMCalculationValidation:
+    """Validate calculation ownership against authoritative adapter records."""
+
+    if result.system is None:
+        return result.validation
+    records = {
+        record.source_dynamic_stream_id: record for record in result.adapter_records
+    }
+    unit_outputs = {
+        "raw_press": (
+            "press_cake", "brown_juice", "raw_press_unrecovered_process_mass"
+        ),
+        "first_centrifuge": ("clarified_juice", "cell_debris"),
+        "protein_extraction": ("protein_rich_phase", "extraction_supernatant"),
+        "second_centrifuge": ("wet_protein_cake", "final_supernatant"),
+        "protein_dryer": ("dried_protein_product", "evaporated_water"),
+        "residual_mixer": ("biogas_feed_candidate",),
+    }
+    parities: list[DynamicBioSTEAMCalculationUnitParity] = []
+    for key, unit in result.units.items():
+        input_inventory = _stream_component_inventory(unit.ins)
+        output_inventory = _stream_component_inventory(unit.outs)
+        component_residuals = _mapping_residuals(input_inventory, output_inventory)
+        input_mass = sum(input_inventory.values())
+        output_mass = sum(output_inventory.values())
+        residual = input_mass - output_mass
+        identity_closes = all(
+            abs(value) <= tolerance_kg_hr for value in component_residuals.values()
+        )
+        parity_values: list[float] = []
+        for stream_id in unit_outputs[key]:
+            stream = result.streams[stream_id]
+            record = records[stream_id]
+            parity_values.append(abs(float(stream.F_mass) - record.total_component_kg_hr))
+            parity_values.extend(
+                abs(float(stream.imass[name]) - mass)
+                for name, mass in record.component_masses_kg_hr.items()
+            )
+        parity_residual = max(parity_values, default=0.0)
+        parity_passed = parity_residual <= tolerance_kg_hr
+        payload = unit.calculation_payload
+        parities.append(
+            DynamicBioSTEAMCalculationUnitParity(
+                unit_key=key,
+                unit_id=unit.ID,
+                unit_type=type(unit).__name__,
+                input_mass_kg_hr=input_mass,
+                output_mass_kg_hr=output_mass,
+                residual_kg_hr=residual,
+                parity_residual_kg_hr=parity_residual,
+                identity_closes=identity_closes,
+                target_parity_passed=parity_passed,
+                policy_id=payload.policy_id,
+                evidence_classes=payload.evidence_classes,
+                warnings=payload.warnings,
+                blockers=payload.blockers,
+            )
+        )
+    terminal = _stream_component_inventory(
+        tuple(result.streams[name] for name in FINAL_OUTPUT_STREAM_IDS)
+    )
+    exact_residuals = _mapping_residuals(
+        result.feed_record.component_masses_kg_hr, terminal
+    )
+    exact_identity = all(
+        abs(value) <= tolerance_kg_hr for value in exact_residuals.values()
+    )
+    residual_inputs = {stream.ID for stream in result.units["residual_mixer"].ins}
+    press_boundary = residual_inputs == {
+        result.streams["cell_debris"].ID,
+        result.streams["final_supernatant"].ID,
+    } and result.streams["press_cake"].ID not in residual_inputs
+    metadata_preserved = (
+        result.source_adapter.mass_balance.metadata_preserved_in_records
+        and any(record.metadata_pools_kg_hr for record in result.adapter_records)
+    )
+    empirical_unchanged = bool(
+        result.provenance.get("empirical_flowsheet_unchanged")
+    )
+    method_payload = result.payloads.protein_extraction
+    all_parity = all(item.target_parity_passed for item in parities)
+    closes = all(
+        (
+            all_parity,
+            all(item.identity_closes for item in parities),
+            exact_identity,
+            result.source_adapter.mass_balance.overall_closes,
+            metadata_preserved,
+            press_boundary,
+            empirical_unchanged,
+            method_payload.calculation_ready,
+        )
+    )
+    return DynamicBioSTEAMCalculationValidation(
+        unit_parities=tuple(parities),
+        all_unit_parity_passed=all_parity,
+        exact_component_identity_closes=exact_identity,
+        adapter_full_mass_closes=result.source_adapter.mass_balance.overall_closes,
+        metadata_records_preserved=metadata_preserved,
+        press_cake_boundary_valid=press_boundary,
+        empirical_flowsheet_unchanged=empirical_unchanged,
+        selected_method=method_payload.method,
+        selected_method_calculation_ready=method_payload.calculation_ready,
+        closes=closes,
+        warnings=() if closes else ("calculation_shadow_validation_incomplete",),
+    )
+
+
+def build_dynamic_biosteam_calculation_shadow_system_grid(
+    config: DynamicBioSTEAMAdapterConfig | None = None,
+) -> DynamicBioSTEAMCalculationGridResult:
+    """Build independent monthly calculation systems for the configured grid."""
+
+    config = config or DynamicBioSTEAMAdapterConfig(
+        adapter_mode=CALCULATION_ADAPTER_MODE
+    )
+    if config.adapter_mode == ADAPTER_MODE:
+        config = replace(config, adapter_mode=CALCULATION_ADAPTER_MODE)
+    source_grid = run_dynamic_protein_scenario_grid(config.resolved_scenario_config())
+    results = tuple(
+        _build_calculation_shadow_system_from_run(
+            replace(config, time_label=run.time_label), run
+        )
+        for run in source_grid.runs
+    )
+    warnings = Counter(item for result in results for item in result.warnings)
+    blockers = Counter(item for result in results for item in result.blockers)
+    return DynamicBioSTEAMCalculationGridResult(
+        config=config,
+        step_results=results,
+        time_labels=tuple(result.config.time_label for result in results),
+        all_steps_parity_passed=all(
+            result.validation.all_unit_parity_passed for result in results
+        ),
+        all_steps_calculation_shadow_ready=all(
+            result.can_drive_calculation_shadow_system for result in results
+        ),
+        all_empirical_flowsheets_unchanged=all(
+            result.validation.empirical_flowsheet_unchanged for result in results
+        ),
+        warning_counts=dict(sorted(warnings.items())),
+        blocker_counts=dict(sorted(blockers.items())),
+        provenance={
+            "batch_semantics": "independent_monthly_calculation_shadow_systems",
+            "selected_method": config.resolved_scenario_config().protein_method,
+            "continuous_dynamic_scheduling_active": False,
+            "empirical_model_modified": False,
+            "model_overrides": [],
+        },
+    )
+
+
+def write_dynamic_biosteam_calculation_shadow_reports(
+    result_or_grid: (
+        DynamicBioSTEAMCalculationSystemResult | DynamicBioSTEAMCalculationGridResult
+    ),
+    output_dir: str | Path | None = None,
+) -> dict[str, str]:
+    """Write unit, balance, and parity reports for calculation shadow mode."""
+
+    target = Path(output_dir) if output_dir is not None else RESULTS_DIR
+    target.mkdir(parents=True, exist_ok=True)
+    paths = {
+        "units": target / "dynamic_biosteam_calculation_units.csv",
+        "balance": target / "dynamic_biosteam_calculation_balance.csv",
+        "parity": target / "dynamic_biosteam_calculation_parity.csv",
+    }
+    results = (
+        result_or_grid.step_results
+        if isinstance(result_or_grid, DynamicBioSTEAMCalculationGridResult)
+        else (result_or_grid,)
+    )
+    fields = (
+        "time_label", "unit_id", "unit_type", "calculation_mode", "policy_id",
+        "input_mass_kg_hr", "output_mass_kg_hr", "residual_kg_hr",
+        "parity_residual_kg_hr", "identity_closes", "target_parity_passed",
+        "evidence_class", "warning", "blocker",
+    )
+    unit_rows: list[dict[str, object]] = []
+    parity_rows: list[dict[str, object]] = []
+    balance_rows: list[dict[str, object]] = []
+    for result in results:
+        for parity in result.validation.unit_parities:
+            row = {
+                "time_label": result.config.time_label,
+                "unit_id": parity.unit_id,
+                "unit_type": parity.unit_type,
+                "calculation_mode": result.activation_status,
+                "policy_id": parity.policy_id,
+                "input_mass_kg_hr": parity.input_mass_kg_hr,
+                "output_mass_kg_hr": parity.output_mass_kg_hr,
+                "residual_kg_hr": parity.residual_kg_hr,
+                "parity_residual_kg_hr": parity.parity_residual_kg_hr,
+                "identity_closes": parity.identity_closes,
+                "target_parity_passed": parity.target_parity_passed,
+                "evidence_class": "|".join(parity.evidence_classes),
+                "warning": "|".join(parity.warnings),
+                "blocker": "|".join(parity.blockers),
+            }
+            unit_rows.append(row)
+            parity_rows.append(dict(row))
+        balance_rows.append({
+            "time_label": result.config.time_label,
+            "unit_id": result.system.ID if result.system is not None else "blocked",
+            "unit_type": "bst.System" if result.system is not None else "blocked_system",
+            "calculation_mode": result.activation_status,
+            "policy_id": result.payloads.protein_extraction.policy_id,
+            "input_mass_kg_hr": result.source_adapter.mass_balance.basis_feed_kg_hr,
+            "output_mass_kg_hr": result.source_adapter.mass_balance.final_output_mass_kg_hr,
+            "residual_kg_hr": result.source_adapter.mass_balance.overall_residual_kg_hr,
+            "parity_residual_kg_hr": max(
+                (item.parity_residual_kg_hr for item in result.validation.unit_parities),
+                default=0.0,
+            ),
+            "identity_closes": result.validation.exact_component_identity_closes,
+            "target_parity_passed": result.validation.all_unit_parity_passed,
+            "evidence_class": "calculation_shadow_from_resolved_policy_payloads",
+            "warning": "|".join(result.warnings),
+            "blocker": "|".join(result.blockers),
+        })
+    _write_rows(paths["units"], fields, unit_rows)
+    _write_rows(paths["balance"], fields, balance_rows)
+    _write_rows(paths["parity"], fields, parity_rows)
+    return {name: str(path) for name, path in paths.items()}
+
+
+def _build_calculation_shadow_system_from_run(
+    config: DynamicBioSTEAMAdapterConfig,
+    run: DynamicProteinScenarioRun,
+) -> DynamicBioSTEAMCalculationSystemResult:
+    from Greenhub.chemicals import thermo
+    from Greenhub.dynamic_biosteam_units import (
+        DynamicFirstCentrifugeCalculationUnit,
+        DynamicProteinDryerCalculationUnit,
+        DynamicProteinExtractionCalculationUnit,
+        DynamicRawPressCalculationUnit,
+        DynamicResidualMixerCalculationUnit,
+        DynamicSecondCentrifugeCalculationUnit,
+        build_dynamic_protein_calculation_payloads,
+    )
+
+    preview = run.pathway_preview
+    if preview is None:
+        raise ValueError(f"Dynamic scenario step '{run.time_label}' has no pathway preview.")
+    payloads = build_dynamic_protein_calculation_payloads(run)
+    source_adapter = _build_adapter_result_from_run(
+        replace(config, create_biosteam_objects=False),
+        run,
+        require_proxy_ready=False,
+    )
+    feed_record = dynamic_process_stream_to_adapter_record(
+        preview.raw_press.inputs[0],
+        config.basis_feed_kg_per_hr,
+        scenario_id=config.scenario_id,
+    )
+    method_payload = payloads.protein_extraction
+    if not method_payload.calculation_ready:
+        blocker = f"protein_method_not_calculation_ready:{method_payload.method}"
+        validation = DynamicBioSTEAMCalculationValidation(
+            unit_parities=(),
+            all_unit_parity_passed=False,
+            exact_component_identity_closes=False,
+            adapter_full_mass_closes=source_adapter.mass_balance.overall_closes,
+            metadata_records_preserved=(
+                source_adapter.mass_balance.metadata_preserved_in_records
+            ),
+            press_cake_boundary_valid=True,
+            empirical_flowsheet_unchanged=True,
+            selected_method=method_payload.method,
+            selected_method_calculation_ready=False,
+            closes=False,
+            warnings=("selected_method_returned_as_blocked_without_system_build",),
+        )
+        return DynamicBioSTEAMCalculationSystemResult(
+            config=config,
+            source_adapter=source_adapter,
+            feed_record=feed_record,
+            adapter_records=source_adapter.records,
+            payloads=payloads,
+            system=None,
+            units={},
+            streams={},
+            isolated_flowsheet=None,
+            validation=validation,
+            warnings=tuple(dict.fromkeys((*run.warnings, *validation.warnings))),
+            blockers=tuple(dict.fromkeys((*run.blockers, blocker))),
+            provenance={
+                "mode": "calculation_shadow_system_report_only_blocked_method",
+                "selected_method": method_payload.method,
+                "empirical_model_modified": False,
+                "model_overrides": [],
+            },
+            can_drive_calculation_shadow_system=False,
+        )
+
+    records = {
+        record.source_dynamic_stream_id: record for record in source_adapter.records
+    }
+    with _FLOWSHEET_LOCK:
+        before_flowsheet = bst.main_flowsheet.get_flowsheet()
+        before_registries = _flowsheet_registry_snapshot(before_flowsheet)
+        flowsheet = bst.Flowsheet(
+            f"greenhub_dynamic_calculation_shadow_{_safe_id(config.scenario_id)}_"
+            f"{_safe_id(run.time_label)}"
+        )
+        try:
+            with flowsheet:
+                streams = {
+                    "whole_feed": bst.Stream(
+                        ID=feed_record.adapter_stream_id,
+                        thermo=thermo,
+                        units="kg/hr",
+                        **feed_record.component_masses_kg_hr,
+                    )
+                }
+                for stream_id, record in records.items():
+                    streams[stream_id] = bst.Stream(
+                        ID=record.adapter_stream_id,
+                        thermo=thermo,
+                    )
+                prefix = f"dyn_{_safe_id(run.time_label)}_calc"
+                units = {
+                    "raw_press": DynamicRawPressCalculationUnit(
+                        f"{prefix}_raw_press",
+                        ins=streams["whole_feed"],
+                        outs=(streams["press_cake"], streams["brown_juice"],
+                              streams["raw_press_unrecovered_process_mass"]),
+                        thermo=thermo,
+                        payload=payloads.raw_press,
+                    ),
+                    "first_centrifuge": DynamicFirstCentrifugeCalculationUnit(
+                        f"{prefix}_first_centrifuge",
+                        ins=streams["brown_juice"],
+                        outs=(streams["clarified_juice"], streams["cell_debris"]),
+                        thermo=thermo,
+                        payload=payloads.first_centrifuge,
+                    ),
+                    "protein_extraction": DynamicProteinExtractionCalculationUnit(
+                        f"{prefix}_protein_extraction",
+                        ins=streams["clarified_juice"],
+                        outs=(streams["protein_rich_phase"], streams["extraction_supernatant"]),
+                        thermo=thermo,
+                        payload=payloads.protein_extraction,
+                    ),
+                    "second_centrifuge": DynamicSecondCentrifugeCalculationUnit(
+                        f"{prefix}_second_centrifuge",
+                        ins=(streams["protein_rich_phase"], streams["extraction_supernatant"]),
+                        outs=(streams["wet_protein_cake"], streams["final_supernatant"]),
+                        thermo=thermo,
+                        payload=payloads.second_centrifuge,
+                    ),
+                    "protein_dryer": DynamicProteinDryerCalculationUnit(
+                        f"{prefix}_protein_dryer",
+                        ins=streams["wet_protein_cake"],
+                        outs=(streams["dried_protein_product"], streams["evaporated_water"]),
+                        thermo=thermo,
+                        payload=payloads.protein_dryer,
+                    ),
+                    "residual_mixer": DynamicResidualMixerCalculationUnit(
+                        f"{prefix}_residual_mixer",
+                        ins=(streams["cell_debris"], streams["final_supernatant"]),
+                        outs=streams["biogas_feed_candidate"],
+                        thermo=thermo,
+                        payload=payloads.residual_mixer,
+                    ),
+                }
+                system = bst.System.from_units(
+                    ID=f"{prefix}_protein_shadow_sys",
+                    units=tuple(units.values()),
+                )
+                system.simulate()
+        finally:
+            _unregister_isolated_flowsheet(flowsheet)
+        after_flowsheet = bst.main_flowsheet.get_flowsheet()
+        empirical_unchanged = (
+            after_flowsheet is before_flowsheet
+            and _flowsheet_registry_snapshot(after_flowsheet) == before_registries
+        )
+
+    placeholder = DynamicBioSTEAMCalculationValidation(
+        unit_parities=(), all_unit_parity_passed=False,
+        exact_component_identity_closes=False,
+        adapter_full_mass_closes=source_adapter.mass_balance.overall_closes,
+        metadata_records_preserved=source_adapter.mass_balance.metadata_preserved_in_records,
+        press_cake_boundary_valid=False,
+        empirical_flowsheet_unchanged=empirical_unchanged,
+        selected_method=method_payload.method,
+        selected_method_calculation_ready=method_payload.calculation_ready,
+        closes=False,
+    )
+    provisional = DynamicBioSTEAMCalculationSystemResult(
+        config=config,
+        source_adapter=source_adapter,
+        feed_record=feed_record,
+        adapter_records=source_adapter.records,
+        payloads=payloads,
+        system=system,
+        units=units,
+        streams=streams,
+        isolated_flowsheet=flowsheet,
+        validation=placeholder,
+        warnings=tuple(dict.fromkeys((*run.warnings, "calculation_units_use_resolved_policy_payloads"))),
+        blockers=run.blockers,
+        provenance={
+            "mode": "calculation_shadow_system_report_only",
+            "selected_method": method_payload.method,
+            "fraction_origin": "resolved_conservative_dynamic_process_unit_outputs",
+            "target_output_masses_stored_in_units": False,
+            "metadata_storage": "parallel_adapter_records_only",
+            "press_cake_boundary": "external_system_output",
+            "empirical_flowsheet_id_before": before_flowsheet.ID,
+            "empirical_flowsheet_id_after": after_flowsheet.ID,
+            "empirical_flowsheet_unchanged": empirical_unchanged,
+            "model_overrides": [],
+        },
+        can_drive_calculation_shadow_system=False,
+    )
+    validation = validate_dynamic_biosteam_calculation_shadow_system(provisional)
+    return replace(
+        provisional,
+        validation=validation,
+        can_drive_calculation_shadow_system=validation.closes,
+    )
+
+
+def _build_shadow_system_from_run(
+    config: DynamicBioSTEAMAdapterConfig,
+    run: DynamicProteinScenarioRun,
+) -> DynamicBioSTEAMShadowSystemResult:
+    """Build one system from an existing source run without recalculation."""
+
+    from Greenhub.chemicals import thermo
+    from Greenhub.dynamic_biosteam_units import (
+        DynamicFirstCentrifugeUnit,
+        DynamicProteinDryerUnit,
+        DynamicProteinExtractionUnit,
+        DynamicRawPressUnit,
+        DynamicResidualMixerUnit,
+        DynamicSecondCentrifugeUnit,
+    )
+
+    preview = run.pathway_preview
+    if preview is None:
+        raise ValueError(f"Dynamic scenario step '{run.time_label}' has no pathway preview.")
+    source_adapter = _build_adapter_result_from_run(
+        replace(config, create_biosteam_objects=False), run
+    )
+    records = {
+        record.source_dynamic_stream_id: record for record in source_adapter.records
+    }
+    feed_record = dynamic_process_stream_to_adapter_record(
+        preview.raw_press.inputs[0],
+        config.basis_feed_kg_per_hr,
+        scenario_id=config.scenario_id,
+    )
+
+    with _FLOWSHEET_LOCK:
+        before_flowsheet = bst.main_flowsheet.get_flowsheet()
+        before_registries = _flowsheet_registry_snapshot(before_flowsheet)
+        flowsheet = bst.Flowsheet(
+            f"greenhub_dynamic_shadow_system_{_safe_id(config.scenario_id)}_"
+            f"{_safe_id(run.time_label)}"
+        )
+        try:
+            with flowsheet:
+                streams = {
+                    "whole_feed": bst.Stream(
+                        ID=feed_record.adapter_stream_id,
+                        thermo=thermo,
+                        units="kg/hr",
+                        **feed_record.component_masses_kg_hr,
+                    )
+                }
+                for stream_id, record in records.items():
+                    streams[stream_id] = bst.Stream(
+                        ID=record.adapter_stream_id,
+                        thermo=thermo,
+                    )
+
+                prefix = f"dyn_{_safe_id(run.time_label)}"
+                units = {
+                    "raw_press": DynamicRawPressUnit(
+                        f"{prefix}_raw_press",
+                        ins=streams["whole_feed"],
+                        outs=(
+                            streams["press_cake"],
+                            streams["brown_juice"],
+                            streams["raw_press_unrecovered_process_mass"],
+                        ),
+                        thermo=thermo,
+                        **_shadow_unit_target_kwargs(
+                            records,
+                            (
+                                "press_cake",
+                                "brown_juice",
+                                "raw_press_unrecovered_process_mass",
+                            ),
+                        ),
+                    ),
+                    "first_centrifuge": DynamicFirstCentrifugeUnit(
+                        f"{prefix}_first_centrifuge",
+                        ins=streams["brown_juice"],
+                        outs=(streams["clarified_juice"], streams["cell_debris"]),
+                        thermo=thermo,
+                        **_shadow_unit_target_kwargs(
+                            records, ("clarified_juice", "cell_debris")
+                        ),
+                    ),
+                    "protein_extraction": DynamicProteinExtractionUnit(
+                        f"{prefix}_protein_extraction",
+                        ins=streams["clarified_juice"],
+                        outs=(
+                            streams["protein_rich_phase"],
+                            streams["extraction_supernatant"],
+                        ),
+                        thermo=thermo,
+                        **_shadow_unit_target_kwargs(
+                            records,
+                            ("protein_rich_phase", "extraction_supernatant"),
+                        ),
+                    ),
+                    "second_centrifuge": DynamicSecondCentrifugeUnit(
+                        f"{prefix}_second_centrifuge",
+                        ins=(
+                            streams["protein_rich_phase"],
+                            streams["extraction_supernatant"],
+                        ),
+                        outs=(
+                            streams["wet_protein_cake"],
+                            streams["final_supernatant"],
+                        ),
+                        thermo=thermo,
+                        **_shadow_unit_target_kwargs(
+                            records, ("wet_protein_cake", "final_supernatant")
+                        ),
+                    ),
+                    "protein_dryer": DynamicProteinDryerUnit(
+                        f"{prefix}_protein_dryer",
+                        ins=streams["wet_protein_cake"],
+                        outs=(
+                            streams["dried_protein_product"],
+                            streams["evaporated_water"],
+                        ),
+                        thermo=thermo,
+                        **_shadow_unit_target_kwargs(
+                            records, ("dried_protein_product", "evaporated_water")
+                        ),
+                    ),
+                    "residual_mixer": DynamicResidualMixerUnit(
+                        f"{prefix}_residual_mixer",
+                        ins=(streams["cell_debris"], streams["final_supernatant"]),
+                        outs=streams["biogas_feed_candidate"],
+                        thermo=thermo,
+                        **_shadow_unit_target_kwargs(
+                            records, ("biogas_feed_candidate",)
+                        ),
+                    ),
+                }
+                system = bst.System.from_units(
+                    ID=f"{prefix}_protein_shadow_sys",
+                    units=tuple(units.values()),
+                )
+                system.simulate()
+        finally:
+            _unregister_isolated_flowsheet(flowsheet)
+        after_flowsheet = bst.main_flowsheet.get_flowsheet()
+        empirical_unchanged = (
+            after_flowsheet is before_flowsheet
+            and _flowsheet_registry_snapshot(after_flowsheet) == before_registries
+        )
+
+    placeholder = DynamicBioSTEAMShadowSystemBalance(
+        input_component_mass_kg_hr=0.0,
+        terminal_component_mass_kg_hr=0.0,
+        exact_component_residual_kg_hr=0.0,
+        component_residuals_kg_hr={},
+        exact_component_identity_closes=False,
+        adapter_full_mass_closes=False,
+        adapter_metadata_identity_closes=False,
+        all_unit_outputs_match_adapter_records=False,
+        unit_balances=(),
+        press_cake_boundary_valid=False,
+        empirical_flowsheet_unchanged=empirical_unchanged,
+        closes=False,
+    )
+    provisional = DynamicBioSTEAMShadowSystemResult(
+        config=config,
+        source_adapter=source_adapter,
+        feed_record=feed_record,
+        adapter_records=source_adapter.records,
+        system=system,
+        units=units,
+        streams=streams,
+        isolated_flowsheet=flowsheet,
+        mass_balance=placeholder,
+        warnings=tuple(
+            dict.fromkeys(
+                (*run.warnings, "target_output_units_do_not_own_scientific_calculations")
+            )
+        ),
+        blockers=run.blockers,
+        provenance={
+            "mode": "target_output_shadow_system_report_only",
+            "scientific_calculation_owner": "Greenhub.dynamic_process",
+            "bioSTEAM_unit_role": "reproduce_validated_target_component_masses",
+            "metadata_storage": "parallel_adapter_records_only",
+            "press_cake_boundary": "external_system_output",
+            "empirical_flowsheet_id_before": before_flowsheet.ID,
+            "empirical_flowsheet_id_after": after_flowsheet.ID,
+            "empirical_flowsheet_unchanged": empirical_unchanged,
+            "isolated_flowsheet_registered_after_build": False,
+            "model_overrides": [],
+        },
+        can_drive_shadow_system=False,
+    )
+    balance = validate_dynamic_biosteam_shadow_system(provisional)
+    return replace(
+        provisional,
+        mass_balance=balance,
+        can_drive_shadow_system=balance.closes and run.can_drive_proxy_preview,
+    )
+
+
+def _shadow_unit_target_kwargs(
+    records: Mapping[str, DynamicBioSTEAMStreamRecord],
+    output_ids: Sequence[str],
+) -> dict[str, object]:
+    selected = tuple(records[name] for name in output_ids)
+    return {
+        "target_output_component_masses": tuple(
+            record.component_masses_kg_hr for record in selected
+        ),
+        "target_output_stream_ids": tuple(output_ids),
+        "policy_id": "|".join(
+            sorted({item for record in selected for item in record.policy_ids})
+        ),
+        "policy_status": "|".join(
+            sorted({record.policy_status for record in selected})
+        ),
+        "evidence_classes": tuple(
+            sorted({item for record in selected for item in record.evidence_classes})
+        ),
+        "warnings": tuple(
+            dict.fromkeys(item for record in selected for item in record.warnings)
+        ),
+        "blockers": tuple(
+            dict.fromkeys(item for record in selected for item in record.blockers)
+        ),
+        "provenance": {
+            "source_dynamic_stream_ids": list(output_ids),
+            "source_ids": sorted(
+                {item for record in selected for item in record.source_ids}
+            ),
+            "record_ids": sorted(
+                {item for record in selected for item in record.record_ids}
+            ),
+            "target_output_mode": True,
+        },
+    }
+
+
+def _biosteam_stream_matches_record(
+    stream: bst.Stream,
+    record: DynamicBioSTEAMStreamRecord,
+    tolerance_kg_hr: float,
+) -> bool:
+    return all(
+        abs(float(stream.imass[name]) - mass) <= tolerance_kg_hr
+        for name, mass in record.component_masses_kg_hr.items()
+    ) and abs(float(stream.F_mass) - record.total_component_kg_hr) <= tolerance_kg_hr
+
+
+def _stream_component_inventory(streams: Sequence[bst.Stream]) -> dict[str, float]:
+    inventory: dict[str, float] = {}
+    for stream in streams:
+        for name in EXACT_BIOSTEAM_COMPONENTS:
+            mass = float(stream.imass[name])
+            if mass:
+                inventory[name] = inventory.get(name, 0.0) + mass
+    return inventory
+
+
+def _flowsheet_registry_snapshot(
+    flowsheet: bst.Flowsheet,
+) -> tuple[tuple[tuple[str, int], ...], ...]:
+    return tuple(
+        tuple(sorted((item.ID, id(item)) for item in registry))
+        for registry in flowsheet.registries
+    )
+
+
 def _build_adapter_result_from_run(
     config: DynamicBioSTEAMAdapterConfig,
     run: DynamicProteinScenarioRun,
+    *,
+    require_proxy_ready: bool = True,
 ) -> DynamicBioSTEAMAdapterResult:
     preview = run.pathway_preview
     if preview is None:
         raise ValueError(f"Dynamic scenario step '{run.time_label}' has no pathway preview.")
-    if not run.can_drive_proxy_preview and config.allow_proxy_preview:
+    if require_proxy_ready and not run.can_drive_proxy_preview and config.allow_proxy_preview:
         raise ValueError(f"Dynamic scenario step '{run.time_label}' cannot drive proxy preview.")
     if not config.allow_proxy_preview:
         raise ValueError("The current shadow adapter requires allow_proxy_preview=True.")

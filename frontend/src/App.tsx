@@ -21,10 +21,11 @@ import { buildPythonRequest, fetchRunResources, runPythonSimulation } from './da
 import { normalizeResult } from './data/normalizeResult';
 import { ReportCenter, ResultsWorkbench } from './components/ResultsWorkbench';
 import { InputStudio, type FeedInputs } from './components/InputStudio';
+import DynamicCompleteDashboard from './components/DynamicCompleteDashboard';
 import type { CalculationMode, ParameterDefinition, ScenarioSelection, SimulationResult } from './types';
 
 type RuntimeSource = 'python' | 'fallback';
-type TabId = 'overview' | 'configure' | 'results' | 'reports' | 'advanced';
+type TabId = 'overview' | 'configure' | 'results' | 'reports' | 'advanced' | 'dynamic-proxy';
 type SavedRun = { label: string; result: SimulationResult; scenario: ScenarioSelection; savedAt: string };
 type Artifact = { name: string; type: string; description: string; url?: string; available: boolean; warning?: string };
 
@@ -127,6 +128,7 @@ export default function App() {
   const tabs: [TabId, string, LucideIcon][] = [
     ['overview', 'Overview', Gauge], ['configure', 'Configure', Settings2], ['results', 'Results', BarChart3],
     ['reports', 'Reports', FileDown], ['advanced', 'Advanced', Wrench],
+    ['dynamic-proxy', 'Dynamic proxy', Activity],
   ];
 
   return <div className="app-shell">
@@ -137,18 +139,20 @@ export default function App() {
         <span className="product-name"><strong>GreenHub</strong><small>Process model</small></span>
       </button>
       <div className="top-actions">
-        <span className={`model-status ${runtime}`}><CircleDot size={12}/>{runtime === 'python' ? 'Model online' : 'Preview mode'}</span>
-        <button className="run-button" onClick={() => executeRun()} disabled={running}><Play size={15}/>{running ? 'Calculating…' : 'Run annual plan'}</button>
+        <span className={`model-status ${runtime}`}><CircleDot size={12}/>{tab === 'dynamic-proxy' ? 'Unvalidated proxy' : runtime === 'python' ? 'Model online' : 'Preview mode'}</span>
+        {tab !== 'dynamic-proxy' && <button className="run-button" onClick={() => executeRun()} disabled={running}><Play size={15}/>{running ? 'Calculating…' : 'Run annual plan'}</button>}
       </div>
     </header>
-    <div className={`runtime-banner ${runtime}`} role="status">
+    {tab !== 'dynamic-proxy' && <div className={`runtime-banner ${runtime}`} role="status">
       <span>{runtime === 'python' ? 'Scientific results connected' : 'Preview values shown'}</span>
       <p>{runtimeNote}</p>
-    </div>
+    </div>}
     <nav className="primary-nav" aria-label="Application sections">
       {tabs.map(([id,label,Icon]) => <button key={id} className={tab === id ? 'active' : ''} onClick={() => setTab(id)}><Icon size={16}/>{label}</button>)}
     </nav>
     <main className="workspace">
+      {tab === 'dynamic-proxy' && <DynamicCompleteDashboard/>}
+      {tab === 'overview' && <section className="panel proxy-entry"><strong>Explore the complete dynamic proxy</strong><p>30,000 t/year fresh grass · seasonal supply · monthly products · energy and assumption traceability.</p><button className="secondary" onClick={() => setTab('dynamic-proxy')}>Open opt-in proxy dashboard</button></section>}
       {running && <section className="run-progress" role="status" aria-live="polite"><span className="progress-spinner"/><div><strong>Calculating the annual GreenHub plan</strong><p>Processing monthly feed availability, unit performance, products, utilities and balance checks.</p></div></section>}
       {tab === 'overview' && <Overview result={result} activeUnits={activeUnits} runtime={runtime} limitations={limitations} onConfigure={() => setTab('configure')} onResults={() => setTab('results')}/>} 
       {tab === 'configure' && <div className="page-stack">
@@ -171,7 +175,7 @@ export default function App() {
         <Comparison runs={savedRuns} current={result} onSave={saveSnapshot} onClear={() => setSavedRuns([])}/>
       </div>}
     </main>
-    <footer><span>Spaak Circular Solutions · GreenHub process model</span><span>{runtime === 'python' ? 'Scientific results connected' : 'Preview mode'}</span></footer>
+    <footer><span>Spaak Circular Solutions · GreenHub process model</span><span>{tab === 'dynamic-proxy' ? 'Opt-in proxy · not validated' : runtime === 'python' ? 'Scientific results connected' : 'Preview mode'}</span></footer>
   </div>;
 }
 

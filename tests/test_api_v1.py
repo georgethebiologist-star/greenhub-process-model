@@ -11,6 +11,27 @@ import pytest
 from api.app import create_app
 
 
+def test_dynamic_complete_endpoints_are_opt_in_json_safe(tmp_path):
+    app = create_app(tmp_path)
+    for endpoint in ("options", "default-summary", "assumptions"):
+        status, data = invoke(app, "GET", f"/api/v1/dynamic-complete/{endpoint}")
+        assert status == 200
+        encoded = json.dumps(data, allow_nan=False)
+        assert not re.search(r"\b[A-Za-z]:[\\/]", encoded)
+        if endpoint == "default-summary":
+            assert data["readiness"]["validated_simulation_ready"] is False
+            assert data["biomass_schedule"]["annual_processed_tonnes"] == pytest.approx(30000)
+            assert data["analysis"]["proxy_analysis_ready"] is True
+    status, strict = invoke(app, "POST", "/api/v1/dynamic-complete/scenario-summary", {"scenario": {"allow_assumptions": False, "active_months": [5]}})
+    assert status == 200
+    assert strict["blockers_count"] > 0
+    assert strict["analysis"]["proxy_analysis_ready"] is False
+    for payload in ({"scenario": {"protein_method": "heat"}}, {"scenario": {"gas_route": ["psa", "mea"]}}, {"scenario": {"include_press_cake_in_ad": True}}, {"scenario": None}):
+        status, data = invoke(app, "POST", "/api/v1/dynamic-complete/scenario-summary", payload)
+        assert status == 422
+        assert data["error"]["message"]
+
+
 def invoke(app, method: str, path: str, payload=None, query: str = ""):
     body = b"" if payload is None else json.dumps(payload, allow_nan=False).encode("utf-8")
     captured = {}

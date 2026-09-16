@@ -94,6 +94,25 @@ class GreenHubAPI:
             )
 
     def _dispatch(self, method: str, path: str, environ: Mapping[str, object]) -> object:
+        if path.startswith("/api/v1/dynamic-complete/"):
+            # Lazy opt-in import: empirical endpoints keep their existing execution path.
+            from Greenhub.application.dynamic_complete_reporting_service import (
+                build_scenario_summary, default_summary, reporting_options,
+            )
+            if method == "GET" and path == "/api/v1/dynamic-complete/default-summary":
+                return default_summary()
+            if method == "GET" and path == "/api/v1/dynamic-complete/options":
+                return reporting_options()
+            if method == "GET" and path == "/api/v1/dynamic-complete/assumptions":
+                report = default_summary()
+                return {key: report[key] for key in ("assumptions", "assumption_counts", "top_assumptions", "readiness")} | {"analysis_assumptions": report["analysis"]["assumptions"]}
+            if method == "POST" and path == "/api/v1/dynamic-complete/scenario-summary":
+                payload = dict(self._read_json(environ))
+                if set(payload) - {"scenario", "analysis_factors"}:
+                    raise ValueError("Use a scenario object and optional analysis_factors object.")
+                if not isinstance(payload.get("scenario"), dict):
+                    raise ValueError("scenario is required (use {} for baseline).")
+                return build_scenario_summary(payload["scenario"], payload.get("analysis_factors"))
         if method == "GET" and path == "/api/v1/health":
             return {"status": "ok", "api_version": API_VERSION, "schema_version": SCHEMA_VERSION}
         if method == "GET" and path == "/api/v1/openapi.json":

@@ -400,6 +400,9 @@ class DynamicProteinScenarioConfig:
     allow_proxy: bool = True
     allow_engineering_proxy_closure: bool = True
     allow_n_to_protein_proxy: bool = True
+    generic_protein_recovery_fraction: float | None = None
+    generic_protein_policy_id: str = ""
+    generic_protein_provenance_note: str = ""
     notes: str = ""
     provenance: dict[str, object] = field(default_factory=dict)
 
@@ -2507,6 +2510,7 @@ def preview_proxy_enabled_dynamic_operational_scenario(
     feedstock_bundle: DynamicFeedstockInputBundle | None = None,
     pool_policy: DynamicFeedstockPoolPolicy | None = None,
     proxy_closure_policy: DynamicProxyClosurePolicy | None = None,
+    protein_extraction_policy_override: DynamicProteinExtractionPolicy | None = None,
 ) -> DynamicPathwayPreview:
     """Build the opt-in dataset-backed protein pathway without model activation."""
 
@@ -2532,12 +2536,17 @@ def preview_proxy_enabled_dynamic_operational_scenario(
             ),
         }
     press_bundle = build_dynamic_press_preview_bundle(pools, **press_kwargs)
-    extraction_policy = build_dataset_protein_extraction_policy(
-        method=selected.value,
-        allow_proxy=allow_proxy,
-        allow_n_to_protein_proxy=allow_n_to_protein_proxy,
-        closure_policy=proxy_closure_policy,
-    )
+    if protein_extraction_policy_override is not None:
+        if protein_extraction_policy_override.method != selected.value:
+            raise ValueError("Protein extraction policy override method does not match selected method.")
+        extraction_policy = protein_extraction_policy_override
+    else:
+        extraction_policy = build_dataset_protein_extraction_policy(
+            method=selected.value,
+            allow_proxy=allow_proxy,
+            allow_n_to_protein_proxy=allow_n_to_protein_proxy,
+            closure_policy=proxy_closure_policy,
+        )
     raw_press_policy = (
         build_closed_proxy_raw_press_policy(proxy_closure_policy)
         if proxy_closure_policy is not None
@@ -2691,7 +2700,17 @@ def _validate_dynamic_protein_scenario_config(config: DynamicProteinScenarioConf
         or not 0.0 <= config.drying_target_moisture_fraction < 1.0
     ):
         raise ValueError("drying_target_moisture_fraction must be >= 0 and < 1.")
-    _coerce_method(config.protein_method)
+    selected_method = _coerce_method(config.protein_method)
+    generic_fraction = config.generic_protein_recovery_fraction
+    if generic_fraction is not None:
+        if selected_method is not ProteinExtractionMethod.GENERIC:
+            raise ValueError("generic_protein_recovery_fraction requires protein_method='generic'.")
+        if not isfinite(generic_fraction) or not 0.0 <= generic_fraction <= 1.0:
+            raise ValueError("generic_protein_recovery_fraction must be in [0, 1].")
+        if not config.generic_protein_policy_id.strip():
+            raise ValueError("generic_protein_policy_id is required for explicit generic recovery.")
+        if not config.generic_protein_provenance_note.strip():
+            raise ValueError("generic_protein_provenance_note is required for explicit generic recovery.")
     _validate_policy_id(
         config.raw_press_policy_id,
         SUPPORTED_RAW_PRESS_POLICY_IDS,
@@ -2745,6 +2764,32 @@ def run_dynamic_protein_scenario_step(
             target_moisture_fraction=config.drying_target_moisture_fraction,
             target_moisture_evidence_class=moisture_class,
         )
+    extraction_override = None
+    if (
+        config.protein_method == ProteinExtractionMethod.GENERIC.value
+        and config.generic_protein_recovery_fraction is not None
+    ):
+        extraction_override = _apply_extraction_closure(
+            DynamicProteinExtractionPolicy(
+                policy_id=config.generic_protein_policy_id,
+                method=ProteinExtractionMethod.GENERIC.value,
+                soluble_protein_recovery_fraction=config.generic_protein_recovery_fraction,
+                method_metadata={"caller_supplied": True},
+                provenance={
+                    "evidence_class": "explicit_user_assumption",
+                    "provenance_note": config.generic_protein_provenance_note,
+                    "source_record_ids": [],
+                },
+                warnings=(
+                    "EXPLICIT USER ASSUMPTION: generic recovery is not literature or project validation",
+                ),
+                proxy_class="explicit_user_assumption",
+                proxy_enabled=True,
+                can_drive_proxy_preview=True,
+                status="explicit_user_proxy_report_only",
+            ),
+            closure_policy,
+        )
     preview = preview_proxy_enabled_dynamic_operational_scenario(
         method=config.protein_method,
         allow_proxy=config.allow_proxy,
@@ -2754,6 +2799,7 @@ def run_dynamic_protein_scenario_step(
         feedstock_bundle=feedstock_bundle,
         pool_policy=pool_policy,
         proxy_closure_policy=closure_policy,
+        protein_extraction_policy_override=extraction_override,
     )
     units = _pathway_units(preview)
     policy_ids = {

@@ -467,6 +467,16 @@ def openapi_schema() -> dict[str, object]:
     add("/api/v1/simulations/{run_id}/graph", "GET", "getSimulationGraph", response_schema="ProcessGraph")
     add("/api/v1/simulations/{run_id}/plots/{plot_id}", "GET", "getSimulationPlot")
     add("/api/v1/openapi.json", "GET", "openApiDocument")
+    for suffix, operation in (("default-summary", "dynamicCompleteDefaultSummary"), ("options", "dynamicCompleteOptions"), ("assumptions", "dynamicCompleteAssumptions")):
+        add(f"/api/v1/dynamic-complete/{suffix}", "GET", operation)
+    add("/api/v1/dynamic-complete/scenario-summary", "POST", "dynamicCompleteScenarioSummary")
+    paths["/api/v1/dynamic-complete/scenario-summary"]["post"]["requestBody"] = {
+        "required": True, "content": {"application/json": {"schema": {
+            "type": "object", "additionalProperties": False, "required": ["scenario"],
+            "properties": {"scenario": {"type": "object", "description": "Opt-in scenario fields and defaults are listed at /api/v1/dynamic-complete/options; unknown fields are rejected."},
+                           "analysis_factors": {"type": "object", "additionalProperties": {"type": "number", "minimum": 0}}},
+        }}}
+    }
     for path, methods in paths.items():
         parameters = []
         if "{run_id}" in path:
