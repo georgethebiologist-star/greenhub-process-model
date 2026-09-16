@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Bar, BarChart, CartesianGrid, Legend, Line, LineChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { fetchDynamicOptions, runDynamicScenario, type DynamicOptions, type DynamicReport, type DynamicScenario, type Evidence } from '../data/dynamicComplete';
+import { cloneDynamicBaseline, DYNAMIC_BASELINE_OPTIONS, PREVIEW_BASELINE_STATUS } from '../data/baselineFixtures';
+import type { ResultSourceState } from '../types';
+import { DynamicEngineeringReport } from './EngineeringReport';
 import './dynamicComplete.css';
 
 const label = (value: string) => value.replaceAll('_', ' ');
@@ -28,28 +31,64 @@ function EvidenceTable({records}: {records: Evidence[]}) {
   </tr>)}</tbody></table></div>;
 }
 
+function DynamicProcessStory({report}:{report:DynamicReport}) {
+  const [selected,setSelected]=useState('feed');
+  const annual=(key:string,unit:string)=>report.annual_summary[key]?.[unit]||0;
+  const stages=[
+    {id:'feed',label:'Feed schedule',input:'Seasonal fresh grass',output:`${number(annual('feed_processed','tonnes_per_year'))} t/year processed`,energy:'Not modelled',units:'Schedule resolver',maturity:'Scenario input',warnings:['Seasonal supply is a planning schedule, not measured deliveries.']},
+    {id:'press',label:'Press',input:'Whole grass feed',output:`${number(annual('press_cake','tonnes_per_year'))} t external cake + ${number(annual('juice','tonnes_per_year'))} t juice`,energy:'Not modelled',units:'Raw press · first centrifuge',maturity:'Direct grass data + legume proxy',warnings:['Press cake exits the in-project boundary.']},
+    {id:'protein',label:'Protein recovery',input:'Clarified brown juice',output:`${number(annual('dried_protein_product','tonnes_per_year'))} t dried product`,energy:`${number(annual('drying_electricity','MWh_per_year'))} MWh electricity · ${number(annual('drying_heat','GJ_per_year'))} GJ heat`,units:`${label(report.scenario.protein_method)} extraction · second centrifuge · ${label(report.scenario.drying_method)}`,maturity:'Proxy / assumption enabled',warnings:['Recovery and dryer performance are not validated GreenHub measurements.']},
+    {id:'ad',label:'Residual AD',input:'Cell debris + final supernatant',output:`${number(annual('raw_biogas','m3_per_year'))} m³ raw gas + ${number(annual('digestate','tonnes_per_year'))} t digestate`,energy:`${number(annual('ad_heat','GJ_per_year'))} GJ heat`,units:'BMP material-conversion proxy',maturity:'Literature proxy',warnings:['No validated kinetics, inhibition or reactor design.']},
+    {id:'gas',label:'Gas route',input:'Raw biogas',output:`${number(annual('biomethane','m3_per_year'))} m³ biomethane`,energy:annual('gas_upgrading_electricity','MWh_per_year')?`${number(annual('gas_upgrading_electricity','MWh_per_year'))} MWh electricity`:'Not modelled',units:label(report.scenario.gas_route),maturity:'Technology proxy',warnings:['One gas route is active; performance is not scale-validated.']},
+    {id:'recovery',label:'Resource recovery',input:'Digestate',output:`${number(annual('ammonium_product','tonnes_per_year'))} t ammonium · ${number(annual('struvite_candidate','tonnes_per_year'))} t struvite · ${number(annual('recovered_water','tonnes_per_year'))} t water`,energy:annual('resource_electricity','MWh_per_year')?`${number(annual('resource_electricity','MWh_per_year'))} MWh electricity`:'Not modelled',units:report.scenario.resource_recovery_methods.map(label).join(' · '),maturity:'Speciation proxy',warnings:['Product candidates are not quality-certified fertilizers.']},
+  ];
+  const active=stages.find(stage=>stage.id===selected)||stages[0];
+  return <section className="panel pathway-infographic"><div><h2>Dynamic process story</h2><p>Click or focus a stage for its boundary, utility coverage and evidence maturity.</p></div><div className="pathway-strip" role="list">{stages.map((stage,index)=><React.Fragment key={stage.id}><button role="listitem" className={`pathway-stage ${active.id===stage.id?'selected':''}`} onClick={()=>setSelected(stage.id)} onFocus={()=>setSelected(stage.id)} aria-expanded={active.id===stage.id}><span>{String(index+1).padStart(2,'0')}</span><strong>{stage.label}</strong><small>{stage.maturity}</small></button>{index<stages.length-1&&<b aria-hidden="true">→</b>}</React.Fragment>)}</div><div className="pathway-detail" aria-live="polite"><div><span className="eyebrow">{active.maturity}</span><h4>{active.label}</h4><p>{active.units}</p></div><dl><div><dt>Input</dt><dd>{active.input}</dd></div><div><dt>Output</dt><dd>{active.output}</dd></div><div><dt>Utilities</dt><dd>{active.energy}</dd></div><div><dt>Assumptions / limitations</dt><dd>{active.warnings.join(' ')}</dd></div></dl></div></section>;
+}
+
 export default function DynamicCompleteDashboard() {
-  const [options, setOptions] = useState<DynamicOptions | null>(null);
-  const [scenario, setScenario] = useState<DynamicScenario | null>(null);
+  const [options, setOptions] = useState<DynamicOptions>(DYNAMIC_BASELINE_OPTIONS);
+  const [scenario, setScenario] = useState<DynamicScenario>({...DYNAMIC_BASELINE_OPTIONS.defaults});
   const [factors, setFactors] = useState<Record<string, number>>({});
-  const [report, setReport] = useState<DynamicReport | null>(null);
+  const [report, setReport] = useState<DynamicReport>(cloneDynamicBaseline());
+  const [sourceState, setSourceState] = useState<ResultSourceState>(PREVIEW_BASELINE_STATUS);
   const [running, setRunning] = useState(false);
   const [dirty, setDirty] = useState(false);
   const [error, setError] = useState('');
   async function load() {
     setError('');
-    try { const data = await fetchDynamicOptions(); setOptions(data); setScenario(data.defaults); }
-    catch (e) { setError(e instanceof Error ? e.message : 'Could not load proxy options.'); }
+    try {
+      const data = await fetchDynamicOptions();
+      setOptions(data); setScenario(data.defaults);
+      const liveReport = await runDynamicScenario(data.defaults, {});
+      setReport(liveReport);
+      setSourceState({status:'live_api',label:'Live API proxy result',detail:'Options and the baseline scenario were calculated by the Python service.',is_live:true});
+      setDirty(false);
+    }
+    catch (e) {
+      const message = e instanceof Error ? e.message : 'Could not load proxy options.';
+      setOptions(DYNAMIC_BASELINE_OPTIONS); setScenario({...DYNAMIC_BASELINE_OPTIONS.defaults}); setReport(cloneDynamicBaseline());
+      setSourceState({status:'backend_unavailable',label:'Backend unavailable · preview baseline',detail:message,is_live:false,fixture_version:PREVIEW_BASELINE_STATUS.fixture_version});
+      setError('The Python service is unavailable. The complete bundled baseline remains visible; changed controls will not recalculate it.');
+    }
   }
   useEffect(() => { void load(); }, []);
   function update<K extends keyof DynamicScenario>(key: K, value: DynamicScenario[K]) {
     setScenario(current => current && ({...current, [key]: value})); setDirty(true);
   }
   async function run() {
-    if (!scenario) return;
     setRunning(true); setError('');
-    try { setReport(await runDynamicScenario(scenario, factors)); setDirty(false); }
-    catch (e) { setError(e instanceof Error ? e.message : 'Proxy scenario failed.'); }
+    try {
+      setReport(await runDynamicScenario(scenario, factors)); setDirty(false);
+      setSourceState({status:'live_api',label:'Live API proxy result',detail:'The displayed scenario was calculated by the isolated Python proxy service.',is_live:true});
+    }
+    catch (e) {
+      const message = e instanceof Error ? e.message : 'Proxy scenario failed.';
+      setSourceState(current => current.is_live
+        ? {status:'stale_previous_result',label:'Backend unavailable · previous result retained',detail:message,is_live:false}
+        : {status:'backend_unavailable',label:'Backend unavailable · preview baseline',detail:message,is_live:false,fixture_version:PREVIEW_BASELINE_STATUS.fixture_version});
+      setError('Run failed. Results below were not recalculated and remain the saved baseline or last successful result.');
+    }
     finally { setRunning(false); }
   }
   const annual = (key: string, unit: string) => report?.annual_summary[key]?.[unit];
@@ -59,8 +98,9 @@ export default function DynamicCompleteDashboard() {
   return <div className="page-stack proxy-dashboard">
     <section className="overview-head"><div><span className="eyebrow">Opt-in scenario exploration</span><h1>Grass to products</h1><p>Start with 30,000 tonnes of fresh grass per year. Follow the seasonal supply through protein, gas, fertilizer candidates and water recovery.</p></div></section>
     <section className="proxy-validity" role="status"><strong>Proxy-complete model · Not validated simulation</strong><span>{scenario?.allow_assumptions === false ? 'Strict mode' : 'Assumptions enabled'} · validated_simulation_ready = false</span><p>Literature transfers, legacy ratios and engineering closures remain visible. Press cake leaves the system; it never enters AD.</p></section>
-    {error && <div className="proxy-error" role="alert">{error} {!options && <button className="secondary" onClick={load}>Retry connection</button>}</div>}
-    {!options || !scenario ? <p>{error ? 'Connect the Python API to load the scenario controls.' : 'Loading scenario options…'}</p> : <>
+    <section className={`runtime-banner source-${sourceState.status}`} role="status"><span>{sourceState.label}</span><p>{sourceState.detail}{sourceState.fixture_version ? ` Fixture: ${sourceState.fixture_version}.` : ''}</p>{!sourceState.is_live && <button className="secondary" onClick={load}>Retry backend</button>}</section>
+    {error && <div className="proxy-error" role="alert">{error}</div>}
+    <>
       <section className="panel proxy-controls"><h2>Scenario controls</h2><p>Availability stays fixed when processing is reduced. A monthly capacity ceiling creates a plateau; the remainder is unused.</p>
         <fieldset disabled={running}><div className="proxy-input-grid">
           <label>Annual processed biomass (t/year)<input type="number" min="0" step="100" value={scenario.annual_processed_biomass_tonnes} onChange={e => update('annual_processed_biomass_tonnes', +e.target.value)}/></label>
@@ -83,10 +123,10 @@ export default function DynamicCompleteDashboard() {
         <h3>Resource recovery</h3><div className="proxy-checks">{options.resource_recovery_methods.map(m => <label key={m}><input type="checkbox" checked={scenario.resource_recovery_methods.includes(m)} onChange={e => update('resource_recovery_methods', e.target.checked ? [...scenario.resource_recovery_methods, m] : scenario.resource_recovery_methods.filter(n => n !== m))}/>{label(m)}</label>)}</div>
         <div className="proxy-checks"><label><input type="checkbox" checked={scenario.allow_assumptions} onChange={e => update('allow_assumptions', e.target.checked)}/>Allow proxy assumptions</label><label><input type="checkbox" checked={scenario.show_strict_mode_blockers} onChange={e => update('show_strict_mode_blockers', e.target.checked)}/>Show strict mode blockers</label><label><input type="checkbox" checked={scenario.annualize} onChange={e => update('annualize', e.target.checked)}/>Show full-year extrapolation</label></div>
         <details><summary>Economic and environmental scenario factors (all unvalidated)</summary><div className="proxy-input-grid">{Object.entries(options.analysis_factors).map(([key, factor]) => <label key={key}>{label(key)} ({factor.unit})<input type="number" min="0" step="any" value={factors[key] ?? factor.value} onChange={e => {setFactors(current => ({...current, [key]: +e.target.value})); setDirty(true);}}/><small>{key in factors ? 'User input; no source attached' : factor.source_status}</small></label>)}</div></details>
-        <div className="proxy-actions"><button className="run-button" onClick={run}>{running ? 'Calculating proxy scenario…' : 'Run proxy scenario'}</button><button className="secondary" onClick={() => {setScenario(options.defaults); setFactors({}); setReport(null); setDirty(false); setError('');}}>Reset to baseline</button></div>
+        <div className="proxy-actions"><button className="run-button" onClick={run}>{running ? 'Calculating proxy scenario…' : 'Run proxy scenario'}</button><button className="secondary" onClick={() => {setScenario({...options.defaults}); setFactors({}); setReport(cloneDynamicBaseline()); setSourceState(PREVIEW_BASELINE_STATUS); setDirty(false); setError('');}}>Reset to saved baseline</button></div>
         </fieldset>
       </section>
-      {dirty && report && <div className="proxy-error" role="status">Controls have changed. Results below belong to the previous scenario; run again to update.</div>}
+      {dirty && report && <div className="proxy-error" role="status">Controls have changed. Results below belong to {sourceState.is_live ? 'the previous live scenario' : 'the bundled baseline'} and have not been recalculated.</div>}
       {running && <p role="status">Running the isolated BioSTEAM proxy chain and checking stream parity…</p>}
       {!report && <section className="panel"><h2>Process story</h2><p>Feed → press cake (external) + juice → protein product + residual → AD → gas route → fertilizer candidates + recovered water.</p><p>Run the proxy scenario to calculate monthly masses, energy and preliminary analysis. No empirical run is replaced.</p></section>}
       {report && schedule && <>
@@ -97,12 +137,7 @@ export default function DynamicCompleteDashboard() {
           ['Heat demand', 'heat_demand', 'GJ_per_year', 'GJ/year'], ['Ammonium candidate', 'ammonium_product', 'tonnes_per_year', 't/year'],
           ['Struvite candidate', 'struvite_candidate', 'tonnes_per_year', 't/year'], ['Recovered water', 'recovered_water', 'tonnes_per_year', 't/year'],
         ].map(([title, key, unit, display]) => <div className="kpi" key={key}><span>{title}</span><strong>{number(annual(key, unit))}</strong><small>{display} · scheduled total</small></div>)}</section>
-        <section className="panel"><h2>Process flow summary</h2><p>Scheduled tonnes/year at each stage. Digestate and juice are intermediate streams, not additional final products.</p><div className="proxy-process">{[
-          ['Fresh grass', `${number(annual('feed_processed','tonnes_per_year'))} t`], ['Press', `${number(annual('press_cake','tonnes_per_year'))} t external cake + ${number(annual('juice','tonnes_per_year'))} t juice`],
-          ['Protein + residual', `${number(annual('dried_protein_product','tonnes_per_year'))} t product (${number(annual('recovered_protein','tonnes_per_year'))} t protein); ${number(annual('ad_feed','tonnes_per_year'))} t to AD`],
-          ['AD + gas route', `${number(annual('raw_biogas','m3_per_year'))} m³ raw gas → ${number(annual('biomethane','m3_per_year'))} m³ biomethane; ${number(annual('digestate','tonnes_per_year'))} t digestate`],
-          ['Recovery', `${number(annual('ammonium_product','tonnes_per_year'))} t ammonium; ${number(annual('struvite_candidate','tonnes_per_year'))} t struvite; ${number(annual('potassium_concentrate','tonnes_per_year'))} t K concentrate; ${number(annual('recovered_water','tonnes_per_year'))} t water; ${number(annual('final_residual_liquor','tonnes_per_year'))} t residual liquor`],
-        ].map(([title, detail], i) => <div key={title}><small>{i + 1} →</small><strong>{title}</strong><p>{detail}</p></div>)}</div></section>
+        <DynamicProcessStory report={report}/>
         <section className="panel"><h2>Supply utilization</h2><div className="proxy-utilization"><span>Available: <strong>{number(schedule.annual_available_tonnes)} t/year</strong></span><span>Processed: <strong>{number(schedule.annual_processed_tonnes)} t/year</strong></span><span>Utilization: <strong>{number(schedule.utilization_fraction * 100)}%</strong></span><span>Peak month: <strong>{number(schedule.peak_month_processed_tonnes)} t</strong></span></div>{schedule.unmet_target_tonnes > 0.01 && <p role="alert">Unmet processing target: {number(schedule.unmet_target_tonnes)} tonnes. Review active months and hourly capacity.</p>}</section>
         <Chart title="Biomass Supply Schedule" unit="tonnes/month" data={schedule.monthly.map(r => ({...r, month: months[+r.time_label.slice(5) - 1]}))} series={[{key:'available_biomass_tonnes',title:'Available'},{key:'processed_biomass_tonnes',title:'Processed'},{key:'unused_biomass_tonnes',title:'Unused / uncollected'}]}/>
         <div className="proxy-chart-grid">
@@ -123,7 +158,8 @@ export default function DynamicCompleteDashboard() {
         <section className="panel"><h2>Economic and environmental proxy</h2><p>proxy_analysis_ready = {String(report.analysis.proxy_analysis_ready)} · Not validated TEA / LCA. Every factor below is an illustrative placeholder or user input.</p>{economic && environment && <><div className="proxy-utilization"><span>Operating margin: <strong>€{number(economic.net_operating_margin_eur_per_year)}/year</strong></span><span>Included cost: <strong>€{number(economic.cost_eur_per_tonne_feed)}/t feed</strong></span><span>Net emissions: <strong>{number(environment.net_kg_co2e_per_year / 1000)} t CO₂e/year</strong></span></div><p>Cost: €{number(economic.cost_eur_per_kg_dried_protein)}/kg dried product; €{number(economic.cost_eur_per_m3_biomethane)}/m³ biomethane. Emissions: {number(environment.kg_co2e_per_tonne_feed)} kg CO₂e/t feed; {number(environment.kg_co2e_per_kg_dried_protein)} kg CO₂e/kg dried product.</p><p>{economic.allocation_note}</p></>}
           <details open><summary>Analysis limitations</summary><ul>{report.analysis.warnings.map(w => <li key={w}>{w}</li>)}</ul></details><details><summary>Economic / environmental factor provenance</summary><EvidenceTable records={report.analysis.assumptions}/></details></section>
         {economic && environment && <div className="proxy-chart-grid"><Chart title="Annual revenue and included costs" unit="EUR/year; cost bars are negative" bars data={[...Object.entries(economic.revenue_eur_per_year).map(([key,v]) => ({month:label(key), revenue:v, cost:0})),...Object.entries(economic.costs_eur_per_year).map(([key,v]) => ({month:label(key), revenue:0, cost:-v}))]} series={[{key:'revenue',title:'Revenue / credit'},{key:'cost',title:'Included cost'}]}/><Chart title="Emissions proxy contributions" unit="tonnes CO₂e/year; negative = avoided emissions" bars data={Object.entries(environment.contributions_kg_co2e_per_year).map(([key,v]) => ({month:label(key), emissions:v / 1000}))} series={[{key:'emissions',title:'CO₂e proxy'}]}/></div>}
+        <DynamicEngineeringReport report={report} status={sourceState}/>
       </>}
-    </>}
+    </>
   </div>;
 }

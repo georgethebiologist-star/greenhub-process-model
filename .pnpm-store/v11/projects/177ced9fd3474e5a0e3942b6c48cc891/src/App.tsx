@@ -16,13 +16,14 @@ import {
   Wrench,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
-import { DEFAULT_PARAMETERS, runSimulation } from './data/greenhubData';
+import { DEFAULT_PARAMETERS } from './data/greenhubData';
 import { buildPythonRequest, fetchRunResources, runPythonSimulation } from './data/apiClient';
+import { cloneEmpiricalBaseline, PREVIEW_BASELINE_STATUS } from './data/baselineFixtures';
 import { normalizeResult } from './data/normalizeResult';
 import { ReportCenter, ResultsWorkbench } from './components/ResultsWorkbench';
 import { InputStudio, type FeedInputs } from './components/InputStudio';
 import DynamicCompleteDashboard from './components/DynamicCompleteDashboard';
-import type { CalculationMode, EmpiricalBiomassSchedule, ParameterDefinition, ScenarioSelection, SimulationResult } from './types';
+import type { CalculationMode, EmpiricalBiomassSchedule, ParameterDefinition, ResultSourceState, ScenarioSelection, SimulationResult } from './types';
 
 type RuntimeSource = 'python' | 'fallback';
 type TabId = 'overview' | 'configure' | 'results' | 'reports' | 'advanced' | 'dynamic-proxy';
@@ -77,10 +78,10 @@ export default function App() {
   const [parameters, setParameters] = useState<ParameterDefinition[]>(DEFAULT_PARAMETERS);
   const [feed, setFeed] = useState<FeedInputs>({ feedAmountKgh: 500, operatingDaysPerWeek: 7, operatingHoursPerDay: 24, moisturePct: 78, liquidFractionPct: 62, proteinPct: 18, nitrogenPct: 1.1, phosphorusPct: 0.12 });
   const [biomassSchedule, setBiomassSchedule] = useState<EmpiricalBiomassSchedule>(scheduleDefaults);
-  const fallbackPreview = useMemo(() => runSimulation({ calculation_mode: mode, selected_month: month, scenarios: scenario }), []);
+  const fallbackPreview = useMemo(() => cloneEmpiricalBaseline(), []);
   const [result, setResult] = useState<SimulationResult>(fallbackPreview);
   const [runtime, setRuntime] = useState<RuntimeSource>('fallback');
-  const [runtimeNote, setRuntimeNote] = useState('Preview data — run the Python model to replace it.');
+  const [sourceState, setSourceState] = useState<ResultSourceState>(PREVIEW_BASELINE_STATUS);
   const [graph, setGraph] = useState<any | null>(null);
   const [artifacts, setArtifacts] = useState<Artifact[]>([]);
   const [limitations, setLimitations] = useState<string[]>([]);
@@ -94,7 +95,7 @@ export default function App() {
 
   async function executeRun(saveAs?: string) {
     setRunning(true);
-    setRuntimeNote('Submitting configuration to the Python backend…');
+    setSourceState(current => ({...current,label:'Connecting to Python',detail:'Submitting the annual configuration and requesting its reporting bundle.'}));
     try {
       const raw = await runPythonSimulation(buildPythonRequest(mode, month, scenario, feed, biomassSchedule));
       const envelope = normalizeResult(raw, result);
@@ -110,22 +111,17 @@ export default function App() {
       setArtifacts(resources.artifacts);
       setLimitations(envelope.limitations);
       setRuntime('python');
-      setRuntimeNote(resources.plots.length ? 'Python run complete — graph, plots and exports loaded.' : 'Python run complete — some optional resources were unavailable.');
+      setSourceState({status:'live_python',label:'Live Python result',detail:resources.plots.length ? 'Run, annual reporting bundle and optional plots loaded.' : 'Run and annual reporting bundle loaded; optional plots were unavailable.',is_live:true});
       if (saveAs) saveSnapshot(saveAs, next);
       setTab('results');
     } catch (error) {
-      const next = runSimulation({
-        calculation_mode: mode,
-        selected_month: month,
-        scenarios: scenario,
-        design_overrides: parameters.map(item => ({ parameter_id: item.parameter_id, value: item.current_value })),
-      });
+      const next = cloneEmpiricalBaseline();
       setResult(next);
       setGraph(null);
       setArtifacts([]);
       setLimitations(['The scientific service is unavailable. Preview values are shown so the interface remains usable, but they are not an authoritative run.']);
       setRuntime('fallback');
-      setRuntimeNote(error instanceof Error ? `Fallback active: ${error.message}` : 'Fallback adapter active.');
+      setSourceState({status:'backend_unavailable',label:'Backend unavailable · preview baseline',detail:error instanceof Error ? error.message : 'The live service could not be reached.',is_live:false,fixture_version:PREVIEW_BASELINE_STATUS.fixture_version});
       if (saveAs) saveSnapshot(saveAs, next);
       setTab('results');
     } finally { setRunning(false); }
@@ -153,13 +149,13 @@ export default function App() {
         <span className="product-name"><strong>GreenHub</strong><small>Process model</small></span>
       </button>
       <div className="top-actions">
-        <span className={`model-status ${runtime}`}><CircleDot size={12}/>{tab === 'dynamic-proxy' ? 'Unvalidated proxy' : runtime === 'python' ? 'Model online' : 'Preview mode'}</span>
+        <span className={`model-status ${runtime}`}><CircleDot size={12}/>{tab === 'dynamic-proxy' ? 'Unvalidated proxy' : sourceState.label}</span>
         {tab !== 'dynamic-proxy' && <button className="run-button" onClick={() => executeRun()} disabled={running}><Play size={15}/>{running ? 'Calculating…' : 'Run annual plan'}</button>}
       </div>
     </header>
-    {tab !== 'dynamic-proxy' && <div className={`runtime-banner ${runtime}`} role="status">
-      <span>{runtime === 'python' ? 'Scientific results connected' : 'Preview values shown'}</span>
-      <p>{runtimeNote}</p>
+    {tab !== 'dynamic-proxy' && <div className={`runtime-banner ${runtime} source-${sourceState.status}`} role="status">
+      <span>{sourceState.label}</span>
+      <p>{sourceState.detail}{sourceState.fixture_version ? ` Fixture: ${sourceState.fixture_version}.` : ''}</p>
     </div>}
     <nav className="primary-nav" aria-label="Application sections">
       {tabs.map(([id,label,Icon]) => <button key={id} className={tab === id ? 'active' : ''} onClick={() => setTab(id)}><Icon size={16}/>{label}</button>)}
@@ -182,8 +178,8 @@ export default function App() {
         <section className="panel advanced-link"><div><span className="eyebrow">Advanced parameters</span><h3>{changedParameters.length ? `${changedParameters.length} reviewed values differ from defaults` : 'Review evidence and technical parameters'}</h3><p>Detailed assumptions remain separate from the primary operating-scale controls.</p></div><button className="secondary" onClick={() => setTab('advanced')}>Open advanced parameters</button></section>
         <ConfigurationReview scenario={scenario} schedule={biomassSchedule} mode={mode} onRun={() => executeRun()} running={running}/>
       </div>}
-      {tab === 'results' && <div className="page-stack"><PageIntro eyebrow="Results" title="Understand the process outcome" text="Review annual performance first, then follow the pathway and inspect balance quality or detailed model data."/><ResultsWorkbench result={result} graph={graph} artifacts={artifacts} runtime={runtime === 'python' ? 'Scientific model' : 'Preview data'}/>{limitations.length > 0 && <LimitationsPanel items={limitations}/>}</div>}
-      {tab === 'reports' && <div className="page-stack"><PageIntro eyebrow="Reports" title="Download and share the run" text="Exports include the run context needed to trace the pathway, assumptions and validation status."/><ReportCenter result={result} artifacts={artifacts} runtime={runtime === 'python' ? 'Scientific model' : 'Preview data'}/></div>}
+      {tab === 'results' && <div className="page-stack"><PageIntro eyebrow="Results" title="Understand the process outcome" text="Review annual performance first, then follow the pathway and inspect balance quality or detailed model data."/><ResultsWorkbench result={result} graph={graph} artifacts={artifacts} runtime={runtime === 'python' ? 'Scientific model' : 'Preview baseline'} sourceState={sourceState} savedRuns={savedRuns} onSaveRun={saveSnapshot}/>{limitations.length > 0 && <LimitationsPanel items={limitations}/>}</div>}
+      {tab === 'reports' && <div className="page-stack"><PageIntro eyebrow="Reports" title="Download and share the run" text="Exports include the run context needed to trace the pathway, assumptions and validation status."/><ReportCenter result={result} artifacts={artifacts} runtime={runtime === 'python' ? 'Scientific model' : 'Preview baseline'}/></div>}
       {tab === 'advanced' && <div className="page-stack">
         <PageIntro eyebrow="Advanced" title="Evidence, assumptions and technical detail" text="Review model basis, data quality and saved scenario comparisons. Planning-only values are clearly marked and are not applied to scientific runs."/>
         <section className="advanced-grid">
@@ -195,7 +191,7 @@ export default function App() {
         <Comparison runs={savedRuns} current={result} onSave={saveSnapshot} onClear={() => setSavedRuns([])}/>
       </div>}
     </main>
-    <footer><span>Spaak Circular Solutions · GreenHub process model</span><span>{tab === 'dynamic-proxy' ? 'Opt-in proxy · not validated' : runtime === 'python' ? 'Scientific results connected' : 'Preview mode'}</span></footer>
+    <footer><span>Spaak Circular Solutions · GreenHub process model</span><span>{tab === 'dynamic-proxy' ? 'Opt-in proxy · not validated' : sourceState.label}</span></footer>
   </div>;
 }
 

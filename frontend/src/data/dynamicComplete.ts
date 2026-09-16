@@ -1,4 +1,4 @@
-import { API_BASE } from './apiClient';
+import { apiJson } from './apiClient';
 
 export interface DynamicScenario {
   annual_available_biomass_tonnes: number;
@@ -56,16 +56,11 @@ export interface DynamicReport {
       kg_co2e_per_tonne_feed: number | null; kg_co2e_per_kg_dried_protein: number | null};
   };
 }
-async function jsonResponse<T>(response: Response): Promise<T> {
-  const data = await response.json();
-  if (!response.ok) throw new Error(data?.error?.message || `Proxy API returned ${response.status}`);
-  return data;
-}
 export async function fetchDynamicOptions(): Promise<DynamicOptions> {
-  return jsonResponse(await fetch(`${API_BASE}/dynamic-complete/options`));
+  return apiJson('/dynamic-complete/options');
 }
 export async function runDynamicScenario(scenario: DynamicScenario, analysis_factors: Record<string, number>): Promise<DynamicReport> {
-  return jsonResponse(await fetch(`${API_BASE}/dynamic-complete/scenario-summary`, {
+  return apiJson('/dynamic-complete/scenario-summary', {
     method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({scenario, analysis_factors}),
-  }));
+  });
 }

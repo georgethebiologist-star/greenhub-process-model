@@ -1,5 +1,14 @@
 export type CalculationMode = 'structural' | 'literature_default' | 'calibrated';
 export type ResolutionMode = 'strict' | 'fallback';
+export type ResultSourceStatus = 'live_python' | 'live_api' | 'preview_baseline' | 'backend_unavailable' | 'stale_previous_result';
+
+export interface ResultSourceState {
+  status: ResultSourceStatus;
+  label: string;
+  detail: string;
+  is_live: boolean;
+  fixture_version?: string;
+}
 
 export type ProcessAreaId =
   | 'front_end'
@@ -219,6 +228,7 @@ export interface SimulationResult {
     residual_error_kgh: number;
     issues: Array<{ severity: 'info' | 'warning' | 'error'; message: string }>;
   };
+  annual?: AnnualSummary | null;
 }
 
 export interface AnnualValue {

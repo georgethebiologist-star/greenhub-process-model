@@ -2,10 +2,12 @@ import React, { useMemo, useState } from 'react';
 import { Activity, AlertTriangle, BarChart3, CheckCircle2, FileDown, GitBranch, Package, Scale, Table2, Zap } from 'lucide-react';
 import { Bar, BarChart, CartesianGrid, Cell, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import type { AnnualSummary, PlotCatalogItem, SimulationResult } from '../types';
+import type { ResultSourceState } from '../types';
+import { EmpiricalEngineeringReport, type EmpiricalComparisonRun } from './EngineeringReport';
 
 type GraphLike = { nodes?: any[]; edges?: any[]; run_id?: string } | null;
 type Artifact = { name: string; type: string; description: string; url?: string; available: boolean; warning?: string };
-type ViewId = 'story'|'annual'|'pathway'|'diagnostics'|'technical';
+type ViewId = 'story'|'annual'|'pathway'|'diagnostics'|'engineering'|'technical';
 const chartColors = ['#408f4d','#729ad2','#d1a520','#d277a3'];
 const areaLabels: Record<string,string> = {
   feedstock_and_characterization: 'Feed characterization', feed_preparation_and_primary_separation: 'Feed preparation',
@@ -15,8 +17,8 @@ const areaLabels: Record<string,string> = {
   shared_utilities_and_supporting_operations: 'Utilities', integrated_system: 'Whole system', unassigned: 'Other units',
 };
 
-export function ResultsWorkbench({ result, graph, runtime }: {
-  result: SimulationResult; graph: GraphLike; runtime: string; artifacts?: Artifact[];
+export function ResultsWorkbench({ result, graph, runtime, sourceState, savedRuns, onSaveRun }: {
+  result: SimulationResult; graph: GraphLike; runtime: string; artifacts?: Artifact[]; sourceState?:ResultSourceState; savedRuns?:EmpiricalComparisonRun[]; onSaveRun?:(label:string,result:SimulationResult)=>void;
 }) {
   const [view, setView] = useState<ViewId>('story');
   const [selectedNode, setSelectedNode] = useState<any | null>(null);
@@ -26,7 +28,7 @@ export function ResultsWorkbench({ result, graph, runtime }: {
   const grouped = useMemo(() => nodes.reduce<Record<string,any[]>>((acc,node) => { (acc[node.process_area || 'unassigned'] ||= []).push(node); return acc; },{}),[nodes]);
   const tabs: [ViewId,string,any][] = [
     ['story','Key findings',Activity],['annual','Annual plan',BarChart3],['pathway','Process pathway',GitBranch],
-    ['diagnostics','Balance and quality',Scale],['technical','Detailed data',Table2],
+    ['diagnostics','Balance and quality',Scale],['engineering','Engineering report',FileDown],['technical','Detailed data',Table2],
   ];
 
   return <section className="results-workbench panel">
@@ -36,6 +38,7 @@ export function ResultsWorkbench({ result, graph, runtime }: {
     {view==='annual' && <AnnualView result={result} annual={annual}/>}
     {view==='pathway' && <PathwayView result={result} annual={annual} nodes={nodes} grouped={grouped} selected={selectedNode} onSelect={setSelectedNode}/>}
     {view==='diagnostics' && <Diagnostics result={result}/>}
+    {view==='engineering' && <EmpiricalEngineeringReport result={result} status={sourceState || {status:'preview_baseline',label:runtime,detail:'Result source was not supplied.',is_live:false}} savedRuns={savedRuns} onSave={onSaveRun}/>}
     {view==='technical' && <TechnicalView result={result}/>}
   </section>;
 }
@@ -64,7 +67,7 @@ function StoryView({result,annual}:{result:SimulationResult;annual:AnnualSummary
     {annual && <div className="method-note"><CheckCircle2 size={15}/><div><strong>{annual.method_label}</strong><span>{annual.basis}</span></div></div>}
     <section className="story-grid">
       <article className="story-chart"><div className="story-title"><Package/><div><h4>Recovered products</h4><p>Where useful material leaves the process.</p></div></div><SimpleBar data={products} unit={annual?'t/year':'kg/h'}/></article>
-      <article className="story-chart"><div className="story-title"><Zap/><div><h4>Utility demand</h4><p>Period energy is separated from instantaneous power.</p></div></div>{annual?<div className="utility-summary"><div><span>Electricity</span><strong>{formatEnergy(annual.display_utilities?.electricity?.value||0)}</strong></div><div><span>Heating</span><strong>{formatHeat(annual.display_utilities?.heating?.value||0)}</strong></div><div><span>Cooling</span><strong>{formatHeat(annual.display_utilities?.cooling?.value||0)}</strong></div></div>:<SimpleBar data={utilities} unit="kW instantaneous"/>}</article>
+      <article className="story-chart"><div className="story-title"><Zap/><div><h4>Utility demand</h4><p>Period energy is separated from instantaneous power.</p></div></div>{annual?<div className="utility-summary"><div><span>Electricity</span><strong>{formatEnergy(annual.utilities.electricity?.value||0)}</strong></div><div><span>Heating</span><strong>{formatHeat(annual.display_utilities?.heating?.value||0)}</strong></div><div><span>Cooling</span><strong>{formatHeat(annual.display_utilities?.cooling?.value||0)}</strong></div></div>:<SimpleBar data={utilities} unit="kW instantaneous"/>}</article>
     </section>
     <section className="process-readout">
       <div><span>Process activity</span><strong>{active} active units</strong><small>{result.units.length-active} bypassed or inactive</small></div>

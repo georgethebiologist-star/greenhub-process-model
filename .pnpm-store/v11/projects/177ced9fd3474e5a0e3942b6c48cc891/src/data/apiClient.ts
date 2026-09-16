@@ -1,7 +1,40 @@
 import type { FeedInputs } from '../components/InputStudio';
 import type { AnnualSummary, CalculationMode, EmpiricalBiomassSchedule, PlotCatalogItem, ScenarioSelection } from '../types';
 
-export const API_BASE = (import.meta.env.VITE_GREENHUB_API_URL || 'http://127.0.0.1:8000/api/v1').replace(/\/$/, '');
+const configuredApiBase = String(import.meta.env.VITE_GREENHUB_API_URL || '').trim();
+const defaultApiBase = import.meta.env.PROD ? '/api/v1' : 'http://127.0.0.1:8000/api/v1';
+export const API_BASE = (configuredApiBase || defaultApiBase).replace(/\/$/, '');
+export const API_TIMEOUT_MS = Math.max(Number(import.meta.env.VITE_GREENHUB_API_TIMEOUT_MS || 15000), 1000);
+
+export class GreenHubApiError extends Error {
+  constructor(message: string, public readonly endpoint: string, public readonly status?: number) {
+    super(message);
+    this.name = 'GreenHubApiError';
+  }
+}
+
+export async function apiJson<T>(path: string, init: RequestInit = {}): Promise<T> {
+  const endpoint = `${API_BASE}${path.startsWith('/') ? path : `/${path}`}`;
+  const controller = new AbortController();
+  const timer = window.setTimeout(() => controller.abort(), API_TIMEOUT_MS);
+  try {
+    const response = await fetch(endpoint, {...init, signal: controller.signal});
+    const data = await response.json().catch(() => null);
+    if (!response.ok) {
+      throw new GreenHubApiError(data?.error?.message || `GreenHub API returned ${response.status}.`, endpoint, response.status);
+    }
+    if (data === null) throw new GreenHubApiError('The endpoint responded without a valid JSON payload.', endpoint, response.status);
+    return data as T;
+  } catch (error) {
+    if (error instanceof GreenHubApiError) throw error;
+    const reason = error instanceof DOMException && error.name === 'AbortError'
+      ? `Request timed out after ${Math.round(API_TIMEOUT_MS / 1000)} seconds.`
+      : error instanceof Error ? error.message : 'Network request failed.';
+    throw new GreenHubApiError(`${reason} Check VITE_GREENHUB_API_URL or the same-origin /api/v1 deployment.`, endpoint);
+  } finally {
+    window.clearTimeout(timer);
+  }
+}
 
 export interface BackendResources {
   graph: any | null;
@@ -44,26 +77,25 @@ export function buildPythonRequest(mode: CalculationMode, month: string, scenari
 }
 
 export async function runPythonSimulation(payload: object): Promise<any> {
-  const response = await fetch(`${API_BASE}/simulations`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-  if (!response.ok) {
-    const error = await response.json().catch(() => ({}));
-    throw new Error(error?.error?.message || `Python API returned ${response.status}`);
-  }
-  return response.json();
+  return apiJson('/simulations', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
 }
 
 export async function fetchRunResources(runId: string, specifications: any[] = []): Promise<BackendResources> {
   const [graphResult, exportResult, annualResult, ...plotResults] = await Promise.allSettled([
-    fetch(`${API_BASE}/simulations/${runId}/graph`).then(checkJson),
-    fetch(`${API_BASE}/simulations/${runId}/exports`).then(checkJson),
-    fetch(`${API_BASE}/simulations/${runId}/annual-summary`).then(checkJson),
+    apiJson(`/simulations/${runId}/graph`),
+    apiJson(`/simulations/${runId}/exports`),
+    apiJson(`/simulations/${runId}/annual-summary`),
     ...specifications.filter(item => item.availability_status === 'available').map(item =>
-      fetch(`${API_BASE}/simulations/${runId}/plots/${item.plot_id}`).then(checkJson)
+      apiJson(`/simulations/${runId}/plots/${item.plot_id}`)
     ),
   ]);
   const graph = graphResult.status === 'fulfilled' ? graphResult.value : null;
   const exportPayload = exportResult.status === 'fulfilled' ? exportResult.value : {};
   const annual = annualResult.status === 'fulfilled' ? annualResult.value as AnnualSummary : null;
+  if (!annual) {
+    const detail = annualResult.status === 'rejected' && annualResult.reason instanceof Error ? annualResult.reason.message : 'Annual summary was not returned.';
+    throw new GreenHubApiError(`The run completed but its annual reporting bundle is unavailable. ${detail}`, `${API_BASE}/simulations/${runId}/annual-summary`);
+  }
   const artifacts = Object.entries(exportPayload || {}).map(([name, reference]) => ({
     name: humanize(name),
     type: extension(String(reference)),
@@ -89,6 +121,5 @@ function normalizePlotData(value: any): PlotCatalogItem {
   return { id: spec.plot_id || 'unknown', title: spec.title || 'Backend plot', category: humanize(spec.process_area || 'results'), description: `${spec.y_axis_label || 'Result'}${spec.y_unit ? ` [${spec.y_unit}]` : ''}.`, type: String(spec.plot_id || '').startsWith('SEASONAL-') ? 'line' : 'bar', data: rows, meta: spec };
 }
 
-async function checkJson(response: Response) { if (!response.ok) throw new Error(String(response.status)); return response.json(); }
 function humanize(value: string) { return value.replace(/[_-]+/g, ' ').replace(/\b\w/g, letter => letter.toUpperCase()); }
 function extension(value: string) { const match = value.match(/\.([a-z0-9]+)$/i); return match ? match[1].toUpperCase() : 'Artifact'; }
