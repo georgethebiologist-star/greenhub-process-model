@@ -445,3 +445,34 @@ def test_benchmark_period_metadata_survives_financial_contract():
     prices = normalize_product_prices(screening_tea_product_prices())
     assert prices
     assert any(price.reference_period for price in prices)
+
+
+def test_corrected_sales_price_atmospheric_gas_and_dry_fertilizer(empirical_result):
+    from Greenhub.product_price_benchmarks import screening_tea_product_prices
+    report=calculate_empirical_tea(empirical_result,project_basis={'operating_hours_per_year':8760},
+        financial_assumptions={'product_prices':screening_tea_product_prices()}).to_dict()
+    lines={r['product_id']:r for r in report['revenue_lines']}
+    gas=lines['biomethane']
+    assert gas['quantity']>1000
+    assert '293.15' in gas['quantity_source'] and '101325' in gas['quantity_source']
+    if 'ammonium_product' in lines:
+        assert lines['ammonium_product']['quantity_component']=='AmmoniumSulfate'
+    assert lines['phosphorus_product']['quantity_component']=='Struvite'
+    stream=next(s for s in empirical_result.streams if 'phosphorus_product' in s.aliases or s.stream_id=='struvite_product')
+    actual=stream.components.get('Struvite')
+    assert lines['phosphorus_product']['quantity']==pytest.approx((actual.value if actual else 0)*8760)
+
+
+def test_seasonal_sale_components_and_gas_reference_are_not_double_annualized(empirical_result):
+    from Greenhub.product_price_benchmarks import screening_tea_product_prices
+    rows=({'sale_components_kg':{'ammonium_product':{'AmmoniumSulfate':10},'phosphorus_product':{'Struvite':0}},'dry_gas_products_kmol':{'biomethane':1}},
+          {'sale_components_kg':{'ammonium_product':{'AmmoniumSulfate':20},'phosphorus_product':{'Struvite':0}},'dry_gas_products_kmol':{'biomethane':2}})
+    result=replace(empirical_result,
+        seasonal_summary={'total_biomass_processed_kg':30000,'total_products_kg':{'ammonium_product':300,'phosphorus_product':50,'biomethane':100},'total_utilities':{'electricity_kwh':100,'heating_kwh':200,'cooling_kwh':0}},
+        throughput_series=({'actual_throughput_kg_hr':1000,'available_operating_hours':10},{'actual_throughput_kg_hr':1000,'available_operating_hours':20}),
+        product_series=rows)
+    report=calculate_empirical_tea(result,financial_assumptions={'product_prices':screening_tea_product_prices()}).to_dict()
+    lines={r['product_id']:r for r in report['revenue_lines']}
+    assert lines['ammonium_product']['quantity']==30
+    assert lines['phosphorus_product']['quantity']==0
+    assert lines['biomethane']['quantity']==pytest.approx(3*8314.462618*293.15/101325)

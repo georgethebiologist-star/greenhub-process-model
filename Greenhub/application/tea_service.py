@@ -731,17 +731,31 @@ def _empirical_measures(result: object, basis: TEAProjectBasis, *, logistics_res
                 str(item.product_id): None if item.mass_flow.value is None else float(item.mass_flow.value) * hours for item in result.products
             },
         )
-    if basis.screening_estimates and not result.seasonal_summary and hours is not None:
-        # Explicit ideal-gas conversion for the physical product at its reported
-        # state. This is m3, never silently labelled Nm3.
-        weights = {'Methane': 16.04246, 'CarbonDioxide': 44.0095, 'Water': 18.01528,
-                   'Ammonia': 17.03052, 'HydrogenSulfide': 34.0809,
-                   'Nitrogen': 28.0134, 'Oxygen': 31.9988, 'Hydrogen': 2.01588}
-        gas = next((stream for stream in result.streams if stream.stream_id == 'water_scrubber_biomethane'), None)
-        if gas is not None and gas.temperature.value and gas.pressure.value and all(name in weights and value.value is not None for name, value in gas.components.items()):
-            moles = sum(float(value.value) / weights[name] for name, value in gas.components.items())
-            measures['annual_products_m3'] = {'biomethane': moles * 8314.462618 * float(gas.temperature.value) / float(gas.pressure.value) * hours}
-            measures.setdefault('quantity_warnings', []).append('Biomethane volume uses ideal gas conversion at reported product temperature/pressure; not Nm3. Verify commercial metering basis.')
+    from .sale_quantities import SALE_COMPONENTS, dry_gas_kmol, reference_volume_m3
+    components, gas_moles = {}, {}
+    if result.seasonal_summary:
+        for row in result.product_series:
+            for product, values in row.get('sale_components_kg', {}).items():
+                target = components.setdefault(product, {})
+                for component, value in values.items():
+                    target[component] = None if value is None or target.get(component, 0.0) is None else target.get(component, 0.0) + float(value)
+            for product, value in row.get('dry_gas_products_kmol', {}).items():
+                gas_moles[product] = None if value is None or gas_moles.get(product, 0.0) is None else gas_moles.get(product, 0.0) + float(value)
+    elif hours is not None:
+        streams = {stream.stream_id: stream for stream in result.streams}
+        for product in result.products:
+            stream = streams.get(product.stream_id)
+            component = SALE_COMPONENTS.get(product.product_id)
+            if stream is not None and component:
+                value = stream.components.get(component)
+                components[product.product_id] = {component: 0.0 if value is None else None if value.value is None else float(value.value) * hours}
+            if product.product_id == 'biomethane' and stream is not None:
+                kmol = dry_gas_kmol({name: value.value for name, value in stream.components.items()})
+                if kmol is not None:
+                    gas_moles['biomethane'] = kmol * hours
+    measures['annual_product_components_kg'] = components
+    measures['annual_dry_gas_kmol'] = gas_moles
+    measures['annual_products_nm3'] = {key: None if value is None else reference_volume_m3(value, 273.15) for key, value in gas_moles.items()}
     measures["formed_units"] = tuple(result.units)
     measures["design_capacities"] = tuple(
         {
@@ -1238,7 +1252,15 @@ def _product_price_lines(
             if mismatches:
                 missing.append({'cost_id':f'PRODUCT-PRICE-{_slug(product_id).upper()}', 'code':'unmatched_product_quality', 'required_input':', '.join(mismatches)})
                 continue
-        quantity = _annual_product_quantity(product_id, price.unit, measures, basis)
+        if price.quantity_component:
+            mass = measures.get('annual_product_components_kg', {}).get(_canonical_product_id(product_id), {}).get(price.quantity_component)
+            quantity = None if mass is None else (mass, 'kg/year', f'confirmed_component:{price.quantity_component}; dry pure-compound equivalent, finishing/grade unverified')
+        elif _canonical_product_id(product_id) == 'biomethane' and price.gas_reference_temperature_k is not None:
+            from .sale_quantities import reference_volume_m3
+            moles = measures.get('annual_dry_gas_kmol', {}).get('biomethane')
+            quantity = None if moles is None else (reference_volume_m3(moles, price.gas_reference_temperature_k, price.gas_reference_pressure_pa), 'm3/year', f'dry gas at {price.gas_reference_temperature_k} K and {price.gas_reference_pressure_pa} Pa; ideal-gas reference conversion')
+        else:
+            quantity = _annual_product_quantity(product_id, price.unit, measures, basis)
         if quantity is None:
             missing.append(
                 {
@@ -1271,7 +1293,7 @@ def _product_price_lines(
                 "cost_id": cost_id,
                 "process_area": "products",
                 "process_step": "Product revenue",
-                "equipment_or_cost_item": product_id,
+                "equipment_or_cost_item": price.display_name or product_id,
                 "cost_type": "revenue",
                 "alternative_group": None,
                 "route_tags": [],
@@ -1286,6 +1308,10 @@ def _product_price_lines(
                 "calculation_status": "calculated_from_explicit_product_price",
                 "source_status": price.source_status,
                 "warning": price.notes,
+                "product_id": product_id,
+                "quantity_component": price.quantity_component,
+                "gas_reference_temperature_k": price.gas_reference_temperature_k,
+                "gas_reference_pressure_pa": price.gas_reference_pressure_pa,
             }
         )
         traceability.append(

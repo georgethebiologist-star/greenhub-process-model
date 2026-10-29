@@ -8,6 +8,7 @@ export function snapshotFromReport(report:DecisionReport):AnalysisSnapshot {
     feedTonnes:report.annual.feed_processed.value/1000,
     dryFeedTonnes:report.lca.project_basis.annual_dry_feed_kg==null?null:report.lca.project_basis.annual_dry_feed_kg/1000,
     people:report.tea.project_basis?.staffing_people??5,paidHoursPerPerson:report.tea.project_basis?.paid_hours_per_person??1500,
+    productSales:report.tea.revenue_lines.map((r:any)=>({...r,quantity:r.quantity??null})),
     capital:t.screening_capital_basis_eur??t.total_installed_capex_eur??t.partial_direct_capex_eur,
     revenue:t.annual_revenue_eur,opex:t.annual_opex_eur,
     costs:report.tea.opex_lines.map((r:any)=>({name:r.equipment_or_cost_item,value:r.annual_cost_eur??null})),

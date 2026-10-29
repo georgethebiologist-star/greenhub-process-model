@@ -78,3 +78,20 @@ assert.throws(()=>generateScreeningBatch(1,defaultRanges,{...defaultSettings,ful
 const ties=markPareto([{id:'a',profit:1,offset:2,feasible:true},{id:'b',profit:1,offset:2,feasible:true},{id:'c',profit:1,offset:1,feasible:true},{id:'d',profit:100,offset:100,feasible:false}]);
 assert.deepEqual(ties.filter(p=>p.pareto).map(p=>p.id),['a','b']);
 console.log(`2000-scenario determinism, bounds, flow/staff scaling, bypasses and Pareto checks passed (${brute.length} front points).`);
+
+// Sales corrections must propagate to baseline previews and every sampled case.
+assert.ok(Math.abs(baselineSnapshot.revenues.find(r=>r.name==='biomethane').value-10859.974934446958)<.01);
+assert.equal(baselineSnapshot.productSales.find(r=>r.product_id==='phosphorus_product').quantity,0);
+assert.ok(Math.abs(baselineSnapshot.productSales.find(r=>r.product_id==='ammonium_product').quantity-24759.733901753727)<.01);
+assert.equal(defaultRanges.orthophosphateShare.high,0,'Unknown speciation must not become recovered struvite.');
+assert.ok(study.points.every(p=>p.struviteKg===0));
+const hypotheticalAssumptions={...same.assumptions,orthophosphateShare:1};
+const fullN=evaluateCandidate({...same.routes,digestion:'Mesophilic',fertilizer:'Ammonia'},.3,hypotheticalAssumptions,defaultSettings);
+const withP=evaluateCandidate({...same.routes,digestion:'Mesophilic',fertilizer:'Combined N/P'},.3,hypotheticalAssumptions,defaultSettings);
+assert.ok(withP.struviteKg>0&&withP.magnesiumReagentKg>0&&withP.struviteHypothetical);
+assert.ok(withP.ammoniumSulfateKg<=fullN.ammoniumSulfateKg,'N recovered into struvite cannot be sold again as ammonium sulfate.');
+for(const p of study.points.filter(p=>p.methaneNm3>0)){
+ const purity=p.routes.gas==='Water scrubbing'?.9437269935:.98;
+ assert.ok(Math.abs(p.gasAtmosphericM3-p.methaneNm3/purity*293.15/273.15)<1e-8);
+}
+console.log('Atmospheric gas sales, dry sulfate, zero actual struvite, conditional P recovery and shared-N checks passed.');

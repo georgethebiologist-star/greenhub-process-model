@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import csv
+import json
 from dataclasses import dataclass
 from pathlib import Path
 import re
@@ -92,9 +93,10 @@ def screening_tea_product_prices(
 ) -> dict[str, dict[str, object]]:
     """Return explicitly labelled TEA price mappings where units are defensible.
 
-    Biomethane is included only when a direct EUR/m3 basis is supplied. Existing
-    EUR/MWh benchmarks remain excluded because conversion requires an explicit
-    gas energy-content basis.
+    The sales-basis profile applies user-confirmed 20 C atmospheric gas pricing
+    and dry chemical-equivalent fertilizer quantities after legacy benchmarks.
+    USD fertilizer quotes use an explicitly assumed FX rate; wet carrier mass
+    and unspeciated phosphorus never become saleable salt automatically.
     """
 
     output: dict[str, dict[str, object]] = {}
@@ -120,5 +122,25 @@ def screening_tea_product_prices(
             "conversion_method": f"{benchmark.unit} to {unit}; divide by 1000 for EUR/t to EUR/kg" if divisor != 1.0 else "none",
             "uncertainty": f"{benchmark.low:g}-{benchmark.high:g} {benchmark.unit}",
             "quality_basis": "screening_assumption",
+        }
+    sales = json.loads((DATA_DIR / 'tea' / 'product_sales_basis.json').read_text())
+    gas = output.get('biomethane')
+    if gas is not None:
+        gas.update(value_eur_per_unit=sales['gas']['price_eur_m3'],
+                   gas_reference_temperature_k=sales['gas']['temperature_k'],
+                   gas_reference_pressure_pa=sales['gas']['pressure_pa'],
+                   basis='dry gas at 20 C and 101325 Pa',
+                   notes=sales['gas']['warning'], conversion_method='component kmol × R × 293.15 K / 101325 Pa')
+    for key, product, label in (('ammonium_sulfate', 'ammonium_product', 'Ammonium sulfate (dry equivalent)'), ('struvite', 'phosphorus_product', 'Solid struvite')):
+        data = sales[key]
+        output[product] = {
+            'value_eur_per_unit': data['base_usd_t'] * sales['fx']['eur_per_usd'] / 1000,
+            'unit': 'EUR/kg', 'quantity_component': data['quantity_component'], 'display_name': label,
+            'source_status': 'user_provided_screening_assumption', 'source_title': data['status'],
+            'source_url': data.get('sources', [''])[0], 'reference_year': 2026,
+            'basis': 'dry pure-compound equivalent; no carrier water sold', 'quality_basis': 'screening_assumption',
+            'notes': data['warning'] + ' FX: 0.92 EUR/USD is an explicit assumption, not a market quote.',
+            'conversion_method': 'USD/t × 0.92 EUR/USD / 1000 kg/t',
+            'uncertainty': f"{data['low_usd_t']}-{data['high_usd_t']} USD/t; FX unverified",
         }
     return output

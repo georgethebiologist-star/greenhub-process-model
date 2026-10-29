@@ -1,7 +1,7 @@
 {
   "label": "Baseline screening preview",
-  "sourceRun": "37134f6d6b1c4866ac75e1538e12a9f7",
-  "sourceCommit": "be1c03b35aa1eed4a615f11933b281c48a7196a4",
+  "sourceRun": "34d3731b4e4e4f11bb06ae87e1ecabb7",
+  "sourceCommit": "",
   "scenario": [
     "F2",
     "PR3",
@@ -13,9 +13,9 @@
   "dryFeedTonnes": 3065.999999999999,
   "people": 5,
   "paidHoursPerPerson": 1500,
-  "capital": 1443281.049653595,
-  "revenue": 143080.59766174186,
-  "opex": 570002.8258557372,
+  "capital": 1443281.0496535953,
+  "revenue": 132776.07361721294,
+  "opex": 570002.8258557371,
   "costs": [
     {
       "name": "Operators, maintenance, laboratory and management",
@@ -57,15 +57,15 @@
     },
     {
       "name": "biomethane",
-      "value": 1115.1946267514543
+      "value": 10859.974934446958
     },
     {
-      "name": "phosphorus_product",
-      "value": 149.91634221584553
+      "name": "Solid struvite",
+      "value": 0.0
     },
     {
-      "name": "ammonium_product",
-      "value": 27518.948520934282
+      "name": "Ammonium sulfate (dry equivalent)",
+      "value": 7619.560510925692
     },
     {
       "name": "nutrient_rich_solids",
@@ -171,5 +171,169 @@
     "process_emissions: inventory boundary incomplete",
     "waste: inventory boundary incomplete",
     "waste: no explicit burden inventory (zero must be declared as a flow)"
-  ]
+  ],
+  "productSales": [
+    {
+      "product_id": "dry_protein_product",
+      "equipment_or_cost_item": "dry_protein_product",
+      "quantity": 70191.12921267329,
+      "quantity_unit": "kg/year",
+      "unit_cost_eur": 1.6,
+      "reference_unit": "EUR/kg",
+      "annual_revenue_eur": 112305.80674027727,
+      "quantity_source": "simulation_product_output",
+      "quantity_component": null,
+      "warning": "WUR table reports potato feed protein 0.8 EUR/kg and soy concentrates 1.2-2.8 EUR/kg. Grass-derived product must match protein %, digestibility, contaminants and buyer grade; low-price proxy only, not food-grade isolate. | Actual roadside grass protein stream grade is unknown; the report's gel has ~29.7% protein on dry matter and is not equivalent to a dry feed concentrate."
+    },
+    {
+      "product_id": "biomethane",
+      "equipment_or_cost_item": "biomethane",
+      "quantity": 12340.88060732609,
+      "quantity_unit": "m3/year",
+      "unit_cost_eur": 0.88,
+      "reference_unit": "EUR/m3",
+      "annual_revenue_eur": 10859.974934446958,
+      "quantity_source": "dry gas at 293.15 K and 101325 Pa; ideal-gas reference conversion",
+      "quantity_component": null,
+      "warning": "Dry product gas, not compressed process volume or Nm3; sale/injection quality and certificate eligibility remain unverified."
+    },
+    {
+      "product_id": "phosphorus_product",
+      "equipment_or_cost_item": "Solid struvite",
+      "quantity": 0.0,
+      "quantity_unit": "kg/year",
+      "unit_cost_eur": 0.552,
+      "reference_unit": "EUR/kg",
+      "annual_revenue_eur": 0.0,
+      "quantity_source": "confirmed_component:Struvite; dry pure-compound equivalent, finishing/grade unverified",
+      "quantity_component": "Struvite",
+      "warning": "Only actual struvite compound earns baseline revenue. Wet separator solids, dissolved P and a marketed liquid fertilizer blend are not equivalent to pure solid struvite. Pure struvite contains approximately 5.7% N, 12.6% elemental P and no K. No EUR/L conversion without a defined liquid formulation, concentration, density and buyer price. FX: 0.92 EUR/USD is an explicit assumption, not a market quote."
+    },
+    {
+      "product_id": "ammonium_product",
+      "equipment_or_cost_item": "Ammonium sulfate (dry equivalent)",
+      "quantity": 24759.733901753727,
+      "quantity_unit": "kg/year",
+      "unit_cost_eur": 0.30774,
+      "reference_unit": "EUR/kg",
+      "annual_revenue_eur": 7619.560510925692,
+      "quantity_source": "confirmed_component:AmmoniumSulfate; dry pure-compound equivalent, finishing/grade unverified",
+      "quantity_component": "AmmoniumSulfate",
+      "warning": "Price dry ammonium-sulfate compound equivalent, never carrier water. Recovered solution is not 98-99% agricultural-grade salt; crystallization/drying, purity, contamination, transport and offtake are unverified. FX: 0.92 EUR/USD is an explicit assumption, not a market quote."
+    },
+    {
+      "product_id": "nutrient_rich_solids",
+      "equipment_or_cost_item": "nutrient_rich_solids",
+      "quantity": 49768.285789075395,
+      "quantity_unit": "kg/year",
+      "unit_cost_eur": 0.04,
+      "reference_unit": "EUR/kg",
+      "annual_revenue_eur": 1990.7314315630158,
+      "quantity_source": "simulation_product_output",
+      "quantity_component": null,
+      "warning": "Grass silage market is 40-90 EUR/t but nutrient-rich solids could instead be a low-value residue; base 40 is a scenario placeholder only where agronomic/feed quality and contaminants pass. If waste classification applies, value can be negative after disposal cost. | Must characterize dry matter |  NPK |  contaminants |  pathogens |  stability and legal product status; no generic price for this heterogeneous stream."
+    }
+  ],
+  "salesBasis": {
+    "version": "2026-10-29-corrected-sales",
+    "gas": {
+      "price_eur_m3": 0.88,
+      "low_eur_m3": 0.59,
+      "high_eur_m3": 1.17,
+      "temperature_k": 293.15,
+      "pressure_pa": 101325,
+      "dry": true,
+      "status": "user-confirmed atmospheric price; 20 C screening reference",
+      "warning": "Dry product gas, not compressed process volume or Nm3; sale/injection quality and certificate eligibility remain unverified."
+    },
+    "fx": {
+      "eur_per_usd": 0.92,
+      "status": "explicit screening assumption, not a verified 2026 FX quote"
+    },
+    "ammonium_sulfate": {
+      "low_usd_t": 277,
+      "high_usd_t": 392,
+      "base_usd_t": 334.5,
+      "alternative_eur_t": 245,
+      "quantity_component": "AmmoniumSulfate",
+      "status": "user-provided 2026 quotes; not independently verified",
+      "sources": [
+        "https://www.spglobal.com/energy/en/news-research/latest-news/agriculture/022426-eu-ammonium-sulfate-imports-rise-in-dec-on-stronger-chinese-supplies-ahead-of-cbam",
+        "https://www.imarcgroup.com/ammonium-sulphate-pricing-report",
+        "https://mbfgroup.pl/en/tag/raw-materials-price-list/"
+      ],
+      "warning": "Price dry ammonium-sulfate compound equivalent, never carrier water. Recovered solution is not 98-99% agricultural-grade salt; crystallization/drying, purity, contamination, transport and offtake are unverified."
+    },
+    "struvite": {
+      "low_usd_t": 400,
+      "high_usd_t": 800,
+      "base_usd_t": 600,
+      "quantity_component": "Struvite",
+      "formula": "MgNH4PO4.6H2O",
+      "molecular_weight": 245.41,
+      "status": "user-provided screening price range; no independently verified quote",
+      "warning": "Only actual struvite compound earns baseline revenue. Wet separator solids, dissolved P and a marketed liquid fertilizer blend are not equivalent to pure solid struvite. Pure struvite contains approximately 5.7% N, 12.6% elemental P and no K. No EUR/L conversion without a defined liquid formulation, concentration, density and buyer price."
+    }
+  },
+  "recovery": {
+    "dissolvedPEquivalentKg": 1150.625241886035,
+    "orthophosphatePKg": 0.0,
+    "ammoniumNitrogenKg": 5407.757653871637
+  },
+  "sugarAudit": {
+    "run_id": "34d3731b4e4e4f11bb06ae87e1ecabb7",
+    "sugar_acidogenesis": [
+      {
+        "component_id": "Sucrose",
+        "category": "carbohydrate",
+        "accessible_kg_hr": 0.0,
+        "stage_conversion_fraction": 0.9,
+        "ultimately_converted_kg_hr": 0.0,
+        "converted_cod_kg_hr": 0.0
+      },
+      {
+        "component_id": "EntrappedSugars",
+        "category": "carbohydrate",
+        "accessible_kg_hr": 0.04462499999999997,
+        "stage_conversion_fraction": 0.9,
+        "ultimately_converted_kg_hr": 0.040162499999999976,
+        "converted_cod_kg_hr": 0.04280132755034138
+      },
+      {
+        "component_id": "Fructose",
+        "category": "carbohydrate",
+        "accessible_kg_hr": 0.0,
+        "stage_conversion_fraction": 0.9,
+        "ultimately_converted_kg_hr": 0.0,
+        "converted_cod_kg_hr": 0.0
+      },
+      {
+        "component_id": "Glucose",
+        "category": "carbohydrate",
+        "accessible_kg_hr": 1.7428700411945384,
+        "stage_conversion_fraction": 0.9,
+        "ultimately_converted_kg_hr": 1.5685830370750846,
+        "converted_cod_kg_hr": 1.6716448517836293
+      }
+    ],
+    "consumed_sugars_kg_h": {
+      "Sucrose": 0.0,
+      "EntrappedSugars": 0.040162499999999976,
+      "Fructose": 0.0,
+      "Glucose": 1.5685830370750846
+    },
+    "methanogenesis": [
+      {
+        "available_methanogenic_cod_kg_hr": 4.411345977896431,
+        "methanogenesis_conversion": 0.85,
+        "pH_factor": 1.0,
+        "ammonia_factor": 1.0,
+        "methane_cod_kg_hr": 3.7496440812119665,
+        "methane_kg_hr": 0.9399339223202077,
+        "residual_intermediate_cod_kg_hr": 0.6617018966844648
+      }
+    ],
+    "raw_methane_kg_h": 0.8935011865575894,
+    "struvite_formed_kg_h": 0.0
+  }
 }

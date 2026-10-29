@@ -14,6 +14,7 @@ from Greenhub.storage_inventory import StorageInventory
 from Greenhub.storage import StorageModel, apply_storage_conditions
 from Greenhub.time_grid import TimeGridStep, generate_time_grid
 
+from .sale_quantities import seasonal_sale_quantities
 from .contracts import InitialStorageInventory, OperatingSchedule, SimulationRequest
 from .biomass_schedule import build_empirical_biomass_schedule, schedule_feed_rows
 from .feed_profile_service import FeedProfileService
@@ -354,8 +355,11 @@ class SeasonalSimulationService:
             volumetric_products = {
                 "biomethane": float(model.streams["biomethane"].F_vol) * operating_hours
             } if "biomethane" in model.streams else {}
+            sale_components, dry_gas_moles = seasonal_sale_quantities(model, operating_hours)
             product_rows.append({
                 "time": step.label,
+                "sale_components_kg": sale_components,
+                "dry_gas_products_kmol": dry_gas_moles,
                 "products_kg": products,
                 "intermediate_streams_kg": intermediate_streams,
                 "volumetric_products_m3": volumetric_products,

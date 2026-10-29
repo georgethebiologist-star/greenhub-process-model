@@ -28,8 +28,9 @@ Missing installation factors no longer suppress the screening capital estimate:
 direct equipment cost is retained and installation exclusions are warned per
 line. The result is called screening capital; complete installed CAPEX stays
 unavailable. Product benchmarks are activated visibly and remain conditional on
-product grade and marketability. Physical biomethane m3 are derived at reported
-stream state; they are not silently relabelled Nm3.
+product grade and marketability. Commercial biomethane m3 are now dry gas at the user-confirmed
+20 C and 101325 Pa. Compressed physical process volume is never used for the
+atmospheric price; Nm3 remain a separate 0 C reference.
 
 The dashboard displays the known-cost operating balance even when completeness
 gates remain unresolved. Missing reagents/adsorbent consumption, civil/indirect
@@ -70,3 +71,33 @@ intensities divide only this preview subtotal by the corresponding feed basis.
 Deploying the frontend bundle publishes the baseline preview even before the
 Python backend is connected. Git push alone does not prove Render deployment;
 Render's service must deploy the commit, through automatic or manual deployment.
+
+## Recalculated sales, sugar audit and mineral identity
+
+`Greenhub/data/tea/product_sales_basis.json` records the confirmed gas state,
+user-supplied 2026 solid-fertilizer ranges, original URLs and an explicit
+0.92 EUR/USD screening assumption. Quotes were provided by the user and have
+not been independently verified. The alternative EUR245/t origin-specific
+quote is retained as metadata, not silently combined with different USD markets.
+
+Gas sales use dry component kmol at 20 C / 1 atm. Seasonal reports integrate
+dry gas moles and saleable component masses once per timestep. Price records
+can declare reference temperature/pressure and quantity component. Sulfate
+sales use AmmoniumSulfate, not carrier water; struvite uses Struvite, not the
+generic wet phosphorus product stream. Product finishing, purity and saleability
+remain unverified. No liquid struvite EUR/L price is inferred from solid USD/t.
+
+The rerun confirms glucose and entrapped sugars enter the soluble-carbohydrate
+acidogenesis pathway with hydrolysis accessibility 1, then contribute converted
+COD to methane. A glucose-only regression verifies methane generation even
+when cellulose/hemicellulose hydrolysis is disabled. Sugar is not counted again
+as an independent methane credit.
+
+Pricing corrections do not change process emissions. The regenerated LCA
+inventory and its incomplete readiness are retained; the climate subtotal
+preview remains assumption-based and does not gain automatic fertilizer credits.
+A separate P-speciation potential calculator never enters booked baseline sales.
+
+Regenerate bundled outputs from a completed DecisionSupportService evaluation:
+`python scripts/refresh_sales_baseline.py REPORT_JSON RUNS_ROOT SUGAR_AUDIT_JSON`.
+This script copies actual rerun outputs; it does not fabricate process results.

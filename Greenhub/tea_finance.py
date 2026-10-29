@@ -34,8 +34,19 @@ class TEAProductPrice:
     uncertainty: str = "unquantified"
     quality_basis: str = "screening_assumption"
     quality_requirements: Mapping[str, object] = field(default_factory=dict)
+    quantity_component: str | None = None
+    display_name: str | None = None
+    gas_reference_temperature_k: float | None = None
+    gas_reference_pressure_pa: float | None = None
 
     def __post_init__(self) -> None:
+        for value in (self.gas_reference_temperature_k, self.gas_reference_pressure_pa):
+            if value is not None and (not isfinite(value) or value <= 0):
+                raise ValueError('Gas reference temperature/pressure must be finite and positive.')
+        if (self.gas_reference_temperature_k is None) != (self.gas_reference_pressure_pa is None):
+            raise ValueError('Specify both gas reference temperature and pressure.')
+        if self.quantity_component not in (None, 'AmmoniumSulfate', 'Struvite'):
+            raise ValueError('Unsupported saleable component.')
         if not self.product_id:
             raise ValueError("A product price requires product_id.")
         if not isfinite(float(self.value_eur_per_unit)) or self.value_eur_per_unit < 0:

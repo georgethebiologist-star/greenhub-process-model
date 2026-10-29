@@ -32,8 +32,10 @@ changes the study; the same seed reproduces all 2,000 points.
 
 `paretoReference.json` stores the compact saved process/cost anchors and source
 run ID. It includes raw methane mass, avoiding use of compressed physical gas
-volume as Nm3. Gas sales convert recovered CH4 to dry ideal Nm3 at 273.15 K /
-101325 Pa, then apply LHV 9.94 kWh/Nm3 to the EUR/MWh price. Saleability and
+volume as Nm3. Gas sales convert recovered CH4 to dry product m3 at the confirmed 293.15 K /
+101325 Pa price reference, using a labelled product-purity assumption. The
+user-supplied price range is EUR0.59–1.17/m3. CO2 substitution separately uses
+methane Nm3 at 273.15 K. Saleability and
 certificate eligibility remain conditional.
 
 ## Scaling and economic objective
@@ -111,3 +113,22 @@ or keyboard selection keeps metadata visible. Full sampled inputs and product
 KPIs are available in details. Export downloads all 2,000 cases plus active
 basis, bounds, seed, constraints and limitations. Invalid edits leave the last
 valid study displayed with an error until corrected and regenerated.
+
+## Corrected 2026 fertilizer sales
+
+Ammonium sulfate now uses actual dry-compound mass, never wet liquor mass.
+The supplied USD277–392/t range uses an explicit unverified 0.92 EUR/USD
+conversion. Solid struvite uses the supplied USD400–800/t range on actual
+MgNH4PO4.6H2O compound, not mixed wet separator solids. Pure struvite is about
+5.7% N, 12.6% elemental P and zero K; liquid blends are separate products.
+
+The actual baseline has zero orthophosphate/struvite. The default sampled
+orthophosphate-share range is therefore [0,0], giving zero struvite revenue.
+A user can explicitly edit it within [0,1] to explore hypothetical P recovery.
+This interprets only that chosen share of the dissolved-P-equivalent pool as
+available phosphate; it is not a change to empirical chemistry or a measurement.
+Stoichiometric potential is bounded by P and ammonium-N, using a bounded 85%
+recovery response. Nitrogen recovered in struvite is subtracted before ammonium
+sulfate sales. MgCl2.6H2O dosing at 1.2 mol Mg/mol P, its purchase cost and an
+explicitly assumed footprint range are included. Its environmental coefficient
+is not a verified supplier LCI. All such points remain conditional.

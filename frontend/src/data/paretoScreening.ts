@@ -5,7 +5,7 @@ export type Ranges=Record<string,Range>;
 const assumption='Explicit screening assumption; not calibrated';
 const price=(name:keyof typeof reference.prices,divisor=1):Range=>{const p=reference.prices[name];return {low:p.low/divisor,high:p.high/divisor,unit:divisor===1000?'EUR/kg':p.unit,status:p.status,source:p.source};};
 export const defaultRanges:Ranges={
-  proteinPrice:price('Protein product',1000),gasPrice:price('Biomethane'),ammoniumPrice:price('Ammonium product',1000),phosphorusPrice:price('Phosphorus/struvite product',1000),solidsPrice:price('Nutrient-rich solids',1000),
+  proteinPrice:price('Protein product',1000),gasPrice:{low:reference.salesBasis.gas.low_eur_m3,high:reference.salesBasis.gas.high_eur_m3,unit:'EUR/dry m³ at 20°C, 1 atm',status:'User-confirmed atmospheric price basis',source:'product_sales_basis.json'},ammoniumPrice:{low:277*.92/1000,high:392*.92/1000,unit:'EUR/kg dry ammonium sulfate',status:'User 2026 USD quote × assumed 0.92 EUR/USD',source:reference.salesBasis.ammonium_sulfate.sources[0]},phosphorusPrice:{low:400*.92/1000,high:800*.92/1000,unit:'EUR/kg actual solid struvite',status:'User-provided USD400–800/t × assumed 0.92 EUR/USD',source:'User-provided screening range; not independently verified'},solidsPrice:price('Nutrient-rich solids',1000),
   electricityPrice:{low:.1991*.8,high:.1991*1.2,unit:'EUR/kWh',status:'Register tariff ±20% screening sensitivity',source:'TEA-036'},
   heatPrice:{low:.0793*.8,high:.0793*1.2,unit:'EUR/kWh useful heat',status:'Register delivered-heat proxy ±20%',source:'TEA-038'},
   labourRate:{low:47.9*.85,high:47.9*1.15,unit:'EUR/paid hour',status:'Register rate ±15% assumed range',source:'TEA-029'},
@@ -22,17 +22,20 @@ export const defaultRanges:Ranges={
   gasDisplacement:{low:1.8,high:2.3,unit:'kg CO₂e/Nm³ CH₄ displaced',status:assumption,source:'Fossil-gas substitution counterfactual; market eligibility unverified'},
   methaneLeak:{low:.005,high:.03,unit:'fraction raw CH₄',status:assumption,source:'Tracked + untracked leakage scenario; not measured'},
   transportFactor:{low:1,high:5,unit:'kg CO₂e/t wet feed',status:assumption,source:'Transport activity/vehicle evidence missing'},
+  orthophosphateShare:{low:0,high:0,unit:'fraction dissolved P assumed orthophosphate',status:'Unmeasured: zero by default; edit 0–1 only for hypothetical recovery potential',source:'No explicit orthophosphate in recalculated baseline'},
+  magnesiumPrice:{low:.2,high:.4,unit:'EUR/kg MgCl2·6H2O',status:'Register screening proxy range',source:'TEA-051'},
+  magnesiumFootprint:{low:.5,high:3,unit:'kg CO₂e/kg MgCl2·6H2O',status:assumption,source:'Unverified scenario factor; not a supplier LCI'},
   consumablesCost:{low:1,high:5,unit:'EUR/t active recovery feed',status:assumption,source:'Placeholder reagent/adsorbent allowance, not measured consumption'},
 };
 export type Routes={pef:boolean;protein:'Bypass'|'Acid'|'Heat'|'Acid + heat';digestion:'Bypass'|'Mesophilic'|'Thermophilic';gas:'No product · flare'|'Water scrubbing'|'Membrane'|'PSA';fertilizer:'Bypass'|'Separation'|'Phosphorus'|'Ammonia'|'Combined N/P'};
 export type Settings={availableTonnes:number;hours:number;fullScalePeople:number;maxFlowKgH:number;years:number;discount:number};
 export const defaultSettings:Settings={availableTonnes:30000,hours:5160,fullScalePeople:5,maxFlowKgH:3000,years:20,discount:.08};
-export type Point={id:string;fraction:number;feedTonnes:number;flowKgH:number;routes:Routes;assumptions:Record<string,number>;capital:number;people:number;revenue:number;opex:number;capitalCharge:number;operatingProfit:number;profit:number;burden:number;credit:number;offset:number;proteinKg:number;methaneNm3:number;fertilizerKg:number;electricityKwh:number;heatKwh:number;residualKg:number;feasible:boolean;reasons:string[];pareto:boolean};
+export type Point={id:string;fraction:number;feedTonnes:number;flowKgH:number;routes:Routes;assumptions:Record<string,number>;capital:number;people:number;revenue:number;opex:number;capitalCharge:number;operatingProfit:number;profit:number;burden:number;credit:number;offset:number;proteinKg:number;methaneNm3:number;fertilizerKg:number;electricityKwh:number;heatKwh:number;residualKg:number;ammoniumSulfateKg:number;struviteKg:number;struviteHypothetical:boolean;magnesiumReagentKg:number;gasAtmosphericM3:number;feasible:boolean;reasons:string[];pareto:boolean};
 export function seededRandom(seed:number){let state=seed>>>0;return()=>{state+=0x6D2B79F5;let t=state;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return((t^(t>>>14))>>>0)/4294967296;};}
 export function validateInputs(seed:number,ranges:Ranges,settings:Settings){
   if(!Number.isSafeInteger(seed)||seed<0||seed>4294967295)throw Error('Seed must be an integer from 0 to 4294967295.');
   for(const key of Object.keys(defaultRanges)){const r=ranges[key];if(!r||![r.low,r.high].every(Number.isFinite)||r.low<0||r.high<r.low)throw Error(`${key}: use finite nonnegative low ≤ high.`);}
-  for(const key of ['scaleExponent','staffingExponent','methaneLeak'])if(ranges[key].high>1)throw Error(`${key}: upper bound must be ≤1.`);
+  for(const key of ['scaleExponent','staffingExponent','methaneLeak','orthophosphateShare'])if(ranges[key].high>1)throw Error(`${key}: upper bound must be ≤1.`);
   if(!Object.values(settings).every(Number.isFinite)||settings.availableTonnes<=0||settings.hours<=0||settings.hours>8760||!Number.isInteger(settings.fullScalePeople)||settings.fullScalePeople<2||settings.maxFlowKgH<=0||!Number.isInteger(settings.years)||settings.years<1||settings.years>60||settings.discount<0||settings.discount>1)throw Error('Check plant basis: positive feed/capacity, hours ≤8760, ≥2 staff, 1–60 years and 0–100% discount.');
 }
 export function evaluateCandidate(routes:Routes,fraction:number,a:Record<string,number>,s:Settings,id='candidate'):Point {
@@ -43,11 +46,19 @@ export function evaluateCandidate(routes:Routes,fraction:number,a:Record<string,
   const proteinKg=reference.productsKg.dry_protein_product/reference.annualFeedTonnes*tonnes*proteinFactor*a.proteinYield;
   const rawMethaneKg=ad?reference.rawMethaneKg/reference.annualFeedTonnes*tonnes*a.methaneYield*(routes.digestion==='Thermophilic'?1.08:1)*(1+.12*(1-proteinFactor)):0;
   const methaneNm3=rawMethaneKg/16.04246*22.414*gasRecovery*(1-a.methaneLeak);
-  const nitrogen=fert&&['Ammonia','Combined N/P'].includes(routes.fertilizer)?reference.productsKg.ammonium_product/reference.annualFeedTonnes*tonnes*a.nutrientYield:0;
-  const phosphorus=fert&&['Phosphorus','Combined N/P'].includes(routes.fertilizer)?reference.productsKg.phosphorus_product/reference.annualFeedTonnes*tonnes*a.nutrientYield:0;
+  const nutrientReference=reference.recovery;
+  const availableN=nutrientReference.ammoniumNitrogenKg/reference.annualFeedTonnes*tonnes;
+  const availableP=(nutrientReference.orthophosphatePKg+nutrientReference.dissolvedPEquivalentKg*a.orthophosphateShare)/reference.annualFeedTonnes*tonnes;
+  const struviteKg=fert&&['Phosphorus','Combined N/P'].includes(routes.fertilizer)?Math.min(availableP/30.973762,availableN/14.0067)*245.41*Math.min(1,.85*a.nutrientYield):0;
+  const struviteN=struviteKg/245.41*14.0067;
+  const nitrogen=fert&&['Ammonia','Combined N/P'].includes(routes.fertilizer)?Math.min(reference.compoundProductsKg.AmmoniumSulfate/reference.annualFeedTonnes*tonnes*a.nutrientYield,Math.max(0,availableN-struviteN)*132.14/(2*14.0067)):0;
+  const phosphorus=struviteKg;
+  const magnesiumReagentKg=struviteKg/245.41*203.3*1.2;
+  const productPurity=routes.gas==='Water scrubbing'?.9437269935:routes.gas==='Membrane'?.98:.98;
+  const gasAtmosphericM3=methaneNm3/productPurity*293.15/273.15;
   const solids=fert?reference.productsKg.nutrient_rich_solids/reference.annualFeedTonnes*tonnes:0;
   const base=reference.capital as Record<string,{eur:number;exponent:number;name:string}>;
-  const ids=['TEA-001','TEA-003','TEA-004',...(routes.pef?['TEA-005']:[]),...(protein?['TEA-008','TEA-009']:[]),...(ad?['TEA-013','TEA-015']:[]),...(gas?['TEA-017-WATER_SCRUBBING']:[]),...(fert?['TEA-019']:[]),...(nitrogen>0?['TEA-020']:[]),...(phosphorus>0?['TEA-022']:[])];
+  const ids=['TEA-001','TEA-003','TEA-004',...(routes.pef?['TEA-005']:[]),...(protein?['TEA-008','TEA-009']:[]),...(ad?['TEA-013','TEA-015']:[]),...(gas?['TEA-017-WATER_SCRUBBING']:[]),...(fert?['TEA-019']:[]),...(fert&&['Ammonia','Combined N/P'].includes(routes.fertilizer)?['TEA-020']:[]),...(fert&&['Phosphorus','Combined N/P'].includes(routes.fertilizer)?['TEA-022']:[])];
   const gasCapex=routes.gas==='Membrane'?1.15:routes.gas==='PSA'?1.25:1;
   const methodCapex=routes.protein==='Heat'?.9:routes.protein==='Acid'?.85:1;
   const capital=ids.reduce((sum,key)=>{const method=key==='TEA-017-WATER_SCRUBBING'?gasCapex:key==='TEA-008'?methodCapex:key==='TEA-013'&&routes.digestion==='Thermophilic'?1.15:1;
@@ -60,21 +71,21 @@ export function evaluateCandidate(routes:Routes,fraction:number,a:Record<string,
   const hShare=(protein?.55*(routes.protein==='Acid'?.65:1):0)+(ad?.2*(routes.digestion==='Thermophilic'?1.35:1):0)+(fert?.25:0);
   const electricityKwh=reference.electricityKwh/reference.annualFeedTonnes*tonnes*eShare*a.utilityMultiplier;
   const heatKwh=reference.heatKwh/reference.annualFeedTonnes*tonnes*hShare*a.utilityMultiplier;
-  // Gas sales use methane LHV (9.94 kWh/Nm3), not compressed product m3.
-  const revenue=proteinKg*a.proteinPrice+methaneNm3*9.94/1000*a.gasPrice+nitrogen*a.ammoniumPrice+phosphorus*a.phosphorusPrice+solids*a.solidsPrice;
-  const opex=people*1500*a.labourRate+tonnes*a.logisticsRate+electricityKwh*a.electricityPrice+heatKwh*a.heatPrice+.02*capital+tonnes*a.consumablesCost*((protein?1:0)+(gas?.25:0)+(fert?1:0));
+  // Sales use dry product volume at the user-confirmed 20 C / 1 atm reference, not compressor volume.
+  const revenue=proteinKg*a.proteinPrice+gasAtmosphericM3*a.gasPrice+nitrogen*a.ammoniumPrice+phosphorus*a.phosphorusPrice+solids*a.solidsPrice;
+  const opex=magnesiumReagentKg*a.magnesiumPrice+people*1500*a.labourRate+tonnes*a.logisticsRate+electricityKwh*a.electricityPrice+heatKwh*a.heatPrice+.02*capital+tonnes*a.consumablesCost*((protein?1:0)+(gas?.25:0)+(fert?1:0));
   const recovery=s.discount===0?1/s.years:s.discount/(1-(1+s.discount)**-s.years),capitalCharge=capital*recovery;
   const emittedMethane=ad?(gas?rawMethaneKg*(a.methaneLeak+(1-a.methaneLeak)*(1-gasRecovery)):rawMethaneKg*(a.methaneLeak+(1-a.methaneLeak)*.02)):0;
-  const burden=electricityKwh*a.gridFactor+heatKwh*a.heatFactor+emittedMethane*27+tonnes*a.transportFactor;
+  const burden=magnesiumReagentKg*a.magnesiumFootprint+electricityKwh*a.gridFactor+heatKwh*a.heatFactor+emittedMethane*27+tonnes*a.transportFactor;
   const credit=methaneNm3*a.gasDisplacement;
-  const residualKg=tonnes*1000-proteinKg-rawMethaneKg-nitrogen-phosphorus-solids;
+  const residualKg=tonnes*1000+magnesiumReagentKg-proteinKg-rawMethaneKg-nitrogen-phosphorus-solids;
   const reasons:string[]=[];
   if(fraction<.1||fraction>.5)reasons.push('Valorization outside 10–50%.');
   if(!ad&&(routes.gas!=='No product · flare'||routes.fertilizer!=='Bypass'))reasons.push('Gas/fertilizer route requires AD in this screening topology.');
   if(flow>s.maxFlowKgH)reasons.push('Required throughput exceeds available plant capacity.');
   if(proteinKg>tonnes*1000*.35||rawMethaneKg>tonnes*1000*.35||residualKg<0)reasons.push('Product/export quantities exceed feed envelope.');
   if(![capital,revenue,opex,burden,credit,flow].every(Number.isFinite))reasons.push('Nonfinite calculation.');
-  return {id,fraction,feedTonnes:tonnes,flowKgH:flow,routes,assumptions:a,capital,people,revenue,opex,capitalCharge,operatingProfit:revenue-opex,profit:revenue-opex-capitalCharge,burden,credit,offset:(credit-burden)/1000,proteinKg,methaneNm3,fertilizerKg:nitrogen+phosphorus+solids,electricityKwh,heatKwh,residualKg,feasible:!reasons.length,reasons,pareto:false};
+  return {id,fraction,feedTonnes:tonnes,flowKgH:flow,routes,assumptions:a,capital,people,revenue,opex,capitalCharge,operatingProfit:revenue-opex,profit:revenue-opex-capitalCharge,burden,credit,offset:(credit-burden)/1000,proteinKg,methaneNm3,fertilizerKg:nitrogen+phosphorus+solids,electricityKwh,heatKwh,residualKg,ammoniumSulfateKg:nitrogen,struviteKg,struviteHypothetical:struviteKg>0&&a.orthophosphateShare>0,magnesiumReagentKg,gasAtmosphericM3,feasible:!reasons.length,reasons,pareto:false};
 }
 export function markPareto(points:Point[]):Point[]{
   // Maximize both axes. Equal objective pairs are all retained; same-x lower-y points are dominated.
