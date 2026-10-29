@@ -1,0 +1,10 @@
+metric,value,unit,method
+electricity,11.253064516129035,kW,wet t/h x kWh/t wet
+temperature_rise,5.0,degC,specified
+documented_mass_loss,0.0,kg/hr,separate conserved loss stream
+SuspendedProtein_to_SolubleProtein,2.8225806451612905,kg/hr,one-to-one empirical pool transfer
+EntrappedSugars_to_Glucose,1.6935483870967742,kg/hr,one-to-one empirical pool transfer
+ParticulateBiodegradableOrganics_to_OtherBiodegradableOrganics,1.2701612903225805,kg/hr,one-to-one empirical pool transfer
+ParticulateNitrogen_to_OrganicNitrogen,0.056451612903225805,kg/hr,one-to-one empirical pool transfer
+ParticulatePhosphorus_to_DissolvedPhosphorus,0.04516129032258065,kg/hr,one-to-one empirical pool transfer
+ParticulatePotassium_to_PotassiumIon,0.11854838709677418,kg/hr,one-to-one empirical pool transfer

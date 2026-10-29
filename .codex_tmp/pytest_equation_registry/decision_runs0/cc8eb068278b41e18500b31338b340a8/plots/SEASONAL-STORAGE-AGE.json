@@ -1,0 +1,30 @@
+{
+  "series": [
+    {
+      "label": "Storage Age H",
+      "series_id": "storage_age_h",
+      "x": [
+        "2026-07"
+      ],
+      "y": [
+        0.0
+      ]
+    }
+  ],
+  "specification": {
+    "availability_status": "available",
+    "plot_id": "SEASONAL-STORAGE-AGE",
+    "process_area": "feedstock_and_characterization",
+    "run_id": "cc8eb068278b41e18500b31338b340a8",
+    "scenario": "F2/PR3/AD1/BG2/NR4",
+    "source_result_fields": [
+      "storage_inventory_series.storage_age_h"
+    ],
+    "title": "Storage age",
+    "warnings": [],
+    "x_axis_label": "Time",
+    "x_unit": null,
+    "y_axis_label": "Average storage age",
+    "y_unit": "h"
+  }
+}

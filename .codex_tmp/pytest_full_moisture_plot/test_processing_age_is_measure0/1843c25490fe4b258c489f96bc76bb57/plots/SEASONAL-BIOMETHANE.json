@@ -1,0 +1,30 @@
+{
+  "series": [
+    {
+      "label": "Biomethane",
+      "series_id": "biomethane",
+      "x": [
+        "2026-07-01"
+      ],
+      "y": [
+        0.02476329749908424
+      ]
+    }
+  ],
+  "specification": {
+    "availability_status": "available",
+    "plot_id": "SEASONAL-BIOMETHANE",
+    "process_area": "biogas_conditioning_and_upgrading",
+    "run_id": "1843c25490fe4b258c489f96bc76bb57",
+    "scenario": "F2/PR3/AD1/BG2/NR4",
+    "source_result_fields": [
+      "product_series.biomethane"
+    ],
+    "title": "Biomethane production",
+    "warnings": [],
+    "x_axis_label": "Time",
+    "x_unit": null,
+    "y_axis_label": "Biomethane",
+    "y_unit": "kg"
+  }
+}

@@ -1,0 +1,3660 @@
+{
+  "schema_version": "greenhub-decision-support-1.0",
+  "run_id": "a6dcfe28aa294f619c80a03984e974b2",
+  "configuration": {
+    "simulation": {
+      "schema_version": "1.0.0",
+      "request_id": "decision-support",
+      "project_id": "greenhub",
+      "calculation_mode": "structural",
+      "resolution_mode": "steady_state",
+      "selected_month": "July",
+      "scenarios": {
+        "feed_preparation": "F2",
+        "protein_recovery": "PR3",
+        "anaerobic_digestion": "AD1",
+        "biogas_upgrading": "BG3",
+        "nutrient_recovery": "NR4",
+        "process_order": "A"
+      },
+      "wet_feed_rate_kg_hr": 1446.1165812371519,
+      "plant_capacity_kg_hr": 1146.9358305399974,
+      "operating_schedule": {
+        "operating_days_per_week": 7,
+        "operating_hours_per_day": 10.68399669247483
+      },
+      "export_formats": [
+        "json",
+        "csv"
+      ],
+      "strict_validation": true,
+      "storage_conditions": {
+        "model": "grass_reactions",
+        "storage_days": 2.7652111283030294,
+        "aerobic_fraction": 0.7594916239624411,
+        "allow_assumptions": true,
+        "moisture_activity": 1,
+        "temperature_c": 20
+      }
+    },
+    "project_basis": {
+      "currency": "EUR",
+      "price_year": 2026,
+      "location": "Netherlands"
+    },
+    "tea": {},
+    "financial_assumptions": {
+      "product_prices": {}
+    },
+    "lca": {},
+    "climate_factors": {},
+    "additional_inventory": []
+  },
+  "analysis_period": {
+    "start_date": null,
+    "end_date": null,
+    "operating_hours": 3899.658792753313,
+    "schedule_source": "7 operating days/week at 10.684 hours/day"
+  },
+  "scenario_ids": [
+    "F2",
+    "PR3",
+    "AD1",
+    "BG3",
+    "NR4"
+  ],
+  "model_type": "steady_state",
+  "annual": {
+    "method": "steady_state_annualization",
+    "method_label": "Annualized from the selected steady-state month",
+    "basis": "Steady-state mass and utility rates are multiplied by the stated annual operating hours. Seasonal feed variation, storage and downtime beyond the schedule assumption are not simulated.",
+    "period": {
+      "start_date": null,
+      "end_date": null,
+      "operating_hours": 3899.658792753313,
+      "schedule_source": "7 operating days/week at 10.684 hours/day"
+    },
+    "feed_processed": {
+      "value": 4470163.98935152,
+      "unit": "kg/year"
+    },
+    "products": {
+      "dry_protein_product": {
+        "value": 36372.01709903101,
+        "unit": "kg/year"
+      },
+      "biomethane": {
+        "value": 29166.54712195772,
+        "unit": "kg/year"
+      },
+      "phosphorus_product": {
+        "value": 623.7998440461012,
+        "unit": "kg/year"
+      },
+      "ammonium_product": {
+        "value": 40747.75561758787,
+        "unit": "kg/year"
+      },
+      "potassium_concentrate": {
+        "value": 0.0,
+        "unit": "kg/year"
+      },
+      "nutrient_rich_solids": {
+        "value": 35017.600376552386,
+        "unit": "kg/year"
+      }
+    },
+    "utilities": {
+      "electricity": {
+        "value": 141770.81957942797,
+        "unit": "kWh/year"
+      },
+      "heating": {
+        "value": 213007.70746349957,
+        "unit": "kWh/year"
+      },
+      "cooling": {
+        "value": 61241.15318496262,
+        "unit": "kWh/year"
+      }
+    },
+    "balance": {
+      "overall_closure_pct": 99.99999999903353,
+      "process_mass_residual_kg": -3.066448922690693e-05,
+      "storage_mass_residual_kg": 0.0,
+      "element_residuals_kg": {
+        "carbon": 0.0,
+        "hydrogen": 0.0,
+        "oxygen": 0.0,
+        "nitrogen": 0.0,
+        "phosphorus": 0.0,
+        "sulfur": -4.3294909798966694e-13,
+        "potassium": 0.0,
+        "sodium": 0.0,
+        "magnesium": 0.0,
+        "calcium": 0.0,
+        "chloride": 0.0
+      },
+      "passed": true
+    },
+    "monthly": [],
+    "warnings": [
+      "Annual totals are steady-state annualizations, not measured or simulated month-by-month totals.",
+      "134 selected Phase 7 parameters use quality class E; replace them before design, fertilizer-quality, economic, or configuration-selection interpretation.",
+      "75 selected Phase 6 parameters use quality class E; replace them before scientific, design, economic, or configuration-selection interpretation.",
+      "80 selected Phase 5 parameters use quality class E; replace them before scientific, design, or economic interpretation.",
+      "69 selected Phase 4 parameters use quality class E; replace them before scientific or economic interpretation.",
+      "67 selected Phase 3 parameters use quality class E; see the assumption register for individual records.",
+      "PEF release and juice-yield enhancement are empirical structural assumptions, not kinetic predictions.",
+      "No transfer pump is active because no pressure-rise requirement is available; pumping electricity is zero.",
+      "U101, U201, S201, C301 have no purchase cost because no approved GreenHub cost correlation is available.",
+      "Structural-test mode is active; quality-class E inputs are not final measured or literature assumptions.",
+      "The protein separator, washer, dewatering unit, dryer, and mixers have no purchase-cost model.",
+      "The low-temperature belt dryer is a structural selection suitable for wet cake; vendor data remain required.",
+      "Phase 4 structural-test mode is active; class E values are placeholders, not design data.",
+      "Phase 5 structural-test mode is active; class E values are placeholders, not design data.",
+      "Phase 6 structural-test mode is active; class-E gas-cleaning and upgrading values are not validated design data.",
+      "Phase 7 structural-test mode is active; quality-class E recoveries, reagent doses, utilities, and design values are placeholders.",
+      "Storage is an uncalibrated reaction subset; protein surrogate mappings and leaching are unresolved. Oxygen is external, unlimited in the aerobic exposure fraction. Moisture activity and Q10 are explicit assumptions. Lactate/acetate are neutral acid surrogates; no pH speciation is predicted.",
+      "R06: blocked species mapping: fructan_unit",
+      "R10: blocked species mapping: Ethanol",
+      "R11: blocked species mapping: Ethanol",
+      "R14: blocked species mapping: amino_acid_unit, true_protein_unit",
+      "R15: blocked species mapping: TAN_as_NH3, amino_acid_unit, keto_acid_unit",
+      "R16: blocked species mapping: keto_acid_unit",
+      "R19: blocked species mapping: Ethanol"
+    ],
+    "biomass_schedule": {
+      "monthly": [],
+      "annual_available_tonnes": 0,
+      "annual_processed_tonnes": 0,
+      "annual_unused_tonnes": 0.0,
+      "utilization_fraction": 0.0,
+      "peak_month_processed_tonnes": 0.0,
+      "peak_throughput_kg_per_hr": 0.0,
+      "policy_id": "existing_empirical_feed_profile",
+      "source_status": "model_input",
+      "warning": "No shared annual biomass schedule was supplied; displayed availability equals empirical intake."
+    },
+    "chart_data": {
+      "schedule": [],
+      "bulk_streams": [],
+      "small_products": [],
+      "biomethane": [],
+      "energy": [],
+      "mass_balance": [],
+      "annual_product_mix": [
+        {
+          "product": "dry_protein_product",
+          "tonnes_per_year": 36.372017099031005
+        },
+        {
+          "product": "biomethane",
+          "tonnes_per_year": 29.16654712195772
+        },
+        {
+          "product": "phosphorus_product",
+          "tonnes_per_year": 0.6237998440461011
+        },
+        {
+          "product": "ammonium_product",
+          "tonnes_per_year": 40.74775561758787
+        },
+        {
+          "product": "nutrient_rich_solids",
+          "tonnes_per_year": 35.01760037655239
+        }
+      ],
+      "groups": {
+        "large_mass": [
+          "feed_processed_tonnes",
+          "press_cake_tonnes",
+          "digestate_tonnes"
+        ],
+        "small_products": [
+          "protein_tonnes",
+          "phosphorus_product_tonnes",
+          "ammonium_product_tonnes",
+          "potassium_concentrate_tonnes",
+          "nutrient_rich_solids_tonnes"
+        ]
+      }
+    },
+    "chart_contract": {
+      "schedule": "tonnes/month",
+      "bulk_streams": "tonnes/month",
+      "small_products": "tonnes/month",
+      "biomethane": "m3/month",
+      "electricity": "MWh/month",
+      "heat": "GJ/month",
+      "annual_electricity": "MWh/year",
+      "annual_heat": "GJ/year"
+    },
+    "display_utilities": {
+      "electricity": {
+        "value": 141.77081957942798,
+        "unit": "MWh/year"
+      },
+      "heating": {
+        "value": 766.8277468685984,
+        "unit": "GJ/year"
+      },
+      "cooling": {
+        "value": 220.46815146586542,
+        "unit": "GJ/year"
+      }
+    },
+    "process_pathway": [
+      {
+        "stage_id": "feed",
+        "label": "Feed",
+        "active_unit_names": [],
+        "unit_count": 0,
+        "products_kg_hr": {},
+        "power_kw": null,
+        "heat_duty_kw": null,
+        "limitations": [],
+        "data_quality": "structural"
+      },
+      {
+        "stage_id": "pretreatment",
+        "label": "Pre-treatment / press",
+        "active_unit_names": [
+          "Primary centrifuge",
+          "Screw press",
+          "Feed preparation",
+          "PEF pretreatment"
+        ],
+        "unit_count": 4,
+        "products_kg_hr": {},
+        "power_kw": 30.812351885742316,
+        "heat_duty_kw": null,
+        "limitations": [
+          "67 selected Phase 3 parameters use quality class E; see the assumption register for individual records.",
+          "PEF release and juice-yield enhancement are empirical structural assumptions, not kinetic predictions.",
+          "No transfer pump is active because no pressure-rise requirement is available; pumping electricity is zero.",
+          "U101, U201, S201, C301 have no purchase cost because no approved GreenHub cost correlation is available.",
+          "Structural-test mode is active; quality-class E inputs are not final measured or literature assumptions."
+        ],
+        "data_quality": "structural"
+      },
+      {
+        "stage_id": "protein",
+        "label": "Protein recovery",
+        "active_unit_names": [
+          "Protein separator",
+          "Mechanical protein-cake dewatering",
+          "Low-temperature protein belt dryer",
+          "Heat exchanger",
+          "Acid dosing and mixing",
+          "Mixer",
+          "Residual-liquid neutralization",
+          "Protein precipitation and coagulation",
+          "Protein-cake washer"
+        ],
+        "unit_count": 9,
+        "products_kg_hr": {
+          "dry_protein_product": 9.326974238520732
+        },
+        "power_kw": 2.932173779921553,
+        "heat_duty_kw": 37.99870132649575,
+        "limitations": [
+          "69 selected Phase 4 parameters use quality class E; replace them before scientific or economic interpretation.",
+          "The protein separator, washer, dewatering unit, dryer, and mixers have no purchase-cost model.",
+          "The low-temperature belt dryer is a structural selection suitable for wet cake; vendor data remain required.",
+          "Phase 4 structural-test mode is active; class E values are placeholders, not design data."
+        ],
+        "data_quality": "structural"
+      },
+      {
+        "stage_id": "ad",
+        "label": "Anaerobic digestion",
+        "active_unit_names": [
+          "Heat exchanger",
+          "Digester-feed conditioning",
+          "Anaerobic digester",
+          "Raw-biogas disengagement"
+        ],
+        "unit_count": 4,
+        "products_kg_hr": {},
+        "power_kw": 1.2535593330206172,
+        "heat_duty_kw": 2.4837575972411456,
+        "limitations": [
+          "80 selected Phase 5 parameters use quality class E; replace them before scientific, design, or economic interpretation.",
+          "Phase 5 structural-test mode is active; class E values are placeholders, not design data."
+        ],
+        "data_quality": "structural"
+      },
+      {
+        "stage_id": "gas",
+        "label": "Gas upgrading / CHP",
+        "active_unit_names": [
+          "Isentropic compressor",
+          "Gas moisture guard",
+          "Heat exchanger",
+          "Particle and siloxane filter",
+          "Raw-biogas cooler",
+          "Mixer",
+          "Mixer",
+          "Gas membrane stage",
+          "Gas membrane stage",
+          "Mixer",
+          "Mixer",
+          "Mixer",
+          "Hydrogen-sulfide removal",
+          "Biogas ammonia removal",
+          "Biogas condensate separator"
+        ],
+        "unit_count": 15,
+        "products_kg_hr": {
+          "biomethane": 7.479256179068166
+        },
+        "power_kw": 1.0082871663335549,
+        "heat_duty_kw": null,
+        "limitations": [
+          "75 selected Phase 6 parameters use quality class E; replace them before scientific, design, economic, or configuration-selection interpretation.",
+          "Phase 6 structural-test mode is active; class-E gas-cleaning and upgrading values are not validated design data."
+        ],
+        "data_quality": "structural"
+      },
+      {
+        "stage_id": "nutrients",
+        "label": "Nutrient recovery / products",
+        "active_unit_names": [
+          "Ammonia stripper",
+          "Ammonia acid absorber",
+          "Nutrient-product drying",
+          "Phase 7 process heater",
+          "Alkaline dosing and pH conditioning",
+          "Mixer",
+          "Mixer",
+          "Struvite crystallization",
+          "Digestate solid-liquid separation",
+          "Nutrient crystal separation",
+          "Digestate equalization",
+          "Phase 7 product storage",
+          "Nutrient-product washing"
+        ],
+        "unit_count": 13,
+        "products_kg_hr": {
+          "phosphorus_product": 0.1599626729408482,
+          "ammonium_product": 10.449056643957906,
+          "potassium_concentrate": 0.0,
+          "nutrient_rich_solids": 8.979657513017589
+        },
+        "power_kw": 0.34830067017433936,
+        "heat_duty_kw": 14.139680802776912,
+        "limitations": [
+          "134 selected Phase 7 parameters use quality class E; replace them before design, fertilizer-quality, economic, or configuration-selection interpretation.",
+          "Phase 7 structural-test mode is active; quality-class E recoveries, reagent doses, utilities, and design values are placeholders."
+        ],
+        "data_quality": "structural"
+      }
+    ],
+    "reporting_status": {
+      "model": "empirical",
+      "schedule_policy": "existing_empirical_feed_profile",
+      "validated_simulation_ready": false,
+      "numerical_balance_checks_passed": true,
+      "note": "Display adapter only; empirical and dynamic proxy calculations remain independent."
+    }
+  },
+  "products": [
+    {
+      "product_id": "dry_protein_product",
+      "stream_id": "dry_protein_product",
+      "mass_flow": {
+        "value": 9.326974238520732,
+        "unit": "kg/hr",
+        "basis": "wet stream",
+        "status": "calculated",
+        "origin": "BioSTEAM stream",
+        "warning": null,
+        "uncertainty": null
+      },
+      "classification": "candidate_product_not_regulatory_qualified"
+    },
+    {
+      "product_id": "biomethane",
+      "stream_id": "membrane_stage_2_retentate",
+      "mass_flow": {
+        "value": 7.479256179068166,
+        "unit": "kg/hr",
+        "basis": "wet stream",
+        "status": "calculated",
+        "origin": "BioSTEAM stream",
+        "warning": null,
+        "uncertainty": null
+      },
+      "classification": "candidate_product_not_regulatory_qualified"
+    },
+    {
+      "product_id": "phosphorus_product",
+      "stream_id": "struvite_product",
+      "mass_flow": {
+        "value": 0.1599626729408482,
+        "unit": "kg/hr",
+        "basis": "wet stream",
+        "status": "calculated",
+        "origin": "BioSTEAM stream",
+        "warning": null,
+        "uncertainty": null
+      },
+      "classification": "candidate_product_not_regulatory_qualified"
+    },
+    {
+      "product_id": "ammonium_product",
+      "stream_id": "ammonium_salt_product",
+      "mass_flow": {
+        "value": 10.449056643957906,
+        "unit": "kg/hr",
+        "basis": "wet stream",
+        "status": "calculated",
+        "origin": "BioSTEAM stream",
+        "warning": null,
+        "uncertainty": null
+      },
+      "classification": "candidate_product_not_regulatory_qualified"
+    },
+    {
+      "product_id": "nutrient_rich_solids",
+      "stream_id": "nutrient_rich_digestate_solids",
+      "mass_flow": {
+        "value": 8.979657513017589,
+        "unit": "kg/hr",
+        "basis": "wet stream",
+        "status": "calculated",
+        "origin": "BioSTEAM stream",
+        "warning": null,
+        "uncertainty": null
+      },
+      "classification": "candidate_product_not_regulatory_qualified"
+    }
+  ],
+  "balances": [
+    {
+      "balance_id": "overall_mass",
+      "process_area": "integrated_system",
+      "inlet": {
+        "value": 813.6160640287823,
+        "unit": "kg/hr",
+        "basis": "boundary inlet",
+        "status": "calculated",
+        "origin": "Phase 7 validation",
+        "warning": null,
+        "uncertainty": null
+      },
+      "outlet": {
+        "value": 813.6160640366456,
+        "unit": "kg/hr",
+        "basis": "boundary outlet",
+        "status": "calculated",
+        "origin": "Phase 7 validation",
+        "warning": null,
+        "uncertainty": null
+      },
+      "residual": {
+        "value": -7.863377504691016e-09,
+        "unit": "kg/hr",
+        "basis": "inlet minus outlet",
+        "status": "calculated",
+        "origin": "Phase 7 validation",
+        "warning": null,
+        "uncertainty": null
+      },
+      "passed": true
+    },
+    {
+      "balance_id": "element_carbon",
+      "process_area": "integrated_system",
+      "inlet": {
+        "value": 4.672187440382645,
+        "unit": "kg/hr",
+        "basis": "carbon",
+        "status": "calculated",
+        "origin": "Phase 7 validation",
+        "warning": null,
+        "uncertainty": null
+      },
+      "outlet": {
+        "value": 4.672187440382645,
+        "unit": "kg/hr",
+        "basis": "carbon",
+        "status": "calculated",
+        "origin": "Phase 7 validation",
+        "warning": null,
+        "uncertainty": null
+      },
+      "residual": {
+        "value": 0.0,
+        "unit": "kg/hr",
+        "basis": "inlet minus outlet",
+        "status": "calculated",
+        "origin": "Phase 7 validation",
+        "warning": null,
+        "uncertainty": null
+      },
+      "passed": true
+    },
+    {
+      "balance_id": "element_hydrogen",
+      "process_area": "integrated_system",
+      "inlet": {
+        "value": 55.318629794578655,
+        "unit": "kg/hr",
+        "basis": "hydrogen",
+        "status": "calculated",
+        "origin": "Phase 7 validation",
+        "warning": null,
+        "uncertainty": null
+      },
+      "outlet": {
+        "value": 55.318629794578655,
+        "unit": "kg/hr",
+        "basis": "hydrogen",
+        "status": "calculated",
+        "origin": "Phase 7 validation",
+        "warning": null,
+        "uncertainty": null
+      },
+      "residual": {
+        "value": 0.0,
+        "unit": "kg/hr",
+        "basis": "inlet minus outlet",
+        "status": "calculated",
+        "origin": "Phase 7 validation",
+        "warning": null,
+        "uncertainty": null
+      },
+      "passed": true
+    },
+    {
+      "balance_id": "element_oxygen",
+      "process_area": "integrated_system",
+      "inlet": {
+        "value": 510.69460910082313,
+        "unit": "kg/hr",
+        "basis": "oxygen",
+        "status": "calculated",
+        "origin": "Phase 7 validation",
+        "warning": null,
+        "uncertainty": null
+      },
+      "outlet": {
+        "value": 510.69460910082313,
+        "unit": "kg/hr",
+        "basis": "oxygen",
+        "status": "calculated",
+        "origin": "Phase 7 validation",
+        "warning": null,
+        "uncertainty": null
+      },
+      "residual": {
+        "value": 0.0,
+        "unit": "kg/hr",
+        "basis": "inlet minus outlet",
+        "status": "calculated",
+        "origin": "Phase 7 validation",
+        "warning": null,
+        "uncertainty": null
+      },
+      "passed": true
+    },
+    {
+      "balance_id": "element_nitrogen",
+      "process_area": "integrated_system",
+      "inlet": {
+        "value": 239.854417310071,
+        "unit": "kg/hr",
+        "basis": "nitrogen",
+        "status": "calculated",
+        "origin": "Phase 7 validation",
+        "warning": null,
+        "uncertainty": null
+      },
+      "outlet": {
+        "value": 239.854417310071,
+        "unit": "kg/hr",
+        "basis": "nitrogen",
+        "status": "calculated",
+        "origin": "Phase 7 validation",
+        "warning": null,
+        "uncertainty": null
+      },
+      "residual": {
+        "value": 0.0,
+        "unit": "kg/hr",
+        "basis": "inlet minus outlet",
+        "status": "calculated",
+        "origin": "Phase 7 validation",
+        "warning": null,
+        "uncertainty": null
+      },
+      "passed": true
+    },
+    {
+      "balance_id": "element_phosphorus",
+      "process_area": "integrated_system",
+      "inlet": {
+        "value": 0.15770885363089426,
+        "unit": "kg/hr",
+        "basis": "phosphorus",
+        "status": "calculated",
+        "origin": "Phase 7 validation",
+        "warning": null,
+        "uncertainty": null
+      },
+      "outlet": {
+        "value": 0.15770885363089426,
+        "unit": "kg/hr",
+        "basis": "phosphorus",
+        "status": "calculated",
+        "origin": "Phase 7 validation",
+        "warning": null,
+        "uncertainty": null
+      },
+      "residual": {
+        "value": 0.0,
+        "unit": "kg/hr",
+        "basis": "inlet minus outlet",
+        "status": "calculated",
+        "origin": "Phase 7 validation",
+        "warning": null,
+        "uncertainty": null
+      },
+      "passed": true
+    },
+    {
+      "balance_id": "element_sulfur",
+      "process_area": "integrated_system",
+      "inlet": {
+        "value": 0.7848340319210577,
+        "unit": "kg/hr",
+        "basis": "sulfur",
+        "status": "calculated",
+        "origin": "Phase 7 validation",
+        "warning": null,
+        "uncertainty": null
+      },
+      "outlet": {
+        "value": 0.7848340319210578,
+        "unit": "kg/hr",
+        "basis": "sulfur",
+        "status": "calculated",
+        "origin": "Phase 7 validation",
+        "warning": null,
+        "uncertainty": null
+      },
+      "residual": {
+        "value": -1.1102230246251565e-16,
+        "unit": "kg/hr",
+        "basis": "inlet minus outlet",
+        "status": "calculated",
+        "origin": "Phase 7 validation",
+        "warning": null,
+        "uncertainty": null
+      },
+      "passed": true
+    },
+    {
+      "balance_id": "element_potassium",
+      "process_area": "integrated_system",
+      "inlet": {
+        "value": 0.7230100239328545,
+        "unit": "kg/hr",
+        "basis": "potassium",
+        "status": "calculated",
+        "origin": "Phase 7 validation",
+        "warning": null,
+        "uncertainty": null
+      },
+      "outlet": {
+        "value": 0.7230100239328545,
+        "unit": "kg/hr",
+        "basis": "potassium",
+        "status": "calculated",
+        "origin": "Phase 7 validation",
+        "warning": null,
+        "uncertainty": null
+      },
+      "residual": {
+        "value": 0.0,
+        "unit": "kg/hr",
+        "basis": "inlet minus outlet",
+        "status": "calculated",
+        "origin": "Phase 7 validation",
+        "warning": null,
+        "uncertainty": null
+      },
+      "passed": true
+    },
+    {
+      "balance_id": "element_sodium",
+      "process_area": "integrated_system",
+      "inlet": {
+        "value": 0.6520811249143692,
+        "unit": "kg/hr",
+        "basis": "sodium",
+        "status": "calculated",
+        "origin": "Phase 7 validation",
+        "warning": null,
+        "uncertainty": null
+      },
+      "outlet": {
+        "value": 0.6520811249143692,
+        "unit": "kg/hr",
+        "basis": "sodium",
+        "status": "calculated",
+        "origin": "Phase 7 validation",
+        "warning": null,
+        "uncertainty": null
+      },
+      "residual": {
+        "value": 0.0,
+        "unit": "kg/hr",
+        "basis": "inlet minus outlet",
+        "status": "calculated",
+        "origin": "Phase 7 validation",
+        "warning": null,
+        "uncertainty": null
+      },
+      "passed": true
+    },
+    {
+      "balance_id": "element_magnesium",
+      "process_area": "integrated_system",
+      "inlet": {
+        "value": 0.0,
+        "unit": "kg/hr",
+        "basis": "magnesium",
+        "status": "calculated",
+        "origin": "Phase 7 validation",
+        "warning": null,
+        "uncertainty": null
+      },
+      "outlet": {
+        "value": 0.0,
+        "unit": "kg/hr",
+        "basis": "magnesium",
+        "status": "calculated",
+        "origin": "Phase 7 validation",
+        "warning": null,
+        "uncertainty": null
+      },
+      "residual": {
+        "value": 0.0,
+        "unit": "kg/hr",
+        "basis": "inlet minus outlet",
+        "status": "calculated",
+        "origin": "Phase 7 validation",
+        "warning": null,
+        "uncertainty": null
+      },
+      "passed": true
+    },
+    {
+      "balance_id": "element_calcium",
+      "process_area": "integrated_system",
+      "inlet": {
+        "value": 0.0,
+        "unit": "kg/hr",
+        "basis": "calcium",
+        "status": "calculated",
+        "origin": "Phase 7 validation",
+        "warning": null,
+        "uncertainty": null
+      },
+      "outlet": {
+        "value": 0.0,
+        "unit": "kg/hr",
+        "basis": "calcium",
+        "status": "calculated",
+        "origin": "Phase 7 validation",
+        "warning": null,
+        "uncertainty": null
+      },
+      "residual": {
+        "value": 0.0,
+        "unit": "kg/hr",
+        "basis": "inlet minus outlet",
+        "status": "calculated",
+        "origin": "Phase 7 validation",
+        "warning": null,
+        "uncertainty": null
+      },
+      "passed": true
+    },
+    {
+      "balance_id": "element_chloride",
+      "process_area": "integrated_system",
+      "inlet": {
+        "value": 0.7264730093778481,
+        "unit": "kg/hr",
+        "basis": "chloride",
+        "status": "calculated",
+        "origin": "Phase 7 validation",
+        "warning": null,
+        "uncertainty": null
+      },
+      "outlet": {
+        "value": 0.7264730093778481,
+        "unit": "kg/hr",
+        "basis": "chloride",
+        "status": "calculated",
+        "origin": "Phase 7 validation",
+        "warning": null,
+        "uncertainty": null
+      },
+      "residual": {
+        "value": 0.0,
+        "unit": "kg/hr",
+        "basis": "inlet minus outlet",
+        "status": "calculated",
+        "origin": "Phase 7 validation",
+        "warning": null,
+        "uncertainty": null
+      },
+      "passed": true
+    }
+  ],
+  "storage": [
+    {
+      "time": "steady_state_rate_basis",
+      "incoming_residence": {
+        "model": "grass_reaction_package_subset",
+        "input_component_masses_kg": {
+          "Water": 745.5082898509982,
+          "Ammonium": 0.22938716610799942,
+          "PotassiumIon": 0.5734679152699985,
+          "SolubleProtein": 5.734679152699986,
+          "SuspendedProtein": 28.673395763499933,
+          "Peptides": 2.293871661079994,
+          "AminoAcids": 2.293871661079994,
+          "Cellulose": 137.63229966479966,
+          "Hemicellulose": 80.28550813779981,
+          "Lignin": 45.877433221599894,
+          "Pectin": 17.204037458099958,
+          "Starch": 5.734679152699986,
+          "Lipids": 9.175486644319976,
+          "NonBiodegradableOrganics": 5.734679152699986,
+          "SuspendedSolids": 9.175486644319976,
+          "InertSolids": 2.293871661079994,
+          "Ash": 11.469358305399972,
+          "OrganicNitrogen": 0.5734679152699985,
+          "ParticulatePhosphorus": 0.45877433221599884,
+          "HeavyMetals": 0.022938716610799947,
+          "PersistentOrganics": 0.005734679152699987,
+          "Pesticides": 0.005734679152699987,
+          "Microplastics": 0.022938716610799947,
+          "PathogenIndicators": 0.057346791526999855,
+          "EntrappedSugars": 11.469358305399972,
+          "ParticulateBiodegradableOrganics": 17.204037458099958,
+          "ParticulateNitrogen": 0.5734679152699985,
+          "DissolvedPhosphorus": 0.11469358305399971,
+          "ParticulatePotassium": 0.802855081377998,
+          "Sand": 4.587743322159988,
+          "Litter": 1.146935830539997
+        },
+        "retained_component_masses_kg": {
+          "Ammonium": 0.22938716610799942,
+          "PotassiumIon": 0.5734679152699985,
+          "SolubleProtein": 5.734679152699986,
+          "SuspendedProtein": 28.673395763499933,
+          "Peptides": 2.293871661079994,
+          "AminoAcids": 2.293871661079994,
+          "Lignin": 45.877433221599894,
+          "Pectin": 17.204037458099958,
+          "Lipids": 9.175486644319976,
+          "NonBiodegradableOrganics": 5.734679152699986,
+          "SuspendedSolids": 9.175486644319976,
+          "InertSolids": 2.293871661079994,
+          "Ash": 11.469358305399972,
+          "OrganicNitrogen": 0.5734679152699985,
+          "ParticulatePhosphorus": 0.45877433221599884,
+          "HeavyMetals": 0.022938716610799947,
+          "PersistentOrganics": 0.005734679152699987,
+          "Pesticides": 0.005734679152699987,
+          "Microplastics": 0.022938716610799947,
+          "PathogenIndicators": 0.057346791526999855,
+          "EntrappedSugars": 11.469358305399972,
+          "ParticulateBiodegradableOrganics": 17.204037458099958,
+          "ParticulateNitrogen": 0.5734679152699985,
+          "DissolvedPhosphorus": 0.11469358305399971,
+          "ParticulatePotassium": 0.802855081377998,
+          "Sand": 4.587743322159988,
+          "Litter": 1.146935830539997,
+          "Cellulose": 129.60694523444113,
+          "Hemicellulose": 74.45486303385313,
+          "Starch": 4.994170074906549,
+          "Sucrose": 0.0,
+          "Glucose": 8.128804363806474,
+          "Xylose": 5.700656698860958,
+          "Water": 744.6986745251377,
+          "Oxygen": 0.0,
+          "LacticAcid": 0.8267110819862696,
+          "AceticAcid": 0.1103043087002648,
+          "ButyricAcid": 0.0
+        },
+        "exported_component_masses_kg": {
+          "Hydrogen": 0.0,
+          "Methane": 0.0,
+          "CarbonDioxide": 2.343705449178252
+        },
+        "total_input_kg": 1146.9358305399971,
+        "total_retained_kg": 1146.296183055392,
+        "total_exported_kg": 2.343705449178252,
+        "external_oxygen_kg": 1.7040579645710134,
+        "mass_balance_residual_kg": -2.0108359422010835e-12,
+        "element_balance_residual_kg": {
+          "C": 0.0,
+          "H": -2.4158453015843406e-13,
+          "O": -1.7053025658242404e-12,
+          "N": 0.0
+        },
+        "emissions_kg": {
+          "Hydrogen": 0.0,
+          "Methane": 0.0,
+          "CarbonDioxide": 2.343705449178252
+        },
+        "intermediate_products_kg": {
+          "Glucose": 8.128804363806474,
+          "Xylose": 5.700656698860958,
+          "LacticAcid": 0.8267110819862696,
+          "AceticAcid": 0.1103043087002648,
+          "Ethanol": 0.0
+        },
+        "leaching_kg": null,
+        "reaction_extents_kmol": {
+          "R01": 0.047612055774340724,
+          "R02": 0.001884089126446713,
+          "R03": 0.04008379239722522,
+          "R04": 0.0040493121249458655,
+          "R05": 0.004567068648851544,
+          "R07": 0.0,
+          "R08": 0.005070789121279682,
+          "R09": 0.0038715049818436706,
+          "R12": 0.0019369523180800719,
+          "R13": 0.004224682818485459,
+          "R17": 0.0005022376210703595,
+          "R18": 0.00010013907788382885
+        },
+        "blockers": [
+          "R06: blocked species mapping: fructan_unit",
+          "R10: blocked species mapping: Ethanol",
+          "R11: blocked species mapping: Ethanol",
+          "R14: blocked species mapping: amino_acid_unit, true_protein_unit",
+          "R15: blocked species mapping: TAN_as_NH3, amino_acid_unit, keto_acid_unit",
+          "R16: blocked species mapping: keto_acid_unit",
+          "R19: blocked species mapping: Ethanol"
+        ],
+        "calculation_complete": false,
+        "emissions_inventory_complete": false,
+        "validated_simulation_ready": false,
+        "assumptions": [
+          {
+            "reaction_id": "R01",
+            "substrate": "cellulose_unit",
+            "environment": "aerobic",
+            "enabled_default": "1",
+            "k_ref_d_inv": "0.0275179",
+            "k_low_d_inv": "0.0068795",
+            "k_high_d_inv": "0.1100715",
+            "range_type": "scenario_bounds_not_confidence_interval",
+            "rate_law": "first_order_on_substrate",
+            "lag_days": "0",
+            "temperature_ref_C": "20",
+            "Q10_assumed": "2",
+            "activity_gate": "moisture_activity",
+            "stoichiometry_mol_per_mol_substrate": "{\"cellulose_unit\":-1,\"water\":-1,\"glucose\":1}",
+            "rate_evidence": "derived_rice_straw_proxy",
+            "stoichiometry_evidence": "idealized_balanced_reaction",
+            "source_url": "https://doi.org/10.1042/bj0291116",
+            "source_locator": "p1116-1117: 56.2% cellulose disappearance at one month; 30 days assumed; disappearance used as hydrolysis proxy",
+            "transfer_warning": "Provisional for cut grass on soil; calibrate before predictive use",
+            "stoichiometry": {
+              "cellulose_unit": -1,
+              "water": -1,
+              "glucose": 1
+            },
+            "unmapped_species": [],
+            "element_residual_mol": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "mapping_ready": true,
+            "source_status": "indirect_proxy",
+            "value": 0.0275179,
+            "unit": "1/day",
+            "basis": "substrate molar pool",
+            "geography": "source experiment; grass transfer unverified",
+            "reference_year": null,
+            "retrieval_date": "2026-10-12",
+            "evidence_class": "derived_rice_straw_proxy",
+            "applicability": "Provisional for cut grass on soil; calibrate before predictive use",
+            "conversion_scaling_method": "first-order reaction with explicit stoichiometry",
+            "uncertainty": {
+              "low": 0.0068795,
+              "high": 0.1100715,
+              "meaning": "scenario_bounds_not_confidence_interval"
+            },
+            "policy_id": "storage.package.R01",
+            "source_id": "grass_degradation_reactions.csv"
+          },
+          {
+            "reaction_id": "R02",
+            "substrate": "cellulose_unit",
+            "environment": "anaerobic",
+            "enabled_default": "1",
+            "k_ref_d_inv": "0.003438",
+            "k_low_d_inv": "0.0008595",
+            "k_high_d_inv": "0.0137521",
+            "range_type": "scenario_bounds_not_confidence_interval",
+            "rate_law": "first_order_on_substrate",
+            "lag_days": "0",
+            "temperature_ref_C": "20",
+            "Q10_assumed": "2",
+            "activity_gate": "moisture_activity",
+            "stoichiometry_mol_per_mol_substrate": "{\"cellulose_unit\":-1,\"water\":-1,\"glucose\":1}",
+            "rate_evidence": "derived_rice_straw_proxy",
+            "stoichiometry_evidence": "idealized_balanced_reaction",
+            "source_url": "https://doi.org/10.1042/bj0291116",
+            "source_locator": "p1116: 9.8% at one month; transfer from nutrient-amended wet rice straw",
+            "transfer_warning": "Provisional for cut grass on soil; calibrate before predictive use",
+            "stoichiometry": {
+              "cellulose_unit": -1,
+              "water": -1,
+              "glucose": 1
+            },
+            "unmapped_species": [],
+            "element_residual_mol": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "mapping_ready": true,
+            "source_status": "indirect_proxy",
+            "value": 0.003438,
+            "unit": "1/day",
+            "basis": "substrate molar pool",
+            "geography": "source experiment; grass transfer unverified",
+            "reference_year": null,
+            "retrieval_date": "2026-10-12",
+            "evidence_class": "derived_rice_straw_proxy",
+            "applicability": "Provisional for cut grass on soil; calibrate before predictive use",
+            "conversion_scaling_method": "first-order reaction with explicit stoichiometry",
+            "uncertainty": {
+              "low": 0.0008595,
+              "high": 0.0137521,
+              "meaning": "scenario_bounds_not_confidence_interval"
+            },
+            "policy_id": "storage.package.R02",
+            "source_id": "grass_degradation_reactions.csv"
+          },
+          {
+            "reaction_id": "R03",
+            "substrate": "hemicellulose_unit",
+            "environment": "aerobic",
+            "enabled_default": "1",
+            "k_ref_d_inv": "0.0326055",
+            "k_low_d_inv": "0.0081514",
+            "k_high_d_inv": "0.1304222",
+            "range_type": "scenario_bounds_not_confidence_interval",
+            "rate_law": "first_order_on_substrate",
+            "lag_days": "0",
+            "temperature_ref_C": "20",
+            "Q10_assumed": "2",
+            "activity_gate": "moisture_activity",
+            "stoichiometry_mol_per_mol_substrate": "{\"hemicellulose_unit\":-1,\"water\":-1,\"xylose\":1}",
+            "rate_evidence": "derived_rice_straw_proxy",
+            "stoichiometry_evidence": "idealized_balanced_reaction",
+            "source_url": "https://doi.org/10.1042/bj0291116",
+            "source_locator": "p1116: 62.4% disappearance at one month; xylan surrogate; hydrolysis interpretation assumed",
+            "transfer_warning": "Provisional for cut grass on soil; calibrate before predictive use",
+            "stoichiometry": {
+              "hemicellulose_unit": -1,
+              "water": -1,
+              "xylose": 1
+            },
+            "unmapped_species": [],
+            "element_residual_mol": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "mapping_ready": true,
+            "source_status": "indirect_proxy",
+            "value": 0.0326055,
+            "unit": "1/day",
+            "basis": "substrate molar pool",
+            "geography": "source experiment; grass transfer unverified",
+            "reference_year": null,
+            "retrieval_date": "2026-10-12",
+            "evidence_class": "derived_rice_straw_proxy",
+            "applicability": "Provisional for cut grass on soil; calibrate before predictive use",
+            "conversion_scaling_method": "first-order reaction with explicit stoichiometry",
+            "uncertainty": {
+              "low": 0.0081514,
+              "high": 0.1304222,
+              "meaning": "scenario_bounds_not_confidence_interval"
+            },
+            "policy_id": "storage.package.R03",
+            "source_id": "grass_degradation_reactions.csv"
+          },
+          {
+            "reaction_id": "R04",
+            "substrate": "hemicellulose_unit",
+            "environment": "anaerobic",
+            "enabled_default": "1",
+            "k_ref_d_inv": "0.0103992",
+            "k_low_d_inv": "0.0025998",
+            "k_high_d_inv": "0.0415966",
+            "range_type": "scenario_bounds_not_confidence_interval",
+            "rate_law": "first_order_on_substrate",
+            "lag_days": "0",
+            "temperature_ref_C": "20",
+            "Q10_assumed": "2",
+            "activity_gate": "moisture_activity",
+            "stoichiometry_mol_per_mol_substrate": "{\"hemicellulose_unit\":-1,\"water\":-1,\"xylose\":1}",
+            "rate_evidence": "derived_rice_straw_proxy",
+            "stoichiometry_evidence": "idealized_balanced_reaction",
+            "source_url": "https://doi.org/10.1042/bj0291116",
+            "source_locator": "p1116: 26.8% disappearance at one month; xylan surrogate; hydrolysis interpretation assumed",
+            "transfer_warning": "Provisional for cut grass on soil; calibrate before predictive use",
+            "stoichiometry": {
+              "hemicellulose_unit": -1,
+              "water": -1,
+              "xylose": 1
+            },
+            "unmapped_species": [],
+            "element_residual_mol": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "mapping_ready": true,
+            "source_status": "indirect_proxy",
+            "value": 0.0103992,
+            "unit": "1/day",
+            "basis": "substrate molar pool",
+            "geography": "source experiment; grass transfer unverified",
+            "reference_year": null,
+            "retrieval_date": "2026-10-12",
+            "evidence_class": "derived_rice_straw_proxy",
+            "applicability": "Provisional for cut grass on soil; calibrate before predictive use",
+            "conversion_scaling_method": "first-order reaction with explicit stoichiometry",
+            "uncertainty": {
+              "low": 0.0025998,
+              "high": 0.0415966,
+              "meaning": "scenario_bounds_not_confidence_interval"
+            },
+            "policy_id": "storage.package.R04",
+            "source_id": "grass_degradation_reactions.csv"
+          },
+          {
+            "reaction_id": "R05",
+            "substrate": "starch_unit",
+            "environment": "both",
+            "enabled_default": "1",
+            "k_ref_d_inv": "0.05",
+            "k_low_d_inv": "0.0125",
+            "k_high_d_inv": "0.2",
+            "range_type": "scenario_bounds_not_confidence_interval",
+            "rate_law": "first_order_on_substrate",
+            "lag_days": "0",
+            "temperature_ref_C": "20",
+            "Q10_assumed": "2",
+            "activity_gate": "moisture_activity",
+            "stoichiometry_mol_per_mol_substrate": "{\"starch_unit\":-1,\"water\":-1,\"glucose\":1}",
+            "rate_evidence": "assumed_rate",
+            "stoichiometry_evidence": "idealized_balanced_reaction",
+            "source_url": "https://www.journalofdairyscience.org/article/S0022-0302%2812%2900641-8/fulltext",
+            "source_locator": "Mobilization of starch can offset WSC losses; k is assumed",
+            "transfer_warning": "Provisional for cut grass on soil; calibrate before predictive use",
+            "stoichiometry": {
+              "starch_unit": -1,
+              "water": -1,
+              "glucose": 1
+            },
+            "unmapped_species": [],
+            "element_residual_mol": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "mapping_ready": true,
+            "source_status": "engineering_assumption",
+            "value": 0.05,
+            "unit": "1/day",
+            "basis": "substrate molar pool",
+            "geography": "source experiment; grass transfer unverified",
+            "reference_year": null,
+            "retrieval_date": "2026-10-12",
+            "evidence_class": "assumed_rate",
+            "applicability": "Provisional for cut grass on soil; calibrate before predictive use",
+            "conversion_scaling_method": "first-order reaction with explicit stoichiometry",
+            "uncertainty": {
+              "low": 0.0125,
+              "high": 0.2,
+              "meaning": "scenario_bounds_not_confidence_interval"
+            },
+            "policy_id": "storage.package.R05",
+            "source_id": "grass_degradation_reactions.csv"
+          },
+          {
+            "reaction_id": "R07",
+            "substrate": "sucrose",
+            "environment": "both",
+            "enabled_default": "1",
+            "k_ref_d_inv": "0.5",
+            "k_low_d_inv": "0.125",
+            "k_high_d_inv": "2.0",
+            "range_type": "scenario_bounds_not_confidence_interval",
+            "rate_law": "first_order_on_substrate",
+            "lag_days": "0",
+            "temperature_ref_C": "20",
+            "Q10_assumed": "2",
+            "activity_gate": "moisture_activity",
+            "stoichiometry_mol_per_mol_substrate": "{\"sucrose\":-1,\"water\":-1,\"glucose\":2}",
+            "rate_evidence": "assumed_rate",
+            "stoichiometry_evidence": "idealized_balanced_reaction",
+            "source_url": "https://www.frontiersin.org/journals/microbiology/articles/10.3389/fmicb.2022.1072140/full",
+            "source_locator": "WSC hydrolysis model assumption; fructose pooled with glucose",
+            "transfer_warning": "Provisional for cut grass on soil; calibrate before predictive use",
+            "stoichiometry": {
+              "sucrose": -1,
+              "water": -1,
+              "glucose": 2
+            },
+            "unmapped_species": [],
+            "element_residual_mol": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "mapping_ready": true,
+            "source_status": "engineering_assumption",
+            "value": 0.5,
+            "unit": "1/day",
+            "basis": "substrate molar pool",
+            "geography": "source experiment; grass transfer unverified",
+            "reference_year": null,
+            "retrieval_date": "2026-10-12",
+            "evidence_class": "assumed_rate",
+            "applicability": "Provisional for cut grass on soil; calibrate before predictive use",
+            "conversion_scaling_method": "first-order reaction with explicit stoichiometry",
+            "uncertainty": {
+              "low": 0.125,
+              "high": 2.0,
+              "meaning": "scenario_bounds_not_confidence_interval"
+            },
+            "policy_id": "storage.package.R07",
+            "source_id": "grass_degradation_reactions.csv"
+          },
+          {
+            "reaction_id": "R08",
+            "substrate": "glucose",
+            "environment": "aerobic",
+            "enabled_default": "1",
+            "k_ref_d_inv": "0.1",
+            "k_low_d_inv": "0.025",
+            "k_high_d_inv": "0.4",
+            "range_type": "scenario_bounds_not_confidence_interval",
+            "rate_law": "first_order_on_substrate",
+            "lag_days": "0",
+            "temperature_ref_C": "20",
+            "Q10_assumed": "2",
+            "activity_gate": "moisture_activity",
+            "stoichiometry_mol_per_mol_substrate": "{\"glucose\":-1,\"oxygen\":-6,\"carbon_dioxide\":6,\"water\":6}",
+            "rate_evidence": "assumed_rate",
+            "stoichiometry_evidence": "idealized_balanced_reaction",
+            "source_url": "https://www.journalofdairyscience.org/article/S0022-0302%2812%2900641-8/fulltext",
+            "source_locator": "Respiration pathway supported; effective daily k assumed; no microbial growth yield",
+            "transfer_warning": "Provisional for cut grass on soil; calibrate before predictive use",
+            "stoichiometry": {
+              "glucose": -1,
+              "oxygen": -6,
+              "carbon_dioxide": 6,
+              "water": 6
+            },
+            "unmapped_species": [],
+            "element_residual_mol": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "mapping_ready": true,
+            "source_status": "engineering_assumption",
+            "value": 0.1,
+            "unit": "1/day",
+            "basis": "substrate molar pool",
+            "geography": "source experiment; grass transfer unverified",
+            "reference_year": null,
+            "retrieval_date": "2026-10-12",
+            "evidence_class": "assumed_rate",
+            "applicability": "Provisional for cut grass on soil; calibrate before predictive use",
+            "conversion_scaling_method": "first-order reaction with explicit stoichiometry",
+            "uncertainty": {
+              "low": 0.025,
+              "high": 0.4,
+              "meaning": "scenario_bounds_not_confidence_interval"
+            },
+            "policy_id": "storage.package.R08",
+            "source_id": "grass_degradation_reactions.csv"
+          },
+          {
+            "reaction_id": "R09",
+            "substrate": "glucose",
+            "environment": "anaerobic",
+            "enabled_default": "1",
+            "k_ref_d_inv": "0.25",
+            "k_low_d_inv": "0.0625",
+            "k_high_d_inv": "1.0",
+            "range_type": "scenario_bounds_not_confidence_interval",
+            "rate_law": "first_order_on_substrate",
+            "lag_days": "0.5",
+            "temperature_ref_C": "20",
+            "Q10_assumed": "2",
+            "activity_gate": "moisture_activity",
+            "stoichiometry_mol_per_mol_substrate": "{\"glucose\":-1,\"lactate\":2}",
+            "rate_evidence": "assumed_rate",
+            "stoichiometry_evidence": "idealized_balanced_reaction",
+            "source_url": "https://doi.org/10.1002/fes3.475",
+            "source_locator": "Table 2 ryegrass WSC decline supports timescale only; pure homofermentative branch k assumed",
+            "transfer_warning": "Provisional for cut grass on soil; calibrate before predictive use",
+            "stoichiometry": {
+              "glucose": -1,
+              "lactate": 2
+            },
+            "unmapped_species": [],
+            "element_residual_mol": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "mapping_ready": true,
+            "source_status": "engineering_assumption",
+            "value": 0.25,
+            "unit": "1/day",
+            "basis": "substrate molar pool",
+            "geography": "source experiment; grass transfer unverified",
+            "reference_year": null,
+            "retrieval_date": "2026-10-12",
+            "evidence_class": "assumed_rate",
+            "applicability": "Provisional for cut grass on soil; calibrate before predictive use",
+            "conversion_scaling_method": "first-order reaction with explicit stoichiometry",
+            "uncertainty": {
+              "low": 0.0625,
+              "high": 1.0,
+              "meaning": "scenario_bounds_not_confidence_interval"
+            },
+            "policy_id": "storage.package.R09",
+            "source_id": "grass_degradation_reactions.csv"
+          },
+          {
+            "reaction_id": "R12",
+            "substrate": "xylose",
+            "environment": "anaerobic",
+            "enabled_default": "1",
+            "k_ref_d_inv": "0.15",
+            "k_low_d_inv": "0.0375",
+            "k_high_d_inv": "0.6",
+            "range_type": "scenario_bounds_not_confidence_interval",
+            "rate_law": "first_order_on_substrate",
+            "lag_days": "0.5",
+            "temperature_ref_C": "20",
+            "Q10_assumed": "2",
+            "activity_gate": "moisture_activity",
+            "stoichiometry_mol_per_mol_substrate": "{\"xylose\":-1,\"lactate\":1,\"acetate\":1}",
+            "rate_evidence": "assumed_rate",
+            "stoichiometry_evidence": "idealized_balanced_reaction",
+            "source_url": "https://www.frontiersin.org/journals/microbiology/articles/10.3389/fmicb.2022.1072140/full",
+            "source_locator": "Idealized pentose fermentation; k assumed",
+            "transfer_warning": "Provisional for cut grass on soil; calibrate before predictive use",
+            "stoichiometry": {
+              "xylose": -1,
+              "lactate": 1,
+              "acetate": 1
+            },
+            "unmapped_species": [],
+            "element_residual_mol": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "mapping_ready": true,
+            "source_status": "engineering_assumption",
+            "value": 0.15,
+            "unit": "1/day",
+            "basis": "substrate molar pool",
+            "geography": "source experiment; grass transfer unverified",
+            "reference_year": null,
+            "retrieval_date": "2026-10-12",
+            "evidence_class": "assumed_rate",
+            "applicability": "Provisional for cut grass on soil; calibrate before predictive use",
+            "conversion_scaling_method": "first-order reaction with explicit stoichiometry",
+            "uncertainty": {
+              "low": 0.0375,
+              "high": 0.6,
+              "meaning": "scenario_bounds_not_confidence_interval"
+            },
+            "policy_id": "storage.package.R12",
+            "source_id": "grass_degradation_reactions.csv"
+          },
+          {
+            "reaction_id": "R13",
+            "substrate": "xylose",
+            "environment": "aerobic",
+            "enabled_default": "1",
+            "k_ref_d_inv": "0.1",
+            "k_low_d_inv": "0.025",
+            "k_high_d_inv": "0.4",
+            "range_type": "scenario_bounds_not_confidence_interval",
+            "rate_law": "first_order_on_substrate",
+            "lag_days": "0",
+            "temperature_ref_C": "20",
+            "Q10_assumed": "2",
+            "activity_gate": "moisture_activity",
+            "stoichiometry_mol_per_mol_substrate": "{\"xylose\":-1,\"oxygen\":-5,\"carbon_dioxide\":5,\"water\":5}",
+            "rate_evidence": "assumed_rate",
+            "stoichiometry_evidence": "idealized_balanced_reaction",
+            "source_url": "https://www.journalofdairyscience.org/article/S0022-0302%2812%2900641-8/fulltext",
+            "source_locator": "Idealized pentose oxidation; k assumed",
+            "transfer_warning": "Provisional for cut grass on soil; calibrate before predictive use",
+            "stoichiometry": {
+              "xylose": -1,
+              "oxygen": -5,
+              "carbon_dioxide": 5,
+              "water": 5
+            },
+            "unmapped_species": [],
+            "element_residual_mol": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "mapping_ready": true,
+            "source_status": "engineering_assumption",
+            "value": 0.1,
+            "unit": "1/day",
+            "basis": "substrate molar pool",
+            "geography": "source experiment; grass transfer unverified",
+            "reference_year": null,
+            "retrieval_date": "2026-10-12",
+            "evidence_class": "assumed_rate",
+            "applicability": "Provisional for cut grass on soil; calibrate before predictive use",
+            "conversion_scaling_method": "first-order reaction with explicit stoichiometry",
+            "uncertainty": {
+              "low": 0.025,
+              "high": 0.4,
+              "meaning": "scenario_bounds_not_confidence_interval"
+            },
+            "policy_id": "storage.package.R13",
+            "source_id": "grass_degradation_reactions.csv"
+          },
+          {
+            "reaction_id": "R17",
+            "substrate": "lactate",
+            "environment": "aerobic",
+            "enabled_default": "1",
+            "k_ref_d_inv": "0.08",
+            "k_low_d_inv": "0.02",
+            "k_high_d_inv": "0.32",
+            "range_type": "scenario_bounds_not_confidence_interval",
+            "rate_law": "first_order_on_substrate",
+            "lag_days": "0",
+            "temperature_ref_C": "20",
+            "Q10_assumed": "2",
+            "activity_gate": "moisture_activity",
+            "stoichiometry_mol_per_mol_substrate": "{\"lactate\":-1,\"oxygen\":-3,\"carbon_dioxide\":3,\"water\":3}",
+            "rate_evidence": "assumed_rate",
+            "stoichiometry_evidence": "idealized_balanced_reaction",
+            "source_url": "https://doi.org/10.1128/AEM.67.1.125-132.2001",
+            "source_locator": "Aerobic product reoxidation idealization; k assumed",
+            "transfer_warning": "Provisional for cut grass on soil; calibrate before predictive use",
+            "stoichiometry": {
+              "lactate": -1,
+              "oxygen": -3,
+              "carbon_dioxide": 3,
+              "water": 3
+            },
+            "unmapped_species": [],
+            "element_residual_mol": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "mapping_ready": true,
+            "source_status": "engineering_assumption",
+            "value": 0.08,
+            "unit": "1/day",
+            "basis": "substrate molar pool",
+            "geography": "source experiment; grass transfer unverified",
+            "reference_year": null,
+            "retrieval_date": "2026-10-12",
+            "evidence_class": "assumed_rate",
+            "applicability": "Provisional for cut grass on soil; calibrate before predictive use",
+            "conversion_scaling_method": "first-order reaction with explicit stoichiometry",
+            "uncertainty": {
+              "low": 0.02,
+              "high": 0.32,
+              "meaning": "scenario_bounds_not_confidence_interval"
+            },
+            "policy_id": "storage.package.R17",
+            "source_id": "grass_degradation_reactions.csv"
+          },
+          {
+            "reaction_id": "R18",
+            "substrate": "acetate",
+            "environment": "aerobic",
+            "enabled_default": "1",
+            "k_ref_d_inv": "0.08",
+            "k_low_d_inv": "0.02",
+            "k_high_d_inv": "0.32",
+            "range_type": "scenario_bounds_not_confidence_interval",
+            "rate_law": "first_order_on_substrate",
+            "lag_days": "0",
+            "temperature_ref_C": "20",
+            "Q10_assumed": "2",
+            "activity_gate": "moisture_activity",
+            "stoichiometry_mol_per_mol_substrate": "{\"acetate\":-1,\"oxygen\":-2,\"carbon_dioxide\":2,\"water\":2}",
+            "rate_evidence": "assumed_rate",
+            "stoichiometry_evidence": "idealized_balanced_reaction",
+            "source_url": "https://doi.org/10.1128/AEM.67.1.125-132.2001",
+            "source_locator": "Aerobic product reoxidation idealization; k assumed",
+            "transfer_warning": "Provisional for cut grass on soil; calibrate before predictive use",
+            "stoichiometry": {
+              "acetate": -1,
+              "oxygen": -2,
+              "carbon_dioxide": 2,
+              "water": 2
+            },
+            "unmapped_species": [],
+            "element_residual_mol": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "mapping_ready": true,
+            "source_status": "engineering_assumption",
+            "value": 0.08,
+            "unit": "1/day",
+            "basis": "substrate molar pool",
+            "geography": "source experiment; grass transfer unverified",
+            "reference_year": null,
+            "retrieval_date": "2026-10-12",
+            "evidence_class": "assumed_rate",
+            "applicability": "Provisional for cut grass on soil; calibrate before predictive use",
+            "conversion_scaling_method": "first-order reaction with explicit stoichiometry",
+            "uncertainty": {
+              "low": 0.02,
+              "high": 0.32,
+              "meaning": "scenario_bounds_not_confidence_interval"
+            },
+            "policy_id": "storage.package.R18",
+            "source_id": "grass_degradation_reactions.csv"
+          }
+        ],
+        "warnings": [
+          "Storage is an uncalibrated reaction subset; protein surrogate mappings and leaching are unresolved. Oxygen is external, unlimited in the aerobic exposure fraction. Moisture activity and Q10 are explicit assumptions. Lactate/acetate are neutral acid surrogates; no pH speciation is predicted."
+        ]
+      }
+    }
+  ],
+  "throughput": [],
+  "tea": {
+    "route_summary": {
+      "scenario_ids": [
+        "F2",
+        "PR3",
+        "AD1",
+        "BG3",
+        "NR4"
+      ],
+      "formed_unit_ids": [
+        "A721",
+        "A722",
+        "C301",
+        "C401",
+        "C621",
+        "D401",
+        "D621",
+        "D711",
+        "DR401",
+        "E621",
+        "F601",
+        "G601",
+        "H401",
+        "H501",
+        "H721",
+        "M401",
+        "M402",
+        "M403",
+        "M501",
+        "M606",
+        "M607",
+        "M621",
+        "M622",
+        "M629",
+        "M698",
+        "M699",
+        "M721",
+        "M798",
+        "M799",
+        "R401",
+        "R501",
+        "R601",
+        "R602",
+        "R711",
+        "S201",
+        "S601",
+        "S701",
+        "S711",
+        "T701",
+        "U101",
+        "U201",
+        "V501",
+        "V722",
+        "W401",
+        "W711"
+      ],
+      "route_tags": [
+        "AD1",
+        "BG3",
+        "F2",
+        "NR4",
+        "PR3",
+        "ammonia_recovery",
+        "digestate_separation",
+        "electricity",
+        "heat",
+        "isoelectric",
+        "membrane_upgrading",
+        "pef",
+        "phosphorus_recovery",
+        "raw_press"
+      ],
+      "explicit_route_tags": [],
+      "model_type": "empirical",
+      "operating_hours_per_year": 3899.658792753313,
+      "annual_throughput_kg": 4470163.98935152,
+      "throughput_kg_per_hr": 1146.296183055392,
+      "annual_products_kg": {
+        "dry_protein_product": 36372.01709903101,
+        "biomethane": 29166.54712195772,
+        "phosphorus_product": 623.7998440461012,
+        "ammonium_product": 40747.75561758787,
+        "nutrient_rich_solids": 35017.600376552386
+      },
+      "annual_products_m3": {},
+      "tea_calculation_order": "formed_route_then_post_simulation_tea",
+      "process_calculations_modified": false,
+      "validated_tea_ready": false,
+      "cost_boundary_complete": false,
+      "price_basis_confirmed": false
+    },
+    "selected_cost_lines": [
+      {
+        "cost_id": "TEA-001",
+        "process_area": "feedstock reception",
+        "process_step": "Receiving and weighing",
+        "equipment_or_cost_item": "Reception bunker, weighbridge, conveyors and contaminant removal",
+        "cost_type": "capex",
+        "alternative_group": null,
+        "route_tags": [
+          "F1",
+          "F2",
+          "F3",
+          "feedstock_reception"
+        ],
+        "confidence": "Low"
+      },
+      {
+        "cost_id": "TEA-003",
+        "process_area": "feedstock preparation",
+        "process_step": "Cleaning and size reduction",
+        "equipment_or_cost_item": "Stone trap, washer/screen, chopper/shredder/wet mill/refiner",
+        "cost_type": "capex",
+        "alternative_group": null,
+        "route_tags": [
+          "F1",
+          "F2",
+          "F3",
+          "mechanical_preparation"
+        ],
+        "confidence": "Low"
+      },
+      {
+        "cost_id": "TEA-004",
+        "process_area": "feedstock preparation",
+        "process_step": "Pressing",
+        "equipment_or_cost_item": "Screw press or belt press",
+        "cost_type": "capex",
+        "alternative_group": null,
+        "route_tags": [
+          "F1",
+          "F2",
+          "F3",
+          "raw_press"
+        ],
+        "confidence": "Low-medium"
+      },
+      {
+        "cost_id": "TEA-005",
+        "process_area": "feedstock preparation",
+        "process_step": "PEF",
+        "equipment_or_cost_item": "Continuous pulsed-electric-field skid",
+        "cost_type": "capex",
+        "alternative_group": "pretreatment_method",
+        "route_tags": [
+          "F2",
+          "F3",
+          "pef"
+        ],
+        "confidence": "Low"
+      },
+      {
+        "cost_id": "TEA-008",
+        "process_area": "protein recovery",
+        "process_step": "Precipitation and neutralization",
+        "equipment_or_cost_item": "Acid/base dosing and precipitation tanks",
+        "cost_type": "capex",
+        "alternative_group": "protein_extraction_method",
+        "route_tags": [
+          "PR1",
+          "PR3",
+          "isoelectric"
+        ],
+        "confidence": "Low"
+      },
+      {
+        "cost_id": "TEA-009",
+        "process_area": "protein recovery",
+        "process_step": "Solid-liquid separation",
+        "equipment_or_cost_item": "Decanter / disc-stack centrifuge / hydrocyclone",
+        "cost_type": "capex",
+        "alternative_group": null,
+        "route_tags": [
+          "PR1",
+          "PR2",
+          "PR3",
+          "isoelectric",
+          "heat",
+          "lactic_acid"
+        ],
+        "confidence": "Low-medium"
+      },
+      {
+        "cost_id": "TEA-013",
+        "process_area": "anaerobic digestion",
+        "process_step": "Digester",
+        "equipment_or_cost_item": "CSTR / PFR / thermophilic / two-stage digester package",
+        "cost_type": "capex",
+        "alternative_group": "ad_capex_basis",
+        "route_tags": [
+          "AD1",
+          "AD2",
+          "AD3",
+          "AD4",
+          "AD5",
+          "bmp_material_conversion_proxy",
+          "ad_plant_total"
+        ],
+        "confidence": "Low-medium"
+      },
+      {
+        "cost_id": "TEA-015",
+        "process_area": "biogas handling",
+        "process_step": "Gas safety and conditioning",
+        "equipment_or_cost_item": "Gas holder, condensate traps, flare, H2S removal, drying and filters",
+        "cost_type": "capex",
+        "alternative_group": null,
+        "route_tags": [
+          "BG1",
+          "BG2",
+          "BG3",
+          "BG4",
+          "BG5",
+          "BG6",
+          "common_conditioning"
+        ],
+        "confidence": "Low"
+      },
+      {
+        "cost_id": "TEA-017-MEMBRANE_UPGRADING",
+        "process_area": "biogas upgrading",
+        "process_step": "Upgrader alternative",
+        "equipment_or_cost_item": "Membrane upgrader package",
+        "cost_type": "capex",
+        "alternative_group": "biogas_upgrading_method",
+        "route_tags": [
+          "BG3",
+          "membrane_upgrading"
+        ],
+        "confidence": "Low-medium"
+      },
+      {
+        "cost_id": "TEA-019",
+        "process_area": "digestate separation",
+        "process_step": "Solid-liquid separation",
+        "equipment_or_cost_item": "Digestate screw press / decanter / filter press",
+        "cost_type": "capex",
+        "alternative_group": null,
+        "route_tags": [
+          "NR1",
+          "NR2",
+          "NR3",
+          "NR4",
+          "NR5",
+          "NR6",
+          "NR7",
+          "digestate_separation"
+        ],
+        "confidence": "Low"
+      },
+      {
+        "cost_id": "TEA-020",
+        "process_area": "nutrient recovery",
+        "process_step": "Ammonia recovery",
+        "equipment_or_cost_item": "Stripper plus acid absorber/scrubber",
+        "cost_type": "capex",
+        "alternative_group": "ammonia_recovery_method",
+        "route_tags": [
+          "NR3",
+          "NR4",
+          "NR7",
+          "ammonia_recovery"
+        ],
+        "confidence": "Medium"
+      },
+      {
+        "cost_id": "TEA-022",
+        "process_area": "nutrient recovery",
+        "process_step": "Phosphorus recovery",
+        "equipment_or_cost_item": "Struvite reactor/crystallizer, dosing, separator and dryer",
+        "cost_type": "capex",
+        "alternative_group": null,
+        "route_tags": [
+          "NR2",
+          "NR4",
+          "NR5",
+          "NR7",
+          "phosphorus_recovery"
+        ],
+        "confidence": "Low"
+      },
+      {
+        "cost_id": "TEA-036",
+        "process_area": "utilities",
+        "process_step": "Electricity",
+        "equipment_or_cost_item": "Dutch non-household electricity tariff, 500\u20131,999 MWh/y",
+        "cost_type": "utility",
+        "alternative_group": null,
+        "route_tags": [
+          "electricity"
+        ],
+        "confidence": "Medium-high"
+      },
+      {
+        "cost_id": "TEA-043",
+        "process_area": "consumables",
+        "process_step": "pH control and CIP",
+        "equipment_or_cost_item": "Acid and caustic (H2SO4/HCl, NaOH/lime)",
+        "cost_type": "consumable",
+        "alternative_group": null,
+        "route_tags": [
+          "PR1",
+          "PR3",
+          "NR3",
+          "NR4",
+          "NR7",
+          "acid_consumable"
+        ],
+        "confidence": "Low"
+      },
+      {
+        "cost_id": "TEA-047",
+        "process_area": "consumables",
+        "process_step": "Gas polishing",
+        "equipment_or_cost_item": "Activated carbon / H2S adsorbent",
+        "cost_type": "consumable",
+        "alternative_group": null,
+        "route_tags": [
+          "BG2",
+          "BG3",
+          "BG4",
+          "BG5",
+          "gas_polishing"
+        ],
+        "confidence": "Medium"
+      },
+      {
+        "cost_id": "TEA-049",
+        "process_area": "consumables",
+        "process_step": "Membrane routes",
+        "equipment_or_cost_item": "UF/RO/biogas membrane replacement",
+        "cost_type": "consumable",
+        "alternative_group": null,
+        "route_tags": [
+          "PR6",
+          "BG3",
+          "NR7",
+          "membrane_replacement"
+        ],
+        "confidence": "Medium"
+      },
+      {
+        "cost_id": "TEA-051",
+        "process_area": "consumables",
+        "process_step": "Struvite precipitation",
+        "equipment_or_cost_item": "Magnesium salt (MgCl2/MgO/MgSO4)",
+        "cost_type": "consumable",
+        "alternative_group": null,
+        "route_tags": [
+          "NR2",
+          "NR4",
+          "NR7",
+          "phosphorus_recovery",
+          "magnesium_reagent"
+        ],
+        "confidence": "Low"
+      },
+      {
+        "cost_id": "TEA-053",
+        "process_area": "consumables",
+        "process_step": "Mechanical wear",
+        "equipment_or_cost_item": "Filter cloths, screens and wear parts",
+        "cost_type": "consumable",
+        "alternative_group": null,
+        "route_tags": [
+          "F1",
+          "F2",
+          "F3",
+          "mechanical_wear"
+        ],
+        "confidence": "Low"
+      }
+    ],
+    "excluded_alternatives": [
+      {
+        "cost_id": "TEA-002",
+        "equipment_or_cost_item": "Silo/pit/bunker storage with cover, leachate capture and reclaim",
+        "alternative_group": null,
+        "reason": "explicit_project_basis_required"
+      },
+      {
+        "cost_id": "TEA-006",
+        "equipment_or_cost_item": "Ultrasound treatment skid",
+        "alternative_group": "pretreatment_method",
+        "reason": "unselected_route_alternative"
+      },
+      {
+        "cost_id": "TEA-007",
+        "equipment_or_cost_item": "Heated stirred reactor, heat exchanger and dosing",
+        "alternative_group": "pretreatment_method",
+        "reason": "unselected_route_alternative"
+      },
+      {
+        "cost_id": "TEA-010",
+        "equipment_or_cost_item": "UF/MF/RO skid and CIP",
+        "alternative_group": "protein_extraction_method",
+        "reason": "unselected_route_alternative"
+      },
+      {
+        "cost_id": "TEA-011",
+        "equipment_or_cost_item": "Spray dryer",
+        "alternative_group": "protein_drying_method",
+        "reason": "unselected_route_alternative"
+      },
+      {
+        "cost_id": "TEA-012",
+        "equipment_or_cost_item": "Freeze dryer",
+        "alternative_group": "protein_drying_method",
+        "reason": "unselected_route_alternative"
+      },
+      {
+        "cost_id": "TEA-014",
+        "equipment_or_cost_item": "Digester mixers, pumps and heat exchangers",
+        "alternative_group": "ad_capex_basis",
+        "reason": "unselected_route_alternative"
+      },
+      {
+        "cost_id": "TEA-017-PSA",
+        "equipment_or_cost_item": "PSA upgrader package",
+        "alternative_group": "biogas_upgrading_method",
+        "reason": "unselected_route_alternative"
+      },
+      {
+        "cost_id": "TEA-017-WATER_SCRUBBING",
+        "equipment_or_cost_item": "Water scrubbing upgrader package",
+        "alternative_group": "biogas_upgrading_method",
+        "reason": "unselected_route_alternative"
+      },
+      {
+        "cost_id": "TEA-018",
+        "equipment_or_cost_item": "Reciprocating engine / gas turbine / microturbine with heat recovery",
+        "alternative_group": "gas_product_route",
+        "reason": "unselected_route_alternative"
+      },
+      {
+        "cost_id": "TEA-021",
+        "equipment_or_cost_item": "Columns, resin and regeneration skid",
+        "alternative_group": "ammonia_recovery_method",
+        "reason": "unselected_route_alternative"
+      },
+      {
+        "cost_id": "TEA-024",
+        "equipment_or_cost_item": "Boiler/steam generator, heat pump or recovered heat system",
+        "alternative_group": "heat_supply_method",
+        "reason": "unselected_route_alternative"
+      },
+      {
+        "cost_id": "TEA-030",
+        "equipment_or_cost_item": "Routine plant maintenance allowance",
+        "alternative_group": "maintenance_basis",
+        "reason": "unselected_route_alternative"
+      },
+      {
+        "cost_id": "TEA-031",
+        "equipment_or_cost_item": "CHP service and maintenance",
+        "alternative_group": "maintenance_basis",
+        "reason": "unselected_route_alternative"
+      },
+      {
+        "cost_id": "TEA-037",
+        "equipment_or_cost_item": "Dutch non-household gas tariff (I3 proxy)",
+        "alternative_group": "heat_utility_method",
+        "reason": "unselected_route_alternative"
+      },
+      {
+        "cost_id": "TEA-038",
+        "equipment_or_cost_item": "Natural gas boiler useful heat proxy",
+        "alternative_group": "heat_utility_method",
+        "reason": "unselected_route_alternative"
+      },
+      {
+        "cost_id": "TEA-042",
+        "equipment_or_cost_item": "Water intake, process losses and recycle",
+        "alternative_group": "water_price_basis",
+        "reason": "unselected_route_alternative"
+      }
+    ],
+    "capex_lines": [
+      {
+        "cost_id": "TEA-001",
+        "process_area": "feedstock reception",
+        "process_step": "Receiving and weighing",
+        "equipment_or_cost_item": "Reception bunker, weighbridge, conveyors and contaminant removal",
+        "cost_type": "capex",
+        "alternative_group": null,
+        "route_tags": [
+          "F1",
+          "F2",
+          "F3",
+          "feedstock_reception"
+        ],
+        "confidence": "Low",
+        "reference_value_eur": 250000.0,
+        "reference_unit": "EUR/package; proxy; nominal 15 m3 feeder package + weighbridge/conveyance allowance",
+        "reference_capacity": null,
+        "capacity_unit": "wet t/day",
+        "scaling_exponent": 0.7,
+        "source_status": "proxy; assumption flagged",
+        "warning": "Proxy arithmetic: \u20ac94k feeder + \u20ac125k conveying allowance + \u20ac30k weighbridge = \u20ac249k rounded \u20ac250k; no allowance for civil works or contaminant removal; capacity mismatch and package scope uncertain. | Nominal; see notes; no general NL factor applied | Get EPC/vendor budget quote.",
+        "direct_cost_eur": null,
+        "installed_cost_eur": null,
+        "calculation_status": "not_calculated"
+      },
+      {
+        "cost_id": "TEA-003",
+        "process_area": "feedstock preparation",
+        "process_step": "Cleaning and size reduction",
+        "equipment_or_cost_item": "Stone trap, washer/screen, chopper/shredder/wet mill/refiner",
+        "cost_type": "capex",
+        "alternative_group": null,
+        "route_tags": [
+          "F1",
+          "F2",
+          "F3",
+          "mechanical_preparation"
+        ],
+        "confidence": "Low",
+        "reference_value_eur": 50000.0,
+        "reference_unit": "EUR/package; proxy at ~1 t/h",
+        "reference_capacity": 1.0,
+        "capacity_unit": "wet t/h",
+        "scaling_exponent": 0.75,
+        "source_status": "proxy; assumption flagged",
+        "warning": "Bundled equipment estimate: \u20ac18k hammer mill + \u20ac8k washer + \u20ac24k allowance for stone trap, screen, integration/controls. Do not add alternate wet mill/shredder prices unless separately selected. | Nominal; see notes; no general NL factor applied | Vendor quote for grass with grit/metal/plastics.",
+        "scaling_range_status": "range_not_established",
+        "project_capacity": 1.146296183055392,
+        "project_capacity_unit": "wet t/h",
+        "capacity_source": "simulation_boundary_throughput",
+        "cost_multiplier": 1.0,
+        "direct_cost_eur": 55391.43789523134,
+        "installed_factor": null,
+        "installed_cost_eur": null,
+        "calculation_status": "direct_cost_only_missing_installed_factor"
+      },
+      {
+        "cost_id": "TEA-004",
+        "process_area": "feedstock preparation",
+        "process_step": "Pressing",
+        "equipment_or_cost_item": "Screw press or belt press",
+        "cost_type": "capex",
+        "alternative_group": null,
+        "route_tags": [
+          "F1",
+          "F2",
+          "F3",
+          "raw_press"
+        ],
+        "confidence": "Low-medium",
+        "reference_value_eur": 66899.0,
+        "reference_unit": "EUR/unit; proxy; used Bauer PP855",
+        "reference_capacity": null,
+        "capacity_unit": "wet t/h",
+        "scaling_exponent": 0.7,
+        "source_status": "proxy; assumption flagged",
+        "warning": "Direct reference price \u20ac66,899 is used-market list for a comparable manure/digestate separator; 855 model throughput up to 40m3/h per Bauer. New hygienic grass-juice press likely differs. Treat as budget proxy, excluding downstream centrifuge. | Nominal; see notes; no general NL factor applied | Quote at grass flow and solids capture.",
+        "direct_cost_eur": null,
+        "installed_cost_eur": null,
+        "calculation_status": "not_calculated"
+      },
+      {
+        "cost_id": "TEA-005",
+        "process_area": "feedstock preparation",
+        "process_step": "PEF",
+        "equipment_or_cost_item": "Continuous pulsed-electric-field skid",
+        "cost_type": "capex",
+        "alternative_group": "pretreatment_method",
+        "route_tags": [
+          "F2",
+          "F3",
+          "pef"
+        ],
+        "confidence": "Low",
+        "reference_value_eur": 680000.0,
+        "reference_unit": "EUR/system; proxy",
+        "reference_capacity": null,
+        "capacity_unit": "L/h",
+        "scaling_exponent": 0.6,
+        "source_status": "sourced / proxy",
+        "warning": "\u20ac680k reported for food-process PEF case (2024 approx); broad review range \u20ac75k\u2013400k/system conflicts, retain as sensitivity/reference in notes. Strongly feed- and capacity-dependent. | Nominal; see notes; no general NL factor applied | Resolve price spread with supplier quote; do not add review range to point estimate.",
+        "direct_cost_eur": null,
+        "installed_cost_eur": null,
+        "calculation_status": "not_calculated"
+      },
+      {
+        "cost_id": "TEA-008",
+        "process_area": "protein recovery",
+        "process_step": "Precipitation and neutralization",
+        "equipment_or_cost_item": "Acid/base dosing and precipitation tanks",
+        "cost_type": "capex",
+        "alternative_group": "protein_extraction_method",
+        "route_tags": [
+          "PR1",
+          "PR3",
+          "isoelectric"
+        ],
+        "confidence": "Low",
+        "reference_value_eur": 30000.0,
+        "reference_unit": "EUR/package; proxy per 5m3 tank + dosing",
+        "reference_capacity": 5.0,
+        "capacity_unit": "working volume m3",
+        "scaling_exponent": 0.7,
+        "source_status": "proxy; assumption flagged",
+        "warning": "\u20ac30k allowance combines 5m3 agitated tank, metering pumps, pH controls and installation allowance. Duplicate scenario tanks consolidated; validate hygienic/material spec. | Nominal; see notes; no general NL factor applied | Quote after pH, batch and hygienic specification.",
+        "direct_cost_eur": null,
+        "installed_cost_eur": null,
+        "calculation_status": "not_calculated"
+      },
+      {
+        "cost_id": "TEA-009",
+        "process_area": "protein recovery",
+        "process_step": "Solid-liquid separation",
+        "equipment_or_cost_item": "Decanter / disc-stack centrifuge / hydrocyclone",
+        "cost_type": "capex",
+        "alternative_group": null,
+        "route_tags": [
+          "PR1",
+          "PR2",
+          "PR3",
+          "isoelectric",
+          "heat",
+          "lactic_acid"
+        ],
+        "confidence": "Low-medium",
+        "reference_value_eur": 86333.0,
+        "reference_unit": "EUR/unit; proxy from 2 m3/h decanter",
+        "reference_capacity": 2.0,
+        "capacity_unit": "m3/h",
+        "scaling_exponent": 0.6,
+        "source_status": "sourced / proxy",
+        "warning": "Cost points exist at 2\u201390 m3/h but are noisy/nonmonotonic; use only matched points or \u20ac86,333 at 2 m3/h as an indicative anchor; exponent is rough. | Nominal; see notes; no general NL factor applied | Check source capacity points against selected separator technology.",
+        "direct_cost_eur": null,
+        "installed_cost_eur": null,
+        "calculation_status": "not_calculated"
+      },
+      {
+        "cost_id": "TEA-013",
+        "process_area": "anaerobic digestion",
+        "process_step": "Digester",
+        "equipment_or_cost_item": "CSTR / PFR / thermophilic / two-stage digester package",
+        "cost_type": "capex",
+        "alternative_group": "ad_capex_basis",
+        "route_tags": [
+          "AD1",
+          "AD2",
+          "AD3",
+          "AD4",
+          "AD5",
+          "bmp_material_conversion_proxy",
+          "ad_plant_total"
+        ],
+        "confidence": "Low-medium",
+        "reference_value_eur": 2930.0,
+        "reference_unit": "EUR/kWe installed; plant-level proxy",
+        "reference_capacity": null,
+        "capacity_unit": "kWe installed",
+        "scaling_exponent": 0.7,
+        "source_status": "sourced / proxy",
+        "warning": "Broad total plant boundary; not grass-specific, not a vessel-only price. This avoids double counting the digester and balance-of-plant. | Nominal; see notes; no general NL factor applied | Use either plant-total proxy OR bottom-up equipment estimates, never both.",
+        "direct_cost_eur": null,
+        "installed_cost_eur": null,
+        "calculation_status": "not_calculated"
+      },
+      {
+        "cost_id": "TEA-015",
+        "process_area": "biogas handling",
+        "process_step": "Gas safety and conditioning",
+        "equipment_or_cost_item": "Gas holder, condensate traps, flare, H2S removal, drying and filters",
+        "cost_type": "capex",
+        "alternative_group": null,
+        "route_tags": [
+          "BG1",
+          "BG2",
+          "BG3",
+          "BG4",
+          "BG5",
+          "BG6",
+          "common_conditioning"
+        ],
+        "confidence": "Low",
+        "reference_value_eur": 250000.0,
+        "reference_unit": "EUR/package; proxy; 100Nm3/h gas basis",
+        "reference_capacity": 100.0,
+        "capacity_unit": "Nm3/h raw gas",
+        "scaling_exponent": 0.7,
+        "source_status": "sourced / proxy",
+        "warning": "\u20ac250k nominal at 100Nm3/h: holder, gas conditioning, flare, drying and valves/instrumentation package allowance. Large-project proposal components scaled/downward with 0.7 exponent; highly uncertain and excludes upgrading compressor. | Nominal; see notes; no general NL factor applied | Quote gas quality/flow and package boundary.",
+        "direct_cost_eur": null,
+        "installed_cost_eur": null,
+        "calculation_status": "not_calculated"
+      },
+      {
+        "cost_id": "TEA-017-MEMBRANE_UPGRADING",
+        "process_area": "biogas upgrading",
+        "process_step": "Upgrader alternative",
+        "equipment_or_cost_item": "Membrane upgrader package",
+        "cost_type": "capex",
+        "alternative_group": "biogas_upgrading_method",
+        "route_tags": [
+          "BG3",
+          "membrane_upgrading"
+        ],
+        "confidence": "Low-medium",
+        "reference_value_eur": 1600000.0,
+        "reference_unit": "EUR/package at 800 Nm3/h raw gas",
+        "reference_capacity": 800.0,
+        "capacity_unit": "Nm3/h raw gas",
+        "scaling_exponent": 0.65,
+        "source_status": "sourced / proxy",
+        "warning": "Derived package anchor = workbook base unit rate 2000 EUR/(Nm3/h) x stated base capacity 800 Nm3/h. | Spanish 2023 case-study cost points; scale and geography proxy. Route-specific alternative costs are shown in Notes; do not add together. | Nominal; see notes; no general NL factor applied | Select route/flow and replace with vendor budget quote.",
+        "direct_cost_eur": null,
+        "installed_cost_eur": null,
+        "calculation_status": "not_calculated"
+      },
+      {
+        "cost_id": "TEA-019",
+        "process_area": "digestate separation",
+        "process_step": "Solid-liquid separation",
+        "equipment_or_cost_item": "Digestate screw press / decanter / filter press",
+        "cost_type": "capex",
+        "alternative_group": null,
+        "route_tags": [
+          "NR1",
+          "NR2",
+          "NR3",
+          "NR4",
+          "NR5",
+          "NR6",
+          "NR7",
+          "digestate_separation"
+        ],
+        "confidence": "Low",
+        "reference_value_eur": 86333.0,
+        "reference_unit": "EUR/unit; proxy at 2 m3/h decanter",
+        "reference_capacity": 2.0,
+        "capacity_unit": "m3/h",
+        "scaling_exponent": 0.6,
+        "source_status": "sourced / proxy",
+        "warning": "Use decanter points listed above; screw press/filter press lacks numeric fit; generic proxy. | Nominal; see notes; no general NL factor applied | Confirm route, flow and solids capture.",
+        "direct_cost_eur": null,
+        "installed_cost_eur": null,
+        "calculation_status": "not_calculated"
+      },
+      {
+        "cost_id": "TEA-020",
+        "process_area": "nutrient recovery",
+        "process_step": "Ammonia recovery",
+        "equipment_or_cost_item": "Stripper plus acid absorber/scrubber",
+        "cost_type": "capex",
+        "alternative_group": "ammonia_recovery_method",
+        "route_tags": [
+          "NR3",
+          "NR4",
+          "NR7",
+          "ammonia_recovery"
+        ],
+        "confidence": "Medium",
+        "reference_value_eur": 300000.0,
+        "reference_unit": "EUR/package at 3 m3/h",
+        "reference_capacity": 3.0,
+        "capacity_unit": "m3/h digestate liquid",
+        "scaling_exponent": 0.65,
+        "source_status": "sourced / proxy",
+        "warning": "Direct EU project practice proxy, manure/digestate analogue. Use points to interpolate rather than treating as a universal quote. | Nominal; see notes; no general NL factor applied | Confirm NH4 load and process package scope.",
+        "direct_cost_eur": null,
+        "installed_cost_eur": null,
+        "calculation_status": "not_calculated"
+      },
+      {
+        "cost_id": "TEA-022",
+        "process_area": "nutrient recovery",
+        "process_step": "Phosphorus recovery",
+        "equipment_or_cost_item": "Struvite reactor/crystallizer, dosing, separator and dryer",
+        "cost_type": "capex",
+        "alternative_group": null,
+        "route_tags": [
+          "NR2",
+          "NR4",
+          "NR5",
+          "NR7",
+          "phosphorus_recovery"
+        ],
+        "confidence": "Low",
+        "reference_value_eur": 150000.0,
+        "reference_unit": "EUR/package; proxy; 3m3/h side-stream nutrient recovery",
+        "reference_capacity": 3.0,
+        "capacity_unit": "m3/h",
+        "scaling_exponent": 0.7,
+        "source_status": "proxy; assumption flagged",
+        "warning": "Scaled from large livestock installation to 3m3/h using 0.6 exponent and EUR/USD\u22480.92; nominal \u20ac150k includes reactor, dosing, separator and basic dewatering; excludes dryer, reagent, permits. Very uncertain. | Nominal; see notes; no general NL factor applied | Quote P load, target recovery and product spec.",
+        "direct_cost_eur": null,
+        "installed_cost_eur": null,
+        "calculation_status": "not_calculated"
+      }
+    ],
+    "opex_lines": [
+      {
+        "cost_id": "TEA-036",
+        "process_area": "utilities",
+        "process_step": "Electricity",
+        "equipment_or_cost_item": "Dutch non-household electricity tariff, 500\u20131,999 MWh/y",
+        "cost_type": "utility",
+        "alternative_group": null,
+        "route_tags": [
+          "electricity"
+        ],
+        "confidence": "Medium-high",
+        "reference_value_eur": 0.1991,
+        "reference_unit": "EUR/kWh excl. VAT; taxes/levies per Eurostat selection",
+        "reference_capacity": null,
+        "capacity_unit": "annual MWh",
+        "scaling_exponent": 1.0,
+        "source_status": "sourced / proxy",
+        "warning": "Country/band numeric value surfaced from Eurostat series. Low/high scenario \u00b120% for sensitivity; site contract remains controlling. | Nominal; see notes; no general NL factor applied | Select band from annual demand and taxable/cost treatment.",
+        "quantity": 141770.81957942797,
+        "quantity_unit": "kWh/year",
+        "quantity_source": "simulation_utility_output",
+        "unit_cost_eur": 0.1991,
+        "calculation_status": "calculated",
+        "cost_multiplier": 1.0,
+        "annual_cost_eur": 28226.570178264108
+      },
+      {
+        "cost_id": "TEA-043",
+        "process_area": "consumables",
+        "process_step": "pH control and CIP",
+        "equipment_or_cost_item": "Acid and caustic (H2SO4/HCl, NaOH/lime)",
+        "cost_type": "consumable",
+        "alternative_group": null,
+        "route_tags": [
+          "PR1",
+          "PR3",
+          "NR3",
+          "NR4",
+          "NR7",
+          "acid_consumable"
+        ],
+        "confidence": "Low",
+        "reference_value_eur": 0.16,
+        "reference_unit": "EUR/kg H2SO4 screening proxy; caustic separate",
+        "reference_capacity": null,
+        "capacity_unit": "kg/year by reagent",
+        "scaling_exponent": 1.0,
+        "source_status": "sourced / proxy",
+        "warning": "Commodity proxies from public market/trade indicators; validate vendor quote. Note NaOH unit basis is solution mass. | Nominal; see notes; no general NL factor applied | Keep acid/caustic quantities separate in scenario mass balance; obtain supplier quotes.",
+        "calculation_status": "not_calculated",
+        "annual_cost_eur": null
+      },
+      {
+        "cost_id": "TEA-047",
+        "process_area": "consumables",
+        "process_step": "Gas polishing",
+        "equipment_or_cost_item": "Activated carbon / H2S adsorbent",
+        "cost_type": "consumable",
+        "alternative_group": null,
+        "route_tags": [
+          "BG2",
+          "BG3",
+          "BG4",
+          "BG5",
+          "gas_polishing"
+        ],
+        "confidence": "Medium",
+        "reference_value_eur": 4.5,
+        "reference_unit": "EUR/kg; H2S impregnated carbon",
+        "reference_capacity": null,
+        "capacity_unit": "kg/year / changeout",
+        "scaling_exponent": 1.0,
+        "source_status": "sourced / proxy",
+        "warning": "Direct listed price for 4mm impregnated activated carbon for biogas H2S removal; use changeout quantity based on feed H2S and breakthrough. | Nominal; see notes; no general NL factor applied | Vendor quote from gas analysis.",
+        "calculation_status": "not_calculated",
+        "annual_cost_eur": null
+      },
+      {
+        "cost_id": "TEA-049",
+        "process_area": "consumables",
+        "process_step": "Membrane routes",
+        "equipment_or_cost_item": "UF/RO/biogas membrane replacement",
+        "cost_type": "consumable",
+        "alternative_group": null,
+        "route_tags": [
+          "PR6",
+          "BG3",
+          "NR7",
+          "membrane_replacement"
+        ],
+        "confidence": "Medium",
+        "reference_value_eur": 68.12,
+        "reference_unit": "EUR/m2 active area; industrial UF module proxy",
+        "reference_capacity": null,
+        "capacity_unit": "m2 replaced/year",
+        "scaling_exponent": 1.0,
+        "source_status": "sourced / proxy",
+        "warning": "\u20ac68.12/m2 calculated from listed 80m2 UF module. This is water-process UF membrane media; biogas upgrading membranes need separate vendor price/lifetime. | Nominal; see notes; no general NL factor applied | Obtain membrane area price and lifetime.",
+        "calculation_status": "not_calculated",
+        "annual_cost_eur": null
+      },
+      {
+        "cost_id": "TEA-051",
+        "process_area": "consumables",
+        "process_step": "Struvite precipitation",
+        "equipment_or_cost_item": "Magnesium salt (MgCl2/MgO/MgSO4)",
+        "cost_type": "consumable",
+        "alternative_group": null,
+        "route_tags": [
+          "NR2",
+          "NR4",
+          "NR7",
+          "phosphorus_recovery",
+          "magnesium_reagent"
+        ],
+        "confidence": "Low",
+        "reference_value_eur": 0.3,
+        "reference_unit": "EUR/kg MgCl2\u00b76H2O; indicative bulk proxy",
+        "reference_capacity": null,
+        "capacity_unit": "kg/year",
+        "scaling_exponent": 1.0,
+        "source_status": "sourced / proxy",
+        "warning": "\u20ac0.30/kg = \u20ac300/t central proxy, but EU market report is not a supplier quote and product grade may differ. | Nominal; see notes; no general NL factor applied | Quote required at process purity and bulk volume.",
+        "calculation_status": "not_calculated",
+        "annual_cost_eur": null
+      },
+      {
+        "cost_id": "TEA-053",
+        "process_area": "consumables",
+        "process_step": "Mechanical wear",
+        "equipment_or_cost_item": "Filter cloths, screens and wear parts",
+        "cost_type": "consumable",
+        "alternative_group": null,
+        "route_tags": [
+          "F1",
+          "F2",
+          "F3",
+          "mechanical_wear"
+        ],
+        "confidence": "Low",
+        "reference_value_eur": 2500.0,
+        "reference_unit": "EUR/set/year; annual wear proxy per train",
+        "reference_capacity": null,
+        "capacity_unit": "sets/year",
+        "scaling_exponent": 1.0,
+        "source_status": "proxy; assumption flagged",
+        "warning": "\u20ac2.5k/year screening allowance for filter cloths/screens/wear parts per mechanical separation train. Could double count routine maintenance percentage; only include when itemized consumables are excluded from top-down O&M. | Nominal; see notes; no general NL factor applied | Quote annual service kit.",
+        "calculation_status": "not_calculated",
+        "annual_cost_eur": null
+      }
+    ],
+    "revenue_lines": [],
+    "missing_inputs": [
+      {
+        "cost_id": "TEA-001",
+        "code": "missing_scaling_input",
+        "required_input": "reference_capacity/scaling_exponent",
+        "message": "Reception bunker, weighbridge, conveyors and contaminant removal: reference_capacity/scaling_exponent is required; no value was invented."
+      },
+      {
+        "cost_id": "TEA-001",
+        "code": "missing_capacity",
+        "required_input": "wet t/day",
+        "message": "Reception bunker, weighbridge, conveyors and contaminant removal: wet t/day is required; no value was invented."
+      },
+      {
+        "cost_id": "TEA-003",
+        "code": "missing_installed_factor",
+        "required_input": "installed_factor",
+        "message": "Stone trap, washer/screen, chopper/shredder/wet mill/refiner: installed_factor is required; no value was invented."
+      },
+      {
+        "cost_id": "TEA-004",
+        "code": "missing_scaling_input",
+        "required_input": "reference_capacity/scaling_exponent",
+        "message": "Screw press or belt press: reference_capacity/scaling_exponent is required; no value was invented."
+      },
+      {
+        "cost_id": "TEA-005",
+        "code": "missing_scaling_input",
+        "required_input": "reference_capacity/scaling_exponent",
+        "message": "Continuous pulsed-electric-field skid: reference_capacity/scaling_exponent is required; no value was invented."
+      },
+      {
+        "cost_id": "TEA-005",
+        "code": "missing_capacity",
+        "required_input": "L/h",
+        "message": "Continuous pulsed-electric-field skid: L/h is required; no value was invented."
+      },
+      {
+        "cost_id": "TEA-008",
+        "code": "missing_capacity",
+        "required_input": "working volume m3",
+        "message": "Acid/base dosing and precipitation tanks: working volume m3 is required; no value was invented."
+      },
+      {
+        "cost_id": "TEA-009",
+        "code": "missing_capacity",
+        "required_input": "m3/h",
+        "message": "Decanter / disc-stack centrifuge / hydrocyclone: m3/h is required; no value was invented."
+      },
+      {
+        "cost_id": "TEA-013",
+        "code": "missing_scaling_input",
+        "required_input": "reference_capacity/scaling_exponent",
+        "message": "CSTR / PFR / thermophilic / two-stage digester package: reference_capacity/scaling_exponent is required; no value was invented."
+      },
+      {
+        "cost_id": "TEA-013",
+        "code": "missing_capacity",
+        "required_input": "kWe installed",
+        "message": "CSTR / PFR / thermophilic / two-stage digester package: kWe installed is required; no value was invented."
+      },
+      {
+        "cost_id": "TEA-015",
+        "code": "missing_capacity",
+        "required_input": "Nm3/h raw gas",
+        "message": "Gas holder, condensate traps, flare, H2S removal, drying and filters: Nm3/h raw gas is required; no value was invented."
+      },
+      {
+        "cost_id": "TEA-017-MEMBRANE_UPGRADING",
+        "code": "missing_capacity",
+        "required_input": "Nm3/h raw gas",
+        "message": "Membrane upgrader package: Nm3/h raw gas is required; no value was invented."
+      },
+      {
+        "cost_id": "TEA-019",
+        "code": "missing_capacity",
+        "required_input": "m3/h",
+        "message": "Digestate screw press / decanter / filter press: m3/h is required; no value was invented."
+      },
+      {
+        "cost_id": "TEA-020",
+        "code": "missing_capacity",
+        "required_input": "m3/h digestate liquid",
+        "message": "Stripper plus acid absorber/scrubber: m3/h digestate liquid is required; no value was invented."
+      },
+      {
+        "cost_id": "TEA-022",
+        "code": "missing_capacity",
+        "required_input": "m3/h",
+        "message": "Struvite reactor/crystallizer, dosing, separator and dryer: m3/h is required; no value was invented."
+      },
+      {
+        "cost_id": "TEA-043",
+        "code": "missing_quantity",
+        "required_input": "annual simulation quantity or explicit project basis",
+        "message": "Acid and caustic (H2SO4/HCl, NaOH/lime): annual simulation quantity or explicit project basis is required; no value was invented."
+      },
+      {
+        "cost_id": "TEA-047",
+        "code": "missing_quantity",
+        "required_input": "annual simulation quantity or explicit project basis",
+        "message": "Activated carbon / H2S adsorbent: annual simulation quantity or explicit project basis is required; no value was invented."
+      },
+      {
+        "cost_id": "TEA-049",
+        "code": "missing_quantity",
+        "required_input": "annual simulation quantity or explicit project basis",
+        "message": "UF/RO/biogas membrane replacement: annual simulation quantity or explicit project basis is required; no value was invented."
+      },
+      {
+        "cost_id": "TEA-051",
+        "code": "missing_quantity",
+        "required_input": "annual simulation quantity or explicit project basis",
+        "message": "Magnesium salt (MgCl2/MgO/MgSO4): annual simulation quantity or explicit project basis is required; no value was invented."
+      },
+      {
+        "cost_id": "TEA-053",
+        "code": "missing_quantity",
+        "required_input": "annual simulation quantity or explicit project basis",
+        "message": "Filter cloths, screens and wear parts: annual simulation quantity or explicit project basis is required; no value was invented."
+      },
+      {
+        "cost_id": "PRODUCT-PRICE-DRY_PROTEIN_PRODUCT",
+        "process_step": "Product revenue",
+        "code": "missing_product_price",
+        "required_input": "dry_protein_product"
+      },
+      {
+        "cost_id": "PRODUCT-PRICE-BIOMETHANE",
+        "process_step": "Product revenue",
+        "code": "missing_product_price",
+        "required_input": "biomethane"
+      },
+      {
+        "cost_id": "PRODUCT-PRICE-PHOSPHORUS_PRODUCT",
+        "process_step": "Product revenue",
+        "code": "missing_product_price",
+        "required_input": "phosphorus_product"
+      },
+      {
+        "cost_id": "PRODUCT-PRICE-AMMONIUM_PRODUCT",
+        "process_step": "Product revenue",
+        "code": "missing_product_price",
+        "required_input": "ammonium_product"
+      },
+      {
+        "cost_id": "PRODUCT-PRICE-NUTRIENT_RICH_SOLIDS",
+        "process_step": "Product revenue",
+        "code": "missing_product_price",
+        "required_input": "nutrient_rich_solids"
+      },
+      {
+        "cost_id": "PROJECT-BOUNDARY",
+        "code": "unconfirmed_cost_boundary",
+        "required_input": "Review equipment, installation, indirects, replacements, utilities, consumables, labor, maintenance, logistics and disposal; declare included boundary and exclusions."
+      },
+      {
+        "cost_id": "PROJECT-PRICE-BASIS",
+        "code": "unconfirmed_price_basis",
+        "required_input": "Confirm common EUR price year and location, with explicit cost_multipliers where conversion/escalation is necessary."
+      }
+    ],
+    "warnings": [
+      "Legacy cost-register sources retain their original evidence and unharmonized price years; project-year normalization must be declared explicitly.",
+      "Product quality and marketability are not validated by the process model. Screening prices are hypotheses, not offtake contracts.",
+      "Annual revenue is incomplete because one or more selected saleable products lack a traceable price or compatible annual quantity.",
+      "Screening totals are partial because one or more selected cost lines lack required simulation or project-basis inputs.",
+      "Investment-return KPIs were not calculated because required CAPEX, OPEX, revenue, lifetime, or discount-rate inputs are incomplete."
+    ],
+    "totals": {
+      "total_direct_capex_eur": 55391.43789523134,
+      "partial_direct_capex_eur": 55391.43789523134,
+      "partial_installed_capex_eur": 0,
+      "total_installed_capex_eur": null,
+      "annual_opex_eur": 28226.570178264108,
+      "annual_revenue_eur": 0,
+      "annual_gross_profit_eur": null,
+      "net_operating_margin_eur_per_year": null,
+      "ebitda_like_operating_cash_flow_eur_per_year": null,
+      "partial_operating_margin_eur_per_year": -28226.570178264108,
+      "capex_status": "partial",
+      "opex_status": "partial",
+      "profit_status": "incomplete",
+      "selected_capex_lines_complete": false,
+      "selected_opex_lines_complete": false,
+      "revenue_status": "incomplete",
+      "totals_complete": false
+    },
+    "financial_assumptions": {
+      "project_lifetime_years": null,
+      "discount_rate": null,
+      "capex_spend_fractions": [
+        1.0
+      ],
+      "tax_rate": 0.0,
+      "depreciation_method": "none",
+      "depreciation_years": null,
+      "working_capital_eur": 0.0,
+      "working_capital_recovery_fraction": 1.0,
+      "residual_value_eur": 0.0,
+      "product_prices": {},
+      "revenue_product_ids": [],
+      "replacement_years_by_cost_id": {},
+      "replacement_cost_fraction_by_cost_id": {},
+      "notes": "",
+      "construction_years": 1
+    },
+    "financial_kpis": {
+      "annual_gross_profit_eur": null,
+      "net_operating_margin_eur_per_year": null,
+      "ebitda_like_operating_cash_flow_eur_per_year": null,
+      "partial_operating_margin_eur_per_year": -28226.570178264108,
+      "profit_status": "incomplete",
+      "profit_definition": "Annual product revenue minus annual operating expenditure before depreciation, tax and financing; replacement CAPEX is in cash flows only.",
+      "npv_eur": null,
+      "irr": null,
+      "simple_payback_years": null,
+      "discounted_payback_years": null,
+      "cost_per_tonne_wet_feed_eur": 6.314437288095753,
+      "cost_per_kg_protein_product_eur": 0.7760518230652679,
+      "cost_per_nm3_biomethane_eur": null,
+      "cost_intensity_status": "partial_opex",
+      "financial_kpi_status": "blocked_missing_financial_inputs",
+      "financial_kpi_blockers": [
+        "incomplete_installed_capex",
+        "incomplete_annual_opex",
+        "incomplete_product_revenue",
+        "missing_project_lifetime",
+        "missing_discount_rate"
+      ]
+    },
+    "cash_flow": [],
+    "replacement_schedule": [],
+    "confidence_summary": {
+      "Low": 10,
+      "Low-medium": 4,
+      "Medium": 3,
+      "Medium-high": 1
+    },
+    "source_traceability": [
+      {
+        "cost_id": "TEA-001",
+        "source_title": "ZORG Biogas 75 kt/y plant proposal: 9 m3 feeder \u20ac94k and conveyor \u20ac125k; Captels weighbridge guide \u20ac20\u201340k",
+        "source_url": "https://zorg-biogas.com/uploads/1/7329-proposal_75_000_tonne_straw_and_20_000_tonne_manure_into_biomethane_20_mln_m3.pdf",
+        "confidence": "Low",
+        "source_status": "proxy; assumption flagged",
+        "source_sheet": "Cost Inventory",
+        "source_row": 5,
+        "value": 250000.0,
+        "unit": "EUR/package; proxy; nominal 15 m3 feeder package + weighbridge/conveyance allowance",
+        "basis": "Receiving, weighing and bulk conveying; capacity designed from peak deliveries.",
+        "geography": "source-specific; see source and notes",
+        "reference_year": null,
+        "retrieval_date": null,
+        "evidence_class": "proxy; assumption flagged",
+        "applicability": "Proxy arithmetic: \u20ac94k feeder + \u20ac125k conveying allowance + \u20ac30k weighbridge = \u20ac249k rounded \u20ac250k; no allowance for civil works or contaminant removal; capacity mismatch and package scope uncertain. | Nominal; see notes; no general NL factor applied | Get EPC/vendor budget quote.",
+        "conversion_method": "Preserved compact-register EUR conversion; source year not independently normalized.",
+        "uncertainty": "Low"
+      },
+      {
+        "cost_id": "TEA-003",
+        "source_title": "RICHI grass forage hammer mill \u20ac18k at 0.8\u20131.4 t/h + MCR washer \u20ac8k; allowance for stone trap and integration",
+        "source_url": "https://www.pellet-richi.com/single-pellet-machine-cases/hammer-mill-for-dairy-cow-forage-in-the-Netherlands.html",
+        "confidence": "Low",
+        "source_status": "proxy; assumption flagged",
+        "source_sheet": "Cost Inventory",
+        "source_row": 7,
+        "value": 50000.0,
+        "unit": "EUR/package; proxy at ~1 t/h",
+        "basis": "One selected mechanical preparation train. Chopper, shredder and mill are alternative/combined elements only when route requires.",
+        "geography": "source-specific; see source and notes",
+        "reference_year": null,
+        "retrieval_date": null,
+        "evidence_class": "proxy; assumption flagged",
+        "applicability": "Bundled equipment estimate: \u20ac18k hammer mill + \u20ac8k washer + \u20ac24k allowance for stone trap, screen, integration/controls. Do not add alternate wet mill/shredder prices unless separately selected. | Nominal; see notes; no general NL factor applied | Vendor quote for grass with grit/metal/plastics.",
+        "conversion_method": "Preserved compact-register EUR conversion; source year not independently normalized.",
+        "uncertainty": "Low"
+      },
+      {
+        "cost_id": "TEA-004",
+        "source_title": "European listing for Bauer Plug&Play 855 screw-press separator; manure/digestate analogue",
+        "source_url": "https://protesca.com/en-de/products/separator-bauer-pp-855",
+        "confidence": "Low-medium",
+        "source_status": "proxy; assumption flagged",
+        "source_sheet": "Cost Inventory",
+        "source_row": 8,
+        "value": 66899.0,
+        "unit": "EUR/unit; proxy; used Bauer PP855",
+        "basis": "Press frame, drive and standard separation package.",
+        "geography": "source-specific; see source and notes",
+        "reference_year": null,
+        "retrieval_date": null,
+        "evidence_class": "proxy; assumption flagged",
+        "applicability": "Direct reference price \u20ac66,899 is used-market list for a comparable manure/digestate separator; 855 model throughput up to 40m3/h per Bauer. New hygienic grass-juice press likely differs. Treat as budget proxy, excluding downstream centrifuge. | Nominal; see notes; no general NL factor applied | Quote at grass flow and solids capture.",
+        "conversion_method": "Preserved compact-register EUR conversion; source year not independently normalized.",
+        "uncertainty": "Low-medium"
+      },
+      {
+        "cost_id": "TEA-005",
+        "source_title": "Comparative PEF/thermal treatment TEA",
+        "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12248458/",
+        "confidence": "Low",
+        "source_status": "sourced / proxy",
+        "source_sheet": "Cost Inventory",
+        "source_row": 9,
+        "value": 680000.0,
+        "unit": "EUR/system; proxy",
+        "basis": "One continuous food-process PEF unit; specific article benchmark.",
+        "geography": "source-specific; see source and notes",
+        "reference_year": null,
+        "retrieval_date": null,
+        "evidence_class": "sourced / proxy",
+        "applicability": "\u20ac680k reported for food-process PEF case (2024 approx); broad review range \u20ac75k\u2013400k/system conflicts, retain as sensitivity/reference in notes. Strongly feed- and capacity-dependent. | Nominal; see notes; no general NL factor applied | Resolve price spread with supplier quote; do not add review range to point estimate.",
+        "conversion_method": "Preserved compact-register EUR conversion; source year not independently normalized.",
+        "uncertainty": "Low"
+      },
+      {
+        "cost_id": "TEA-008",
+        "source_title": "Used 5,000L jacketed tank listing \u20ac4,900; added pump, agitator refurbishment/controls, acid/base dosing allowance",
+        "source_url": "https://www.behaelter-kg.de/en/5000-liter-heat-coolable-tank-with-6-8-kw-ekato-blade-stirrer-ex-proof-6169-2.html",
+        "confidence": "Low",
+        "source_status": "proxy; assumption flagged",
+        "source_sheet": "Cost Inventory",
+        "source_row": 12,
+        "value": 30000.0,
+        "unit": "EUR/package; proxy per 5m3 tank + dosing",
+        "basis": "Tank(s), agitator and dosing equipment for pH shift/heat precipitation.",
+        "geography": "source-specific; see source and notes",
+        "reference_year": null,
+        "retrieval_date": null,
+        "evidence_class": "proxy; assumption flagged",
+        "applicability": "\u20ac30k allowance combines 5m3 agitated tank, metering pumps, pH controls and installation allowance. Duplicate scenario tanks consolidated; validate hygienic/material spec. | Nominal; see notes; no general NL factor applied | Quote after pH, batch and hygienic specification.",
+        "conversion_method": "Preserved compact-register EUR conversion; source year not independently normalized.",
+        "uncertainty": "Low"
+      },
+      {
+        "cost_id": "TEA-009",
+        "source_title": "SYSTEMIC D3.2 nutrient recovery equipment cost points",
+        "source_url": "https://systemicproject.eu/wp-content/uploads/D3.2-Report-Schemes-and-Scenarios_update2021-website-BDP.pdf",
+        "confidence": "Low-medium",
+        "source_status": "sourced / proxy",
+        "source_sheet": "Cost Inventory",
+        "source_row": 13,
+        "value": 86333.0,
+        "unit": "EUR/unit; proxy from 2 m3/h decanter",
+        "basis": "Decanter capacity point: \u20ac86,333 at 2 m3/h from SYSTEMIC; use relevant chosen centrifuge type.",
+        "geography": "source-specific; see source and notes",
+        "reference_year": null,
+        "retrieval_date": null,
+        "evidence_class": "sourced / proxy",
+        "applicability": "Cost points exist at 2\u201390 m3/h but are noisy/nonmonotonic; use only matched points or \u20ac86,333 at 2 m3/h as an indicative anchor; exponent is rough. | Nominal; see notes; no general NL factor applied | Check source capacity points against selected separator technology.",
+        "conversion_method": "Preserved compact-register EUR conversion; source year not independently normalized.",
+        "uncertainty": "Low-medium"
+      },
+      {
+        "cost_id": "TEA-013",
+        "source_title": "JRC Cost development of low carbon energy technologies, Table 38",
+        "source_url": "https://publications.jrc.ec.europa.eu/repository/bitstream/JRC109894/cost_development_of_low_carbon_energy_technologies_v2.2_final_online.pdf",
+        "confidence": "Low-medium",
+        "source_status": "sourced / proxy",
+        "source_sheet": "Cost Inventory",
+        "source_row": 17,
+        "value": 2930.0,
+        "unit": "EUR/kWe installed; plant-level proxy",
+        "basis": "JRC 2020 generic AD plant-level CAPEX anchor \u20ac2,600\u20133,000/kWe; use \u20ac2,930/kWe central. Scenario-specific vessel configuration is selected in Scenarios sheet.",
+        "geography": "source-specific; see source and notes",
+        "reference_year": null,
+        "retrieval_date": null,
+        "evidence_class": "sourced / proxy",
+        "applicability": "Broad total plant boundary; not grass-specific, not a vessel-only price. This avoids double counting the digester and balance-of-plant. | Nominal; see notes; no general NL factor applied | Use either plant-total proxy OR bottom-up equipment estimates, never both.",
+        "conversion_method": "Preserved compact-register EUR conversion; source year not independently normalized.",
+        "uncertainty": "Low-medium"
+      },
+      {
+        "cost_id": "TEA-015",
+        "source_title": "ZORG biogas proposal lists 2,905m3 gasholder \u20ac125k, 1,000kg carbon desulphurization column \u20ac55k, 4,600m3/h flare \u20ac290k; scaled allowance for small plant components",
+        "source_url": "https://zorg-biogas.com/uploads/1/7423-proposal_napier_grass_chp_16_20mw.pdf",
+        "confidence": "Low",
+        "source_status": "sourced / proxy",
+        "source_sheet": "Cost Inventory",
+        "source_row": 19,
+        "value": 250000.0,
+        "unit": "EUR/package; proxy; 100Nm3/h gas basis",
+        "basis": "Common conditioning/safety package as selected route requires.",
+        "geography": "source-specific; see source and notes",
+        "reference_year": null,
+        "retrieval_date": null,
+        "evidence_class": "sourced / proxy",
+        "applicability": "\u20ac250k nominal at 100Nm3/h: holder, gas conditioning, flare, drying and valves/instrumentation package allowance. Large-project proposal components scaled/downward with 0.7 exponent; highly uncertain and excludes upgrading compressor. | Nominal; see notes; no general NL factor applied | Quote gas quality/flow and package boundary.",
+        "conversion_method": "Preserved compact-register EUR conversion; source year not independently normalized.",
+        "uncertainty": "Low"
+      },
+      {
+        "cost_id": "TEA-017-MEMBRANE_UPGRADING",
+        "source_title": "Spanish biogas upgrading cost model, capacity cost points",
+        "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9821904/",
+        "confidence": "Low-medium",
+        "source_status": "sourced / proxy",
+        "source_sheet": "Cost Inventory",
+        "source_row": 21,
+        "value": 1600000.0,
+        "unit": "EUR/package at 800 Nm3/h raw gas",
+        "basis": "Select exactly one process package. Indicative source points: PSA \u20ac1,200\u20133,000/(Nm3/h) at 2,000\u2013500; water scrubber \u20ac1,300\u20135,100 at 2,100\u2013100; membrane \u20ac1,800\u20136,000 at 1,500\u201340. Central placeholder uses PSA \u20ac1,750 at 1,250 Nm3/h.",
+        "geography": "source-specific; see source and notes",
+        "reference_year": null,
+        "retrieval_date": null,
+        "evidence_class": "sourced / proxy",
+        "applicability": "Derived package anchor = workbook base unit rate 2000 EUR/(Nm3/h) x stated base capacity 800 Nm3/h. | Spanish 2023 case-study cost points; scale and geography proxy. Route-specific alternative costs are shown in Notes; do not add together. | Nominal; see notes; no general NL factor applied | Select route/flow and replace with vendor budget quote.",
+        "conversion_method": "Preserved compact-register EUR conversion; source year not independently normalized.",
+        "uncertainty": "Low-medium"
+      },
+      {
+        "cost_id": "TEA-019",
+        "source_title": "SYSTEMIC D3.2 nutrient recovery equipment cost points",
+        "source_url": "https://systemicproject.eu/wp-content/uploads/D3.2-Report-Schemes-and-Scenarios_update2021-website-BDP.pdf",
+        "confidence": "Low",
+        "source_status": "sourced / proxy",
+        "source_sheet": "Cost Inventory",
+        "source_row": 23,
+        "value": 86333.0,
+        "unit": "EUR/unit; proxy at 2 m3/h decanter",
+        "basis": "One selected digestate separation unit if included in process route; shared equipment may serve upstream protein separator only if flows/spec compatible.",
+        "geography": "source-specific; see source and notes",
+        "reference_year": null,
+        "retrieval_date": null,
+        "evidence_class": "sourced / proxy",
+        "applicability": "Use decanter points listed above; screw press/filter press lacks numeric fit; generic proxy. | Nominal; see notes; no general NL factor applied | Confirm route, flow and solids capture.",
+        "conversion_method": "Preserved compact-register EUR conversion; source year not independently normalized.",
+        "uncertainty": "Low"
+      },
+      {
+        "cost_id": "TEA-020",
+        "source_title": "EU CAP Network Detricon digestate nitrogen recovery practice",
+        "source_url": "https://eu-cap-network.ec.europa.eu/projects/practice-abstracts/technology-n-recovery-inorganic-fertilizer-starting-liquid-fraction_en",
+        "confidence": "Medium",
+        "source_status": "sourced / proxy",
+        "source_sheet": "Cost Inventory",
+        "source_row": 24,
+        "value": 300000.0,
+        "unit": "EUR/package at 3 m3/h",
+        "basis": "Detricon source package \u20ac300k at 3 m3/h, \u20ac550k at 8 m3/h.",
+        "geography": "source-specific; see source and notes",
+        "reference_year": null,
+        "retrieval_date": null,
+        "evidence_class": "sourced / proxy",
+        "applicability": "Direct EU project practice proxy, manure/digestate analogue. Use points to interpolate rather than treating as a universal quote. | Nominal; see notes; no general NL factor applied | Confirm NH4 load and process package scope.",
+        "conversion_method": "Preserved compact-register EUR conversion; source year not independently normalized.",
+        "uncertainty": "Medium"
+      },
+      {
+        "cost_id": "TEA-022",
+        "source_title": "US techno-economic assessment struvite fluidized-bed unit: up to 48,000kg digestate/day at $625k plus shared $420k dryer; scaled to small 3m3/h train",
+        "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10659086/",
+        "confidence": "Low",
+        "source_status": "proxy; assumption flagged",
+        "source_sheet": "Cost Inventory",
+        "source_row": 26,
+        "value": 150000.0,
+        "unit": "EUR/package; proxy; 3m3/h side-stream nutrient recovery",
+        "basis": "Complete process package if route selected.",
+        "geography": "source-specific; see source and notes",
+        "reference_year": null,
+        "retrieval_date": null,
+        "evidence_class": "proxy; assumption flagged",
+        "applicability": "Scaled from large livestock installation to 3m3/h using 0.6 exponent and EUR/USD\u22480.92; nominal \u20ac150k includes reactor, dosing, separator and basic dewatering; excludes dryer, reagent, permits. Very uncertain. | Nominal; see notes; no general NL factor applied | Quote P load, target recovery and product spec.",
+        "conversion_method": "Preserved compact-register EUR conversion; source year not independently normalized.",
+        "uncertainty": "Low"
+      },
+      {
+        "cost_id": "TEA-036",
+        "source_title": "Eurostat nrg_pc_205, H2 2025, Netherlands, band IC, excluding VAT",
+        "source_url": "https://ec.europa.eu/eurostat/databrowser/view/nrg_pc_205/bookmark/table?bookmarkId=f741a117-cfd3-4c7e-8b2d-68e9310dcc78",
+        "confidence": "Medium-high",
+        "source_status": "sourced / proxy",
+        "source_sheet": "Cost Inventory",
+        "source_row": 40,
+        "value": 0.1991,
+        "unit": "EUR/kWh excl. VAT; taxes/levies per Eurostat selection",
+        "basis": "Eurostat nrg_pc_205 Netherlands band IC, H2 2025, all taxes/levies except VAT: \u20ac0.1991/kWh. Use as central only if consumption band/tax status matches.",
+        "geography": "source-specific; see source and notes",
+        "reference_year": null,
+        "retrieval_date": null,
+        "evidence_class": "sourced / proxy",
+        "applicability": "Country/band numeric value surfaced from Eurostat series. Low/high scenario \u00b120% for sensitivity; site contract remains controlling. | Nominal; see notes; no general NL factor applied | Select band from annual demand and taxable/cost treatment.",
+        "conversion_method": "Preserved compact-register EUR conversion; source year not independently normalized.",
+        "uncertainty": "Medium-high"
+      },
+      {
+        "cost_id": "TEA-043",
+        "source_title": "PricePedia EU sulfuric acid flow price; Dutch NaOH market proxy",
+        "source_url": "https://www.pricepedia.it/en/magazine/article/2026/02/06/sulphuric-acid-product-scarcity-and-cost-increases-drive-current-high-prices/",
+        "confidence": "Low",
+        "source_status": "sourced / proxy",
+        "source_sheet": "Cost Inventory",
+        "source_row": 47,
+        "value": 0.16,
+        "unit": "EUR/kg H2SO4 screening proxy; caustic separate",
+        "basis": "EU intra-regional sulfuric-acid flow benchmark approx \u20ac126/t in Jan 2026; screening value \u20ac0.16/kg delivered allows freight/handling. Technical-grade NaOH 50% lacks a reliable open bulk quote; use \u20ac0.60\u20130.90/kg solution as provisional vendor-price range proxy, not numeric single point.",
+        "geography": "source-specific; see source and notes",
+        "reference_year": null,
+        "retrieval_date": null,
+        "evidence_class": "sourced / proxy",
+        "applicability": "Commodity proxies from public market/trade indicators; validate vendor quote. Note NaOH unit basis is solution mass. | Nominal; see notes; no general NL factor applied | Keep acid/caustic quantities separate in scenario mass balance; obtain supplier quotes.",
+        "conversion_method": "Preserved compact-register EUR conversion; source year not independently normalized.",
+        "uncertainty": "Low"
+      },
+      {
+        "cost_id": "TEA-047",
+        "source_title": "ZORG Biogas activated carbon for sulfur removal listed at \u20ac4.50/kg",
+        "source_url": "https://zorg-biogas.com/equipment/biogas-trace-elements/activated_carbon-2",
+        "confidence": "Medium",
+        "source_status": "sourced / proxy",
+        "source_sheet": "Cost Inventory",
+        "source_row": 51,
+        "value": 4.5,
+        "unit": "EUR/kg; H2S impregnated carbon",
+        "basis": "Public quote depends strongly on impregnation, H2S load and regeneration.",
+        "geography": "source-specific; see source and notes",
+        "reference_year": null,
+        "retrieval_date": null,
+        "evidence_class": "sourced / proxy",
+        "applicability": "Direct listed price for 4mm impregnated activated carbon for biogas H2S removal; use changeout quantity based on feed H2S and breakthrough. | Nominal; see notes; no general NL factor applied | Vendor quote from gas analysis.",
+        "conversion_method": "Preserved compact-register EUR conversion; source year not independently normalized.",
+        "uncertainty": "Medium"
+      },
+      {
+        "cost_id": "TEA-049",
+        "source_title": "Eurotrolen 80m2 module list price \u20ac5,449/80 = \u20ac68.11/m2",
+        "source_url": "https://www.aquatech.ro/wp-content/uploads/2025/03/Eurotrolen-Price-List_03-03-2025_compressed.pdf",
+        "confidence": "Medium",
+        "source_status": "sourced / proxy",
+        "source_sheet": "Cost Inventory",
+        "source_row": 53,
+        "value": 68.12,
+        "unit": "EUR/m2 active area; industrial UF module proxy",
+        "basis": "Public EU industrial UF module range \u20ac50\u2013150/m2; \u20ac100/m2 screening midpoint for water-process membranes only. Biogas upgrading membranes should be separately quoted.",
+        "geography": "source-specific; see source and notes",
+        "reference_year": null,
+        "retrieval_date": null,
+        "evidence_class": "sourced / proxy",
+        "applicability": "\u20ac68.12/m2 calculated from listed 80m2 UF module. This is water-process UF membrane media; biogas upgrading membranes need separate vendor price/lifetime. | Nominal; see notes; no general NL factor applied | Obtain membrane area price and lifetime.",
+        "conversion_method": "Preserved compact-register EUR conversion; source year not independently normalized.",
+        "uncertainty": "Medium"
+      },
+      {
+        "cost_id": "TEA-051",
+        "source_title": "European market price proxy; \u20ac200\u2013400/t and \u20ac300/t midpoint",
+        "source_url": "https://www.indexbox.io/store/european-union-hygroscopic-dust-suppressants-market-analysis-forecast-size-trends-and-insights/",
+        "confidence": "Low",
+        "source_status": "sourced / proxy",
+        "source_sheet": "Cost Inventory",
+        "source_row": 55,
+        "value": 0.3,
+        "unit": "EUR/kg MgCl2\u00b76H2O; indicative bulk proxy",
+        "basis": "EU delivered magnesium chloride hexahydrate broad industrial proxy \u20ac200\u2013400/t; midpoint \u20ac300/t. Grade may not match precipitation use.",
+        "geography": "source-specific; see source and notes",
+        "reference_year": null,
+        "retrieval_date": null,
+        "evidence_class": "sourced / proxy",
+        "applicability": "\u20ac0.30/kg = \u20ac300/t central proxy, but EU market report is not a supplier quote and product grade may differ. | Nominal; see notes; no general NL factor applied | Quote required at process purity and bulk volume.",
+        "conversion_method": "Preserved compact-register EUR conversion; source year not independently normalized.",
+        "uncertainty": "Low"
+      },
+      {
+        "cost_id": "TEA-053",
+        "source_title": "Routine maintenance proxy 4% of installed equipment CAPEX/year; set-specific proxy at \u20ac125k separator / 2% allowance for cloths/screens",
+        "source_url": "https://publications.jrc.ec.europa.eu/repository/bitstream/JRC109894/cost_development_of_low_carbon_energy_technologies_v2.2_final_online.pdf",
+        "confidence": "Low",
+        "source_status": "proxy; assumption flagged",
+        "source_sheet": "Cost Inventory",
+        "source_row": 57,
+        "value": 2500.0,
+        "unit": "EUR/set/year; annual wear proxy per train",
+        "basis": "Vendor dependent and replacement schedule specific.",
+        "geography": "source-specific; see source and notes",
+        "reference_year": null,
+        "retrieval_date": null,
+        "evidence_class": "proxy; assumption flagged",
+        "applicability": "\u20ac2.5k/year screening allowance for filter cloths/screens/wear parts per mechanical separation train. Could double count routine maintenance percentage; only include when itemized consumables are excluded from top-down O&M. | Nominal; see notes; no general NL factor applied | Quote annual service kit.",
+        "conversion_method": "Preserved compact-register EUR conversion; source year not independently normalized.",
+        "uncertainty": "Low"
+      }
+    ],
+    "project_basis": {
+      "operating_hours_per_year": 3899.658792753313,
+      "operating_days_per_year": null,
+      "operating_hours_per_day": null,
+      "annual_throughput_kg": 4470163.98935152,
+      "capacities": {},
+      "annual_quantities": {},
+      "installed_factors": {},
+      "include_cost_ids": [],
+      "exclude_cost_ids": [],
+      "explicit_route_tags": [],
+      "notes": "",
+      "currency": "EUR",
+      "price_year": 2026,
+      "location": "Netherlands",
+      "cost_boundary_complete": false,
+      "price_basis_confirmed": false,
+      "boundary_exclusions": [],
+      "product_quality": {},
+      "cost_multipliers": {},
+      "capacity_ranges": {},
+      "allow_capacity_extrapolation": false
+    },
+    "project_assumption_traceability": [],
+    "schema_version": "greenhub-tea-post-route-2.1"
+  },
+  "lca": {
+    "schema_version": "greenhub-climate-inventory-1.0",
+    "analysis_type": "climate_screening_not_complete_LCA",
+    "project_basis": {
+      "location": "Netherlands",
+      "reference_year": 2026,
+      "boundary": "collection-to-factory-gate climate screening",
+      "included_groups": [
+        "electricity",
+        "heat",
+        "materials",
+        "transport",
+        "storage_emissions",
+        "process_emissions",
+        "waste"
+      ],
+      "exclusions": {
+        "feedstock_production": "Cultivation and land-use change excluded from collection-to-gate boundary; no zero-burden claim.",
+        "equipment": "Embodied equipment excluded from this operational screening boundary.",
+        "product_use_and_end_of_life": "Outside factory gate; no permanent biogenic carbon storage credited."
+      },
+      "allocation": "whole_plant_no_product_allocation",
+      "operating_hours_per_year": 3899.658792753313,
+      "annual_throughput_kg": 4470163.98935152,
+      "annual_dry_feed_kg": 1566093.2552878298,
+      "methane_emitted_fraction": null,
+      "inventory_completeness": {},
+      "substitution_enabled": false
+    },
+    "method": "IPCC AR6 WGI (2021), Table 7.15, GWP100",
+    "inventory": [
+      {
+        "flow_id": "electricity",
+        "group": "electricity",
+        "quantity": 141770.81957942797,
+        "unit": "kWh",
+        "accounting_key": "electricity",
+        "factor_id": "electricity",
+        "direction": "burden",
+        "compartment": "technosphere",
+        "source_status": "process_output",
+        "source_id": "simulation:a6dcfe28aa294f619c80a03984e974b2",
+        "warning": "",
+        "basis": "annual inventory, summed modeled periods; no off-season extrapolation",
+        "geography": "project location",
+        "reference_year": null,
+        "source_url": "",
+        "source_table_page": "",
+        "retrieval_date": "",
+        "evidence_class": "model_output",
+        "applicability": "this formed process scenario only",
+        "conversion_method": "identity",
+        "uncertainty": "not quantified; inherited process uncertainty",
+        "counterfactual": "",
+        "quality_verified": false,
+        "available_quantity": null,
+        "climate_kg_co2e": null,
+        "status": "missing_factor"
+      },
+      {
+        "flow_id": "heat",
+        "group": "heat",
+        "quantity": 213007.70746349957,
+        "unit": "kWh",
+        "accounting_key": "heat",
+        "factor_id": "heat",
+        "direction": "burden",
+        "compartment": "technosphere",
+        "source_status": "process_output",
+        "source_id": "simulation:a6dcfe28aa294f619c80a03984e974b2",
+        "warning": "",
+        "basis": "annual inventory, summed modeled periods; no off-season extrapolation",
+        "geography": "project location",
+        "reference_year": null,
+        "source_url": "",
+        "source_table_page": "",
+        "retrieval_date": "",
+        "evidence_class": "model_output",
+        "applicability": "this formed process scenario only",
+        "conversion_method": "identity",
+        "uncertainty": "not quantified; inherited process uncertainty",
+        "counterfactual": "",
+        "quality_verified": false,
+        "available_quantity": null,
+        "climate_kg_co2e": null,
+        "status": "missing_factor"
+      },
+      {
+        "flow_id": "storage_incoming_residence_steady_state_rate_basis_Hydrogen",
+        "group": "storage_emissions",
+        "quantity": 0.0,
+        "unit": "kg",
+        "accounting_key": "storage_incoming_residence_steady_state_rate_basis_Hydrogen",
+        "factor_id": null,
+        "direction": "burden",
+        "compartment": "technosphere",
+        "source_status": "process_output",
+        "source_id": "simulation:a6dcfe28aa294f619c80a03984e974b2",
+        "warning": "",
+        "basis": "annual inventory, summed modeled periods; no off-season extrapolation",
+        "geography": "project location",
+        "reference_year": null,
+        "source_url": "",
+        "source_table_page": "",
+        "retrieval_date": "",
+        "evidence_class": "model_output",
+        "applicability": "this formed process scenario only",
+        "conversion_method": "identity",
+        "uncertainty": "not quantified; inherited process uncertainty",
+        "counterfactual": "",
+        "quality_verified": false,
+        "available_quantity": null,
+        "climate_kg_co2e": null,
+        "status": "missing_factor"
+      },
+      {
+        "flow_id": "storage_incoming_residence_steady_state_rate_basis_Methane",
+        "group": "storage_emissions",
+        "quantity": 0.0,
+        "unit": "kg",
+        "accounting_key": "storage_incoming_residence_steady_state_rate_basis_Methane",
+        "factor_id": "biogenic_methane",
+        "direction": "burden",
+        "compartment": "technosphere",
+        "source_status": "process_output",
+        "source_id": "simulation:a6dcfe28aa294f619c80a03984e974b2",
+        "warning": "",
+        "basis": "annual inventory, summed modeled periods; no off-season extrapolation",
+        "geography": "project location",
+        "reference_year": null,
+        "source_url": "",
+        "source_table_page": "",
+        "retrieval_date": "",
+        "evidence_class": "model_output",
+        "applicability": "this formed process scenario only",
+        "conversion_method": "identity",
+        "uncertainty": "not quantified; inherited process uncertainty",
+        "counterfactual": "",
+        "quality_verified": false,
+        "available_quantity": null,
+        "climate_kg_co2e": 0.0,
+        "status": "characterized"
+      },
+      {
+        "flow_id": "storage_incoming_residence_steady_state_rate_basis_CarbonDioxide",
+        "group": "storage_emissions",
+        "quantity": 9139.651562511823,
+        "unit": "kg",
+        "accounting_key": "storage_incoming_residence_steady_state_rate_basis_CarbonDioxide",
+        "factor_id": "biogenic_co2",
+        "direction": "memorandum",
+        "compartment": "technosphere",
+        "source_status": "process_output",
+        "source_id": "simulation:a6dcfe28aa294f619c80a03984e974b2",
+        "warning": "",
+        "basis": "annual inventory, summed modeled periods; no off-season extrapolation",
+        "geography": "project location",
+        "reference_year": null,
+        "source_url": "",
+        "source_table_page": "",
+        "retrieval_date": "",
+        "evidence_class": "model_output",
+        "applicability": "this formed process scenario only",
+        "conversion_method": "identity",
+        "uncertainty": "not quantified; inherited process uncertainty",
+        "counterfactual": "",
+        "quality_verified": false,
+        "available_quantity": null,
+        "climate_kg_co2e": null,
+        "status": "memorandum"
+      }
+    ],
+    "totals": {
+      "climate_kg_co2e_per_year": null,
+      "partial_climate_kg_co2e_per_year": 0.0,
+      "substitution_credit_kg_co2e_per_year": 0.0,
+      "substitution_net_kg_co2e_per_year": null,
+      "kg_co2e_per_tonne_wet_feed": null,
+      "kg_co2e_per_tonne_dry_feed": null
+    },
+    "missing_inputs": [
+      "electricity: missing_factor",
+      "heat: missing_factor",
+      "storage_incoming_residence_steady_state_rate_basis_Hydrogen: missing_factor",
+      "electricity: inventory boundary incomplete",
+      "heat: inventory boundary incomplete",
+      "materials: inventory boundary incomplete",
+      "materials: no explicit inventory (zero must be declared as a flow)",
+      "transport: inventory boundary incomplete",
+      "transport: no explicit inventory (zero must be declared as a flow)",
+      "storage_emissions: inventory boundary incomplete",
+      "process_emissions: inventory boundary incomplete",
+      "process_emissions: no explicit inventory (zero must be declared as a flow)",
+      "waste: inventory boundary incomplete",
+      "waste: no explicit inventory (zero must be declared as a flow)"
+    ],
+    "factors": [
+      {
+        "factor_id": "fossil_co2",
+        "value": 1,
+        "quantity_unit": "kg",
+        "source_status": "official_dataset",
+        "basis": "fossil CO2 to air",
+        "geography": "global",
+        "reference_year": 2021,
+        "source_url": "https://www.ipcc.ch/report/ar6/wg1/downloads/report/IPCC_AR6_WGI_Chapter07.pdf",
+        "source_table_page": "Table 7.15, with published errata for non-fossil methane",
+        "retrieval_date": "2026-10-12",
+        "evidence_class": "official_dataset",
+        "applicability": "100-year climate characterization of stated gas only",
+        "conversion_method": "identity",
+        "uncertainty": "IPCC assessed uncertainty; no probability distribution imposed",
+        "method": "IPCC AR6 WGI (2021), Table 7.15, GWP100",
+        "warning": "Does not establish inventory completeness.",
+        "unit": "kg CO2e/kg"
+      },
+      {
+        "factor_id": "biogenic_methane",
+        "value": 27,
+        "quantity_unit": "kg",
+        "source_status": "official_dataset",
+        "basis": "non-fossil methane to air",
+        "geography": "global",
+        "reference_year": 2021,
+        "source_url": "https://www.ipcc.ch/report/ar6/wg1/downloads/report/IPCC_AR6_WGI_Chapter07.pdf",
+        "source_table_page": "Table 7.15, with published errata for non-fossil methane",
+        "retrieval_date": "2026-10-12",
+        "evidence_class": "official_dataset",
+        "applicability": "100-year climate characterization of stated gas only",
+        "conversion_method": "identity",
+        "uncertainty": "IPCC assessed uncertainty; no probability distribution imposed",
+        "method": "IPCC AR6 WGI (2021), Table 7.15, GWP100",
+        "warning": "Does not establish inventory completeness.",
+        "unit": "kg CO2e/kg"
+      },
+      {
+        "factor_id": "nitrous_oxide",
+        "value": 273,
+        "quantity_unit": "kg",
+        "source_status": "official_dataset",
+        "basis": "N2O mass (not N2O-N) to air",
+        "geography": "global",
+        "reference_year": 2021,
+        "source_url": "https://www.ipcc.ch/report/ar6/wg1/downloads/report/IPCC_AR6_WGI_Chapter07.pdf",
+        "source_table_page": "Table 7.15, with published errata for non-fossil methane",
+        "retrieval_date": "2026-10-12",
+        "evidence_class": "official_dataset",
+        "applicability": "100-year climate characterization of stated gas only",
+        "conversion_method": "identity",
+        "uncertainty": "IPCC assessed uncertainty; no probability distribution imposed",
+        "method": "IPCC AR6 WGI (2021), Table 7.15, GWP100",
+        "warning": "Does not establish inventory completeness.",
+        "unit": "kg CO2e/kg"
+      },
+      {
+        "factor_id": "electricity",
+        "value": null,
+        "quantity_unit": "kWh",
+        "source_status": "missing",
+        "basis": "delivered utility; boundary and supply mix must be specified",
+        "geography": "project-specific",
+        "reference_year": null,
+        "source_url": "",
+        "source_table_page": "",
+        "retrieval_date": "2026-10-12",
+        "evidence_class": "missing",
+        "applicability": "Project supplier/year factor missing",
+        "conversion_method": "identity",
+        "uncertainty": "missing",
+        "method": "IPCC AR6 WGI (2021), Table 7.15, GWP100",
+        "warning": "Missing is not zero; supply a traceable factor.",
+        "unit": "kg CO2e/kWh"
+      },
+      {
+        "factor_id": "heat",
+        "value": null,
+        "quantity_unit": "kWh",
+        "source_status": "missing",
+        "basis": "delivered utility; boundary and supply mix must be specified",
+        "geography": "project-specific",
+        "reference_year": null,
+        "source_url": "",
+        "source_table_page": "",
+        "retrieval_date": "2026-10-12",
+        "evidence_class": "missing",
+        "applicability": "Project supplier/year factor missing",
+        "conversion_method": "identity",
+        "uncertainty": "missing",
+        "method": "IPCC AR6 WGI (2021), Table 7.15, GWP100",
+        "warning": "Missing is not zero; supply a traceable factor.",
+        "unit": "kg CO2e/kWh"
+      }
+    ],
+    "readiness": {
+      "climate_objective_eligible": false,
+      "validated_lca_ready": false
+    },
+    "warnings": [
+      "Only climate is characterized. Nutrient emissions require separate characterization factors.",
+      "Whole-plant attributional burdens and optional quality-verified substitution credits are reported separately.",
+      "Biogenic CO2 is reported as a memorandum, without claiming permanent carbon storage or a complete carbon cycle."
+    ]
+  },
+  "objectives": {
+    "operating_profit": {
+      "value": null,
+      "direction": "maximize",
+      "unit": "EUR/year",
+      "eligible": false,
+      "definition": "Annual product revenue minus operating costs, before tax, financing and depreciation"
+    },
+    "climate": {
+      "value": null,
+      "direction": "minimize",
+      "unit": "kg CO2e/year",
+      "eligible": false,
+      "definition": "Attributional whole-plant climate within declared boundary; substitution credits separate"
+    },
+    "installed_capex": {
+      "value": null,
+      "direction": "minimize",
+      "unit": "EUR",
+      "eligible": false
+    },
+    "route_trl": {
+      "value": null,
+      "direction": "maximize",
+      "unit": "TRL",
+      "eligible": false,
+      "definition": "No evidence-backed route-level TRL aggregation exists; never inferred from component maturity"
+    }
+  },
+  "feasibility": {
+    "numerical_checks_passed": true,
+    "route_compatible": true,
+    "storage_blockers": [
+      "R06: blocked species mapping: fructan_unit",
+      "R10: blocked species mapping: Ethanol",
+      "R11: blocked species mapping: Ethanol",
+      "R14: blocked species mapping: amino_acid_unit, true_protein_unit",
+      "R15: blocked species mapping: TAN_as_NH3, amino_acid_unit, keto_acid_unit",
+      "R16: blocked species mapping: keto_acid_unit",
+      "R19: blocked species mapping: Ethanol"
+    ],
+    "eligible_for_ranking": false,
+    "product_quality_status": "requires_product_specific_evidence"
+  },
+  "readiness": {
+    "validated_simulation_ready": false,
+    "scientific_validation": "not established",
+    "process_evidence": {
+      "feedstock_and_characterization": "structural",
+      "feed_preparation_and_primary_separation": "structural",
+      "protein_recovery": "structural",
+      "anaerobic_digestion": "structural",
+      "biogas_conditioning_and_upgrading": "structural",
+      "digestate_treatment_and_nutrient_recovery": "structural",
+      "shared_utilities_and_supporting_operations": "structural"
+    }
+  },
+  "provenance": {
+    "process": {
+      "git_commit": "1710374e723e6ea0d13bd2823112531fbc8206f8",
+      "software_versions": {
+        "biosteam": "2.53.11",
+        "thermosteam": "0.53.5",
+        "pandas": "3.0.5",
+        "openpyxl": "3.1.5",
+        "scipy": "1.18.0"
+      },
+      "workbook_checksum_sha256": "aa59a21b80d30c2358f7d3bb700649dff5f5282258e60c2d07bd36896d01fc2c",
+      "source_dataset_checksum_registry": "data/global_audit_package/source_dataset_checksums.csv"
+    },
+    "source_hashes": {
+      "Greenhub/storage_reactions.py": "87b8da48c59292c4675b136debb8f8445c56cf867fbaff74b3f336c0497281e8",
+      "Greenhub/application/seasonal_service.py": "54bc78b1d0b12b30dc407b4fa5ae27a23108ee4479149aa64787d20d53788c49",
+      "Greenhub/application/tea_service.py": "7037a24261cf217572f42515de4382cff34ba618652a3e9d91166b7c56c88c22",
+      "Greenhub/data/storage/grass_degradation_reactions.csv": "2783c66911f15123ae02e9c3ba3a883d876f0252fd5c352cf2f4b0ec42e08964",
+      "Greenhub/data/tea/tea_cost_register.csv": "93c62371def7aac3be539727123f9c951b36fe75a97d74eb9b3a1301b5d8242c",
+      "Greenhub/data/lca/climate_factors.json": "5673db89446f664c3feb619b70e499271f79efc7ee31b3c3e0b35e9206b25180"
+    }
+  },
+  "warnings": [
+    "134 selected Phase 7 parameters use quality class E; replace them before design, fertilizer-quality, economic, or configuration-selection interpretation.",
+    "75 selected Phase 6 parameters use quality class E; replace them before scientific, design, economic, or configuration-selection interpretation.",
+    "80 selected Phase 5 parameters use quality class E; replace them before scientific, design, or economic interpretation.",
+    "69 selected Phase 4 parameters use quality class E; replace them before scientific or economic interpretation.",
+    "67 selected Phase 3 parameters use quality class E; see the assumption register for individual records.",
+    "PEF release and juice-yield enhancement are empirical structural assumptions, not kinetic predictions.",
+    "No transfer pump is active because no pressure-rise requirement is available; pumping electricity is zero.",
+    "U101, U201, S201, C301 have no purchase cost because no approved GreenHub cost correlation is available.",
+    "Structural-test mode is active; quality-class E inputs are not final measured or literature assumptions.",
+    "The protein separator, washer, dewatering unit, dryer, and mixers have no purchase-cost model.",
+    "The low-temperature belt dryer is a structural selection suitable for wet cake; vendor data remain required.",
+    "Phase 4 structural-test mode is active; class E values are placeholders, not design data.",
+    "Phase 5 structural-test mode is active; class E values are placeholders, not design data.",
+    "Phase 6 structural-test mode is active; class-E gas-cleaning and upgrading values are not validated design data.",
+    "Phase 7 structural-test mode is active; quality-class E recoveries, reagent doses, utilities, and design values are placeholders.",
+    "Storage is an uncalibrated reaction subset; protein surrogate mappings and leaching are unresolved. Oxygen is external, unlimited in the aerobic exposure fraction. Moisture activity and Q10 are explicit assumptions. Lactate/acetate are neutral acid surrogates; no pH speciation is predicted.",
+    "R06: blocked species mapping: fructan_unit",
+    "R10: blocked species mapping: Ethanol",
+    "R11: blocked species mapping: Ethanol",
+    "R14: blocked species mapping: amino_acid_unit, true_protein_unit",
+    "R15: blocked species mapping: TAN_as_NH3, amino_acid_unit, keto_acid_unit",
+    "R16: blocked species mapping: keto_acid_unit",
+    "R19: blocked species mapping: Ethanol"
+  ],
+  "limitations": [
+    "Liquid-fraction flow and composition remain provisional.",
+    "Storage-tank flow can fall below the validated BioSTEAM cost-correlation range.",
+    "Lumped organics, proteins, solids, nutrients, and contaminants are not unique molecular species.",
+    "The active thermo does not solve rigorous electrolyte activities or charge balance.",
+    "PFAS, pesticides, microplastics, pathogens, and heavy metals are aggregate pools.",
+    "PEF release and juice-yield enhancement are empirical.",
+    "Press and centrifuge component recoveries are fixed allocations.",
+    "No transfer pump is active.",
+    "Custom front-end equipment has no approved cost correlation.",
+    "Monthly operation is represented by independent steady states.",
+    "Protein solubility and effective isoelectric pH are aggregate approximations.",
+    "Acid demand lacks project titration data.",
+    "Precipitation and heat-coagulation kinetics are not calibrated.",
+    "Co-precipitation and protein capture use component-specific fixed fractions.",
+    "Cake washing and dewatering are single-stage empirical allocations.",
+    "Dryer kinetics, air humidity, area, and heat recovery are not modelled.",
+    "Neutralized-liquid pH and salt effects are not rigorous electrolyte predictions.",
+    "No approved custom-equipment CAPEX correlations are available.",
+    "Protein product quality and regulatory suitability are undetermined.",
+    "Digester-feed pH conditioning is not solved from buffering chemistry.",
+    "Hydrolysis uses fixed component-group conversions.",
+    "Acidogenesis, acetogenesis, and methanogenesis are fixed ultimate-fate stages rather than dynamic populations.",
+    "Pseudo-component digestion is balanced on mass, COD, C, N, P, and S rather than full molecular H/O stoichiometry.",
+    "One combined anaerobic biomass pool represents all microbial populations.",
+    "Free-ammonia, VFA, and salinity inhibition are disabled.",
+    "Gas-liquid partitioning uses empirical Level-1 fractions.",
+    "H2S and inorganic-carbon speciation are screening-level and not charge-balanced.",
+    "Raw-biogas water vapour uses a specified wet-mole fraction rather than saturation.",
+    "Digester heat loss uses a lumped U-value and conceptual geometry.",
+    "Mixing power is a volume-based placeholder.",
+    "Equalization dynamics, pumping, and recycle loops are not active.",
+    "Two-stage and high-rate digesters are inactive.",
+    "Persistent contaminants are conserved and pathogen reduction is not claimed.",
+    "No digester, gas-holder, or custom-separator CAPEX is assigned.",
+    "The digester is steady-state and has no startup, upset, or automatic control simulation.",
+    "Raw biogas and digestate have no product or regulatory classification.",
+    "Biogas cooling uses pure-water saturation pressure and ideal-gas humidity.",
+    "Condensate-separator geometry is residence-time based.",
+    "H2S removal and media replacement use class-E removal and capacity values.",
+    "Iron-sponge hydration and biological kinetics are not represented.",
+    "Ammonia washing does not solve pH-dependent gas-liquid equilibrium.",
+    "Siloxanes are represented by one D5-equivalent marker and empirical capture.",
+    "Water scrubbing uses a calibrated apparent-partition model.",
+    "Gas drying uses bounded water-removal fractions.",
+    "Membrane permeances and area are class-E structural values.",
+    "PSA is a Level-1 cycle-average allocation rather than a dynamic bed model.",
+    "MEA absorption uses equivalent loading rather than rigorous electrolyte chemistry.",
+    "MEA regeneration heat is a specific-energy placeholder.",
+    "MEA degradation is one elemental-equivalent pool.",
+    "No custom gas-cleaning or upgrading CAPEX correlation is approved.",
+    "Feed and product quality limits are structural checks rather than selected end-use standards.",
+    "CHP and cryogenic scenarios remain inactive data-gated architectures.",
+    "Plant-wide CHP, heat recovery, biomethane storage/compression, and grid injection are not yet implemented.",
+    "Raw-gas trace contaminants are absent unless measured upstream values exist.",
+    "Digestate equalization is a monthly steady-state vessel, not a dynamic buffer.",
+    "Digestate separation is a component-class capture and cake-moisture model.",
+    "Struvite precipitation does not solve electrolyte activities, charge balance, or Ksp.",
+    "Struvite nucleation and crystal-growth kinetics are not modelled.",
+    "Calcium-phosphate recovery selects one ideal bookkeeping formula.",
+    "Crystal recovery, impurity capture, and product moisture are empirical.",
+    "Target pH does not calculate base demand from alkalinity.",
+    "Digestate heating uses a constant bulk heat capacity and no exchanger design.",
+    "Ammonia stripping uses a monotonic NTU-like response rather than a rate-based column.",
+    "Carbonate and ammonia acid-base chemistry are not rigorously re-equilibrated.",
+    "Acid capture is stoichiometric but absorber hydraulics and product concentration are structural.",
+    "Ion exchange is a cycle-average site-equivalent recycle, not dynamic breakthrough.",
+    "Evaporation does not solve salt solubility or scaling precipitation.",
+    "Membrane concentration uses class-specific rejection coefficients.",
+    "Product storage is an uncosted hold-up interface.",
+    "Optional washing and drying use empirical displacement and bulk moisture equations.",
+    "No custom Phase 7 equipment CAPEX is assigned.",
+    "The repository has no active BG1 CHP or plant-wide utility network.",
+    "Contaminant pools are conserved but product-specific partitioning is mostly physical entrainment.",
+    "Unspeciated dissolved-P and particulate-P pools are not assumed precipitable.",
+    "Months are independent steady states and equipment uses peak-month scaling.",
+    "Whole-digestate phosphorus recovery uses the same Level-1 chemistry as centrate treatment.",
+    "Reported nutrient streams are not certified fertilizers or reusable water."
+  ],
+  "artifact_name": "decision_support.json"
+}

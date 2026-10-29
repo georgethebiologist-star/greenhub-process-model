@@ -11,7 +11,7 @@ from typing import Iterable
 from Greenhub.integration import create_integrated_greenhub_system
 from Greenhub.state_engine import build_state_outputs, state_from_stream
 from Greenhub.storage_inventory import StorageInventory
-from Greenhub.storage import StorageModel
+from Greenhub.storage import StorageModel, apply_storage_conditions
 from Greenhub.time_grid import TimeGridStep, generate_time_grid
 
 from .contracts import InitialStorageInventory, OperatingSchedule, SimulationRequest
@@ -108,6 +108,24 @@ def capacity_limited_throughput(
     }
 
 
+def _biomass_schedule_operating_hours(
+    step: TimeGridStep, request: SimulationRequest, workbook_days: float,
+) -> float:
+    """Apply collection-season bounds, active months and explicit shutdowns."""
+    config = request.biomass_schedule
+    if date.fromisoformat(step.start_date).month not in config.active_months:
+        return 0.0
+    active_start = max(date.fromisoformat(step.start_date), date.fromisoformat(config.season_start))
+    active_end = min(date.fromisoformat(step.end_date), date.fromisoformat(config.season_end))
+    active_days = max(0, (active_end-active_start).days+1)
+    if not active_days:
+        return 0.0
+    if request.operating_schedule is None:
+        return active_days*24.0
+    active_step = TimeGridStep(step.index, active_start.isoformat(), active_end.isoformat(), step.label, active_days, active_days*24.0)
+    return calculate_operating_hours(active_step, request.operating_schedule, workbook_days)
+
+
 class SeasonalSimulationService:
     def __init__(self, profiles: FeedProfileService) -> None:
         self.profiles = profiles
@@ -122,7 +140,7 @@ class SeasonalSimulationService:
         schedule_plan = None
         if request.biomass_schedule is not None:
             schedule_plan = build_empirical_biomass_schedule(request.biomass_schedule)
-            scheduled = {row["time"]: row for row in schedule_feed_rows(request.biomass_schedule)}
+            scheduled = {row["time"]: row for row in schedule_feed_rows(request.biomass_schedule, grid)}
             supply = [dict(scheduled.get(step.label, _zero_schedule_feed_row(step.label))) for step in grid]
             profile_warnings = (
                 "Empirical monthly intake follows the shared normal-supply/monthly-cap schedule.",
@@ -140,9 +158,10 @@ class SeasonalSimulationService:
             warnings.append(
                 "Storage capacity is unavailable; inventory is preserved without an overflow limit until seasonal.storage_capacity_kg is overridden."
             )
-        warnings.append(
-            "Storage water loss, dry-matter loss, protein degradation, and COD degradation are not implemented because no eligible rates are available."
-        )
+        if request.storage_conditions is None:
+            warnings.append("Storage species fate, water loss, dry-matter loss and protein degradation are unresolved; the optional legacy scalar loss is not a biochemical fate model.")
+        else:
+            warnings.append("Storage uses arrival-at-start, mixed withdrawal, then remaining-inventory reaction over each timestep. Incoming storage_days is an upstream residence before arrival; carried inventory incurs additional residence. Reaction lags use mass-average age, not exact batch cohorts.")
         inventory = StorageInventory()
         initial_pending = request.initial_storage_inventory
         storage_rows = []
@@ -165,7 +184,7 @@ class SeasonalSimulationService:
             template = self._build_model(request, month, model_overrides)
             template_feed = template.streams["feed"]
             template_fractions = _stream_fractions(template_feed)
-            supplied_fractions = _complete_fractions(
+            supplied_fractions = request.feed_composition or _complete_fractions(
                 template_fractions,
                 feed_row["component_mass_fractions"],
                 feed_row["moisture_fraction"],
@@ -179,20 +198,34 @@ class SeasonalSimulationService:
             entering = inventory.total_mass_kg
             received = float(feed_row["collected_biomass_kg"])
             received_components = {name: received * fraction for name, fraction in supplied_fractions.items()}
+            residence_report = None
+            raw_received = received
+            if request.storage_conditions is not None:
+                residence_report = apply_storage_conditions(received_components, request.storage_conditions, template_feed.chemicals.IDs)
+                received_components = residence_report["retained_component_masses_kg"]
+                received = residence_report["total_retained_kg"]
+                warnings.extend(residence_report["warnings"] + residence_report["blockers"])
             overflow = inventory.receive(
                 received,
                 received_components,
                 feed_row["temperature_k"] or float(template_feed.T),
                 storage_capacity,
+                age_h=float((request.storage_conditions or {}).get('storage_days',0))*24,
             )
             workbook_days = float(template.feed_specification.operating_days)
             if schedule_plan is not None:
-                schedule_row = next(row for row in schedule_plan["monthly"] if row["time_label"] == step.label)
-                operating_hours = float(schedule_row["operating_hours"])
-                target_rate = float(schedule_row["basis_feed_kg_per_hr"])
+                schedule_row = next(row for row in schedule_plan["monthly"] if row["time_label"] == step.start_date[:7])
+                operating_hours = _biomass_schedule_operating_hours(step, request, workbook_days)
+                target_rate = request.operating_schedule.target_throughput_kg_hr if request.operating_schedule else None
+                if target_rate is None:
+                    target_rate=float(schedule_row["basis_feed_kg_per_hr"])
             else:
                 operating_hours = calculate_operating_hours(step, request.operating_schedule, workbook_days)
                 target_rate = request.operating_schedule.target_throughput_kg_hr if request.operating_schedule else None
+            if request.wet_feed_rate_kg_hr is not None:
+                target_rate=request.wet_feed_rate_kg_hr
+            if request.plant_capacity_kg_hr is not None:
+                target_rate=min(target_rate,request.plant_capacity_kg_hr) if target_rate is not None else request.plant_capacity_kg_hr
             desired = capacity_limited_throughput(inventory.total_mass_kg, operating_hours, target_rate, None)
             desired_mass = desired["actual_mass_kg"]
             desired_rate = desired_mass / operating_hours if operating_hours > 0.0 else 0.0
@@ -220,7 +253,9 @@ class SeasonalSimulationService:
                     inventory.total_mass_kg, operating_hours, target_rate, raw_capacity
                 )
                 actual_mass = actual_rate = 0.0
+            processed_feed_age_h = inventory.average_age_h
             withdrawn, withdrawn_components = inventory.withdraw(actual_mass)
+            residence_age_days=inventory.average_age_h/24
             inventory.age(step.duration_hours)
 
             # Apply optional storage degradation (opt-in via resolved parameter seasonal.storage_degradation_rate_per_day)
@@ -231,28 +266,52 @@ class SeasonalSimulationService:
             applied_degradation_kg = 0.0
             degradation_provenance = {}
             degradation_status = "not_implemented_no_eligible_data"
+            carried_report=None
             try:
-                applied_degradation_kg, degradation_provenance, degradation_status = _apply_storage_degradation(
-                    inventory, degradation_param, step_days
-                )
+                if request.storage_conditions is not None and inventory.total_mass_kg>0:
+                    conditions={**request.storage_conditions,'storage_days':step_days}
+                    if conditions.get('model')=='grass_reactions': conditions['elapsed_days']=residence_age_days
+                    carried_report=apply_storage_conditions(inventory.component_masses_kg,conditions,template_feed.chemicals.IDs)
+                    old_mass=inventory.total_mass_kg
+                    inventory.component_masses_kg=carried_report['retained_component_masses_kg']
+                    inventory.total_mass_kg=carried_report['total_retained_kg']
+                    ratio=inventory.total_mass_kg/old_mass
+                    inventory.age_mass_kg_h*=ratio; inventory.temperature_mass_kg_k*=ratio
+                    applied_degradation_kg=old_mass-inventory.total_mass_kg
+                    degradation_provenance=carried_report
+                    degradation_status='calculated_assumption' if carried_report['calculation_complete'] else 'partial_missing_evidence'
+                    warnings.extend(carried_report['warnings']+carried_report['blockers'])
+                else:
+                    applied_degradation_kg, degradation_provenance, degradation_status = _apply_storage_degradation(
+                        inventory, degradation_param, step_days
+                    )
             except Exception as exc:  # pragma: no cover - defensive: any unexpected error should be surfaced but not hide the simulation
                 # record limitation and continue with zero degradation
                 degradation_provenance = {"error": str(exc)}
                 degradation_status = "degradation_error"
                 applied_degradation_kg = 0.0
+                carried_report = {"blockers": [f"Storage degradation failed: {exc}"], "warnings": [], "calculation_complete": False, "emissions_inventory_complete": False}
+                warnings.extend(carried_report["blockers"])
 
             if model is not None:
                 representative = model
             ending = inventory.total_mass_kg
-            storage_residual = entering + received - overflow - withdrawn - ending
+            storage_residual = entering + received - overflow - withdrawn - applied_degradation_kg - ending
             storage_rows.append({
                 "time": step.label, "inventory_entering_kg": entering, "biomass_received_kg": received,
                 "biomass_withdrawn_kg": withdrawn, "inventory_remaining_kg": ending,
                 "storage_age_h": inventory.average_age_h, "overflow_kg": overflow,
-                "unmet_process_demand_kg": decision["unmet_demand_kg"], "water_loss_kg": 0.0,
-                "dry_matter_loss_kg": 0.0, "degradation_status": degradation_status,
+                "processed_feed_storage_age_h": processed_feed_age_h if withdrawn else None,
+                "unmet_process_demand_kg": decision["unmet_demand_kg"], "water_loss_kg": None,
+                "dry_matter_loss_kg": None, "degradation_status": degradation_status,
                 "degradation_loss_kg": applied_degradation_kg,
+                "degradation_loss_basis": "net decrease in carried wet inventory; exported mass minus external oxygen uptake",
+                "external_oxygen_kg": (carried_report or {}).get("external_oxygen_kg", 0.0),
+                "exported_mass_kg": (carried_report or {}).get("total_exported_kg", applied_degradation_kg),
                 "degradation_provenance": degradation_provenance,
+                "incoming_residence": residence_report,
+                "carried_inventory_reactions": carried_report,
+                "raw_biomass_received_kg": raw_received,
                 "storage_mass_residual_kg": storage_residual,
             })
             max_mass = None if raw_capacity is None else raw_capacity * operating_hours
@@ -300,6 +359,8 @@ class SeasonalSimulationService:
                 "products_kg": products,
                 "intermediate_streams_kg": intermediate_streams,
                 "volumetric_products_m3": volumetric_products,
+                "terminal_gases_kg": {name:{c.ID:float(model.streams[name].imass[c.ID])*operating_hours for c in model.streams[name].chemicals if model.streams[name].imass[c.ID]>0}
+                                     for name in ('uncaptured_biogas','reject_gas','phase7_offgas','chp_exhaust') if name in model.streams and model.streams[name].sink is None},
             })
             units = build_unit_results(model)
             utilities = build_utilities(units)
@@ -323,7 +384,7 @@ class SeasonalSimulationService:
             outlet_mass = float(overall.outlet.value or 0.0) * operating_hours
             residual_rows.append({"time": step.label, "residual_output_kg": max(outlet_mass - sum(products.values()), 0.0)})
             inlet_state = state_from_stream("seasonal_storage", model.streams["feed"]).to_dict()
-            inlet_state["storage_age_h"] = storage_rows[-1]["storage_age_h"]
+            inlet_state["storage_age_h"] = processed_feed_age_h
             states = build_state_outputs(model, resolved_parameters, request.resolution_mode.value)
             state_rows.append({"time": step.label, "inlet": inlet_state, "outlets": tuple(states["process_state_snapshots"]), "status": "calculated"})
 
@@ -338,6 +399,7 @@ class SeasonalSimulationService:
         final_inventory = inventory.total_mass_kg
         total_degradation = sum(float(item.get("degradation_loss_kg", 0.0)) for item in storage_rows)
         summary = {
+            "initial_inventory_kg": initial_mass,
             "total_biomass_available_kg": sum(float(item["available_wet_biomass_kg"]) for item in supply),
             "total_biomass_collected_kg": collected,
             "total_biomass_processed_kg": processed,
@@ -357,7 +419,8 @@ class SeasonalSimulationService:
             },
             "total_products_kg": dict(sorted(total_products.items())),
             "total_utilities": total_utilities,
-            "storage_mass_residual_kg": initial_mass + collected - processed - overflow_total - final_inventory,
+            "storage_mass_residual_kg": sum(row["storage_mass_residual_kg"] for row in storage_rows),
+            "incoming_residence_net_loss_kg": sum(row["raw_biomass_received_kg"]-row["biomass_received_kg"] for row in storage_rows),
             "process_mass_residual_kg": sum(float(item["overall_mass_residual_kg"]) for item in balance_rows),
             "element_residuals_kg": dict(sorted(elemental_totals.items())),
             "missing_data_warning_count": sum(len(item["warnings"]) for item in supply) + len(warnings),

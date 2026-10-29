@@ -1,0 +1,82 @@
+[
+  {
+    "availability_status": "available",
+    "files": {
+      "csv": "plots/SYS-AREA-MASS.csv",
+      "json": "plots/SYS-AREA-MASS.json",
+      "png": "plots/SYS-AREA-MASS.png",
+      "svg": "plots/SYS-AREA-MASS.svg"
+    },
+    "plot_id": "SYS-AREA-MASS"
+  },
+  {
+    "availability_status": "available",
+    "files": {
+      "csv": "plots/VALIDATION-RESIDUALS.csv",
+      "json": "plots/VALIDATION-RESIDUALS.json",
+      "png": "plots/VALIDATION-RESIDUALS.png",
+      "svg": "plots/VALIDATION-RESIDUALS.svg"
+    },
+    "plot_id": "VALIDATION-RESIDUALS"
+  },
+  {
+    "availability_status": "available",
+    "files": {
+      "csv": "plots/SYS-UNIT-POWER.csv",
+      "json": "plots/SYS-UNIT-POWER.json",
+      "png": "plots/SYS-UNIT-POWER.png",
+      "svg": "plots/SYS-UNIT-POWER.svg"
+    },
+    "plot_id": "SYS-UNIT-POWER"
+  },
+  {
+    "availability_status": "available",
+    "files": {
+      "csv": "plots/DATA-READINESS.csv",
+      "json": "plots/DATA-READINESS.json",
+      "png": "plots/DATA-READINESS.png",
+      "svg": "plots/DATA-READINESS.svg"
+    },
+    "plot_id": "DATA-READINESS"
+  },
+  {
+    "availability_status": "available",
+    "files": {
+      "csv": "plots/STATE-FLOW.csv",
+      "json": "plots/STATE-FLOW.json",
+      "png": "plots/STATE-FLOW.png",
+      "svg": "plots/STATE-FLOW.svg"
+    },
+    "plot_id": "STATE-FLOW"
+  },
+  {
+    "availability_status": "available",
+    "files": {
+      "csv": "plots/STATE-COD.csv",
+      "json": "plots/STATE-COD.json",
+      "png": "plots/STATE-COD.png",
+      "svg": "plots/STATE-COD.svg"
+    },
+    "plot_id": "STATE-COD"
+  },
+  {
+    "availability_status": "available",
+    "files": {
+      "csv": "plots/INVENTORY-EVOLUTION.csv",
+      "json": "plots/INVENTORY-EVOLUTION.json",
+      "png": "plots/INVENTORY-EVOLUTION.png",
+      "svg": "plots/INVENTORY-EVOLUTION.svg"
+    },
+    "plot_id": "INVENTORY-EVOLUTION"
+  },
+  {
+    "availability_status": "available",
+    "files": {
+      "csv": "plots/PR-PRECIP-RECOVERY.csv",
+      "json": "plots/PR-PRECIP-RECOVERY.json",
+      "png": "plots/PR-PRECIP-RECOVERY.png",
+      "svg": "plots/PR-PRECIP-RECOVERY.svg"
+    },
+    "plot_id": "PR-PRECIP-RECOVERY"
+  }
+]

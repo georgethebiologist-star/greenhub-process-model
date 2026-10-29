@@ -1,0 +1,30 @@
+{
+  "series": [
+    {
+      "label": "Throughput",
+      "series_id": "throughput",
+      "x": [
+        "2026-06"
+      ],
+      "y": [
+        0.6944444444444444
+      ]
+    }
+  ],
+  "specification": {
+    "availability_status": "available",
+    "plot_id": "SEASONAL-THROUGHPUT",
+    "process_area": "integrated_system",
+    "run_id": "735c1429b631418a832a16f2e54b5395",
+    "scenario": "F2/PR3/AD1/BG2/NR4",
+    "source_result_fields": [
+      "throughput_series.actual_throughput_kg_hr"
+    ],
+    "title": "Process throughput",
+    "warnings": [],
+    "x_axis_label": "Time",
+    "x_unit": null,
+    "y_axis_label": "Throughput",
+    "y_unit": "kg/hr"
+  }
+}

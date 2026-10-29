@@ -1,0 +1,2 @@
+scenario,active,inlet_cake_kg_hr,dewatered_cake_kg_hr,filtrate_kg_hr,target_solids_fraction,actual_solids_fraction,water_removed_kg_hr,protein_loss_kg_hr,electricity_kw,cost_available
+PR3,True,17.021520944494576,11.969898670970307,5.051622273524268,0.35,0.3499999999999999,4.985706572240231,0.017722823836825982,0.08510760472247288,False

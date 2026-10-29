@@ -1,0 +1,296 @@
+[
+  {
+    "cod_kg_hr": 0.0,
+    "soluble_protein_kg_hr": 0.0,
+    "stream_id": "cooled_water_scrubber_feed",
+    "unit_id": "A611"
+  },
+  {
+    "cod_kg_hr": 0.0,
+    "soluble_protein_kg_hr": 0.0,
+    "stream_id": "flashed_scrubbing_water",
+    "unit_id": "A612"
+  },
+  {
+    "cod_kg_hr": 0.2353707831496356,
+    "soluble_protein_kg_hr": 0.05631032242942853,
+    "stream_id": "heated_stripper_feed",
+    "unit_id": "A721"
+  },
+  {
+    "cod_kg_hr": 0.0,
+    "soluble_protein_kg_hr": 0.0,
+    "stream_id": "ammonia_rich_strip_gas",
+    "unit_id": "A722"
+  },
+  {
+    "cod_kg_hr": 2.6025,
+    "soluble_protein_kg_hr": 0.76,
+    "stream_id": "raw_liquid_fraction",
+    "unit_id": "C301"
+  },
+  {
+    "cod_kg_hr": 0.5644950000000001,
+    "soluble_protein_kg_hr": 0.11172000000000001,
+    "stream_id": "protein_precipitation_slurry",
+    "unit_id": "C401"
+  },
+  {
+    "cod_kg_hr": 0.0,
+    "soluble_protein_kg_hr": 0.0,
+    "stream_id": "water_scrubber_compressor_feed",
+    "unit_id": "C611"
+  },
+  {
+    "cod_kg_hr": 0.07516884793577876,
+    "soluble_protein_kg_hr": 0.008236899211421555,
+    "stream_id": "washed_protein_cake",
+    "unit_id": "D401"
+  },
+  {
+    "cod_kg_hr": 0.0,
+    "soluble_protein_kg_hr": 0.0,
+    "stream_id": "water_scrubber_flash_product",
+    "unit_id": "D611"
+  },
+  {
+    "cod_kg_hr": 0.0027896353157437926,
+    "soluble_protein_kg_hr": 3.830229924714541e-06,
+    "stream_id": "washed_struvite_product",
+    "unit_id": "D711"
+  },
+  {
+    "cod_kg_hr": 0.06980939616004483,
+    "soluble_protein_kg_hr": 0.00822081496032665,
+    "stream_id": "dewatered_protein_cake",
+    "unit_id": "DR401"
+  },
+  {
+    "cod_kg_hr": 0.0,
+    "soluble_protein_kg_hr": 0.0,
+    "stream_id": "compressed_water_scrubber_feed",
+    "unit_id": "E611"
+  },
+  {
+    "cod_kg_hr": 0.0,
+    "soluble_protein_kg_hr": 0.0,
+    "stream_id": "ammonia_polished_biogas",
+    "unit_id": "F601"
+  },
+  {
+    "cod_kg_hr": 0.0,
+    "soluble_protein_kg_hr": 0.0,
+    "stream_id": "raw_biogas",
+    "unit_id": "G601"
+  },
+  {
+    "cod_kg_hr": 1.197575,
+    "soluble_protein_kg_hr": 0.7448,
+    "stream_id": "acidified_protein_liquid",
+    "unit_id": "H401"
+  },
+  {
+    "cod_kg_hr": 0.4946856038399552,
+    "soluble_protein_kg_hr": 0.10349918503967336,
+    "stream_id": "conditioned_digester_feed",
+    "unit_id": "H501"
+  },
+  {
+    "cod_kg_hr": 0.2353707831496356,
+    "soluble_protein_kg_hr": 0.05631032242942853,
+    "stream_id": "alkaline_conditioned_liquor",
+    "unit_id": "H721"
+  },
+  {
+    "cod_kg_hr": 1.197575,
+    "soluble_protein_kg_hr": 0.7448,
+    "stream_id": "clarified_protein_rich_liquid",
+    "unit_id": "M401"
+  },
+  {
+    "cod_kg_hr": 0.4731326580577472,
+    "soluble_protein_kg_hr": 0.1033150008046719,
+    "stream_id": "protein_centrate",
+    "unit_id": "M402"
+  },
+  {
+    "cod_kg_hr": 0.4946856038399552,
+    "soluble_protein_kg_hr": 0.10349918503967336,
+    "stream_id": "protein_depleted_liquid",
+    "unit_id": "M403"
+  },
+  {
+    "cod_kg_hr": 0.4946856038399552,
+    "soluble_protein_kg_hr": 0.10349918503967336,
+    "stream_id": "conditioned_protein_depleted_liquid",
+    "unit_id": "M501"
+  },
+  {
+    "cod_kg_hr": 0.0,
+    "soluble_protein_kg_hr": 0.0,
+    "stream_id": "raw_biogas_condensate",
+    "unit_id": "M606"
+  },
+  {
+    "cod_kg_hr": 0.0,
+    "soluble_protein_kg_hr": 0.0,
+    "stream_id": "spent_h2s_removal_media",
+    "unit_id": "M607"
+  },
+  {
+    "cod_kg_hr": 0.0,
+    "soluble_protein_kg_hr": 0.0,
+    "stream_id": "conditioned_biogas",
+    "unit_id": "M610"
+  },
+  {
+    "cod_kg_hr": 0.0,
+    "soluble_protein_kg_hr": 0.0,
+    "stream_id": "water_scrubber_product_condensate",
+    "unit_id": "M618"
+  },
+  {
+    "cod_kg_hr": 0.0,
+    "soluble_protein_kg_hr": 0.0,
+    "stream_id": "water_scrubber_flash_reject",
+    "unit_id": "M619"
+  },
+  {
+    "cod_kg_hr": 0.0,
+    "soluble_protein_kg_hr": 0.0,
+    "stream_id": "conditioning_wastewater",
+    "unit_id": "M698"
+  },
+  {
+    "cod_kg_hr": 0.0,
+    "soluble_protein_kg_hr": 0.0,
+    "stream_id": "conditioning_spent_material",
+    "unit_id": "M699"
+  },
+  {
+    "cod_kg_hr": 0.2353707831496356,
+    "soluble_protein_kg_hr": 0.05631032242942853,
+    "stream_id": "struvite_mother_liquor",
+    "unit_id": "M721"
+  },
+  {
+    "cod_kg_hr": 0.0,
+    "soluble_protein_kg_hr": 0.0,
+    "stream_id": "regenerated_scrubbing_water",
+    "unit_id": "P611"
+  },
+  {
+    "cod_kg_hr": 1.197575,
+    "soluble_protein_kg_hr": 0.7448,
+    "stream_id": "heated_protein_liquid",
+    "unit_id": "R401"
+  },
+  {
+    "cod_kg_hr": 0.4946856038399552,
+    "soluble_protein_kg_hr": 0.10349918503967336,
+    "stream_id": "temperature_conditioned_digester_feed",
+    "unit_id": "R501"
+  },
+  {
+    "cod_kg_hr": 0.0,
+    "soluble_protein_kg_hr": 0.0,
+    "stream_id": "dewatered_raw_biogas",
+    "unit_id": "R601"
+  },
+  {
+    "cod_kg_hr": 0.0,
+    "soluble_protein_kg_hr": 0.0,
+    "stream_id": "desulfurized_biogas",
+    "unit_id": "R602"
+  },
+  {
+    "cod_kg_hr": 0.23816041846537941,
+    "soluble_protein_kg_hr": 0.056314152659353245,
+    "stream_id": "nutrient_rich_centrate",
+    "unit_id": "R711"
+  },
+  {
+    "cod_kg_hr": 21.324999999999996,
+    "soluble_protein_kg_hr": 1.0,
+    "stream_id": "pef_treated_grass",
+    "unit_id": "S201"
+  },
+  {
+    "cod_kg_hr": 0.0,
+    "soluble_protein_kg_hr": 0.0,
+    "stream_id": "cooled_raw_biogas",
+    "unit_id": "S601"
+  },
+  {
+    "cod_kg_hr": 0.0,
+    "soluble_protein_kg_hr": 0.0,
+    "stream_id": "water_scrubber_flash_gas",
+    "unit_id": "S610"
+  },
+  {
+    "cod_kg_hr": 0.2721183092298642,
+    "soluble_protein_kg_hr": 0.05692455177182035,
+    "stream_id": "equalized_digestate",
+    "unit_id": "S701"
+  },
+  {
+    "cod_kg_hr": 0.23816041846537941,
+    "soluble_protein_kg_hr": 0.056314152659353245,
+    "stream_id": "struvite_slurry",
+    "unit_id": "S711"
+  },
+  {
+    "cod_kg_hr": 0.2721183092298642,
+    "soluble_protein_kg_hr": 0.05692455177182035,
+    "stream_id": "digestate",
+    "unit_id": "T701"
+  },
+  {
+    "cod_kg_hr": 20.299999999999997,
+    "soluble_protein_kg_hr": 0.5,
+    "stream_id": "roadside_grass",
+    "unit_id": "U101"
+  },
+  {
+    "cod_kg_hr": 20.299999999999997,
+    "soluble_protein_kg_hr": 0.5,
+    "stream_id": "prepared_roadside_grass",
+    "unit_id": "U201"
+  },
+  {
+    "cod_kg_hr": 0.2721183092298642,
+    "soluble_protein_kg_hr": 0.05692455177182035,
+    "stream_id": "digester_broth",
+    "unit_id": "V501"
+  },
+  {
+    "cod_kg_hr": 0.0,
+    "soluble_protein_kg_hr": 0.0,
+    "stream_id": "water_scrubber_absorber_gas",
+    "unit_id": "V611"
+  },
+  {
+    "cod_kg_hr": 0.0,
+    "soluble_protein_kg_hr": 0.0,
+    "stream_id": "co2_rich_scrubbing_water",
+    "unit_id": "V612"
+  },
+  {
+    "cod_kg_hr": 0.0,
+    "soluble_protein_kg_hr": 0.0,
+    "stream_id": "ammonium_salt_solution",
+    "unit_id": "V722"
+  },
+  {
+    "cod_kg_hr": 0.09136234194225286,
+    "soluble_protein_kg_hr": 0.008404999195328116,
+    "stream_id": "wet_protein_cake",
+    "unit_id": "W401"
+  },
+  {
+    "cod_kg_hr": 0.0027896353157437926,
+    "soluble_protein_kg_hr": 3.830229924714541e-06,
+    "stream_id": "raw_wet_struvite_product",
+    "unit_id": "W711"
+  }
+]

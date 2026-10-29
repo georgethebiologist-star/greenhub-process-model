@@ -1,0 +1,27 @@
+{
+  "error": "Unknown feed components: Ethanol",
+  "run_id": "072edcf69972420baa97060ee40852e5",
+  "state_history": [
+    [
+      "validating",
+      "2026-10-12T17:48:39.806824+00:00"
+    ],
+    [
+      "resolving_parameters",
+      "2026-10-12T17:48:39.856769+00:00"
+    ],
+    [
+      "building_system",
+      "2026-10-12T17:48:39.862064+00:00"
+    ],
+    [
+      "simulating",
+      "2026-10-12T17:48:40.861987+00:00"
+    ],
+    [
+      "failed",
+      "2026-10-12T17:48:40.861987+00:00"
+    ]
+  ],
+  "status": "failed"
+}

@@ -1,0 +1,61 @@
+{
+  "average_inventory_kg": 9116544.38683658,
+  "average_throughput_kg_hr": 1979.7978889724336,
+  "element_residuals_kg": {
+    "calcium": 0.0,
+    "carbon": 6.608047442568932e-13,
+    "chloride": -8.526512829121202e-14,
+    "hydrogen": -5.218225851422176e-11,
+    "magnesium": 0.0,
+    "nitrogen": 0.0,
+    "oxygen": -4.1745806811377406e-10,
+    "phosphorus": 2.1316282072803006e-14,
+    "potassium": 0.0,
+    "sodium": -8.206768598029157e-13,
+    "sulfur": 0.0
+  },
+  "final_inventory_kg": 19784242.89290224,
+  "incoming_residence_net_loss_kg": 0.0,
+  "initial_inventory_kg": 0.0,
+  "missing_data_warning_count": 15,
+  "peak_inventory_kg": 19784242.89290224,
+  "peak_throughput_kg_hr": 2000.0000000000002,
+  "process_mass_residual_kg": -7.074577843013685e-05,
+  "storage_mass_residual_kg": 2.3283064365386963e-10,
+  "total_biomass_available_kg": 30000000.000000004,
+  "total_biomass_collected_kg": 30000000.0,
+  "total_biomass_processed_kg": 10215757.107097758,
+  "total_biomass_uncollected_kg": 2.7939677238464355e-09,
+  "total_degradation_kg": 0.0,
+  "total_overflow_kg": 0.0,
+  "total_products_kg": {
+    "ammonium_product": 101879.71803022102,
+    "biomethane": 10540.659684226914,
+    "dry_protein_product": 81855.6537796329,
+    "nutrient_rich_solids": 58038.89489244513,
+    "phosphorus_product": 1165.5319166374609
+  },
+  "total_utilities": {
+    "cooling_kwh": 136105.27519968498,
+    "electricity_kwh": 318223.0313030457,
+    "heating_kwh": 483524.5928076422
+  },
+  "unit_utilization": {
+    "C301": {
+      "average": 0.10967635182641437,
+      "peak": 0.11165278586335707
+    },
+    "S201": {
+      "average": 0.9790568056149391,
+      "peak": 0.9967
+    },
+    "U101": {
+      "average": 0.9822983903029389,
+      "peak": 1.0
+    },
+    "U201": {
+      "average": 0.9790568056149392,
+      "peak": 0.9967
+    }
+  }
+}

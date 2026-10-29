@@ -1,0 +1,11 @@
+[
+  {
+    "average_kg": 9116544.38683658,
+    "degradation_kg": 0.0,
+    "final_kg": 19784242.89290224,
+    "initial_kg": 0.0,
+    "inventory_id": "biomass_storage",
+    "peak_kg": 19784242.89290224,
+    "status": "calculated_from_seasonal_storage_inventory"
+  }
+]

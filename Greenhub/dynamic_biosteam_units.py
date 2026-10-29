@@ -18,6 +18,7 @@ from Greenhub.dynamic_process import (
     DynamicUnitResult,
     ProteinExtractionMethod,
 )
+from Greenhub.pretreatment_state import apply_screening_pretreatment_state
 
 FRACTION_TOLERANCE = 1e-9
 
@@ -31,6 +32,8 @@ class RawPressCalculationPayload:
     evidence_classes: tuple[str, ...]
     warnings: tuple[str, ...]
     blockers: tuple[str, ...]
+    water_addition_kg_per_kg_wet_feed: float = 0.0
+    press_energy_kwh_per_t_wet_feed: float | None = None
     activation_status: str = "calculation_shadow_system_report_only"
 
     def to_dict(self) -> dict[str, object]: return asdict(self)
@@ -178,6 +181,12 @@ def build_raw_press_calculation_payload(
         evidence_classes=trace["evidence_classes"],
         warnings=unit.warnings,
         blockers=unit.blockers,
+        water_addition_kg_per_kg_wet_feed=_optional_float(
+            unit.applied_policy.get("water_addition_kg_per_kg_wet_feed")
+        ) or 0.0,
+        press_energy_kwh_per_t_wet_feed=_optional_float(
+            unit.applied_policy.get("press_energy_kwh_per_t_wet_feed")
+        ),
     )
 
 
@@ -458,8 +467,36 @@ class DynamicRawPressCalculationUnit(_DynamicPartitionCalculationUnit):
     _link_streams = False
     line = "Dynamic raw press calculation shadow"
 
+    def _init(self, payload: object) -> None:
+        super()._init(payload)
+        self.press_energy_kwh_hr = 0.0
+        self.water_added_kg_hr = 0.0
+
+    def _combined_input_masses(self) -> dict[str, float]:
+        # The shared dynamic feed basis already includes configured process
+        # water.  Do not add it again here; retain the ratio only for utility
+        # reporting and reconstruct the original wet-feed basis below.
+        return super()._combined_input_masses()
+
     def _run(self) -> None:
         combined = self._combined_input_masses()
+        ratio = float(self.calculation_payload.water_addition_kg_per_kg_wet_feed or 0.0)
+        diluted_feed = sum(float(stream.imass[component]) for stream in self.ins for component in self.chemicals.IDs)
+        original_wet_feed = diluted_feed / (1.0 + ratio) if ratio else diluted_feed
+        # Dilution adds only water; it does not reduce protein or other solids.
+        undiluted = dict(combined)
+        original_water = undiluted.get("Water", 0.0) - original_wet_feed * ratio
+        if original_water < -1e-9 * max(1.0, diluted_feed):
+            raise ValueError("Diluted feed contains less water than the configured process-water addition.")
+        undiluted["Water"] = max(0.0, original_water)
+        pretreatment_state = apply_screening_pretreatment_state(
+            undiluted,
+            water_addition_kg_per_kg_wet_feed=ratio,
+            press_energy_kwh_per_t_wet_feed=self.calculation_payload.press_energy_kwh_per_t_wet_feed,
+        )
+        self.water_added_kg_hr = pretreatment_state.water_added_kg_hr
+        self.pretreatment_state = pretreatment_state
+        self.press_energy_kwh_hr = pretreatment_state.press_energy_kwh_hr
         for outlet in self.outs:
             outlet.empty()
         payload = self.calculation_payload

@@ -1,0 +1,38 @@
+{
+  "series": [
+    {
+      "label": "Datasets",
+      "series_id": "datasets",
+      "x": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D5"
+      ],
+      "y": [
+        23,
+        25,
+        252,
+        1,
+        0
+      ]
+    }
+  ],
+  "specification": {
+    "availability_status": "available",
+    "plot_id": "DATA-READINESS",
+    "process_area": "data_governance",
+    "run_id": "63339fb86c5b433691f9f0fec1e7bf32",
+    "scenario": "F2/PR1/AD1/BG2/NR2",
+    "source_result_fields": [
+      "dataset_readiness"
+    ],
+    "title": "Dataset readiness distribution",
+    "warnings": [],
+    "x_axis_label": "Readiness class",
+    "x_unit": null,
+    "y_axis_label": "Dataset count",
+    "y_unit": "count"
+  }
+}

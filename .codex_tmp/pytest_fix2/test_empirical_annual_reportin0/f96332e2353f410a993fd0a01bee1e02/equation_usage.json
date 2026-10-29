@@ -1,0 +1,29 @@
+[
+  {
+    "equation_id": "storage_degradation",
+    "fallback": true,
+    "parameter_ids": [
+      "phase4.storage_degradation_rate"
+    ],
+    "status": "structural_fallback",
+    "used": false
+  },
+  {
+    "equation_id": "residence_time_effect",
+    "fallback": true,
+    "parameter_ids": [
+      "phase4.residence_time_h"
+    ],
+    "status": "structural_fallback",
+    "used": false
+  },
+  {
+    "equation_id": "state_dependent_cod",
+    "fallback": false,
+    "parameter_ids": [
+      "phase4.precipitation_efficiency"
+    ],
+    "status": "calculated",
+    "used": true
+  }
+]

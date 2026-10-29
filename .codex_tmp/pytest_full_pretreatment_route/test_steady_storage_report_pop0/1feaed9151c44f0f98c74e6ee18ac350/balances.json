@@ -1,0 +1,386 @@
+[
+  {
+    "balance_id": "overall_mass",
+    "inlet": {
+      "basis": "boundary inlet",
+      "origin": "Phase 7 validation",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 71.56462407819353,
+      "warning": null
+    },
+    "outlet": {
+      "basis": "boundary outlet",
+      "origin": "Phase 7 validation",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 71.56462407888604,
+      "warning": null
+    },
+    "passed": true,
+    "process_area": "integrated_system",
+    "residual": {
+      "basis": "inlet minus outlet",
+      "origin": "Phase 7 validation",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": -6.925091611265088e-10,
+      "warning": null
+    }
+  },
+  {
+    "balance_id": "element_carbon",
+    "inlet": {
+      "basis": "carbon",
+      "origin": "Phase 7 validation",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.24558643966424798,
+      "warning": null
+    },
+    "outlet": {
+      "basis": "carbon",
+      "origin": "Phase 7 validation",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.24558643966424798,
+      "warning": null
+    },
+    "passed": true,
+    "process_area": "integrated_system",
+    "residual": {
+      "basis": "inlet minus outlet",
+      "origin": "Phase 7 validation",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    }
+  },
+  {
+    "balance_id": "element_hydrogen",
+    "inlet": {
+      "basis": "hydrogen",
+      "origin": "Phase 7 validation",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 4.881017107346898,
+      "warning": null
+    },
+    "outlet": {
+      "basis": "hydrogen",
+      "origin": "Phase 7 validation",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 4.881017107346898,
+      "warning": null
+    },
+    "passed": true,
+    "process_area": "integrated_system",
+    "residual": {
+      "basis": "inlet minus outlet",
+      "origin": "Phase 7 validation",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    }
+  },
+  {
+    "balance_id": "element_oxygen",
+    "inlet": {
+      "basis": "oxygen",
+      "origin": "Phase 7 validation",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 45.02183355912921,
+      "warning": null
+    },
+    "outlet": {
+      "basis": "oxygen",
+      "origin": "Phase 7 validation",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 45.02183355912921,
+      "warning": null
+    },
+    "passed": true,
+    "process_area": "integrated_system",
+    "residual": {
+      "basis": "inlet minus outlet",
+      "origin": "Phase 7 validation",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    }
+  },
+  {
+    "balance_id": "element_nitrogen",
+    "inlet": {
+      "basis": "nitrogen",
+      "origin": "Phase 7 validation",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 21.142211113048962,
+      "warning": null
+    },
+    "outlet": {
+      "basis": "nitrogen",
+      "origin": "Phase 7 validation",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 21.142211113048962,
+      "warning": null
+    },
+    "passed": true,
+    "process_area": "integrated_system",
+    "residual": {
+      "basis": "inlet minus outlet",
+      "origin": "Phase 7 validation",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    }
+  },
+  {
+    "balance_id": "element_phosphorus",
+    "inlet": {
+      "basis": "phosphorus",
+      "origin": "Phase 7 validation",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.01378726641957011,
+      "warning": null
+    },
+    "outlet": {
+      "basis": "phosphorus",
+      "origin": "Phase 7 validation",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.01378726641957011,
+      "warning": null
+    },
+    "passed": true,
+    "process_area": "integrated_system",
+    "residual": {
+      "basis": "inlet minus outlet",
+      "origin": "Phase 7 validation",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    }
+  },
+  {
+    "balance_id": "element_sulfur",
+    "inlet": {
+      "basis": "sulfur",
+      "origin": "Phase 7 validation",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.07467588754795734,
+      "warning": null
+    },
+    "outlet": {
+      "basis": "sulfur",
+      "origin": "Phase 7 validation",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.07467588754795734,
+      "warning": null
+    },
+    "passed": true,
+    "process_area": "integrated_system",
+    "residual": {
+      "basis": "inlet minus outlet",
+      "origin": "Phase 7 validation",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    }
+  },
+  {
+    "balance_id": "element_potassium",
+    "inlet": {
+      "basis": "potassium",
+      "origin": "Phase 7 validation",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.06307140914070895,
+      "warning": null
+    },
+    "outlet": {
+      "basis": "potassium",
+      "origin": "Phase 7 validation",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.06307140914070895,
+      "warning": null
+    },
+    "passed": true,
+    "process_area": "integrated_system",
+    "residual": {
+      "basis": "inlet minus outlet",
+      "origin": "Phase 7 validation",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    }
+  },
+  {
+    "balance_id": "element_sodium",
+    "inlet": {
+      "basis": "sodium",
+      "origin": "Phase 7 validation",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0568913720111925,
+      "warning": null
+    },
+    "outlet": {
+      "basis": "sodium",
+      "origin": "Phase 7 validation",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0568913720111925,
+      "warning": null
+    },
+    "passed": true,
+    "process_area": "integrated_system",
+    "residual": {
+      "basis": "inlet minus outlet",
+      "origin": "Phase 7 validation",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    }
+  },
+  {
+    "balance_id": "element_magnesium",
+    "inlet": {
+      "basis": "magnesium",
+      "origin": "Phase 7 validation",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    },
+    "outlet": {
+      "basis": "magnesium",
+      "origin": "Phase 7 validation",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    },
+    "passed": true,
+    "process_area": "integrated_system",
+    "residual": {
+      "basis": "inlet minus outlet",
+      "origin": "Phase 7 validation",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    }
+  },
+  {
+    "balance_id": "element_calcium",
+    "inlet": {
+      "basis": "calcium",
+      "origin": "Phase 7 validation",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    },
+    "outlet": {
+      "basis": "calcium",
+      "origin": "Phase 7 validation",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    },
+    "passed": true,
+    "process_area": "integrated_system",
+    "residual": {
+      "basis": "inlet minus outlet",
+      "origin": "Phase 7 validation",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    }
+  },
+  {
+    "balance_id": "element_chloride",
+    "inlet": {
+      "basis": "chloride",
+      "origin": "Phase 7 validation",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0631611893769501,
+      "warning": null
+    },
+    "outlet": {
+      "basis": "chloride",
+      "origin": "Phase 7 validation",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0631611893769501,
+      "warning": null
+    },
+    "passed": true,
+    "process_area": "integrated_system",
+    "residual": {
+      "basis": "inlet minus outlet",
+      "origin": "Phase 7 validation",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    }
+  }
+]

@@ -357,6 +357,16 @@ def test_de_fos_bmp_is_proxy_metadata_for_supernatant_not_press_cake():
     assert "residual_VS_missing" in policy.blockers
 
 
+def test_residual_bmp_report_exposes_supernatant_basis_and_unmodeled_vs():
+    preview = preview_proxy_enabled_dynamic_operational_scenario(
+        proxy_closure_policy=default_proxy_closure_policy(),
+    )
+    metrics = preview.biogas_mix_preparation.metrics
+    assert metrics["bmp_basis_stream"] == "final_supernatant_only"
+    assert metrics["methane_potential_basis"].startswith("supernatant_vs")
+    assert metrics["unmodeled_vs_kg_per_kg_feed"] is not None
+
+
 def test_proxy_enabled_pathway_is_partial_report_only_and_excludes_press_cake_from_biogas():
     preview = preview_proxy_enabled_dynamic_operational_scenario()
     summary = summarize_dynamic_protein_block_resolution(preview)
@@ -600,6 +610,24 @@ def test_default_dynamic_protein_scenario_config_validates_monthly_grid():
     assert config.drying_target_moisture_fraction == pytest.approx(0.15)
     assert config.raw_press_policy_id == "raw_press_lolium_perenne_2025"
     assert step.policy_ids["dynamic_raw_press"] == "raw_press_lolium_perenne_2025"
+
+
+def test_opt_in_process_water_changes_shared_feed_basis_and_closes_pathway():
+    baseline = run_dynamic_protein_scenario_step(DynamicProteinScenarioConfig(), "2026-05")
+    diluted = run_dynamic_protein_scenario_step(
+        DynamicProteinScenarioConfig(pretreatment_water_addition_kg_per_kg_wet_feed=0.5),
+        "2026-05",
+    )
+
+    assert diluted.pathway_preview.feed_pools.water_wet_fraction > baseline.pathway_preview.feed_pools.water_wet_fraction
+    assert diluted.pathway_preview.feed_pools.provenance["process_water_addition_kg_per_kg_wet_feed"] == pytest.approx(0.5)
+    assert diluted.pathway_preview.mass_balance_summary["closes"] is True
+    assert diluted.pathway_preview.dynamic_press_bundle.feed_pools is diluted.pathway_preview.feed_pools
+
+
+def test_negative_process_water_is_rejected():
+    with pytest.raises(ValueError, match="pretreatment_water_addition"):
+        DynamicProteinScenarioConfig(pretreatment_water_addition_kg_per_kg_wet_feed=-0.1)
 
 
 @pytest.mark.parametrize("target", [-0.01, 1.0, 1.2])

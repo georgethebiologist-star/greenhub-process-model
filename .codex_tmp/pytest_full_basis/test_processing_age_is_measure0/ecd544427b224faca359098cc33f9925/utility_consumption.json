@@ -1,0 +1,257 @@
+[
+  {
+    "demand": 0.0,
+    "kind": "electricity",
+    "unit_id": "A611"
+  },
+  {
+    "demand": 7.240107512061615e-06,
+    "kind": "electricity",
+    "unit_id": "A612"
+  },
+  {
+    "demand": 3.435220448975419e-07,
+    "kind": "electricity",
+    "unit_id": "A721"
+  },
+  {
+    "demand": 0.0,
+    "kind": "electricity",
+    "unit_id": "A722"
+  },
+  {
+    "demand": 0.00046246879999999995,
+    "kind": "electricity",
+    "unit_id": "C301"
+  },
+  {
+    "demand": 0.0003504682752499999,
+    "kind": "electricity",
+    "unit_id": "C401"
+  },
+  {
+    "demand": 0.00034024648332773536,
+    "kind": "electricity",
+    "unit_id": "C611"
+  },
+  {
+    "demand": 0.00015076204265123766,
+    "kind": "electricity",
+    "unit_id": "D401"
+  },
+  {
+    "demand": 0.0,
+    "kind": "electricity",
+    "unit_id": "D611"
+  },
+  {
+    "demand": 0.0,
+    "kind": "electricity",
+    "unit_id": "D711"
+  },
+  {
+    "demand": 0.0019712202672308313,
+    "kind": "electricity",
+    "unit_id": "DR401"
+  },
+  {
+    "demand": 0.0,
+    "kind": "electricity",
+    "unit_id": "E611"
+  },
+  {
+    "demand": 2.005880885594931e-06,
+    "kind": "electricity",
+    "unit_id": "F601"
+  },
+  {
+    "demand": 2.1590070081248476e-06,
+    "kind": "electricity",
+    "unit_id": "G601"
+  },
+  {
+    "demand": 0.0,
+    "kind": "electricity",
+    "unit_id": "H401"
+  },
+  {
+    "demand": 0.0,
+    "kind": "electricity",
+    "unit_id": "H501"
+  },
+  {
+    "demand": 0.0,
+    "kind": "electricity",
+    "unit_id": "H721"
+  },
+  {
+    "demand": 3.6336783333333317e-06,
+    "kind": "electricity",
+    "unit_id": "M401"
+  },
+  {
+    "demand": 0.0,
+    "kind": "electricity",
+    "unit_id": "M402"
+  },
+  {
+    "demand": 1.8029903774063804e-06,
+    "kind": "electricity",
+    "unit_id": "M403"
+  },
+  {
+    "demand": 1.8089284385391466e-06,
+    "kind": "electricity",
+    "unit_id": "M501"
+  },
+  {
+    "demand": 0.0,
+    "kind": "electricity",
+    "unit_id": "M606"
+  },
+  {
+    "demand": 0.0,
+    "kind": "electricity",
+    "unit_id": "M607"
+  },
+  {
+    "demand": 0.0,
+    "kind": "electricity",
+    "unit_id": "M610"
+  },
+  {
+    "demand": 0.0,
+    "kind": "electricity",
+    "unit_id": "M618"
+  },
+  {
+    "demand": 0.0,
+    "kind": "electricity",
+    "unit_id": "M619"
+  },
+  {
+    "demand": 0.0,
+    "kind": "electricity",
+    "unit_id": "M698"
+  },
+  {
+    "demand": 0.0,
+    "kind": "electricity",
+    "unit_id": "M699"
+  },
+  {
+    "demand": 8.51688417344067e-06,
+    "kind": "electricity",
+    "unit_id": "M721"
+  },
+  {
+    "demand": 0.0,
+    "kind": "electricity",
+    "unit_id": "M798"
+  },
+  {
+    "demand": 0.0,
+    "kind": "electricity",
+    "unit_id": "M799"
+  },
+  {
+    "demand": 4.437001523007875e-06,
+    "kind": "electricity",
+    "unit_id": "P611"
+  },
+  {
+    "demand": 4.380853440624999e-05,
+    "kind": "electricity",
+    "unit_id": "R401"
+  },
+  {
+    "demand": 0.0010854655988298003,
+    "kind": "electricity",
+    "unit_id": "R501"
+  },
+  {
+    "demand": 0.0,
+    "kind": "electricity",
+    "unit_id": "R601"
+  },
+  {
+    "demand": 0.0,
+    "kind": "electricity",
+    "unit_id": "R602"
+  },
+  {
+    "demand": 2.1297915012833636e-05,
+    "kind": "electricity",
+    "unit_id": "R711"
+  },
+  {
+    "demand": 0.004983499999999999,
+    "kind": "electricity",
+    "unit_id": "S201"
+  },
+  {
+    "demand": 0.0,
+    "kind": "electricity",
+    "unit_id": "S601"
+  },
+  {
+    "demand": 0.0,
+    "kind": "electricity",
+    "unit_id": "S610"
+  },
+  {
+    "demand": 0.00021577721839654077,
+    "kind": "electricity",
+    "unit_id": "S701"
+  },
+  {
+    "demand": 1.7113737695872777e-06,
+    "kind": "electricity",
+    "unit_id": "S711"
+  },
+  {
+    "demand": 5.754059157241087e-05,
+    "kind": "electricity",
+    "unit_id": "T701"
+  },
+  {
+    "demand": 0.0015,
+    "kind": "electricity",
+    "unit_id": "U101"
+  },
+  {
+    "demand": 0.019933999999999997,
+    "kind": "electricity",
+    "unit_id": "U201"
+  },
+  {
+    "demand": 0.0,
+    "kind": "electricity",
+    "unit_id": "V501"
+  },
+  {
+    "demand": 0.0,
+    "kind": "electricity",
+    "unit_id": "V611"
+  },
+  {
+    "demand": 0.0,
+    "kind": "electricity",
+    "unit_id": "V612"
+  },
+  {
+    "demand": 0.0,
+    "kind": "electricity",
+    "unit_id": "V722"
+  },
+  {
+    "demand": 0.0,
+    "kind": "electricity",
+    "unit_id": "W401"
+  },
+  {
+    "demand": 0.0,
+    "kind": "electricity",
+    "unit_id": "W711"
+  }
+]

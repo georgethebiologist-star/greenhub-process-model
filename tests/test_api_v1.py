@@ -9,6 +9,13 @@ from io import BytesIO
 import pytest
 
 from api.app import create_app
+from Greenhub.application.schema_export import openapi_schema
+
+
+def test_decision_support_openapi_documents_additive_analysis_inputs():
+    properties = openapi_schema()["paths"]["/api/v1/decision-support/evaluate"]["post"]["requestBody"]["content"]["application/json"]["schema"]["properties"]["configuration"]["properties"]
+    assert properties["use_screening_lca_factors"]["default"] is False
+    assert properties["logistics_result"]["type"] == ["object", "null"]
 
 
 def test_dynamic_complete_endpoints_are_opt_in_json_safe(tmp_path):
@@ -167,7 +174,7 @@ def test_simulation_and_result_endpoints_return_json_safe_service_results(tmp_pa
     assert annual["method"] == "steady_state_annualization"
     assert annual["period"]["operating_hours"] == 8760.0
     assert annual["feed_processed"]["value"] == pytest.approx(
-        result["summary_kpis"]["boundary_inlet_mass"]["value"] * 8760.0
+        next(s for s in result['streams'] if 'feed' in s['aliases'])['total_mass']['value'] * 8760.0
     )
     assert annual["products"]["dry_protein_product"]["unit"] == "kg/year"
     assert annual["utilities"]["electricity"]["unit"] == "kWh/year"
@@ -218,7 +225,10 @@ def test_empirical_annual_reporting_exposes_shared_schedule_and_chart_contract(t
     assert annual_status == 200
     schedule = annual["biomass_schedule"]
     assert schedule["annual_available_tonnes"] == pytest.approx(30000)
-    assert schedule["annual_processed_tonnes"] == pytest.approx(30000)
+    assert schedule["annual_processed_tonnes"] == pytest.approx(result['seasonal_summary']['total_biomass_processed_kg']/1000)
+    assert sum(r['planned_processed_biomass_tonnes'] for r in schedule['monthly']) == pytest.approx(30000)
+    assert schedule['ending_inventory_tonnes'] == pytest.approx(result['seasonal_summary']['final_inventory_kg']/1000)
+    assert annual['reporting_status']['validated_simulation_ready'] is False
     assert schedule["policy_id"] == "shared_normal_supply_monthly_cap_v1"
     assert len(schedule["monthly"]) == 12
     assert {

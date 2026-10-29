@@ -1,0 +1,32 @@
+{
+  "series": [
+    {
+      "label": "Recovery",
+      "series_id": "recovery",
+      "x": [
+        "PR1"
+      ],
+      "y": [
+        0.34
+      ]
+    }
+  ],
+  "specification": {
+    "availability_status": "available",
+    "plot_id": "PR-PRECIP-RECOVERY",
+    "process_area": "protein_recovery",
+    "run_id": "4779dfca1b6043c894056660111064f7",
+    "scenario": "F2/PR1/AD1/BG2/NR2",
+    "source_result_fields": [
+      "units.R401.design_results.Acid recovery"
+    ],
+    "title": "R401 direct precipitation recovery",
+    "warnings": [
+      "REC-001 is a grass-clover total-N recovery mapped to the GreenHub soluble-protein pool."
+    ],
+    "x_axis_label": "Scenario",
+    "x_unit": null,
+    "y_axis_label": "Recovered fraction",
+    "y_unit": "fraction"
+  }
+}

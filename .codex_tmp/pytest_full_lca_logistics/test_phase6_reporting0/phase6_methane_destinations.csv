@@ -1,0 +1,8 @@
+destination,methane_kg_hr,fraction_of_raw_biogas_methane
+gas_product,0.5005278771234917,0.992331510771748
+reject_gas,0.0035745117162113865,0.007086719389146447
+conditioning_wastewater,0.00025219791556061,0.0005
+upgrading_wastewater,4.1244365956285254e-05,8.176983910553597e-05
+conditioning_spent_material,0.0,0.0
+upgrading_spent_material,0.0,0.0
+unassigned_residual,0.0,0.0

@@ -3,6 +3,23 @@
 from Greenhub.characterization import CharacterizationResult, characterize_feed
 from Greenhub.chemicals import chemicals, create_chemicals, set_thermo, thermo
 from Greenhub.input_data import FeedSpecification, INPUT_WORKBOOK_PATH, load_feed_specification, load_input_records_csv
+from Greenhub.complete_missing_data import (
+    CompletedInputRecord,
+    completed_input_summary,
+    load_completed_input_register,
+)
+from Greenhub.product_price_benchmarks import (
+    ProductPriceBenchmark,
+    load_product_price_benchmarks,
+    screening_tea_product_prices,
+)
+from Greenhub.process_assumption_profile import (
+    screening_process_assumption_profile,
+    screening_pretreatment_parameters,
+    screening_storage_conditions,
+)
+from Greenhub.pretreatment_state import PretreatmentStateResult, apply_screening_pretreatment_state
+from Greenhub.dynamic_biosteam_adapter import summarize_pretreatment_utilities
 from Greenhub.phase3_inputs import Phase3InputBundle, load_phase3_inputs
 from Greenhub.phase3_metrics import RawLiquidInterface, SeasonalFrontEndResult
 from Greenhub.phase4_inputs import Phase4InputBundle, load_phase4_inputs
@@ -61,6 +78,8 @@ from Greenhub.phase7_systems import Phase7Model
 __all__ = [
     "BASELINE_FEED_FLOWS_KG_HR",
     "CharacterizationResult",
+    "CompletedInputRecord",
+    "ProductPriceBenchmark",
     "FeedSpecification",
     "GreenHubModel",
     "IntegratedGreenHubModel",
@@ -114,6 +133,16 @@ __all__ = [
     "create_psa_upgrading_system",
     "create_mea_upgrading_system",
     "load_feed_specification",
+    "load_completed_input_register",
+    "completed_input_summary",
+    "load_product_price_benchmarks",
+    "screening_tea_product_prices",
+    "screening_storage_conditions",
+    "screening_process_assumption_profile",
+    "screening_pretreatment_parameters",
+    "PretreatmentStateResult",
+    "apply_screening_pretreatment_state",
+    "summarize_pretreatment_utilities",
     "load_input_records_csv",
     "load_phase4_inputs",
     "load_phase5_inputs",

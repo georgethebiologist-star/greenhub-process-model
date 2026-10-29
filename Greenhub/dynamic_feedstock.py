@@ -405,6 +405,45 @@ class DynamicFeedstockPools:
     provenance: dict[str, object]
     can_drive_simulation: bool = False
 
+    def with_process_water(self, water_kg_per_kg_wet_feed: float) -> "DynamicFeedstockPools":
+        """Return a coherent diluted basis for an explicit process-water input."""
+        if not isfinite(water_kg_per_kg_wet_feed) or water_kg_per_kg_wet_feed < 0.0:
+            raise ValueError("Process-water addition must be finite and non-negative.")
+        if water_kg_per_kg_wet_feed == 0.0:
+            return self
+        basis_scale = 1.0 + water_kg_per_kg_wet_feed
+        components = {
+            name: mass / basis_scale for name, mass in self.component_mass_fractions.items()
+        }
+        components["Water"] = (
+            components.get("Water", 0.0) + water_kg_per_kg_wet_feed / basis_scale
+        )
+        provenance = dict(self.provenance)
+        provenance.update({
+            "process_water_addition_kg_per_kg_wet_feed": water_kg_per_kg_wet_feed,
+            "basis_transformation": "incoming_wet_feed_plus_explicit_process_water",
+            "normal_simulation_integration": False,
+        })
+        return replace(
+            self,
+            water_wet_fraction=(self.water_wet_fraction + water_kg_per_kg_wet_feed) / basis_scale,
+            ash_wet_fraction=self.ash_wet_fraction / basis_scale,
+            soluble_protein_wet_fraction=self.soluble_protein_wet_fraction / basis_scale,
+            insoluble_protein_wet_fraction=self.insoluble_protein_wet_fraction / basis_scale,
+            fructan_wet_fraction=self.fructan_wet_fraction / basis_scale,
+            sucrose_wet_fraction=self.sucrose_wet_fraction / basis_scale,
+            hexose_wet_fraction=self.hexose_wet_fraction / basis_scale,
+            structural_fiber_wet_fraction=self.structural_fiber_wet_fraction / basis_scale,
+            cellulose_wet_fraction=self.cellulose_wet_fraction / basis_scale,
+            hemicellulose_wet_fraction=self.hemicellulose_wet_fraction / basis_scale,
+            lignin_wet_fraction=self.lignin_wet_fraction / basis_scale,
+            residual_unallocated_dry_matter_wet_fraction=self.residual_unallocated_dry_matter_wet_fraction / basis_scale,
+            total_allocated_wet_fraction=(self.total_allocated_wet_fraction + water_kg_per_kg_wet_feed) / basis_scale,
+            component_mass_fractions=dict(sorted(components.items())),
+            provenance=provenance,
+            warnings=tuple(dict.fromkeys((*self.warnings, "explicit_process_water_added_before_press"))),
+        )
+
     def to_dict(self) -> dict[str, object]:
         return asdict(self)
 
@@ -1896,10 +1935,9 @@ def _markdown_report(result: DynamicFeedstockPreviewResult) -> str:
 
 
 def _project_relative_name(path: Path) -> str:
-    try:
-        return path.resolve().relative_to(PROJECT_ROOT.resolve()).as_posix()
-    except ValueError:
-        return path.name
+    # Report writers may target a temporary/export directory.  Return the
+    # artifact name rather than leaking a machine-specific workspace path.
+    return path.name
 
 
 def main() -> None:

@@ -1,0 +1,10 @@
+property,conditioned_gas_value,limit_type,selected_limit,unit,passed,interpretation
+temperature_c,15.0,maximum,30.0,degC,True,structural check only; not a grid-compliance claim
+pressure_bar,0.93825,minimum,0.9,bar,True,structural check only; not a grid-compliance claim
+water_mol_fraction_wet,0.017326906437854242,maximum,0.02,mol fraction,True,structural check only; not a grid-compliance claim
+h2s_ppmv_dry,4.1039890383319575,maximum,100.0,ppmv dry,True,structural check only; not a grid-compliance claim
+ammonia_ppmv_dry,6.968475039427092,maximum,50.0,ppmv dry,True,structural check only; not a grid-compliance claim
+oxygen_mol_fraction_dry,0.0,maximum,0.02,mol fraction dry,True,structural check only; not a grid-compliance claim
+particulate_kg_hr,0.0,maximum,1e-06,kg/hr,True,structural check only; not a grid-compliance claim
+siloxane_kg_hr,0.0,maximum,1e-06,kg/hr,True,structural check only; not a grid-compliance claim
+methane_mol_fraction_dry,0.6035050123764265,minimum,0.35,mol fraction dry,True,structural check only; not a grid-compliance claim

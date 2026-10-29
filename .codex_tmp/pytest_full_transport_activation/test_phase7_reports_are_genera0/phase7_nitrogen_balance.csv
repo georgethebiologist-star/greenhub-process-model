@@ -1,0 +1,9 @@
+location,direction,element,flow_kg_hr
+complete Phase 7 boundary,input,nitrogen,119.35119176721194
+nutrient_rich_digestate_solids,output,nitrogen,0.04671800350959901
+struvite_product,output,nitrogen,0.0031385994955308865
+ammonium_salt_product,output,nitrogen,0.33826052553119096
+nitrogen_depleted_liquor,output,nitrogen,0.1627002849077528
+phase7_wastewater,output,nitrogen,0.0
+phase7_offgas,output,nitrogen,118.80037435376786
+balance residual,residual,nitrogen,0.0

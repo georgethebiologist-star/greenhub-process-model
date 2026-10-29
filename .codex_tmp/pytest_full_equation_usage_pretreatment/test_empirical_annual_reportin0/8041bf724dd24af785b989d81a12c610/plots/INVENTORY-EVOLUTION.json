@@ -1,0 +1,84 @@
+{
+  "series": [
+    {
+      "label": "Inventory",
+      "series_id": "inventory",
+      "x": [
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09",
+        "2026-10",
+        "2026-11",
+        "2026-12"
+      ],
+      "y": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1313318.6482269962,
+        4773410.840966567,
+        10064737.429231174,
+        15288745.481261939,
+        18605591.563645553,
+        19784242.89290224,
+        19784242.89290224,
+        19784242.89290224
+      ]
+    },
+    {
+      "label": "Degradation",
+      "series_id": "degradation",
+      "x": [
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09",
+        "2026-10",
+        "2026-11",
+        "2026-12"
+      ],
+      "y": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "specification": {
+    "availability_status": "available",
+    "plot_id": "INVENTORY-EVOLUTION",
+    "process_area": "integrated_system",
+    "run_id": "8041bf724dd24af785b989d81a12c610",
+    "scenario": "F2/PR3/AD1/BG2/NR4",
+    "source_result_fields": [
+      "inventory_evolution.final_kg"
+    ],
+    "title": "Quasi-dynamic inventory evolution",
+    "warnings": [],
+    "x_axis_label": "Inventory",
+    "x_unit": null,
+    "y_axis_label": "Final inventory",
+    "y_unit": "kg"
+  }
+}

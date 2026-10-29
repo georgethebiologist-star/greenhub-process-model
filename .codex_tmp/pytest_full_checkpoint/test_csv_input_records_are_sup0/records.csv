@@ -1,0 +1,2 @@
+name,python_name,value,unit,basis,stream,sample_id,scenario,data_type,measurement_status,source_class,distribution,priority,allocation_target,active
+Glucose,glucose,1.0,g/L,compound mass,raw_liquid_fraction,s1,baseline,component,measured,A,none,10,Glucose,true

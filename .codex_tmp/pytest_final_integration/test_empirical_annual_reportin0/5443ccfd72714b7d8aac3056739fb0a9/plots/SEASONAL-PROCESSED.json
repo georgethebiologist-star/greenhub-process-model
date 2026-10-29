@@ -1,0 +1,85 @@
+{
+  "series": [
+    {
+      "label": "Processed",
+      "series_id": "processed",
+      "x": [
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09",
+        "2026-10",
+        "2026-11",
+        "2026-12"
+      ],
+      "y": [
+        0.0,
+        0.0,
+        0.0,
+        731494.0632452719,
+        1488000.0,
+        1440000.0,
+        1488000.0,
+        1487999.9999999998,
+        1440000.0000000002,
+        1488000.0000000002,
+        652263.0438524858,
+        0.0
+      ]
+    },
+    {
+      "label": "Ending inventory",
+      "series_id": "unprocessed",
+      "x": [
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09",
+        "2026-10",
+        "2026-11",
+        "2026-12"
+      ],
+      "y": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1313318.6482269962,
+        4773410.840966567,
+        10064737.429231174,
+        15288745.481261939,
+        18605591.563645553,
+        19784242.89290224,
+        19784242.89290224,
+        19784242.89290224
+      ]
+    }
+  ],
+  "specification": {
+    "availability_status": "available",
+    "plot_id": "SEASONAL-PROCESSED",
+    "process_area": "feedstock_and_characterization",
+    "run_id": "5443ccfd72714b7d8aac3056739fb0a9",
+    "scenario": "F2/PR3/AD1/BG2/NR4",
+    "source_result_fields": [
+      "throughput_series",
+      "storage_inventory_series"
+    ],
+    "title": "Biomass processed and unprocessed",
+    "warnings": [],
+    "x_axis_label": "Time",
+    "x_unit": null,
+    "y_axis_label": "Wet biomass",
+    "y_unit": "kg"
+  }
+}

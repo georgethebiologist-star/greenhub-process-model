@@ -1,0 +1,50 @@
+{
+  "series": [
+    {
+      "label": "Ammonium Product",
+      "series_id": "ammonium_product",
+      "x": [
+        "2026-07"
+      ],
+      "y": [
+        7419.764332672
+      ]
+    },
+    {
+      "label": "Nutrient Rich Solids",
+      "series_id": "nutrient_rich_solids",
+      "x": [
+        "2026-07"
+      ],
+      "y": [
+        4226.895505373528
+      ]
+    },
+    {
+      "label": "Phosphorus Product",
+      "series_id": "phosphorus_product",
+      "x": [
+        "2026-07"
+      ],
+      "y": [
+        84.88413897152898
+      ]
+    }
+  ],
+  "specification": {
+    "availability_status": "available",
+    "plot_id": "SEASONAL-NUTRIENTS",
+    "process_area": "digestate_treatment_and_nutrient_recovery",
+    "run_id": "ed6a006252d44356aecc5e0655f2b169",
+    "scenario": "F2/PR3/AD1/BG2/NR4",
+    "source_result_fields": [
+      "product_series"
+    ],
+    "title": "Nutrient product generation",
+    "warnings": [],
+    "x_axis_label": "Time",
+    "x_unit": null,
+    "y_axis_label": "Product mass",
+    "y_unit": "kg"
+  }
+}

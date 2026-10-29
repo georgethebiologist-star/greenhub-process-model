@@ -1,0 +1,52 @@
+{
+  "series": [
+    {
+      "label": "Residual",
+      "series_id": "residual",
+      "x": [
+        "overall_mass",
+        "element_carbon",
+        "element_hydrogen",
+        "element_oxygen",
+        "element_nitrogen",
+        "element_phosphorus",
+        "element_sulfur",
+        "element_potassium",
+        "element_sodium",
+        "element_magnesium",
+        "element_calcium",
+        "element_chloride"
+      ],
+      "y": [
+        -6.925120032974519e-09,
+        0.0,
+        -7.105427357601002e-15,
+        -5.684341886080802e-14,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        -1.1102230246251565e-16,
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "specification": {
+    "availability_status": "available",
+    "plot_id": "VALIDATION-RESIDUALS",
+    "process_area": "integrated_system",
+    "run_id": "8d44f8afe14646999c255692316d12da",
+    "scenario": "F2/PR3/AD1/BG2/NR4",
+    "source_result_fields": [
+      "balances.residual"
+    ],
+    "title": "Mass and elemental balance residuals",
+    "warnings": [],
+    "x_axis_label": "Balance",
+    "x_unit": null,
+    "y_axis_label": "Residual",
+    "y_unit": "kg/hr"
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "series": [
+    {
+      "label": "C301",
+      "series_id": "C301",
+      "x": [
+        "2026-06"
+      ],
+      "y": [
+        3.876832842477676e-05
+      ]
+    },
+    {
+      "label": "S201",
+      "series_id": "S201",
+      "x": [
+        "2026-06"
+      ],
+      "y": [
+        0.00034607638888888893
+      ]
+    },
+    {
+      "label": "U101",
+      "series_id": "U101",
+      "x": [
+        "2026-06"
+      ],
+      "y": [
+        0.00034722222222222224
+      ]
+    },
+    {
+      "label": "U201",
+      "series_id": "U201",
+      "x": [
+        "2026-06"
+      ],
+      "y": [
+        0.0003460763888888889
+      ]
+    }
+  ],
+  "specification": {
+    "availability_status": "available",
+    "plot_id": "SEASONAL-UTILIZATION",
+    "process_area": "integrated_system",
+    "run_id": "bce64c509cc0418499237c6c85bbd786",
+    "scenario": "F2/PR3/AD1/BG2/NR4",
+    "source_result_fields": [
+      "capacity_utilization_series"
+    ],
+    "title": "Unit capacity utilization",
+    "warnings": [],
+    "x_axis_label": "Time",
+    "x_unit": null,
+    "y_axis_label": "Utilization",
+    "y_unit": "fraction"
+  }
+}

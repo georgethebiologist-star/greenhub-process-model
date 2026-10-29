@@ -1,0 +1,72 @@
+[
+  {
+    "classification": "candidate_product_not_regulatory_qualified",
+    "mass_flow": {
+      "basis": "wet stream",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 8.081955807593564,
+      "warning": null
+    },
+    "product_id": "dry_protein_product",
+    "stream_id": "dry_protein_product"
+  },
+  {
+    "classification": "candidate_product_not_regulatory_qualified",
+    "mass_flow": {
+      "basis": "wet stream",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 5.384478509232226,
+      "warning": null
+    },
+    "product_id": "biomethane",
+    "stream_id": "membrane_stage_2_retentate"
+  },
+  {
+    "classification": "candidate_product_not_regulatory_qualified",
+    "mass_flow": {
+      "basis": "wet stream",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.12767020976687077,
+      "warning": null
+    },
+    "product_id": "phosphorus_product",
+    "stream_id": "struvite_product"
+  },
+  {
+    "classification": "candidate_product_not_regulatory_qualified",
+    "mass_flow": {
+      "basis": "wet stream",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 10.35776239806814,
+      "warning": null
+    },
+    "product_id": "ammonium_product",
+    "stream_id": "ammonium_salt_product"
+  },
+  {
+    "classification": "candidate_product_not_regulatory_qualified",
+    "mass_flow": {
+      "basis": "wet stream",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 7.077260280503767,
+      "warning": null
+    },
+    "product_id": "nutrient_rich_solids",
+    "stream_id": "nutrient_rich_digestate_solids"
+  }
+]

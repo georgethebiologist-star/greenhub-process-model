@@ -1,0 +1,19 @@
+[
+  {
+    "average_kg": 0.0,
+    "degradation_kg": 0.0,
+    "final_kg": 0.0,
+    "initial_kg": 0.0,
+    "inventory_id": "biomass_storage",
+    "peak_kg": 0.0,
+    "status": "calculated_from_seasonal_storage_inventory",
+    "timeline": [
+      {
+        "degradation_kg": 0.0,
+        "inventory_kg": 0.0,
+        "overflow_kg": 0.0,
+        "time": "2026-07"
+      }
+    ]
+  }
+]

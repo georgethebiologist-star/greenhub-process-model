@@ -4,6 +4,7 @@ from Greenhub.feedstock_resolution import summarize_feedstock_resolution_gates, 
 
 from .annual_service import build_annual_summary
 from .errors import RunStateError
+from .tea_service import calculate_empirical_tea
 
 
 class ResultService:
@@ -78,6 +79,22 @@ class ResultService:
         if context.result is None:
             raise RunStateError(f"Run '{run_id}' has no completed result.")
         return build_annual_summary(context.result, context.request)
+
+    def get_tea(
+        self,
+        run_id,
+        selected_routes=None,
+        project_basis=None,
+        financial_assumptions=None,
+    ):
+        """Return optional post-route TEA without changing the stored result."""
+
+        return calculate_empirical_tea(
+            self._result(run_id),
+            selected_routes=selected_routes,
+            project_basis=project_basis,
+            financial_assumptions=financial_assumptions,
+        ).to_dict()
 
     def get_feedstock_resolution_readiness(self):
         write_feedstock_resolution_report()

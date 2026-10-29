@@ -1,0 +1,539 @@
+[
+  {
+    "changed_properties": [
+      "flow_kg_hr",
+      "pressure_pa",
+      "moisture_fraction",
+      "solids_kg_hr",
+      "density_kg_m3",
+      "viscosity_pa_s"
+    ],
+    "flow_kg_hr": 2.3084833756174374,
+    "outlet_flow_kg_hr": 0.8759504768816901,
+    "solids_kg_hr": 2.284073365982976,
+    "unit_id": "A611"
+  },
+  {
+    "changed_properties": [
+      "flow_kg_hr",
+      "pressure_pa",
+      "moisture_fraction",
+      "solids_kg_hr",
+      "density_kg_m3",
+      "viscosity_pa_s"
+    ],
+    "flow_kg_hr": 6.6980621183338425,
+    "outlet_flow_kg_hr": 1.2031027649382555,
+    "solids_kg_hr": 1.2287998381271104,
+    "unit_id": "A612"
+  },
+  {
+    "changed_properties": [
+      "flow_kg_hr",
+      "moisture_fraction",
+      "solids_kg_hr",
+      "density_kg_m3",
+      "viscosity_pa_s",
+      "soluble_protein_kg_hr",
+      "carbohydrates_kg_hr",
+      "cod_kg_hr"
+    ],
+    "flow_kg_hr": 326.33887096774197,
+    "outlet_flow_kg_hr": 246.15240322580647,
+    "solids_kg_hr": 25.045322580645177,
+    "unit_id": "C301"
+  },
+  {
+    "changed_properties": [
+      "flow_kg_hr",
+      "moisture_fraction",
+      "solids_kg_hr",
+      "density_kg_m3",
+      "viscosity_pa_s",
+      "soluble_protein_kg_hr",
+      "carbohydrates_kg_hr",
+      "cod_kg_hr"
+    ],
+    "flow_kg_hr": 247.30624261592743,
+    "outlet_flow_kg_hr": 9.70953824705257,
+    "solids_kg_hr": 9.37725763709679,
+    "unit_id": "C401"
+  },
+  {
+    "changed_properties": [
+      "temperature_k",
+      "pressure_pa",
+      "density_kg_m3",
+      "viscosity_pa_s"
+    ],
+    "flow_kg_hr": 2.3084833756174374,
+    "outlet_flow_kg_hr": 2.3084833756174374,
+    "solids_kg_hr": 2.284073365982976,
+    "unit_id": "C611"
+  },
+  {
+    "changed_properties": [
+      "flow_kg_hr",
+      "moisture_fraction",
+      "solids_kg_hr",
+      "density_kg_m3",
+      "viscosity_pa_s",
+      "soluble_protein_kg_hr",
+      "carbohydrates_kg_hr",
+      "cod_kg_hr"
+    ],
+    "flow_kg_hr": 9.70953824705257,
+    "outlet_flow_kg_hr": 6.720645610269306,
+    "solids_kg_hr": 2.4273845617631435,
+    "unit_id": "D401"
+  },
+  {
+    "changed_properties": [
+      "flow_kg_hr",
+      "pressure_pa",
+      "moisture_fraction",
+      "density_kg_m3",
+      "viscosity_pa_s"
+    ],
+    "flow_kg_hr": 0.8710684749547979,
+    "outlet_flow_kg_hr": 0.8516381072857668,
+    "solids_kg_hr": 0.8515404672472289,
+    "unit_id": "D611"
+  },
+  {
+    "changed_properties": [],
+    "flow_kg_hr": 0.05874429660605286,
+    "outlet_flow_kg_hr": 0.05874429660605286,
+    "solids_kg_hr": 0.04405822245453965,
+    "unit_id": "D711"
+  },
+  {
+    "changed_properties": [
+      "flow_kg_hr",
+      "temperature_k",
+      "moisture_fraction",
+      "solids_kg_hr",
+      "density_kg_m3",
+      "viscosity_pa_s",
+      "soluble_protein_kg_hr",
+      "carbohydrates_kg_hr",
+      "cod_kg_hr"
+    ],
+    "flow_kg_hr": 6.720645610269306,
+    "outlet_flow_kg_hr": 2.540305885768805,
+    "solids_kg_hr": 2.3522259635942575,
+    "unit_id": "DR401"
+  },
+  {
+    "changed_properties": [
+      "temperature_k",
+      "density_kg_m3",
+      "viscosity_pa_s"
+    ],
+    "flow_kg_hr": 2.3084833756174374,
+    "outlet_flow_kg_hr": 2.3084833756174374,
+    "solids_kg_hr": 2.284073365982976,
+    "unit_id": "E611"
+  },
+  {
+    "changed_properties": [
+      "pressure_pa",
+      "density_kg_m3"
+    ],
+    "flow_kg_hr": 2.125967151506998,
+    "outlet_flow_kg_hr": 2.125967151506998,
+    "solids_kg_hr": 2.101557141872537,
+    "unit_id": "F601"
+  },
+  {
+    "changed_properties": [
+      "temperature_k",
+      "pressure_pa",
+      "density_kg_m3",
+      "viscosity_pa_s"
+    ],
+    "flow_kg_hr": 2.1677477624759653,
+    "outlet_flow_kg_hr": 2.1677477624759653,
+    "solids_kg_hr": 2.1099214943210978,
+    "unit_id": "G601"
+  },
+  {
+    "changed_properties": [
+      "temperature_k",
+      "density_kg_m3",
+      "viscosity_pa_s"
+    ],
+    "flow_kg_hr": 241.4049385097231,
+    "outlet_flow_kg_hr": 241.4049385097231,
+    "solids_kg_hr": 7.255616827864515,
+    "unit_id": "H501"
+  },
+  {
+    "changed_properties": [
+      "flow_kg_hr",
+      "moisture_fraction",
+      "solids_kg_hr",
+      "density_kg_m3",
+      "viscosity_pa_s"
+    ],
+    "flow_kg_hr": 246.15240322580647,
+    "outlet_flow_kg_hr": 247.30624261592743,
+    "solids_kg_hr": 9.008029032258094,
+    "unit_id": "M401"
+  },
+  {
+    "changed_properties": [
+      "flow_kg_hr",
+      "moisture_fraction",
+      "solids_kg_hr",
+      "density_kg_m3",
+      "soluble_protein_kg_hr",
+      "carbohydrates_kg_hr",
+      "cod_kg_hr"
+    ],
+    "flow_kg_hr": 237.59670436887487,
+    "outlet_flow_kg_hr": 240.58559700565812,
+    "solids_kg_hr": 6.949873075333642,
+    "unit_id": "M402"
+  },
+  {
+    "changed_properties": [
+      "flow_kg_hr",
+      "moisture_fraction",
+      "solids_kg_hr",
+      "density_kg_m3",
+      "viscosity_pa_s"
+    ],
+    "flow_kg_hr": 240.58559700565812,
+    "outlet_flow_kg_hr": 241.38080042968014,
+    "solids_kg_hr": 7.025031673502525,
+    "unit_id": "M403"
+  },
+  {
+    "changed_properties": [
+      "flow_kg_hr",
+      "moisture_fraction",
+      "solids_kg_hr",
+      "density_kg_m3",
+      "viscosity_pa_s"
+    ],
+    "flow_kg_hr": 241.38080042968014,
+    "outlet_flow_kg_hr": 241.4049385097231,
+    "solids_kg_hr": 7.243547787843028,
+    "unit_id": "M501"
+  },
+  {
+    "changed_properties": [
+      "flow_kg_hr",
+      "pressure_pa",
+      "moisture_fraction",
+      "solids_kg_hr",
+      "density_kg_m3",
+      "viscosity_pa_s"
+    ],
+    "flow_kg_hr": 0.03626337856430952,
+    "outlet_flow_kg_hr": 0.39035373090806386,
+    "solids_kg_hr": 0.002847120043903001,
+    "unit_id": "M606"
+  },
+  {
+    "changed_properties": [],
+    "flow_kg_hr": 0.024709687297823944,
+    "outlet_flow_kg_hr": 0.024709687297823944,
+    "solids_kg_hr": 0.024709687297823944,
+    "unit_id": "M607"
+  },
+  {
+    "changed_properties": [
+      "flow_kg_hr",
+      "moisture_fraction",
+      "solids_kg_hr",
+      "density_kg_m3",
+      "viscosity_pa_s"
+    ],
+    "flow_kg_hr": 2.125967151506998,
+    "outlet_flow_kg_hr": 2.3084833756174374,
+    "solids_kg_hr": 2.101557141872537,
+    "unit_id": "M610"
+  },
+  {
+    "changed_properties": [
+      "flow_kg_hr",
+      "pressure_pa",
+      "moisture_fraction",
+      "solids_kg_hr",
+      "density_kg_m3",
+      "viscosity_pa_s"
+    ],
+    "flow_kg_hr": 0.004882001926892253,
+    "outlet_flow_kg_hr": 0.29906033726570275,
+    "solids_kg_hr": 0.0,
+    "unit_id": "M618"
+  },
+  {
+    "changed_properties": [
+      "flow_kg_hr",
+      "pressure_pa",
+      "solids_kg_hr",
+      "density_kg_m3",
+      "viscosity_pa_s"
+    ],
+    "flow_kg_hr": 0.04562905602760975,
+    "outlet_flow_kg_hr": 1.2487318209658653,
+    "solids_kg_hr": 0.04562905602760975,
+    "unit_id": "M619"
+  },
+  {
+    "changed_properties": [
+      "flow_kg_hr",
+      "moisture_fraction",
+      "solids_kg_hr",
+      "density_kg_m3",
+      "viscosity_pa_s"
+    ],
+    "flow_kg_hr": 0.39035373090806386,
+    "outlet_flow_kg_hr": 0.6894140681737666,
+    "solids_kg_hr": 0.006118017239666984,
+    "unit_id": "M698"
+  },
+  {
+    "changed_properties": [],
+    "flow_kg_hr": 0.024709687297823944,
+    "outlet_flow_kg_hr": 0.024709687297823944,
+    "solids_kg_hr": 0.024709687297823944,
+    "unit_id": "M699"
+  },
+  {
+    "changed_properties": [
+      "pressure_pa",
+      "density_kg_m3",
+      "viscosity_pa_s"
+    ],
+    "flow_kg_hr": 5.220211385725808,
+    "outlet_flow_kg_hr": 5.220211385725808,
+    "solids_kg_hr": 0.024412219529412305,
+    "unit_id": "P611"
+  },
+  {
+    "changed_properties": [
+      "density_kg_m3",
+      "soluble_protein_kg_hr",
+      "cod_kg_hr"
+    ],
+    "flow_kg_hr": 247.30624261592743,
+    "outlet_flow_kg_hr": 247.30624261592743,
+    "solids_kg_hr": 9.37725763709679,
+    "unit_id": "R401"
+  },
+  {
+    "changed_properties": [
+      "pressure_pa",
+      "moisture_fraction",
+      "solids_kg_hr",
+      "density_kg_m3",
+      "viscosity_pa_s",
+      "soluble_protein_kg_hr",
+      "carbohydrates_kg_hr",
+      "cod_kg_hr"
+    ],
+    "flow_kg_hr": 241.4049385097231,
+    "outlet_flow_kg_hr": 241.4049385097231,
+    "solids_kg_hr": 7.255616827864515,
+    "unit_id": "R501"
+  },
+  {
+    "changed_properties": [
+      "flow_kg_hr",
+      "pressure_pa",
+      "moisture_fraction",
+      "solids_kg_hr",
+      "density_kg_m3"
+    ],
+    "flow_kg_hr": 2.1314843839116557,
+    "outlet_flow_kg_hr": 2.1292380487027627,
+    "solids_kg_hr": 2.1070743742771945,
+    "unit_id": "R601"
+  },
+  {
+    "changed_properties": [
+      "flow_kg_hr",
+      "pressure_pa",
+      "moisture_fraction",
+      "solids_kg_hr",
+      "density_kg_m3",
+      "viscosity_pa_s"
+    ],
+    "flow_kg_hr": 2.1292380487027627,
+    "outlet_flow_kg_hr": 2.125967151506998,
+    "solids_kg_hr": 2.1048280390683014,
+    "unit_id": "R602"
+  },
+  {
+    "changed_properties": [
+      "flow_kg_hr",
+      "moisture_fraction",
+      "solids_kg_hr",
+      "density_kg_m3",
+      "viscosity_pa_s"
+    ],
+    "flow_kg_hr": 236.03105237230724,
+    "outlet_flow_kg_hr": 236.0782585836703,
+    "solids_kg_hr": 5.210850290432774,
+    "unit_id": "R711"
+  },
+  {
+    "changed_properties": [
+      "flow_kg_hr",
+      "moisture_fraction",
+      "solids_kg_hr",
+      "density_kg_m3",
+      "viscosity_pa_s",
+      "soluble_protein_kg_hr",
+      "carbohydrates_kg_hr",
+      "cod_kg_hr"
+    ],
+    "flow_kg_hr": 562.6532258064517,
+    "outlet_flow_kg_hr": 236.31435483870962,
+    "solids_kg_hr": 195.71774193548396,
+    "unit_id": "S201"
+  },
+  {
+    "changed_properties": [
+      "flow_kg_hr",
+      "moisture_fraction",
+      "solids_kg_hr",
+      "density_kg_m3",
+      "viscosity_pa_s"
+    ],
+    "flow_kg_hr": 2.1677477624759653,
+    "outlet_flow_kg_hr": 2.1314843839116557,
+    "solids_kg_hr": 2.1099214943210978,
+    "unit_id": "S601"
+  },
+  {
+    "changed_properties": [
+      "flow_kg_hr",
+      "solids_kg_hr"
+    ],
+    "flow_kg_hr": 0.2281452801380488,
+    "outlet_flow_kg_hr": 0.18251622411043908,
+    "solids_kg_hr": 0.2281452801380488,
+    "unit_id": "S610"
+  },
+  {
+    "changed_properties": [
+      "flow_kg_hr",
+      "moisture_fraction",
+      "solids_kg_hr",
+      "density_kg_m3",
+      "viscosity_pa_s",
+      "soluble_protein_kg_hr",
+      "carbohydrates_kg_hr",
+      "cod_kg_hr"
+    ],
+    "flow_kg_hr": 239.1941311249141,
+    "outlet_flow_kg_hr": 3.163078752606886,
+    "solids_kg_hr": 5.843466040954155,
+    "unit_id": "S701"
+  },
+  {
+    "changed_properties": [
+      "flow_kg_hr",
+      "moisture_fraction",
+      "solids_kg_hr",
+      "density_kg_m3",
+      "viscosity_pa_s",
+      "soluble_protein_kg_hr",
+      "carbohydrates_kg_hr",
+      "cod_kg_hr"
+    ],
+    "flow_kg_hr": 236.0782585836703,
+    "outlet_flow_kg_hr": 0.05874429660605286,
+    "solids_kg_hr": 5.234453396558592,
+    "unit_id": "S711"
+  },
+  {
+    "changed_properties": [],
+    "flow_kg_hr": 239.1941311249141,
+    "outlet_flow_kg_hr": 239.1941311249141,
+    "solids_kg_hr": 5.843466040954155,
+    "unit_id": "T701"
+  },
+  {
+    "changed_properties": [
+      "flow_kg_hr",
+      "moisture_fraction",
+      "solids_kg_hr",
+      "density_kg_m3",
+      "viscosity_pa_s"
+    ],
+    "flow_kg_hr": 564.5161290322582,
+    "outlet_flow_kg_hr": 562.6532258064517,
+    "solids_kg_hr": 197.58064516129042,
+    "unit_id": "U101"
+  },
+  {
+    "changed_properties": [
+      "temperature_k",
+      "density_kg_m3",
+      "viscosity_pa_s",
+      "soluble_protein_kg_hr",
+      "carbohydrates_kg_hr",
+      "cod_kg_hr"
+    ],
+    "flow_kg_hr": 562.6532258064517,
+    "outlet_flow_kg_hr": 562.6532258064517,
+    "solids_kg_hr": 195.71774193548396,
+    "unit_id": "U201"
+  },
+  {
+    "changed_properties": [
+      "flow_kg_hr",
+      "pressure_pa",
+      "moisture_fraction",
+      "solids_kg_hr",
+      "density_kg_m3",
+      "viscosity_pa_s",
+      "soluble_protein_kg_hr",
+      "carbohydrates_kg_hr",
+      "cod_kg_hr"
+    ],
+    "flow_kg_hr": 241.4049385097231,
+    "outlet_flow_kg_hr": 2.1677477624759653,
+    "solids_kg_hr": 7.996447157608316,
+    "unit_id": "V501"
+  },
+  {
+    "changed_properties": [
+      "flow_kg_hr",
+      "moisture_fraction",
+      "density_kg_m3",
+      "viscosity_pa_s"
+    ],
+    "flow_kg_hr": 0.8759504768816901,
+    "outlet_flow_kg_hr": 0.8710684749547979,
+    "solids_kg_hr": 0.8515404672472289,
+    "unit_id": "V611"
+  },
+  {
+    "changed_properties": [
+      "flow_kg_hr",
+      "pressure_pa",
+      "moisture_fraction",
+      "solids_kg_hr",
+      "density_kg_m3",
+      "viscosity_pa_s"
+    ],
+    "flow_kg_hr": 6.926207398471891,
+    "outlet_flow_kg_hr": 0.2281452801380488,
+    "solids_kg_hr": 1.4569451182651587,
+    "unit_id": "V612"
+  },
+  {
+    "changed_properties": [],
+    "flow_kg_hr": 0.05874429660605286,
+    "outlet_flow_kg_hr": 0.05874429660605286,
+    "solids_kg_hr": 0.04405822245453965,
+    "unit_id": "W711"
+  }
+]

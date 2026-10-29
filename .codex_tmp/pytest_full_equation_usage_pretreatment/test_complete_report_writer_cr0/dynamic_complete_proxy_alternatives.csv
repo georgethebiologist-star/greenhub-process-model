@@ -1,0 +1,36 @@
+scenario_id,time_label,category,selected,active
+dynamic_complete_proxy_baseline,2026-05,protein_method,"""isoelectric""",True
+dynamic_complete_proxy_baseline,2026-05,drying_method,"""mass_only""",True
+dynamic_complete_proxy_baseline,2026-05,ad_method,"""bmp_material_conversion_proxy""",True
+dynamic_complete_proxy_baseline,2026-05,upgrading_or_energy_route,"""water_scrubbing""",True
+dynamic_complete_proxy_baseline,2026-05,resource_recovery_methods,"[""digestate_separation"", ""ammonia_recovery"", ""phosphorus_recovery"", ""potassium_water_concentration"", ""ion_exchange""]",True
+dynamic_complete_proxy_baseline,2026-06,protein_method,"""isoelectric""",True
+dynamic_complete_proxy_baseline,2026-06,drying_method,"""mass_only""",True
+dynamic_complete_proxy_baseline,2026-06,ad_method,"""bmp_material_conversion_proxy""",True
+dynamic_complete_proxy_baseline,2026-06,upgrading_or_energy_route,"""water_scrubbing""",True
+dynamic_complete_proxy_baseline,2026-06,resource_recovery_methods,"[""digestate_separation"", ""ammonia_recovery"", ""phosphorus_recovery"", ""potassium_water_concentration"", ""ion_exchange""]",True
+dynamic_complete_proxy_baseline,2026-07,protein_method,"""isoelectric""",True
+dynamic_complete_proxy_baseline,2026-07,drying_method,"""mass_only""",True
+dynamic_complete_proxy_baseline,2026-07,ad_method,"""bmp_material_conversion_proxy""",True
+dynamic_complete_proxy_baseline,2026-07,upgrading_or_energy_route,"""water_scrubbing""",True
+dynamic_complete_proxy_baseline,2026-07,resource_recovery_methods,"[""digestate_separation"", ""ammonia_recovery"", ""phosphorus_recovery"", ""potassium_water_concentration"", ""ion_exchange""]",True
+dynamic_complete_proxy_baseline,2026-08,protein_method,"""isoelectric""",True
+dynamic_complete_proxy_baseline,2026-08,drying_method,"""mass_only""",True
+dynamic_complete_proxy_baseline,2026-08,ad_method,"""bmp_material_conversion_proxy""",True
+dynamic_complete_proxy_baseline,2026-08,upgrading_or_energy_route,"""water_scrubbing""",True
+dynamic_complete_proxy_baseline,2026-08,resource_recovery_methods,"[""digestate_separation"", ""ammonia_recovery"", ""phosphorus_recovery"", ""potassium_water_concentration"", ""ion_exchange""]",True
+dynamic_complete_proxy_baseline,2026-09,protein_method,"""isoelectric""",True
+dynamic_complete_proxy_baseline,2026-09,drying_method,"""mass_only""",True
+dynamic_complete_proxy_baseline,2026-09,ad_method,"""bmp_material_conversion_proxy""",True
+dynamic_complete_proxy_baseline,2026-09,upgrading_or_energy_route,"""water_scrubbing""",True
+dynamic_complete_proxy_baseline,2026-09,resource_recovery_methods,"[""digestate_separation"", ""ammonia_recovery"", ""phosphorus_recovery"", ""potassium_water_concentration"", ""ion_exchange""]",True
+dynamic_complete_proxy_baseline,2026-10,protein_method,"""isoelectric""",True
+dynamic_complete_proxy_baseline,2026-10,drying_method,"""mass_only""",True
+dynamic_complete_proxy_baseline,2026-10,ad_method,"""bmp_material_conversion_proxy""",True
+dynamic_complete_proxy_baseline,2026-10,upgrading_or_energy_route,"""water_scrubbing""",True
+dynamic_complete_proxy_baseline,2026-10,resource_recovery_methods,"[""digestate_separation"", ""ammonia_recovery"", ""phosphorus_recovery"", ""potassium_water_concentration"", ""ion_exchange""]",True
+dynamic_complete_proxy_baseline,2026-11,protein_method,"""isoelectric""",True
+dynamic_complete_proxy_baseline,2026-11,drying_method,"""mass_only""",True
+dynamic_complete_proxy_baseline,2026-11,ad_method,"""bmp_material_conversion_proxy""",True
+dynamic_complete_proxy_baseline,2026-11,upgrading_or_energy_route,"""water_scrubbing""",True
+dynamic_complete_proxy_baseline,2026-11,resource_recovery_methods,"[""digestate_separation"", ""ammonia_recovery"", ""phosphorus_recovery"", ""potassium_water_concentration"", ""ion_exchange""]",True

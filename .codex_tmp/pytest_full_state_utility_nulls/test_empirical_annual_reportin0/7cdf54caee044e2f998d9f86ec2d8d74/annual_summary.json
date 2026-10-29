@@ -1,0 +1,1281 @@
+{
+  "balance": {
+    "element_residuals_kg": {
+      "calcium": 0.0,
+      "carbon": 6.608047442568932e-13,
+      "chloride": -8.526512829121202e-14,
+      "hydrogen": -4.160938260611147e-11,
+      "magnesium": 0.0,
+      "nitrogen": 0.0,
+      "oxygen": -3.3287506084889174e-10,
+      "phosphorus": 2.1316282072803006e-14,
+      "potassium": 0.0,
+      "sodium": -8.206768598029157e-13,
+      "sulfur": 0.0
+    },
+    "overall_closure_pct": 99.99999999930749,
+    "passed": true,
+    "process_mass_residual_kg": -7.074577843013685e-05,
+    "storage_mass_residual_kg": 2.3283064365386963e-10
+  },
+  "basis": "Mass, product and utility totals are summed from the quasi-dynamic time steps; rates are not multiplied by a generic annual factor.",
+  "biomass_schedule": {
+    "annual_available_tonnes": 30000.0,
+    "annual_processed_tonnes": 10215.757107097757,
+    "annual_uncollected_tonnes": 2.7284841053187847e-12,
+    "annual_unused_tonnes": 19784.242892902243,
+    "availability_basis": {
+      "accessible_area_ha": null,
+      "annual_available_biomass_tonnes_input": 30000.0,
+      "calculated_collectable_biomass_tonnes": null,
+      "collection_efficiency": 1.0,
+      "harvest_yield_tonnes_per_ha": null,
+      "status": "annual_availability_input_only",
+      "warning": "Calculated potential is reported for comparison; it does not replace annual_available_biomass_tonnes."
+    },
+    "ending_inventory_tonnes": 19784.24289290224,
+    "feedstock_location": "Netherlands",
+    "feedstock_source_id": "roadside_grass",
+    "monthly": [
+      {
+        "actual_processed_biomass_tonnes": 0.0,
+        "available_biomass_tonnes": 0.0,
+        "basis_feed_kg_per_hr": 0.0,
+        "calendar_hours": 744,
+        "operating_hours": 0,
+        "planned_processed_biomass_tonnes": 0.0,
+        "processed_biomass_tonnes": 0.0,
+        "time_label": "2026-01",
+        "unprocessed_available_biomass_tonnes": 0.0,
+        "unused_biomass_tonnes": 0.0,
+        "utilization_fraction": 0.0,
+        "utilization_percent": 0.0
+      },
+      {
+        "actual_processed_biomass_tonnes": 0.0,
+        "available_biomass_tonnes": 0.0,
+        "basis_feed_kg_per_hr": 0.0,
+        "calendar_hours": 672,
+        "operating_hours": 0,
+        "planned_processed_biomass_tonnes": 0.0,
+        "processed_biomass_tonnes": 0.0,
+        "time_label": "2026-02",
+        "unprocessed_available_biomass_tonnes": 0.0,
+        "unused_biomass_tonnes": 0.0,
+        "utilization_fraction": 0.0,
+        "utilization_percent": 0.0
+      },
+      {
+        "actual_processed_biomass_tonnes": 0.0,
+        "available_biomass_tonnes": 0.0,
+        "basis_feed_kg_per_hr": 0.0,
+        "calendar_hours": 744,
+        "operating_hours": 0,
+        "planned_processed_biomass_tonnes": 0.0,
+        "processed_biomass_tonnes": 0.0,
+        "time_label": "2026-03",
+        "unprocessed_available_biomass_tonnes": 0.0,
+        "unused_biomass_tonnes": 0.0,
+        "utilization_fraction": 0.0,
+        "utilization_percent": 0.0
+      },
+      {
+        "actual_processed_biomass_tonnes": 731.494063245272,
+        "available_biomass_tonnes": 731.494063245272,
+        "basis_feed_kg_per_hr": 1904.9324563678956,
+        "calendar_hours": 720,
+        "operating_hours": 384,
+        "planned_processed_biomass_tonnes": 731.494063245272,
+        "processed_biomass_tonnes": 731.494063245272,
+        "time_label": "2026-04",
+        "unprocessed_available_biomass_tonnes": 0.0,
+        "unused_biomass_tonnes": 0.0,
+        "utilization_fraction": 1.0,
+        "utilization_percent": 100.0
+      },
+      {
+        "actual_processed_biomass_tonnes": 1488.0,
+        "available_biomass_tonnes": 2801.3186482269966,
+        "basis_feed_kg_per_hr": 3765.2132368642424,
+        "calendar_hours": 744,
+        "operating_hours": 744,
+        "planned_processed_biomass_tonnes": 2801.3186482269966,
+        "processed_biomass_tonnes": 1488.0,
+        "time_label": "2026-05",
+        "unprocessed_available_biomass_tonnes": 1313.3186482269966,
+        "unused_biomass_tonnes": 0.0,
+        "utilization_fraction": 0.5311784151873551,
+        "utilization_percent": 53.11784151873551
+      },
+      {
+        "actual_processed_biomass_tonnes": 1440.0,
+        "available_biomass_tonnes": 4900.092192739571,
+        "basis_feed_kg_per_hr": 6805.683601027183,
+        "calendar_hours": 720,
+        "operating_hours": 720,
+        "planned_processed_biomass_tonnes": 4900.092192739571,
+        "processed_biomass_tonnes": 1440.0,
+        "time_label": "2026-06",
+        "unprocessed_available_biomass_tonnes": 3460.092192739571,
+        "unused_biomass_tonnes": 0.0,
+        "utilization_fraction": 0.29387202186392264,
+        "utilization_percent": 29.387202186392265
+      },
+      {
+        "actual_processed_biomass_tonnes": 1488.0,
+        "available_biomass_tonnes": 6779.326588264608,
+        "basis_feed_kg_per_hr": 9111.998102506192,
+        "calendar_hours": 744,
+        "operating_hours": 744,
+        "planned_processed_biomass_tonnes": 6779.326588264606,
+        "processed_biomass_tonnes": 1488.0,
+        "time_label": "2026-07",
+        "unprocessed_available_biomass_tonnes": 5291.326588264608,
+        "unused_biomass_tonnes": 2.7284841053187847e-12,
+        "utilization_fraction": 0.21949082709421477,
+        "utilization_percent": 21.949082709421475
+      },
+      {
+        "actual_processed_biomass_tonnes": 1487.9999999999998,
+        "available_biomass_tonnes": 6712.008052030766,
+        "basis_feed_kg_per_hr": 9021.516198966083,
+        "calendar_hours": 744,
+        "operating_hours": 744,
+        "planned_processed_biomass_tonnes": 6712.008052030766,
+        "processed_biomass_tonnes": 1487.9999999999998,
+        "time_label": "2026-08",
+        "unprocessed_available_biomass_tonnes": 5224.008052030766,
+        "unused_biomass_tonnes": 0.0,
+        "utilization_fraction": 0.2216922251083705,
+        "utilization_percent": 22.16922251083705
+      },
+      {
+        "actual_processed_biomass_tonnes": 1440.0000000000002,
+        "available_biomass_tonnes": 4756.846082383613,
+        "basis_feed_kg_per_hr": 6606.730669977241,
+        "calendar_hours": 720,
+        "operating_hours": 720,
+        "planned_processed_biomass_tonnes": 4756.846082383613,
+        "processed_biomass_tonnes": 1440.0000000000002,
+        "time_label": "2026-09",
+        "unprocessed_available_biomass_tonnes": 3316.846082383613,
+        "unused_biomass_tonnes": 0.0,
+        "utilization_fraction": 0.30272158801455884,
+        "utilization_percent": 30.272158801455884
+      },
+      {
+        "actual_processed_biomass_tonnes": 1488.0000000000002,
+        "available_biomass_tonnes": 2666.651329256689,
+        "basis_feed_kg_per_hr": 3584.208775882647,
+        "calendar_hours": 744,
+        "operating_hours": 744,
+        "planned_processed_biomass_tonnes": 2666.651329256689,
+        "processed_biomass_tonnes": 1488.0000000000002,
+        "time_label": "2026-10",
+        "unprocessed_available_biomass_tonnes": 1178.651329256689,
+        "unused_biomass_tonnes": 0.0,
+        "utilization_fraction": 0.5580032093714966,
+        "utilization_percent": 55.80032093714967
+      },
+      {
+        "actual_processed_biomass_tonnes": 652.2630438524858,
+        "available_biomass_tonnes": 652.2630438524858,
+        "basis_feed_kg_per_hr": 1811.8417884791272,
+        "calendar_hours": 720,
+        "operating_hours": 360,
+        "planned_processed_biomass_tonnes": 652.2630438524858,
+        "processed_biomass_tonnes": 652.2630438524858,
+        "time_label": "2026-11",
+        "unprocessed_available_biomass_tonnes": 0.0,
+        "unused_biomass_tonnes": 0.0,
+        "utilization_fraction": 1.0,
+        "utilization_percent": 100.0
+      },
+      {
+        "actual_processed_biomass_tonnes": 0.0,
+        "available_biomass_tonnes": 0.0,
+        "basis_feed_kg_per_hr": 0.0,
+        "calendar_hours": 744,
+        "operating_hours": 0,
+        "planned_processed_biomass_tonnes": 0.0,
+        "processed_biomass_tonnes": 0.0,
+        "time_label": "2026-12",
+        "unprocessed_available_biomass_tonnes": 0.0,
+        "unused_biomass_tonnes": 0.0,
+        "utilization_fraction": 0.0,
+        "utilization_percent": 0.0
+      }
+    ],
+    "monthly_processing_cap_tonnes": 6779.326588264606,
+    "peak_month_processed_tonnes": 1488.0000000000002,
+    "peak_throughput_kg_per_hr": 9111.998102506192,
+    "policy_id": "shared_normal_supply_monthly_cap_v1",
+    "requested_processed_tonnes": 30000.0,
+    "source_status": "operating_scenario",
+    "unmet_target_tonnes": 0,
+    "utilization_fraction": 0.3405252369032586,
+    "warning": "Seasonality is a normal-distribution-like operating assumption, not measured biomass availability."
+  },
+  "chart_contract": {
+    "annual_electricity": "MWh/year",
+    "annual_heat": "GJ/year",
+    "biomethane": "m3/month",
+    "bulk_streams": "tonnes/month",
+    "electricity": "MWh/month",
+    "heat": "GJ/month",
+    "schedule": "tonnes/month",
+    "small_products": "tonnes/month"
+  },
+  "chart_data": {
+    "annual_product_mix": [
+      {
+        "product": "dry_protein_product",
+        "tonnes_per_year": 81.8556537796329
+      },
+      {
+        "product": "biomethane",
+        "tonnes_per_year": 10.540659684226911
+      },
+      {
+        "product": "phosphorus_product",
+        "tonnes_per_year": 1.165531916637461
+      },
+      {
+        "product": "ammonium_product",
+        "tonnes_per_year": 101.87971803022101
+      },
+      {
+        "product": "nutrient_rich_solids",
+        "tonnes_per_year": 58.03889489244513
+      }
+    ],
+    "biomethane": [
+      {
+        "biomethane_m3": 0.0,
+        "period": "2026-01"
+      },
+      {
+        "biomethane_m3": 0.0,
+        "period": "2026-02"
+      },
+      {
+        "biomethane_m3": 0.0,
+        "period": "2026-03"
+      },
+      {
+        "biomethane_m3": 103.58743780767848,
+        "period": "2026-04"
+      },
+      {
+        "biomethane_m3": 210.71682629110103,
+        "period": "2026-05"
+      },
+      {
+        "biomethane_m3": 203.91950931396875,
+        "period": "2026-06"
+      },
+      {
+        "biomethane_m3": 210.71682629110103,
+        "period": "2026-07"
+      },
+      {
+        "biomethane_m3": 210.71682629110103,
+        "period": "2026-08"
+      },
+      {
+        "biomethane_m3": 203.91950931396875,
+        "period": "2026-09"
+      },
+      {
+        "biomethane_m3": 210.71682629110109,
+        "period": "2026-10"
+      },
+      {
+        "biomethane_m3": 92.36747211530181,
+        "period": "2026-11"
+      },
+      {
+        "biomethane_m3": 0.0,
+        "period": "2026-12"
+      }
+    ],
+    "bulk_streams": [
+      {
+        "digestate_tonnes": 0.0,
+        "feed_processed_tonnes": 0.0,
+        "period": "2026-01",
+        "press_cake_tonnes": 0.0
+      },
+      {
+        "digestate_tonnes": 0.0,
+        "feed_processed_tonnes": 0.0,
+        "period": "2026-02",
+        "press_cake_tonnes": 0.0
+      },
+      {
+        "digestate_tonnes": 0.0,
+        "feed_processed_tonnes": 0.0,
+        "period": "2026-03",
+        "press_cake_tonnes": 0.0
+      },
+      {
+        "digestate_tonnes": 315.67950848129607,
+        "feed_processed_tonnes": 731.494063245272,
+        "period": "2026-04",
+        "press_cake_tonnes": 0.0
+      },
+      {
+        "digestate_tonnes": 642.1530019481054,
+        "feed_processed_tonnes": 1488.0,
+        "period": "2026-05",
+        "press_cake_tonnes": 0.0
+      },
+      {
+        "digestate_tonnes": 621.4383889820374,
+        "feed_processed_tonnes": 1440.0,
+        "period": "2026-06",
+        "press_cake_tonnes": 0.0
+      },
+      {
+        "digestate_tonnes": 642.1530019481054,
+        "feed_processed_tonnes": 1488.0,
+        "period": "2026-07",
+        "press_cake_tonnes": 0.0
+      },
+      {
+        "digestate_tonnes": 642.1530019481054,
+        "feed_processed_tonnes": 1487.9999999999998,
+        "period": "2026-08",
+        "press_cake_tonnes": 0.0
+      },
+      {
+        "digestate_tonnes": 621.4383889820377,
+        "feed_processed_tonnes": 1440.0000000000002,
+        "period": "2026-09",
+        "press_cake_tonnes": 0.0
+      },
+      {
+        "digestate_tonnes": 642.1530019481056,
+        "feed_processed_tonnes": 1488.0000000000002,
+        "period": "2026-10",
+        "press_cake_tonnes": 0.0
+      },
+      {
+        "digestate_tonnes": 281.48701053070056,
+        "feed_processed_tonnes": 652.2630438524858,
+        "period": "2026-11",
+        "press_cake_tonnes": 0.0
+      },
+      {
+        "digestate_tonnes": 0.0,
+        "feed_processed_tonnes": 0.0,
+        "period": "2026-12",
+        "press_cake_tonnes": 0.0
+      }
+    ],
+    "energy": [
+      {
+        "cooling_GJ": 0.0,
+        "electricity_MWh": 0.0,
+        "heating_GJ": 0.0,
+        "period": "2026-01"
+      },
+      {
+        "cooling_GJ": 0.0,
+        "electricity_MWh": 0.0,
+        "heating_GJ": 0.0,
+        "period": "2026-02"
+      },
+      {
+        "cooling_GJ": 0.0,
+        "electricity_MWh": 0.0,
+        "heating_GJ": 0.0,
+        "period": "2026-03"
+      },
+      {
+        "cooling_GJ": 35.08469505179779,
+        "electricity_MWh": 22.786197415007187,
+        "heating_GJ": 124.70471997509532,
+        "period": "2026-04"
+      },
+      {
+        "cooling_GJ": 71.36903614154183,
+        "electricity_MWh": 46.35152006990653,
+        "heating_GJ": 253.51124346375408,
+        "period": "2026-05"
+      },
+      {
+        "cooling_GJ": 69.06680916923403,
+        "electricity_MWh": 44.85630974507083,
+        "heating_GJ": 245.33346141653618,
+        "period": "2026-06"
+      },
+      {
+        "cooling_GJ": 71.36903614154183,
+        "electricity_MWh": 46.35152006990653,
+        "heating_GJ": 253.51124346375408,
+        "period": "2026-07"
+      },
+      {
+        "cooling_GJ": 71.36903614154183,
+        "electricity_MWh": 46.35152006990653,
+        "heating_GJ": 253.51124346375408,
+        "period": "2026-08"
+      },
+      {
+        "cooling_GJ": 69.06680916923403,
+        "electricity_MWh": 44.85630974507083,
+        "heating_GJ": 245.33346141653618,
+        "period": "2026-09"
+      },
+      {
+        "cooling_GJ": 71.36903614154183,
+        "electricity_MWh": 46.35152006990653,
+        "heating_GJ": 253.51124346375408,
+        "period": "2026-10"
+      },
+      {
+        "cooling_GJ": 31.284532762432804,
+        "electricity_MWh": 20.318134118270706,
+        "heating_GJ": 111.27191744432797,
+        "period": "2026-11"
+      },
+      {
+        "cooling_GJ": 0.0,
+        "electricity_MWh": 0.0,
+        "heating_GJ": 0.0,
+        "period": "2026-12"
+      }
+    ],
+    "groups": {
+      "large_mass": [
+        "feed_processed_tonnes",
+        "press_cake_tonnes",
+        "digestate_tonnes"
+      ],
+      "small_products": [
+        "protein_tonnes",
+        "phosphorus_product_tonnes",
+        "ammonium_product_tonnes",
+        "potassium_concentrate_tonnes",
+        "nutrient_rich_solids_tonnes"
+      ]
+    },
+    "mass_balance": [
+      {
+        "closure_percent": 100.0,
+        "period": "2026-01",
+        "residual_kg": 0.0
+      },
+      {
+        "closure_percent": 100.0,
+        "period": "2026-02",
+        "residual_kg": 0.0
+      },
+      {
+        "closure_percent": 100.0,
+        "period": "2026-03",
+        "residual_kg": 0.0
+      },
+      {
+        "closure_percent": 99.99999999930749,
+        "period": "2026-04",
+        "residual_kg": -5.065725417807698e-06
+      },
+      {
+        "closure_percent": 99.99999999930749,
+        "period": "2026-05",
+        "residual_kg": -1.0304578609066084e-05
+      },
+      {
+        "closure_percent": 99.99999999930749,
+        "period": "2026-06",
+        "residual_kg": -9.972172847483307e-06
+      },
+      {
+        "closure_percent": 99.99999999930749,
+        "period": "2026-07",
+        "residual_kg": -1.0304578609066084e-05
+      },
+      {
+        "closure_percent": 99.99999999930749,
+        "period": "2026-08",
+        "residual_kg": -1.0304578609066084e-05
+      },
+      {
+        "closure_percent": 99.99999999930748,
+        "period": "2026-09",
+        "residual_kg": -9.972336556529626e-06
+      },
+      {
+        "closure_percent": 99.99999999930748,
+        "period": "2026-10",
+        "residual_kg": -1.0304747775080614e-05
+      },
+      {
+        "closure_percent": 99.99999999930748,
+        "period": "2026-11",
+        "residual_kg": -4.5170600060373545e-06
+      },
+      {
+        "closure_percent": 100.0,
+        "period": "2026-12",
+        "residual_kg": 0.0
+      }
+    ],
+    "schedule": [
+      {
+        "actual_processed_biomass_tonnes": 0.0,
+        "available_biomass_tonnes": 0.0,
+        "basis_feed_kg_per_hr": 0.0,
+        "calendar_hours": 744,
+        "operating_hours": 0,
+        "planned_processed_biomass_tonnes": 0.0,
+        "processed_biomass_tonnes": 0.0,
+        "time_label": "2026-01",
+        "unprocessed_available_biomass_tonnes": 0.0,
+        "unused_biomass_tonnes": 0.0,
+        "utilization_fraction": 0.0,
+        "utilization_percent": 0.0
+      },
+      {
+        "actual_processed_biomass_tonnes": 0.0,
+        "available_biomass_tonnes": 0.0,
+        "basis_feed_kg_per_hr": 0.0,
+        "calendar_hours": 672,
+        "operating_hours": 0,
+        "planned_processed_biomass_tonnes": 0.0,
+        "processed_biomass_tonnes": 0.0,
+        "time_label": "2026-02",
+        "unprocessed_available_biomass_tonnes": 0.0,
+        "unused_biomass_tonnes": 0.0,
+        "utilization_fraction": 0.0,
+        "utilization_percent": 0.0
+      },
+      {
+        "actual_processed_biomass_tonnes": 0.0,
+        "available_biomass_tonnes": 0.0,
+        "basis_feed_kg_per_hr": 0.0,
+        "calendar_hours": 744,
+        "operating_hours": 0,
+        "planned_processed_biomass_tonnes": 0.0,
+        "processed_biomass_tonnes": 0.0,
+        "time_label": "2026-03",
+        "unprocessed_available_biomass_tonnes": 0.0,
+        "unused_biomass_tonnes": 0.0,
+        "utilization_fraction": 0.0,
+        "utilization_percent": 0.0
+      },
+      {
+        "actual_processed_biomass_tonnes": 731.494063245272,
+        "available_biomass_tonnes": 731.494063245272,
+        "basis_feed_kg_per_hr": 1904.9324563678956,
+        "calendar_hours": 720,
+        "operating_hours": 384,
+        "planned_processed_biomass_tonnes": 731.494063245272,
+        "processed_biomass_tonnes": 731.494063245272,
+        "time_label": "2026-04",
+        "unprocessed_available_biomass_tonnes": 0.0,
+        "unused_biomass_tonnes": 0.0,
+        "utilization_fraction": 1.0,
+        "utilization_percent": 100.0
+      },
+      {
+        "actual_processed_biomass_tonnes": 1488.0,
+        "available_biomass_tonnes": 2801.3186482269966,
+        "basis_feed_kg_per_hr": 3765.2132368642424,
+        "calendar_hours": 744,
+        "operating_hours": 744,
+        "planned_processed_biomass_tonnes": 2801.3186482269966,
+        "processed_biomass_tonnes": 1488.0,
+        "time_label": "2026-05",
+        "unprocessed_available_biomass_tonnes": 1313.3186482269966,
+        "unused_biomass_tonnes": 0.0,
+        "utilization_fraction": 0.5311784151873551,
+        "utilization_percent": 53.11784151873551
+      },
+      {
+        "actual_processed_biomass_tonnes": 1440.0,
+        "available_biomass_tonnes": 4900.092192739571,
+        "basis_feed_kg_per_hr": 6805.683601027183,
+        "calendar_hours": 720,
+        "operating_hours": 720,
+        "planned_processed_biomass_tonnes": 4900.092192739571,
+        "processed_biomass_tonnes": 1440.0,
+        "time_label": "2026-06",
+        "unprocessed_available_biomass_tonnes": 3460.092192739571,
+        "unused_biomass_tonnes": 0.0,
+        "utilization_fraction": 0.29387202186392264,
+        "utilization_percent": 29.387202186392265
+      },
+      {
+        "actual_processed_biomass_tonnes": 1488.0,
+        "available_biomass_tonnes": 6779.326588264608,
+        "basis_feed_kg_per_hr": 9111.998102506192,
+        "calendar_hours": 744,
+        "operating_hours": 744,
+        "planned_processed_biomass_tonnes": 6779.326588264606,
+        "processed_biomass_tonnes": 1488.0,
+        "time_label": "2026-07",
+        "unprocessed_available_biomass_tonnes": 5291.326588264608,
+        "unused_biomass_tonnes": 2.7284841053187847e-12,
+        "utilization_fraction": 0.21949082709421477,
+        "utilization_percent": 21.949082709421475
+      },
+      {
+        "actual_processed_biomass_tonnes": 1487.9999999999998,
+        "available_biomass_tonnes": 6712.008052030766,
+        "basis_feed_kg_per_hr": 9021.516198966083,
+        "calendar_hours": 744,
+        "operating_hours": 744,
+        "planned_processed_biomass_tonnes": 6712.008052030766,
+        "processed_biomass_tonnes": 1487.9999999999998,
+        "time_label": "2026-08",
+        "unprocessed_available_biomass_tonnes": 5224.008052030766,
+        "unused_biomass_tonnes": 0.0,
+        "utilization_fraction": 0.2216922251083705,
+        "utilization_percent": 22.16922251083705
+      },
+      {
+        "actual_processed_biomass_tonnes": 1440.0000000000002,
+        "available_biomass_tonnes": 4756.846082383613,
+        "basis_feed_kg_per_hr": 6606.730669977241,
+        "calendar_hours": 720,
+        "operating_hours": 720,
+        "planned_processed_biomass_tonnes": 4756.846082383613,
+        "processed_biomass_tonnes": 1440.0000000000002,
+        "time_label": "2026-09",
+        "unprocessed_available_biomass_tonnes": 3316.846082383613,
+        "unused_biomass_tonnes": 0.0,
+        "utilization_fraction": 0.30272158801455884,
+        "utilization_percent": 30.272158801455884
+      },
+      {
+        "actual_processed_biomass_tonnes": 1488.0000000000002,
+        "available_biomass_tonnes": 2666.651329256689,
+        "basis_feed_kg_per_hr": 3584.208775882647,
+        "calendar_hours": 744,
+        "operating_hours": 744,
+        "planned_processed_biomass_tonnes": 2666.651329256689,
+        "processed_biomass_tonnes": 1488.0000000000002,
+        "time_label": "2026-10",
+        "unprocessed_available_biomass_tonnes": 1178.651329256689,
+        "unused_biomass_tonnes": 0.0,
+        "utilization_fraction": 0.5580032093714966,
+        "utilization_percent": 55.80032093714967
+      },
+      {
+        "actual_processed_biomass_tonnes": 652.2630438524858,
+        "available_biomass_tonnes": 652.2630438524858,
+        "basis_feed_kg_per_hr": 1811.8417884791272,
+        "calendar_hours": 720,
+        "operating_hours": 360,
+        "planned_processed_biomass_tonnes": 652.2630438524858,
+        "processed_biomass_tonnes": 652.2630438524858,
+        "time_label": "2026-11",
+        "unprocessed_available_biomass_tonnes": 0.0,
+        "unused_biomass_tonnes": 0.0,
+        "utilization_fraction": 1.0,
+        "utilization_percent": 100.0
+      },
+      {
+        "actual_processed_biomass_tonnes": 0.0,
+        "available_biomass_tonnes": 0.0,
+        "basis_feed_kg_per_hr": 0.0,
+        "calendar_hours": 744,
+        "operating_hours": 0,
+        "planned_processed_biomass_tonnes": 0.0,
+        "processed_biomass_tonnes": 0.0,
+        "time_label": "2026-12",
+        "unprocessed_available_biomass_tonnes": 0.0,
+        "unused_biomass_tonnes": 0.0,
+        "utilization_fraction": 0.0,
+        "utilization_percent": 0.0
+      }
+    ],
+    "small_products": [
+      {
+        "ammonium_product_tonnes": 0.0,
+        "nutrient_rich_solids_tonnes": 0.0,
+        "period": "2026-01",
+        "phosphorus_product_tonnes": 0.0,
+        "potassium_concentrate_tonnes": 0.0,
+        "protein_tonnes": 0.0
+      },
+      {
+        "ammonium_product_tonnes": 0.0,
+        "nutrient_rich_solids_tonnes": 0.0,
+        "period": "2026-02",
+        "phosphorus_product_tonnes": 0.0,
+        "potassium_concentrate_tonnes": 0.0,
+        "protein_tonnes": 0.0
+      },
+      {
+        "ammonium_product_tonnes": 0.0,
+        "nutrient_rich_solids_tonnes": 0.0,
+        "period": "2026-03",
+        "phosphorus_product_tonnes": 0.0,
+        "potassium_concentrate_tonnes": 0.0,
+        "protein_tonnes": 0.0
+      },
+      {
+        "ammonium_product_tonnes": 7.295045107565302,
+        "nutrient_rich_solids_tonnes": 4.155845387283413,
+        "period": "2026-04",
+        "phosphorus_product_tonnes": 0.08345731682978502,
+        "potassium_concentrate_tonnes": 0.0,
+        "protein_tonnes": 5.861232227346153
+      },
+      {
+        "ammonium_product_tonnes": 14.839528665343993,
+        "nutrient_rich_solids_tonnes": 8.453791010747054,
+        "period": "2026-05",
+        "phosphorus_product_tonnes": 0.16976827794305796,
+        "potassium_concentrate_tonnes": 0.0,
+        "protein_tonnes": 11.92287674297464
+      },
+      {
+        "ammonium_product_tonnes": 14.360834192268387,
+        "nutrient_rich_solids_tonnes": 8.181088074916504,
+        "period": "2026-06",
+        "phosphorus_product_tonnes": 0.16429188188037866,
+        "potassium_concentrate_tonnes": 0.0,
+        "protein_tonnes": 11.53826781578191
+      },
+      {
+        "ammonium_product_tonnes": 14.839528665343993,
+        "nutrient_rich_solids_tonnes": 8.453791010747054,
+        "period": "2026-07",
+        "phosphorus_product_tonnes": 0.16976827794305796,
+        "potassium_concentrate_tonnes": 0.0,
+        "protein_tonnes": 11.92287674297464
+      },
+      {
+        "ammonium_product_tonnes": 14.839528665343993,
+        "nutrient_rich_solids_tonnes": 8.453791010747054,
+        "period": "2026-08",
+        "phosphorus_product_tonnes": 0.16976827794305796,
+        "potassium_concentrate_tonnes": 0.0,
+        "protein_tonnes": 11.92287674297464
+      },
+      {
+        "ammonium_product_tonnes": 14.360834192268392,
+        "nutrient_rich_solids_tonnes": 8.181088074916504,
+        "period": "2026-09",
+        "phosphorus_product_tonnes": 0.16429188188037866,
+        "potassium_concentrate_tonnes": 0.0,
+        "protein_tonnes": 11.53826781578191
+      },
+      {
+        "ammonium_product_tonnes": 14.839528665344005,
+        "nutrient_rich_solids_tonnes": 8.453791010747054,
+        "period": "2026-10",
+        "phosphorus_product_tonnes": 0.16976827794305796,
+        "potassium_concentrate_tonnes": 0.0,
+        "protein_tonnes": 11.922876742974648
+      },
+      {
+        "ammonium_product_tonnes": 6.504889876742943,
+        "nutrient_rich_solids_tonnes": 3.7057093123404954,
+        "period": "2026-11",
+        "phosphorus_product_tonnes": 0.07441772427468672,
+        "potassium_concentrate_tonnes": 0.0,
+        "protein_tonnes": 5.226378948824364
+      },
+      {
+        "ammonium_product_tonnes": 0.0,
+        "nutrient_rich_solids_tonnes": 0.0,
+        "period": "2026-12",
+        "phosphorus_product_tonnes": 0.0,
+        "potassium_concentrate_tonnes": 0.0,
+        "protein_tonnes": 0.0
+      }
+    ]
+  },
+  "display_utilities": {
+    "cooling": {
+      "unit": "GJ/year",
+      "value": 489.97899071886593
+    },
+    "electricity": {
+      "unit": "MWh/year",
+      "value": 318.2230313030457
+    },
+    "heating": {
+      "unit": "GJ/year",
+      "value": 1740.6885341075117
+    }
+  },
+  "feed_processed": {
+    "unit": "kg/year",
+    "value": 10215757.107097758
+  },
+  "method": "quasi_dynamic_integration",
+  "method_label": "Integrated from actual model timesteps",
+  "monthly": [
+    {
+      "feed_processed_kg": 0.0,
+      "intermediate_streams_kg": {},
+      "mass_residual_kg": 0.0,
+      "period": "2026-01",
+      "products_kg": {},
+      "utilities_kwh": {
+        "cooling_kwh": 0.0,
+        "electricity_kwh": 0.0,
+        "heating_kwh": 0.0
+      },
+      "volumetric_products_m3": {}
+    },
+    {
+      "feed_processed_kg": 0.0,
+      "intermediate_streams_kg": {},
+      "mass_residual_kg": 0.0,
+      "period": "2026-02",
+      "products_kg": {},
+      "utilities_kwh": {
+        "cooling_kwh": 0.0,
+        "electricity_kwh": 0.0,
+        "heating_kwh": 0.0
+      },
+      "volumetric_products_m3": {}
+    },
+    {
+      "feed_processed_kg": 0.0,
+      "intermediate_streams_kg": {},
+      "mass_residual_kg": 0.0,
+      "period": "2026-03",
+      "products_kg": {},
+      "utilities_kwh": {
+        "cooling_kwh": 0.0,
+        "electricity_kwh": 0.0,
+        "heating_kwh": 0.0
+      },
+      "volumetric_products_m3": {}
+    },
+    {
+      "feed_processed_kg": 731494.0632452719,
+      "intermediate_streams_kg": {
+        "digestate": 315679.50848129607
+      },
+      "mass_residual_kg": -5.065725417807698e-06,
+      "period": "2026-04",
+      "products_kg": {
+        "ammonium_product": 7295.045107565302,
+        "biomethane": 754.7585461231919,
+        "dry_protein_product": 5861.232227346153,
+        "nutrient_rich_solids": 4155.8453872834125,
+        "phosphorus_product": 83.45731682978503
+      },
+      "utilities_kwh": {
+        "cooling_kwh": 9745.748625499386,
+        "electricity_kwh": 22786.197415007187,
+        "heating_kwh": 34640.19999308203
+      },
+      "volumetric_products_m3": {
+        "biomethane": 103.58743780767848
+      }
+    },
+    {
+      "feed_processed_kg": 1488000.0,
+      "intermediate_streams_kg": {
+        "digestate": 642153.0019481054
+      },
+      "mass_residual_kg": -1.0304578609066084e-05,
+      "period": "2026-05",
+      "products_kg": {
+        "ammonium_product": 14839.528665343993,
+        "biomethane": 1535.3244449432227,
+        "dry_protein_product": 11922.87674297464,
+        "nutrient_rich_solids": 8453.791010747054,
+        "phosphorus_product": 169.76827794305797
+      },
+      "utilities_kwh": {
+        "cooling_kwh": 19824.732261539397,
+        "electricity_kwh": 46351.520069906524,
+        "heating_kwh": 70419.7898510428
+      },
+      "volumetric_products_m3": {
+        "biomethane": 210.71682629110103
+      }
+    },
+    {
+      "feed_processed_kg": 1440000.0,
+      "intermediate_streams_kg": {
+        "digestate": 621438.3889820374
+      },
+      "mass_residual_kg": -9.972172847483307e-06,
+      "period": "2026-06",
+      "products_kg": {
+        "ammonium_product": 14360.834192268387,
+        "biomethane": 1485.7978499450542,
+        "dry_protein_product": 11538.26781578191,
+        "nutrient_rich_solids": 8181.088074916504,
+        "phosphorus_product": 164.29188188037867
+      },
+      "utilities_kwh": {
+        "cooling_kwh": 19185.224769231678,
+        "electricity_kwh": 44856.30974507083,
+        "heating_kwh": 68148.18372681561
+      },
+      "volumetric_products_m3": {
+        "biomethane": 203.91950931396875
+      }
+    },
+    {
+      "feed_processed_kg": 1488000.0,
+      "intermediate_streams_kg": {
+        "digestate": 642153.0019481054
+      },
+      "mass_residual_kg": -1.0304578609066084e-05,
+      "period": "2026-07",
+      "products_kg": {
+        "ammonium_product": 14839.528665343993,
+        "biomethane": 1535.3244449432227,
+        "dry_protein_product": 11922.87674297464,
+        "nutrient_rich_solids": 8453.791010747054,
+        "phosphorus_product": 169.76827794305797
+      },
+      "utilities_kwh": {
+        "cooling_kwh": 19824.732261539397,
+        "electricity_kwh": 46351.520069906524,
+        "heating_kwh": 70419.7898510428
+      },
+      "volumetric_products_m3": {
+        "biomethane": 210.71682629110103
+      }
+    },
+    {
+      "feed_processed_kg": 1487999.9999999998,
+      "intermediate_streams_kg": {
+        "digestate": 642153.0019481054
+      },
+      "mass_residual_kg": -1.0304578609066084e-05,
+      "period": "2026-08",
+      "products_kg": {
+        "ammonium_product": 14839.528665343993,
+        "biomethane": 1535.3244449432227,
+        "dry_protein_product": 11922.87674297464,
+        "nutrient_rich_solids": 8453.791010747054,
+        "phosphorus_product": 169.76827794305797
+      },
+      "utilities_kwh": {
+        "cooling_kwh": 19824.732261539397,
+        "electricity_kwh": 46351.520069906524,
+        "heating_kwh": 70419.7898510428
+      },
+      "volumetric_products_m3": {
+        "biomethane": 210.71682629110103
+      }
+    },
+    {
+      "feed_processed_kg": 1440000.0000000002,
+      "intermediate_streams_kg": {
+        "digestate": 621438.3889820378
+      },
+      "mass_residual_kg": -9.972336556529626e-06,
+      "period": "2026-09",
+      "products_kg": {
+        "ammonium_product": 14360.834192268392,
+        "biomethane": 1485.7978499450542,
+        "dry_protein_product": 11538.26781578191,
+        "nutrient_rich_solids": 8181.088074916504,
+        "phosphorus_product": 164.29188188037867
+      },
+      "utilities_kwh": {
+        "cooling_kwh": 19185.224769231678,
+        "electricity_kwh": 44856.30974507083,
+        "heating_kwh": 68148.18372681561
+      },
+      "volumetric_products_m3": {
+        "biomethane": 203.91950931396875
+      }
+    },
+    {
+      "feed_processed_kg": 1488000.0000000002,
+      "intermediate_streams_kg": {
+        "digestate": 642153.0019481056
+      },
+      "mass_residual_kg": -1.0304747775080614e-05,
+      "period": "2026-10",
+      "products_kg": {
+        "ammonium_product": 14839.528665344005,
+        "biomethane": 1535.324444943223,
+        "dry_protein_product": 11922.876742974648,
+        "nutrient_rich_solids": 8453.791010747054,
+        "phosphorus_product": 169.76827794305797
+      },
+      "utilities_kwh": {
+        "cooling_kwh": 19824.732261539397,
+        "electricity_kwh": 46351.520069906524,
+        "heating_kwh": 70419.7898510428
+      },
+      "volumetric_products_m3": {
+        "biomethane": 210.71682629110109
+      }
+    },
+    {
+      "feed_processed_kg": 652263.0438524858,
+      "intermediate_streams_kg": {
+        "digestate": 281487.01053070056
+      },
+      "mass_residual_kg": -4.5170600060373545e-06,
+      "period": "2026-11",
+      "products_kg": {
+        "ammonium_product": 6504.889876742943,
+        "biomethane": 673.0076584407223,
+        "dry_protein_product": 5226.378948824365,
+        "nutrient_rich_solids": 3705.709312340495,
+        "phosphorus_product": 74.41772427468672
+      },
+      "utilities_kwh": {
+        "cooling_kwh": 8690.147989564668,
+        "electricity_kwh": 20318.134118270707,
+        "heating_kwh": 30908.86595675777
+      },
+      "volumetric_products_m3": {
+        "biomethane": 92.36747211530181
+      }
+    },
+    {
+      "feed_processed_kg": 0.0,
+      "intermediate_streams_kg": {},
+      "mass_residual_kg": 0.0,
+      "period": "2026-12",
+      "products_kg": {},
+      "utilities_kwh": {
+        "cooling_kwh": 0.0,
+        "electricity_kwh": 0.0,
+        "heating_kwh": 0.0
+      },
+      "volumetric_products_m3": {}
+    }
+  ],
+  "period": {
+    "end_date": "2026-12-31",
+    "full_calendar_year": true,
+    "operating_hours": 5160.0,
+    "schedule_source": "Run operating calendar and monthly feed profile",
+    "start_date": "2026-01-01",
+    "totals_basis": "year"
+  },
+  "process_pathway": [
+    {
+      "active_unit_names": [],
+      "data_quality": "structural",
+      "heat_duty_kw": null,
+      "label": "Feed",
+      "limitations": [],
+      "power_kw": null,
+      "products_kg_hr": {},
+      "stage_id": "feed",
+      "unit_count": 0
+    },
+    {
+      "active_unit_names": [
+        "Primary centrifuge",
+        "Screw press",
+        "Feed preparation",
+        "PEF pretreatment"
+      ],
+      "data_quality": "structural",
+      "heat_duty_kw": null,
+      "label": "Pre-treatment / press",
+      "limitations": [
+        "67 selected Phase 3 parameters use quality class E; see the assumption register for individual records.",
+        "PEF release and juice-yield enhancement are empirical structural assumptions, not kinetic predictions.",
+        "No transfer pump is active because no pressure-rise requirement is available; pumping electricity is zero.",
+        "U101, U201, S201, C301 have no purchase cost because no approved GreenHub cost correlation is available.",
+        "Structural-test mode is active; quality-class E inputs are not final measured or literature assumptions."
+      ],
+      "power_kw": 48.70225074485513,
+      "products_kg_hr": {},
+      "stage_id": "pretreatment",
+      "unit_count": 4
+    },
+    {
+      "active_unit_names": [
+        "Protein separator",
+        "Mechanical protein-cake dewatering",
+        "Low-temperature protein belt dryer",
+        "Heat exchanger",
+        "Acid dosing and mixing",
+        "Mixer",
+        "Residual-liquid neutralization",
+        "Protein precipitation and coagulation",
+        "Protein-cake washer"
+      ],
+      "data_quality": "structural",
+      "heat_duty_kw": 59.93996065134036,
+      "label": "Protein recovery",
+      "limitations": [
+        "69 selected Phase 4 parameters use quality class E; replace them before scientific or economic interpretation.",
+        "The protein separator, washer, dewatering unit, dryer, and mixers have no purchase-cost model.",
+        "The low-temperature belt dryer is a structural selection suitable for wet cake; vendor data remain required.",
+        "Phase 4 structural-test mode is active; class E values are placeholders, not design data."
+      ],
+      "power_kw": 4.568913806981457,
+      "products_kg_hr": {
+        "dry_protein_product": 14.517719302289901
+      },
+      "stage_id": "protein",
+      "unit_count": 9
+    },
+    {
+      "active_unit_names": [
+        "Heat exchanger",
+        "Digester-feed conditioning",
+        "Anaerobic digester",
+        "Raw-biogas disengagement"
+      ],
+      "data_quality": "structural",
+      "heat_duty_kw": 3.3351379128664553,
+      "label": "Anaerobic digestion",
+      "limitations": [
+        "80 selected Phase 5 parameters use quality class E; replace them before scientific, design, or economic interpretation.",
+        "Phase 5 structural-test mode is active; class E values are placeholders, not design data."
+      ],
+      "power_kw": 1.969969424053666,
+      "products_kg_hr": {},
+      "stage_id": "ad",
+      "unit_count": 4
+    },
+    {
+      "active_unit_names": [
+        "High-pressure water absorber",
+        "Scrubbing-water regeneration",
+        "Isentropic compressor",
+        "Gas moisture guard",
+        "Heat exchanger",
+        "Particle and siloxane filter",
+        "Raw-biogas cooler",
+        "Mixer",
+        "Mixer",
+        "Mixer",
+        "Mixer",
+        "Mixer",
+        "Mixer",
+        "Mixer",
+        "Pump",
+        "Hydrogen-sulfide removal",
+        "Biogas ammonia removal",
+        "Biogas condensate separator",
+        "Splitter",
+        "Gas moisture guard",
+        "Rich-water flash"
+      ],
+      "data_quality": "structural",
+      "heat_duty_kw": null,
+      "label": "Gas upgrading / CHP",
+      "limitations": [
+        "84 selected Phase 6 parameters use quality class E; replace them before scientific, design, economic, or configuration-selection interpretation.",
+        "Phase 6 structural-test mode is active; class-E gas-cleaning and upgrading values are not validated design data."
+      ],
+      "power_kw": 0.6451759889247956,
+      "products_kg_hr": {
+        "biomethane": 1.869465717890895
+      },
+      "stage_id": "gas",
+      "unit_count": 21
+    },
+    {
+      "active_unit_names": [
+        "Ammonia stripper",
+        "Ammonia acid absorber",
+        "Nutrient-product drying",
+        "Phase 7 process heater",
+        "Alkaline dosing and pH conditioning",
+        "Mixer",
+        "Mixer",
+        "Struvite crystallization",
+        "Digestate solid-liquid separation",
+        "Nutrient crystal separation",
+        "Digestate equalization",
+        "Phase 7 product storage",
+        "Nutrient-product washing"
+      ],
+      "data_quality": "structural",
+      "heat_duty_kw": 22.58286242678699,
+      "label": "Nutrient recovery / products",
+      "limitations": [
+        "134 selected Phase 7 parameters use quality class E; replace them before design, fertilizer-quality, economic, or configuration-selection interpretation.",
+        "Phase 7 structural-test mode is active; quality-class E recoveries, reagent doses, utilities, and design values are placeholders."
+      ],
+      "power_kw": 0.5529514748258033,
+      "products_kg_hr": {
+        "ammonium_product": 18.069138546508174,
+        "nutrient_rich_solids": 10.293636978723598,
+        "phosphorus_product": 0.20671590076301868,
+        "potassium_concentrate": 0.0
+      },
+      "stage_id": "nutrients",
+      "unit_count": 13
+    }
+  ],
+  "products": {
+    "ammonium_product": {
+      "unit": "kg/year",
+      "value": 101879.71803022102
+    },
+    "biomethane": {
+      "unit": "kg/year",
+      "value": 10540.659684226912
+    },
+    "dry_protein_product": {
+      "unit": "kg/year",
+      "value": 81855.6537796329
+    },
+    "nutrient_rich_solids": {
+      "unit": "kg/year",
+      "value": 58038.894892445125
+    },
+    "phosphorus_product": {
+      "unit": "kg/year",
+      "value": 1165.5319166374609
+    },
+    "potassium_concentrate": {
+      "unit": "kg/year",
+      "value": 0.0
+    }
+  },
+  "reporting_status": {
+    "model": "empirical",
+    "note": "Display adapter only; empirical and dynamic proxy calculations remain independent.",
+    "numerical_balance_checks_passed": true,
+    "schedule_policy": "shared_normal_supply_monthly_cap_v1",
+    "validated_simulation_ready": false
+  },
+  "utilities": {
+    "cooling": {
+      "unit": "kWh/year",
+      "value": 136105.27519968498
+    },
+    "electricity": {
+      "unit": "kWh/year",
+      "value": 318223.0313030457
+    },
+    "heating": {
+      "unit": "kWh/year",
+      "value": 483524.5928076422
+    }
+  },
+  "warnings": [
+    "134 selected Phase 7 parameters use quality class E; replace them before design, fertilizer-quality, economic, or configuration-selection interpretation.",
+    "84 selected Phase 6 parameters use quality class E; replace them before scientific, design, economic, or configuration-selection interpretation.",
+    "80 selected Phase 5 parameters use quality class E; replace them before scientific, design, or economic interpretation.",
+    "69 selected Phase 4 parameters use quality class E; replace them before scientific or economic interpretation.",
+    "67 selected Phase 3 parameters use quality class E; see the assumption register for individual records.",
+    "PEF release and juice-yield enhancement are empirical structural assumptions, not kinetic predictions.",
+    "No transfer pump is active because no pressure-rise requirement is available; pumping electricity is zero.",
+    "U101, U201, S201, C301 have no purchase cost because no approved GreenHub cost correlation is available.",
+    "Structural-test mode is active; quality-class E inputs are not final measured or literature assumptions.",
+    "The protein separator, washer, dewatering unit, dryer, and mixers have no purchase-cost model.",
+    "The low-temperature belt dryer is a structural selection suitable for wet cake; vendor data remain required.",
+    "Phase 4 structural-test mode is active; class E values are placeholders, not design data.",
+    "Phase 5 structural-test mode is active; class E values are placeholders, not design data.",
+    "Phase 6 structural-test mode is active; class-E gas-cleaning and upgrading values are not validated design data.",
+    "Phase 7 structural-test mode is active; quality-class E recoveries, reagent doses, utilities, and design values are placeholders.",
+    "Empirical monthly intake follows the shared normal-supply/monthly-cap schedule.",
+    "Storage capacity is unavailable; inventory is preserved without an overflow limit until seasonal.storage_capacity_kg is overridden.",
+    "Storage species fate, water loss, dry-matter loss and protein degradation are unresolved; the optional legacy scalar loss is not a biochemical fate model."
+  ]
+}

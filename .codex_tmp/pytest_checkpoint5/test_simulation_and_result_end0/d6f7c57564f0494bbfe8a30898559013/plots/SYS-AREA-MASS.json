@@ -1,0 +1,43 @@
+{
+  "series": [
+    {
+      "label": "Outlet mass",
+      "series_id": "outlet_mass",
+      "x": [
+        "Feedstock and Characterization",
+        "Feed Preparation and Primary Separation",
+        "Protein Recovery",
+        "Anaerobic Digestion",
+        "Biogas Conditioning and Upgrading",
+        "Digestate Treatment and Nutrient Recovery",
+        "Shared Utilities and Supporting Operations"
+      ],
+      "y": [
+        564.5161290322582,
+        564.516129032258,
+        257.05052582788704,
+        245.10513521963244,
+        1.6145285525169406,
+        403.99384560661497,
+        0
+      ]
+    }
+  ],
+  "specification": {
+    "availability_status": "available",
+    "plot_id": "SYS-AREA-MASS",
+    "process_area": "integrated_system",
+    "run_id": "d6f7c57564f0494bbfe8a30898559013",
+    "scenario": "F2/PR3/AD1/BG2/NR4",
+    "source_result_fields": [
+      "process_areas.outlet_stream_ids",
+      "streams.total_mass"
+    ],
+    "title": "Process-area outlet mass",
+    "warnings": [],
+    "x_axis_label": "Process area",
+    "x_unit": null,
+    "y_axis_label": "Outlet mass flow",
+    "y_unit": "kg/hr"
+  }
+}

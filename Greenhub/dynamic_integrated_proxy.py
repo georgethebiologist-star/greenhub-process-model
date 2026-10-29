@@ -85,6 +85,7 @@ class DynamicIntegratedProxyConfig:
     drying_target_moisture_fraction: float = 0.15
     biogas_method: str = "bmp_potential_only"
     upgrading_method: str = BiogasUpgradingMethod.NONE.value
+    ad_residence_time_days: float | None = None
     fertilizer_methods: tuple[str, ...] = ()
     allow_proxy: bool = True
     allow_engineering_proxy_closure: bool = True
@@ -102,6 +103,10 @@ class DynamicIntegratedProxyConfig:
             raise ValueError("basis_feed_kg_per_hr must be finite and greater than zero.")
         if not 0.0 <= self.drying_target_moisture_fraction < 1.0:
             raise ValueError("drying_target_moisture_fraction must be in [0, 1).")
+        if self.ad_residence_time_days is not None and (
+            not math.isfinite(self.ad_residence_time_days) or self.ad_residence_time_days <= 0
+        ):
+            raise ValueError("ad_residence_time_days must be finite and greater than zero when supplied.")
         ProteinExtractionMethod(self.protein_method)
         DynamicDryingMethod(self.drying_method)
         BiogasUpgradingMethod(self.upgrading_method)
@@ -205,6 +210,9 @@ class DynamicADPreviewResult:
     methane_potential_m3_hr: float | None
     raw_biogas_potential_m3_hr: float | None
     carbon_dioxide_potential_m3_hr: float | None
+    residence_time_days: float | None
+    screening_conversion_fraction: float | None
+    methane_at_residence_m3_hr: float | None
     digestate_feed_placeholder_kg_hr: float
     press_cake_included: bool
     kinetics_run: bool
@@ -515,10 +523,15 @@ def preview_dynamic_ad(
         else None
     )
     co2 = raw_gas - methane if raw_gas is not None and methane is not None else None
+    conversion_fraction = _screening_ad_conversion_fraction(payload, config.ad_residence_time_days)
+    methane_at_residence = methane * conversion_fraction if methane is not None and conversion_fraction is not None else None
     residual_mass = run.output_masses_kg_per_kg_feed.get("biogas_feed_candidate", 0.0) * basis
     blockers = list(payload.blockers)
     if vs is None:
         blockers.append("residual_VS_unresolved")
+    warnings = list(payload.warnings)
+    if conversion_fraction is not None:
+        warnings.append("SCREENING FIRST-ORDER AD CONVERSION: inferred conservatively from supplied T80/T90 markers; not validated kinetics")
     return DynamicADPreviewResult(
         payload=payload,
         residual_feed_kg_hr=residual_mass,
@@ -527,13 +540,37 @@ def preview_dynamic_ad(
         methane_potential_m3_hr=methane,
         raw_biogas_potential_m3_hr=raw_gas,
         carbon_dioxide_potential_m3_hr=co2,
+        residence_time_days=config.ad_residence_time_days,
+        screening_conversion_fraction=conversion_fraction,
+        methane_at_residence_m3_hr=methane_at_residence,
         digestate_feed_placeholder_kg_hr=residual_mass,
         press_cake_included=False,
         kinetics_run=False,
         potential_ready=methane is not None,
-        warnings=payload.warnings,
+        warnings=tuple(dict.fromkeys(warnings)),
         blockers=tuple(dict.fromkeys(blockers)),
     )
+
+
+def _screening_ad_conversion_fraction(
+    payload: DynamicADPreviewPayload,
+    residence_time_days: float | None,
+) -> float | None:
+    """Estimate first-order conversion only when an explicit residence is supplied.
+
+    T80/T90 are treated as screening time markers, not calibrated kinetics. The
+    lower of the two implied rate constants is used as a conservative envelope.
+    """
+
+    if residence_time_days is None:
+        return None
+    rates = []
+    for fraction, marker in ((0.80, payload.t80_days), (0.90, payload.t90_days)):
+        if marker is not None and marker > 0:
+            rates.append(-math.log1p(-fraction) / marker)
+    if not rates:
+        return None
+    return 1.0 - math.exp(-min(rates) * residence_time_days)
 
 
 def build_dynamic_biogas_upgrading_policy(
@@ -780,6 +817,8 @@ def run_dynamic_integrated_proxy_scenario_step(
         "dried_protein_product_kg_hr": protein_run.output_masses_kg_per_kg_feed.get("dried_protein_product", 0.0) * basis,
         "dried_product_protein_kg_hr": protein_run.protein_metrics_kg_per_kg_feed.get("dried_product_protein", 0.0) * basis,
         "methane_potential_m3_hr": ad.methane_potential_m3_hr,
+        "methane_at_residence_m3_hr": ad.methane_at_residence_m3_hr,
+        "ad_screening_conversion_fraction": ad.screening_conversion_fraction,
         "biomethane_product_m3_hr": upgrading.biomethane_product_m3_hr,
         **{
             f"{name}_kg_hr": value

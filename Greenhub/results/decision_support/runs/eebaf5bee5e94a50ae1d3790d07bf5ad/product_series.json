@@ -1,0 +1,154 @@
+[
+  {
+    "intermediate_streams_kg": {},
+    "products_kg": {},
+    "time": "2026-01",
+    "volumetric_products_m3": {}
+  },
+  {
+    "intermediate_streams_kg": {},
+    "products_kg": {},
+    "time": "2026-02",
+    "volumetric_products_m3": {}
+  },
+  {
+    "intermediate_streams_kg": {},
+    "products_kg": {},
+    "time": "2026-03",
+    "volumetric_products_m3": {}
+  },
+  {
+    "intermediate_streams_kg": {
+      "digestate": 315679.50848129607
+    },
+    "products_kg": {
+      "ammonium_product": 7295.045107565302,
+      "biomethane": 754.758546123192,
+      "dry_protein_product": 5861.232227346153,
+      "nutrient_rich_solids": 4155.8453872834125,
+      "phosphorus_product": 83.45731682978504
+    },
+    "time": "2026-04",
+    "volumetric_products_m3": {
+      "biomethane": 103.58743780767853
+    }
+  },
+  {
+    "intermediate_streams_kg": {
+      "digestate": 642153.0019481054
+    },
+    "products_kg": {
+      "ammonium_product": 14839.528665343994,
+      "biomethane": 1535.3244449432227,
+      "dry_protein_product": 11922.87674297464,
+      "nutrient_rich_solids": 8453.791010747054,
+      "phosphorus_product": 169.76827794305797
+    },
+    "time": "2026-05",
+    "volumetric_products_m3": {
+      "biomethane": 210.71682629110103
+    }
+  },
+  {
+    "intermediate_streams_kg": {
+      "digestate": 621438.3889820374
+    },
+    "products_kg": {
+      "ammonium_product": 14360.834192268381,
+      "biomethane": 1485.797849945054,
+      "dry_protein_product": 11538.26781578191,
+      "nutrient_rich_solids": 8181.088074916504,
+      "phosphorus_product": 164.2918818803787
+    },
+    "time": "2026-06",
+    "volumetric_products_m3": {
+      "biomethane": 203.91950931396872
+    }
+  },
+  {
+    "intermediate_streams_kg": {
+      "digestate": 642153.0019481054
+    },
+    "products_kg": {
+      "ammonium_product": 14839.528665344005,
+      "biomethane": 1535.324444943223,
+      "dry_protein_product": 11922.87674297464,
+      "nutrient_rich_solids": 8453.791010747054,
+      "phosphorus_product": 169.76827794305797
+    },
+    "time": "2026-07",
+    "volumetric_products_m3": {
+      "biomethane": 210.71682629110109
+    }
+  },
+  {
+    "intermediate_streams_kg": {
+      "digestate": 642153.0019481056
+    },
+    "products_kg": {
+      "ammonium_product": 14839.528665344005,
+      "biomethane": 1535.324444943223,
+      "dry_protein_product": 11922.876742974648,
+      "nutrient_rich_solids": 8453.791010747054,
+      "phosphorus_product": 169.768277943058
+    },
+    "time": "2026-08",
+    "volumetric_products_m3": {
+      "biomethane": 210.71682629110109
+    }
+  },
+  {
+    "intermediate_streams_kg": {
+      "digestate": 621438.3889820378
+    },
+    "products_kg": {
+      "ammonium_product": 14360.834192268392,
+      "biomethane": 1485.7978499450546,
+      "dry_protein_product": 11538.26781578191,
+      "nutrient_rich_solids": 8181.088074916504,
+      "phosphorus_product": 164.2918818803787
+    },
+    "time": "2026-09",
+    "volumetric_products_m3": {
+      "biomethane": 203.91950931396877
+    }
+  },
+  {
+    "intermediate_streams_kg": {
+      "digestate": 642153.0019481056
+    },
+    "products_kg": {
+      "ammonium_product": 14839.528665344005,
+      "biomethane": 1535.324444943223,
+      "dry_protein_product": 11922.876742974648,
+      "nutrient_rich_solids": 8453.791010747054,
+      "phosphorus_product": 169.768277943058
+    },
+    "time": "2026-10",
+    "volumetric_products_m3": {
+      "biomethane": 210.71682629110109
+    }
+  },
+  {
+    "intermediate_streams_kg": {
+      "digestate": 310719.1944910189
+    },
+    "products_kg": {
+      "ammonium_product": 7180.417096134196,
+      "biomethane": 742.8989249725273,
+      "dry_protein_product": 5769.133907890959,
+      "nutrient_rich_solids": 4090.544037458252,
+      "phosphorus_product": 82.14594094018936
+    },
+    "time": "2026-11",
+    "volumetric_products_m3": {
+      "biomethane": 101.95975465698439
+    }
+  },
+  {
+    "intermediate_streams_kg": {},
+    "products_kg": {},
+    "time": "2026-12",
+    "volumetric_products_m3": {}
+  }
+]

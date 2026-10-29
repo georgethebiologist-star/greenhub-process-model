@@ -109,6 +109,19 @@ def test_bmp_potential_and_time_markers_are_calculated(baseline_step):
     assert baseline_step.ad.methane_potential_m3_hr > 0.0
     assert baseline_step.ad.potential_ready is True
     assert baseline_step.ad.kinetics_run is False
+    assert baseline_step.ad.screening_conversion_fraction is None
+
+
+def test_ad_residence_time_uses_explicit_screening_t80_t90_envelope():
+    result = run_dynamic_integrated_proxy_scenario_step(
+        DynamicIntegratedProxyConfig(ad_residence_time_days=11.0), "2026-05"
+    )
+    assert result.ad.screening_conversion_fraction is not None
+    assert 0.0 < result.ad.screening_conversion_fraction < 1.0
+    assert result.ad.methane_at_residence_m3_hr < result.ad.methane_potential_m3_hr
+    assert result.ad.kinetics_run is False
+    assert "SCREENING FIRST-ORDER AD CONVERSION" in " ".join(result.ad.warnings)
+    assert result.product_outputs["methane_at_residence_m3_hr"] == pytest.approx(result.ad.methane_at_residence_m3_hr)
 
 
 def test_upgrading_alternatives_are_separate_and_not_blended():

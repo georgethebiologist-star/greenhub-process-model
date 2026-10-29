@@ -1,0 +1,19 @@
+[
+  {
+    "element_residuals_kg": {
+      "calcium": 0.0,
+      "carbon": -1.5612511283791264e-16,
+      "chloride": 0.0,
+      "hydrogen": 0.0,
+      "magnesium": 0.0,
+      "nitrogen": 0.0,
+      "oxygen": 0.0,
+      "phosphorus": -9.75781955236954e-18,
+      "potassium": -3.903127820947816e-17,
+      "sodium": 0.0,
+      "sulfur": -7.806255641895632e-17
+    },
+    "overall_mass_residual_kg": -3.4625502465246427e-09,
+    "time": "2026-06"
+  }
+]

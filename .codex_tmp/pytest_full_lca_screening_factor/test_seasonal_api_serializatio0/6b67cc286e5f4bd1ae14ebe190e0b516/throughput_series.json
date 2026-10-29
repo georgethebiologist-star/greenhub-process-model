@@ -1,0 +1,12 @@
+[
+  {
+    "actual_throughput_kg": 500.0,
+    "actual_throughput_kg_hr": 0.6944444444444444,
+    "available_operating_hours": 720.0,
+    "backlog_kg": 0.0,
+    "idle_capacity_kg": 1439499.9999999998,
+    "maximum_throughput_kg": 1439999.9999999998,
+    "rejected_or_overflow_kg": 500.0,
+    "time": "2026-06"
+  }
+]

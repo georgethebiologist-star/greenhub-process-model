@@ -1,0 +1,98 @@
+{
+  "files": {
+    "annual_summary": "annual_summary.json",
+    "balance_residual_series": "balance_residual_series.json",
+    "balance_residual_series_csv": "balance_residual_series.csv",
+    "balances": "balances.json",
+    "balances_csv": "balances.csv",
+    "bottleneck_series": "bottleneck_series.json",
+    "bottleneck_series_csv": "bottleneck_series.csv",
+    "capacity_utilization_series": "capacity_utilization_series.json",
+    "capacity_utilization_series_csv": "capacity_utilization_series.csv",
+    "component_fate": "component_fate.json",
+    "equation_usage": "equation_usage.json",
+    "feed_supply_series": "feed_supply_series.json",
+    "feed_supply_series_csv": "feed_supply_series.csv",
+    "graph": "graph.json",
+    "inventory_evolution": "inventory_evolution.json",
+    "parameter_sensitivity": "parameter_sensitivity.json",
+    "plot_manifest": "plot_manifest.json",
+    "process_areas": "process_areas.json",
+    "process_state_history": "process_state_history.json",
+    "process_state_series": "process_state_series.json",
+    "process_state_series_csv": "process_state_series.csv",
+    "process_state_snapshots": "process_state_snapshots.json",
+    "product_series": "product_series.json",
+    "product_series_csv": "product_series.csv",
+    "products": "products.json",
+    "products_csv": "products.csv",
+    "provenance": "provenance.json",
+    "residual_series": "residual_series.json",
+    "residual_series_csv": "residual_series.csv",
+    "resolved_parameters": "resolved_parameters.json",
+    "resolved_parameters_csv": "resolved_parameters.csv",
+    "seasonal_summary": "seasonal_summary.json",
+    "simulation_request": "simulation_request.json",
+    "simulation_result": "simulation_result.json",
+    "storage_inventory_series": "storage_inventory_series.json",
+    "storage_inventory_series_csv": "storage_inventory_series.csv",
+    "streams": "streams.json",
+    "streams_csv": "streams.csv",
+    "summary": "summary.json",
+    "throughput_series": "throughput_series.json",
+    "throughput_series_csv": "throughput_series.csv",
+    "time_grid": "time_grid.json",
+    "time_grid_csv": "time_grid.csv",
+    "unit_state_summaries": "unit_state_summaries.json",
+    "units": "units.json",
+    "units_csv": "units.csv",
+    "utilities": "utilities.json",
+    "utilities_csv": "utilities.csv",
+    "utility_consumption": "utility_consumption.json",
+    "utility_series": "utility_series.json",
+    "utility_series_csv": "utility_series.csv",
+    "validation": "validation.json",
+    "validation_csv": "validation.csv"
+  },
+  "reproducibility": {
+    "git_commit": "1710374e723e6ea0d13bd2823112531fbc8206f8",
+    "software_versions": {
+      "biosteam": "2.53.11",
+      "openpyxl": "3.1.5",
+      "pandas": "3.0.5",
+      "scipy": "1.18.0",
+      "thermosteam": "0.53.5"
+    },
+    "source_dataset_checksum_registry": "data/global_audit_package/source_dataset_checksums.csv",
+    "workbook_checksum_sha256": "aa59a21b80d30c2358f7d3bb700649dff5f5282258e60c2d07bd36896d01fc2c"
+  },
+  "run_id": "61aad32630f945969fe4ea71002011c5",
+  "schema_version": "1.0.0",
+  "state_history": [
+    [
+      "validating",
+      "2026-10-28T15:54:48.172301+00:00"
+    ],
+    [
+      "resolving_parameters",
+      "2026-10-28T15:54:48.222374+00:00"
+    ],
+    [
+      "building_system",
+      "2026-10-28T15:54:48.222374+00:00"
+    ],
+    [
+      "simulating",
+      "2026-10-28T15:54:48.222374+00:00"
+    ],
+    [
+      "validating_results",
+      "2026-10-28T15:54:49.030123+00:00"
+    ],
+    [
+      "generating_outputs",
+      "2026-10-28T15:54:49.053656+00:00"
+    ]
+  ],
+  "status": "completed"
+}

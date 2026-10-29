@@ -1,0 +1,2 @@
+scenario,active,calculation_method,heat_source,sensible_water_kj_hr,sensible_dry_solids_kj_hr,latent_heat_kj_hr,useful_heat_kj_hr,thermal_efficiency,heat_loss_fraction,external_heat_kj_hr,external_heat_kw,electricity_kw,air_model,heat_recovery_credit
+PR3,True,thermodynamic,hot_water,0.0,0.0,16743.714517193504,16743.714517193504,0.65,0.1,28621.73421742479,7.950481727062441,1.1127856347270826,utility_only_no_air_mass_or_humidity,0.0

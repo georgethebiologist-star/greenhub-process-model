@@ -612,6 +612,41 @@ def test_calculation_service_summaries_are_json_safe():
     assert step["can_drive_simulation"] is False
 
 
+def test_adapter_pretreatment_water_is_applied_on_shared_dynamic_basis():
+    config = DynamicBioSTEAMAdapterConfig(
+        pretreatment_water_addition_kg_per_kg_wet_feed=0.25,
+        press_energy_kwh_per_t_wet_feed=1.0,
+    )
+    resolved = config.resolved_scenario_config()
+    assert resolved.pretreatment_water_addition_kg_per_kg_wet_feed == pytest.approx(0.25)
+    result = build_dynamic_biosteam_calculation_shadow_system(config)
+    assert result.config.resolved_scenario_config().pretreatment_water_addition_kg_per_kg_wet_feed == pytest.approx(0.25)
+    assert result.payloads.raw_press.press_energy_kwh_per_t_wet_feed == pytest.approx(1.0)
+    assert result.feed_record.component_masses_kg_hr["Water"] > 600.0
+    utilities = result.to_dict()["pretreatment_utilities"]
+    diluted_feed_kg_hr = sum(result.feed_record.component_masses_kg_hr.values())
+    original_wet_feed_kg_hr = diluted_feed_kg_hr / 1.25
+    assert utilities["water_added_kg_hr_total"] == pytest.approx(original_wet_feed_kg_hr * 0.25)
+    assert utilities["press_energy_kwh_hr_total"] == pytest.approx(original_wet_feed_kg_hr / 1000.0)
+    press = next(unit for unit in result.units.values() if hasattr(unit, "pretreatment_state"))
+    state = press.pretreatment_state
+    for component, mass in result.feed_record.component_masses_kg_hr.items():
+        assert state.output_component_masses_kg_hr[component] == pytest.approx(mass)
+        if component != "Water":
+            assert state.input_component_masses_kg_hr[component] == pytest.approx(mass)
+    assert state.mass_residual_kg_hr == pytest.approx(0.0, abs=1e-9)
+    assert result.validation.empirical_flowsheet_unchanged is True
+
+
+def test_adapter_and_scenario_pretreatment_water_conflict_is_rejected():
+    scenario = DynamicProteinScenarioConfig(pretreatment_water_addition_kg_per_kg_wet_feed=0.1)
+    with pytest.raises(ValueError, match="must agree"):
+        DynamicBioSTEAMAdapterConfig(
+            scenario_config=scenario,
+            pretreatment_water_addition_kg_per_kg_wet_feed=0.2,
+        )
+
+
 def test_calculation_build_restores_empirical_registry_and_target_mode_still_works():
     before_flowsheet = bst.main_flowsheet.get_flowsheet()
     before = tuple(

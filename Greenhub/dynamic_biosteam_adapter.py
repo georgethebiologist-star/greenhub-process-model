@@ -84,6 +84,8 @@ class DynamicBioSTEAMAdapterConfig:
     scenario_id: str = "proxy_protein_monthly_baseline"
     time_label: str = "2026-05"
     basis_feed_kg_per_hr: float = 1000.0
+    pretreatment_water_addition_kg_per_kg_wet_feed: float = 0.0
+    press_energy_kwh_per_t_wet_feed: float | None = None
     adapter_mode: str = ADAPTER_MODE
     include_press_cake_output: bool = True
     include_biogas_candidate_output: bool = True
@@ -101,6 +103,13 @@ class DynamicBioSTEAMAdapterConfig:
     def __post_init__(self) -> None:
         if not math.isfinite(float(self.basis_feed_kg_per_hr)) or self.basis_feed_kg_per_hr <= 0:
             raise ValueError("basis_feed_kg_per_hr must be a finite value greater than zero.")
+        if (not math.isfinite(float(self.pretreatment_water_addition_kg_per_kg_wet_feed))
+                or self.pretreatment_water_addition_kg_per_kg_wet_feed < 0):
+            raise ValueError("pretreatment_water_addition_kg_per_kg_wet_feed must be finite and non-negative.")
+        if self.press_energy_kwh_per_t_wet_feed is not None and (
+                not math.isfinite(float(self.press_energy_kwh_per_t_wet_feed))
+                or self.press_energy_kwh_per_t_wet_feed < 0):
+            raise ValueError("press_energy_kwh_per_t_wet_feed must be finite and non-negative.")
         if self.adapter_mode not in SUPPORTED_ADAPTER_MODES:
             supported = ", ".join(sorted(SUPPORTED_ADAPTER_MODES))
             raise ValueError(f"adapter_mode must be one of: {supported}.")
@@ -124,9 +133,37 @@ class DynamicBioSTEAMAdapterConfig:
     def resolved_scenario_config(self) -> DynamicProteinScenarioConfig:
         scenario = self.scenario_config
         if scenario is None:
-            return DynamicProteinScenarioConfig(scenario_id=self.scenario_id)
+            return DynamicProteinScenarioConfig(
+                scenario_id=self.scenario_id,
+                pretreatment_water_addition_kg_per_kg_wet_feed=self.pretreatment_water_addition_kg_per_kg_wet_feed,
+                press_energy_kwh_per_t_wet_feed=self.press_energy_kwh_per_t_wet_feed,
+            )
         if scenario.scenario_id != self.scenario_id:
             raise ValueError("scenario_id must match scenario_config.scenario_id.")
+        if (
+            self.pretreatment_water_addition_kg_per_kg_wet_feed
+            and abs(
+                scenario.pretreatment_water_addition_kg_per_kg_wet_feed
+                - self.pretreatment_water_addition_kg_per_kg_wet_feed
+            ) > 1e-12
+        ):
+            raise ValueError(
+                "Adapter pretreatment water and scenario pretreatment water must agree."
+            )
+        if (
+            self.press_energy_kwh_per_t_wet_feed is not None
+            and scenario.press_energy_kwh_per_t_wet_feed is not None
+            and abs(scenario.press_energy_kwh_per_t_wet_feed - self.press_energy_kwh_per_t_wet_feed) > 1e-12
+        ):
+            raise ValueError("Adapter press energy and scenario press energy must agree.")
+        if (
+            self.press_energy_kwh_per_t_wet_feed is not None
+            and scenario.press_energy_kwh_per_t_wet_feed is None
+        ):
+            return replace(
+                scenario,
+                press_energy_kwh_per_t_wet_feed=self.press_energy_kwh_per_t_wet_feed,
+            )
         return scenario
 
     def to_dict(self) -> dict[str, object]:
@@ -467,6 +504,7 @@ class DynamicBioSTEAMCalculationSystemResult:
             "blockers": list(self.blockers),
             "provenance": dict(self.provenance),
             "can_drive_calculation_shadow_system": self.can_drive_calculation_shadow_system,
+            "pretreatment_utilities": summarize_pretreatment_utilities(self),
             "can_drive_simulation": self.can_drive_simulation,
             "validated_simulation_ready": self.validated_simulation_ready,
             "activation_status": self.activation_status,
@@ -1382,6 +1420,7 @@ def write_dynamic_biosteam_calculation_shadow_reports(
         "input_mass_kg_hr", "output_mass_kg_hr", "residual_kg_hr",
         "parity_residual_kg_hr", "identity_closes", "target_parity_passed",
         "evidence_class", "warning", "blocker",
+        "water_added_kg_hr", "press_energy_kwh_hr",
     )
     unit_rows: list[dict[str, object]] = []
     parity_rows: list[dict[str, object]] = []
@@ -1404,6 +1443,9 @@ def write_dynamic_biosteam_calculation_shadow_reports(
                 "warning": "|".join(parity.warnings),
                 "blocker": "|".join(parity.blockers),
             }
+            unit = result.units.get(parity.unit_id) if result.units else None
+            row["water_added_kg_hr"] = getattr(unit, "water_added_kg_hr", 0.0)
+            row["press_energy_kwh_hr"] = getattr(unit, "press_energy_kwh_hr", 0.0)
             unit_rows.append(row)
             parity_rows.append(dict(row))
         balance_rows.append({
@@ -1429,6 +1471,48 @@ def write_dynamic_biosteam_calculation_shadow_reports(
     _write_rows(paths["balance"], fields, balance_rows)
     _write_rows(paths["parity"], fields, parity_rows)
     return {name: str(path) for name, path in paths.items()}
+
+
+def summarize_pretreatment_utilities(
+    result_or_grid: DynamicBioSTEAMCalculationSystemResult | DynamicBioSTEAMCalculationGridResult,
+    operating_hours_by_time_label: Mapping[str, float] | None = None,
+) -> dict[str, object]:
+    """Aggregate raw-press dilution and energy from calculation-shadow steps."""
+
+    results = (
+        result_or_grid.step_results
+        if isinstance(result_or_grid, DynamicBioSTEAMCalculationGridResult)
+        else (result_or_grid,)
+    )
+    rows = []
+    hours_complete = operating_hours_by_time_label is not None
+    for result in results:
+        unit = next((item for item in result.units.values() if item.ID.endswith("_raw_press")), None)
+        hours = None if operating_hours_by_time_label is None else float(operating_hours_by_time_label.get(result.config.time_label, 0.0))
+        if hours is None:
+            hours_complete = False
+        rows.append({
+            "time_label": result.config.time_label,
+            "water_added_kg_hr": float(getattr(unit, "water_added_kg_hr", 0.0)),
+            "press_energy_kwh_hr": float(getattr(unit, "press_energy_kwh_hr", 0.0)),
+            "operating_hours": hours,
+            "water_added_kg": None if hours is None else float(getattr(unit, "water_added_kg_hr", 0.0)) * hours,
+            "press_energy_kwh": None if hours is None else float(getattr(unit, "press_energy_kwh_hr", 0.0)) * hours,
+            "status": "reported_unit_state" if unit is not None else "unavailable",
+        })
+    annual_water = sum(row["water_added_kg"] for row in rows) if hours_complete else None
+    annual_energy = sum(row["press_energy_kwh"] for row in rows) if hours_complete else None
+    return {
+        "water_added_kg_hr_total": sum(row["water_added_kg_hr"] for row in rows),
+        "press_energy_kwh_hr_total": sum(row["press_energy_kwh_hr"] for row in rows),
+        "timestep_count": len(rows),
+        "rows": rows,
+        "annual_water_added_kg": annual_water,
+        "annual_press_energy_kwh": annual_energy,
+        "annualization_status": "complete" if hours_complete else "incomplete_missing_operating_hours",
+        "basis": "sum of dynamic raw-press unit states; hours are not annualized without an operating schedule",
+        "status": "complete_for_reported_timesteps" if rows else "unavailable",
+    }
 
 
 def _build_calculation_shadow_system_from_run(

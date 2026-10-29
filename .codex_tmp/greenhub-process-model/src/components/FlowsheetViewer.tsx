@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { animate } from 'animejs/animation';
 import { ProcessAreaInfo, UnitOperation, ProcessStream } from '../types';
 import { Cpu, ArrowRight, Gauge, Thermometer, Zap, Layers } from 'lucide-react';
 
@@ -14,6 +15,33 @@ export const FlowsheetViewer: React.FC<FlowsheetViewerProps> = ({ processAreas, 
 
   const activeArea = processAreas[selectedArea] || Object.values(processAreas)[0];
   const areaUnits = units.filter((u) => u.area === selectedArea);
+  const flowRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const root = flowRef.current;
+    if (!root) return;
+    const particles = root.querySelectorAll<HTMLElement>('[data-flow-particle]');
+    const labels = root.querySelectorAll<HTMLElement>('[data-flow-label]');
+    particles.forEach((particle, index) => {
+      animate(particle, {
+        translateX: [0, 520],
+        opacity: [0, 1, 1, 0],
+        duration: 5200,
+        delay: index * 850,
+        ease: 'linear',
+        loop: true,
+      });
+    });
+    labels.forEach((label, index) => {
+      animate(label, {
+        opacity: [0, 1],
+        translateY: [6, 0],
+        duration: 450,
+        delay: 900 + index * 700,
+        ease: 'out(3)',
+      });
+    });
+  }, [selectedArea, areaUnits.length]);
 
   return (
     <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 mb-6 shadow-sm">
@@ -52,6 +80,21 @@ export const FlowsheetViewer: React.FC<FlowsheetViewerProps> = ({ processAreas, 
       {/* Active Area Info */}
       <div className="bg-slate-950/60 border border-slate-800 rounded-xl p-4 mb-4">
         <p className="text-xs text-slate-300 leading-relaxed">{activeArea?.description}</p>
+      </div>
+
+      <div ref={flowRef} className="relative overflow-hidden bg-slate-950 border border-slate-800 rounded-xl p-4 mb-4" aria-label="Animated material flow">
+        <div className="flex items-center justify-between text-[10px] uppercase tracking-wider text-slate-500 mb-3">
+          <span>Material flow</span><span>Products emerge downstream</span>
+        </div>
+        <div className="relative h-16 flex items-center">
+          <div className="absolute left-2 right-2 h-1 bg-slate-800 rounded-full" />
+          {[0, 1, 2].map((i) => <span key={i} data-flow-particle className="absolute left-2 w-3 h-3 rounded-full bg-emerald-300 shadow-[0_0_12px_rgba(110,231,183,.75)] opacity-0" />)}
+          {['Feed', 'Separation', 'Recovery', 'Digestion', 'Upgrading', 'Nutrients'].map((label, i) => (
+            <div key={label} data-flow-label style={{ left: `${i * 19}%` }} className="absolute -translate-x-1/2 opacity-0 text-center text-[10px] text-slate-300">
+              <div className="mx-auto mb-2 h-7 w-9 rounded-md border border-emerald-500/40 bg-emerald-500/10" />{label}
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Unit Operations Grid */}

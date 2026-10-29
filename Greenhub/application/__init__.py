@@ -11,6 +11,9 @@ from .plot_service import PlotService
 from .feed_profile_service import FeedProfileService
 from .seasonal_service import SeasonalSimulationService
 from .dynamic_feedstock_service import DynamicFeedstockPreviewService
+from .tea_service import TEAProjectBasis, TEAReport, calculate_dynamic_tea, calculate_empirical_tea
+from .lca_service import screening_lca_factors
+from Greenhub.tea_finance import TEAFinancialAssumptions, TEAProductPrice
 
 __all__ = (
     "GraphService",
@@ -23,4 +26,11 @@ __all__ = (
     "SimulationService",
     "SeasonalSimulationService",
     "DynamicFeedstockPreviewService",
+    "TEAProjectBasis",
+    "TEAFinancialAssumptions",
+    "TEAProductPrice",
+    "TEAReport",
+    "calculate_dynamic_tea",
+    "calculate_empirical_tea",
+    "screening_lca_factors",
 )

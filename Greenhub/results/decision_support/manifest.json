@@ -1,0 +1,9 @@
+{
+  "static": "static.json",
+  "dynamic": "dynamic.json",
+  "storage": "storage.json",
+  "design": "design_batch.json",
+  "uncertainty": "uncertainty.json",
+  "sensitivity": "sensitivity.json",
+  "note": "Illustrative process scenarios. Economic/environmental objectives remain excluded when evidence is incomplete; no fabricated profit/climate Pareto front."
+}

@@ -1,0 +1,52 @@
+{
+  "series": [
+    {
+      "label": "Cooling Kwh",
+      "series_id": "cooling_kwh",
+      "x": [
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09",
+        "2026-10",
+        "2026-11",
+        "2026-12"
+      ],
+      "y": [
+        0.0,
+        0.0,
+        0.0,
+        9745.748625499386,
+        19824.732261539397,
+        19185.224769231674,
+        19824.732261539397,
+        19824.732261539397,
+        19185.224769231674,
+        19824.732261539397,
+        8690.147989564668,
+        0.0
+      ]
+    }
+  ],
+  "specification": {
+    "availability_status": "available",
+    "plot_id": "SEASONAL-COOLING",
+    "process_area": "shared_utilities_and_supporting_operations",
+    "run_id": "0919e54d6b334edb9c63dc61d6ca6600",
+    "scenario": "F2/PR3/AD1/BG2/NR4",
+    "source_result_fields": [
+      "utility_series.cooling_kwh"
+    ],
+    "title": "Cooling demand",
+    "warnings": [],
+    "x_axis_label": "Time",
+    "x_unit": null,
+    "y_axis_label": "Energy",
+    "y_unit": "kWh"
+  }
+}

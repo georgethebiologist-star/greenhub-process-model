@@ -26,7 +26,16 @@ class StorageInventory:
         component_masses_kg: dict[str, float],
         temperature_k: float | None,
         capacity_kg: float | None,
+        age_h: float = 0.0,
     ) -> float:
+        from math import isfinite
+        values = [mass_kg, age_h, *component_masses_kg.values()]
+        if capacity_kg is not None:
+            values.append(capacity_kg)
+        if any(not isfinite(float(value)) or value < 0 for value in values):
+            raise ValueError("Storage mass, capacity and age must be finite and non-negative.")
+        if temperature_k is not None and (not isfinite(float(temperature_k)) or temperature_k <= 0):
+            raise ValueError("Storage temperature must be finite and positive in kelvin.")
         if mass_kg < 0.0:
             raise ValueError("Received storage mass must be non-negative.")
         if abs(sum(component_masses_kg.values()) - mass_kg) > max(1e-8, mass_kg * 1e-9):
@@ -34,6 +43,9 @@ class StorageInventory:
         self.total_mass_kg += mass_kg
         for name, value in component_masses_kg.items():
             self.component_masses_kg[name] = self.component_masses_kg.get(name, 0.0) + value
+        # Add incoming age before mixed overflow, so old and new biomass lose
+        # their age moments in exactly the same proportion as their masses.
+        self.age_mass_kg_h += mass_kg * age_h
         if temperature_k is not None:
             self.temperature_mass_kg_k += mass_kg * temperature_k
         overflow = max(self.total_mass_kg - capacity_kg, 0.0) if capacity_kg is not None else 0.0

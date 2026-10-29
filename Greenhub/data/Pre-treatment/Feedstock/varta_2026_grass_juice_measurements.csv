@@ -1,0 +1,4 @@
+dataset_id,source_workbook,source_sheet,source_row,sample_number,sample_name_english,sample_name_original,sample_date,ammonium_mg_l,nitrite_mg_l,nitrate_mg_l,potassium_mg_l,phosphate_mg_l,chloride_mg_l,sulfate_mg_l,calcium_mg_l,magnesium_mg_l,silicon_dioxide_mg_l,iron_mg_l
+VARTA_2026_10_27,261027 Nutriënten Grasmonsters VARTA.xlsx,Nutriënten Sap,5,1,Greenhub (grass sample),GREENHUB (grasmonster),,231,0,20,9600,205,3826,2849,3508,1000,1054,289
+VARTA_2026_10_27,261027 Nutriënten Grasmonsters VARTA.xlsx,Nutriënten Sap,6,2,Reterra (raw grass),RETERRA (ruwgras),,154,0,15,1400,61,689,218,439,100,260,1
+VARTA_2026_10_27,261027 Nutriënten Grasmonsters VARTA.xlsx,Nutriënten Sap,7,3,Reterra (road-verge grass),RETERRA (bermgras),,57,0,6,1400,148,855,130,199,100,479,0

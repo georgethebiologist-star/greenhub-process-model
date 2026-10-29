@@ -1,0 +1,8 @@
+process_area,active_unit_count,active_units,inlet_streams,outlet_streams,validation,warning_count,assumption_count
+Feedstock and Characterization,0,none,"feed, roadside_grass","feed, roadside_grass",not run or not separately defined,0,0
+Feed Preparation and Primary Separation,4,"U101, U201, S201, C301","feed, roadside_grass","clarified_liquid, fibre_cake, primary_sludge, preparation_rejects, pef_documented_loss",passed; validator raises on failure,5,0
+Protein Recovery,9,"M401, H401, R401, C401, W401, D401, DR401, M402, M403","clarified_protein_rich_liquid, clarified_liquid","dry_protein_product, conditioned_protein_depleted_liquid, dryer_exhaust",passed; validator raises on failure,4,4
+Anaerobic Digestion,4,"M501, H501, R501, V501",digester_feed,"raw_biogas, digestate, uncaptured_biogas",passed; validator raises on failure,2,6
+Biogas Conditioning and Upgrading,21,"G601, S601, R601, R602, F601, M606, M607, M610, S610, C611, E611, A611, V611, D611, V612, A612, P611, M618, M619, M698, M699",raw_biogas,"biomethane, gas_product, reject_gas, technology_wastewater, technology_spent_material",passed; validator raises on failure,2,6
+Digestate Treatment and Nutrient Recovery,13,"T701, S701, R711, S711, W711, D711, M721, H721, A721, A722, V722, M798, M799","digestate_feed, digestate","nutrient_rich_solids, phosphorus_product, ammonium_product, residual_liquor, phase7_wastewater, phase7_offgas",passed; validator raises on failure,2,8
+Shared Utilities and Supporting Operations,0,none,none,none,not run or not separately defined,1,1

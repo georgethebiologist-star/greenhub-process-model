@@ -1,0 +1,333 @@
+{
+  "balance": {
+    "element_residuals_kg": {
+      "calcium": 0.0,
+      "carbon": 0.0,
+      "chloride": 0.0,
+      "hydrogen": -3.112177182629239e-11,
+      "magnesium": 0.0,
+      "nitrogen": 0.0,
+      "oxygen": 0.0,
+      "phosphorus": -1.2156942119645464e-13,
+      "potassium": 0.0,
+      "sodium": -4.862776847858186e-13,
+      "sulfur": 0.0
+    },
+    "overall_closure_pct": 99.99999999903233,
+    "passed": true,
+    "process_mass_residual_kg": -3.424589976930292e-05,
+    "storage_mass_residual_kg": 0.0
+  },
+  "basis": "Steady-state mass and utility rates are multiplied by the stated annual operating hours. Seasonal feed variation, storage and downtime beyond the schedule assumption are not simulated.",
+  "biomass_schedule": {
+    "annual_available_tonnes": 0,
+    "annual_processed_tonnes": 0,
+    "annual_unused_tonnes": 0.0,
+    "monthly": [],
+    "peak_month_processed_tonnes": 0.0,
+    "peak_throughput_kg_per_hr": 0.0,
+    "policy_id": "existing_empirical_feed_profile",
+    "source_status": "model_input",
+    "utilization_fraction": 0.0,
+    "warning": "No shared annual biomass schedule was supplied; displayed availability equals empirical intake."
+  },
+  "chart_contract": {
+    "annual_electricity": "MWh/year",
+    "annual_heat": "GJ/year",
+    "biomethane": "m3/month",
+    "bulk_streams": "tonnes/month",
+    "electricity": "MWh/month",
+    "heat": "GJ/month",
+    "schedule": "tonnes/month",
+    "small_products": "tonnes/month"
+  },
+  "chart_data": {
+    "annual_product_mix": [
+      {
+        "product": "dry_protein_product",
+        "tonnes_per_year": 39.624024555541396
+      },
+      {
+        "product": "biomethane",
+        "tonnes_per_year": 5.102437508883892
+      },
+      {
+        "product": "phosphorus_product",
+        "tonnes_per_year": 0.5642012879090962
+      },
+      {
+        "product": "ammonium_product",
+        "tonnes_per_year": 49.31711204468511
+      },
+      {
+        "product": "nutrient_rich_solids",
+        "tonnes_per_year": 28.09500004221998
+      }
+    ],
+    "biomethane": [],
+    "bulk_streams": [],
+    "energy": [],
+    "groups": {
+      "large_mass": [
+        "feed_processed_tonnes",
+        "press_cake_tonnes",
+        "digestate_tonnes"
+      ],
+      "small_products": [
+        "protein_tonnes",
+        "phosphorus_product_tonnes",
+        "ammonium_product_tonnes",
+        "potassium_concentrate_tonnes",
+        "nutrient_rich_solids_tonnes"
+      ]
+    },
+    "mass_balance": [],
+    "schedule": [],
+    "small_products": []
+  },
+  "display_utilities": {
+    "cooling": {
+      "unit": "GJ/year",
+      "value": 237.1850771873582
+    },
+    "electricity": {
+      "unit": "MWh/year",
+      "value": 154.04283790141935
+    },
+    "heating": {
+      "unit": "GJ/year",
+      "value": 860.1181455964135
+    }
+  },
+  "feed_processed": {
+    "unit": "kg/year",
+    "value": 4945161.290322581
+  },
+  "method": "steady_state_annualization",
+  "method_label": "Annualized from the selected steady-state month",
+  "monthly": [],
+  "period": {
+    "end_date": null,
+    "operating_hours": 8760.0,
+    "schedule_source": "Continuous-operation assumption (8,760 hours/year)",
+    "start_date": null
+  },
+  "process_pathway": [
+    {
+      "active_unit_names": [],
+      "data_quality": "structural",
+      "heat_duty_kw": null,
+      "label": "Feed",
+      "limitations": [],
+      "power_kw": null,
+      "products_kg_hr": {},
+      "stage_id": "feed",
+      "unit_count": 0
+    },
+    {
+      "active_unit_names": [
+        "Primary centrifuge",
+        "Screw press",
+        "Feed preparation",
+        "PEF pretreatment"
+      ],
+      "data_quality": "structural",
+      "heat_duty_kw": null,
+      "label": "Pre-treatment / press",
+      "limitations": [
+        "67 selected Phase 3 parameters use quality class E; see the assumption register for individual records.",
+        "PEF release and juice-yield enhancement are empirical structural assumptions, not kinetic predictions.",
+        "No transfer pump is active because no pressure-rise requirement is available; pumping electricity is zero.",
+        "U101, U201, S201, C301 have no purchase cost because no approved GreenHub cost correlation is available.",
+        "Structural-test mode is active; quality-class E inputs are not final measured or literature assumptions."
+      ],
+      "power_kw": 15.174175935483873,
+      "products_kg_hr": {},
+      "stage_id": "pretreatment",
+      "unit_count": 4
+    },
+    {
+      "active_unit_names": [
+        "Protein separator",
+        "Mechanical protein-cake dewatering",
+        "Low-temperature protein belt dryer",
+        "Heat exchanger",
+        "Acid dosing and mixing",
+        "Mixer",
+        "Residual-liquid neutralization",
+        "Protein precipitation and coagulation",
+        "Protein-cake washer"
+      ],
+      "data_quality": "structural",
+      "heat_duty_kw": 18.675512827002166,
+      "label": "Protein recovery",
+      "limitations": [
+        "69 selected Phase 4 parameters use quality class E; replace them before scientific or economic interpretation.",
+        "The protein separator, washer, dewatering unit, dryer, and mixers have no purchase-cost model.",
+        "The low-temperature belt dryer is a structural selection suitable for wet cake; vendor data remain required.",
+        "Phase 4 structural-test mode is active; class E values are placeholders, not design data."
+      ],
+      "power_kw": 1.4235379449793077,
+      "products_kg_hr": {
+        "dry_protein_product": 4.523290474376871
+      },
+      "stage_id": "protein",
+      "unit_count": 9
+    },
+    {
+      "active_unit_names": [
+        "Heat exchanger",
+        "Digester-feed conditioning",
+        "Anaerobic digester",
+        "Raw-biogas disengagement"
+      ],
+      "data_quality": "structural",
+      "heat_duty_kw": 1.5625049385262104,
+      "label": "Anaerobic digestion",
+      "limitations": [
+        "80 selected Phase 5 parameters use quality class E; replace them before scientific, design, or economic interpretation.",
+        "Phase 5 structural-test mode is active; class E values are placeholders, not design data."
+      ],
+      "power_kw": 0.6137840073289015,
+      "products_kg_hr": {},
+      "stage_id": "ad",
+      "unit_count": 4
+    },
+    {
+      "active_unit_names": [
+        "High-pressure water absorber",
+        "Scrubbing-water regeneration",
+        "Isentropic compressor",
+        "Gas moisture guard",
+        "Heat exchanger",
+        "Particle and siloxane filter",
+        "Raw-biogas cooler",
+        "Mixer",
+        "Mixer",
+        "Mixer",
+        "Mixer",
+        "Mixer",
+        "Mixer",
+        "Mixer",
+        "Pump",
+        "Hydrogen-sulfide removal",
+        "Biogas ammonia removal",
+        "Biogas condensate separator",
+        "Splitter",
+        "Gas moisture guard",
+        "Rich-water flash"
+      ],
+      "data_quality": "structural",
+      "heat_duty_kw": null,
+      "label": "Gas upgrading / CHP",
+      "limitations": [
+        "84 selected Phase 6 parameters use quality class E; replace them before scientific, design, economic, or configuration-selection interpretation.",
+        "Phase 6 structural-test mode is active; class-E gas-cleaning and upgrading values are not validated design data."
+      ],
+      "power_kw": 0.20101769046739285,
+      "products_kg_hr": {
+        "biomethane": 0.5824700352607182
+      },
+      "stage_id": "gas",
+      "unit_count": 21
+    },
+    {
+      "active_unit_names": [
+        "Ammonia stripper",
+        "Ammonia acid absorber",
+        "Nutrient-product drying",
+        "Phase 7 process heater",
+        "Alkaline dosing and pH conditioning",
+        "Mixer",
+        "Mixer",
+        "Struvite crystallization",
+        "Digestate solid-liquid separation",
+        "Nutrient crystal separation",
+        "Digestate equalization",
+        "Phase 7 product storage",
+        "Nutrient-product washing"
+      ],
+      "data_quality": "structural",
+      "heat_duty_kw": 7.036149712795237,
+      "label": "Nutrient recovery / products",
+      "limitations": [
+        "134 selected Phase 7 parameters use quality class E; replace them before design, fertilizer-quality, economic, or configuration-selection interpretation.",
+        "Phase 7 structural-test mode is active; quality-class E recoveries, reagent doses, utilities, and design values are placeholders."
+      ],
+      "power_kw": 0.1722832689345142,
+      "products_kg_hr": {
+        "ammonium_product": 5.629807311037113,
+        "nutrient_rich_solids": 3.2071917856415504,
+        "phosphorus_product": 0.06440653971565025,
+        "potassium_concentrate": 0.0
+      },
+      "stage_id": "nutrients",
+      "unit_count": 13
+    }
+  ],
+  "products": {
+    "ammonium_product": {
+      "unit": "kg/year",
+      "value": 49317.11204468511
+    },
+    "biomethane": {
+      "unit": "kg/year",
+      "value": 5102.4375088838915
+    },
+    "dry_protein_product": {
+      "unit": "kg/year",
+      "value": 39624.02455554139
+    },
+    "nutrient_rich_solids": {
+      "unit": "kg/year",
+      "value": 28095.00004221998
+    },
+    "phosphorus_product": {
+      "unit": "kg/year",
+      "value": 564.2012879090962
+    },
+    "potassium_concentrate": {
+      "unit": "kg/year",
+      "value": 0.0
+    }
+  },
+  "reporting_status": {
+    "model": "empirical",
+    "note": "Display adapter only; empirical and dynamic proxy calculations remain independent.",
+    "numerical_balance_checks_passed": true,
+    "schedule_policy": "existing_empirical_feed_profile",
+    "validated_simulation_ready": false
+  },
+  "utilities": {
+    "cooling": {
+      "unit": "kWh/year",
+      "value": 65884.74366315505
+    },
+    "electricity": {
+      "unit": "kWh/year",
+      "value": 154042.83790141935
+    },
+    "heating": {
+      "unit": "kWh/year",
+      "value": 238921.70711011486
+    }
+  },
+  "warnings": [
+    "Annual totals are steady-state annualizations, not measured or simulated month-by-month totals.",
+    "134 selected Phase 7 parameters use quality class E; replace them before design, fertilizer-quality, economic, or configuration-selection interpretation.",
+    "84 selected Phase 6 parameters use quality class E; replace them before scientific, design, economic, or configuration-selection interpretation.",
+    "80 selected Phase 5 parameters use quality class E; replace them before scientific, design, or economic interpretation.",
+    "69 selected Phase 4 parameters use quality class E; replace them before scientific or economic interpretation.",
+    "67 selected Phase 3 parameters use quality class E; see the assumption register for individual records.",
+    "PEF release and juice-yield enhancement are empirical structural assumptions, not kinetic predictions.",
+    "No transfer pump is active because no pressure-rise requirement is available; pumping electricity is zero.",
+    "U101, U201, S201, C301 have no purchase cost because no approved GreenHub cost correlation is available.",
+    "Structural-test mode is active; quality-class E inputs are not final measured or literature assumptions.",
+    "The protein separator, washer, dewatering unit, dryer, and mixers have no purchase-cost model.",
+    "The low-temperature belt dryer is a structural selection suitable for wet cake; vendor data remain required.",
+    "Phase 4 structural-test mode is active; class E values are placeholders, not design data.",
+    "Phase 5 structural-test mode is active; class E values are placeholders, not design data.",
+    "Phase 6 structural-test mode is active; class-E gas-cleaning and upgrading values are not validated design data.",
+    "Phase 7 structural-test mode is active; quality-class E recoveries, reagent doses, utilities, and design values are placeholders."
+  ]
+}

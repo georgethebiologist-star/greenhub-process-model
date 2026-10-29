@@ -1,0 +1,8 @@
+biogas_method,biomethane_product_m3_hr,can_drive_calculation_shadow_system,can_drive_proxy_preview,can_drive_simulation,dried_product_protein_kg_hr,dried_protein_product_kg_hr,drying_electricity_kwh_hr,drying_heat_mj_hr,drying_method,fertilizer_methods,methane_potential_m3_hr,press_cake_kg_hr,protein_method,scenario_id,time_label,upgrading_electricity_kwh_hr,upgrading_heat_kwh_hr,upgrading_method
+bmp_potential_only,,True,True,False,2.6547990105572574,5.1349301156940115,,,mass_only,,58.603542324445606,437.49999999999994,isoelectric,dynamic_integrated_proxy_baseline,2026-05,,,none
+bmp_potential_only,,True,True,False,1.7777667250652864,3.307705902648218,,,mass_only,,37.56443509928877,437.5,isoelectric,dynamic_integrated_proxy_baseline,2026-06,,,none
+bmp_potential_only,,True,True,False,1.7777667250652864,3.307705902648218,,,mass_only,,37.56443509928877,437.5,isoelectric,dynamic_integrated_proxy_baseline,2026-07,,,none
+bmp_potential_only,,True,True,False,1.7777667250652864,3.307705902648218,,,mass_only,,37.56443509928877,437.5,isoelectric,dynamic_integrated_proxy_baseline,2026-08,,,none
+bmp_potential_only,,True,True,False,2.031267516089139,3.835339509584758,,,mass_only,,43.63212362845062,437.49999999999994,isoelectric,dynamic_integrated_proxy_baseline,2026-09,,,none
+bmp_potential_only,,True,True,False,2.031267516089139,3.835339509584758,,,mass_only,,43.63212362845062,437.49999999999994,isoelectric,dynamic_integrated_proxy_baseline,2026-10,,,none
+bmp_potential_only,,True,True,False,2.031267516089139,3.835339509584758,,,mass_only,,43.63212362845062,437.49999999999994,isoelectric,dynamic_integrated_proxy_baseline,2026-11,,,none

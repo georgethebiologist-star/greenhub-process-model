@@ -1,0 +1,250 @@
+[
+  {
+    "availability_status": "available",
+    "files": {
+      "csv": "plots/SYS-AREA-MASS.csv",
+      "json": "plots/SYS-AREA-MASS.json",
+      "png": "plots/SYS-AREA-MASS.png",
+      "svg": "plots/SYS-AREA-MASS.svg"
+    },
+    "plot_id": "SYS-AREA-MASS"
+  },
+  {
+    "availability_status": "available",
+    "files": {
+      "csv": "plots/VALIDATION-RESIDUALS.csv",
+      "json": "plots/VALIDATION-RESIDUALS.json",
+      "png": "plots/VALIDATION-RESIDUALS.png",
+      "svg": "plots/VALIDATION-RESIDUALS.svg"
+    },
+    "plot_id": "VALIDATION-RESIDUALS"
+  },
+  {
+    "availability_status": "available",
+    "files": {
+      "csv": "plots/SYS-UNIT-POWER.csv",
+      "json": "plots/SYS-UNIT-POWER.json",
+      "png": "plots/SYS-UNIT-POWER.png",
+      "svg": "plots/SYS-UNIT-POWER.svg"
+    },
+    "plot_id": "SYS-UNIT-POWER"
+  },
+  {
+    "availability_status": "available",
+    "files": {
+      "csv": "plots/DATA-READINESS.csv",
+      "json": "plots/DATA-READINESS.json",
+      "png": "plots/DATA-READINESS.png",
+      "svg": "plots/DATA-READINESS.svg"
+    },
+    "plot_id": "DATA-READINESS"
+  },
+  {
+    "availability_status": "available",
+    "files": {
+      "csv": "plots/STATE-FLOW.csv",
+      "json": "plots/STATE-FLOW.json",
+      "png": "plots/STATE-FLOW.png",
+      "svg": "plots/STATE-FLOW.svg"
+    },
+    "plot_id": "STATE-FLOW"
+  },
+  {
+    "availability_status": "available",
+    "files": {
+      "csv": "plots/STATE-COD.csv",
+      "json": "plots/STATE-COD.json",
+      "png": "plots/STATE-COD.png",
+      "svg": "plots/STATE-COD.svg"
+    },
+    "plot_id": "STATE-COD"
+  },
+  {
+    "availability_status": "available",
+    "files": {
+      "csv": "plots/STATE-MOISTURE.csv",
+      "json": "plots/STATE-MOISTURE.json",
+      "png": "plots/STATE-MOISTURE.png",
+      "svg": "plots/STATE-MOISTURE.svg"
+    },
+    "plot_id": "STATE-MOISTURE"
+  },
+  {
+    "availability_status": "available",
+    "files": {
+      "csv": "plots/INVENTORY-EVOLUTION.csv",
+      "json": "plots/INVENTORY-EVOLUTION.json",
+      "png": "plots/INVENTORY-EVOLUTION.png",
+      "svg": "plots/INVENTORY-EVOLUTION.svg"
+    },
+    "plot_id": "INVENTORY-EVOLUTION"
+  },
+  {
+    "availability_status": "unavailable_scenario",
+    "files": {
+      "csv": "plots/PR-PRECIP-RECOVERY.csv",
+      "json": "plots/PR-PRECIP-RECOVERY.json"
+    },
+    "plot_id": "PR-PRECIP-RECOVERY"
+  },
+  {
+    "availability_status": "available",
+    "files": {
+      "csv": "plots/SEASONAL-FEED.csv",
+      "json": "plots/SEASONAL-FEED.json",
+      "png": "plots/SEASONAL-FEED.png",
+      "svg": "plots/SEASONAL-FEED.svg"
+    },
+    "plot_id": "SEASONAL-FEED"
+  },
+  {
+    "availability_status": "available",
+    "files": {
+      "csv": "plots/SEASONAL-PROCESSED.csv",
+      "json": "plots/SEASONAL-PROCESSED.json",
+      "png": "plots/SEASONAL-PROCESSED.png",
+      "svg": "plots/SEASONAL-PROCESSED.svg"
+    },
+    "plot_id": "SEASONAL-PROCESSED"
+  },
+  {
+    "availability_status": "available",
+    "files": {
+      "csv": "plots/SEASONAL-INVENTORY.csv",
+      "json": "plots/SEASONAL-INVENTORY.json",
+      "png": "plots/SEASONAL-INVENTORY.png",
+      "svg": "plots/SEASONAL-INVENTORY.svg"
+    },
+    "plot_id": "SEASONAL-INVENTORY"
+  },
+  {
+    "availability_status": "available",
+    "files": {
+      "csv": "plots/SEASONAL-STORAGE-AGE.csv",
+      "json": "plots/SEASONAL-STORAGE-AGE.json",
+      "png": "plots/SEASONAL-STORAGE-AGE.png",
+      "svg": "plots/SEASONAL-STORAGE-AGE.svg"
+    },
+    "plot_id": "SEASONAL-STORAGE-AGE"
+  },
+  {
+    "availability_status": "available",
+    "files": {
+      "csv": "plots/SEASONAL-THROUGHPUT.csv",
+      "json": "plots/SEASONAL-THROUGHPUT.json",
+      "png": "plots/SEASONAL-THROUGHPUT.png",
+      "svg": "plots/SEASONAL-THROUGHPUT.svg"
+    },
+    "plot_id": "SEASONAL-THROUGHPUT"
+  },
+  {
+    "availability_status": "available",
+    "files": {
+      "csv": "plots/SEASONAL-MASS-RESIDUAL.csv",
+      "json": "plots/SEASONAL-MASS-RESIDUAL.json",
+      "png": "plots/SEASONAL-MASS-RESIDUAL.png",
+      "svg": "plots/SEASONAL-MASS-RESIDUAL.svg"
+    },
+    "plot_id": "SEASONAL-MASS-RESIDUAL"
+  },
+  {
+    "availability_status": "available",
+    "files": {
+      "csv": "plots/SEASONAL-UTILIZATION.csv",
+      "json": "plots/SEASONAL-UTILIZATION.json",
+      "png": "plots/SEASONAL-UTILIZATION.png",
+      "svg": "plots/SEASONAL-UTILIZATION.svg"
+    },
+    "plot_id": "SEASONAL-UTILIZATION"
+  },
+  {
+    "availability_status": "available",
+    "files": {
+      "csv": "plots/SEASONAL-BOTTLENECK.csv",
+      "json": "plots/SEASONAL-BOTTLENECK.json",
+      "png": "plots/SEASONAL-BOTTLENECK.png",
+      "svg": "plots/SEASONAL-BOTTLENECK.svg"
+    },
+    "plot_id": "SEASONAL-BOTTLENECK"
+  },
+  {
+    "availability_status": "available",
+    "files": {
+      "csv": "plots/SEASONAL-PRODUCTS.csv",
+      "json": "plots/SEASONAL-PRODUCTS.json",
+      "png": "plots/SEASONAL-PRODUCTS.png",
+      "svg": "plots/SEASONAL-PRODUCTS.svg"
+    },
+    "plot_id": "SEASONAL-PRODUCTS"
+  },
+  {
+    "availability_status": "available",
+    "files": {
+      "csv": "plots/SEASONAL-PROTEIN.csv",
+      "json": "plots/SEASONAL-PROTEIN.json",
+      "png": "plots/SEASONAL-PROTEIN.png",
+      "svg": "plots/SEASONAL-PROTEIN.svg"
+    },
+    "plot_id": "SEASONAL-PROTEIN"
+  },
+  {
+    "availability_status": "available",
+    "files": {
+      "csv": "plots/SEASONAL-BIOMETHANE.csv",
+      "json": "plots/SEASONAL-BIOMETHANE.json",
+      "png": "plots/SEASONAL-BIOMETHANE.png",
+      "svg": "plots/SEASONAL-BIOMETHANE.svg"
+    },
+    "plot_id": "SEASONAL-BIOMETHANE"
+  },
+  {
+    "availability_status": "available",
+    "files": {
+      "csv": "plots/SEASONAL-NUTRIENTS.csv",
+      "json": "plots/SEASONAL-NUTRIENTS.json",
+      "png": "plots/SEASONAL-NUTRIENTS.png",
+      "svg": "plots/SEASONAL-NUTRIENTS.svg"
+    },
+    "plot_id": "SEASONAL-NUTRIENTS"
+  },
+  {
+    "availability_status": "available",
+    "files": {
+      "csv": "plots/SEASONAL-ELECTRICITY.csv",
+      "json": "plots/SEASONAL-ELECTRICITY.json",
+      "png": "plots/SEASONAL-ELECTRICITY.png",
+      "svg": "plots/SEASONAL-ELECTRICITY.svg"
+    },
+    "plot_id": "SEASONAL-ELECTRICITY"
+  },
+  {
+    "availability_status": "available",
+    "files": {
+      "csv": "plots/SEASONAL-HEATING.csv",
+      "json": "plots/SEASONAL-HEATING.json",
+      "png": "plots/SEASONAL-HEATING.png",
+      "svg": "plots/SEASONAL-HEATING.svg"
+    },
+    "plot_id": "SEASONAL-HEATING"
+  },
+  {
+    "availability_status": "available",
+    "files": {
+      "csv": "plots/SEASONAL-COOLING.csv",
+      "json": "plots/SEASONAL-COOLING.json",
+      "png": "plots/SEASONAL-COOLING.png",
+      "svg": "plots/SEASONAL-COOLING.svg"
+    },
+    "plot_id": "SEASONAL-COOLING"
+  },
+  {
+    "availability_status": "available",
+    "files": {
+      "csv": "plots/SEASONAL-ELEMENT-RESIDUALS.csv",
+      "json": "plots/SEASONAL-ELEMENT-RESIDUALS.json",
+      "png": "plots/SEASONAL-ELEMENT-RESIDUALS.png",
+      "svg": "plots/SEASONAL-ELEMENT-RESIDUALS.svg"
+    },
+    "plot_id": "SEASONAL-ELEMENT-RESIDUALS"
+  }
+]

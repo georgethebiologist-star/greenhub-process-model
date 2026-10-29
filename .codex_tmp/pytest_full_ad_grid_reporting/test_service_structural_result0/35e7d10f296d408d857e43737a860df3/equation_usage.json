@@ -1,0 +1,29 @@
+[
+  {
+    "equation_id": "storage_degradation",
+    "fallback": true,
+    "parameter_ids": [
+      "seasonal.storage_degradation_rate_per_day"
+    ],
+    "status": "structural_fallback",
+    "used": false
+  },
+  {
+    "equation_id": "residence_time_effect",
+    "fallback": false,
+    "parameter_ids": [
+      "phase4.precipitation_residence_time_min"
+    ],
+    "status": "calculated",
+    "used": true
+  },
+  {
+    "equation_id": "protein_precipitation_recovery",
+    "fallback": false,
+    "parameter_ids": [
+      "phase4.precipitation_efficiency"
+    ],
+    "status": "calculated",
+    "used": true
+  }
+]

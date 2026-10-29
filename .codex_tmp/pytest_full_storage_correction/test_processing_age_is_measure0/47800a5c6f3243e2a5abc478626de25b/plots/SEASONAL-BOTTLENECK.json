@@ -1,0 +1,30 @@
+{
+  "series": [
+    {
+      "label": "U101",
+      "series_id": "U101",
+      "x": [
+        "2026-07-01"
+      ],
+      "y": [
+        1.0
+      ]
+    }
+  ],
+  "specification": {
+    "availability_status": "available",
+    "plot_id": "SEASONAL-BOTTLENECK",
+    "process_area": "integrated_system",
+    "run_id": "47800a5c6f3243e2a5abc478626de25b",
+    "scenario": "F2/PR3/AD1/BG2/NR4",
+    "source_result_fields": [
+      "bottleneck_series"
+    ],
+    "title": "Bottleneck unit over time",
+    "warnings": [],
+    "x_axis_label": "Time",
+    "x_unit": null,
+    "y_axis_label": "Bottleneck indicator",
+    "y_unit": "binary"
+  }
+}

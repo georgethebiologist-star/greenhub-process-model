@@ -1,0 +1,23 @@
+unit_id,operation,electricity_kw,heating_kw,cooling_kw,purchase_cost_available,cost_basis
+M610,Mixer,0.0,0.0,0.0,False,no approved custom Phase 6 CAPEX basis
+S610,Splitter,0.0,0.0,0.0,False,no approved custom Phase 6 CAPEX basis
+C611,Isentropic compressor,0.19207462768501138,0.0,0.0,False,no approved custom Phase 6 CAPEX basis
+E611,Heat exchanger,0.0,0.0,0.15365970214800906,True,BioSTEAM built-in correlation
+A611,High-pressure water absorber,0.0,0.0,0.0,False,no approved custom Phase 6 CAPEX basis
+V611,Gas moisture guard,0.0,0.0,0.0,False,no approved custom Phase 6 CAPEX basis
+D611,Gas moisture guard,0.0,0.0,0.0,False,no approved custom Phase 6 CAPEX basis
+V612,Rich-water flash,0.0,0.0,0.0,False,no approved custom Phase 6 CAPEX basis
+A612,Scrubbing-water regeneration,0.004087157466486397,0.0,0.0,False,no approved custom Phase 6 CAPEX basis
+P611,Pump,0.002504758924278639,0.0,0.0,True,BioSTEAM built-in correlation
+M618,Mixer,0.0,0.0,0.0,False,no approved custom Phase 6 CAPEX basis
+M619,Mixer,0.0,0.0,0.0,False,no approved custom Phase 6 CAPEX basis
+G601,Raw-biogas cooler,0.0012187942787801561,0.0,0.03339619792565637,False,no approved custom Phase 6 CAPEX basis
+S601,Biogas condensate separator,0.0,0.0,0.0,False,no approved custom Phase 6 CAPEX basis
+R601,Hydrogen-sulfide removal,0.0,0.0,0.0,False,no approved custom Phase 6 CAPEX basis
+R602,Biogas ammonia removal,0.0,0.0,0.0,False,no approved custom Phase 6 CAPEX basis
+F601,Particle and siloxane filter,0.0011323521128358482,0.0,0.0,False,no approved custom Phase 6 CAPEX basis
+M606,Mixer,0.0,0.0,0.0,False,no approved custom Phase 6 CAPEX basis
+M607,Mixer,0.0,0.0,0.0,False,no approved custom Phase 6 CAPEX basis
+M698,Mixer,0.0,0.0,0.0,False,no approved custom Phase 6 CAPEX basis
+M699,Mixer,0.0,0.0,0.0,False,no approved custom Phase 6 CAPEX basis
+TOTAL,Phase 6 local utilities,0.20101769046739243,0.0,0.18705590007366543,True,Local duties only; plant-wide utility integration is deferred

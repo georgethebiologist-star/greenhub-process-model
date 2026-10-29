@@ -1,0 +1,2 @@
+dataset_id,source_file,source_sheets,translation_policy,default_profile,activation_state,readiness_state,limitations
+VARTA_2026_10_27,261027 Nutriënten Grasmonsters VARTA.xlsx,Nutriënten Vezel; Nutriënten Sap,English field names and translated sample labels; original Dutch labels retained; censored values retained verbatim.,Greenhub whole grass + Greenhub grass sample juice,active,D4,Measured laboratory profile for specific samples; not a universal seasonal average. No grass mass availability or operating-day data were supplied.

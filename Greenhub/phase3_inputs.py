@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any, Mapping
 
 import pandas as pd
+import csv
 
 from Greenhub.input_data import (
     CONTROL_SHEET,
@@ -28,6 +29,8 @@ from Greenhub.input_schema import (
 GRASS_AVAILABILITY_SHEET = "GrassAvailability"
 GRASS_MEASUREMENTS_SHEET = "GrassMeasurements"
 PHASE3_PARAMETERS_SHEET = "Phase3Parameters"
+VARTA_DEFAULT_GRASS_SAMPLE = "grass_varta_default"
+VARTA_FIBER_DATASET = Path("Greenhub/data/Pre-treatment/Feedstock/varta_2026_grass_fiber_measurements.csv")
 
 
 def _parameter_value(value: Any) -> float | str | bool | None:
@@ -165,6 +168,29 @@ def load_roadside_grass_specification(
     availability = pd.read_excel(path, sheet_name=GRASS_AVAILABILITY_SHEET)
     measurements = pd.read_excel(path, sheet_name=GRASS_MEASUREMENTS_SHEET)
 
+    if sample.casefold() == VARTA_DEFAULT_GRASS_SAMPLE.casefold():
+        # Keep workbook availability and structural component closure, while
+        # replacing measured aggregate properties with the traceable VARTA profile.
+        base = load_roadside_grass_specification(
+            path, scenario_id=scenario_id, selected_month=month, sample_id="grass_baseline"
+        )
+        fiber_path = Path(__file__).resolve().parent / "data/Pre-treatment/Feedstock/varta_2026_grass_fiber_measurements.csv"
+        table = pd.read_csv(fiber_path)
+        row = table.loc[table["sample_name_english"].eq("Greenhub whole grass")].iloc[0]
+        measured = []
+        dm = float(row["dry_matter_fraction"]) / 100.0
+        measured.append(InputRecord.from_mapping({"name":"Total solids", "python_name":"total_solids", "value":dm, "unit":"fraction wet mass", "basis":"wet basis", "stream":"incoming_grass", "sample_id":sample, "scenario":"All", "month":"All", "data_type":"aggregate", "measurement_status":"measured", "source_class":"A", "reference":"VARTA_2026_10_27/Nutriënten Vezel row 7", "comment":"Measured Greenhub whole grass dry matter; original Dutch label retained in traceability dataset.", "priority":1, "active":True}))
+        for label, name, unit, scale in (("Nitrogen", "total_nitrogen", "kg/kg wet feed", 1e-3), ("Phosphorus", "total_phosphorus", "kg/kg wet feed", 1e-3), ("Potassium", "total_potassium", "kg/kg wet feed", 1e-3)):
+            key = {"Nitrogen":"nitrogen_g_kg_dm", "Phosphorus":"phosphorus_g_kg_dm", "Potassium":"potassium_g_kg_dm"}[label]
+            value = float(row[key]) * dm * scale
+            measured.append(InputRecord.from_mapping({"name":label, "python_name":name, "value":value, "unit":unit, "basis":"wet basis; converted from g/kg dry matter", "stream":"incoming_grass", "sample_id":sample, "scenario":"All", "month":"All", "data_type":"aggregate", "measurement_status":"calculated", "source_class":"A", "reference":f"VARTA_2026_10_27/Nutriënten Vezel row 7; conversion {key} × dry_matter_fraction / 1000", "comment":"Calculated wet-basis aggregate from measured VARTA dry-basis nutrient and dry matter.", "priority":1, "active":True}))
+        return FeedSpecification(
+            selected_month=month, sample_id=sample, scenario=scenario_id, entry_mode="roadside_grass_varta",
+            monthly_total_mass_kg=base.monthly_total_mass_kg, operating_days=base.operating_days,
+            total_mass_flow_kg_hr=base.total_mass_flow_kg_hr, records=base.records + tuple(measured),
+            control=base.control, monthly_table=base.monthly_table, measurements_table=base.measurements_table,
+        )
+
     candidates = availability[
         availability["sample_id"].astype(str).str.casefold().eq(sample.casefold())
         & availability["month"].astype(str).str.casefold().eq(month.casefold())
@@ -287,6 +313,9 @@ def load_phase3_inputs(
     if scenario not in {"F0", "F1", "F2", "F3"}:
         raise ValueError("selected_phase3_scenario must be one of F0, F1, F2, or F3.")
     month = selected_month or optional_text(control.get("selected_month")) or "July"
+    # Keep the workbook's established grass_baseline selector for compatibility;
+    # the measured VARTA profile is available as the explicit default candidate
+    # and can be selected without changing API or workbook schemas.
     grass_sample = optional_text(control.get("selected_grass_sample_id")) or "grass_baseline"
     structural = as_bool(control.get("structural_test_mode"), False)
     if scenario == "F0":

@@ -27,6 +27,8 @@ def build_annual_summary(result, request) -> dict[str, object]:
 
 def _from_quasi_dynamic(result, request) -> dict[str, object]:
     seasonal = result.seasonal_summary
+    full_year = bool(result.time_grid and result.time_grid[0]['start_date'].endswith('-01-01') and result.time_grid[-1]['end_date'].endswith('-12-31') and result.time_grid[0]['start_date'][:4] == result.time_grid[-1]['end_date'][:4])
+    suffix = 'year' if full_year else 'reported period'
     products = {key: float(seasonal.get("total_products_kg", {}).get(key, 0.0)) for key in PRODUCT_KEYS}
     utilities = seasonal.get("total_utilities", {})
     processed = float(seasonal.get("total_biomass_processed_kg", 0.0))
@@ -51,22 +53,35 @@ def _from_quasi_dynamic(result, request) -> dict[str, object]:
             },
             "mass_residual_kg": float(balances_by_time.get(label, {}).get("overall_mass_residual_kg", 0.0)),
         })
+    if any(len(str(row['period']))>7 for row in monthly):
+        grouped={}
+        for row in monthly:
+            key=str(row['period'])[:7]
+            if key not in grouped:
+                grouped[key]={'period':key,'feed_processed_kg':0.0,'mass_residual_kg':0.0,'products_kg':{},'intermediate_streams_kg':{},'volumetric_products_m3':{},'utilities_kwh':{}}
+            target=grouped[key]
+            for field in ('feed_processed_kg','mass_residual_kg'): target[field]+=row[field]
+            for field in ('products_kg','intermediate_streams_kg','volumetric_products_m3','utilities_kwh'):
+                for name,value in row[field].items(): target[field][name]=target[field].get(name,0)+value
+        monthly=list(grouped.values())
     summary = {
         "method": "quasi_dynamic_integration",
-        "method_label": "Integrated from monthly model steps",
+        "method_label": "Integrated from actual model timesteps",
         "basis": "Mass, product and utility totals are summed from the quasi-dynamic time steps; rates are not multiplied by a generic annual factor.",
         "period": {
             "start_date": request.start_date,
             "end_date": request.end_date,
             "operating_hours": operating_hours,
             "schedule_source": "Run operating calendar and monthly feed profile",
+            "full_calendar_year": full_year,
+            "totals_basis": suffix,
         },
-        "feed_processed": _value(processed, "kg/year"),
-        "products": {key: _value(value, "kg/year") for key, value in products.items()},
+        "feed_processed": _value(processed, f"kg/{suffix}"),
+        "products": {key: _value(value, f"kg/{suffix}") for key, value in products.items()},
         "utilities": {
-            "electricity": _value(float(utilities.get("electricity_kwh", 0.0)), "kWh/year"),
-            "heating": _value(float(utilities.get("heating_kwh", 0.0)), "kWh/year"),
-            "cooling": _value(float(utilities.get("cooling_kwh", 0.0)), "kWh/year"),
+            "electricity": _value(float(utilities.get("electricity_kwh", 0.0)), f"kWh/{suffix}"),
+            "heating": _value(float(utilities.get("heating_kwh", 0.0)), f"kWh/{suffix}"),
+            "cooling": _value(float(utilities.get("cooling_kwh", 0.0)), f"kWh/{suffix}"),
         },
         "balance": _balance_summary(
             processed, process_residual, storage_residual,
@@ -96,6 +111,8 @@ def _annualize_steady_state(result, request) -> dict[str, object]:
     ) * operating_hours
     overall = next((item for item in result.balances if item.balance_id == "overall_mass"), None)
     inlet = float(overall.inlet.value or 0.0) * operating_hours if overall else 0.0
+    feed_stream = next((item for item in result.streams if "feed" in item.aliases or item.stream_id == "feed"), None)
+    processed_feed = float(feed_stream.total_mass.value) * operating_hours if feed_stream is not None and feed_stream.total_mass.value is not None else None
     process_residual = float(overall.residual.value or 0.0) * operating_hours if overall else 0.0
     element_residuals = {
         item.balance_id.removeprefix("element_"): float(item.residual.value or 0.0) * operating_hours
@@ -111,7 +128,7 @@ def _annualize_steady_state(result, request) -> dict[str, object]:
             "operating_hours": operating_hours,
             "schedule_source": schedule_source,
         },
-        "feed_processed": _value(inlet, "kg/year"),
+        "feed_processed": {"value": processed_feed, "unit": "kg/year"},
         "products": {key: _value(value, "kg/year") for key, value in products.items()},
         "utilities": {
             "electricity": _value(electricity, "kWh/year"),
@@ -178,23 +195,28 @@ def _with_empirical_reporting(summary: dict[str, object], result, request) -> di
         "annual_heat": "GJ/year",
     }
     utilities = summary["utilities"]
+    suffix=summary['period'].get('totals_basis','year')
     summary["display_utilities"] = {
-        "electricity": _value(float(utilities.get("electricity", {}).get("value", 0.0)) / 1000.0, "MWh/year"),
-        "heating": _value(float(utilities.get("heating", {}).get("value", 0.0)) * 0.0036, "GJ/year"),
-        "cooling": _value(float(utilities.get("cooling", {}).get("value", 0.0)) * 0.0036, "GJ/year"),
+        "electricity": _value(float(utilities.get("electricity", {}).get("value", 0.0)) / 1000.0, f"MWh/{suffix}"),
+        "heating": _value(float(utilities.get("heating", {}).get("value", 0.0)) * 0.0036, f"GJ/{suffix}"),
+        "cooling": _value(float(utilities.get("cooling", {}).get("value", 0.0)) * 0.0036, f"GJ/{suffix}"),
     }
     summary["process_pathway"] = _process_pathway(result)
     summary["reporting_status"] = {
         "model": "empirical",
         "schedule_policy": schedule["policy_id"],
-        "validated_simulation_ready": bool(result.validation.passed),
+        "validated_simulation_ready": False,
+        "numerical_balance_checks_passed": bool(result.validation.passed),
         "note": "Display adapter only; empirical and dynamic proxy calculations remain independent.",
     }
     return summary
 
 
 def _schedule_report(result, request, monthly: list[dict[str, object]]) -> dict[str, object]:
-    actual = {str(row["period"]): float(row["feed_processed_kg"]) / 1000.0 for row in monthly}
+    actual = {}
+    for row in monthly:
+        month=str(row["period"])[:7]
+        actual[month]=actual.get(month,0.0)+float(row["feed_processed_kg"])/1000.0
     if request.biomass_schedule is not None:
         planned = build_empirical_biomass_schedule(request.biomass_schedule)
         rows = []
@@ -205,10 +227,12 @@ def _schedule_report(result, request, monthly: list[dict[str, object]]) -> dict[
             rows.append({
                 **row,
                 "planned_processed_biomass_tonnes": processed,
+                "processed_biomass_tonnes": actual_processed,
                 "actual_processed_biomass_tonnes": actual_processed,
+                "unprocessed_available_biomass_tonnes": max(available-actual_processed,0.0),
                 "unused_biomass_tonnes": max(available - processed, 0.0),
-                "utilization_fraction": processed / available if available else 0.0,
-                "utilization_percent": 100.0 * processed / available if available else 0.0,
+                "utilization_fraction": actual_processed / available if available else 0.0,
+                "utilization_percent": 100.0 * actual_processed / available if available else 0.0,
             })
         available_total = sum(float(row["available_biomass_tonnes"]) for row in rows)
         processed_total = sum(float(row["processed_biomass_tonnes"]) for row in rows)
@@ -218,6 +242,8 @@ def _schedule_report(result, request, monthly: list[dict[str, object]]) -> dict[
             "annual_available_tonnes": available_total,
             "annual_processed_tonnes": processed_total,
             "annual_unused_tonnes": max(available_total - processed_total, 0.0),
+            "annual_uncollected_tonnes": sum(float(r["unused_biomass_tonnes"]) for r in rows),
+            "ending_inventory_tonnes": float(result.seasonal_summary.get("final_inventory_kg",0))/1000,
             "utilization_fraction": processed_total / available_total if available_total else 0.0,
             "peak_month_processed_tonnes": max((float(row["processed_biomass_tonnes"]) for row in rows), default=0.0),
         }

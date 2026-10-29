@@ -23,10 +23,11 @@ import { normalizeResult } from './data/normalizeResult';
 import { ReportCenter, ResultsWorkbench } from './components/ResultsWorkbench';
 import { InputStudio, type FeedInputs } from './components/InputStudio';
 import DynamicCompleteDashboard from './components/DynamicCompleteDashboard';
+import DecisionSupport from './components/DecisionSupport';
 import type { CalculationMode, EmpiricalBiomassSchedule, ParameterDefinition, ResultSourceState, ScenarioSelection, SimulationResult } from './types';
 
 type RuntimeSource = 'python' | 'fallback';
-type TabId = 'overview' | 'configure' | 'results' | 'reports' | 'advanced' | 'dynamic-proxy';
+type TabId = 'overview' | 'configure' | 'results' | 'reports' | 'advanced' | 'dynamic-proxy' | 'decision-support';
 type SavedRun = { label: string; result: SimulationResult; scenario: ScenarioSelection; savedAt: string };
 type Artifact = { name: string; type: string; description: string; url?: string; available: boolean; warning?: string };
 
@@ -139,6 +140,7 @@ export default function App() {
     ['overview', 'Overview', Gauge], ['configure', 'Configure', Settings2], ['results', 'Results', BarChart3],
     ['reports', 'Reports', FileDown], ['advanced', 'Advanced', Wrench],
     ['dynamic-proxy', 'Dynamic proxy', Activity],
+    ['decision-support', 'Decision support', GitCompare],
   ];
 
   return <div className="app-shell">
@@ -149,11 +151,11 @@ export default function App() {
         <span className="product-name"><strong>GreenHub</strong><small>Process model</small></span>
       </button>
       <div className="top-actions">
-        <span className={`model-status ${runtime}`}><CircleDot size={12}/>{tab === 'dynamic-proxy' ? 'Unvalidated proxy' : sourceState.label}</span>
-        {tab !== 'dynamic-proxy' && <button className="run-button" onClick={() => executeRun()} disabled={running}><Play size={15}/>{running ? 'Calculating…' : 'Run annual plan'}</button>}
+        <span className={`model-status ${runtime}`}><CircleDot size={12}/>{tab === 'dynamic-proxy' || tab === 'decision-support' ? 'Unvalidated model' : sourceState.label}</span>
+        {tab !== 'dynamic-proxy' && tab !== 'decision-support' && <button className="run-button" onClick={() => executeRun()} disabled={running}><Play size={15}/>{running ? 'Calculating…' : 'Run annual plan'}</button>}
       </div>
     </header>
-    {tab !== 'dynamic-proxy' && <div className={`runtime-banner ${runtime} source-${sourceState.status}`} role="status">
+    {tab !== 'dynamic-proxy' && tab !== 'decision-support' && <div className={`runtime-banner ${runtime} source-${sourceState.status}`} role="status">
       <span>{sourceState.label}</span>
       <p>{sourceState.detail}{sourceState.fixture_version ? ` Fixture: ${sourceState.fixture_version}.` : ''}</p>
     </div>}
@@ -162,6 +164,7 @@ export default function App() {
     </nav>
     <main className="workspace">
       {tab === 'dynamic-proxy' && <DynamicCompleteDashboard/>}
+      {tab === 'decision-support' && <DecisionSupport/>}
       {tab === 'overview' && <section className="panel proxy-entry"><strong>Explore the complete dynamic proxy</strong><p>30,000 t/year fresh grass · seasonal supply · monthly products · energy and assumption traceability.</p><button className="secondary" onClick={() => setTab('dynamic-proxy')}>Open opt-in proxy dashboard</button></section>}
       {running && <section className="run-progress" role="status" aria-live="polite"><span className="progress-spinner"/><div><strong>Calculating the annual GreenHub plan</strong><p>Processing monthly feed availability, unit performance, products, utilities and balance checks.</p></div></section>}
       {tab === 'overview' && <Overview result={result} activeUnits={activeUnits} runtime={runtime} limitations={limitations} onConfigure={() => setTab('configure')} onResults={() => setTab('results')}/>} 

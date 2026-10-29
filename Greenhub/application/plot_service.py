@@ -46,6 +46,11 @@ class PlotService:
                 "Unit", "COD", None, "kg/hr", ("component_fate.cod_kg_hr",), **common,
             ),
             PlotSpecification(
+                "STATE-MOISTURE", "Process-state moisture transition", "integrated_system",
+                "Unit", "Moisture fraction", None, "fraction",
+                ("process_state_snapshots.moisture_fraction", "process_state_snapshots.outlet_state.moisture_fraction"), **common,
+            ),
+            PlotSpecification(
                 "INVENTORY-EVOLUTION", "Quasi-dynamic inventory evolution", "integrated_system",
                 "Inventory", "Final inventory", None, "kg", ("inventory_evolution.final_kg",), **common,
             ),
@@ -159,8 +164,41 @@ class PlotService:
             series = (PlotSeries("flow", "Flow", tuple(x["unit_id"] for x in result.process_state_snapshots), tuple(x["flow_kg_hr"] for x in result.process_state_snapshots)),)
         elif plot_id == "STATE-COD":
             series = (PlotSeries("cod", "COD", tuple(x["unit_id"] for x in result.component_fate), tuple(x["cod_kg_hr"] for x in result.component_fate)),)
+        elif plot_id == "STATE-MOISTURE":
+            snapshots = result.process_state_snapshots
+            x = tuple(item["unit_id"] for item in snapshots)
+            inlet = tuple(item.get("moisture_fraction") for item in snapshots)
+            outlet = tuple(
+                (item.get("outlet_state") or {}).get("moisture_fraction")
+                for item in snapshots
+            )
+            series = (
+                PlotSeries("inlet_moisture", "Inlet moisture", x, inlet),
+                PlotSeries("outlet_moisture", "Outlet moisture", x, outlet),
+            )
         elif plot_id == "INVENTORY-EVOLUTION":
-            series = (PlotSeries("inventory", "Final inventory", tuple(x["inventory_id"] for x in result.inventory_evolution), tuple(x["final_kg"] for x in result.inventory_evolution)),)
+            timelines = [
+                (item.get("timeline") or [], item)
+                for item in result.inventory_evolution
+            ]
+            if timelines and any(rows for rows, _ in timelines):
+                rows, item = timelines[0]
+                series = (
+                    PlotSeries(
+                        "inventory",
+                        "Inventory",
+                        tuple(row["time"] for row in rows),
+                        tuple(row["inventory_kg"] for row in rows),
+                    ),
+                    PlotSeries(
+                        "degradation",
+                        "Degradation",
+                        tuple(row["time"] for row in rows),
+                        tuple(row["degradation_kg"] for row in rows),
+                    ),
+                )
+            else:
+                series = (PlotSeries("inventory", "Final inventory", tuple(x["inventory_id"] for x in result.inventory_evolution), tuple(x["final_kg"] for x in result.inventory_evolution)),)
         elif plot_id.startswith("SEASONAL-"):
             series = self._build_seasonal_plot(result, plot_id)
         else:

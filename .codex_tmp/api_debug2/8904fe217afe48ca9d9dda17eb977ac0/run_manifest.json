@@ -1,0 +1,35 @@
+{
+  "error": "dict contains fields not in fieldnames: 'terminal_gases_kg'",
+  "run_id": "8904fe217afe48ca9d9dda17eb977ac0",
+  "state_history": [
+    [
+      "validating",
+      "2026-10-28T13:59:42.041366+00:00"
+    ],
+    [
+      "resolving_parameters",
+      "2026-10-28T13:59:42.093288+00:00"
+    ],
+    [
+      "building_system",
+      "2026-10-28T13:59:42.109240+00:00"
+    ],
+    [
+      "simulating",
+      "2026-10-28T13:59:42.109240+00:00"
+    ],
+    [
+      "validating_results",
+      "2026-10-28T13:59:58.873737+00:00"
+    ],
+    [
+      "generating_outputs",
+      "2026-10-28T13:59:58.904194+00:00"
+    ],
+    [
+      "failed",
+      "2026-10-28T13:59:59.063713+00:00"
+    ]
+  ],
+  "status": "failed"
+}

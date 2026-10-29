@@ -1,0 +1,267 @@
+# Feedstock Resolution Readiness
+
+This report is read-only. It does not activate calculations, enable dynamic resolution, or interpolate seasonal data.
+
+## Category Counts
+
+- `blocked_missing`: 137
+- `blocked_no_equation_mapping`: 1
+- `blocked_wrong_basis`: 1
+- `requires_user_selection`: 200
+- `resolvable_now`: 12
+
+## Resolvable Fields
+
+- `ash_dry_basis`
+- `bulk_density`
+- `carbon_dry_basis`
+- `carbon_to_nitrogen_ratio`
+- `extractive_sugars_dry_basis`
+- `hydrogen_dry_basis`
+- `moisture_wet_basis`
+- `nitrogen_dry_basis`
+- `oxygen_dry_basis`
+- `sulfur_dry_basis`
+- `total_protein_dry_basis`
+- `volatile_solids_dry_basis`
+
+## Blocked Fields
+
+- `S1/H1.1_cd`
+- `S1/H1.1_hg`
+- `S1/H1.2_cd`
+- `S1/H1.2_hg`
+- `S1/H1.2_se`
+- `S10/H1.1_pb`
+- `S10/H1.1_se`
+- `S10/H1.2_cd`
+- `S10/H1.2_pb`
+- `S11/H1.1_cd`
+- `S11/H1.1_hg`
+- `S11/H1.1_se`
+- `S2/H1.1_cd`
+- `S2/H1.1_pb`
+- `S2/H1.1_se`
+- `S6/H1.1_cd`
+- `S6/H1.1_se`
+- `S9/H1.1_cd`
+- `S9/H1.1_hg`
+- `S9/H1.1_se`
+- `S9/H1.2_cd`
+- `S9/H1.2_hg`
+- `S9/H1.2_se`
+- `acid_detergent_fibre_dry_basis`
+- `amino_acid_profile`
+- `bulk_density`
+- `bulk_porosity`
+- `cellulose_dry_basis`
+- `chlorine_dry_basis`
+- `contaminant_se`
+- `ensiled_sulfur_dry_basis`
+- `feed_COD`
+- `feed_apparent_viscosity`
+- `feed_calcium`
+- `feed_conductivity`
+- `feed_density`
+- `feed_fibre_length`
+- `feed_heat_capacity`
+- `feed_insoluble_protein`
+- `feed_lipids`
+- `feed_magnesium`
+- `feed_pH`
+- `feed_particle_size_distribution`
+- `feed_slurry_density`
+- `feed_soluble_protein`
+- `feed_soluble_sugars`
+- `feed_thermal_conductivity`
+- `feed_water_holding_capacity`
+- `glf_microbiology`
+- `glf_orp`
+- `glf_osmolality`
+- `hemicellulose_dry_basis`
+- `higher_heating_value`
+- `lignin_dry_basis`
+- `lipids_dry_basis`
+- `liquid_acetate`
+- `liquid_alkalinity`
+- `liquid_ammonium_nitrogen`
+- `liquid_bod5`
+- `liquid_buffer_capacity`
+- `liquid_butyrate`
+- `liquid_density`
+- `liquid_electrical_conductivity`
+- `liquid_lactate`
+- `liquid_nitrate_nitrogen`
+- `liquid_orthophosphate_phosphorus`
+- `liquid_propionate`
+- `liquid_soluble_cod`
+- `liquid_total_ammoniacal_nitrogen`
+- `liquid_total_cod`
+- `liquid_total_inorganic_carbon`
+- `liquid_total_phosphorus`
+- `liquid_total_potassium`
+- `liquid_total_solids`
+- `liquid_total_vfa`
+- `liquid_viscosity`
+- `liquid_volatile_solids`
+- `lower_heating_value`
+- `median_particle_size`
+- `neutral_detergent_fibre_dry_basis`
+- `non_protein_nitrogen_dry_basis`
+- `seasonal_dry_matter_yield`
+- `seasonal_fresh_matter_yield`
+- `silica_in_ash`
+- `solid_electrical_conductivity`
+- `solid_ph`
+- `specific_heat_capacity`
+- `starch_dry_basis`
+- `thermal_conductivity`
+- `true_protein_dry_basis`
+- `water_soluble_carbohydrates_dry_basis`
+
+## User-Selection-Only Fields
+
+- `S1/H1.1_as`
+- `S1/H1.1_cr`
+- `S1/H1.1_cu`
+- `S1/H1.1_mn`
+- `S1/H1.1_ni`
+- `S1/H1.1_pb`
+- `S1/H1.1_se`
+- `S1/H1.1_zn`
+- `S1/H1.2_as`
+- `S1/H1.2_cr`
+- `S1/H1.2_cu`
+- `S1/H1.2_mn`
+- `S1/H1.2_ni`
+- `S1/H1.2_pb`
+- `S1/H1.2_zn`
+- `S10/H1.1_as`
+- `S10/H1.1_cd`
+- `S10/H1.1_cu`
+- `S10/H1.1_mn`
+- `S10/H1.1_ni`
+- `S10/H1.1_zn`
+- `S10/H1.2_as`
+- `S10/H1.2_cu`
+- `S10/H1.2_mn`
+- `S10/H1.2_ni`
+- `S10/H1.2_se`
+- `S10/H1.2_zn`
+- `S10_H1_1_bap`
+- `S10_H1_1_sum16pah`
+- `S11/H1.1_as`
+- `S11/H1.1_cr`
+- `S11/H1.1_cu`
+- `S11/H1.1_mn`
+- `S11/H1.1_ni`
+- `S11/H1.1_pb`
+- `S11/H1.1_zn`
+- `S2/H1.1_as`
+- `S2/H1.1_cu`
+- `S2/H1.1_ensiled_bmp15`
+- `S2/H1.1_ensiled_moisture_loss`
+- `S2/H1.1_ensiled_vs`
+- `S2/H1.1_fresh_bmp15`
+- `S2/H1.1_fresh_moisture_loss`
+- `S2/H1.1_fresh_vs`
+- `S2/H1.1_mn`
+- `S2/H1.1_ni`
+- `S2/H1.1_zn`
+- `S6/H1.1_as`
+- `S6/H1.1_cu`
+- `S6/H1.1_mn`
+- `S6/H1.1_ni`
+- `S6/H1.1_pb`
+- `S6/H1.1_zn`
+- `S9/H1.1_as`
+- `S9/H1.1_cr`
+- `S9/H1.1_cu`
+- `S9/H1.1_mn`
+- `S9/H1.1_ni`
+- `S9/H1.1_pb`
+- `S9/H1.1_zn`
+- `S9/H1.2_as`
+- `S9/H1.2_cr`
+- `S9/H1.2_cu`
+- `S9/H1.2_ensiled_bmp15`
+- `S9/H1.2_ensiled_moisture_loss`
+- `S9/H1.2_ensiled_vs`
+- `S9/H1.2_fresh_bmp15`
+- `S9/H1.2_fresh_moisture_loss`
+- `S9/H1.2_fresh_vs`
+- `S9/H1.2_mn`
+- `S9/H1.2_ni`
+- `S9/H1.2_pb`
+- `S9/H1.2_zn`
+- `acid_detergent_fibre_dry_basis`
+- `ash_dry_basis`
+- `bmp_boyle`
+- `bmp_buswell`
+- `carbon_dry_basis`
+- `cellulose_dry_basis`
+- `clippings_tn`
+- `clippings_toc`
+- `contaminant_cd`
+- `contaminant_hg`
+- `contaminant_pb`
+- `ensiled_ash`
+- `ensiled_bmp_boyle`
+- `ensiled_bmp_buswell`
+- `ensiled_carbon`
+- `ensiled_cn_ratio`
+- `ensiled_fixed_carbon`
+- `ensiled_hydrogen`
+- `ensiled_nitrogen`
+- `ensiled_oxygen`
+- `ensiled_sulfur_dry_basis`
+- `ensiled_volatile_matter`
+- `fall_carbs`
+- `feed_cellulose_dm`
+- `feed_hemicellulose_dm`
+- `feed_lignin_dm`
+- `feed_total_phosphorus_dm`
+- `feed_total_potassium_dm`
+- `feed_total_sodium_dm`
+- `fresh_fixed_carbon`
+- `glf_k2o`
+- `glf_n`
+- `glf_p2o5`
+- `glf_ph`
+- `hemicellulose_dry_basis`
+- `higher_heating_value`
+- `irg_chloride`
+- `irg_magnesium`
+- `irg_phosphate`
+- `irg_potassium`
+- `irg_sulfate`
+- `juice_fructose`
+- `juice_glucose`
+- `juice_sucrose`
+- `juice_yield`
+- `lignin_dry_basis`
+- `liquid_soluble_cod`
+- `liquid_total_cod`
+- `liquid_total_phosphorus`
+- `liquid_total_potassium`
+- `liquid_total_solids`
+- `liquid_volatile_solids`
+- `mix_tn`
+- `mix_toc`
+- `moisture_wet_basis`
+- `neutral_detergent_fibre_dry_basis`
+- `nitrogen_dry_basis`
+- `spring_carbs`
+- `starch_dry_basis`
+- `sulfur_dry_basis`
+- `total_solids_wet_basis`
+- `volatile_solids_dry_basis`
+- `water_soluble_carbohydrates_dry_basis`
+
+## Override Rule
+
+Actual measured GreenHub data overrides every proxy candidate, including direct literature rows.
+
+## Activation Rule
+
+No candidate in this report is consumed by model calculations. Seasonal data are not interpolated by default.

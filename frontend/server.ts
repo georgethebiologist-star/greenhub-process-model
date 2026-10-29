@@ -11,6 +11,19 @@ async function startServer() {
   app.use(cors());
   app.use(express.json({ limit: '2mb' }));
 
+  // Route scientific requests to Python; never synthesize fallback results.
+  app.use('/api/v1', async (req, res) => {
+    const backend=(process.env.GREENHUB_BACKEND_URL || 'http://127.0.0.1:8000').replace(/\/$/,'');
+    try {
+      const response=await fetch(`${backend}${req.originalUrl}`,{method:req.method,headers:{'Content-Type':'application/json'},body:['GET','HEAD'].includes(req.method)?undefined:JSON.stringify(req.body)});
+      res.status(response.status);
+      for(const header of ['content-type','content-disposition']) {const value=response.headers.get(header);if(value)res.setHeader(header,value);}
+      res.send(Buffer.from(await response.arrayBuffer()));
+    } catch {
+      res.status(502).json({error:{code:'backend_unavailable',message:'The Python GreenHub backend is unavailable. Start python -m api or configure GREENHUB_BACKEND_URL. No simulated fallback was generated.'}});
+    }
+  });
+
   // In-memory simulation runs cache
   const runCache = new Map<string, any>();
 

@@ -73,7 +73,7 @@ class SimulationService:
             value is not None
             for value in (
                 request.start_date, request.end_date, request.time_step,
-                request.annual_biomass_target, request.operating_schedule,
+                request.annual_biomass_target,
                 request.feed_supply_profile_id, request.biomass_schedule,
             )
         ) or request.initial_storage_inventory.total_mass_kg > 0.0
@@ -92,8 +92,6 @@ class SimulationService:
                 grid = generate_time_grid(request.start_date, request.end_date, request.time_step or "monthly")
                 expected_resolution = "daily" if all(item.duration_days == 1 for item in grid) else "monthly"
                 profile = None if request.biomass_schedule is not None else self.feed_profiles.get_profile(request.feed_supply_profile_id)
-                if request.biomass_schedule is not None and expected_resolution != "monthly":
-                    raise ValueError("The shared annual biomass schedule currently supports monthly empirical runs only.")
                 if profile is not None and profile.resolution != expected_resolution:
                     raise ValueError(f"Feed profile '{profile.profile_id}' is {profile.resolution}, not {expected_resolution}.")
                 if expected_resolution == "daily" and request.operating_schedule is None:
@@ -144,6 +142,8 @@ class SimulationService:
             model_overrides = self.parameters.resolver.model_overrides(context.resolved_parameters)
             selection = request.scenarios
             seasonal = None
+            storage_report = None
+            storage_input_mass_kg = None
             if request.resolution_mode == ResolutionMode.QUASI_DYNAMIC:
                 context.transition(RunState.SIMULATING)
                 seasonal = self.seasonal.run(
@@ -162,6 +162,22 @@ class SimulationService:
                     parameter_overrides=model_overrides or None,
                 )
                 context.transition(RunState.SIMULATING)
+                if request.wet_feed_rate_kg_hr is not None or request.feed_composition or request.storage_conditions is not None or request.plant_capacity_kg_hr is not None:
+                    from Greenhub.storage import apply_storage_conditions
+                    feed = model.streams["feed"]
+                    rate = request.wet_feed_rate_kg_hr if request.wet_feed_rate_kg_hr is not None else float(feed.F_mass)
+                    if request.plant_capacity_kg_hr is not None:
+                        rate = min(rate, request.plant_capacity_kg_hr)
+                    fractions = request.feed_composition or {c.ID: float(feed.imass[c.ID])/float(feed.F_mass) for c in feed.chemicals if feed.imass[c.ID]}
+                    masses = {k:rate*v for k,v in fractions.items()}
+                    if request.storage_conditions is not None:
+                        storage_input_mass_kg = sum(masses.values())
+                        storage_report = apply_storage_conditions(masses, request.storage_conditions, feed.chemicals.IDs)
+                        masses = storage_report["retained_component_masses_kg"]
+                    unknown=set(masses)-set(feed.chemicals.IDs)
+                    if unknown: raise ValueError("Unknown feed components: " + ", ".join(sorted(unknown)))
+                    feed.empty()
+                    for name, mass in masses.items(): feed.imass[name]=mass
                 model.simulate()
             context.model = model
             context.transition(RunState.VALIDATING_RESULTS)
@@ -174,6 +190,53 @@ class SimulationService:
             products = build_products(model)
             utilities = build_utilities(units)
             state_outputs = build_state_outputs(model, context.resolved_parameters, request.resolution_mode.value)
+            if seasonal is not None:
+                seasonal_summary = seasonal.seasonal_summary
+                state_outputs["process_state_history"] = [
+                    {
+                        "time": row.get("time"),
+                        "inlet": row.get("inlet"),
+                        "states": list(row.get("outlets") or ()),
+                        "status": row.get("status", "calculated"),
+                    }
+                    for row in seasonal.process_state_series
+                ]
+                state_outputs["inventory_evolution"] = [{
+                    "inventory_id": "biomass_storage",
+                    "initial_kg": float(seasonal_summary.get("initial_inventory_kg", 0.0)),
+                    "final_kg": float(seasonal_summary.get("final_inventory_kg", 0.0)),
+                    "average_kg": float(seasonal_summary.get("average_inventory_kg", 0.0)),
+                    "peak_kg": float(seasonal_summary.get("peak_inventory_kg", 0.0)),
+                    "degradation_kg": float(seasonal_summary.get("total_degradation_kg", 0.0)),
+                    "timeline": [
+                        {
+                            "time": row.get("time"),
+                            "inventory_kg": float(row.get("inventory_remaining_kg", 0.0)),
+                            "degradation_kg": float(row.get("degradation_loss_kg", 0.0)),
+                            "overflow_kg": float(row.get("overflow_kg", 0.0)),
+                        }
+                        for row in seasonal.storage_inventory_series
+                    ],
+                    "status": "calculated_from_seasonal_storage_inventory",
+                }]
+            elif storage_report is not None:
+                retained_mass = storage_report.get("total_retained_kg")
+                if retained_mass is None:
+                    retained_mass = sum((storage_report.get("retained_component_masses_kg") or {}).values())
+                state_outputs["inventory_evolution"] = [{
+                    "inventory_id": "biomass_storage",
+                    "initial_kg": storage_input_mass_kg,
+                    "final_kg": float(retained_mass),
+                    "average_kg": float(retained_mass),
+                    "peak_kg": storage_input_mass_kg,
+                    "degradation_kg": None,
+                    "exported_kg": storage_report.get("total_exported_kg"),
+                    "timeline": [],
+                    "status": "calculated_from_steady_storage_report",
+                    "basis": "steady_state_storage_condition",
+                    "warning": "No time history exists for a steady-state storage calculation; average and peak are reported on the steady-state input basis.",
+                    "fate_status": storage_report.get("fate_status"),
+                }]
             process_areas = build_process_areas(model, request.calculation_mode.value)
             graph = self.graphs.build_process_graph(
                 model, run_id, request.calculation_mode.value
@@ -230,7 +293,7 @@ class SimulationService:
                 utilities=utilities,
                 balances=balances,
                 validation=validation,
-                warnings=tuple(dict.fromkeys((*model.warnings, *(seasonal.warnings if seasonal else ())))),
+                warnings=tuple(dict.fromkeys((*model.warnings, *(seasonal.warnings if seasonal else ()), *(storage_report["warnings"]+storage_report["blockers"] if storage_report else ())))),
                 limitations=limitations,
                 resolved_parameters=build_parameter_results(context.resolved_parameters),
                 model_maturity={item.process_area_id: item.model_maturity for item in process_areas},
@@ -255,7 +318,7 @@ class SimulationService:
                         "process_state_series": seasonal.process_state_series,
                         "seasonal_summary": seasonal.seasonal_summary,
                     }
-                    if seasonal else {}
+                    if seasonal else ({"storage_inventory_series": ({"time": "steady_state_rate_basis", "incoming_residence": storage_report},)} if storage_report else {})
                 ),
             )
             context.result = result

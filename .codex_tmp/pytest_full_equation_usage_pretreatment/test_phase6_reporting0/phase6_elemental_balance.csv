@@ -1,0 +1,12 @@
+element,external_inlet_kg_hr,external_outlet_kg_hr,residual_kg_hr,status
+carbon,0.6341851123499262,0.6341851123499262,0.0,validated
+hydrogen,0.1785603878868618,0.1785603878868618,0.0,validated
+oxygen,1.0738029549990173,1.0738029549990176,-2.220446049250313e-16,validated
+nitrogen,0.00011958785768446767,0.00011958785768446767,0.0,validated
+phosphorus,0.0,0.0,0.0,validated
+sulfur,0.0007436088282345934,0.0007436088282345934,0.0,validated
+potassium,0.0,0.0,0.0,validated
+sodium,0.0,0.0,0.0,validated
+magnesium,0.0,0.0,0.0,validated
+calcium,0.0,0.0,0.0,validated
+chloride,0.0,0.0,0.0,validated

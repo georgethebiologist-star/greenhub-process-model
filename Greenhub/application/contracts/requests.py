@@ -101,6 +101,11 @@ class BiomassSchedule:
     peak_date: str = "2026-07-31"
     spread_days: float = 55.0
     active_months: tuple[int, ...] = tuple(range(1, 13))
+    source_id: str = "roadside_grass"
+    location: str = "Netherlands"
+    accessible_area_ha: float | None = None
+    harvest_yield_tonnes_per_ha: float | None = None
+    collection_efficiency: float = 1.0
 
     def __post_init__(self) -> None:
         numeric = (
@@ -124,6 +129,13 @@ class BiomassSchedule:
             or len(set(self.active_months)) != len(self.active_months)
         ):
             raise ValueError("active_months must contain unique month numbers from 1 to 12.")
+        if not str(self.source_id).strip() or not str(self.location).strip():
+            raise ValueError("Biomass source_id and location must be non-empty.")
+        for value in (self.accessible_area_ha, self.harvest_yield_tonnes_per_ha):
+            if value is not None and (isinstance(value, bool) or not isfinite(float(value)) or value < 0.0):
+                raise ValueError("Accessible area and harvest yield must be finite non-negative numbers.")
+        if not 0.0 <= self.collection_efficiency <= 1.0:
+            raise ValueError("collection_efficiency must be within [0, 1].")
         try:
             start, end, peak = map(date.fromisoformat, (self.season_start, self.season_end, self.peak_date))
         except (TypeError, ValueError) as error:
@@ -192,8 +204,21 @@ class SimulationRequest:
     biomass_schedule: BiomassSchedule | None = None
     initial_storage_inventory: InitialStorageInventory = field(default_factory=InitialStorageInventory)
     feed_supply_profile_id: str | None = None
+    wet_feed_rate_kg_hr: float | None = None
+    plant_capacity_kg_hr: float | None = None
+    feed_composition: dict[str, float] = field(default_factory=dict)
+    storage_conditions: dict[str, object] | None = None
 
     def __post_init__(self) -> None:
+        for name in ("wet_feed_rate_kg_hr", "plant_capacity_kg_hr"):
+            value = getattr(self, name)
+            if value is not None and (isinstance(value, bool) or not isfinite(float(value)) or value <= 0):
+                raise ValueError(f"{name} must be finite and greater than zero.")
+        if self.feed_composition and (any(not isfinite(float(v)) or v < 0 for v in self.feed_composition.values()) or abs(sum(self.feed_composition.values())-1)>1e-8):
+            raise ValueError("feed_composition must contain nonnegative wet mass fractions summing to one; overlapping fractions are not allowed.")
+        if self.storage_conditions is not None:
+            from Greenhub.storage import apply_storage_conditions
+            apply_storage_conditions({}, self.storage_conditions)
         if self.schema_version != SCHEMA_VERSION:
             raise ValueError(
                 f"Unsupported SimulationRequest schema '{self.schema_version}'; expected '{SCHEMA_VERSION}'."
@@ -234,6 +259,7 @@ class SimulationRequest:
             "export_formats", "strict_validation", "user_notes",
             "start_date", "end_date", "time_step", "annual_biomass_target",
             "operating_schedule", "biomass_schedule", "initial_storage_inventory", "feed_supply_profile_id",
+            "wet_feed_rate_kg_hr", "plant_capacity_kg_hr", "feed_composition", "storage_conditions",
         }
         unknown_fields = sorted(set(payload) - allowed_fields)
         if unknown_fields:
@@ -276,6 +302,11 @@ class SimulationRequest:
                 peak_date=str(biomass_payload.get("peak_date", "2026-07-31")),
                 spread_days=float(biomass_payload.get("spread_days", 55.0)),
                 active_months=tuple(biomass_payload.get("active_months", range(1, 13))),
+                source_id=str(biomass_payload.get("source_id", "roadside_grass")),
+                location=str(biomass_payload.get("location", "Netherlands")),
+                accessible_area_ha=(None if biomass_payload.get("accessible_area_ha") is None else float(biomass_payload["accessible_area_ha"])),
+                harvest_yield_tonnes_per_ha=(None if biomass_payload.get("harvest_yield_tonnes_per_ha") is None else float(biomass_payload["harvest_yield_tonnes_per_ha"])),
+                collection_efficiency=float(biomass_payload.get("collection_efficiency", 1.0)),
             ) if biomass_payload else None
         )
         inventory_payload = payload.get("initial_storage_inventory") or {}
@@ -332,4 +363,8 @@ class SimulationRequest:
             biomass_schedule=biomass_schedule,
             initial_storage_inventory=inventory,
             feed_supply_profile_id=payload.get("feed_supply_profile_id"),
+            wet_feed_rate_kg_hr=payload.get("wet_feed_rate_kg_hr"),
+            plant_capacity_kg_hr=payload.get("plant_capacity_kg_hr"),
+            feed_composition=dict(payload.get("feed_composition") or {}),
+            storage_conditions=payload.get("storage_conditions"),
         )

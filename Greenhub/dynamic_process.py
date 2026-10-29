@@ -139,6 +139,8 @@ class DynamicRawPressPolicy:
     proxy_class: str = "none"
     proxy_enabled: bool = False
     partial_unmapped_allowed: bool = False
+    press_energy_kwh_per_t_wet_feed: float | None = None
+    water_addition_kg_per_kg_wet_feed: float = 0.0
     status: str = "blocked_missing_values"
     activation_status: str = "report_only_not_model_active"
 
@@ -395,6 +397,8 @@ class DynamicProteinScenarioConfig:
     first_centrifuge_policy_id: str = DEFAULT_FIRST_CENTRIFUGE_POLICY_ID
     second_centrifuge_policy_id: str = DEFAULT_SECOND_CENTRIFUGE_POLICY_ID
     drying_target_moisture_fraction: float = BASELINE_TARGET_MOISTURE_FRACTION
+    pretreatment_water_addition_kg_per_kg_wet_feed: float = 0.0
+    press_energy_kwh_per_t_wet_feed: float | None = None
     include_press_cake_in_biogas: bool = False
     external_scope_override: bool = False
     allow_proxy: bool = True
@@ -2308,6 +2312,11 @@ def build_biogas_residual_mix(
         if supernatant_vs is not None and policy and policy.bmp_m3_ch4_per_kg_vs is not None
         else None
     )
+    unmodeled_vs = (
+        max(total_vs - supernatant_vs, 0.0)
+        if total_vs is not None and supernatant_vs is not None
+        else None
+    )
     readiness = {
         "has_carbohydrates": carbohydrates > 0.0,
         "has_proteins": proteins > 0.0,
@@ -2350,8 +2359,14 @@ def build_biogas_residual_mix(
             "estimated_cell_debris_vs_kg_per_kg_feed": debris_vs,
             "estimated_residual_vs_kg_per_kg_feed": total_vs,
             "bmp_eligible_vs_kg_per_kg_feed": supernatant_vs,
+            "bmp_basis_stream": "final_supernatant_only" if supernatant_vs is not None else None,
+            "unmodeled_vs_kg_per_kg_feed": unmodeled_vs,
             "bmp_m3_ch4_per_kg_vs": policy.bmp_m3_ch4_per_kg_vs if policy else None,
             "methane_potential_m3_ch4_per_kg_feed": methane_potential,
+            "methane_potential_basis": (
+                "supernatant_vs × proxy_bmp; cell_debris and other residual VS excluded"
+                if methane_potential is not None else None
+            ),
             "ad_kinetics_run": False,
             "evidence_class": (
                 "mixed_proxy_and_engineering_proxy_closure"
@@ -2402,7 +2417,11 @@ def preview_baseline_dynamic_operational_scenario(
     )
     feedstock_bundle = feedstock_bundle or build_dynamic_feedstock_input_bundle(time_label)
     pool_policy = pool_policy or default_literature_pool_policy()
-    pools = build_dynamic_feedstock_pools(feedstock_bundle, pool_policy)
+    pools = (
+        dynamic_press_bundle.feed_pools
+        if dynamic_press_bundle is not None
+        else build_dynamic_feedstock_pools(feedstock_bundle, pool_policy)
+    )
     press_bundle = dynamic_press_bundle or build_dynamic_press_preview_bundle(pools)
     if press_bundle.time_label != pools.time_label:
         raise ValueError("Dynamic press bundle time label does not match the feedstock bundle.")
@@ -2511,6 +2530,8 @@ def preview_proxy_enabled_dynamic_operational_scenario(
     pool_policy: DynamicFeedstockPoolPolicy | None = None,
     proxy_closure_policy: DynamicProxyClosurePolicy | None = None,
     protein_extraction_policy_override: DynamicProteinExtractionPolicy | None = None,
+    pretreatment_water_addition_kg_per_kg_wet_feed: float = 0.0,
+    press_energy_kwh_per_t_wet_feed: float | None = None,
 ) -> DynamicPathwayPreview:
     """Build the opt-in dataset-backed protein pathway without model activation."""
 
@@ -2522,6 +2543,7 @@ def preview_proxy_enabled_dynamic_operational_scenario(
     feedstock_bundle = feedstock_bundle or build_dynamic_feedstock_input_bundle(time_label)
     pool_policy = pool_policy or default_literature_pool_policy()
     pools = build_dynamic_feedstock_pools(feedstock_bundle, pool_policy)
+    pools = pools.with_process_water(pretreatment_water_addition_kg_per_kg_wet_feed)
 
     press_kwargs: dict[str, object] = {}
     if allow_proxy:
@@ -2552,6 +2574,19 @@ def preview_proxy_enabled_dynamic_operational_scenario(
         if proxy_closure_policy is not None
         else build_proxy_raw_press_protein_policy(allow_proxy=allow_proxy)
     )
+    if raw_press_policy is not None and (
+        press_energy_kwh_per_t_wet_feed is not None
+        or pretreatment_water_addition_kg_per_kg_wet_feed
+    ):
+        raw_press_policy = replace(
+            raw_press_policy,
+            press_energy_kwh_per_t_wet_feed=press_energy_kwh_per_t_wet_feed,
+            water_addition_kg_per_kg_wet_feed=pretreatment_water_addition_kg_per_kg_wet_feed,
+            provenance={
+                **raw_press_policy.provenance,
+                "press_energy_kwh_per_t_wet_feed": press_energy_kwh_per_t_wet_feed,
+            },
+        )
     scenario = DynamicOperationalScenario(
         scenario_id=f"proxy_enabled_{selected.value}_protein_pathway_v1",
         scenario_name=f"Proxy-enabled report-only {selected.value} protein pathway",
@@ -2700,6 +2735,11 @@ def _validate_dynamic_protein_scenario_config(config: DynamicProteinScenarioConf
         or not 0.0 <= config.drying_target_moisture_fraction < 1.0
     ):
         raise ValueError("drying_target_moisture_fraction must be >= 0 and < 1.")
+    if (
+        not isfinite(config.pretreatment_water_addition_kg_per_kg_wet_feed)
+        or config.pretreatment_water_addition_kg_per_kg_wet_feed < 0.0
+    ):
+        raise ValueError("pretreatment_water_addition_kg_per_kg_wet_feed must be finite and non-negative.")
     selected_method = _coerce_method(config.protein_method)
     generic_fraction = config.generic_protein_recovery_fraction
     if generic_fraction is not None:
@@ -2711,6 +2751,11 @@ def _validate_dynamic_protein_scenario_config(config: DynamicProteinScenarioConf
             raise ValueError("generic_protein_policy_id is required for explicit generic recovery.")
         if not config.generic_protein_provenance_note.strip():
             raise ValueError("generic_protein_provenance_note is required for explicit generic recovery.")
+    if config.press_energy_kwh_per_t_wet_feed is not None and (
+        not isfinite(config.press_energy_kwh_per_t_wet_feed)
+        or config.press_energy_kwh_per_t_wet_feed < 0.0
+    ):
+        raise ValueError("press_energy_kwh_per_t_wet_feed must be finite and non-negative.")
     _validate_policy_id(
         config.raw_press_policy_id,
         SUPPORTED_RAW_PRESS_POLICY_IDS,
@@ -2800,6 +2845,8 @@ def run_dynamic_protein_scenario_step(
         pool_policy=pool_policy,
         proxy_closure_policy=closure_policy,
         protein_extraction_policy_override=extraction_override,
+        pretreatment_water_addition_kg_per_kg_wet_feed=config.pretreatment_water_addition_kg_per_kg_wet_feed,
+        press_energy_kwh_per_t_wet_feed=config.press_energy_kwh_per_t_wet_feed,
     )
     units = _pathway_units(preview)
     policy_ids = {

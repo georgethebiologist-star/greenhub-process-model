@@ -1,0 +1,61 @@
+{
+  "average_inventory_kg": 76.0,
+  "average_throughput_kg_hr": 1.0,
+  "element_residuals_kg": {
+    "calcium": 0.0,
+    "carbon": 0.0,
+    "chloride": 2.6020852139652106e-18,
+    "hydrogen": 0.0,
+    "magnesium": 0.0,
+    "nitrogen": 0.0,
+    "oxygen": 0.0,
+    "phosphorus": 0.0,
+    "potassium": 0.0,
+    "sodium": 2.6020852139652106e-18,
+    "sulfur": -2.6020852139652106e-18
+  },
+  "final_inventory_kg": 76.0,
+  "incoming_residence_net_loss_kg": 0.0,
+  "initial_inventory_kg": 100,
+  "missing_data_warning_count": 2,
+  "peak_inventory_kg": 76.0,
+  "peak_throughput_kg_hr": 1.0,
+  "process_mass_residual_kg": -1.6620305132164503e-10,
+  "storage_mass_residual_kg": 0.0,
+  "total_biomass_available_kg": 0.0,
+  "total_biomass_collected_kg": 0.0,
+  "total_biomass_processed_kg": 24.0,
+  "total_biomass_uncollected_kg": 0.0,
+  "total_degradation_kg": 0.0,
+  "total_overflow_kg": 0.0,
+  "total_products_kg": {
+    "ammonium_product": 0.23934723653780654,
+    "biomethane": 0.02476329749908424,
+    "dry_protein_product": 0.19230446359636524,
+    "nutrient_rich_solids": 0.13635146791527508,
+    "phosphorus_product": 0.002738198031339644
+  },
+  "total_utilities": {
+    "cooling_kwh": 0.3197537461538636,
+    "electricity_kwh": 0.7476051624178471,
+    "heating_kwh": 1.877578687093782
+  },
+  "unit_utilization": {
+    "C301": {
+      "average": 5.5826392931678525e-05,
+      "peak": 5.5826392931678525e-05
+    },
+    "S201": {
+      "average": 0.0004983499999999999,
+      "peak": 0.0004983499999999999
+    },
+    "U101": {
+      "average": 0.0005,
+      "peak": 0.0005
+    },
+    "U201": {
+      "average": 0.0004983499999999999,
+      "peak": 0.0004983499999999999
+    }
+  }
+}

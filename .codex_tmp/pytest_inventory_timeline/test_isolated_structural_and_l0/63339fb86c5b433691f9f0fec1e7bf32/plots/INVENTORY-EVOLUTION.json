@@ -1,0 +1,30 @@
+{
+  "series": [
+    {
+      "label": "Final inventory",
+      "series_id": "inventory",
+      "x": [
+        "biomass_storage"
+      ],
+      "y": [
+        0.0
+      ]
+    }
+  ],
+  "specification": {
+    "availability_status": "available",
+    "plot_id": "INVENTORY-EVOLUTION",
+    "process_area": "integrated_system",
+    "run_id": "63339fb86c5b433691f9f0fec1e7bf32",
+    "scenario": "F2/PR1/AD1/BG2/NR2",
+    "source_result_fields": [
+      "inventory_evolution.final_kg"
+    ],
+    "title": "Quasi-dynamic inventory evolution",
+    "warnings": [],
+    "x_axis_label": "Inventory",
+    "x_unit": null,
+    "y_axis_label": "Final inventory",
+    "y_unit": "kg"
+  }
+}

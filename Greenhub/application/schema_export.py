@@ -156,6 +156,10 @@ SIMULATION_REQUEST_SCHEMA = {
         "biomass_schedule": {"$ref": "#/$defs/biomass_schedule"},
         "initial_storage_inventory": {"$ref": "#/$defs/initial_storage_inventory"},
         "feed_supply_profile_id": {"type": ["string", "null"]},
+        "wet_feed_rate_kg_hr": {"type": ["number", "null"], "exclusiveMinimum": 0},
+        "plant_capacity_kg_hr": {"type": ["number", "null"], "exclusiveMinimum": 0},
+        "feed_composition": {"type": "object", "additionalProperties": {"type":"number","minimum":0,"maximum":1}},
+        "storage_conditions": {"type": ["object", "null"], "description":"Opt-in component retention or source-gated grass reaction package; see decision-support options."},
     },
     "$defs": {
         "scenario_selection": SCENARIO_SELECTION_SCHEMA,
@@ -453,6 +457,18 @@ def openapi_schema() -> dict[str, object]:
         paths.setdefault(path, {})[method.lower()] = operation
 
     add("/api/v1/health", "GET", "health")
+    add('/api/v1/decision-support/options', 'GET', 'decisionSupportOptions')
+    add('/api/v1/decision-support/runs/{run_id}', 'GET', 'decisionSupportRun')
+    for action in ('evaluate','batch','sensitivity'):
+        route='/api/v1/decision-support/'+action
+        add(route, 'POST', 'decisionSupport'+action.title())
+        paths[route]['post']['requestBody']={'required':True,'content':{'application/json':{'schema':{'type':'object','required':['configuration'],'properties':{'configuration':{'type':'object','required':['simulation'],'properties':{
+            'simulation':{'$ref':'#/components/schemas/SimulationRequest'},
+            'use_screening_process_assumptions':{'type':'boolean','default':False,'description':'Explicitly opt in to the traceable screening process-assumption profile.'},
+            'use_screening_lca_factors':{'type':'boolean','default':False,'description':'Explicitly opt in to the traceable electricity LCA screening proxy; project-specific factors should replace it.'},
+            'logistics_result':{'type':['object','null'],'description':'Optional precomputed logistics result forwarded to TEA and LCA; it does not alter process chemistry or balances.'},
+            'financial_assumptions':{'type':'object'},'climate_factors':{'type':'object'},'additional_inventory':{'type':'array','items':{'type':'object'}},
+        }}}}}}}
     add("/api/v1/model/info", "GET", "modelInfo")
     add("/api/v1/scenarios", "GET", "listScenarios")
     add("/api/v1/process-areas", "GET", "listProcessAreas")

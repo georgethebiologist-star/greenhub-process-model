@@ -1,0 +1,21 @@
+{
+  "series": [],
+  "specification": {
+    "availability_status": "unavailable_scenario",
+    "plot_id": "PR-PRECIP-RECOVERY",
+    "process_area": "protein_recovery",
+    "run_id": "a3673449dd0945169cc97762fae02006",
+    "scenario": "F2/PR3/AD1/BG2/NR4",
+    "source_result_fields": [
+      "units.R401.design_results.Acid recovery"
+    ],
+    "title": "R401 direct precipitation recovery",
+    "warnings": [
+      "Available only for PR1 literature_default activation."
+    ],
+    "x_axis_label": "Scenario",
+    "x_unit": null,
+    "y_axis_label": "Recovered fraction",
+    "y_unit": "fraction"
+  }
+}

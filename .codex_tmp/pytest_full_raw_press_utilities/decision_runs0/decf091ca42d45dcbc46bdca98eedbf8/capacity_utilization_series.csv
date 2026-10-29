@@ -1,0 +1,5 @@
+time,unit_id,parameter_id,basis,actual_load,maximum_load,unit,utilization
+2026-07,U101,phase3.cleaning_capacity_t_per_h,mass_t_h,1000.0,2000.0,kg/hr,0.5
+2026-07,U201,phase3.pef_capacity_t_per_h,mass_t_h,996.7,2000.0,kg/hr,0.49835
+2026-07,S201,phase3.press_capacity_t_per_h,mass_t_h,996.6999999999999,2000.0,kg/hr,0.49834999999999996
+2026-07,C301,phase3.centrifuge_capacity_m3_per_h,volume_m3_h,0.5582639293167853,10.0,m3/hr,0.05582639293167853

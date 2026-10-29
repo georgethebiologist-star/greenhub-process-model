@@ -1,0 +1,2927 @@
+{
+  "edges": [
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:acid_solution",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0020439440624999993,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water",
+        "HydrochloricAcid"
+      ],
+      "source_node": null,
+      "stream_id": "acid_solution",
+      "target_node": "unit:M401",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:acidified_protein_liquid",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.4380853440624999,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water",
+        "SolubleProtein",
+        "Glucose",
+        "Lipids",
+        "NonBiodegradableOrganics"
+      ],
+      "source_node": "unit:M401",
+      "stream_id": "acidified_protein_liquid",
+      "target_node": "unit:H401",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:alkaline_conditioned_liquor",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.42627005288602904,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water",
+        "SodiumChloride",
+        "Ammonium",
+        "OtherBiodegradableOrganics",
+        "NonBiodegradableOrganics"
+      ],
+      "source_node": "unit:M721",
+      "stream_id": "alkaline_conditioned_liquor",
+      "target_node": "unit:H721",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:ammonia_absorber_acid_solution",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.005562589114988007,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water",
+        "SulfuricAcid"
+      ],
+      "source_node": null,
+      "stream_id": "ammonia_absorber_acid_solution",
+      "target_node": "unit:A722",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:ammonia_absorber_makeup_water",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.00367961055461807,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water"
+      ],
+      "source_node": null,
+      "stream_id": "ammonia_absorber_makeup_water",
+      "target_node": "unit:A722",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:ammonia_polished_biogas",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0025319054148241014,
+        "warning": null
+      },
+      "phase": "g",
+      "principal_components": [
+        "CarbonDioxide",
+        "Methane",
+        "Water",
+        "HydrogenSulfide",
+        "Ammonia"
+      ],
+      "source_node": "unit:R602",
+      "stream_id": "ammonia_polished_biogas",
+      "target_node": "unit:F601",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:struvite_mother_liquor",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.4258442086720335,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water",
+        "SodiumChloride",
+        "Ammonium",
+        "OtherBiodegradableOrganics",
+        "NonBiodegradableOrganics"
+      ],
+      "source_node": "unit:S711",
+      "stream_id": "struvite_mother_liquor",
+      "target_node": "unit:M721",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:ammonia_rich_strip_gas",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.27737612263737915,
+        "warning": null
+      },
+      "phase": "g",
+      "principal_components": [
+        "Nitrogen",
+        "Oxygen",
+        "Water",
+        "Ammonia",
+        "CarbonDioxide"
+      ],
+      "source_node": "unit:A721",
+      "stream_id": "ammonia_rich_strip_gas",
+      "target_node": "unit:A722",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:ammonia_scrubber_acid_solution",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [],
+      "source_node": null,
+      "stream_id": "ammonia_scrubber_acid_solution",
+      "target_node": "unit:R602",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:ammonia_scrubber_liquor",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.00042517951899535307,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water",
+        "CarbonDioxide",
+        "Methane",
+        "Ammonia",
+        "HydrogenSulfide"
+      ],
+      "source_node": "unit:R602",
+      "stream_id": "ammonia_scrubber_liquor",
+      "target_node": "unit:M606",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:ammonia_scrubber_water",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.00042129859426412827,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water"
+      ],
+      "source_node": null,
+      "stream_id": "ammonia_scrubber_water",
+      "target_node": "unit:R602",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:ammonia_stripper_base_solution",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.00042584420867203347,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water",
+        "SodiumHydroxide"
+      ],
+      "source_node": null,
+      "stream_id": "ammonia_stripper_base_solution",
+      "target_node": "unit:M721",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:ammonia_stripping_carrier",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.2743385854854499,
+        "warning": null
+      },
+      "phase": "g",
+      "principal_components": [
+        "Nitrogen",
+        "Oxygen"
+      ],
+      "source_node": null,
+      "stream_id": "ammonia_stripping_carrier",
+      "target_node": "unit:A721",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "product",
+      "edge_id": "stream:ammonium_salt_product",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.009972801522408608,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water",
+        "AmmoniumSulfate",
+        "SulfuricAcid",
+        "CarbonDioxide"
+      ],
+      "source_node": "unit:V722",
+      "stream_id": "ammonium_salt_product",
+      "target_node": null,
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:ammonium_salt_solution",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.009972801522408608,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water",
+        "AmmoniumSulfate",
+        "SulfuricAcid",
+        "CarbonDioxide"
+      ],
+      "source_node": "unit:A722",
+      "stream_id": "ammonium_salt_solution",
+      "target_node": "unit:V722",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:base_solution",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0014251346718638844,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water",
+        "SodiumHydroxide"
+      ],
+      "source_node": null,
+      "stream_id": "base_solution",
+      "target_node": "unit:M403",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "product",
+      "edge_id": "stream:water_scrubber_biomethane",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0010318040624618433,
+        "warning": null
+      },
+      "phase": "g",
+      "principal_components": [
+        "Methane",
+        "CarbonDioxide",
+        "Water",
+        "HydrogenSulfide",
+        "Ammonia"
+      ],
+      "source_node": "unit:D611",
+      "stream_id": "water_scrubber_biomethane",
+      "target_node": null,
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:centrifuge_flocculant",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [],
+      "source_node": null,
+      "stream_id": "centrifuge_flocculant",
+      "target_node": "unit:C301",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:centrifuge_wash_water",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [],
+      "source_node": null,
+      "stream_id": "centrifuge_wash_water",
+      "target_node": "unit:C301",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:clarified_protein_rich_liquid",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.43604139999999986,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water",
+        "SolubleProtein",
+        "Glucose",
+        "Lipids",
+        "NonBiodegradableOrganics"
+      ],
+      "source_node": "unit:C301",
+      "stream_id": "clarified_protein_rich_liquid",
+      "target_node": "unit:M401",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:cleaned_strip_gas",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.2766455207845766,
+        "warning": null
+      },
+      "phase": "g",
+      "principal_components": [
+        "Nitrogen",
+        "Oxygen",
+        "Water",
+        "CarbonDioxide",
+        "Ammonia"
+      ],
+      "source_node": "unit:A722",
+      "stream_id": "cleaned_strip_gas",
+      "target_node": "unit:M799",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:conditioned_biogas",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0025319054148241014,
+        "warning": null
+      },
+      "phase": "g",
+      "principal_components": [
+        "CarbonDioxide",
+        "Methane",
+        "Water",
+        "HydrogenSulfide",
+        "Ammonia"
+      ],
+      "source_node": "unit:F601",
+      "stream_id": "conditioned_biogas",
+      "target_node": "unit:M610",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:conditioned_digester_feed",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.43418623953192015,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water",
+        "Glucose",
+        "SodiumChloride",
+        "SolubleProtein",
+        "Lipids"
+      ],
+      "source_node": "unit:M501",
+      "stream_id": "conditioned_digester_feed",
+      "target_node": "unit:H501",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:conditioned_protein_depleted_liquid",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.4341428252493952,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water",
+        "Glucose",
+        "SodiumChloride",
+        "SolubleProtein",
+        "Lipids"
+      ],
+      "source_node": "unit:M403",
+      "stream_id": "conditioned_protein_depleted_liquid",
+      "target_node": "unit:M501",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:conditioning_spent_material",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 1.4789290925247428e-05,
+        "warning": null
+      },
+      "phase": "s",
+      "principal_components": [
+        "ActivatedCarbon",
+        "CapturedHydrogenSulfide"
+      ],
+      "source_node": "unit:M607",
+      "stream_id": "conditioning_spent_material",
+      "target_node": "unit:M699",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "residual",
+      "edge_id": "stream:conditioning_wastewater",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0004686036280203705,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water",
+        "CarbonDioxide",
+        "Methane",
+        "Ammonia",
+        "HydrogenSulfide"
+      ],
+      "source_node": "unit:M606",
+      "stream_id": "conditioning_wastewater",
+      "target_node": "unit:M698",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:cooled_raw_biogas",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0025805549295735476,
+        "warning": null
+      },
+      "phase": "g",
+      "principal_components": [
+        "CarbonDioxide",
+        "Methane",
+        "Water",
+        "HydrogenSulfide",
+        "Ammonia"
+      ],
+      "source_node": "unit:G601",
+      "stream_id": "cooled_raw_biogas",
+      "target_node": "unit:S601",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:desulfurization_air",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0,
+        "warning": null
+      },
+      "phase": "g",
+      "principal_components": [],
+      "source_node": null,
+      "stream_id": "desulfurization_air",
+      "target_node": "unit:R601",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:desulfurized_biogas",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0025357863395553256,
+        "warning": null
+      },
+      "phase": "g",
+      "principal_components": [
+        "CarbonDioxide",
+        "Methane",
+        "Water",
+        "Ammonia",
+        "HydrogenSulfide"
+      ],
+      "source_node": "unit:R601",
+      "stream_id": "desulfurized_biogas",
+      "target_node": "unit:R602",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:dewatered_protein_cake",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.02120382050286168,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water",
+        "PrecipitatedProtein",
+        "HeatCoagulatedProtein",
+        "SuspendedProtein",
+        "Cellulose"
+      ],
+      "source_node": "unit:D401",
+      "stream_id": "dewatered_protein_cake",
+      "target_node": "unit:DR401",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:dewatered_raw_biogas",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.00253713082054853,
+        "warning": null
+      },
+      "phase": "g",
+      "principal_components": [
+        "CarbonDioxide",
+        "Methane",
+        "Water",
+        "HydrogenSulfide",
+        "Ammonia"
+      ],
+      "source_node": "unit:S601",
+      "stream_id": "dewatered_raw_biogas",
+      "target_node": "unit:R601",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:dewatering_filtrate",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.008948588027385851,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water",
+        "Lipids",
+        "PrecipitatedProtein",
+        "Glucose",
+        "OrganicNitrogen"
+      ],
+      "source_node": "unit:D401",
+      "stream_id": "dewatering_filtrate",
+      "target_node": "unit:M402",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:digestate",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.43155443679308153,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water",
+        "SodiumChloride",
+        "Ammonium",
+        "OtherBiodegradableOrganics",
+        "NonBiodegradableOrganics"
+      ],
+      "source_node": "unit:V501",
+      "stream_id": "digestate",
+      "target_node": "unit:T701",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:digester_base_solution",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 4.341428252493952e-05,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "SodiumHydroxide",
+        "Water"
+      ],
+      "source_node": null,
+      "stream_id": "digester_base_solution",
+      "target_node": "unit:M501",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:digester_broth",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.43418623953192015,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water",
+        "CarbonDioxide",
+        "SodiumChloride",
+        "Methane",
+        "Ammonium"
+      ],
+      "source_node": "unit:R501",
+      "stream_id": "digester_broth",
+      "target_node": "unit:V501",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:digester_dilution_water",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [],
+      "source_node": null,
+      "stream_id": "digester_dilution_water",
+      "target_node": "unit:M501",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "product",
+      "edge_id": "stream:dry_protein_product",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.008012685983181885,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "PrecipitatedProtein",
+        "HeatCoagulatedProtein",
+        "Water",
+        "SuspendedProtein",
+        "Cellulose"
+      ],
+      "source_node": "unit:DR401",
+      "stream_id": "dry_protein_product",
+      "target_node": null,
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "residual",
+      "edge_id": "stream:dryer_exhaust",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.013191134519679794,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water",
+        "PrecipitatedProtein",
+        "HeatCoagulatedProtein",
+        "SuspendedProtein",
+        "Cellulose"
+      ],
+      "source_node": "unit:DR401",
+      "stream_id": "dryer_exhaust",
+      "target_node": null,
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "residual",
+      "edge_id": "stream:equalization_offgas",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0,
+        "warning": null
+      },
+      "phase": "g",
+      "principal_components": [],
+      "source_node": "unit:T701",
+      "stream_id": "equalization_offgas",
+      "target_node": "unit:M799",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:equalized_digestate",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.43155443679308153,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water",
+        "SodiumChloride",
+        "Ammonium",
+        "OtherBiodegradableOrganics",
+        "NonBiodegradableOrganics"
+      ],
+      "source_node": "unit:T701",
+      "stream_id": "equalized_digestate",
+      "target_node": "unit:S701",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:roadside_grass",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 1.0,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water",
+        "Cellulose",
+        "Hemicellulose",
+        "Lignin",
+        "SuspendedProtein"
+      ],
+      "source_node": null,
+      "stream_id": "roadside_grass",
+      "target_node": "unit:U101",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:pressed_fibre_cake",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.41861400000000015,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Cellulose",
+        "Water",
+        "Hemicellulose",
+        "Lignin",
+        "SuspendedProtein"
+      ],
+      "source_node": "unit:S201",
+      "stream_id": "pressed_fibre_cake",
+      "target_node": null,
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:fresh_h2s_removal_media",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 1.3444809932043115e-05,
+        "warning": null
+      },
+      "phase": "s",
+      "principal_components": [
+        "ActivatedCarbon"
+      ],
+      "source_node": null,
+      "stream_id": "fresh_h2s_removal_media",
+      "target_node": "unit:R601",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:fresh_particle_siloxane_filter_media",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0,
+        "warning": null
+      },
+      "phase": "s",
+      "principal_components": [],
+      "source_node": null,
+      "stream_id": "fresh_particle_siloxane_filter_media",
+      "target_node": "unit:F601",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:fresh_scrubbing_water",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.00032811659249162156,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water"
+      ],
+      "source_node": null,
+      "stream_id": "fresh_scrubbing_water",
+      "target_node": "unit:A611",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:heated_protein_liquid",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.4380853440624999,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water",
+        "SolubleProtein",
+        "Glucose",
+        "Lipids",
+        "NonBiodegradableOrganics"
+      ],
+      "source_node": "unit:H401",
+      "stream_id": "heated_protein_liquid",
+      "target_node": "unit:R401",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:heated_stripper_feed",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.42627005288602904,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water",
+        "SodiumChloride",
+        "Ammonium",
+        "OtherBiodegradableOrganics",
+        "NonBiodegradableOrganics"
+      ],
+      "source_node": "unit:H721",
+      "stream_id": "heated_stripper_feed",
+      "target_node": "unit:A721",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:nitrogen_depleted_liquor",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.42323251573409976,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water",
+        "SodiumChloride",
+        "OtherBiodegradableOrganics",
+        "NonBiodegradableOrganics",
+        "Lipids"
+      ],
+      "source_node": "unit:A721",
+      "stream_id": "nitrogen_depleted_liquor",
+      "target_node": null,
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:nutrient_rich_centrate",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.42587312562994506,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water",
+        "SodiumChloride",
+        "Ammonium",
+        "OtherBiodegradableOrganics",
+        "NonBiodegradableOrganics"
+      ],
+      "source_node": "unit:S701",
+      "stream_id": "nutrient_rich_centrate",
+      "target_node": "unit:R711",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:nutrient_rich_digestate_solids",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.00568131116313646,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water",
+        "MicrobialBiomass",
+        "PrecipitatedProtein",
+        "Cellulose",
+        "Hemicellulose"
+      ],
+      "source_node": "unit:S701",
+      "stream_id": "nutrient_rich_digestate_solids",
+      "target_node": null,
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:pef_documented_loss",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [],
+      "source_node": "unit:U201",
+      "stream_id": "pef_documented_loss",
+      "target_node": null,
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:pef_treated_grass",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.9966999999999999,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water",
+        "Cellulose",
+        "Hemicellulose",
+        "Lignin",
+        "SuspendedProtein"
+      ],
+      "source_node": "unit:U201",
+      "stream_id": "pef_treated_grass",
+      "target_node": "unit:S201",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:phase6_spent_material",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 1.4789290925247428e-05,
+        "warning": null
+      },
+      "phase": "s",
+      "principal_components": [
+        "ActivatedCarbon",
+        "CapturedHydrogenSulfide"
+      ],
+      "source_node": "unit:M699",
+      "stream_id": "phase6_spent_material",
+      "target_node": null,
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "residual",
+      "edge_id": "stream:phase6_wastewater",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.00082741791888504,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water",
+        "CarbonDioxide",
+        "Methane",
+        "Ammonia",
+        "HydrogenSulfide"
+      ],
+      "source_node": "unit:M698",
+      "stream_id": "phase6_wastewater",
+      "target_node": null,
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "residual",
+      "edge_id": "stream:phase7_offgas",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.2766455207845766,
+        "warning": null
+      },
+      "phase": "g",
+      "principal_components": [
+        "Nitrogen",
+        "Oxygen",
+        "Water",
+        "CarbonDioxide",
+        "Ammonia"
+      ],
+      "source_node": "unit:M799",
+      "stream_id": "phase7_offgas",
+      "target_node": null,
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "residual",
+      "edge_id": "stream:phase7_wastewater",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [],
+      "source_node": "unit:M798",
+      "stream_id": "phase7_wastewater",
+      "target_node": null,
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "residual",
+      "edge_id": "stream:struvite_dryer_exhaust",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0,
+        "warning": null
+      },
+      "phase": "g",
+      "principal_components": [],
+      "source_node": "unit:D711",
+      "stream_id": "struvite_dryer_exhaust",
+      "target_node": "unit:M799",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "product",
+      "edge_id": "stream:struvite_product",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.00011409158463915183,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water",
+        "PrecipitatedProtein",
+        "Cellulose",
+        "MicrobialBiomass",
+        "Hemicellulose"
+      ],
+      "source_node": "unit:D711",
+      "stream_id": "struvite_product",
+      "target_node": null,
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:struvite_slurry",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.4259583002566727,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water",
+        "SodiumChloride",
+        "Ammonium",
+        "OtherBiodegradableOrganics",
+        "NonBiodegradableOrganics"
+      ],
+      "source_node": "unit:R711",
+      "stream_id": "struvite_slurry",
+      "target_node": "unit:S711",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:struvite_wash_effluent",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [],
+      "source_node": "unit:W711",
+      "stream_id": "struvite_wash_effluent",
+      "target_node": "unit:M798",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:struvite_wash_water",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [],
+      "source_node": null,
+      "stream_id": "struvite_wash_water",
+      "target_node": "unit:W711",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "residual",
+      "edge_id": "stream:preparation_rejects",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0033,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Sand",
+        "Litter",
+        "InertSolids"
+      ],
+      "source_node": "unit:U101",
+      "stream_id": "preparation_rejects",
+      "target_node": null,
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:prepared_roadside_grass",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.9966999999999999,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water",
+        "Cellulose",
+        "Hemicellulose",
+        "Lignin",
+        "SuspendedProtein"
+      ],
+      "source_node": "unit:U101",
+      "stream_id": "prepared_roadside_grass",
+      "target_node": "unit:U201",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:pressurized_recycled_scrubbing_water",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0062629837115674054,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water",
+        "CarbonDioxide",
+        "Methane",
+        "HydrogenSulfide",
+        "Ammonia"
+      ],
+      "source_node": "unit:P611",
+      "stream_id": "pressurized_recycled_scrubbing_water",
+      "target_node": "unit:A611",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "residual",
+      "edge_id": "stream:primary_sludge",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.14204460000000008,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water",
+        "Lipids",
+        "NonBiodegradableOrganics",
+        "Cellulose",
+        "Hemicellulose"
+      ],
+      "source_node": "unit:C301",
+      "stream_id": "primary_sludge",
+      "target_node": null,
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:protein_cake_wash_filtrate",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.017356092523431867,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water",
+        "PrecipitatedProtein",
+        "Lipids",
+        "Glucose",
+        "HydrochloricAcid"
+      ],
+      "source_node": "unit:W401",
+      "stream_id": "protein_cake_wash_filtrate",
+      "target_node": "unit:M402",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:protein_cake_wash_water",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.015836167017893137,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water"
+      ],
+      "source_node": null,
+      "stream_id": "protein_cake_wash_water",
+      "target_node": "unit:W401",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:protein_centrate",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.40641301002671354,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water",
+        "Glucose",
+        "SolubleProtein",
+        "Lipids",
+        "NonBiodegradableOrganics"
+      ],
+      "source_node": "unit:C401",
+      "stream_id": "protein_centrate",
+      "target_node": "unit:M402",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:protein_depleted_liquid",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.4327176905775313,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water",
+        "Glucose",
+        "SolubleProtein",
+        "Lipids",
+        "NonBiodegradableOrganics"
+      ],
+      "source_node": "unit:M402",
+      "stream_id": "protein_depleted_liquid",
+      "target_node": "unit:M403",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:protein_precipitation_slurry",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.4380853440624998,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water",
+        "PrecipitatedProtein",
+        "Glucose",
+        "SolubleProtein",
+        "Lipids"
+      ],
+      "source_node": "unit:R401",
+      "stream_id": "protein_precipitation_slurry",
+      "target_node": "unit:C401",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:raw_biogas",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0025805549295735476,
+        "warning": null
+      },
+      "phase": "g",
+      "principal_components": [
+        "CarbonDioxide",
+        "Methane",
+        "Water",
+        "HydrogenSulfide",
+        "Ammonia"
+      ],
+      "source_node": "unit:V501",
+      "stream_id": "raw_biogas",
+      "target_node": "unit:G601",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:raw_biogas_condensate",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 4.3424109025017404e-05,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water",
+        "CarbonDioxide",
+        "HydrogenSulfide",
+        "Ammonia"
+      ],
+      "source_node": "unit:S601",
+      "stream_id": "raw_biogas_condensate",
+      "target_node": "unit:M606",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:raw_liquid_fraction",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.5780859999999999,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water",
+        "SolubleProtein",
+        "Lipids",
+        "NonBiodegradableOrganics",
+        "Cellulose"
+      ],
+      "source_node": "unit:S201",
+      "stream_id": "raw_liquid_fraction",
+      "target_node": "unit:C301",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "product",
+      "edge_id": "stream:raw_wet_struvite_product",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.00011409158463915183,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water",
+        "PrecipitatedProtein",
+        "Cellulose",
+        "MicrobialBiomass",
+        "Hemicellulose"
+      ],
+      "source_node": "unit:S711",
+      "stream_id": "raw_wet_struvite_product",
+      "target_node": "unit:W711",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:regenerated_scrubbing_water",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0062629837115674054,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water",
+        "CarbonDioxide",
+        "Methane",
+        "HydrogenSulfide",
+        "Ammonia"
+      ],
+      "source_node": "unit:A612",
+      "stream_id": "regenerated_scrubbing_water",
+      "target_node": "unit:P611",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "residual",
+      "edge_id": "stream:water_scrubber_reject_gas",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.00146940365398921,
+        "warning": null
+      },
+      "phase": "g",
+      "principal_components": [
+        "CarbonDioxide",
+        "Methane",
+        "HydrogenSulfide",
+        "Ammonia"
+      ],
+      "source_node": "unit:M619",
+      "stream_id": "water_scrubber_reject_gas",
+      "target_node": null,
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:spent_h2s_removal_media",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 1.4789290925247428e-05,
+        "warning": null
+      },
+      "phase": "s",
+      "principal_components": [
+        "ActivatedCarbon",
+        "CapturedHydrogenSulfide"
+      ],
+      "source_node": "unit:R601",
+      "stream_id": "spent_h2s_removal_media",
+      "target_node": "unit:M607",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:spent_particle_siloxane_filter_media",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0,
+        "warning": null
+      },
+      "phase": "s",
+      "principal_components": [],
+      "source_node": "unit:F601",
+      "stream_id": "spent_particle_siloxane_filter_media",
+      "target_node": "unit:M607",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:struvite_base_solution",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 8.517462512598901e-05,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "SodiumHydroxide",
+        "Water"
+      ],
+      "source_node": null,
+      "stream_id": "struvite_base_solution",
+      "target_node": "unit:R711",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:struvite_magnesium_solution",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [],
+      "source_node": null,
+      "stream_id": "struvite_magnesium_solution",
+      "target_node": "unit:R711",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:struvite_seed",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0,
+        "warning": null
+      },
+      "phase": "s",
+      "principal_components": [],
+      "source_node": null,
+      "stream_id": "struvite_seed",
+      "target_node": "unit:R711",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:water_scrubber_spent_material",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [],
+      "source_node": null,
+      "stream_id": "water_scrubber_spent_material",
+      "target_node": "unit:M699",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "residual",
+      "edge_id": "stream:water_scrubber_wastewater",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.00035881429086466953,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water",
+        "CarbonDioxide",
+        "Methane",
+        "HydrogenSulfide",
+        "Ammonia"
+      ],
+      "source_node": "unit:M618",
+      "stream_id": "water_scrubber_wastewater",
+      "target_node": "unit:M698",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:temperature_conditioned_digester_feed",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.43418623953192015,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water",
+        "Glucose",
+        "SodiumChloride",
+        "SolubleProtein",
+        "Lipids"
+      ],
+      "source_node": "unit:H501",
+      "stream_id": "temperature_conditioned_digester_feed",
+      "target_node": "unit:R501",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:trace_nutrient_solution",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [],
+      "source_node": null,
+      "stream_id": "trace_nutrient_solution",
+      "target_node": "unit:M501",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:uncaptured_biogas",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 5.124780926511834e-05,
+        "warning": null
+      },
+      "phase": "g",
+      "principal_components": [
+        "CarbonDioxide",
+        "Methane",
+        "HydrogenSulfide",
+        "Ammonia"
+      ],
+      "source_node": "unit:V501",
+      "stream_id": "uncaptured_biogas",
+      "target_node": null,
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:washed_protein_cake",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.030152408530247532,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water",
+        "PrecipitatedProtein",
+        "HeatCoagulatedProtein",
+        "SuspendedProtein",
+        "Cellulose"
+      ],
+      "source_node": "unit:W401",
+      "stream_id": "washed_protein_cake",
+      "target_node": "unit:D401",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:water_scrubber_flash_gas",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0002689138940399109,
+        "warning": null
+      },
+      "phase": "g",
+      "principal_components": [
+        "CarbonDioxide",
+        "Methane",
+        "HydrogenSulfide",
+        "Ammonia"
+      ],
+      "source_node": "unit:V612",
+      "stream_id": "water_scrubber_flash_gas",
+      "target_node": "unit:S610",
+      "warnings": []
+    },
+    {
+      "active": true,
+      "classification": "process",
+      "edge_id": "stream:wet_protein_cake",
+      "mass_flow": {
+        "basis": "stream total",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.031672334035786266,
+        "warning": null
+      },
+      "phase": "l",
+      "principal_components": [
+        "Water",
+        "PrecipitatedProtein",
+        "HeatCoagulatedProtein",
+        "SuspendedProtein",
+        "Cellulose"
+      ],
+      "source_node": "unit:C401",
+      "stream_id": "wet_protein_cake",
+      "target_node": "unit:W401",
+      "warnings": []
+    }
+  ],
+  "nodes": [
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "biogas_conditioning_and_upgrading",
+      "display_name": "High-pressure water absorber",
+      "key_kpis": {
+        "power_kw": 0.0
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:A611",
+      "process_area": "biogas_conditioning_and_upgrading",
+      "technology": "WaterAbsorber",
+      "unit_id": "A611",
+      "warning_count": 1
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "biogas_conditioning_and_upgrading",
+      "display_name": "Scrubbing-water regeneration",
+      "key_kpis": {
+        "power_kw": 7.240107512061615e-06
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:A612",
+      "process_area": "biogas_conditioning_and_upgrading",
+      "technology": "WaterRegenerator",
+      "unit_id": "A612",
+      "warning_count": 0
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "digestate_treatment_and_nutrient_recovery",
+      "display_name": "Ammonia stripper",
+      "key_kpis": {
+        "power_kw": 3.435220448975419e-07
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:A721",
+      "process_area": "digestate_treatment_and_nutrient_recovery",
+      "technology": "AmmoniaStripper",
+      "unit_id": "A721",
+      "warning_count": 2
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "digestate_treatment_and_nutrient_recovery",
+      "display_name": "Ammonia acid absorber",
+      "key_kpis": {
+        "power_kw": 0.0
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:A722",
+      "process_area": "digestate_treatment_and_nutrient_recovery",
+      "technology": "AcidAbsorber",
+      "unit_id": "A722",
+      "warning_count": 1
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "feed_preparation_and_primary_separation",
+      "display_name": "Primary centrifuge",
+      "key_kpis": {
+        "power_kw": 0.00046246879999999995
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:C301",
+      "process_area": "feed_preparation_and_primary_separation",
+      "technology": "PrimaryCentrifuge",
+      "unit_id": "C301",
+      "warning_count": 0
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "protein_recovery",
+      "display_name": "Protein separator",
+      "key_kpis": {
+        "power_kw": 0.0003504682752499999
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:C401",
+      "process_area": "protein_recovery",
+      "technology": "ProteinSeparator",
+      "unit_id": "C401",
+      "warning_count": 0
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "biogas_conditioning_and_upgrading",
+      "display_name": "Isentropic compressor",
+      "key_kpis": {
+        "power_kw": 0.0003402464833277351
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:C611",
+      "process_area": "biogas_conditioning_and_upgrading",
+      "technology": "IsentropicCompressor",
+      "unit_id": "C611",
+      "warning_count": 0
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "protein_recovery",
+      "display_name": "Mechanical protein-cake dewatering",
+      "key_kpis": {
+        "power_kw": 0.00015076204265123766
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:D401",
+      "process_area": "protein_recovery",
+      "technology": "MechanicalDewatering",
+      "unit_id": "D401",
+      "warning_count": 0
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "biogas_conditioning_and_upgrading",
+      "display_name": "Gas moisture guard",
+      "key_kpis": {
+        "power_kw": 0.0
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:D611",
+      "process_area": "biogas_conditioning_and_upgrading",
+      "technology": "GasWaterSeparator",
+      "unit_id": "D611",
+      "warning_count": 0
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "digestate_treatment_and_nutrient_recovery",
+      "display_name": "Nutrient-product drying",
+      "key_kpis": {
+        "power_kw": 0.0
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:D711",
+      "process_area": "digestate_treatment_and_nutrient_recovery",
+      "technology": "NutrientProductDryer",
+      "unit_id": "D711",
+      "warning_count": 1
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "protein_recovery",
+      "display_name": "Low-temperature protein belt dryer",
+      "key_kpis": {
+        "power_kw": 0.0019712202672308313
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:DR401",
+      "process_area": "protein_recovery",
+      "technology": "ProteinDryer",
+      "unit_id": "DR401",
+      "warning_count": 1
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "biogas_conditioning_and_upgrading",
+      "display_name": "Heat exchanger",
+      "key_kpis": {
+        "power_kw": 0.0
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:E611",
+      "process_area": "biogas_conditioning_and_upgrading",
+      "technology": "HXutility",
+      "unit_id": "E611",
+      "warning_count": 0
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "biogas_conditioning_and_upgrading",
+      "display_name": "Particle and siloxane filter",
+      "key_kpis": {
+        "power_kw": 2.0058808855949303e-06
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:F601",
+      "process_area": "biogas_conditioning_and_upgrading",
+      "technology": "ParticleSiloxaneFilter",
+      "unit_id": "F601",
+      "warning_count": 1
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "biogas_conditioning_and_upgrading",
+      "display_name": "Raw-biogas cooler",
+      "key_kpis": {
+        "power_kw": 2.159007008124847e-06
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:G601",
+      "process_area": "biogas_conditioning_and_upgrading",
+      "technology": "RawBiogasCooler",
+      "unit_id": "G601",
+      "warning_count": 1
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "protein_recovery",
+      "display_name": "Heat exchanger",
+      "key_kpis": {
+        "power_kw": 0.0
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:H401",
+      "process_area": "protein_recovery",
+      "technology": "HXutility",
+      "unit_id": "H401",
+      "warning_count": 0
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "anaerobic_digestion",
+      "display_name": "Heat exchanger",
+      "key_kpis": {
+        "power_kw": 0.0
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:H501",
+      "process_area": "anaerobic_digestion",
+      "technology": "HXutility",
+      "unit_id": "H501",
+      "warning_count": 0
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "digestate_treatment_and_nutrient_recovery",
+      "display_name": "Phase 7 process heater",
+      "key_kpis": {
+        "power_kw": 0.0
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:H721",
+      "process_area": "digestate_treatment_and_nutrient_recovery",
+      "technology": "ProcessHeater",
+      "unit_id": "H721",
+      "warning_count": 0
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "protein_recovery",
+      "display_name": "Acid dosing and mixing",
+      "key_kpis": {
+        "power_kw": 3.6336783333333317e-06
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:M401",
+      "process_area": "protein_recovery",
+      "technology": "AcidificationMixer",
+      "unit_id": "M401",
+      "warning_count": 0
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "protein_recovery",
+      "display_name": "Mixer",
+      "key_kpis": {
+        "power_kw": 0.0
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:M402",
+      "process_area": "protein_recovery",
+      "technology": "Mixer",
+      "unit_id": "M402",
+      "warning_count": 0
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "protein_recovery",
+      "display_name": "Residual-liquid neutralization",
+      "key_kpis": {
+        "power_kw": 1.8029903774063804e-06
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:M403",
+      "process_area": "protein_recovery",
+      "technology": "NeutralizationMixer",
+      "unit_id": "M403",
+      "warning_count": 1
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "anaerobic_digestion",
+      "display_name": "Digester-feed conditioning",
+      "key_kpis": {
+        "power_kw": 1.8089284385391466e-06
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:M501",
+      "process_area": "anaerobic_digestion",
+      "technology": "DigesterFeedConditioner",
+      "unit_id": "M501",
+      "warning_count": 2
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "biogas_conditioning_and_upgrading",
+      "display_name": "Mixer",
+      "key_kpis": {
+        "power_kw": 0.0
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:M606",
+      "process_area": "biogas_conditioning_and_upgrading",
+      "technology": "Mixer",
+      "unit_id": "M606",
+      "warning_count": 0
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "biogas_conditioning_and_upgrading",
+      "display_name": "Mixer",
+      "key_kpis": {
+        "power_kw": 0.0
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:M607",
+      "process_area": "biogas_conditioning_and_upgrading",
+      "technology": "Mixer",
+      "unit_id": "M607",
+      "warning_count": 0
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "biogas_conditioning_and_upgrading",
+      "display_name": "Mixer",
+      "key_kpis": {
+        "power_kw": 0.0
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:M610",
+      "process_area": "biogas_conditioning_and_upgrading",
+      "technology": "Mixer",
+      "unit_id": "M610",
+      "warning_count": 0
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "biogas_conditioning_and_upgrading",
+      "display_name": "Mixer",
+      "key_kpis": {
+        "power_kw": 0.0
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:M618",
+      "process_area": "biogas_conditioning_and_upgrading",
+      "technology": "Mixer",
+      "unit_id": "M618",
+      "warning_count": 0
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "biogas_conditioning_and_upgrading",
+      "display_name": "Mixer",
+      "key_kpis": {
+        "power_kw": 0.0
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:M619",
+      "process_area": "biogas_conditioning_and_upgrading",
+      "technology": "Mixer",
+      "unit_id": "M619",
+      "warning_count": 0
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "biogas_conditioning_and_upgrading",
+      "display_name": "Mixer",
+      "key_kpis": {
+        "power_kw": 0.0
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:M698",
+      "process_area": "biogas_conditioning_and_upgrading",
+      "technology": "Mixer",
+      "unit_id": "M698",
+      "warning_count": 0
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "biogas_conditioning_and_upgrading",
+      "display_name": "Mixer",
+      "key_kpis": {
+        "power_kw": 0.0
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:M699",
+      "process_area": "biogas_conditioning_and_upgrading",
+      "technology": "Mixer",
+      "unit_id": "M699",
+      "warning_count": 0
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "digestate_treatment_and_nutrient_recovery",
+      "display_name": "Alkaline dosing and pH conditioning",
+      "key_kpis": {
+        "power_kw": 8.51688417344067e-06
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:M721",
+      "process_area": "digestate_treatment_and_nutrient_recovery",
+      "technology": "AlkalineConditioner",
+      "unit_id": "M721",
+      "warning_count": 1
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "digestate_treatment_and_nutrient_recovery",
+      "display_name": "Mixer",
+      "key_kpis": {
+        "power_kw": 0.0
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:M798",
+      "process_area": "digestate_treatment_and_nutrient_recovery",
+      "technology": "Mixer",
+      "unit_id": "M798",
+      "warning_count": 0
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "digestate_treatment_and_nutrient_recovery",
+      "display_name": "Mixer",
+      "key_kpis": {
+        "power_kw": 0.0
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:M799",
+      "process_area": "digestate_treatment_and_nutrient_recovery",
+      "technology": "Mixer",
+      "unit_id": "M799",
+      "warning_count": 0
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "biogas_conditioning_and_upgrading",
+      "display_name": "Pump",
+      "key_kpis": {
+        "power_kw": 4.437001523007875e-06
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:P611",
+      "process_area": "biogas_conditioning_and_upgrading",
+      "technology": "Pump",
+      "unit_id": "P611",
+      "warning_count": 0
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "protein_recovery",
+      "display_name": "Protein precipitation and coagulation",
+      "key_kpis": {
+        "power_kw": 4.380853440624999e-05
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:R401",
+      "process_area": "protein_recovery",
+      "technology": "ProteinPrecipitation",
+      "unit_id": "R401",
+      "warning_count": 0
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "anaerobic_digestion",
+      "display_name": "Anaerobic digester",
+      "key_kpis": {
+        "power_kw": 0.0010854655988298003
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:R501",
+      "process_area": "anaerobic_digestion",
+      "technology": "AnaerobicDigester",
+      "unit_id": "R501",
+      "warning_count": 4
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "biogas_conditioning_and_upgrading",
+      "display_name": "Hydrogen-sulfide removal",
+      "key_kpis": {
+        "power_kw": 0.0
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:R601",
+      "process_area": "biogas_conditioning_and_upgrading",
+      "technology": "HydrogenSulfideRemoval",
+      "unit_id": "R601",
+      "warning_count": 3
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "biogas_conditioning_and_upgrading",
+      "display_name": "Biogas ammonia removal",
+      "key_kpis": {
+        "power_kw": 0.0
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:R602",
+      "process_area": "biogas_conditioning_and_upgrading",
+      "technology": "AmmoniaRemoval",
+      "unit_id": "R602",
+      "warning_count": 2
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "digestate_treatment_and_nutrient_recovery",
+      "display_name": "Struvite crystallization",
+      "key_kpis": {
+        "power_kw": 2.1297915012833636e-05
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:R711",
+      "process_area": "digestate_treatment_and_nutrient_recovery",
+      "technology": "StruviteCrystallizer",
+      "unit_id": "R711",
+      "warning_count": 2
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "feed_preparation_and_primary_separation",
+      "display_name": "Screw press",
+      "key_kpis": {
+        "power_kw": 0.004983499999999999
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:S201",
+      "process_area": "feed_preparation_and_primary_separation",
+      "technology": "ScrewPress",
+      "unit_id": "S201",
+      "warning_count": 1
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "biogas_conditioning_and_upgrading",
+      "display_name": "Biogas condensate separator",
+      "key_kpis": {
+        "power_kw": 0.0
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:S601",
+      "process_area": "biogas_conditioning_and_upgrading",
+      "technology": "CondensateSeparator",
+      "unit_id": "S601",
+      "warning_count": 1
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "biogas_conditioning_and_upgrading",
+      "display_name": "Splitter",
+      "key_kpis": {
+        "power_kw": 0.0
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:S610",
+      "process_area": "biogas_conditioning_and_upgrading",
+      "technology": "Splitter",
+      "unit_id": "S610",
+      "warning_count": 0
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "digestate_treatment_and_nutrient_recovery",
+      "display_name": "Digestate solid-liquid separation",
+      "key_kpis": {
+        "power_kw": 0.00021577721839654077
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:S701",
+      "process_area": "digestate_treatment_and_nutrient_recovery",
+      "technology": "DigestateSolidLiquidSeparator",
+      "unit_id": "S701",
+      "warning_count": 1
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "digestate_treatment_and_nutrient_recovery",
+      "display_name": "Nutrient crystal separation",
+      "key_kpis": {
+        "power_kw": 1.7113737695872777e-06
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:S711",
+      "process_area": "digestate_treatment_and_nutrient_recovery",
+      "technology": "CrystalSeparator",
+      "unit_id": "S711",
+      "warning_count": 0
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "digestate_treatment_and_nutrient_recovery",
+      "display_name": "Digestate equalization",
+      "key_kpis": {
+        "power_kw": 5.754059157241087e-05
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:T701",
+      "process_area": "digestate_treatment_and_nutrient_recovery",
+      "technology": "DigestateEqualization",
+      "unit_id": "T701",
+      "warning_count": 1
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "feed_preparation_and_primary_separation",
+      "display_name": "Feed preparation",
+      "key_kpis": {
+        "power_kw": 0.0015
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:U101",
+      "process_area": "feed_preparation_and_primary_separation",
+      "technology": "FeedPreparation",
+      "unit_id": "U101",
+      "warning_count": 0
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "feed_preparation_and_primary_separation",
+      "display_name": "PEF pretreatment",
+      "key_kpis": {
+        "power_kw": 0.019933999999999997
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:U201",
+      "process_area": "feed_preparation_and_primary_separation",
+      "technology": "PulsedElectricField",
+      "unit_id": "U201",
+      "warning_count": 0
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "anaerobic_digestion",
+      "display_name": "Raw-biogas disengagement",
+      "key_kpis": {
+        "power_kw": 0.0
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:V501",
+      "process_area": "anaerobic_digestion",
+      "technology": "BiogasDisengagement",
+      "unit_id": "V501",
+      "warning_count": 3
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "biogas_conditioning_and_upgrading",
+      "display_name": "Gas moisture guard",
+      "key_kpis": {
+        "power_kw": 0.0
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:V611",
+      "process_area": "biogas_conditioning_and_upgrading",
+      "technology": "GasWaterSeparator",
+      "unit_id": "V611",
+      "warning_count": 0
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "biogas_conditioning_and_upgrading",
+      "display_name": "Rich-water flash",
+      "key_kpis": {
+        "power_kw": 0.0
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:V612",
+      "process_area": "biogas_conditioning_and_upgrading",
+      "technology": "WaterFlashTank",
+      "unit_id": "V612",
+      "warning_count": 0
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "digestate_treatment_and_nutrient_recovery",
+      "display_name": "Phase 7 product storage",
+      "key_kpis": {
+        "power_kw": 0.0
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:V722",
+      "process_area": "digestate_treatment_and_nutrient_recovery",
+      "technology": "ProductStorage",
+      "unit_id": "V722",
+      "warning_count": 0
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "protein_recovery",
+      "display_name": "Protein-cake washer",
+      "key_kpis": {
+        "power_kw": 0.0
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:W401",
+      "process_area": "protein_recovery",
+      "technology": "CakeWasher",
+      "unit_id": "W401",
+      "warning_count": 0
+    },
+    {
+      "active": true,
+      "calculation_mode": "structural",
+      "dashboard_group": "digestate_treatment_and_nutrient_recovery",
+      "display_name": "Nutrient-product washing",
+      "key_kpis": {
+        "power_kw": 0.0
+      },
+      "model_maturity": "structural",
+      "node_id": "unit:W711",
+      "process_area": "digestate_treatment_and_nutrient_recovery",
+      "technology": "NutrientProductWasher",
+      "unit_id": "W711",
+      "warning_count": 1
+    }
+  ],
+  "run_id": "27e43c9a3d40456ba6762f7639048929",
+  "schema_version": "1.0.0"
+}

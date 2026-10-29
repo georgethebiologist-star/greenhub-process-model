@@ -94,6 +94,43 @@ class GreenHubAPI:
             )
 
     def _dispatch(self, method: str, path: str, environ: Mapping[str, object]) -> object:
+        if path.startswith('/api/v1/decision-support/'):
+            from Greenhub.application.decision_support_service import DecisionSupportService, options
+            from Greenhub.scenario_exploration import run_batch, sensitivity
+            if method == 'GET' and path == '/api/v1/decision-support/options':
+                return options()
+            service = DecisionSupportService(self.simulations)
+            if method == 'POST' and path == '/api/v1/decision-support/evaluate':
+                payload=dict(self._read_json(environ))
+                if set(payload) != {'configuration'}: raise ValueError('Provide configuration only.')
+                return service.evaluate(payload['configuration'])
+            if method == 'POST' and path in ('/api/v1/decision-support/batch', '/api/v1/decision-support/sensitivity'):
+                from pathlib import Path
+                from uuid import uuid4
+                payload=dict(self._read_json(environ))
+                if path.endswith('/batch'):
+                    allowed={'configuration','specifications','count','seed','mode','runtime_limit_seconds'}
+                    if set(payload)-allowed: raise ValueError('Unknown batch fields.')
+                    base=payload.pop('configuration')
+                    report=run_batch(service.evaluate,base,**payload)
+                else:
+                    if set(payload) != {'configuration','variations'}: raise ValueError('Provide configuration and variations.')
+                    report=sensitivity(service.evaluate,payload['configuration'],payload['variations'])
+                batch_id=uuid4().hex
+                root=self.simulations.run_root
+                if root is None:
+                    from Greenhub.settings import RESULTS_DIR
+                    root=RESULTS_DIR/'runs'
+                folder=Path(root)/'decision_batches'; folder.mkdir(parents=True,exist_ok=True)
+                report['batch_id']=batch_id
+                report['artifact_name']='decision_batches/'+batch_id+'.json'
+                (folder/(batch_id+'.json')).write_text(json.dumps(report,indent=2,allow_nan=False),encoding='utf-8')
+                return report
+            match=re.fullmatch(r'/api/v1/decision-support/runs/([a-zA-Z0-9_-]+)',path)
+            if method=='GET' and match:
+                artifact=self.repository.get(match.group(1)).run_directory/'decision_support.json'
+                if not artifact.exists(): raise APIError(404,'analysis_not_found','No decision-support analysis exists for this run.')
+                return json.loads(artifact.read_text(encoding='utf-8'))
         if path.startswith("/api/v1/dynamic-complete/"):
             # Lazy opt-in import: empirical endpoints keep their existing execution path.
             from Greenhub.application.dynamic_complete_reporting_service import (

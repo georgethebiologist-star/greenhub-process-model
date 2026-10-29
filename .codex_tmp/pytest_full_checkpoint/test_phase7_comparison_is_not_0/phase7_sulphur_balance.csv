@@ -1,0 +1,9 @@
+location,direction,element,flow_kg_hr
+complete Phase 7 boundary,input,sulfur,0.42155742970621085
+nutrient_rich_digestate_solids,output,sulfur,0.0029460538974591024
+struvite_product,output,sulfur,0.00020838964912027434
+ammonium_salt_product,output,sulfur,0.4106490717218635
+nitrogen_depleted_liquor,output,sulfur,0.00775391443776796
+phase7_wastewater,output,sulfur,0.0
+phase7_offgas,output,sulfur,0.0
+balance residual,residual,sulfur,0.0

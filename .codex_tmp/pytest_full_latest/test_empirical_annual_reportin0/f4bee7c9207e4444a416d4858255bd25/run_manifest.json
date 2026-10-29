@@ -1,0 +1,27 @@
+{
+  "error": "Liquid molar volume method 'NEGLECT_P' is not valid at T=333.035107594519 K and P=101325.0 Pa for component with CASRN '1305-62-0'",
+  "run_id": "f4bee7c9207e4444a416d4858255bd25",
+  "state_history": [
+    [
+      "validating",
+      "2026-10-28T15:43:54.222627+00:00"
+    ],
+    [
+      "resolving_parameters",
+      "2026-10-28T15:43:54.278168+00:00"
+    ],
+    [
+      "building_system",
+      "2026-10-28T15:43:54.285110+00:00"
+    ],
+    [
+      "simulating",
+      "2026-10-28T15:43:54.285110+00:00"
+    ],
+    [
+      "failed",
+      "2026-10-28T15:43:58.305791+00:00"
+    ]
+  ],
+  "status": "failed"
+}

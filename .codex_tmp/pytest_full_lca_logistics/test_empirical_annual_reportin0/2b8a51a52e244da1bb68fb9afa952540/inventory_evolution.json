@@ -1,0 +1,85 @@
+[
+  {
+    "average_kg": 9116544.38683658,
+    "degradation_kg": 0.0,
+    "final_kg": 19784242.89290224,
+    "initial_kg": 0.0,
+    "inventory_id": "biomass_storage",
+    "peak_kg": 19784242.89290224,
+    "status": "calculated_from_seasonal_storage_inventory",
+    "timeline": [
+      {
+        "degradation_kg": 0.0,
+        "inventory_kg": 0.0,
+        "overflow_kg": 0.0,
+        "time": "2026-01"
+      },
+      {
+        "degradation_kg": 0.0,
+        "inventory_kg": 0.0,
+        "overflow_kg": 0.0,
+        "time": "2026-02"
+      },
+      {
+        "degradation_kg": 0.0,
+        "inventory_kg": 0.0,
+        "overflow_kg": 0.0,
+        "time": "2026-03"
+      },
+      {
+        "degradation_kg": 0.0,
+        "inventory_kg": 0.0,
+        "overflow_kg": 0.0,
+        "time": "2026-04"
+      },
+      {
+        "degradation_kg": 0.0,
+        "inventory_kg": 1313318.6482269962,
+        "overflow_kg": 0.0,
+        "time": "2026-05"
+      },
+      {
+        "degradation_kg": 0.0,
+        "inventory_kg": 4773410.840966567,
+        "overflow_kg": 0.0,
+        "time": "2026-06"
+      },
+      {
+        "degradation_kg": 0.0,
+        "inventory_kg": 10064737.429231174,
+        "overflow_kg": 0.0,
+        "time": "2026-07"
+      },
+      {
+        "degradation_kg": 0.0,
+        "inventory_kg": 15288745.481261939,
+        "overflow_kg": 0.0,
+        "time": "2026-08"
+      },
+      {
+        "degradation_kg": 0.0,
+        "inventory_kg": 18605591.563645553,
+        "overflow_kg": 0.0,
+        "time": "2026-09"
+      },
+      {
+        "degradation_kg": 0.0,
+        "inventory_kg": 19784242.89290224,
+        "overflow_kg": 0.0,
+        "time": "2026-10"
+      },
+      {
+        "degradation_kg": 0.0,
+        "inventory_kg": 19784242.89290224,
+        "overflow_kg": 0.0,
+        "time": "2026-11"
+      },
+      {
+        "degradation_kg": 0.0,
+        "inventory_kg": 19784242.89290224,
+        "overflow_kg": 0.0,
+        "time": "2026-12"
+      }
+    ]
+  }
+]

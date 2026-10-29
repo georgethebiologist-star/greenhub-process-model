@@ -1,12 +1,31 @@
-"""Placeholders for future GreenHub techno-economic analysis integration."""
+"""Compatibility entry point for the post-route screening TEA layer."""
 
 from __future__ import annotations
 
+from Greenhub.application.tea_service import (
+    TEAProjectBasis,
+    TEAReport,
+    calculate_dynamic_tea,
+    calculate_empirical_tea,
+)
+from Greenhub.tea_costs import TEACostRecord, load_tea_cost_register
+from Greenhub.tea_finance import TEAFinancialAssumptions, TEAProductPrice
+
 
 def not_implemented_message() -> str:
-    """Return a consistent Phase 3 TEA placeholder message."""
+    """Return the remaining investment-grade TEA scope statement."""
 
-    return (
-        "TEA is intentionally not implemented in Phase 3. The current model "
-        "provides verified front-end mass and energy results for later economic work."
-    )
+    return "Screening post-route TEA is available; investment-grade TEA is not implemented."
+
+
+__all__ = (
+    "TEACostRecord",
+    "TEAFinancialAssumptions",
+    "TEAProductPrice",
+    "TEAProjectBasis",
+    "TEAReport",
+    "calculate_dynamic_tea",
+    "calculate_empirical_tea",
+    "load_tea_cost_register",
+    "not_implemented_message",
+)

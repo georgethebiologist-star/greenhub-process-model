@@ -40,3 +40,18 @@ No source literature CSV, frontend file, workbook default, or D4 dataset status 
   interpolated.
 - The quasi-dynamic controller is a sequence of steady-state process evaluations with a
   discrete inventory update, not a continuous dynamic plant model.
+
+## Scientific continuation updates
+
+- Process-state snapshots now retain outlet states and changed-property lists;
+  seasonal runs expose timestamped process-state history and inventory timelines.
+- Pretreatment water and press-energy assumptions are opt-in, traceable, and
+  propagated through the dynamic calculation-shadow path without modifying the
+  empirical flowsheet or default chemistry.
+- Storage reaction substeps use incremental first-order exposure intervals to
+  avoid timestep-dependent over-degradation.
+- Scenario batches report feasibility counts, rejection reasons, and sensitivity
+  objective deltas. These outputs remain screening evidence, not validated design
+  optimization.
+- Full regression verification remains green; D4/D5 maturity is not promoted by
+  these reporting or assumption-path changes.

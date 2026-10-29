@@ -1,0 +1,65 @@
+[
+  {
+    "scenario_label": "empirical_F2_PR1_AD1_BG2_NR2",
+    "simulation_type": "empirical",
+    "selected_routes": [
+      "F2",
+      "PR1",
+      "AD1",
+      "BG2",
+      "NR2"
+    ],
+    "annual_feed_tonnes": null,
+    "total_installed_capex_eur": null,
+    "annual_opex_eur": 0,
+    "annual_revenue_eur": 0,
+    "annual_profit_eur": 0,
+    "npv_eur": null,
+    "irr": null,
+    "simple_payback_years": null,
+    "discounted_payback_years": null,
+    "cost_per_tonne_feed_eur": null,
+    "revenue_status": "incomplete",
+    "missing_input_count": 23,
+    "warning_count": 3,
+    "confidence_summary": {
+      "Low": 10,
+      "Low-medium": 4,
+      "Medium": 1,
+      "Medium-high": 1
+    }
+  },
+  {
+    "scenario_label": "dynamic_proxy_May_water_scrubbing",
+    "simulation_type": "dynamic",
+    "selected_routes": [
+      "isoelectric",
+      "spray_drying_proxy",
+      "water_scrubbing",
+      "digestate_separation",
+      "ammonia_recovery",
+      "phosphorus_recovery",
+      "potassium_water_concentration",
+      "ion_exchange"
+    ],
+    "annual_feed_tonnes": 2801.3186482269966,
+    "total_installed_capex_eur": null,
+    "annual_opex_eur": 10994.705858749992,
+    "annual_revenue_eur": 0,
+    "annual_profit_eur": -10994.705858749992,
+    "npv_eur": null,
+    "irr": null,
+    "simple_payback_years": null,
+    "discounted_payback_years": null,
+    "cost_per_tonne_feed_eur": 3.924832280579267,
+    "revenue_status": "incomplete",
+    "missing_input_count": 23,
+    "warning_count": 3,
+    "confidence_summary": {
+      "Low": 7,
+      "Low-medium": 3,
+      "Medium": 4,
+      "Medium-high": 1
+    }
+  }
+]

@@ -1,0 +1,39 @@
+[
+  {
+    "intermediate_streams_kg": {
+      "digestate": 215.7772183965407
+    },
+    "products_kg": {
+      "ammonium_product": 4.986400761204299,
+      "biomethane": 0.5159020312309217,
+      "dry_protein_product": 4.006342991590943,
+      "nutrient_rich_solids": 2.8406555815682295,
+      "phosphorus_product": 0.05704579231957592
+    },
+    "terminal_gases_kg": {
+      "phase7_offgas": {
+        "Ammonia": 0.0036796105546180735,
+        "CarbonDioxide": 0.10092866791355071,
+        "Nitrogen": 105.22016242869319,
+        "Oxygen": 31.949130314031727,
+        "Water": 1.0488593710951915
+      },
+      "reject_gas": {
+        "Ammonia": 5.3944478720553074e-06,
+        "CarbonDioxide": 0.7315241555046195,
+        "HydrogenSulfide": 6.280950612298889e-06,
+        "Methane": 0.003165996091501514
+      },
+      "uncaptured_biogas": {
+        "Ammonia": 2.628310906170734e-06,
+        "CarbonDioxide": 0.016489630912751692,
+        "HydrogenSulfide": 1.4286362395300758e-05,
+        "Methane": 0.009117359046505995
+      }
+    },
+    "time": "2026-06",
+    "volumetric_products_m3": {
+      "biomethane": 0.07080538517846138
+    }
+  }
+]

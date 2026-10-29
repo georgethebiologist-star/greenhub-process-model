@@ -1,10 +1,10 @@
 import type { FeedInputs } from '../components/InputStudio';
 import type { AnnualSummary, CalculationMode, EmpiricalBiomassSchedule, PlotCatalogItem, ScenarioSelection } from '../types';
 
-const configuredApiBase = String(import.meta.env.VITE_GREENHUB_API_URL || '').trim();
-const defaultApiBase = import.meta.env.PROD ? '/api/v1' : 'http://127.0.0.1:8000/api/v1';
+const configuredApiBase = String(import.meta.env?.VITE_GREENHUB_API_URL || '').trim();
+const defaultApiBase = import.meta.env?.PROD ? '/api/v1' : 'http://127.0.0.1:8000/api/v1';
 export const API_BASE = (configuredApiBase || defaultApiBase).replace(/\/$/, '');
-export const API_TIMEOUT_MS = Math.max(Number(import.meta.env.VITE_GREENHUB_API_TIMEOUT_MS || 15000), 1000);
+export const API_TIMEOUT_MS = Math.max(Number(import.meta.env?.VITE_GREENHUB_API_TIMEOUT_MS || 15000), 1000);
 
 export class GreenHubApiError extends Error {
   constructor(message: string, public readonly endpoint: string, public readonly status?: number) {

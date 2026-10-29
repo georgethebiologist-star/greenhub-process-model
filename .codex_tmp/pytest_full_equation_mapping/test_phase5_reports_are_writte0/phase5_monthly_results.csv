@@ -1,0 +1,2 @@
+scenario,phase4_scenario,phase3_scenario,month,operating_hours,digester_feed_kg,raw_biogas_nm3,methane_nm3,digestate_kg,pure_base_kg,phase5_heat_kwh,phase5_cooling_kwh,phase5_electricity_kwh,working_volume_m3,total_digester_volume_m3,methane_dry_mol_fraction
+AD1,PR3,F2,July,744.0,182339.98660474605,906.7829434124359,524.3149442852291,181252.8634530943,9.116999330237302,1104.3784905503255,5196.989949712642,456.6553014527027,147.06308113177946,203.54751713741103,0.6023066537199969

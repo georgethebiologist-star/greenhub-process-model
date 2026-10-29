@@ -56,15 +56,17 @@ def write_records_csv(path: Path, records: Iterable[Mapping[str, Any]]) -> Path:
     if not rows:
         path.write_text("", encoding="utf-8")
         return path
-    headers = list(rows[0])
+    # Seasonal records can carry optional diagnostics that are absent from
+    # the first row (for example terminal gas fate).  Build a stable union so
+    # exports remain lossless instead of failing late in a run.
+    headers = list(dict.fromkeys(key for row in rows for key in row))
     with path.open("w", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(handle, fieldnames=headers)
         writer.writeheader()
         for row in rows:
-            writer.writerow(
-                {
-                    key: json.dumps(value, sort_keys=True) if isinstance(value, (list, dict)) else value
-                    for key, value in row.items()
-                }
-            )
+            writer.writerow({
+                key: json.dumps(row[key], sort_keys=True)
+                if isinstance(row.get(key), (list, dict)) else row.get(key)
+                for key in headers
+            })
     return path

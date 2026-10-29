@@ -1,0 +1,60 @@
+{
+  "series": [
+    {
+      "label": "C",
+      "series_id": "carbon",
+      "x": [
+        "2026-07-01"
+      ],
+      "y": [
+        0.0
+      ]
+    },
+    {
+      "label": "N",
+      "series_id": "nitrogen",
+      "x": [
+        "2026-07-01"
+      ],
+      "y": [
+        0.0
+      ]
+    },
+    {
+      "label": "P",
+      "series_id": "phosphorus",
+      "x": [
+        "2026-07-01"
+      ],
+      "y": [
+        0.0
+      ]
+    },
+    {
+      "label": "K",
+      "series_id": "potassium",
+      "x": [
+        "2026-07-01"
+      ],
+      "y": [
+        0.0
+      ]
+    }
+  ],
+  "specification": {
+    "availability_status": "available",
+    "plot_id": "SEASONAL-ELEMENT-RESIDUALS",
+    "process_area": "integrated_system",
+    "run_id": "e68b528a6ea74b819dac5128aa190251",
+    "scenario": "F2/PR3/AD1/BG2/NR4",
+    "source_result_fields": [
+      "balance_residual_series.element_residuals_kg"
+    ],
+    "title": "C/N/P/K balance residuals",
+    "warnings": [],
+    "x_axis_label": "Time",
+    "x_unit": null,
+    "y_axis_label": "Residual",
+    "y_unit": "kg"
+  }
+}

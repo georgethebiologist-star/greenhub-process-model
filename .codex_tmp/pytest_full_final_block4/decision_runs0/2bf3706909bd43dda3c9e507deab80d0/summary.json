@@ -1,0 +1,47 @@
+{
+  "boundary_inlet_mass": {
+    "basis": "boundary inlet",
+    "origin": "Phase 7 validation",
+    "status": "calculated",
+    "uncertainty": null,
+    "unit": "kg/hr",
+    "value": 715.6462407819356,
+    "warning": null
+  },
+  "boundary_outlet_mass": {
+    "basis": "boundary outlet",
+    "origin": "Phase 7 validation",
+    "status": "calculated",
+    "uncertainty": null,
+    "unit": "kg/hr",
+    "value": 715.6462407888607,
+    "warning": null
+  },
+  "dry_protein_product_mass": {
+    "basis": "wet stream",
+    "origin": "BioSTEAM stream",
+    "status": "calculated",
+    "uncertainty": null,
+    "unit": "kg/hr",
+    "value": 8.012685983181882,
+    "warning": null
+  },
+  "overall_mass_residual": {
+    "basis": "inlet minus outlet",
+    "origin": "Phase 7 validation",
+    "status": "calculated",
+    "uncertainty": null,
+    "unit": "kg/hr",
+    "value": -6.925120032974519e-09,
+    "warning": null
+  },
+  "total_electricity_demand": {
+    "basis": "sum of unit power consumption",
+    "origin": "structured unit results",
+    "status": "calculated",
+    "uncertainty": null,
+    "unit": "kW",
+    "value": 31.150215100743633,
+    "warning": null
+  }
+}
