@@ -1,0 +1,162 @@
+{
+  "sourceRun": "37134f6d6b1c4866ac75e1538e12a9f7",
+  "sourceCommit": "43f3e743",
+  "annualFeedTonnes": 8759.999999999998,
+  "referenceFlowKgH": 1000,
+  "annualHours": 8760,
+  "productsKg": {
+    "dry_protein_product": 70191.12921267329,
+    "biomethane": 9038.603587165746,
+    "phosphorus_product": 999.4422814389702,
+    "ammonium_product": 87361.74133629931,
+    "potassium_concentrate": 0.0,
+    "nutrient_rich_solids": 49768.285789075395
+  },
+  "rawMethaneKg": 7827.070394244485,
+  "electricityKwh": 272875.8842825142,
+  "heatKwh": 418819.8777051285,
+  "capital": {
+    "TEA-001": {
+      "name": "Reception bunker, weighbridge, conveyors and contaminant removal",
+      "eur": 250000.0,
+      "exponent": 0.7
+    },
+    "TEA-003": {
+      "name": "Stone trap, washer/screen, chopper/shredder/wet mill/refiner",
+      "eur": 49999.99999999999,
+      "exponent": 0.75
+    },
+    "TEA-004": {
+      "name": "Screw press or belt press",
+      "eur": 66899.0,
+      "exponent": 0.7
+    },
+    "TEA-005": {
+      "name": "Continuous pulsed-electric-field skid",
+      "eur": 680000.0,
+      "exponent": 0.6
+    },
+    "TEA-008": {
+      "name": "Acid/base dosing and precipitation tanks",
+      "eur": 9723.939580156575,
+      "exponent": 0.7
+    },
+    "TEA-009": {
+      "name": "Decanter / disc-stack centrifuge / hydrocyclone",
+      "eur": 56958.53823037814,
+      "exponent": 0.6
+    },
+    "TEA-013": {
+      "name": "CSTR / PFR / thermophilic / two-stage digester package",
+      "eur": 12725.228374244341,
+      "exponent": 0.7
+    },
+    "TEA-015": {
+      "name": "Gas holder, condensate traps, flare, H2S removal, drying and filters",
+      "eur": 16577.083354194165,
+      "exponent": 0.7
+    },
+    "TEA-017-WATER_SCRUBBING": {
+      "name": "Water scrubbing upgrader package",
+      "eur": 27029.192908440993,
+      "exponent": 0.65
+    },
+    "TEA-019": {
+      "name": "Digestate screw press / decanter / filter press",
+      "eur": 56958.53823037814,
+      "exponent": 0.6
+    },
+    "TEA-020": {
+      "name": "Stripper plus acid absorber/scrubber",
+      "eur": 146890.07046000738,
+      "exponent": 0.65
+    },
+    "TEA-022": {
+      "name": "Struvite reactor/crystallizer, dosing, separator and dryer",
+      "eur": 69519.45851579547,
+      "exponent": 0.7
+    }
+  },
+  "prices": {
+    "Protein product": {
+      "low": 800.0,
+      "high": 2800.0,
+      "base": 1600.0,
+      "unit": "EUR/t dry product",
+      "source": "https://www.wur.nl/upload_mm/a/6/8/af0ed21c-c784-46b0-ba47-feff2e26f448_8412102802_WFBR_Eiwittechnologie_boek_LR.pdf",
+      "status": "Analogue benchmark not roadside-grass product quote"
+    },
+    "Biomethane": {
+      "low": 49.87,
+      "high": 75.1,
+      "base": 60.51,
+      "unit": "EUR/MWh",
+      "source": "https://aegis.acer.europa.eu/chest/dataitems/1226/view",
+      "status": "Market benchmark"
+    },
+    "Press cake": {
+      "low": 40.0,
+      "high": 90.0,
+      "base": 65.0,
+      "unit": "EUR/t wet material",
+      "source": "https://www.derksfourage.nl/kennisbank/wat-kost-kuilgras-inclusief-transport/",
+      "status": "Analogue benchmark not direct press-cake quote"
+    },
+    "Ammonium product": {
+      "low": 180.0,
+      "high": 390.0,
+      "base": 315.0,
+      "unit": "EUR/t product",
+      "source": "NL supplier listings and market reports",
+      "status": " bulk agricultural grade"
+    },
+    "Phosphorus/struvite product": {
+      "low": 55.0,
+      "high": 350.0,
+      "base": 150.0,
+      "unit": "EUR/t dry product",
+      "source": "https://phosphorusplatform.eu/images/scope/ScopeNewsletter122.pdf; https://edepot.wur.nl/640119",
+      "status": "Market reference ranges widely; use conservative basis"
+    },
+    "Potassium concentrate": {
+      "low": 435.0,
+      "high": 465.0,
+      "base": 450.0,
+      "unit": "EUR/t product",
+      "source": "https://www.agrarmarkt-nrw.de/duengermarkt.shtm",
+      "status": "Substitution-value proxy"
+    },
+    "Recovered water": {
+      "low": 0.8,
+      "high": 1.56,
+      "base": 1.0,
+      "unit": "EUR/m3 avoided-water value",
+      "source": "https://www.tkiwatertechnologie.nl/projecten/effluent-reuse-harnaschpolder/; https://ewupdate.vemw.nl/energie_water_update_nr_5_-_2026/opnieuw_hogere_waterprijzen_voor_zakelijke_watergebruikers",
+      "status": "Cost avoidance proxy not product sale price"
+    },
+    "Nutrient-rich solids": {
+      "low": 0.0,
+      "high": 90.0,
+      "base": 40.0,
+      "unit": "EUR/t wet product",
+      "source": "https://www.derksfourage.nl/kennisbank/wat-kost-kuilgras-inclusief-transport/; projectplan-circulaire-innovaties.pdf",
+      "status": "No reliable direct market price; conditional feed/soil-amendment proxy"
+    },
+    "Ion-exchange product": {
+      "low": 0.0,
+      "high": 390.0,
+      "base": 0.0,
+      "unit": "EUR/t product",
+      "source": "https://www.hlpagri.nl/Meststoffen.htm; https://www.europages.nl/nl/company/contraeve-trading-22375042/products/ammonium-sulfate-fertilizer-nitrogen-sulfur-fertilizer-bulk-wholesale-supply-38666282",
+      "status": "Not independently priced; contingent coproduct route"
+    },
+    "Biomethane (user all-in direct basis)": {
+      "low": 0.59,
+      "high": 1.17,
+      "base": 0.88,
+      "unit": "EUR/m3",
+      "source": "https://www.energievergelijk.nl/energieprijzen/gasprijs",
+      "status": "User-provided screening assumption"
+    }
+  }
+}

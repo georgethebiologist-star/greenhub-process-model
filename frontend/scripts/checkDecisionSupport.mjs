@@ -7,7 +7,7 @@ import {buildSync} from 'esbuild';
 import React from 'react';
 import {renderToStaticMarkup} from 'react-dom/server';
 
-const code=buildSync({stdin:{contents:`export {DecisionResults} from './src/components/DecisionSupport'; export {default as DecisionOverview} from './src/components/DecisionOverview'; export {previewFinance,baselineSnapshot} from './src/data/decisionPreview'; export {buildDecisionConfiguration} from './src/data/decisionSupport';`,resolveDir:process.cwd()},bundle:true,write:false,platform:'node',format:'cjs',packages:'external',loader:{'.css':'empty'},define:{'import.meta.env':'{}'}}).outputFiles[0].text;
+const code=buildSync({stdin:{contents:`export {DecisionResults} from './src/components/DecisionSupport'; export {default as DecisionOverview} from './src/components/DecisionOverview'; export {previewFinance,baselineSnapshot} from './src/data/decisionPreview'; export {generateScreeningBatch,evaluateCandidate,markPareto,defaultRanges,defaultSettings} from './src/data/paretoScreening'; export {buildDecisionConfiguration} from './src/data/decisionSupport';`,resolveDir:process.cwd()},bundle:true,write:false,platform:'node',format:'cjs',packages:'external',loader:{'.css':'empty'},define:{'import.meta.env':'{}'}}).outputFiles[0].text;
 const compiled=new Module(path.resolve('scripts/decision-check.cjs'));
 compiled.filename=path.resolve('scripts/decision-check.cjs');
 compiled.require=createRequire(import.meta.url);compiled._compile(code,compiled.filename);
@@ -45,3 +45,36 @@ assert.equal(previewFinance(100,10,2,0).payback,null,'No payback inside a short 
 assert.equal(previewFinance(100,0,20,0).irr,null);
 assert.equal(previewFinance(100,60,2,0).cashflows.at(-1).cumulative,20);
 console.log('Offline baseline, contribution sums, IRR, NPV and payback checks passed.');
+
+const {generateScreeningBatch,evaluateCandidate,markPareto,defaultRanges,defaultSettings}=compiled.exports;
+const study=generateScreeningBatch();
+assert.equal(study.points.length,2000);
+assert.equal(new Set(study.points.map(p=>p.id)).size,2000);
+assert.deepEqual(study,generateScreeningBatch(),'Same seed must reproduce all configurations and KPIs.');
+assert.notDeepEqual(study.points,generateScreeningBatch(43).points);
+assert.ok(study.points.every(p=>p.fraction>=.1&&p.fraction<=.5&&p.people>=2&&Number.isInteger(p.people)));
+assert.ok(study.points.some(p=>p.people===2));
+assert.ok(study.points.some(p=>p.routes.pef)&&study.points.some(p=>!p.routes.pef));
+assert.ok(study.points.some(p=>p.routes.protein==='Bypass')&&study.points.some(p=>p.routes.protein==='Heat'));
+assert.ok(study.points.some(p=>p.routes.gas==='PSA')&&study.points.some(p=>p.routes.fertilizer==='Phosphorus'));
+assert.ok(study.points.every(p=>p.routes.digestion!=='Bypass'||p.routes.gas==='No product · flare'&&p.routes.fertilizer==='Bypass'));
+for(const p of study.points){
+ assert.ok(Math.abs(p.profit-(p.revenue-p.opex-p.capitalCharge))<1e-7);
+ assert.ok(Math.abs(p.offset-(p.credit-p.burden)/1000)<1e-9);
+ for(const [key,r] of Object.entries(defaultRanges))assert.ok(p.assumptions[key]>=r.low&&p.assumptions[key]<=r.high);
+}
+const brute=study.points.filter(p=>p.feasible&&!study.points.some(q=>q.feasible&&q.profit>=p.profit&&q.offset>=p.offset&&(q.profit>p.profit||q.offset>p.offset))).map(p=>p.id).sort();
+assert.deepEqual(study.points.filter(p=>p.pareto).map(p=>p.id).sort(),brute,'Front must maximize both axes.');
+const same=study.points.find(p=>p.routes.digestion!=='Bypass');
+const small=evaluateCandidate(same.routes,.1,same.assumptions,defaultSettings);
+const large=evaluateCandidate(same.routes,.5,same.assumptions,defaultSettings);
+assert.ok(small.capital<large.capital,'Lower volume must reduce matched equipment CAPEX.');
+assert.ok(small.people<=large.people&&small.people>=2,'Staff must scale down with a floor.');
+const skip=evaluateCandidate({...same.routes,pef:false,protein:'Bypass',digestion:'Bypass',gas:'No product · flare',fertilizer:'Bypass'},.3,same.assumptions,defaultSettings);
+assert.equal(skip.proteinKg,0);assert.equal(skip.methaneNm3,0);assert.equal(skip.fertilizerKg,0);assert.equal(skip.credit,0);
+assert.ok(evaluateCandidate(same.routes,.5,same.assumptions,{...defaultSettings,maxFlowKgH:100}).reasons.some(r=>r.includes('capacity')));
+assert.throws(()=>generateScreeningBatch(1,{...defaultRanges,proteinPrice:{...defaultRanges.proteinPrice,low:3,high:2}}),/low/);
+assert.throws(()=>generateScreeningBatch(1,defaultRanges,{...defaultSettings,fullScalePeople:1}),/staff/);
+const ties=markPareto([{id:'a',profit:1,offset:2,feasible:true},{id:'b',profit:1,offset:2,feasible:true},{id:'c',profit:1,offset:1,feasible:true},{id:'d',profit:100,offset:100,feasible:false}]);
+assert.deepEqual(ties.filter(p=>p.pareto).map(p=>p.id),['a','b']);
+console.log(`2000-scenario determinism, bounds, flow/staff scaling, bypasses and Pareto checks passed (${brute.length} front points).`);

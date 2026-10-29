@@ -2,6 +2,7 @@ import React,{useMemo,useState} from 'react';
 import {BarChart,Bar,LineChart,Line,CartesianGrid,XAxis,YAxis,Tooltip,Legend,ResponsiveContainer,ReferenceLine} from 'recharts';
 import {baselineSnapshot,previewFinance,snapshotFromReport,type AnalysisSnapshot} from '../data/decisionPreview';
 import type {DecisionReport} from '../data/decisionSupport';
+import ParetoScreening from './ParetoScreening';
 
 const number=(n:number|null,unit='')=>n==null||!Number.isFinite(n)?'Unavailable':`${n.toLocaleString(undefined,{maximumFractionDigits:1})}${unit}`;
 const euro=(n:number|null)=>n==null?'Unavailable':new Intl.NumberFormat(undefined,{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n);
@@ -42,6 +43,7 @@ export default function DecisionOverview({report}:{report?:DecisionReport|null})
       <Breakdown rows={climateRows} color="#5484bf" unit="kg CO₂e/year"/>
       <details><summary>What is still missing for TEA and LCA?</summary><h4>TEA</h4><ul>{s.teaMissing.map((r:any,i:number)=><li key={i}>{r.message||r.required_input||r.code}</li>)}</ul><h4>LCA</h4><ul>{s.lcaMissing.map((r:string,i:number)=><li key={i}>{r.replaceAll('_',' ')}</li>)}</ul></details>
     </section>
+    <ParetoScreening/>
     <small className="ds-source">Source: {s.sourceRun}{s.sourceCommit?` · code ${s.sourceCommit.slice(0,8)}`:''}. Preview assumptions are local to these charts and do not change simulation outputs or ranking eligibility.</small>
   </section>;
 }
