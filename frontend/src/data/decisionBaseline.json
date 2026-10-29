@@ -1,0 +1,175 @@
+{
+  "label": "Baseline screening preview",
+  "sourceRun": "37134f6d6b1c4866ac75e1538e12a9f7",
+  "sourceCommit": "be1c03b35aa1eed4a615f11933b281c48a7196a4",
+  "scenario": [
+    "F2",
+    "PR3",
+    "AD1",
+    "BG2",
+    "NR4"
+  ],
+  "feedTonnes": 8759.999999999998,
+  "dryFeedTonnes": 3065.999999999999,
+  "people": 5,
+  "paidHoursPerPerson": 1500,
+  "capital": 1443281.049653595,
+  "revenue": 143080.59766174186,
+  "opex": 570002.8258557372,
+  "costs": [
+    {
+      "name": "Operators, maintenance, laboratory and management",
+      "value": 359250.0
+    },
+    {
+      "name": "Roadside grass collection-to-plant haulage",
+      "value": 94345.19999999998
+    },
+    {
+      "name": "Dutch non-household electricity tariff, 500\u20131,999 MWh/y",
+      "value": 54329.58856064858
+    },
+    {
+      "name": "Natural gas boiler useful heat proxy",
+      "value": 33212.41630201669
+    },
+    {
+      "name": "Acid and caustic (H2SO4/HCl, NaOH/lime)",
+      "value": null
+    },
+    {
+      "name": "Activated carbon / H2S adsorbent",
+      "value": null
+    },
+    {
+      "name": "Magnesium salt (MgCl2/MgO/MgSO4)",
+      "value": null
+    },
+    {
+      "name": "Routine plant maintenance allowance",
+      "value": 28865.6209930719
+    }
+  ],
+  "revenues": [
+    {
+      "name": "dry_protein_product",
+      "value": 112305.80674027727
+    },
+    {
+      "name": "biomethane",
+      "value": 1115.1946267514543
+    },
+    {
+      "name": "phosphorus_product",
+      "value": 149.91634221584553
+    },
+    {
+      "name": "ammonium_product",
+      "value": 27518.948520934282
+    },
+    {
+      "name": "nutrient_rich_solids",
+      "value": 1990.7314315630158
+    }
+  ],
+  "capitalLines": [
+    {
+      "name": "Reception bunker, weighbridge, conveyors and contaminant removal",
+      "value": 250000.0
+    },
+    {
+      "name": "Stone trap, washer/screen, chopper/shredder/wet mill/refiner",
+      "value": 49999.99999999999
+    },
+    {
+      "name": "Screw press or belt press",
+      "value": 66899.0
+    },
+    {
+      "name": "Continuous pulsed-electric-field skid",
+      "value": 680000.0
+    },
+    {
+      "name": "Acid/base dosing and precipitation tanks",
+      "value": 9723.939580156575
+    },
+    {
+      "name": "Decanter / disc-stack centrifuge / hydrocyclone",
+      "value": 56958.53823037814
+    },
+    {
+      "name": "CSTR / PFR / thermophilic / two-stage digester package",
+      "value": 12725.228374244341
+    },
+    {
+      "name": "Gas holder, condensate traps, flare, H2S removal, drying and filters",
+      "value": 16577.083354194165
+    },
+    {
+      "name": "Water scrubbing upgrader package",
+      "value": 27029.192908440993
+    },
+    {
+      "name": "Digestate screw press / decanter / filter press",
+      "value": 56958.53823037814
+    },
+    {
+      "name": "Stripper plus acid absorber/scrubber",
+      "value": 146890.07046000738
+    },
+    {
+      "name": "Struvite reactor/crystallizer, dosing, separator and dryer",
+      "value": 69519.45851579547
+    }
+  ],
+  "electricityKwh": 272875.8842825142,
+  "heatKwh": 418819.8777051285,
+  "methaneKg": 215.20438201789187,
+  "teaMissing": [
+    {
+      "cost_id": "TEA-043",
+      "code": "missing_quantity",
+      "required_input": "annual simulation quantity or explicit project basis",
+      "message": "Acid and caustic (H2SO4/HCl, NaOH/lime): annual simulation quantity or explicit project basis is required; no value was invented."
+    },
+    {
+      "cost_id": "TEA-047",
+      "code": "missing_quantity",
+      "required_input": "annual simulation quantity or explicit project basis",
+      "message": "Activated carbon / H2S adsorbent: annual simulation quantity or explicit project basis is required; no value was invented."
+    },
+    {
+      "cost_id": "TEA-051",
+      "code": "missing_quantity",
+      "required_input": "annual simulation quantity or explicit project basis",
+      "message": "Magnesium salt (MgCl2/MgO/MgSO4): annual simulation quantity or explicit project basis is required; no value was invented."
+    },
+    {
+      "cost_id": "PROJECT-BOUNDARY",
+      "code": "unconfirmed_cost_boundary",
+      "required_input": "Review equipment, installation, indirects, replacements, utilities, consumables, labor, maintenance, logistics and disposal; declare included boundary and exclusions."
+    },
+    {
+      "cost_id": "PROJECT-PRICE-BASIS",
+      "code": "unconfirmed_price_basis",
+      "required_input": "Confirm common EUR price year and location, with explicit cost_multipliers where conversion/escalation is necessary."
+    }
+  ],
+  "lcaMissing": [
+    "electricity: missing_factor",
+    "heat: missing_factor",
+    "process_uncaptured_biogas_Methane: missing_factor",
+    "process_reject_gas_Methane: missing_factor",
+    "electricity: inventory boundary incomplete",
+    "heat: inventory boundary incomplete",
+    "materials: inventory boundary incomplete",
+    "materials: no explicit burden inventory (zero must be declared as a flow)",
+    "transport: inventory boundary incomplete",
+    "transport: no explicit burden inventory (zero must be declared as a flow)",
+    "storage_emissions: inventory boundary incomplete",
+    "storage_emissions: no explicit burden inventory (zero must be declared as a flow)",
+    "process_emissions: inventory boundary incomplete",
+    "waste: inventory boundary incomplete",
+    "waste: no explicit burden inventory (zero must be declared as a flow)"
+  ]
+}

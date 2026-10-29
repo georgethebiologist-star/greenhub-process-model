@@ -165,6 +165,7 @@ export default function App() {
     <main className="workspace">
       {tab === 'dynamic-proxy' && <DynamicCompleteDashboard/>}
       {tab === 'decision-support' && <DecisionSupport/>}
+      {tab === 'overview' && <section className="panel proxy-entry"><strong>TEA &amp; LCA baseline preview</strong><p>Explore operating costs, product revenue, capital recovery and climate contributors. Flagged financial previews work even while the Python backend is offline.</p><button className="secondary" onClick={() => setTab('decision-support')}>Open TEA &amp; LCA dashboard</button></section>}
       {tab === 'overview' && <section className="panel proxy-entry"><strong>Explore the complete dynamic proxy</strong><p>30,000 t/year fresh grass · seasonal supply · monthly products · energy and assumption traceability.</p><button className="secondary" onClick={() => setTab('dynamic-proxy')}>Open opt-in proxy dashboard</button></section>}
       {running && <section className="run-progress" role="status" aria-live="polite"><span className="progress-spinner"/><div><strong>Calculating the annual GreenHub plan</strong><p>Processing monthly feed availability, unit performance, products, utilities and balance checks.</p></div></section>}
       {tab === 'overview' && <Overview result={result} activeUnits={activeUnits} runtime={runtime} limitations={limitations} onConfigure={() => setTab('configure')} onResults={() => setTab('results')}/>} 

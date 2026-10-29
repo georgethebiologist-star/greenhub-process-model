@@ -7,11 +7,11 @@ import {buildSync} from 'esbuild';
 import React from 'react';
 import {renderToStaticMarkup} from 'react-dom/server';
 
-const code=buildSync({stdin:{contents:`export {DecisionResults} from './src/components/DecisionSupport'; export {buildDecisionConfiguration} from './src/data/decisionSupport';`,resolveDir:process.cwd()},bundle:true,write:false,platform:'node',format:'cjs',packages:'external',loader:{'.css':'empty'},define:{'import.meta.env':'{}'}}).outputFiles[0].text;
+const code=buildSync({stdin:{contents:`export {DecisionResults} from './src/components/DecisionSupport'; export {default as DecisionOverview} from './src/components/DecisionOverview'; export {previewFinance,baselineSnapshot} from './src/data/decisionPreview'; export {buildDecisionConfiguration} from './src/data/decisionSupport';`,resolveDir:process.cwd()},bundle:true,write:false,platform:'node',format:'cjs',packages:'external',loader:{'.css':'empty'},define:{'import.meta.env':'{}'}}).outputFiles[0].text;
 const compiled=new Module(path.resolve('scripts/decision-check.cjs'));
 compiled.filename=path.resolve('scripts/decision-check.cjs');
 compiled.require=createRequire(import.meta.url);compiled._compile(code,compiled.filename);
-const {DecisionResults,buildDecisionConfiguration}=compiled.exports;
+const {DecisionResults,DecisionOverview,previewFinance,baselineSnapshot,buildDecisionConfiguration}=compiled.exports;
 const report=JSON.parse(fs.readFileSync('../Greenhub/results/decision_support/static.json','utf8'));
 const html=renderToStaticMarkup(React.createElement(DecisionResults,{report}));
 for(const label of ['Not a validated simulation','validated_simulation_ready = false','Partial direct CAPEX','Operating profit','Climate inventory','Source status','Incomplete'])assert.ok(html.includes(label),label);
@@ -28,3 +28,20 @@ const screeningConfig=buildDecisionConfiguration(report.configuration,{model:'st
 assert.equal(screeningConfig.use_screening_lca_factors,true,'Screening LCA checkbox must activate the opt-in flag.');
 assert.equal(report.configuration.simulation.wet_feed_rate_kg_hr,1000,'Request construction must not mutate saved result.');
 console.log('Decision support rendering, evidence, readiness and request payload checks passed.');
+
+// Financial preview mathematics and offline rendering must remain independent of the API.
+const previewHtml=renderToStaticMarkup(React.createElement(DecisionOverview));
+for(const label of ['BASELINE PREVIEW','TEA &amp; LCA at a glance','IRR preview','No IRR','Not reached','Climate impact contributors','Complete LCA result','Blocked'])assert.ok(previewHtml.includes(label),label);
+assert.ok(Math.abs(baselineSnapshot.costs.reduce((s,r)=>s+(r.value??0),0)-baselineSnapshot.opex)<0.01);
+assert.ok(Math.abs(baselineSnapshot.revenues.reduce((s,r)=>s+(r.value??0),0)-baselineSnapshot.revenue)<0.01);
+const profitable=previewFinance(100,60,2,0);
+assert.equal(profitable.npv,20);
+assert.ok(Math.abs(profitable.irr-((60+Math.sqrt(27600))/200-1))<1e-9);
+assert.ok(Math.abs(profitable.payback-100/60)<1e-9);
+assert.ok(Math.abs(profitable.discountedPayback-100/60)<1e-9);
+assert.equal(previewFinance(100,-10,20,0.08).irr,null,'Negative-only cash flows have no IRR.');
+assert.equal(previewFinance(100,-10,20,0.08).payback,null);
+assert.equal(previewFinance(100,10,2,0).payback,null,'No payback inside a short horizon.');
+assert.equal(previewFinance(100,0,20,0).irr,null);
+assert.equal(previewFinance(100,60,2,0).cashflows.at(-1).cumulative,20);
+console.log('Offline baseline, contribution sums, IRR, NPV and payback checks passed.');

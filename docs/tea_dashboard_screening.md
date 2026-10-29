@@ -38,3 +38,35 @@ is not complete profit. NPV/IRR still require complete scope and explicit
 financial assumptions. Complete LCA still needs utility factors, materials,
 transport, waste, storage/process emission inventories and fate, and scope
 completeness. The historical dynamic proxy remains a separate illustrative model.
+
+## Frontend baseline and visual previews
+
+The Decision support page bundles `frontend/src/data/decisionBaseline.json`, a
+compact snapshot from run `37134f6d6b1c4866ac75e1538e12a9f7` using commit
+`be1c03b3`. It is a saved screening case, not a fresh simulation. The frontend
+can show it without a reachable Python backend. A successful live evaluation
+replaces the snapshot; offline errors never manufacture a new process result.
+An entry on Overview opens the TEA/LCA dashboard.
+
+Cost and revenue charts include only known values; tables retain missing lines.
+The financial preview assumes an initial screening-capital outlay and constant
+annual known-line operating balance, a 20-year life and 8% discount rate by
+default. Life, discount rate and hypothetical annual cash flow are editable.
+No taxes, replacements, escalation, missing installation or residual value are
+inferred. IRR is solved from the discounted cash-flow root; when cash flows
+never change sign, it is reported as no IRR. Payback is not reached when
+cumulative cash flow does not recover capital within the selected horizon.
+These local previews never change strict backend financial completeness,
+scientific outputs, objective eligibility or Pareto ranking.
+
+Climate previews separately use the existing 0.20 electricity proxy, an explicitly
+illustrative 0.202 kg CO2e/kWh delivered-heat coefficient, and an editable assumed
+emitted fraction of tracked methane (100% by default, not established actual
+fate), characterized at AR6 GWP100 27. These are partial scenario contributions,
+not a complete LCA. Missing transport, storage, material, waste and other gas
+pathways remain listed; no coproduct substitution credit is inferred. Wet/dry
+intensities divide only this preview subtotal by the corresponding feed basis.
+
+Deploying the frontend bundle publishes the baseline preview even before the
+Python backend is connected. Git push alone does not prove Render deployment;
+Render's service must deploy the commit, through automatic or manual deployment.
