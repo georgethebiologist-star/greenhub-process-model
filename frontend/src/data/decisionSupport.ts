@@ -20,6 +20,8 @@ export async function decisionApi<T>(path:string, body?:unknown):Promise<T> {
 export function buildDecisionConfiguration(base:Configuration, controls:Record<string,any>):Configuration {
   const config=structuredClone(base); const sim=config.simulation;
   config.use_screening_lca_factors=controls.screeningLca===true;
+  config.tea={...config.tea,staffing_people:controls.people??5,paid_hours_per_person:1500,screening_estimates:controls.screeningTea!==false};
+  config.financial_assumptions={...config.financial_assumptions,use_screening_price_benchmarks:controls.screeningTea!==false};
   sim.resolution_mode=controls.model; sim.wet_feed_rate_kg_hr=controls.feedRate; sim.plant_capacity_kg_hr=controls.capacity;
   sim.operating_schedule={operating_days_per_week:controls.days,operating_hours_per_day:controls.hours,target_throughput_kg_hr:controls.feedRate};
   if(controls.model==='quasi_dynamic') {

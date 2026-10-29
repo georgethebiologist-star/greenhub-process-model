@@ -57,3 +57,6 @@ data/raw_confidential/
 
 # Large local LCA databases
 *.zolca
+
+# Local simulation runs and analysis artifacts
+/Greenhub/results/runs/

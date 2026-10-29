@@ -410,3 +410,38 @@ def test_reproducible_scenario_sampling_and_kpi_report_writer(
     paths = write_tea_scenario_kpi_reports(rows, results_dir=tmp_path, docs_dir=tmp_path)
     assert all(path.exists() for path in paths.values())
     json.loads(paths["json"].read_text(encoding="utf-8"))
+
+
+def test_dashboard_staffing_and_installation_screening(empirical_result):
+    """Staffing changes costs; missing installation warns without hiding equipment."""
+    report = calculate_empirical_tea(empirical_result, project_basis={
+        'screening_estimates': True, 'staffing_people': 5,
+        'operating_hours_per_year': 8760,
+    }).to_dict()
+    labor = next(row for row in report['opex_lines'] if row['cost_id'] == 'TEA-029')
+    assert labor['annual_cost_eur'] == pytest.approx(5 * 1500 * 47.9)
+    logistics = next(row for row in report['opex_lines'] if row['cost_id'] == 'TEA-032')
+    assert logistics['annual_cost_eur'] > 0
+    assert report['totals']['screening_capital_basis_eur'] > 50000
+    assert any('Installation' in row.get('warning', '') or 'installation' in row.get('warning', '') for row in report['capex_lines'])
+    assert any(row['cost_id'] == 'TEA-030' and row['annual_cost_eur'] > 0 for row in report['opex_lines'])
+    assert not report['totals']['totals_complete']
+    changed = calculate_empirical_tea(empirical_result, project_basis={
+        'screening_estimates': True, 'staffing_people': 2,
+        'operating_hours_per_year': 8760,
+    }).to_dict()
+    assert report['totals']['annual_opex_eur'] - changed['totals']['annual_opex_eur'] == pytest.approx(3 * 1500 * 47.9)
+
+
+@pytest.mark.parametrize('people', [-1, 1.5, True])
+def test_staffing_requires_nonnegative_integer(people):
+    with pytest.raises(ValueError, match='staffing_people'):
+        TEAProjectBasis(staffing_people=people)
+
+
+def test_benchmark_period_metadata_survives_financial_contract():
+    from Greenhub.product_price_benchmarks import screening_tea_product_prices
+    from Greenhub.tea_finance import normalize_product_prices
+    prices = normalize_product_prices(screening_tea_product_prices())
+    assert prices
+    assert any(price.reference_period for price in prices)

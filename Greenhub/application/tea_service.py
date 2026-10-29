@@ -27,6 +27,9 @@ from Greenhub.time_grid import generate_time_grid
 class TEAProjectBasis:
     """Explicit project assumptions that may supplement simulation outputs."""
 
+    staffing_people: int = 5
+    paid_hours_per_person: float = 1500.0
+    screening_estimates: bool = False
     operating_hours_per_year: float | None = None
     operating_days_per_year: float | None = None
     operating_hours_per_day: float | None = None
@@ -50,6 +53,10 @@ class TEAProjectBasis:
     allow_capacity_extrapolation: bool = False
 
     def __post_init__(self) -> None:
+        if type(self.staffing_people) is not int or self.staffing_people < 0:
+            raise ValueError("staffing_people must be a non-negative integer.")
+        if not isfinite(self.paid_hours_per_person) or self.paid_hours_per_person < 0:
+            raise ValueError("paid_hours_per_person must be finite and non-negative.")
         for name, value in (
             ("operating_hours_per_year", self.operating_hours_per_year),
             ("operating_days_per_year", self.operating_days_per_year),
@@ -154,10 +161,14 @@ def calculate_empirical_tea(
         # record without changing the formed process route or default TEA.
         route["explicit_route_tags"] = tuple(route.get("explicit_route_tags", ())) + ("feedstock_logistics",)
     measures = _empirical_measures(simulation_result, basis, logistics_result=logistics_result)
-    return _calculate_post_route_tea(
-        "empirical", route, measures, basis, finance,
-        tuple(cost_records) if cost_records is not None else load_tea_cost_register(),
-    )
+    records = tuple(cost_records) if cost_records is not None else load_tea_cost_register()
+    if basis.screening_estimates:
+        from .tea_screening import prepare_screening_basis
+        basis, records = prepare_screening_basis(basis, records, measures, simulation_result)
+        route = _empirical_route(simulation_result, selected_routes, basis)
+        if logistics_result is not None:
+            route["explicit_route_tags"] = tuple(route.get("explicit_route_tags", ())) + ("feedstock_logistics",)
+    return _calculate_post_route_tea("empirical", route, measures, basis, finance, records)
 
 
 def calculate_dynamic_tea(
@@ -207,7 +218,7 @@ def _calculate_post_route_tea(
     ])
 
     # Indirect cost bases are evaluated only after all equipment lines exist.
-    for record in sorted(selected, key=lambda item: item.cost_type == "indirect"):
+    for record in sorted(selected, key=lambda item: {"capex": 0, "indirect": 1, "maintenance": 3}.get(item.cost_type, 2)):
         if record.cost_type == "capex":
             line, issues = _calculate_capex(record, measures, basis, model_type)
             capex_lines.append(line)
@@ -218,7 +229,16 @@ def _calculate_post_route_tea(
             line, issues = _calculate_annual_line(record, measures, basis, model_type, revenue=True)
             revenue_lines.append(line)
         else:
-            line, issues = _calculate_annual_line(record, measures, basis, model_type, revenue=False)
+            if basis.screening_estimates and record.cost_id == 'TEA-030' and _explicit_quantity(record, basis) is None:
+                capital = sum(float(item.get('installed_cost_eur') or item.get('direct_cost_eur') or 0) for item in capex_lines)
+                line = _line_base(record)
+                line.update(annual_cost_eur=capital * float(record.rate_value), quantity=capital,
+                            quantity_unit='EUR screening capital', unit_cost_eur=record.rate_value,
+                            calculation_status='screening_maintenance_allowance',
+                            warning='2% of known screening capital; incomplete capital understates maintenance. Mechanical wear excluded to avoid overlap.')
+                issues = []
+            else:
+                line, issues = _calculate_annual_line(record, measures, basis, model_type, revenue=False)
             opex_lines.append(line)
         missing.extend(issues)
 
@@ -277,6 +297,8 @@ def _calculate_post_route_tea(
         opex_complete=opex_complete,
         revenue_complete=revenue_status == "complete",
     )
+    if basis.screening_estimates:
+        warnings.append("Screening estimate: missing installation costs are excluded, not zero or verified installed costs; reference package and capacity assumptions are shown per line.")
     warnings.extend(financial_warnings)
     volume = measures.get('annual_products_m3', {}).get('biomethane')
     financial_kpis['cost_per_m3_biomethane_eur'] = annual_opex / volume if volume else None
@@ -285,8 +307,11 @@ def _calculate_post_route_tea(
         "total_direct_capex_eur": sum(direct_values),
         "partial_direct_capex_eur": sum(direct_values),
         "partial_installed_capex_eur": sum(installed_values),
-        "total_installed_capex_eur": sum(installed_values) if installed_complete else None,
+        "total_installed_capex_eur": sum(installed_values) if installed_complete and not any(line.get("calculation_status") in {"direct_cost_installation_excluded", "unscaled_reference_package_assumption"} for line in capex_lines) else None,
         "annual_opex_eur": annual_opex,
+        "screening_estimates": basis.screening_estimates,
+        "screening_capital_basis_eur": sum(installed_values) if basis.screening_estimates else None,
+        "screening_operating_balance_eur_per_year": annual_revenue - annual_opex if basis.screening_estimates else None,
         "annual_revenue_eur": annual_revenue,
         "annual_gross_profit_eur": financial_kpis["annual_gross_profit_eur"],
         "net_operating_margin_eur_per_year": financial_kpis["net_operating_margin_eur_per_year"],
@@ -485,6 +510,18 @@ def _calculate_capex(
             )
             if factor is None:
                 missing.append(_missing(record, "missing_installed_factor", "installed_factor"))
+    if basis.screening_estimates:
+        if line.get("direct_cost_eur") is None and record.reference_value_eur is not None and record.reference_capacity is None and any(token in (record.reference_unit or "").lower() for token in ("eur/package", "eur/unit", "eur/system")):
+            direct = float(record.reference_value_eur) * basis.cost_multipliers.get(record.cost_id, 1.0)
+            factor = basis.installed_factors.get(record.cost_id, record.installed_factor)
+            line.update(direct_cost_eur=direct, installed_cost_eur=direct * (float(factor) if factor is not None else 1.0), installed_factor=factor,
+                        calculation_status="unscaled_reference_package_assumption",
+                        warning=str(line.get("warning", "")) + " Unscaled reference package used; project/reference capacity match is unverified. Installation excluded where factor is missing.")
+            missing = []
+        elif line.get("direct_cost_eur") is not None and line.get("installed_cost_eur") is None:
+            line.update(installed_cost_eur=line["direct_cost_eur"], calculation_status="direct_cost_installation_excluded",
+                        warning=str(line.get("warning", "")) + " Installation factor missing: direct equipment cost used for screening; installation remains excluded.")
+            missing = [item for item in missing if item['code'] != 'missing_installed_factor']
     if "calculation_status" not in line:
         line.update(direct_cost_eur=None, installed_cost_eur=None, calculation_status="not_calculated")
     return line, missing
@@ -694,6 +731,17 @@ def _empirical_measures(result: object, basis: TEAProjectBasis, *, logistics_res
                 str(item.product_id): None if item.mass_flow.value is None else float(item.mass_flow.value) * hours for item in result.products
             },
         )
+    if basis.screening_estimates and not result.seasonal_summary and hours is not None:
+        # Explicit ideal-gas conversion for the physical product at its reported
+        # state. This is m3, never silently labelled Nm3.
+        weights = {'Methane': 16.04246, 'CarbonDioxide': 44.0095, 'Water': 18.01528,
+                   'Ammonia': 17.03052, 'HydrogenSulfide': 34.0809,
+                   'Nitrogen': 28.0134, 'Oxygen': 31.9988, 'Hydrogen': 2.01588}
+        gas = next((stream for stream in result.streams if stream.stream_id == 'water_scrubber_biomethane'), None)
+        if gas is not None and gas.temperature.value and gas.pressure.value and all(name in weights and value.value is not None for name, value in gas.components.items()):
+            moles = sum(float(value.value) / weights[name] for name, value in gas.components.items())
+            measures['annual_products_m3'] = {'biomethane': moles * 8314.462618 * float(gas.temperature.value) / float(gas.pressure.value) * hours}
+            measures.setdefault('quantity_warnings', []).append('Biomethane volume uses ideal gas conversion at reported product temperature/pressure; not Nm3. Verify commercial metering basis.')
     measures["formed_units"] = tuple(result.units)
     measures["design_capacities"] = tuple(
         {

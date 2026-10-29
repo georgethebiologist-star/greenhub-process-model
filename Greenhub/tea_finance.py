@@ -25,6 +25,7 @@ class TEAProductPrice:
     basis: str = "as-sold product; no dry-matter conversion inferred"
     geography: str = "unspecified"
     reference_year: int | None = None
+    reference_period: str = ""
     source_table_or_page: str = ""
     retrieval_date: str | None = None
     evidence_class: str = "explicit_user_assumption"

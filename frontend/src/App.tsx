@@ -72,7 +72,7 @@ const scenarioGroups = [
 ];
 
 export default function App() {
-  const [tab, setTab] = useState<TabId>('overview');
+  const [tab, setTab] = useState<TabId>(window.location.hash==='#decision-support'?'decision-support':'overview');
   const [mode, setMode] = useState<CalculationMode>('structural');
   const [month, setMonth] = useState('July');
   const [scenario, setScenario] = useState<ScenarioSelection>(defaults);
