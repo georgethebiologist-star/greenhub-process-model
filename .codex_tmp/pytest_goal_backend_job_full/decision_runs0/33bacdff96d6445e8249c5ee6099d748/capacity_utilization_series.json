@@ -1,0 +1,42 @@
+[
+  {
+    "actual_load": 1000.0,
+    "basis": "mass_t_h",
+    "maximum_load": 2000.0,
+    "parameter_id": "phase3.cleaning_capacity_t_per_h",
+    "time": "2026-07",
+    "unit": "kg/hr",
+    "unit_id": "U101",
+    "utilization": 0.5
+  },
+  {
+    "actual_load": 996.7,
+    "basis": "mass_t_h",
+    "maximum_load": 2000.0,
+    "parameter_id": "phase3.pef_capacity_t_per_h",
+    "time": "2026-07",
+    "unit": "kg/hr",
+    "unit_id": "U201",
+    "utilization": 0.49835
+  },
+  {
+    "actual_load": 996.6999999999999,
+    "basis": "mass_t_h",
+    "maximum_load": 2000.0,
+    "parameter_id": "phase3.press_capacity_t_per_h",
+    "time": "2026-07",
+    "unit": "kg/hr",
+    "unit_id": "S201",
+    "utilization": 0.49834999999999996
+  },
+  {
+    "actual_load": 0.5582639293167853,
+    "basis": "volume_m3_h",
+    "maximum_load": 10.0,
+    "parameter_id": "phase3.centrifuge_capacity_m3_per_h",
+    "time": "2026-07",
+    "unit": "m3/hr",
+    "unit_id": "C301",
+    "utilization": 0.05582639293167853
+  }
+]

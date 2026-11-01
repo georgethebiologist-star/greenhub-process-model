@@ -79,6 +79,9 @@ _TEA_PRODUCT_IDS = {
     "Protein product": ("dry_protein_product", "EUR/kg"),
     "Press cake": ("press_cake", "EUR/kg"),
     "Ammonium product": ("ammonium_product", "EUR/kg"),
+    # Keep the legacy benchmark label as an input alias while exposing the
+    # chemically precise product name in the UI and TEA output.
+    "Solid struvite": ("phosphorus_product", "EUR/kg"),
     "Phosphorus/struvite product": ("phosphorus_product", "EUR/kg"),
     "Potassium concentrate": ("potassium_concentrate", "EUR/kg"),
     "Recovered water": ("recovered_water", "EUR/m3"),

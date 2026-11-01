@@ -1,0 +1,85 @@
+input_parameter,value,unit,scenario_scope,selected_scenario,month,minimum,maximum,distribution,required,measurement_status,source_class,reference,calculation_method,measured_or_assumed,active,phase_introduced,comment
+acid_demand_method,empirical_dose,text,All,PR3,July,,,none,True,assumed,E,,selectable,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+acid_dose_kg_per_m3,1.5,kg pure acid/m3 liquid,All,PR3,July,0.0,,none,True,assumed,E,,empirical_dose,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+acid_mixing_power_kw_per_m3,0.1,kW/m3 working volume,All,PR3,July,0.0,,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+acid_mixing_time_min,5.0,min,All,PR3,July,0.0,,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+acid_purity,1.0,fraction,All,PR3,July,1e-06,1.0,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+acid_reagent_temperature_C,25.0,degC,All,PR3,July,-5.0,100.0,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+acid_solution_mass_fraction,0.32,kg active acid/kg solution,All,PR3,July,1e-06,1.0,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+acid_type,HydrochloricAcid,component ID,All,PR3,July,,,none,True,assumed,E,,commercial solution,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+target_pH,4.5,pH,All,PR3,July,0.0,14.0,none,True,assumed,E,,metadata,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+protein_wash_loss_fraction,0.02,fraction removed,All,PR3,July,0.0,1.0,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+residual_acid_removal_fraction,0.8,fraction removed,All,PR3,July,0.0,1.0,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+residual_sugar_removal_fraction,0.6,fraction removed,All,PR3,July,0.0,1.0,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+salt_wash_efficiency,0.8,fraction removed,All,PR3,July,0.0,1.0,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+soluble_cod_removal_fraction,0.5,fraction removed,All,PR3,July,0.0,1.0,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+wash_stage_count,1.0,count,All,PR3,July,1.0,1.0,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+wash_water_kg_per_kg_dry_cake,2.0,kg/kg dry cake,All,PR3,July,0.0,,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+washed_cake_moisture_fraction,0.75,fraction wet basis,All,PR3,July,0.0,0.999999,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+dewatering_capacity_kg_hr,,kg wet cake/hr per train,All,PR3,July,1e-06,,none,False,assumed,E,,,assumed,True,4,Leave blank until vendor data are available.
+dewatering_electricity_kwh_per_t_wet,5.0,kWh/t wet cake,All,PR3,July,0.0,,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+dewatering_protein_capture_fraction,0.995,fraction to cake,All,PR3,July,0.0,1.0,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+target_dryer_feed_solids_fraction,0.35,fraction wet basis,All,PR3,July,1e-06,0.999999,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+dryer_capacity_kg_hr,,kg wet cake/hr per train,All,PR3,July,1e-06,,none,False,assumed,E,,,assumed,True,4,Leave blank until vendor data are available.
+dryer_dust_loss_fraction,0.005,fraction dry matter to exhaust,All,PR3,July,0.0,1.0,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+dryer_electricity_kwh_per_kg_water_evaporated,0.15,kWh/kg water evaporated,All,PR3,July,0.0,,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+dryer_energy_method,thermodynamic,text,All,PR3,July,,,none,True,assumed,E,,selected method only,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+dryer_heat_loss_fraction,0.1,fraction,All,PR3,July,0.0,0.999999,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+dryer_heat_source,hot_water,text,All,PR3,July,,,none,True,assumed,E,,,assumed,True,4,External hot-water utility only; no future biomethane integration in Phase 4.
+dryer_protein_entrainment_loss_fraction,0.002,fraction protein to exhaust,All,PR3,July,0.0,1.0,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+dryer_residence_time_min,45.0,min,All,PR3,July,0.0,,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+dryer_temperature_C,70.0,degC,All,PR3,July,-5.0,200.0,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+dryer_thermal_efficiency,0.65,fraction,All,PR3,July,1e-06,1.0,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+dryer_type,low_temperature_belt_dryer,text,All,PR3,July,,,none,True,assumed,E,,,assumed,True,4,Structural selection for dewatered heat-sensitive cake; vendor confirmation required.
+product_outlet_temperature_C,55.0,degC,All,PR3,July,-5.0,200.0,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+specific_heat_demand_kj_per_kg_water,,kJ/kg water evaporated,All,PR3,July,0.0,,none,False,assumed,E,,,assumed,True,4,Blank because thermodynamic mode is selected; do not combine both methods.
+target_product_moisture_fraction,0.08,fraction wet basis,All,PR3,July,0.0,0.999999,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+thermal_protein_degradation_fraction,0.0,fraction retained protein,All,PR3,July,0.0,1.0,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+heat_coagulation_efficiency,0.4,fraction of remaining soluble protein,All,PR3,July,0.0,1.0,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+heat_coagulation_kinetic_model,direct_yield,text,All,PR3,July,,,none,True,assumed,E,,direct measured/assumed yield,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+maximum_heat_coagulation_recovery,0.75,fraction,All,PR3,July,0.0,1.0,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+base_demand_method,stoichiometric,text,All,PR3,July,,,none,True,assumed,E,,molecular acid/base balance,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+base_dose_kg_per_m3,,kg pure base/m3 liquid,All,PR3,July,0.0,,none,False,assumed,E,,,assumed,True,4,Blank in stoichiometric mode.
+base_purity,1.0,fraction,All,PR3,July,1e-06,1.0,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+base_reagent_temperature_C,25.0,degC,All,PR3,July,-5.0,100.0,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+base_solution_mass_fraction,0.5,kg active base/kg solution,All,PR3,July,1e-06,1.0,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+base_type,SodiumHydroxide,component ID,All,PR3,July,,,none,True,assumed,E,,commercial solution,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+neutralization_mixing_power_kw_per_m3,0.05,kW/m3 working volume,All,PR3,July,0.0,,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+neutralization_mixing_time_min,5.0,min,All,PR3,July,0.0,,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+target_digester_feed_pH,7.0,pH,All,PR3,July,0.0,14.0,none,True,assumed,E,,metadata,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+heat_coagulation_rate_constant_per_min,,1/min,All,PR3,July,0.0,,none,False,assumed,E,,,assumed,True,4,Blank in direct-yield mode; required only for first-order mode.
+kinetic_reference_temperature_C,25.0,degC,All,PR3,July,-5.0,150.0,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+precipitation_activation_energy_kj_per_mol,,kJ/mol,All,PR3,July,0.0,,none,False,assumed,E,,,assumed,True,4,Blank unless literature-supported or fitted.
+precipitation_rate_constant_per_min,,1/min,All,PR3,July,0.0,,none,False,assumed,E,,,assumed,True,4,Blank in direct-yield mode; required only for first-order mode.
+buffer_capacity_mol_H_per_L_pH,,mol H+/L/pH,All,PR3,July,0.0,,none,False,assumed,E,,,assumed,True,4,Leave blank unless measured or fitted.
+feed_alkalinity_mg_caco3_L,,mg CaCO3/L,All,PR3,July,0.0,,none,False,assumed,E,,,assumed,True,4,Leave blank unless measured; required only for acid-equivalent acid demand.
+feed_pH,6.5,pH,All,PR3,July,0.0,14.0,none,True,assumed,E,,metadata,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+phase4_feed_density_kg_m3,1000.0,kg/m3,All,PR3,July,1.0,2000.0,none,True,assumed,E,,constant density,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+effective_precipitation_pH_width,0.6,pH units,All,PR3,July,1e-06,,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+effective_protein_pI,4.5,pH,All,PR3,July,0.0,14.0,none,True,assumed,E,,,assumed,True,4,"Aggregate placeholder, not a universal grass-protein pI."
+maximum_protein_recovery,0.85,fraction,All,PR3,July,0.0,1.0,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+precipitation_efficiency,0.75,fraction of soluble protein,All,PR3,July,0.0,1.0,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+precipitation_kinetic_model,direct_yield,text,All,PR3,July,,,none,True,assumed,E,,direct measured/assumed yield,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+precipitation_mixing_power_kw_per_m3,0.2,kW/m3 working volume,All,PR3,July,0.0,,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+precipitation_residence_time_min,30.0,min,All,PR3,July,0.0,,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+precipitation_temperature_C,60.0,degC,All,PR3,July,-5.0,150.0,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+precipitation_working_volume_fraction,0.8,fraction,All,PR3,July,1e-06,1.0,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+co_precipitation_colloidal_carbohydrates_fraction,0.2,fraction to cake,All,PR3,July,0.0,1.0,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+co_precipitation_heavy_metals_fraction,0.1,fraction to cake,All,PR3,July,0.0,1.0,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+co_precipitation_lipids_fraction,0.1,fraction to cake,All,PR3,July,0.0,1.0,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+co_precipitation_microplastics_fraction,0.1,fraction to cake,All,PR3,July,0.0,1.0,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+co_precipitation_mineral_ash_fraction,0.2,fraction to cake,All,PR3,July,0.0,1.0,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+co_precipitation_other_particulates_fraction,0.3,fraction to cake,All,PR3,July,0.0,1.0,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+co_precipitation_particulate_phosphorus_fraction,0.3,fraction to cake,All,PR3,July,0.0,1.0,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+co_precipitation_suspended_solids_fraction,0.5,fraction to cake,All,PR3,July,0.0,1.0,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+precipitated_protein_capture_fraction,0.95,fraction to cake,All,PR3,July,0.0,1.0,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+protein_cake_moisture_fraction,0.75,fraction wet basis,All,PR3,July,0.0,0.999999,none,True,assumed,E,,analytical water allocation,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+protein_separator_capacity_m3_hr,,m3/hr per train,All,PR3,July,1e-06,,none,False,assumed,E,,,assumed,True,4,Leave blank until vendor data are available.
+protein_separator_electricity_kwh_per_m3,0.8,kWh/m3 feed,All,PR3,July,0.0,,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+protein_separator_solids_capacity_kg_hr,,kg dry solids/hr per train,All,PR3,July,1e-06,,none,False,assumed,E,,,assumed,True,4,Leave blank until vendor data are available.
+separator_soluble_protein_loss_fraction,0.02,fraction to cake,All,PR3,July,0.0,1.0,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+suspended_protein_capture_fraction,0.8,fraction to cake,All,PR3,July,0.0,1.0,none,True,assumed,E,,,assumed,True,4,Structural placeholder; replace with measured or sourced data.
+model_assumption,"Phase 4 pH values are screening-level metadata, not electrolyte-equilibrium predictions.",,PR3,PR3,July,,,,,calculated,E,,documented model boundary,assumed,True,4,"Phase 4 pH values are screening-level metadata, not electrolyte-equilibrium predictions."
+model_assumption,Protein precipitation and heat coagulation are mass-conserving empirical pool transfers.,,PR3,PR3,July,,,,,calculated,E,,documented model boundary,assumed,True,4,Protein precipitation and heat coagulation are mass-conserving empirical pool transfers.
+model_assumption,Custom Phase 4 units have no CAPEX because no approved project correlation is available.,,PR3,PR3,July,,,,,calculated,E,,documented model boundary,assumed,True,4,Custom Phase 4 units have no CAPEX because no approved project correlation is available.
+model_assumption,"Drying air is utility-only; no air mass, humidity, or recycle calculation is claimed.",,PR3,PR3,July,,,,,calculated,E,,documented model boundary,assumed,True,4,"Drying air is utility-only; no air mass, humidity, or recycle calculation is claimed."

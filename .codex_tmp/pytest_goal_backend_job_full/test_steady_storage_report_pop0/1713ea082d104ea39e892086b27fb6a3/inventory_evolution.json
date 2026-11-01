@@ -1,0 +1,16 @@
+[
+  {
+    "average_kg": 99.99999999999999,
+    "basis": "steady_state_storage_condition",
+    "degradation_kg": null,
+    "exported_kg": 0.0,
+    "fate_status": "unknown_missing_kinetics",
+    "final_kg": 99.99999999999999,
+    "initial_kg": 99.99999999999999,
+    "inventory_id": "biomass_storage",
+    "peak_kg": 99.99999999999999,
+    "status": "calculated_from_steady_storage_report",
+    "timeline": [],
+    "warning": "No time history exists for a steady-state storage calculation; average and peak are reported on the steady-state input basis."
+  }
+]

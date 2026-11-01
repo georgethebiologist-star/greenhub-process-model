@@ -1,0 +1,2 @@
+scenario,enabled,method,acid_type,solution_mass_fraction,acid_purity,pure_acid_kg_hr,acid_solution_kg_hr,reagent_water_kg_hr,acid_equivalents_kmol_hr,pure_acid_dose_kg_m3,acid_kg_per_kg_dry_product,initial_pH_metadata,target_pH_metadata,warning
+PR3,True,empirical_dose,HydrochloricAcid,0.32,1.0,0.36922860483870973,1.1538393901209678,0.7846107852822581,0.010126689131950787,1.5,0.08872643539377466,6.5,4.5,

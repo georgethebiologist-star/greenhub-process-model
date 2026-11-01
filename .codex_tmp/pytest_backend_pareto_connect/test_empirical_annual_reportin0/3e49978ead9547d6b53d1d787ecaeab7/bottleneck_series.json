@@ -1,0 +1,50 @@
+[
+  {
+    "bottleneck_unit": null,
+    "time": "2026-01"
+  },
+  {
+    "bottleneck_unit": null,
+    "time": "2026-02"
+  },
+  {
+    "bottleneck_unit": null,
+    "time": "2026-03"
+  },
+  {
+    "bottleneck_unit": "U101",
+    "time": "2026-04"
+  },
+  {
+    "bottleneck_unit": "U101",
+    "time": "2026-05"
+  },
+  {
+    "bottleneck_unit": "U101",
+    "time": "2026-06"
+  },
+  {
+    "bottleneck_unit": "U101",
+    "time": "2026-07"
+  },
+  {
+    "bottleneck_unit": "U101",
+    "time": "2026-08"
+  },
+  {
+    "bottleneck_unit": "U101",
+    "time": "2026-09"
+  },
+  {
+    "bottleneck_unit": "U101",
+    "time": "2026-10"
+  },
+  {
+    "bottleneck_unit": "U101",
+    "time": "2026-11"
+  },
+  {
+    "bottleneck_unit": null,
+    "time": "2026-12"
+  }
+]

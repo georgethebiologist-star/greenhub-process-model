@@ -1,0 +1,28 @@
+category,item,scenario,status,requirement_or_action
+dewatering,dewatering_capacity_kg_hr,All,missing_optional_value,Leave blank until vendor data are available.
+drying,dryer_capacity_kg_hr,All,missing_optional_value,Leave blank until vendor data are available.
+drying,specific_heat_demand_kj_per_kg_water,All,missing_optional_value,Blank because thermodynamic mode is selected; do not combine both methods.
+neutralization,base_dose_kg_per_m3,All,missing_optional_value,Blank in stoichiometric mode.
+precipitation_kinetics,heat_coagulation_rate_constant_per_min,All,missing_optional_value,Blank in direct-yield mode; required only for first-order mode.
+precipitation_kinetics,precipitation_activation_energy_kj_per_mol,All,missing_optional_value,Blank unless literature-supported or fitted.
+precipitation_kinetics,precipitation_rate_constant_per_min,All,missing_optional_value,Blank in direct-yield mode; required only for first-order mode.
+protein_feed,buffer_capacity_mol_H_per_L_pH,All,missing_optional_value,Leave blank unless measured or fitted.
+protein_feed,feed_alkalinity_mg_caco3_L,All,missing_optional_value,Leave blank unless measured; required only for acid-equivalent acid demand.
+protein_separation,protein_separator_capacity_m3_hr,All,missing_optional_value,Leave blank until vendor data are available.
+protein_separation,protein_separator_solids_capacity_kg_hr,All,missing_optional_value,Leave blank until vendor data are available.
+inactive_alternative,glucose conversion,PR4,required_before_activation,Architecture reserved; no fermentation performance is assumed in Phase 4.
+inactive_alternative,lactic-acid yield,PR4,required_before_activation,Architecture reserved; no fermentation performance is assumed in Phase 4.
+inactive_alternative,fermentation kinetics,PR4,required_before_activation,Architecture reserved; no fermentation performance is assumed in Phase 4.
+inactive_alternative,biomass yield,PR4,required_before_activation,Architecture reserved; no fermentation performance is assumed in Phase 4.
+inactive_alternative,CO2 dissolution efficiency,PR5,required_before_activation,Architecture reserved; gas-liquid transfer and pH data are not available.
+inactive_alternative,mass-transfer coefficient,PR5,required_before_activation,Architecture reserved; gas-liquid transfer and pH data are not available.
+inactive_alternative,pressure,PR5,required_before_activation,Architecture reserved; gas-liquid transfer and pH data are not available.
+inactive_alternative,CO2 titration curve,PR5,required_before_activation,Architecture reserved; gas-liquid transfer and pH data are not available.
+inactive_alternative,membrane flux,PR6,required_before_activation,Architecture reserved; membrane design and retention data are not available.
+inactive_alternative,retention matrix,PR6,required_before_activation,Architecture reserved; membrane design and retention data are not available.
+inactive_alternative,TMP,PR6,required_before_activation,Architecture reserved; membrane design and retention data are not available.
+inactive_alternative,fouling factor,PR6,required_before_activation,Architecture reserved; membrane design and retention data are not available.
+inactive_alternative,cleaning cycle,PR6,required_before_activation,Architecture reserved; membrane design and retention data are not available.
+equipment_costing,Phase 4 custom-unit CAPEX,PR3,not_available,Obtain vendor quotes or approved project-specific correlations.
+drying,Air flow and humidity,PR3,not_modelled,Add psychrometric data before detailed dryer design.
+product_quality,External classification criteria,PR3,not_available,"Add legal, microbiological, contaminant, and compositional criteria before classification."

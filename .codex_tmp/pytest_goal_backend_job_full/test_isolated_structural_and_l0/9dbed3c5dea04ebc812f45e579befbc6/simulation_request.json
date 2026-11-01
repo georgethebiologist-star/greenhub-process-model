@@ -1,0 +1,47 @@
+{
+  "annual_biomass_target": null,
+  "biomass_schedule": null,
+  "calculation_mode": "structural",
+  "design_overrides": [],
+  "end_date": null,
+  "expert_scientific_overrides": [],
+  "export_formats": [
+    "json",
+    "csv"
+  ],
+  "feed_composition": {},
+  "feed_overrides": [],
+  "feed_supply_profile_id": null,
+  "initial_storage_inventory": {
+    "component_mass_fractions": {},
+    "moisture_fraction": null,
+    "storage_age_h": 0.0,
+    "temperature_k": null,
+    "total_mass_kg": 0.0
+  },
+  "operating_overrides": [],
+  "operating_schedule": null,
+  "plant_capacity_kg_hr": null,
+  "project_id": "greenhub-test",
+  "request_id": "structural",
+  "requested_outputs": [],
+  "requested_plots": [],
+  "resolution_mode": "steady_state",
+  "scenarios": {
+    "anaerobic_digestion": "AD1",
+    "biogas_upgrading": "BG2",
+    "feed_preparation": "F2",
+    "nutrient_recovery": "NR2",
+    "process_order": "A",
+    "protein_recovery": "PR1"
+  },
+  "schema_version": "1.0.0",
+  "selected_month": "July",
+  "start_date": null,
+  "storage_conditions": null,
+  "strict_validation": true,
+  "time_horizon": null,
+  "time_step": null,
+  "user_notes": null,
+  "wet_feed_rate_kg_hr": null
+}

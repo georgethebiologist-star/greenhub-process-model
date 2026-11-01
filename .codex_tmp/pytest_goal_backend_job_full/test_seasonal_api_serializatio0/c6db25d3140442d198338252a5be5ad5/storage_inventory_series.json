@@ -1,0 +1,35 @@
+[
+  {
+    "biomass_received_kg": 1000.0,
+    "biomass_withdrawn_kg": 500.0,
+    "carried_inventory_reactions": null,
+    "degradation_loss_basis": "net decrease in carried wet inventory; exported mass minus external oxygen uptake",
+    "degradation_loss_kg": 0.0,
+    "degradation_provenance": {
+      "limitations": [
+        "degradation_not_implemented"
+      ],
+      "methods": [
+        {
+          "degradation": "not_implemented"
+        }
+      ],
+      "sources": []
+    },
+    "degradation_status": "not_implemented_no_eligible_data",
+    "dry_matter_loss_kg": null,
+    "exported_mass_kg": 0.0,
+    "external_oxygen_kg": 0.0,
+    "incoming_residence": null,
+    "inventory_entering_kg": 0.0,
+    "inventory_remaining_kg": 0.0,
+    "overflow_kg": 500.0,
+    "processed_feed_storage_age_h": 0.0,
+    "raw_biomass_received_kg": 1000.0,
+    "storage_age_h": 0.0,
+    "storage_mass_residual_kg": 0.0,
+    "time": "2026-06",
+    "unmet_process_demand_kg": 0.0,
+    "water_loss_kg": null
+  }
+]

@@ -1,0 +1,25 @@
+series_id,label,x,y
+processed,Processed,2026-01,0.0
+processed,Processed,2026-02,0.0
+processed,Processed,2026-03,0.0
+processed,Processed,2026-04,731494.0632452719
+processed,Processed,2026-05,1488000.0
+processed,Processed,2026-06,1440000.0
+processed,Processed,2026-07,1488000.0
+processed,Processed,2026-08,1487999.9999999998
+processed,Processed,2026-09,1440000.0000000002
+processed,Processed,2026-10,1488000.0000000002
+processed,Processed,2026-11,652263.0438524858
+processed,Processed,2026-12,0.0
+unprocessed,Ending inventory,2026-01,0.0
+unprocessed,Ending inventory,2026-02,0.0
+unprocessed,Ending inventory,2026-03,0.0
+unprocessed,Ending inventory,2026-04,0.0
+unprocessed,Ending inventory,2026-05,1313318.6482269962
+unprocessed,Ending inventory,2026-06,4773410.840966567
+unprocessed,Ending inventory,2026-07,10064737.429231174
+unprocessed,Ending inventory,2026-08,15288745.481261939
+unprocessed,Ending inventory,2026-09,18605591.563645553
+unprocessed,Ending inventory,2026-10,19784242.89290224
+unprocessed,Ending inventory,2026-11,19784242.89290224
+unprocessed,Ending inventory,2026-12,19784242.89290224

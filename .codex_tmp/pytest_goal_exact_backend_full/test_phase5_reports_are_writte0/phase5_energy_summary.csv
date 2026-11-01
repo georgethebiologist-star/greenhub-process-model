@@ -1,0 +1,6 @@
+unit_id,operation,electricity_kw,heating_kw,cooling_kw,purchase_cost_available,cost_basis
+M501,Digester-feed conditioning,0.0010211692798204864,0.0,0.0,False,no approved Phase 5 CAPEX basis
+H501,Heat exchanger,0.0,0.0,-6.98520154531269,True,BioSTEAM built-in
+R501,Anaerobic digester,0.612762838049081,1.5625049385262104,0.0,False,no approved Phase 5 CAPEX basis
+V501,Raw-biogas disengagement,0.0,0.0,0.0,False,no approved Phase 5 CAPEX basis
+TOTAL,Phase 5 total,0.6137840073289015,1.5625049385262104,-6.98520154531269,True,No heat-recovery credit and no invented custom-unit CAPEX

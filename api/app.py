@@ -59,6 +59,12 @@ class GreenHubAPI:
         self.parameters: ParameterService = self.simulations.parameters
         self.scenarios: ScenarioService = self.simulations.scenarios
         self.results = ResultService(self.repository)
+        from Greenhub.application.decision_batch_jobs import DecisionBatchJobs
+        from Greenhub.settings import RESULTS_DIR
+        self.decision_batch_jobs = DecisionBatchJobs(
+            (run_root or RESULTS_DIR / "runs"),
+            __import__("Greenhub.application.decision_support_service", fromlist=["DecisionSupportService"]).DecisionSupportService(self.simulations).evaluate,
+        )
         self.graphs = self.simulations.graphs
         self.plots = self.simulations.plots
 
@@ -99,6 +105,26 @@ class GreenHubAPI:
             from Greenhub.scenario_exploration import run_batch, sensitivity
             if method == 'GET' and path == '/api/v1/decision-support/options':
                 return options()
+            job_match = re.fullmatch(r'/api/v1/decision-support/batch-jobs/([a-zA-Z0-9]+)(?:/(cancel|resume))?', path)
+            if job_match:
+                job_id, action = job_match.groups()
+                if method == 'GET' and action is None: return self.decision_batch_jobs.status(job_id)
+                if method == 'POST' and action == 'cancel': return self.decision_batch_jobs.cancel(job_id)
+                if method == 'POST' and action == 'resume': return self.decision_batch_jobs.resume(job_id)
+                raise APIError(405, 'method_not_allowed', 'Unsupported decision batch job action.')
+            candidate_match = re.fullmatch(r'/api/v1/decision-support/batch-jobs/([a-zA-Z0-9]+)/candidates/([a-zA-Z0-9_-]+)', path)
+            if method == 'GET' and candidate_match:
+                return self.decision_batch_jobs.candidate(*candidate_match.groups())
+            if method == 'POST' and path == '/api/v1/decision-support/batch-jobs':
+                payload = dict(self._read_json(environ))
+                allowed = {'configuration','specifications','candidate_overrides','count','seed','mode'}
+                has_sampling = 'specifications' in payload
+                has_overrides = 'candidate_overrides' in payload
+                if set(payload) - allowed or 'configuration' not in payload or has_sampling == has_overrides:
+                    raise ValueError('Provide configuration and exactly one of specifications or candidate_overrides, with optional count/seed/mode.')
+                return self.decision_batch_jobs.start(payload['configuration'], payload.get('specifications'),
+                    candidate_overrides=payload.get('candidate_overrides'), count=payload.get('count',128),
+                    seed=payload.get('seed',42), mode=payload.get('mode','design'))
             service = DecisionSupportService(self.simulations)
             if method == 'POST' and path == '/api/v1/decision-support/evaluate':
                 payload=dict(self._read_json(environ))

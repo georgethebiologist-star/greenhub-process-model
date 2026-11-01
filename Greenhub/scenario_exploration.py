@@ -36,8 +36,8 @@ def _quantile(spec,u):
     return round(value) if spec.get('integer') else value
 
 
-def sample_configurations(base,specifications,count=8,seed=42,mode='design'):
-    if type(count) is not int or not 1<=count<=128: raise ValueError('Sample count must be 1..128.')
+def sample_configurations(base,specifications,count=8,seed=42,mode='design',max_count=128):
+    if type(count) is not int or not 1<=count<=max_count: raise ValueError(f'Sample count must be 1..{max_count}.')
     if type(seed) is not int: raise ValueError('Seed must be an integer.')
     if mode not in ('design','uncertainty'): raise ValueError('Mode must be design or uncertainty.')
     if not specifications: raise ValueError('At least one sampling specification is required.')

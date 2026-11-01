@@ -1,0 +1,3 @@
+scenario,active,protein_transfer,flow_kg_hr,recovery_fraction,method,target_pH_metadata,effective_pI,temperature_C,residence_time_min
+PR3,True,SolubleProtein_to_PrecipitatedProtein,3.153387096774194,0.75,direct_yield,4.5,4.5,60.0,30.0
+PR3,True,SolubleProtein_to_HeatCoagulatedProtein,0.42045161290322586,0.4,direct_yield,4.5,4.5,60.0,30.0

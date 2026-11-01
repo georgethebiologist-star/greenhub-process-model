@@ -18,6 +18,28 @@ def test_decision_support_openapi_documents_additive_analysis_inputs():
     assert properties["logistics_result"]["type"] == ["object", "null"]
 
 
+def test_backend_batch_endpoint_accepts_exact_candidate_overrides(tmp_path):
+    app = create_app(tmp_path)
+    captured = {}
+    def capture_start(configuration, specifications=None, **kwargs):
+        captured.update(configuration=configuration, specifications=specifications, **kwargs)
+        return {"job_id": "test-job"}
+    app.decision_batch_jobs.start = capture_start
+    payload = {
+        "configuration": {"simulation": {}},
+        "candidate_overrides": [{"sample_id": "S-42-0001", "overrides": {
+            "simulation.wet_feed_rate_kg_hr": 100,
+            "simulation.scenarios.protein_recovery": "PR1",
+        }}],
+        "count": 1, "seed": 42, "mode": "design",
+    }
+    status, report = invoke(app, "POST", "/api/v1/decision-support/batch-jobs", payload)
+    assert status == 200
+    assert report == {"job_id": "test-job"}
+    assert captured["candidate_overrides"] == payload["candidate_overrides"]
+    assert captured["count"] == 1
+
+
 def test_dynamic_complete_endpoints_are_opt_in_json_safe(tmp_path):
     app = create_app(tmp_path)
     for endpoint in ("options", "default-summary", "assumptions"):

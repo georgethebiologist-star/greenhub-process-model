@@ -1,0 +1,5 @@
+scenario,active,acid_type,base_type,salt_type,component_id,reaction_delta_kg_hr,residual_acid_entering_kg_hr,neutralized_acid_kg_hr,pure_base_kg_hr,base_solution_kg_hr,reagent_water_kg_hr,salt_generated_kg_hr,initial_pH_metadata,target_pH_metadata,comment
+PR3,True,HydrochloricAcid,SodiumHydroxide,SodiumChloride,Water,0.18118184598580456,,,,,0.40225575415512893,,4.5,7.0,Validated molecular salt reaction; pH remains non-rigorous metadata.
+PR3,True,HydrochloricAcid,SodiumHydroxide,SodiumChloride,HydrochloricAcid,-0.3666920755923861,0.3666920755923861,0.3666920755923861,,,,,4.5,7.0,Validated molecular salt reaction; pH remains non-rigorous metadata.
+PR3,True,HydrochloricAcid,SodiumHydroxide,SodiumChloride,SodiumHydroxide,-0.40225575415512893,,,0.40225575415512893,0.8045115083102579,,,4.5,7.0,Validated molecular salt reaction; pH remains non-rigorous metadata.
+PR3,True,HydrochloricAcid,SodiumHydroxide,SodiumChloride,SodiumChloride,0.5877659837617011,,,,,,0.5877659837617011,4.5,7.0,Validated molecular salt reaction; pH remains non-rigorous metadata.

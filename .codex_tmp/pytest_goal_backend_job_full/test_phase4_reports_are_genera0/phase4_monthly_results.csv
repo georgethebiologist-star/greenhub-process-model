@@ -1,0 +1,2 @@
+scenario,upstream_scenario,month,operating_hours,protein_concentration_g_L,clarified_liquid_mass_kg,protein_entering_kg,protein_recovered_kg,protein_product_kg,pure_acid_kg,pure_base_kg,dryer_water_evaporation_kg,conditioned_liquid_mass_kg,wash_water_kg,salt_generated_kg,phase4_heat_kwh,phase4_electricity_kwh
+PR3,F2,July,744.0,18.112958998847358,183137.388,3317.1600000000003,2626.5656800172164,3365.3281129363922,274.70608200000004,299.2782810914159,5519.41674824633,182339.98660474605,6651.190147515115,437.2978919187056,13894.58154328961,1059.1122310646049

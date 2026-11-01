@@ -1,0 +1,11 @@
+scenario,unit_id,unit_operation,electricity_kw,heating_duty_kw,cooling_duty_kw,purchase_cost_available,cost_comment
+PR3,M401,Acid dosing and mixing,0.002051270026881721,0.0,0.0,False,No approved Phase 4 purchase-cost correlation
+PR3,H401,Heat exchanger,0.0,10.30658469325223,0.0,True,BioSTEAM built-in correlation
+PR3,R401,Protein precipitation and coagulation,0.024730624261592744,0.0,0.0,False,No approved Phase 4 purchase-cost correlation
+PR3,C401,Protein separator,0.19784499409274195,0.0,0.0,False,No approved Phase 4 purchase-cost correlation
+PR3,W401,Protein-cake washer,0.0,0.0,0.0,False,No approved Phase 4 purchase-cost correlation
+PR3,D401,Mechanical protein-cake dewatering,0.08510760472247288,0.0,0.0,False,No approved Phase 4 purchase-cost correlation
+PR3,DR401,Low-temperature protein belt dryer,1.1127856347270826,8.368928133749938,0.0,False,No approved Phase 4 purchase-cost correlation
+PR3,M402,Mixer,0.0,0.0,0.0,False,No approved Phase 4 purchase-cost correlation
+PR3,M403,Residual-liquid neutralization,0.0010178171485358603,0.0,0.0,False,No approved Phase 4 purchase-cost correlation
+PR3,TOTAL,Phase 4 total,1.4235379449793077,18.675512827002166,0.0,True,No hypothetical heat-recovery credit is subtracted.
