@@ -53,6 +53,21 @@ def test_candidate_overrides_preserve_exact_source_point_mapping(tmp_path):
     assert first["source_sample_id"] == "S-42-0001"
 
 
+def test_persisted_jobs_can_be_read_from_legacy_result_roots(tmp_path):
+    source_root = tmp_path / "archived"
+    writer = DecisionBatchJobs(source_root, lambda config: {
+        "configuration_echo": config,
+        "feasibility": {"eligible_for_ranking": False},
+        "objectives": {},
+    })
+    started = writer.start({"run": "existing"}, [{"path": "run", "low": 1, "high": 1}], count=1)
+    complete = wait_for(writer, started["job_id"], "completed")
+
+    reader = DecisionBatchJobs(tmp_path / "current", lambda _config: {}, read_roots=(source_root,))
+    assert reader.status(started["job_id"])["status"] == "completed"
+    assert reader.candidate(started["job_id"], complete["samples"][0]["sample_id"])["outputs"]["configuration_echo"] == {"run": 1}
+
+
 def test_candidate_overrides_reject_duplicate_source_ids_and_unsafe_paths(tmp_path):
     jobs = DecisionBatchJobs(tmp_path, lambda config: {})
     with pytest.raises(ValueError, match="unique"):

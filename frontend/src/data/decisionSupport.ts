@@ -17,7 +17,7 @@ export interface Batch {mode:string; seed:number; evaluated_count:number; sample
 export async function decisionApi<T>(path:string, body?:unknown):Promise<T> {
   return apiJson<T>(`/decision-support/${path}`,body===undefined?{}:{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
 }
-export type BackendJob={job_id:string;status:string;requested_count:number;completed_count:number;failed_count:number;samples:any[];pareto_fronts:any[]};
+export type BackendJob={job_id:string;status:string;requested_count:number;completed_count:number;failed_count:number;seed?:number;mode?:string;samples:any[];pareto_fronts:any[]};
 export const backendJobApi={
   start:(payload:unknown)=>decisionApi<BackendJob>('batch-jobs',payload),
   status:(id:string)=>apiJson<BackendJob>(`/decision-support/batch-jobs/${encodeURIComponent(id)}`),

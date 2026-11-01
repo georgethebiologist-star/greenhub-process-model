@@ -64,6 +64,7 @@ class GreenHubAPI:
         self.decision_batch_jobs = DecisionBatchJobs(
             (run_root or RESULTS_DIR / "runs"),
             __import__("Greenhub.application.decision_support_service", fromlist=["DecisionSupportService"]).DecisionSupportService(self.simulations).evaluate,
+            read_roots=() if run_root is not None else (RESULTS_DIR / "actual_pareto_2000",),
         )
         self.graphs = self.simulations.graphs
         self.plots = self.simulations.plots

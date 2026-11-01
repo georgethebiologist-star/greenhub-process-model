@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import re
+import time
 from io import BytesIO
 
 import pytest
@@ -38,6 +39,33 @@ def test_backend_batch_endpoint_accepts_exact_candidate_overrides(tmp_path):
     assert report == {"job_id": "test-job"}
     assert captured["candidate_overrides"] == payload["candidate_overrides"]
     assert captured["count"] == 1
+
+
+def test_default_api_reads_saved_pareto_job_from_legacy_results_root(tmp_path, monkeypatch):
+    from Greenhub import settings
+    from Greenhub.application.decision_batch_jobs import DecisionBatchJobs
+    monkeypatch.setattr(settings, "RESULTS_DIR", tmp_path / "results")
+    legacy = settings.RESULTS_DIR / "actual_pareto_2000"
+    jobs = DecisionBatchJobs(legacy, lambda config: {
+        "configuration_echo": config,
+        "feasibility": {"eligible_for_ranking": False},
+        "objectives": {},
+    })
+    started = jobs.start({"value": 0}, [{"path": "value", "low": 1, "high": 1}], count=1)
+    complete = jobs.status(started["job_id"])
+    deadline = time.monotonic() + 2
+    while complete["status"] != "completed" and time.monotonic() < deadline:
+        time.sleep(.01)
+        complete = jobs.status(started["job_id"])
+
+    api = create_app()
+    status, report = invoke(api, "GET", f'/api/v1/decision-support/batch-jobs/{started["job_id"]}')
+    assert status == 200
+    assert report["status"] == "completed"
+    sample_id = complete["samples"][0]["sample_id"]
+    status, candidate = invoke(api, "GET", f'/api/v1/decision-support/batch-jobs/{started["job_id"]}/candidates/{sample_id}')
+    assert status == 200
+    assert candidate["outputs"]["configuration_echo"] == {"value": 1}
 
 
 def test_dynamic_complete_endpoints_are_opt_in_json_safe(tmp_path):

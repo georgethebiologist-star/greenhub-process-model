@@ -12,8 +12,9 @@ from Greenhub.scenario_exploration import pareto_front, sample_configurations, s
 
 
 class DecisionBatchJobs:
-    def __init__(self, root: Path, evaluator):
+    def __init__(self, root: Path, evaluator, *, read_roots=()):
         self.root = Path(root) / "decision_batches"
+        self.read_roots = tuple(Path(item) / "decision_batches" for item in read_roots)
         self.root.mkdir(parents=True, exist_ok=True)
         self.evaluator = evaluator
         self._lock = RLock()
@@ -153,7 +154,10 @@ class DecisionBatchJobs:
 
     def _path(self, job_id):
         if not job_id.isalnum(): raise ValueError("Invalid decision batch job ID.")
-        return self.root / f"{job_id}.json"
+        filename = f"{job_id}.json"
+        primary = self.root / filename
+        if primary.exists(): return primary
+        return next((root / filename for root in self.read_roots if (root / filename).exists()), primary)
 
     def _load(self, job_id):
         path = self._path(job_id)
