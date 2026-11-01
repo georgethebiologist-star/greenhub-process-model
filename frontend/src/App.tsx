@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   Activity,
   AlertTriangle,
@@ -22,12 +22,16 @@ import { cloneEmpiricalBaseline, PREVIEW_BASELINE_STATUS } from './data/baseline
 import { normalizeResult } from './data/normalizeResult';
 import { ReportCenter, ResultsWorkbench } from './components/ResultsWorkbench';
 import { InputStudio, type FeedInputs } from './components/InputStudio';
+import BaselineTimeSeries from './components/BaselineTimeSeries';
+import ModelComparisonPanel from './components/ModelComparisonPanel';
+import {decisionApi, type DecisionReport} from './data/decisionSupport';
 import DynamicCompleteDashboard from './components/DynamicCompleteDashboard';
 import DecisionSupport from './components/DecisionSupport';
 import type { CalculationMode, EmpiricalBiomassSchedule, ParameterDefinition, ResultSourceState, ScenarioSelection, SimulationResult } from './types';
 
 type RuntimeSource = 'python' | 'fallback';
-type TabId = 'overview' | 'configure' | 'results' | 'reports' | 'advanced' | 'dynamic-proxy' | 'decision-support';
+type TabId = 'dashboard' | 'configure' | 'explore' | 'reports' | 'advanced' | 'dynamic-proxy' | 'model-comparison';
+type ExploreView = 'performance' | 'hotspots' | 'optimization' | 'model-comparison';
 type SavedRun = { label: string; result: SimulationResult; scenario: ScenarioSelection; savedAt: string };
 type Artifact = { name: string; type: string; description: string; url?: string; available: boolean; warning?: string };
 
@@ -72,15 +76,25 @@ const scenarioGroups = [
 ];
 
 export default function App() {
-  const [tab, setTab] = useState<TabId>(window.location.hash==='#decision-support'?'decision-support':'overview');
+  const [tab, setTab] = useState<TabId>(window.location.hash==='#decision-support'?'explore':'dashboard');
+  const [exploreView, setExploreView] = useState<ExploreView>('performance');
   const [mode, setMode] = useState<CalculationMode>('structural');
   const [month, setMonth] = useState('July');
   const [scenario, setScenario] = useState<ScenarioSelection>(defaults);
   const [parameters, setParameters] = useState<ParameterDefinition[]>(DEFAULT_PARAMETERS);
   const [feed, setFeed] = useState<FeedInputs>({ feedAmountKgh: 500, operatingDaysPerWeek: 7, operatingHoursPerDay: 24, moisturePct: 78, liquidFractionPct: 62, proteinPct: 18, nitrogenPct: 1.1, phosphorusPct: 0.12 });
   const [biomassSchedule, setBiomassSchedule] = useState<EmpiricalBiomassSchedule>(scheduleDefaults);
+  const [storageConditions, setStorageConditions] = useState({enabled:false,storageDays:0,aerobicFraction:0,temperatureC:20,moistureActivity:1});
   const fallbackPreview = useMemo(() => cloneEmpiricalBaseline(), []);
   const [result, setResult] = useState<SimulationResult>(fallbackPreview);
+  const [empiricalComparison, setEmpiricalComparison] = useState<SimulationResult|null>(null);
+  const [comparisonRunning, setComparisonRunning] = useState(false);
+  const [comparisonError, setComparisonError] = useState('');
+  const [analysisReport, setAnalysisReport] = useState<DecisionReport|null>(null);
+  const [analysisBusy, setAnalysisBusy] = useState(false);
+  const [analysisError, setAnalysisError] = useState('');
+  const [runContext, setRunContext] = useState<Record<string,unknown>|null>(null);
+  const analysisRequest = useRef(0);
   const [runtime, setRuntime] = useState<RuntimeSource>('fallback');
   const [sourceState, setSourceState] = useState<ResultSourceState>(PREVIEW_BASELINE_STATUS);
   const [graph, setGraph] = useState<any | null>(null);
@@ -91,14 +105,19 @@ export default function App() {
     try { return JSON.parse(localStorage.getItem('greenhub.savedRuns') || '[]'); } catch { return []; }
   });
   const [parameterView, setParameterView] = useState<'basic'|'advanced'>('basic');
+  const autoRunStarted = useRef(false);
 
   useEffect(() => { localStorage.setItem('greenhub.savedRuns', JSON.stringify(savedRuns)); }, [savedRuns]);
 
-  async function executeRun(saveAs?: string) {
+  async function executeRun(saveAs?: string, navigateToResults = true) {
+    const requestNumber=++analysisRequest.current;
     setRunning(true);
+    setAnalysisBusy(true); setAnalysisError(''); setAnalysisReport(null);
     setSourceState(current => ({...current,label:'Connecting to Python',detail:'Submitting the annual configuration and requesting its reporting bundle.'}));
     try {
-      const raw = await runPythonSimulation(buildPythonRequest(mode, month, scenario, feed, biomassSchedule));
+      const storage = storageConditions.enabled?{model:'grass_reactions',storage_days:storageConditions.storageDays,aerobic_fraction:storageConditions.aerobicFraction,temperature_c:storageConditions.temperatureC,moisture_activity:storageConditions.moistureActivity,allow_assumptions:true}:null;
+      const processRequest=buildPythonRequest(mode, month, scenario, feed, biomassSchedule, 'quasi_dynamic', storage);
+      const raw = await runPythonSimulation(processRequest);
       const envelope = normalizeResult(raw, result);
       const resources = await fetchRunResources(envelope.result.run_id, raw.plots || []);
       const next = {
@@ -112,21 +131,54 @@ export default function App() {
       setArtifacts(resources.artifacts);
       setLimitations(envelope.limitations);
       setRuntime('python');
-      setSourceState({status:'live_python',label:'Live Python result',detail:resources.plots.length ? 'Run, annual reporting bundle and optional plots loaded.' : 'Run and annual reporting bundle loaded; optional plots were unavailable.',is_live:true});
+      setSourceState({status:'live_python',label:'Live quasi-dynamic result',detail:resources.plots.length ? 'Monthly feed and process timesteps were calculated; optional plots loaded.' : 'Monthly feed and process timesteps were calculated; optional plots were unavailable.',is_live:true});
+      setRunContext({model:'quasi_dynamic',calculation_mode:mode,reference_month:month,process_request:processRequest});
       if (saveAs) saveSnapshot(saveAs, next);
-      setTab('results');
+      if (navigateToResults) { setTab('explore'); setExploreView('performance'); }
+      void (async()=>{try {
+        const options=await decisionApi<any>('options');
+        const configuration=structuredClone(options.defaults);
+        configuration.simulation=processRequest;
+        configuration.financial_assumptions={...configuration.financial_assumptions,use_screening_price_benchmarks:true};
+        configuration.tea={...configuration.tea,staffing_people:5,paid_hours_per_person:1500,screening_estimates:true};
+        const report=await decisionApi<DecisionReport>('evaluate',{configuration});
+        if(requestNumber===analysisRequest.current)setAnalysisReport(report);
+      } catch(error) {
+        if(requestNumber===analysisRequest.current)setAnalysisError(error instanceof Error?error.message:'Post-route TEA/LCA calculation was unavailable.');
+      } finally {if(requestNumber===analysisRequest.current)setAnalysisBusy(false);}})();
     } catch (error) {
+      if(requestNumber===analysisRequest.current)setAnalysisBusy(false);
       const next = cloneEmpiricalBaseline();
       setResult(next);
       setGraph(null);
       setArtifacts([]);
       setLimitations(['The scientific service is unavailable. Preview values are shown so the interface remains usable, but they are not an authoritative run.']);
       setRuntime('fallback');
+      setRunContext(null);
       setSourceState({status:'backend_unavailable',label:'Backend unavailable · preview baseline',detail:error instanceof Error ? error.message : 'The live service could not be reached.',is_live:false,fixture_version:PREVIEW_BASELINE_STATUS.fixture_version});
       if (saveAs) saveSnapshot(saveAs, next);
-      setTab('results');
+      if (navigateToResults) { setTab('explore'); setExploreView('performance'); }
     } finally { setRunning(false); }
   }
+
+  async function runEmpiricalComparison() {
+    if (runtime !== 'python') return;
+    setComparisonRunning(true); setComparisonError('');
+    try {
+      const raw = await runPythonSimulation(buildPythonRequest(mode, month, scenario, feed, biomassSchedule, 'steady_state'));
+      const envelope = normalizeResult(raw, result);
+      const resources = await fetchRunResources(envelope.result.run_id, raw.plots || []);
+      setEmpiricalComparison({...envelope.result, annual:resources.annual, plots:resources.plots.length?resources.plots:envelope.result.plots});
+    } catch (error) {
+      setComparisonError(error instanceof Error?error.message:'The empirical comparison run failed.');
+    } finally { setComparisonRunning(false); }
+  }
+
+  useEffect(() => {
+    if (autoRunStarted.current) return;
+    autoRunStarted.current = true;
+    void executeRun(undefined, false);
+  }, []);
 
   function saveSnapshot(label: string, source = result) {
     const snapshot = { label, result: source, scenario: source.scenarios || scenario, savedAt: new Date().toISOString() };
@@ -137,55 +189,53 @@ export default function App() {
   const changedParameters = parameters.filter(item => item.current_value !== item.default_value);
   const visibleParameters = parameters.filter(item => parameterView === 'advanced' ? item.category === 'advanced' : item.category === 'basic');
   const tabs: [TabId, string, LucideIcon][] = [
-    ['overview', 'Overview', Gauge], ['configure', 'Configure', Settings2], ['results', 'Results', BarChart3],
-    ['reports', 'Reports', FileDown], ['advanced', 'Advanced', Wrench],
-    ['dynamic-proxy', 'Dynamic proxy', Activity],
-    ['decision-support', 'Decision support', GitCompare],
+    ['dashboard', 'Dashboard', Gauge], ['configure', 'Configure', Settings2], ['explore', 'Explore', BarChart3],
+    ['reports', 'Reports', FileDown],
   ];
 
   return <div className="app-shell">
     <header className="topbar">
-      <button className="brand" onClick={() => setTab('overview')} aria-label="Open GreenHub overview">
+      <button className="brand" onClick={() => setTab('dashboard')} aria-label="Open GreenHub dashboard">
         <img className="brand-icon" src="/assets/spaak/Spaak%20logo%20icoon%20(1).png" alt=""/>
         <img className="brand-wordmark" src="/assets/spaak/logo-text.svg" alt="Spaak"/>
         <span className="product-name"><strong>GreenHub</strong><small>Process model</small></span>
       </button>
       <div className="top-actions">
-        <span className={`model-status ${runtime}`}><CircleDot size={12}/>{tab === 'dynamic-proxy' || tab === 'decision-support' ? 'Unvalidated model' : sourceState.label}</span>
-        {tab !== 'dynamic-proxy' && tab !== 'decision-support' && <button className="run-button" onClick={() => executeRun()} disabled={running}><Play size={15}/>{running ? 'Calculating…' : 'Run annual plan'}</button>}
+        <span className={`model-status ${runtime}`}><CircleDot size={12}/>{sourceState.label}</span>
+        <button className="secondary settings-menu" onClick={() => setTab('advanced')}><Wrench size={14}/>Model settings</button>
+        <button className="run-button" onClick={() => executeRun()} disabled={running}><Play size={15}/>{running ? 'Calculating…' : 'Run simulation'}</button>
       </div>
     </header>
-    {tab !== 'dynamic-proxy' && tab !== 'decision-support' && <div className={`runtime-banner ${runtime} source-${sourceState.status}`} role="status">
+    <div className={`runtime-banner ${runtime} source-${sourceState.status}`} role="status">
       <span>{sourceState.label}</span>
       <p>{sourceState.detail}{sourceState.fixture_version ? ` Fixture: ${sourceState.fixture_version}.` : ''}</p>
-    </div>}
+    </div>
+    <div className="scenario-context" aria-label="Active scenario summary"><strong>Baseline</strong><span>{result.annual?.biomass_schedule?.annual_processed_tonnes?.toLocaleString(undefined,{maximumFractionDigits:0})||'—'} t/year processed</span><span>{[scenario.feed_front_end,scenario.protein_recovery,scenario.anaerobic_digestion,scenario.biogas_upgrading,scenario.nutrient_recovery].map(id=>scenarioGroups.flatMap(group=>group.options).find(option=>option[0]===id)?.[1]||id).join(' · ')}</span><span>{result.annual?.period?.start_date||'Jan'} – {result.annual?.period?.end_date||'Dec'}</span></div>
     <nav className="primary-nav" aria-label="Application sections">
-      {tabs.map(([id,label,Icon]) => <button key={id} className={tab === id ? 'active' : ''} onClick={() => setTab(id)}><Icon size={16}/>{label}</button>)}
+      {tabs.map(([id,label,Icon]) => <button key={id} className={tab === id || (id==='explore' && (tab==='model-comparison')) ? 'active' : ''} onClick={() => setTab(id)}><Icon size={16}/>{label}</button>)}
     </nav>
     <main className="workspace">
-      {tab === 'dynamic-proxy' && <DynamicCompleteDashboard/>}
-      {tab === 'decision-support' && <DecisionSupport/>}
-      {tab === 'overview' && <section className="panel proxy-entry"><strong>TEA &amp; LCA baseline preview</strong><p>Explore operating costs, product revenue, capital recovery and climate contributors. Flagged financial previews work even while the Python backend is offline.</p><button className="secondary" onClick={() => setTab('decision-support')}>Open TEA &amp; LCA dashboard</button></section>}
-      {tab === 'overview' && <section className="panel proxy-entry"><strong>Explore the complete dynamic proxy</strong><p>30,000 t/year fresh grass · seasonal supply · monthly products · energy and assumption traceability.</p><button className="secondary" onClick={() => setTab('dynamic-proxy')}>Open opt-in proxy dashboard</button></section>}
       {running && <section className="run-progress" role="status" aria-live="polite"><span className="progress-spinner"/><div><strong>Calculating the annual GreenHub plan</strong><p>Processing monthly feed availability, unit performance, products, utilities and balance checks.</p></div></section>}
-      {tab === 'overview' && <Overview result={result} activeUnits={activeUnits} runtime={runtime} limitations={limitations} onConfigure={() => setTab('configure')} onResults={() => setTab('results')}/>} 
+      {tab === 'dashboard' && <><Overview result={result} activeUnits={activeUnits} runtime={runtime} limitations={limitations} analysis={analysisReport} analysisBusy={analysisBusy} analysisError={analysisError} onConfigure={() => setTab('configure')} onResults={() => {setTab('explore');setExploreView('performance');}}/><ResultsWorkbench result={result} graph={graph} artifacts={artifacts} runtime={runtime === 'python' ? 'Quasi-dynamic process model' : 'Preview baseline'} sourceState={sourceState} savedRuns={savedRuns} onSaveRun={saveSnapshot} initialView="pathway"/></>}
       {tab === 'configure' && <div className="page-stack">
         <PageIntro eyebrow="Configure" title="Set the process pathway" text="Choose the process route, review the inputs that affect the model, then calculate the annual plan."/>
         <SectionHeading title="Feed schedule" text="Define annual availability and refinery intake. Supply keeps its seasonal shape; lower processing targets create a monthly plateau and explicit unused biomass."/>
         <FeedScheduleControls value={biomassSchedule} onChange={setBiomassSchedule}/>
-        <SectionHeading title="Process route" text="Choose one empirical route in each process area. These selections remain independent from the dynamic proxy pathway."/>
+        <section className="panel storage-controls"><label className="storage-toggle"><input type="checkbox" checked={storageConditions.enabled} onChange={event=>setStorageConditions(current=>({...current,enabled:event.target.checked}))}/><span><strong>Include storage degradation</strong><small>Optional; uses the available grass-reaction subset and reports its assumptions and blockers.</small></span></label>{storageConditions.enabled&&<div className="ds-controls"><label>Upstream storage residence (days)<input type="number" min="0" max="366" value={storageConditions.storageDays} onChange={event=>setStorageConditions(current=>({...current,storageDays:Number(event.target.value)}))}/></label><label>Aerobic exposure fraction<input type="number" min="0" max="1" step="0.05" value={storageConditions.aerobicFraction} onChange={event=>setStorageConditions(current=>({...current,aerobicFraction:Number(event.target.value)}))}/><small>Fraction of residence time exposed to air.</small></label><label>Storage temperature (°C)<input type="number" min="-20" max="60" value={storageConditions.temperatureC} onChange={event=>setStorageConditions(current=>({...current,temperatureC:Number(event.target.value)}))}/></label><label>Moisture activity<input type="number" min="0" max="1" step="0.05" value={storageConditions.moistureActivity} onChange={event=>setStorageConditions(current=>({...current,moistureActivity:Number(event.target.value)}))}/></label></div>}</section>
+        <SectionHeading title="Process route" text="Choose supported technology routes. Scenario IDs remain internal to the model."/>
         <section className="scenario-grid">{scenarioGroups.map(group => <ScenarioCard key={group.key} group={group} value={String(scenario[group.key])} onChange={value => setScenario(current => ({ ...current, [group.key]: value }))}/>)}</section>
         <section className="panel order-panel"><div><span className="eyebrow">Process sequence</span><h3>Nutrient-recovery order</h3><p>Controls the downstream separation sequence where supported.</p></div><select value={scenario.process_order} onChange={event => setScenario(current => ({...current, process_order: event.target.value as any}))}><option value="A">Separation → phosphorus → nitrogen → potassium</option><option value="B">Separation → nitrogen → phosphorus → potassium</option><option value="C">Phosphorus before separation</option><option value="D">Separation only</option></select></section>
-        <InputStudio feed={feed} setFeed={setFeed} scenario={scenario} onRun={() => executeRun()}/>
+        <InputStudio feed={feed} setFeed={setFeed} scenario={scenario} onRun={() => executeRun()} running={running}/>
         <SectionHeading title="Evidence / model mode" text="The evidence basis changes parameter resolution. The reference month remains visible because empirical composition is month-specific."/>
-        <section className="panel configure-evidence"><label><span>Evidence basis</span><select value={mode} onChange={event => setMode(event.target.value as CalculationMode)}><option value="structural">Structural model</option><option value="literature_default">Literature defaults</option><option value="calibrated">Calibrated data</option></select><small>Controls which eligible evidence layer supplies empirical parameters.</small></label><label><span>Reference composition month</span><select value={month} onChange={event => setMonth(event.target.value)}>{['January','February','March','April','May','June','July','August','September','October','November','December'].map(item => <option key={item}>{item}</option>)}</select><small>Used where a route requires one representative monthly composition.</small></label><div><span>Model status</span><strong>Empirical scientific pathway</strong><small>Dynamic proxy assumptions are not imported into this run.</small></div></section>
+        <section className="panel configure-evidence"><label><span>Evidence basis</span><select value={mode} onChange={event => setMode(event.target.value as CalculationMode)}><option value="structural">Structural model</option><option value="literature_default">Literature defaults</option><option value="calibrated">Calibrated data</option></select><small>Controls which eligible evidence layer supplies process parameters.</small></label><label><span>Reference composition month</span><select value={month} onChange={event => setMonth(event.target.value)}>{['January','February','March','April','May','June','July','August','September','October','November','December'].map(item => <option key={item}>{item}</option>)}</select><small>Used where a route requires one representative monthly composition.</small></label><div><span>Model basis</span><strong>Quasi-dynamic pathway</strong><small>Each process unit retains its reported evidence and calculation basis.</small></div></section>
         <section className="panel advanced-link"><div><span className="eyebrow">Advanced parameters</span><h3>{changedParameters.length ? `${changedParameters.length} reviewed values differ from defaults` : 'Review evidence and technical parameters'}</h3><p>Detailed assumptions remain separate from the primary operating-scale controls.</p></div><button className="secondary" onClick={() => setTab('advanced')}>Open advanced parameters</button></section>
         <ConfigurationReview scenario={scenario} schedule={biomassSchedule} mode={mode} onRun={() => executeRun()} running={running}/>
       </div>}
-      {tab === 'results' && <div className="page-stack"><PageIntro eyebrow="Results" title="Understand the process outcome" text="Review annual performance first, then follow the pathway and inspect balance quality or detailed model data."/><ResultsWorkbench result={result} graph={graph} artifacts={artifacts} runtime={runtime === 'python' ? 'Scientific model' : 'Preview baseline'} sourceState={sourceState} savedRuns={savedRuns} onSaveRun={saveSnapshot}/>{limitations.length > 0 && <LimitationsPanel items={limitations}/>}</div>}
-      {tab === 'reports' && <div className="page-stack"><PageIntro eyebrow="Reports" title="Download and share the run" text="Exports include the run context needed to trace the pathway, assumptions and validation status."/><ReportCenter result={result} artifacts={artifacts} runtime={runtime === 'python' ? 'Scientific model' : 'Preview baseline'}/></div>}
+      {tab === 'explore' && <div className="page-stack"><PageIntro eyebrow="Explore" title="Performance and decisions" text="Inspect the process result, identify hotspots, compare scenarios, and explore sampled trade-offs."/><div className="section-switcher" role="tablist" aria-label="Explore views">{([['performance','Performance'],['hotspots','Hotspots'],['optimization','Optimization'],['model-comparison','Model comparison']] as [ExploreView,string][]).map(([id,label])=><button role="tab" aria-selected={exploreView===id} className={exploreView===id?'active':''} key={id} onClick={()=>setExploreView(id)}>{label}</button>)}</div>{exploreView==='performance'&&<ResultsWorkbench result={result} graph={graph} artifacts={artifacts} runtime={runtime==='python'?'Quasi-dynamic process model':'Preview baseline'} sourceState={sourceState} savedRuns={savedRuns} onSaveRun={saveSnapshot}/ >}{(exploreView==='hotspots'||exploreView==='optimization')&&<DecisionSupport view={exploreView}/ >}{exploreView==='model-comparison'&&<ModelComparisonPanel dynamic={result} empirical={empiricalComparison} live={runtime==='python'} busy={comparisonRunning} onRun={runEmpiricalComparison} error={comparisonError}/>}</div>}
+      {tab === 'reports' && <div className="page-stack"><PageIntro eyebrow="Reports" title="Download and share the run" text="Exports include the exact process request and the returned post-route decision analysis, when available."/><ReportCenter result={result} artifacts={artifacts} runtime={runtime === 'python' ? 'Quasi-dynamic process model' : 'Preview baseline'} exportContext={{process_run:runContext,post_route_decision_analysis:analysisReport}}/></div>}
       {tab === 'advanced' && <div className="page-stack">
-        <PageIntro eyebrow="Advanced" title="Evidence, assumptions and technical detail" text="Review model basis, data quality and saved scenario comparisons. Planning-only values are clearly marked and are not applied to scientific runs."/>
+        <PageIntro eyebrow="Advanced" title="Model settings" text="Detailed evidence, parameter values, model diagnostics, and secondary planning tools."/>
+        <section className="panel advanced-shortcuts"><div><h3>Secondary tools</h3><p>Keep the supported quasi-dynamic run as the main workflow; use these views for diagnostics or comparison only.</p></div><button className="secondary" onClick={()=>{setTab('explore');setExploreView('model-comparison');}}>Model comparison</button><button className="secondary" onClick={()=>setTab('dynamic-proxy')}>Planning proxy</button></section>
         <section className="advanced-grid">
           <div className="panel evidence-panel"><PanelTitle icon={<SlidersHorizontal/>} title="Model basis" text="These settings control which evidence layer and reference period the model uses."/><label><span>Evidence basis</span><select value={mode} onChange={event => setMode(event.target.value as CalculationMode)}><option value="structural">Structural model</option><option value="literature_default">Literature defaults</option><option value="calibrated">Calibrated data</option></select></label><label><span>Reference month</span><select value={month} onChange={event => setMonth(event.target.value)}>{['January','February','March','April','May','June','July','August','September','October','November','December'].map(item => <option key={item}>{item}</option>)}</select></label></div>
           <AdvancedRunDetails result={result} limitations={limitations}/>
@@ -194,20 +244,42 @@ export default function App() {
         <section className="parameter-layout"><div className="panel parameter-list">{visibleParameters.map(parameter => <ParameterRow key={parameter.parameter_id} parameter={parameter} onChange={value => setParameters(current => current.map(item => item.parameter_id === parameter.parameter_id ? {...item,current_value:value} : item))}/>)}</div><aside className="panel quality-panel"><ShieldCheck size={20}/><h3>Evidence quality</h3>{Object.entries(qualityHelp).map(([key,text]) => <div className="quality-line" key={key}><span className={`quality q-${key}`}>{key}</span><span>{text}</span></div>)}<p>Detailed provenance remains available in the generated run reports.</p></aside></section>
         <Comparison runs={savedRuns} current={result} onSave={saveSnapshot} onClear={() => setSavedRuns([])}/>
       </div>}
+      {tab === 'dynamic-proxy' && <div className="page-stack"><PageIntro eyebrow="Advanced model" title="Dynamic planning proxy" text="An isolated planning tool with explicit assumptions; it is not the primary process simulation."/><DynamicCompleteDashboard/></div>}
     </main>
-    <footer><span>Spaak Circular Solutions · GreenHub process model</span><span>{tab === 'dynamic-proxy' ? 'Opt-in proxy · not validated' : sourceState.label}</span></footer>
+    <footer><span>Spaak Circular Solutions · GreenHub process model</span><span>{sourceState.label}</span></footer>
   </div>;
 }
 
-function Overview({ result, activeUnits, runtime, limitations, onConfigure, onResults }: any) {
+function AnalysisSummary({report,loading,error,onExplore}:{report:DecisionReport|null;loading:boolean;error:string;onExplore:()=>void}) {
+  if (loading) return <section className="panel dashboard-analysis" role="status"><strong>Calculating post-route TEA and LCA</strong><span>Process results are already available; analysis completeness will be reported separately.</span></section>;
+  if (!report) return <section className="panel dashboard-analysis"><div><span className="eyebrow">Economic and environmental analysis</span><h3>Not calculated</h3><p>{error||'Run the backend analysis to calculate TEA and climate inventory. Missing inputs will remain incomplete, not zero.'}</p></div><button className="secondary" onClick={onExplore}>Open Explore</button></section>;
+  const tea=report.tea?.totals||{}, finance=report.tea?.financial_kpis||{}, lca=report.lca?.totals||{};
+  const climateEligible=report.lca?.readiness?.climate_objective_eligible===true;
+  const climate=climateEligible?lca.climate_kg_co2e_per_year:lca.partial_climate_kg_co2e_per_year;
+  const irr=finance.irr==null?null:Number(finance.irr)*100;
+  const rows=[
+    ['Reported revenue',tea.annual_revenue_eur,tea.revenue_status||'incomplete','EUR/year'],
+    ['Operating margin',tea.net_operating_margin_eur_per_year,tea.profit_status||'incomplete','EUR/year · known lines'],
+    ['OPEX break-even revenue',tea.annual_opex_eur,tea.opex_status||'partial OPEX only','EUR/year · excludes CAPEX'],
+    ['Simple payback',finance.simple_payback_years,finance.financial_kpi_status||'incomplete','years'],
+    ['IRR',irr,finance.financial_kpi_status||'incomplete','%'],
+    ['NPV',finance.npv_eur,finance.financial_kpi_status||'incomplete','EUR'],
+    [climateEligible?'Climate impact':'Characterized climate subtotal',climate,climateEligible?'eligible within declared scope':'incomplete inventory',climate==null?'Not reported':'kg CO₂e/year'],
+  ];
+  return <section className="panel dashboard-analysis"><div className="dashboard-analysis-head"><div><span className="eyebrow">Post-route decision analysis</span><h3>TEA &amp; climate</h3></div><button className="text-button" onClick={onExplore}>Explore details →</button></div><div className="dashboard-analysis-grid">{rows.map(([label,value,status,unit])=><article key={String(label)}><span>{label}</span><strong>{value==null||!Number.isFinite(Number(value))?'Incomplete':Number(value).toLocaleString(undefined,{maximumFractionDigits:1})}</strong><small>{unit} · {status}</small></article>)}</div><details><summary>Model assumptions &amp; limitations</summary><p>TEA uses registered screening product-price benchmarks and remains conditional on product grade, completeness, installed-capital evidence, and financial assumptions. OPEX break-even is only the reported cost subtotal and excludes CAPEX, financing and tax. Climate is the only characterized impact category currently surfaced; it is incomplete unless the backend marks its declared scope eligible.</p><ul>{[...report.warnings,...report.limitations].slice(0,12).map((item:string,index:number)=><li key={index}>{item}</li>)}</ul></details></section>;
+}
+
+function Overview({ result, activeUnits, runtime, limitations, analysis, analysisBusy, analysisError, onConfigure, onResults }: any) {
   const metrics = result.metrics;
   const annual = result.annual;
+  const nutrientTotal = annual ? ['phosphorus_product','ammonium_product','potassium_concentrate','nutrient_rich_solids'].reduce((sum,key)=>sum+(annual.products[key]?.value||0),0) : null;
   const outcomes = annual ? [
     ['Feed processed', annual.feed_processed.value / 1000, 't/year', 'green'],
     ['Protein product', (annual.products.dry_protein_product?.value || 0) / 1000, 't/year', 'green'],
     ['Biomethane', (annual.products.biomethane?.value || 0) / 1000, 't/year', 'blue'],
     ['Electricity', (annual.utilities.electricity?.value || 0) / 1000, 'MWh/year', 'rose'],
     ['Mass closure', annual.balance.overall_closure_pct, '%', annual.balance.passed ? 'green' : 'rose'],
+    ['Nutrient products', (nutrientTotal||0) / 1000, 't/year', 'yellow'],
   ] : [
     ['Feed rate', result.balances.mass_in_kgh, 'kg/h', 'green'],
     ['Protein product', metrics.protein_recovered_kgh, 'kg/h', 'green'],
@@ -217,11 +289,13 @@ function Overview({ result, activeUnits, runtime, limitations, onConfigure, onRe
   ];
   return <div className="page-stack">
     <section className="overview-head">
-      <div><span className="eyebrow">GreenHub process model</span><h1>Annual process plan</h1><p>Configure a route, run the scientific model and review products, utilities and balance quality in one place.</p></div>
+      <div><span className="eyebrow">GreenHub · active baseline</span><h1>Roadside grass to products</h1><p>{annual?.biomass_schedule ? `${annual.biomass_schedule.annual_processed_tonnes.toLocaleString(undefined,{maximumFractionDigits:0})} t/year · ${annual.period.start_date||'year-round'} to ${annual.period.end_date||'year-end'} · ${annual.method_label}` : 'A reproducible backend baseline is loading. Preview values remain marked until the live run succeeds.'}</p></div>
       <div className="overview-actions"><button className="run-button" onClick={onConfigure}><Settings2 size={16}/>Configure pathway</button><button className="secondary" onClick={onResults}><Activity size={16}/>View results</button></div>
     </section>
-    <section className="kpi-grid">{outcomes.map(([label,value,unit,color]: any[]) => <div className="kpi" key={String(label)}><span>{label}</span><strong className={String(color)}>{Number(value).toLocaleString(undefined,{maximumFractionDigits:1})}</strong><small>{unit}</small></div>)}</section>
-    {annual?.biomass_schedule&&<section className="panel"><PanelTitle icon={<Gauge/>} title="Annual biomass schedule" text="The empirical plan uses the same seasonal availability and monthly cap policy as the dynamic dashboard, without sharing process calculations."/><div className="schedule-facts"><div><span>Available</span><strong>{annual.biomass_schedule.annual_available_tonnes.toLocaleString(undefined,{maximumFractionDigits:0})} t/year</strong></div><div><span>Processed</span><strong>{annual.biomass_schedule.annual_processed_tonnes.toLocaleString(undefined,{maximumFractionDigits:0})} t/year</strong></div><div><span>Unused</span><strong>{annual.biomass_schedule.annual_unused_tonnes.toLocaleString(undefined,{maximumFractionDigits:0})} t/year</strong></div><div><span>Utilization</span><strong>{(annual.biomass_schedule.utilization_fraction*100).toFixed(1)}%</strong></div><div><span>Peak month</span><strong>{annual.biomass_schedule.peak_month_processed_tonnes.toLocaleString(undefined,{maximumFractionDigits:0})} t</strong></div></div></section>}
+    <section className="kpi-grid">{outcomes.map(([label,value,unit,color]: any[]) => <div className="kpi" key={String(label)}><span>{label}</span><strong className={String(color)}>{typeof value==='number'&&Number.isFinite(value)?value.toLocaleString(undefined,{maximumFractionDigits:1}):String(value)}</strong><small>{unit}</small></div>)}</section>
+    <BaselineTimeSeries annual={annual}/>
+    <AnalysisSummary report={analysis} loading={analysisBusy} error={analysisError} onExplore={onResults}/>
+    {annual?.biomass_schedule&&<section className="panel"><PanelTitle icon={<Gauge/>} title="Annual biomass schedule" text="The quasi-dynamic calculation integrates the configured seasonal availability and monthly refinery intake. This is a scenario schedule, not a new measured harvest series."/><div className="schedule-facts"><div><span>Available</span><strong>{annual.biomass_schedule.annual_available_tonnes.toLocaleString(undefined,{maximumFractionDigits:0})} t/year</strong></div><div><span>Processed</span><strong>{annual.biomass_schedule.annual_processed_tonnes.toLocaleString(undefined,{maximumFractionDigits:0})} t/year</strong></div><div><span>Unused</span><strong>{annual.biomass_schedule.annual_unused_tonnes.toLocaleString(undefined,{maximumFractionDigits:0})} t/year</strong></div><div><span>Utilization</span><strong>{(annual.biomass_schedule.utilization_fraction*100).toFixed(1)}%</strong></div><div><span>Peak month</span><strong>{annual.biomass_schedule.peak_month_processed_tonnes.toLocaleString(undefined,{maximumFractionDigits:0})} t</strong></div></div></section>}
     <section className="overview-grid">
       <div className="panel"><PanelTitle icon={<Layers3/>} title="Current process pathway" text={`${activeUnits} active units across ${Object.keys(result.process_areas).length} process areas.`}/><div className="process-strip">{Object.values(result.process_areas).map((area:any,index:number) => <React.Fragment key={area.id}><div className="process-node"><span>{String(index+1).padStart(2,'0')}</span><strong>{areaLabels[area.id] || area.name}</strong><small>{area.units.length} units · {area.limitations.length ? 'review notes' : 'active'}</small></div>{index < Object.keys(result.process_areas).length-1 && <b>→</b>}</React.Fragment>)}</div></div>
       <div className="panel"><PanelTitle icon={runtime === 'python' ? <CheckCircle2/> : <AlertTriangle/>} title={runtime === 'python' ? 'Model connected' : 'Preview mode'} text={runtime === 'python' ? 'Results originate from the Python scientific service.' : 'Run the model before using values for decisions.'}/><div className="trust-list"><span><i className="status-dot active"/>Active simulated</span><span><i className="status-dot planned"/>Planned or data-gated</span><span><i className="status-dot warning"/>Provisional assumption</span></div>{limitations.slice(0,2).map((item:string,index:number) => <p className="compact-warning" key={index}>{item}</p>)}</div>
@@ -231,7 +305,7 @@ function Overview({ result, activeUnits, runtime, limitations, onConfigure, onRe
 
 function ScenarioCard({ group, value, onChange }: any) {
   const selected = group.options.find((item:any[]) => item[0] === value) || group.options[0];
-  return <section className="panel scenario-card"><div className="scenario-heading"><div><span className="eyebrow">{group.title}</span><h3>{selected[1]}</h3></div><span className={`status ${selected[2]}`}>{selected[2]}</span></div><select value={value} onChange={event => onChange(event.target.value)}>{group.options.map((item:any[]) => <option value={item[0]} key={item[0]}>{item[1]}{item[2] === 'planned' ? ' (planned)' : ''}</option>)}</select><p>{group.affects}</p><small>{selected[2] === 'planned' ? 'Data gate incomplete; strict validation will reject this option.' : 'Available in the current scientific model.'}</small></section>;
+  return <section className="panel scenario-card"><div className="scenario-heading"><div><span className="eyebrow">{group.title}</span><h3>{selected[1]}</h3></div><span className={`status ${selected[2]}`}>{selected[2]}</span></div><select value={value} onChange={event => onChange(event.target.value)}>{group.options.map((item:any[]) => <option value={item[0]} key={item[0]} disabled={item[2] === 'planned'}>{item[1]}{item[2] === 'planned' ? ' (planned)' : ''}</option>)}</select><p>{group.affects}</p><small>{selected[2] === 'planned' ? 'Data gate incomplete; this route is unavailable for execution.' : 'Available in the current scientific model.'}</small></section>;
 }
 
 function FeedScheduleControls({value,onChange}:{value:EmpiricalBiomassSchedule;onChange:React.Dispatch<React.SetStateAction<EmpiricalBiomassSchedule>>}) {

@@ -13,11 +13,12 @@ export type FeedInputs = {
   phosphorusPct: number;
 };
 
-export function InputStudio({ feed, setFeed, scenario, onRun }: {
+export function InputStudio({ feed, setFeed, scenario, onRun, running=false }: {
   feed: FeedInputs;
   setFeed: React.Dispatch<React.SetStateAction<FeedInputs>>;
   scenario: ScenarioSelection;
   onRun: () => void;
+  running?: boolean;
 }) {
   const update = (key: keyof FeedInputs, value: string) => setFeed(current => ({ ...current, [key]: Number(value) }));
   const field = (key: keyof FeedInputs, label: string, unit: string, note: string, max?: number) => (
@@ -34,6 +35,6 @@ export function InputStudio({ feed, setFeed, scenario, onRun }: {
       {field('proteinPct','Protein','% dry matter','Shown for review; not sent to the scientific model yet.',100)}
       {field('phosphorusPct','Total phosphorus','% wet basis','Shown for review; not sent to the scientific model yet.',100)}
     </div></div>
-    <div className="input-summary"><div><strong>Selected pathway</strong><span>{scenario.feed_front_end ? 'Feed preparation, digestion and nutrient recovery configured' : 'Choose a process pathway above'}</span></div><div><strong>Input status</strong><span>Operating schedule active above · composition shown for context</span></div><button className="run-button" onClick={onRun}>Run annual plan</button></div>
+    <div className="input-summary"><div><strong>Selected pathway</strong><span>{scenario.feed_front_end ? 'Feed preparation, digestion and nutrient recovery configured' : 'Choose a process pathway above'}</span></div><div><strong>Input status</strong><span>Operating schedule active above · composition shown for context</span></div><button className="run-button" onClick={onRun} disabled={running}>{running?'Calculating…':'Run simulation'}</button></div>
   </section>;
 }

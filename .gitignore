@@ -60,3 +60,4 @@ data/raw_confidential/
 
 # Local simulation runs and analysis artifacts
 /Greenhub/results/runs/
+/Greenhub/results/actual_pareto_2000/decision_batches/

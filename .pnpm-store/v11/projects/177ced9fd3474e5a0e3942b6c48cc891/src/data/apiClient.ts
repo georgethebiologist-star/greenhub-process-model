@@ -43,14 +43,15 @@ export interface BackendResources {
   annual: AnnualSummary | null;
 }
 
-export function buildPythonRequest(mode: CalculationMode, month: string, scenario: ScenarioSelection, feed: FeedInputs, biomassSchedule: EmpiricalBiomassSchedule) {
+export type ProcessResolution = 'quasi_dynamic' | 'steady_state';
+export function buildPythonRequest(mode: CalculationMode, month: string, scenario: ScenarioSelection, feed: FeedInputs, biomassSchedule: EmpiricalBiomassSchedule, resolution: ProcessResolution = 'quasi_dynamic', storageConditions:Record<string,unknown>|null = null) {
   const year = biomassSchedule.season_start.slice(0, 4);
-  return {
+  const request:Record<string,any> = {
     schema_version: '1.0.0',
     request_id: `greenhub-ui-${Date.now()}`,
     project_id: 'greenhub-engineering',
     calculation_mode: mode,
-    resolution_mode: 'quasi_dynamic',
+    resolution_mode: resolution,
     selected_month: month,
     scenarios: {
       feed_preparation: scenario.feed_front_end,
@@ -60,20 +61,24 @@ export function buildPythonRequest(mode: CalculationMode, month: string, scenari
       nutrient_recovery: scenario.nutrient_recovery,
       process_order: scenario.process_order,
     },
-    start_date: `${year}-01-01`,
-    end_date: `${year}-12-31`,
-    time_step: 'monthly',
-    annual_biomass_target: biomassSchedule.annual_processed_biomass_tonnes * 1000,
-    biomass_schedule: biomassSchedule,
     operating_schedule: {
       operating_days_per_week: feed.operatingDaysPerWeek,
       operating_hours_per_day: feed.operatingHoursPerDay,
-      target_throughput_kg_hr: biomassSchedule.feed_kg_per_hr,
+      ...(biomassSchedule.feed_basis === 'kg_per_hr' ? {target_throughput_kg_hr: biomassSchedule.feed_kg_per_hr} : {}),
     },
     requested_plots: [],
     export_formats: ['json', 'csv'],
     strict_validation: true,
   };
+  if (resolution === 'quasi_dynamic') {
+    request.start_date = `${year}-01-01`;
+    request.end_date = `${year}-12-31`;
+    request.time_step = 'monthly';
+    request.annual_biomass_target = biomassSchedule.annual_processed_biomass_tonnes * 1000;
+    request.biomass_schedule = biomassSchedule;
+    if(storageConditions)request.storage_conditions=storageConditions;
+  }
+  return request;
 }
 
 export async function runPythonSimulation(payload: object): Promise<any> {

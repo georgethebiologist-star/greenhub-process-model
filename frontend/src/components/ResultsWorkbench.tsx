@@ -17,10 +17,10 @@ const areaLabels: Record<string,string> = {
   shared_utilities_and_supporting_operations: 'Utilities', integrated_system: 'Whole system', unassigned: 'Other units',
 };
 
-export function ResultsWorkbench({ result, graph, runtime, sourceState, savedRuns, onSaveRun }: {
-  result: SimulationResult; graph: GraphLike; runtime: string; artifacts?: Artifact[]; sourceState?:ResultSourceState; savedRuns?:EmpiricalComparisonRun[]; onSaveRun?:(label:string,result:SimulationResult)=>void;
+export function ResultsWorkbench({ result, graph, runtime, sourceState, savedRuns, onSaveRun, initialView = 'story' }: {
+  result: SimulationResult; graph: GraphLike; runtime: string; artifacts?: Artifact[]; sourceState?:ResultSourceState; savedRuns?:EmpiricalComparisonRun[]; onSaveRun?:(label:string,result:SimulationResult)=>void; initialView?:ViewId;
 }) {
-  const [view, setView] = useState<ViewId>('story');
+  const [view, setView] = useState<ViewId>(initialView);
   const [selectedNode, setSelectedNode] = useState<any | null>(null);
   const annual = (result as SimulationResult & { annual?: AnnualSummary | null }).annual ?? null;
   const nodes = graph?.nodes ?? result.units.map(unit => ({ unit_id:unit.id,display_name:unit.name,process_area:unit.area,active:unit.status==='active',technology:unit.type,key_kpis:{power_kw:unit.power_kw},warning_count:unit.status_reason?1:0 }));
@@ -43,13 +43,34 @@ export function ResultsWorkbench({ result, graph, runtime, sourceState, savedRun
   </section>;
 }
 
-export function ReportCenter({ result, artifacts = [], runtime }: {
-  result: SimulationResult; artifacts?: Artifact[]; runtime: string;
+export function ReportCenter({ result, artifacts = [], runtime, exportContext }: {
+  result: SimulationResult; artifacts?: Artifact[]; runtime: string; exportContext?: Record<string, unknown>;
 }) {
   return <section className="reports-workbench panel">
     <div className="panel-title result-heading"><span className="title-icon"><FileDown size={17}/></span><div><h3>Run exports</h3><p>{runtime} · completed {new Date(result.timestamp).toLocaleString()}</p></div><span className={`status ${result.validation.status}`}>{result.validation.status === 'pass' ? 'checks passed' : `${result.validation.status} — review`}</span></div>
+    <div className="export-actions"><button className="secondary" onClick={()=>downloadFile(JSON.stringify({exported_at:new Date().toISOString(),runtime,configuration:exportContext??null,result},null,2),'application/json',`greenhub-${safeFilePart(result.run_id)}-run.json`)}><FileDown size={14}/>Download reproducibility bundle (JSON)</button><button className="secondary" onClick={()=>downloadFile(summaryCsv(result),'text/csv;charset=utf-8',`greenhub-${safeFilePart(result.run_id)}-summary.csv`)}><FileDown size={14}/>Download KPI summary (CSV)</button></div>
     <ReportsView artifacts={artifacts} result={result}/>
   </section>;
+}
+
+function downloadFile(content:string,type:string,filename:string) { const url=URL.createObjectURL(new Blob([content],{type}));const link=document.createElement('a');link.href=url;link.download=filename;document.body.appendChild(link);link.click();link.remove();window.setTimeout(()=>URL.revokeObjectURL(url),1000); }
+function safeFilePart(value:string) { return String(value||'run').replace(/[^a-zA-Z0-9_-]/g,'_'); }
+function summaryCsv(result:SimulationResult) {
+  const annual=result.annual;
+  const rows:[string,string,string][]=[['Metric','Value','Unit'],['Run ID',result.run_id,''],['Timestamp',result.timestamp,''],['Validation',result.validation.status,'']];
+  if(annual){
+    rows.push(['Feed processed',String(annual.feed_processed.value),'kg/year']);
+    rows.push(['Dry protein product',String(annual.products.dry_protein_product?.value??''),'kg/year']);
+    rows.push(['Biomethane product',String(annual.products.biomethane?.value??''),'kg/year']);
+    rows.push(['Electricity',String(annual.utilities.electricity?.value??''),'kWh/year']);
+    rows.push(['Overall mass closure',String(annual.balance.overall_closure_pct),'%']);
+  } else {
+    rows.push(['Feed mass in',String(result.balances.mass_in_kgh),'kg/h']);
+    rows.push(['Protein recovered',String(result.metrics.protein_recovered_kgh),'kg/h']);
+    rows.push(['Biomethane flow',String(result.metrics.biomethane_flow_m3h),'m3/h']);
+    rows.push(['Overall mass closure',String(result.balances.mass_closure_pct),'%']);
+  }
+  return rows.map(row=>row.map(value=>`"${value.replace(/"/g,'""')}"`).join(',')).join('\r\n');
 }
 
 function StoryView({result,annual}:{result:SimulationResult;annual:AnnualSummary|null}) {
