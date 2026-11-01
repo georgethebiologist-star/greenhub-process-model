@@ -7,11 +7,11 @@ import {buildSync} from 'esbuild';
 import React from 'react';
 import {renderToStaticMarkup} from 'react-dom/server';
 
-const code=buildSync({stdin:{contents:`export {DecisionResults} from './src/components/DecisionSupport'; export {default as DecisionOverview} from './src/components/DecisionOverview'; export {previewFinance,baselineSnapshot} from './src/data/decisionPreview'; export {generateScreeningBatch,evaluateCandidate,markPareto,defaultRanges,defaultSettings} from './src/data/paretoScreening'; export {buildDecisionConfiguration} from './src/data/decisionSupport';`,resolveDir:process.cwd()},bundle:true,write:false,platform:'node',format:'cjs',packages:'external',loader:{'.css':'empty'},define:{'import.meta.env':'{}'}}).outputFiles[0].text;
+const code=buildSync({stdin:{contents:`export {DecisionResults} from './src/components/DecisionSupport'; export {default as DecisionOverview} from './src/components/DecisionOverview'; export {default as AnalyticsPreview} from './src/components/AnalyticsPreview'; export {previewFinance,baselineSnapshot} from './src/data/decisionPreview'; export {generateScreeningBatch,evaluateCandidate,markPareto,defaultRanges,defaultSettings} from './src/data/paretoScreening'; export {buildDecisionConfiguration} from './src/data/decisionSupport';`,resolveDir:process.cwd()},bundle:true,write:false,platform:'node',format:'cjs',packages:'external',loader:{'.css':'empty'},define:{'import.meta.env':'{}'}}).outputFiles[0].text;
 const compiled=new Module(path.resolve('scripts/decision-check.cjs'));
 compiled.filename=path.resolve('scripts/decision-check.cjs');
 compiled.require=createRequire(import.meta.url);compiled._compile(code,compiled.filename);
-const {DecisionResults,DecisionOverview,previewFinance,baselineSnapshot,buildDecisionConfiguration}=compiled.exports;
+const {DecisionResults,DecisionOverview,AnalyticsPreview,previewFinance,baselineSnapshot,buildDecisionConfiguration}=compiled.exports;
 const report=JSON.parse(fs.readFileSync('../Greenhub/results/decision_support/static.json','utf8'));
 const html=renderToStaticMarkup(React.createElement(DecisionResults,{report}));
 for(const label of ['Not a validated simulation','validated_simulation_ready = false','Partial direct CAPEX','Operating profit','Climate inventory','Source status','Incomplete'])assert.ok(html.includes(label),label);
@@ -28,6 +28,17 @@ const screeningConfig=buildDecisionConfiguration(report.configuration,{model:'st
 assert.equal(screeningConfig.use_screening_lca_factors,true,'Screening LCA checkbox must activate the opt-in flag.');
 assert.equal(report.configuration.simulation.wet_feed_rate_kg_hr,1000,'Request construction must not mutate saved result.');
 console.log('Decision support rendering, evidence, readiness and request payload checks passed.');
+
+const hotspotsHtml=renderToStaticMarkup(React.createElement(AnalyticsPreview,{view:'hotspots'}));
+assert.ok(hotspotsHtml.includes('OFFLINE PREVIEW'),'Hotspots preview is explicitly offline.');
+assert.ok(hotspotsHtml.includes('Annual operating-cost hotspots'),'Preview cost contributors render.');
+assert.ok(hotspotsHtml.includes('Climate burden and displacement hotspots'),'Preview climate contributors render.');
+const optimizationHtml=renderToStaticMarkup(React.createElement(AnalyticsPreview,{view:'optimization'}));
+assert.ok(optimizationHtml.includes('Scenario trade-off preview'),'Optimization preview renders.');
+assert.ok(optimizationHtml.includes('Annualized profit vs net climate offset'),'Climate Pareto chart renders.');
+assert.ok(optimizationHtml.includes('Annualized profit vs screening CAPEX'),'CAPEX Pareto chart renders.');
+assert.ok(optimizationHtml.includes('Subsidy overlay'),'Unsupported subsidy estimates remain marked as not applied.');
+console.log('Offline hotspot and dual-objective optimization preview rendering checks passed.');
 
 // Financial preview mathematics and offline rendering must remain independent of the API.
 const previewHtml=renderToStaticMarkup(React.createElement(DecisionOverview));
