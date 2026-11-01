@@ -248,6 +248,7 @@ export interface AnnualSummary {
   };
   feed_processed: AnnualValue;
   products: Record<string, AnnualValue>;
+  named_products?: Record<string, AnnualValue>;
   utilities: Record<string, AnnualValue>;
   balance: {
     overall_closure_pct: number;

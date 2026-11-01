@@ -16,6 +16,18 @@ PRODUCT_KEYS = (
     "nutrient_rich_solids",
 )
 
+STRUVITE_SCENARIOS = {"NR2", "NR4", "NR7"}
+
+
+def _named_nutrient_products(products: dict[str, float], request) -> dict[str, float]:
+    """Expose chemically specific nutrient names without breaking legacy keys."""
+    route = getattr(getattr(request, "scenarios", None), "nutrient_recovery", "")
+    if route in STRUVITE_SCENARIOS:
+        return {"struvite_product": float(products.get("phosphorus_product", 0.0))}
+    if route == "NR5":
+        return {"calcium_phosphate_product": float(products.get("phosphorus_product", 0.0))}
+    return {}
+
 
 def build_annual_summary(result, request) -> dict[str, object]:
     """Return decision-ready annual totals without obscuring the calculation basis."""
@@ -78,6 +90,7 @@ def _from_quasi_dynamic(result, request) -> dict[str, object]:
         },
         "feed_processed": _value(processed, f"kg/{suffix}"),
         "products": {key: _value(value, f"kg/{suffix}") for key, value in products.items()},
+        "named_products": {key: _value(value, f"kg/{suffix}") for key, value in _named_nutrient_products(products, request).items()},
         "utilities": {
             "electricity": _value(float(utilities.get("electricity_kwh", 0.0)), f"kWh/{suffix}"),
             "heating": _value(float(utilities.get("heating_kwh", 0.0)), f"kWh/{suffix}"),
@@ -130,6 +143,7 @@ def _annualize_steady_state(result, request) -> dict[str, object]:
         },
         "feed_processed": {"value": processed_feed, "unit": "kg/year"},
         "products": {key: _value(value, "kg/year") for key, value in products.items()},
+        "named_products": {key: _value(value, "kg/year") for key, value in _named_nutrient_products(products, request).items()},
         "utilities": {
             "electricity": _value(electricity, "kWh/year"),
             "heating": _value(heating_kj / 3600.0, "kWh/year"),
@@ -296,6 +310,7 @@ def _chart_data(
             "period": period,
             "protein_tonnes": float(product.get("dry_protein_product", 0.0)) / 1000.0,
             "phosphorus_product_tonnes": float(product.get("phosphorus_product", 0.0)) / 1000.0,
+            "struvite_tonnes": float(product.get("phosphorus_product", 0.0)) / 1000.0,
             "ammonium_product_tonnes": float(product.get("ammonium_product", 0.0)) / 1000.0,
             "potassium_concentrate_tonnes": float(product.get("potassium_concentrate", 0.0)) / 1000.0,
             "nutrient_rich_solids_tonnes": float(product.get("nutrient_rich_solids", 0.0)) / 1000.0,

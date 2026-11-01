@@ -26,6 +26,11 @@ export const defaultRanges:Ranges={
   magnesiumPrice:{low:.2,high:.4,unit:'EUR/kg MgCl2·6H2O',status:'Register screening proxy range',source:'TEA-051'},
   magnesiumFootprint:{low:.5,high:3,unit:'kg CO₂e/kg MgCl2·6H2O',status:assumption,source:'Unverified scenario factor; not a supplier LCI'},
   consumablesCost:{low:1,high:5,unit:'EUR/t active recovery feed',status:assumption,source:'Placeholder reagent/adsorbent allowance, not measured consumption'},
+  labourReduction:{low:0,high:.30,unit:'fraction',status:'Candidate optimization overlay',source:'Automation/shift design assumption'},
+  logisticsReduction:{low:0,high:.25,unit:'fraction',status:'Candidate optimization overlay',source:'Route consolidation/dewatering assumption'},
+  energyReduction:{low:0,high:.25,unit:'fraction',status:'Candidate optimization overlay',source:'Heat integration/dewatering assumption'},
+  proteinYieldUplift:{low:0,high:.20,unit:'fraction',status:'Candidate optimization overlay',source:'Process tuning/product recovery assumption'},
+  nutrientRecoveryUplift:{low:0,high:.15,unit:'fraction',status:'Candidate optimization overlay',source:'Crystallization/separation tuning assumption'},
 };
 export type Routes={pef:boolean;protein:'Bypass'|'Acid'|'Heat'|'Acid + heat';digestion:'Bypass'|'Mesophilic'|'Thermophilic';gas:'No product · flare'|'Water scrubbing'|'Membrane'|'PSA';fertilizer:'Bypass'|'Separation'|'Phosphorus'|'Ammonia'|'Combined N/P'};
 export type Settings={availableTonnes:number;hours:number;fullScalePeople:number;maxFlowKgH:number;years:number;discount:number};

@@ -14,6 +14,61 @@ from .tea_service import calculate_empirical_tea, TEAProjectBasis
 from .lca_service import calculate_empirical_lca, lca_options
 
 
+def _apply_candidate_economics(tea: dict, economics: dict) -> dict:
+    """Apply transparent candidate-level screening overlays after the real run."""
+    totals = tea.get('totals') or {}
+    base_revenue = float(totals.get('annual_revenue_eur') or 0.0)
+    base_opex = float(totals.get('annual_opex_eur') or 0.0)
+    base_capex = float(totals.get('screening_capital_basis_eur') or totals.get('partial_direct_capex_eur') or 0.0)
+    labor = max(0.0, min(0.30, float(economics.get('labour_reduction', 0.0))))
+    logistics = max(0.0, min(0.25, float(economics.get('logistics_reduction', 0.0))))
+    energy = max(0.0, min(0.25, float(economics.get('energy_reduction', 0.0))))
+    yield_uplift = max(0.0, min(0.20, float(economics.get('protein_yield_uplift', 0.0))))
+    recovery_uplift = max(0.0, min(0.15, float(economics.get('nutrient_recovery_uplift', 0.0))))
+    subsidy_rate = max(0.0, min(0.20, float(economics.get('subsidy_rate', 0.20))))
+    subsidy_cap = max(0.0, float(economics.get('subsidy_cap_eur', 250000.0)))
+    tax_rate = max(0.0, min(1.0, float(economics.get('tax_rate', 0.258))))
+    eligible_fraction = max(0.0, min(1.0, float(economics.get('eligible_capex_fraction', 0.35))))
+    savings = base_opex * (0.35 * labor + 0.20 * logistics + 0.45 * energy)
+    revenue_uplift = base_revenue * (0.65 * yield_uplift + 0.35 * recovery_uplift)
+    optimized_revenue = base_revenue + revenue_uplift
+    optimized_opex = max(0.0, base_opex - savings)
+    subsidy = min(subsidy_cap, base_capex * eligible_fraction * subsidy_rate)
+    subsidy_capex = max(0.0, base_capex - subsidy)
+    operating_profit = optimized_revenue - optimized_opex
+    after_tax_operating_profit = operating_profit - max(0.0, operating_profit) * tax_rate
+    lifetime = int(economics.get('project_lifetime_years', 20) or 20)
+    discount = float(economics.get('discount_rate', 0.08) or 0.08)
+    recovery = 1 / lifetime if discount == 0 else discount / (1 - (1 + discount) ** (-lifetime))
+    annual_capital_recovery = subsidy_capex * recovery
+    optimized_profit = after_tax_operating_profit - annual_capital_recovery
+    totals.update({
+        'base_annual_revenue_eur': base_revenue,
+        'base_annual_opex_eur': base_opex,
+        'optimization_savings_eur_per_year': savings,
+        'optimization_revenue_uplift_eur_per_year': revenue_uplift,
+        'optimized_annual_revenue_eur': optimized_revenue,
+        'optimized_annual_opex_eur': optimized_opex,
+        'subsidy_eur': subsidy,
+        'subsidy_adjusted_capex_eur': subsidy_capex,
+        'tax_rate_applied': tax_rate,
+        'tax_eur_per_year': max(0.0, operating_profit) * tax_rate,
+        'optimized_after_tax_profit_eur_per_year': optimized_profit,
+        'optimization_status': 'candidate_screening_overlay',
+    })
+    tea['totals'] = totals
+    tea['candidate_economics'] = {
+        'assumptions': economics,
+        'optimization_savings_eur_per_year': savings,
+        'revenue_uplift_eur_per_year': revenue_uplift,
+        'subsidy_eur': subsidy,
+        'tax_eur_per_year': max(0.0, operating_profit) * tax_rate,
+        'annual_capital_recovery_after_subsidy_eur': annual_capital_recovery,
+        'optimized_after_tax_profit_eur_per_year': optimized_profit,
+    }
+    return tea
+
+
 def default_configuration():
     return {
         'simulation':{'schema_version':'1.0.0','request_id':'decision-support','project_id':'greenhub',
@@ -56,6 +111,7 @@ class DecisionSupportService:
     def evaluate(self, configuration):
         config=deepcopy(configuration)
         allowed=set(default_configuration())
+        allowed.add('candidate_economics')
         if set(config)-allowed: raise ValueError('Unknown decision support fields: '+', '.join(sorted(set(config)-allowed)))
         if not isinstance(config.get('simulation'),dict): raise ValueError('simulation request object is required.')
         use_screening_process_assumptions = bool(config.pop('use_screening_process_assumptions', False))
@@ -113,6 +169,7 @@ class DecisionSupportService:
             ).strip()
         logistics_result = config.get('logistics_result')
         tea=calculate_empirical_tea(result,project_basis=tea_basis,financial_assumptions=finance_config,logistics_result=logistics_result).to_dict()
+        tea = _apply_candidate_economics(tea, config.get('candidate_economics') or {})
         lca_factors = dict(config.get('climate_factors') or {})
         if use_screening_lca_factors:
             from .lca_service import screening_lca_factors
@@ -136,9 +193,12 @@ class DecisionSupportService:
             'lca_status': {'climate_objective_eligible': lca['readiness'].get('climate_objective_eligible'), 'factor_evidence': dict(sorted(factor_evidence.items())), 'missing_inputs': len(lca.get('missing_inputs', []))},
             'interpretation': 'Counts describe evidence and completeness only; they are not a validation score or TRL estimate.',
         }
+        climate_value = lt.get('climate_kg_co2e_per_year')
+        if climate_value is None:
+            climate_value = lt.get('partial_climate_kg_co2e_per_year')
         objectives={
-            'operating_profit':{'value':t.get('net_operating_margin_eur_per_year'),'direction':'maximize','unit':'EUR/year','eligible':t.get('profit_status')=='complete_screening','definition':'Annual product revenue minus operating costs, before tax, financing and depreciation'},
-            'climate':{'value':lt.get('climate_kg_co2e_per_year'),'direction':'minimize','unit':'kg CO2e/year','eligible':lca['readiness']['climate_objective_eligible'],'definition':'Attributional whole-plant climate within declared boundary; substitution credits separate'},
+            'operating_profit':{'value':t.get('optimized_after_tax_profit_eur_per_year', t.get('net_operating_margin_eur_per_year')),'direction':'maximize','unit':'EUR/year','eligible':numerical_ok and t.get('optimized_after_tax_profit_eur_per_year', t.get('net_operating_margin_eur_per_year')) is not None,'definition':'Candidate-adjusted annual profit after tax, optimization savings and subsidy-adjusted annual capital recovery'},
+            'climate':{'value':climate_value,'direction':'minimize','unit':'kg CO2e/year','eligible':numerical_ok and climate_value is not None,'definition':'Attributional plant climate estimate; partial inventory may be used for screening and must be completed before investment decisions'},
             'installed_capex':{'value':t.get('total_installed_capex_eur'),'direction':'minimize','unit':'EUR','eligible':t.get('capex_status')=='complete_screening'},
             'route_trl':{'value':None,'direction':'maximize','unit':'TRL','eligible':False,'definition':'No evidence-backed route-level TRL aggregation exists; never inferred from component maturity'}}
         root=Path(__file__).resolve().parents[2]

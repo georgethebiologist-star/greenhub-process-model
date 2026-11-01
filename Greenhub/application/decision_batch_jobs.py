@@ -6,6 +6,7 @@ from pathlib import Path
 from threading import RLock, Thread
 from uuid import uuid4
 import json
+import time
 
 from Greenhub.scenario_exploration import pareto_front, sample_configurations, set_path
 
@@ -36,13 +37,18 @@ class DecisionBatchJobs:
                 if not isinstance(candidate, dict) or not isinstance(candidate.get("sample_id"), str) or not candidate["sample_id"]:
                     raise ValueError("Each candidate override requires a non-empty sample_id.")
                 overrides = candidate.get("overrides")
+                economics = candidate.get("candidate_economics")
                 if not isinstance(overrides, dict) or not overrides:
                     raise ValueError("Each candidate override requires a non-empty overrides object.")
                 config = json.loads(json.dumps(configuration))
                 for path, value in overrides.items():
-                    if not isinstance(path, str) or not path.startswith("simulation."):
-                        raise ValueError("Candidate override paths must be under simulation.")
+                    if not isinstance(path, str) or not (path.startswith("simulation.") or path.startswith("candidate_economics.")):
+                        raise ValueError("Candidate override paths must be under simulation or candidate_economics.")
                     set_path(config, path, value)
+                if economics is not None:
+                    if not isinstance(economics, dict):
+                        raise ValueError("candidate_economics must be an object when supplied.")
+                    config["candidate_economics"] = economics
                 configs.append(config)
                 source_ids.append(candidate["sample_id"])
             if len(set(source_ids)) != len(source_ids):
@@ -156,9 +162,16 @@ class DecisionBatchJobs:
 
     def _save(self, doc):
         path = self._path(doc["job_id"])
-        temp = path.with_suffix(".tmp")
+        temp = path.with_name(f"{path.stem}.{uuid4().hex}.tmp")
         temp.write_text(json.dumps(doc, allow_nan=False), encoding="utf-8")
-        temp.replace(path)
+        for attempt in range(20):
+            try:
+                temp.replace(path)
+                return
+            except PermissionError:
+                if attempt == 19:
+                    raise
+                time.sleep(0.1)
 
     @staticmethod
     def _now(): return datetime.now(timezone.utc).isoformat()
