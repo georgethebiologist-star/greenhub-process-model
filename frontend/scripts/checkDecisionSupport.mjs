@@ -30,15 +30,14 @@ assert.equal(report.configuration.simulation.wet_feed_rate_kg_hr,1000,'Request c
 console.log('Decision support rendering, evidence, readiness and request payload checks passed.');
 
 const hotspotsHtml=renderToStaticMarkup(React.createElement(AnalyticsPreview,{view:'hotspots'}));
-assert.ok(hotspotsHtml.includes('OFFLINE PREVIEW'),'Hotspots preview is explicitly offline.');
-assert.ok(hotspotsHtml.includes('Annual operating-cost hotspots'),'Preview cost contributors render.');
-assert.ok(hotspotsHtml.includes('Climate burden and displacement hotspots'),'Preview climate contributors render.');
+assert.ok(hotspotsHtml.includes('BIOSTEAM'));
+assert.ok(hotspotsHtml.includes('Optimization assumptions'));
 const optimizationHtml=renderToStaticMarkup(React.createElement(AnalyticsPreview,{view:'optimization'}));
-assert.ok(optimizationHtml.includes('Scenario trade-off preview'),'Optimization preview renders.');
-assert.ok(optimizationHtml.includes('Annualized profit vs net climate offset'),'Climate Pareto chart renders.');
-assert.ok(optimizationHtml.includes('Annualized profit vs screening CAPEX'),'CAPEX Pareto chart renders.');
-assert.ok(optimizationHtml.includes('Subsidy overlay'),'Unsupported subsidy estimates remain marked as not applied.');
-console.log('Offline hotspot and dual-objective optimization preview rendering checks passed.');
+assert.ok(optimizationHtml.includes('BIOSTEAM'));
+assert.ok(optimizationHtml.includes('scatter chart of annual profit'), 'Pareto graph has an accessible label.');
+assert.ok(optimizationHtml.includes('2,000 SCENARIOS'));
+assert.ok(!optimizationHtml.includes('Illustrative screening model'));
+console.log('BioSTEAM optimization and concise chart rendering checks passed.');
 
 // Financial preview mathematics and offline rendering must remain independent of the API.
 const previewHtml=renderToStaticMarkup(React.createElement(DecisionOverview));
