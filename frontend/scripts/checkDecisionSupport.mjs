@@ -29,10 +29,13 @@ assert.equal(screeningConfig.use_screening_lca_factors,true,'Screening LCA check
 assert.equal(report.configuration.simulation.wet_feed_rate_kg_hr,1000,'Request construction must not mutate saved result.');
 console.log('Decision support rendering, evidence, readiness and request payload checks passed.');
 
-const hotspotsHtml=renderToStaticMarkup(React.createElement(AnalyticsPreview,{view:'hotspots'}));
+const previewProps={scenario:{feed_front_end:'F2',protein_recovery:'PR3',anaerobic_digestion:'AD1',biogas_upgrading:'BG2',nutrient_recovery:'NR4',process_order:'A'},setScenario:()=>{},feed:{feedAmountKgh:500,operatingDaysPerWeek:7,operatingHoursPerDay:24,moisturePct:78,liquidFractionPct:62,proteinPct:18,nitrogenPct:1.1,phosphorusPct:.12},setFeed:()=>{},month:'July',setMonth:()=>{},running:false,onRun:()=>{}};
+const hotspotsHtml=renderToStaticMarkup(React.createElement(AnalyticsPreview,{...previewProps,view:'hotspots'}));
 assert.ok(hotspotsHtml.includes('BIOSTEAM'));
 assert.ok(hotspotsHtml.includes('Optimization assumptions'));
-const optimizationHtml=renderToStaticMarkup(React.createElement(AnalyticsPreview,{view:'optimization'}));
+assert.ok(hotspotsHtml.includes('Run model'));
+assert.ok(hotspotsHtml.includes('Model configuration'));
+const optimizationHtml=renderToStaticMarkup(React.createElement(AnalyticsPreview,{...previewProps,view:'optimization'}));
 assert.ok(optimizationHtml.includes('BIOSTEAM'));
 assert.ok(optimizationHtml.includes('scatter chart of annual profit'), 'Pareto graph has an accessible label.');
 assert.ok(optimizationHtml.includes('2,000 SCENARIOS'));

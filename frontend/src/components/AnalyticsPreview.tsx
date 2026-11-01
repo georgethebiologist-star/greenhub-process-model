@@ -1,6 +1,9 @@
 import React,{useMemo} from 'react';
 import {Bar,BarChart,CartesianGrid,Legend,ReferenceLine,ResponsiveContainer,Scatter,ScatterChart,Tooltip,XAxis,YAxis} from 'recharts';
 import paretoSnapshot from '../data/actualParetoPreview.json';
+import './decisionSupport.css';
+import type {FeedInputs} from './InputStudio';
+import type {ScenarioSelection} from '../types';
 
 type View='hotspots'|'optimization';
 type ObjectivePoint={sample_id:string;x:number;y:number;pareto?:boolean};
@@ -18,7 +21,15 @@ const overlayMeans=[
   {name:'Nutrient recovery',value:7.54},
 ];
 
-export default function AnalyticsPreview({view}:{view:View}) {
+const routeFields:{key:keyof ScenarioSelection;label:string;values:readonly (readonly [string,string])[]}[]=[
+  {key:'feed_front_end',label:'Feed preparation',values:[['F0','Measured fraction'],['F1','No PEF'],['F2','PEF baseline'],['F3','PEF sensitivity']]},
+  {key:'protein_recovery',label:'Protein recovery',values:[['PR0','Bypass'],['PR1','Acid'],['PR2','Heat'],['PR3','Acid + heat']]},
+  {key:'anaerobic_digestion',label:'Digestion',values:[['AD0','Off'],['AD1','Baseline'],['AD2','Protein-rich liquid'],['AD3','Alternative'],['AD4','Advanced']]},
+  {key:'biogas_upgrading',label:'Biogas upgrading',values:[['BG0','Off'],['BG1','Conditioning'],['BG2','Baseline'],['BG3','Water scrubber'],['BG4','Membrane'],['BG5','Amine']]},
+  {key:'nutrient_recovery',label:'Nutrient recovery',values:[['NR0','Off'],['NR1','Solid-liquid'],['NR2','Struvite'],['NR3','Ammonia'],['NR4','Integrated N/P'],['NR5','Calcium phosphate'],['NR6','Ion exchange'],['NR7','Integrated N/P/K']]},
+];
+
+export default function AnalyticsPreview({view,scenario,setScenario,feed,setFeed,month,setMonth,running,onRun}:{view:View;scenario:ScenarioSelection;setScenario:React.Dispatch<React.SetStateAction<ScenarioSelection>>;feed:FeedInputs;setFeed:React.Dispatch<React.SetStateAction<FeedInputs>>;month:string;setMonth:(month:string)=>void;running:boolean;onRun:()=>void}) {
   const points=useMemo(()=>{
     const cloud=(paretoSnapshot.cloud as ObjectivePoint[]).map(p=>({...p,pareto:false}));
     const front=cloud.filter(p=>!cloud.some(q=>q.sample_id!==p.sample_id&&q.x>=p.x&&q.y<=p.y&&(q.x>p.x||q.y<p.y)));
@@ -30,8 +41,18 @@ export default function AnalyticsPreview({view}:{view:View}) {
 
   return <section className="panel analytics-preview" aria-label={view==='optimization'?'BioSTEAM Pareto optimization':'BioSTEAM optimization hotspots'}>
     <div className="analytics-preview-top"><span className="ds-badge">BIOSTEAM · 2,000 SCENARIOS · PARTIAL LCA</span><span className="analytics-preview-meta">20% subsidy · 35% eligible CAPEX · 25.8% tax</span></div>
+    <section className="analytics-preview-config" aria-label="Model configuration">
+      <div className="analytics-preview-config-head"><h2>Model configuration</h2><button className="run-button" onClick={onRun} disabled={running}>{running?'Running model…':'Run model'}</button></div>
+      <div className="analytics-preview-controls">
+        <label>Wet feed rate (kg/h)<input type="number" min="1" value={feed.feedAmountKgh} onChange={e=>setFeed(current=>({...current,feedAmountKgh:Number(e.target.value)}))}/></label>
+        <label>Operating days/week<input type="number" min="1" max="7" value={feed.operatingDaysPerWeek} onChange={e=>setFeed(current=>({...current,operatingDaysPerWeek:Number(e.target.value)}))}/></label>
+        <label>Operating hours/day<input type="number" min="1" max="24" value={feed.operatingHoursPerDay} onChange={e=>setFeed(current=>({...current,operatingHoursPerDay:Number(e.target.value)}))}/></label>
+        <label>Reference month<select value={month} onChange={e=>setMonth(e.target.value)}>{['January','February','March','April','May','June','July','August','September','October','November','December'].map(m=><option key={m}>{m}</option>)}</select></label>
+        {routeFields.map(group=><label key={group.key}>{group.label}<select value={scenario[group.key]} onChange={e=>setScenario(current=>({...current,[group.key]:e.target.value}))}>{group.values.map(([id,name])=><option key={id} value={id}>{name}</option>)}</select></label>)}
+      </div>
+    </section>
     {view==='optimization'?<div className="analytics-preview-chart" role="img" aria-label="BioSTEAM Pareto scatter chart of annual profit versus climate impact">
-      <ResponsiveContainer width="100%" height="100%"><ScatterChart margin={{top:20,right:28,bottom:34,left:28}}>
+      <ResponsiveContainer width="100%" height="100%" minWidth={320} minHeight={440}><ScatterChart margin={{top:20,right:28,bottom:34,left:28}}>
         <CartesianGrid strokeDasharray="3 3" stroke="var(--line)"/>
         <XAxis type="number" dataKey="x" name="After-tax profit" tickFormatter={compact} unit=" EUR/year" tick={{fontSize:11}} label={{value:'After-tax profit (EUR/year) · maximize',position:'insideBottom',offset:-22,fontSize:12}}/>
         <YAxis type="number" dataKey="y" name="Climate impact" tickFormatter={compact} unit=" kg CO₂e/year" tick={{fontSize:11}} label={{value:'Climate impact (kg CO₂e/year) · minimize',angle:-90,position:'insideLeft',fontSize:12}}/>
@@ -42,7 +63,7 @@ export default function AnalyticsPreview({view}:{view:View}) {
       </ScatterChart></ResponsiveContainer>
     </div>:<>
       <h2 className="analytics-preview-title">Optimization assumptions · mean across scenarios</h2>
-      <div className="analytics-preview-hotspots"><ResponsiveContainer width="100%" height="100%"><BarChart data={overlayMeans} layout="vertical" margin={{top:8,right:34,bottom:8,left:18}}>
+      <div className="analytics-preview-hotspots"><ResponsiveContainer width="100%" height="100%" minWidth={320} minHeight={300}><BarChart data={overlayMeans} layout="vertical" margin={{top:8,right:34,bottom:8,left:18}}>
         <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="var(--line)"/>
         <XAxis type="number" domain={[0,40]} tickFormatter={value=>`${value}%`} tick={{fontSize:11}}/>
         <YAxis type="category" dataKey="name" width={120} tick={{fontSize:12}}/>
