@@ -111,14 +111,14 @@ class GreenHubAPI:
             if method == 'GET' and figure_match:
                 from Greenhub.settings import PROJECT_ROOT
                 group = figure_match.group(1)
-                artifact = PROJECT_ROOT / 'results' / 'report_figures' / '07_optimization' / f'pareto_3d_carbon_npv_support_{group}.png'
+                artifact = PROJECT_ROOT / 'results' / 'report_figures' / '10_rvo_2026_support_adjusted' / '07_optimization' / f'pareto_3d_carbon_npv_support_{group}.png'
                 if not artifact.is_file():
                     raise APIError(404, 'pareto_figure_not_found', 'The current Pareto figure is not available.')
                 return FileResponse(artifact, artifact.name, inline=True)
             figure_index_path = '/api/v1/decision-support/pareto/latest/figure-index'
             if method == 'GET' and path == figure_index_path:
                 from Greenhub.settings import PROJECT_ROOT
-                index_path = PROJECT_ROOT / 'results' / 'report_figures' / 'figure_index.csv'
+                index_path = PROJECT_ROOT / 'results' / 'report_figures' / '10_rvo_2026_support_adjusted' / 'rvo_pareto_figure_index.csv'
                 if not index_path.is_file():
                     raise APIError(404, 'pareto_figure_index_not_found', 'The current Pareto figure index is not available.')
                 figures = []
@@ -126,7 +126,7 @@ class GreenHubAPI:
                     for figure_id, row in enumerate(csv.DictReader(stream), 1):
                         relative_path = Path(row['file_location'])
                         artifact = (PROJECT_ROOT / relative_path).resolve()
-                        root = (PROJECT_ROOT / 'results' / 'report_figures').resolve()
+                        root = (PROJECT_ROOT / 'results' / 'report_figures' / '10_rvo_2026_support_adjusted').resolve()
                         if not artifact.is_relative_to(root) or not artifact.is_file():
                             continue
                         figures.append({
@@ -143,7 +143,7 @@ class GreenHubAPI:
             figure_by_id = re.fullmatch(r'/api/v1/decision-support/pareto/latest/figures/by-id/(\d+)', path)
             if method == 'GET' and figure_by_id:
                 from Greenhub.settings import PROJECT_ROOT
-                index_path = PROJECT_ROOT / 'results' / 'report_figures' / 'figure_index.csv'
+                index_path = PROJECT_ROOT / 'results' / 'report_figures' / '10_rvo_2026_support_adjusted' / 'rvo_pareto_figure_index.csv'
                 figure_id = int(figure_by_id.group(1))
                 if not index_path.is_file():
                     raise APIError(404, 'pareto_figure_index_not_found', 'The current Pareto figure index is not available.')
@@ -152,7 +152,7 @@ class GreenHubAPI:
                 if row is None:
                     raise APIError(404, 'pareto_figure_not_found', 'The requested indexed Pareto figure is not available.')
                 artifact = (PROJECT_ROOT / row['file_location']).resolve()
-                root = (PROJECT_ROOT / 'results' / 'report_figures').resolve()
+                root = (PROJECT_ROOT / 'results' / 'report_figures' / '10_rvo_2026_support_adjusted').resolve()
                 if not artifact.is_relative_to(root) or not artifact.is_file():
                     raise APIError(404, 'pareto_figure_not_found', 'The requested indexed Pareto figure is not available.')
                 return FileResponse(artifact, artifact.name, inline=True)
@@ -183,7 +183,7 @@ class GreenHubAPI:
                     'schema_version', 'created_at_utc', 'seed', 'designs_per_protein_group',
                     'feed_preparation', 'optimization_objectives', 'support_scenarios',
                     'grant_awarding_organization', 'financial_basis', 'carbon_basis',
-                    'limitations', 'groups',
+                    'biomethane_support_conversion', 'limitations', 'groups',
                 )} | {'groups_payload': groups}
             job_match = re.fullmatch(r'/api/v1/decision-support/batch-jobs/([a-zA-Z0-9]+)(?:/(cancel|resume))?', path)
             if job_match:

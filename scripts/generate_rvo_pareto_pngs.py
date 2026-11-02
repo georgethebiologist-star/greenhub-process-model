@@ -1,7 +1,7 @@
 """Create publication-size PNGs from the latest RVO-screened BioSTEAM run."""
 from __future__ import annotations
 
-import csv, json, math
+import csv, json, math, io
 from pathlib import Path
 import matplotlib
 matplotlib.use('Agg')
@@ -11,16 +11,20 @@ from mpl_toolkits.mplot3d import Axes3D  # noqa: F401
 
 ROOT=Path(__file__).resolve().parents[1]
 SOURCE=ROOT/'Greenhub'/'results'/'pareto_rvo_2026'/'rvo_pareto_manifest.json'
-FIGROOT=ROOT/'results'/'report_figures'
+FIGROOT=ROOT/'results'/'report_figures'/'10_rvo_2026_support_adjusted'
 OUT=FIGROOT/'07_optimization'
 OUT.mkdir(parents=True,exist_ok=True)
 BG='#efebe6'; INK='#0c3338'; GREEN='#408f4d'; BLUE='#729ad2'; YELLOW='#d1a520'; ROSE='#d277a3'; GREY='#8d9996'
-CASE_COLORS={'A':BLUE,'B':GREEN,'C':YELLOW,'D':ROSE}
+CASE_COLORS={'C30':BLUE,'C45':GREEN,'C60':YELLOW,'C0':ROSE}
 plt.rcParams.update({'figure.facecolor':BG,'axes.facecolor':BG,'savefig.facecolor':BG,'text.color':INK,'axes.labelcolor':INK,'xtick.color':INK,'ytick.color':INK,'axes.edgecolor':INK,'font.family':'DejaVu Sans','font.size':11,'axes.titlesize':15,'axes.labelsize':12,'legend.fontsize':9,'figure.dpi':300,'savefig.dpi':300})
 INDEX=[]
 
 def save(fig,path,description,source,scenario,units):
-    fig.savefig(path,dpi=300,bbox_inches='tight',facecolor=BG)
+    # Render in memory before writing; this avoids transient Windows file-handle
+    # conflicts when the report-figure directory is being indexed or previewed.
+    image=io.BytesIO()
+    fig.savefig(image,format='png',dpi=300,bbox_inches='tight',facecolor=BG)
+    path.write_bytes(image.getvalue())
     plt.close(fig)
     INDEX.append({'figure_name':path.stem,'description':description,'source_dataset':source,'scenario':scenario,'units':units,'file_location':str(path.relative_to(ROOT))})
 
@@ -167,7 +171,7 @@ for group in ('protein_enabled','protein_bypass'):
     baseline_rows.extend([r for r in p['samples'] if r.get('baseline_reference') and r.get('status')=='evaluated'])
 if baseline_rows:
     dest=FIGROOT/'01_baseline';dest.mkdir(parents=True,exist_ok=True)
-    case_ids=['A','B','C','D'];x=np.arange(4);w=.36
+    case_ids=['C30','C45','C60','C0'];x=np.arange(4);w=.36
     fig,axs=plt.subplots(1,2,figsize=(10,5.5))
     for i,(group,label,color) in enumerate([('protein_enabled','Protein enabled',BLUE),('protein_bypass','Protein bypassed',GREEN)]):
         rows=[next((r for r in baseline_rows if r['group']==group and r['support_case']==c),None) for c in case_ids]
@@ -182,16 +186,16 @@ if baseline_rows:
     save(fig,dest/'baseline_rvo_support_kpis.png','Baseline NPV and net carbon across paired RVO screening cases',Path('Greenhub/results/pareto_rvo_2026'),'No-PEF baseline; protein enabled and bypassed','€ million; t C/year')
     fig,ax=plt.subplots(figsize=(8,5.5))
     for i,(group,label,color) in enumerate([('protein_enabled','Protein enabled',BLUE),('protein_bypass','Protein bypassed',GREEN)]):
-        row=next((r for r in baseline_rows if r['group']==group and r['support_case']=='A'),None)
+        row=next((r for r in baseline_rows if r['group']==group and r['support_case']=='C0'),None)
         if not row: continue
         vals=row['annual']['utilities'];v=[vals[k]['value']/1000 for k in ('electricity','heating','cooling')]
         ax.bar(np.arange(3)+(i-.5)*w,v,w,label=label,color=color)
-    ax.set_xticks(np.arange(3),['Electricity','Heat','Cooling']);ax.set_ylabel('MWh/year');ax.set_title('Baseline utility demand · case A',loc='left',fontweight='bold');ax.legend(frameon=False);ax.grid(axis='y',alpha=.18);ax.spines[['top','right']].set_visible(False)
-    save(fig,dest/'baseline_utilities_protein_comparison.png','Baseline utility comparison for protein route and bypass',Path('Greenhub/results/pareto_rvo_2026'),'No-PEF baseline; case A','MWh/year')
+    ax.set_xticks(np.arange(3),['Electricity','Heat','Cooling']);ax.set_ylabel('MWh/year');ax.set_title('Baseline utility demand · C0',loc='left',fontweight='bold');ax.legend(frameon=False);ax.grid(axis='y',alpha=.18);ax.spines[['top','right']].set_visible(False)
+    save(fig,dest/'baseline_utilities_protein_comparison.png','Baseline utility comparison for protein route and bypass',Path('Greenhub/results/pareto_rvo_2026'),'No-PEF baseline; C0 (utilities unaffected by support case)','MWh/year')
 
 # Cross-configuration subsidy sensitivity for scenario comparison folder.
 compare_dir=FIGROOT/'06_scenario_comparison';compare_dir.mkdir(parents=True,exist_ok=True)
-case_ids=['A','B','C','D'];fig,axs=plt.subplots(1,2,figsize=(10,5.5));x=np.arange(4);w=.36
+case_ids=['C30','C45','C60','C0'];fig,axs=plt.subplots(1,2,figsize=(10,5.5));x=np.arange(4);w=.36
 for i,(group,label,color) in enumerate([('protein_enabled','Protein enabled',BLUE),('protein_bypass','Protein bypassed',GREEN)]):
     p=json.loads((ROOT/'Greenhub'/'results'/'pareto_rvo_2026'/f'{group}_batch.json').read_text(encoding='utf-8'));rows=p['samples']
     for j,cid in enumerate(case_ids):

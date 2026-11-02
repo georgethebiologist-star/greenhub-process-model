@@ -32,11 +32,14 @@ DESIGNS_PER_GROUP = int(__import__('os').environ.get('GREENHUB_PARETO_DESIGNS', 
 MAX_WORKERS = int(__import__('os').environ.get('GREENHUB_PARETO_WORKERS', '8'))
 
 GRANT_AWARDER = 'Netherlands Enterprise Agency (RVO)'
+BIOMETHANE_DENSITY_KG_PER_NM3 = 0.716  # methane-equivalent at 0 °C, 101.325 kPa
+BIOMETHANE_VALUE_RANGE_EUR_PER_NM3 = (1.28, 2.46)  # retained for later sensitivity analysis
+BIOMETHANE_VALUE_AVERAGE_EUR_PER_NM3 = sum(BIOMETHANE_VALUE_RANGE_EUR_PER_NM3) / 2
 SUPPORT_SCENARIOS = {
-    'A': {'name': 'A · RVO DEI+ 30% + RVO SDE++ €20/t feed proxy', 'grant_fraction': .30, 'opex_eur_t': 20.0, 'grant_awarder':'Netherlands Enterprise Agency (RVO)', 'opex_awarder':'Netherlands Enterprise Agency (RVO)'},
-    'B': {'name': 'B · RVO DEI+ 45% + RVO SDE++ €40/t feed proxy', 'grant_fraction': .45, 'opex_eur_t': 40.0, 'grant_awarder':'Netherlands Enterprise Agency (RVO)', 'opex_awarder':'Netherlands Enterprise Agency (RVO)'},
-    'C': {'name': 'C · RVO DEI+ 60% + RVO SDE++ €60/t feed proxy', 'grant_fraction': .60, 'opex_eur_t': 60.0, 'grant_awarder':'Netherlands Enterprise Agency (RVO)', 'opex_awarder':'Netherlands Enterprise Agency (RVO)'},
-    'D': {'name': 'D · RVO SDE++ €50/t feed proxy (OPEX only)', 'grant_fraction': 0.0, 'opex_eur_t': 50.0, 'grant_awarder':None, 'opex_awarder':'Netherlands Enterprise Agency (RVO)'},
+    'C30': {'name': 'C30 · RVO DEI+ CAPEX grant 30%; dynamic SDE++ value €1.87/Nm³ biomethane', 'grant_fraction': .30, 'opex_eur_nm3': BIOMETHANE_VALUE_AVERAGE_EUR_PER_NM3, 'grant_awarder':'Netherlands Enterprise Agency (RVO)', 'opex_awarder':'Netherlands Enterprise Agency (RVO)'},
+    'C45': {'name': 'C45 · RVO DEI+ CAPEX grant 45%; dynamic SDE++ value €1.87/Nm³ biomethane', 'grant_fraction': .45, 'opex_eur_nm3': BIOMETHANE_VALUE_AVERAGE_EUR_PER_NM3, 'grant_awarder':'Netherlands Enterprise Agency (RVO)', 'opex_awarder':'Netherlands Enterprise Agency (RVO)'},
+    'C60': {'name': 'C60 · RVO DEI+ CAPEX grant 60%; dynamic SDE++ value €1.87/Nm³ biomethane', 'grant_fraction': .60, 'opex_eur_nm3': BIOMETHANE_VALUE_AVERAGE_EUR_PER_NM3, 'grant_awarder':'Netherlands Enterprise Agency (RVO)', 'opex_awarder':'Netherlands Enterprise Agency (RVO)'},
+    'C0': {'name': 'C0 · no CAPEX grant; dynamic SDE++ value €1.87/Nm³ biomethane', 'grant_fraction': 0.0, 'opex_eur_nm3': BIOMETHANE_VALUE_AVERAGE_EUR_PER_NM3, 'grant_awarder':None, 'opex_awarder':'Netherlands Enterprise Agency (RVO)'},
 }
 FINANCIAL_BASIS = {
     'project_lifetime_years': 20,
@@ -44,7 +47,7 @@ FINANCIAL_BASIS = {
     'opex_support_years': 15,
     'tax_rate': 0.0,
     'capex_basis': 'high direct uninstalled equipment CAPEX from current cost register; digester tank at €1,800/m3',
-    'operating_premium_basis': 'user-specified €/t wet feed proxy; nominal support applied for 15 years, no annual market correction or eligibility test',
+    'operating_premium_basis': 'Dynamic per-candidate biomethane output (annual biomethane kg divided by 0.716 kg/Nm3 at 0 degC and 101.325 kPa) multiplied by the average user-specified value of €1.87/Nm3; nominal support applied for 15 years. This is a scenario proxy, not an official SDE++ award calculation; sensitivity range €1.28–€2.46/Nm3 is retained for later analysis.',
     'npv_basis': 'pre-tax constant-account screening NPV; no financing, escalation, replacement, working capital, residual value or installation CAPEX',
 }
 CARBON_BASIS = {
@@ -113,7 +116,7 @@ def make_designs(base, group: str, count: int, seed: int):
             'nutrient_recovery': nutrients,
             'process_order': process_order,
         }
-        case_id='A';support=SUPPORT_SCENARIOS[case_id]
+        case_id='C0';support=SUPPORT_SCENARIOS[case_id]
         config = deepcopy(base)
         config['simulation']['request_id'] = f"rvo_pf_{group}_{i+1:04d}_{case_id}"
         config['simulation']['scenarios'] = deepcopy(selected_scenarios)
@@ -132,11 +135,11 @@ def make_designs(base, group: str, count: int, seed: int):
             'operating_support_scenario_name': support['name'],
             'operating_support_awarding_organization': 'Netherlands Enterprise Agency (RVO)',
             'capex_grant_fraction': support['grant_fraction'],
-            'opex_premium_eur_per_t_feed': support['opex_eur_t'],
+            'opex_premium_eur_per_t_feed': 0.0,
             'opex_support_years': FINANCIAL_BASIS['opex_support_years'],
         }
-        designs.append({'sample_id': f'{group}-{i+1:04d}-A', 'group': group,
-                        'design_id': f'{group}-{i+1:04d}', 'support_case': 'A',
+        designs.append({'sample_id': f'{group}-{i+1:04d}-C0', 'group': group,
+                        'design_id': f'{group}-{i+1:04d}', 'support_case': 'C0',
                         'configuration': config})
     return designs
 
@@ -167,23 +170,51 @@ def _paired_support_rows(base_row):
     """Recalculate financial scenarios without rerunning an identical process simulation."""
     if base_row.get('status')!='evaluated': return [base_row]
     rows=[]
+    annual=base_row.get('annual') or {}
+    products=annual.get('products') or {}
+    biomethane_kg_year=float((products.get('biomethane') or {}).get('value') or 0.0)
+    feed_kg_year=float((annual.get('feed_processed') or {}).get('value') or 0.0)
+    biomethane_nm3_year=biomethane_kg_year/BIOMETHANE_DENSITY_KG_PER_NM3
+    feed_t_year=feed_kg_year/1000.0
     for case_id,support in SUPPORT_SCENARIOS.items():
         row=deepcopy(base_row);row['support_case']=case_id
         row['sample_id']=f"{base_row['design_id']}-{case_id}"
         row['paired_process_source_sample_id']=base_row['sample_id']
         row['paired_process_run_id']=base_row.get('run_id')
         config=row['configuration']
+        annual_biomethane_support=biomethane_nm3_year*support['opex_eur_nm3']
+        dynamic_rate_per_t=annual_biomethane_support/feed_t_year if feed_t_year>0 else 0.0
         economics=config['candidate_economics'];economics.update({
             'grant_scenario_id':case_id,'grant_scenario_name':support['name'],
             'grant_awarding_organization':GRANT_AWARDER if support['grant_fraction'] else 'None (OPEX-only case)',
             'operating_support_scenario_name':support['name'],'operating_support_awarding_organization':GRANT_AWARDER,
-            'capex_grant_fraction':support['grant_fraction'],'opex_premium_eur_per_t_feed':support['opex_eur_t'],
+            'capex_grant_fraction':support['grant_fraction'],'opex_premium_eur_per_t_feed':dynamic_rate_per_t,
+            'opex_premium_eur_per_nm3_biomethane':support['opex_eur_nm3'],
+            'biomethane_density_kg_per_nm3':BIOMETHANE_DENSITY_KG_PER_NM3,
+            'biomethane_support_volume_nm3_per_year':biomethane_nm3_year,
         })
         tea=_apply_candidate_economics({'totals':deepcopy(row['tea_totals'])},economics,row['annual'],())
         row['tea_totals']=tea['totals'];row['candidate_economics']=tea['candidate_economics'];row['configuration']=config
+        row['biomethane_support']={
+            'biomethane_kg_per_year':biomethane_kg_year,
+            'biomethane_nm3_per_year':biomethane_nm3_year,
+            'value_eur_per_nm3':support['opex_eur_nm3'],
+            'support_eur_per_year':annual_biomethane_support,
+            'feed_t_per_year':feed_t_year,
+            'equivalent_eur_per_t_feed':dynamic_rate_per_t,
+            'volume_basis':'biomethane product stream only; raw biogas excluded from this screening proxy',
+        }
         row['objectives']['operating_profit']['value']=tea['totals'].get('optimized_after_tax_profit_eur_per_year')
         row['objectives']['npv']['value']=tea['totals'].get('proxy_npv_eur')
         row['objectives']['subsidy_granted']['value']=tea['totals'].get('total_public_support_pv_eur')
+        row['objectives']['npv']['definition']=(
+            'Pre-tax screening NPV with candidate-specific biomethane support at '
+            '€1.87/Nm3 for 15 years and the selected upfront CAPEX grant.'
+        )
+        row['objectives']['subsidy_granted']['definition']=(
+            'Upfront CAPEX grant plus discounted support calculated from this '
+            'candidate\'s simulated biomethane volume at €1.87/Nm3.'
+        )
         rows.append(row)
     return rows
 
@@ -328,6 +359,13 @@ def main():
                                    'subsidy_vs_npv':['subsidy_granted lower is better','npv higher is better'],
                                    'three_objective':['net_carbon lower is better','npv higher is better','subsidy_granted lower is better']},
         'support_scenarios':SUPPORT_SCENARIOS,'grant_awarding_organization':GRANT_AWARDER,
+        'biomethane_support_conversion':{
+            'average_value_eur_per_nm3':BIOMETHANE_VALUE_AVERAGE_EUR_PER_NM3,
+            'sensitivity_range_eur_per_nm3':list(BIOMETHANE_VALUE_RANGE_EUR_PER_NM3),
+            'density_kg_per_nm3':BIOMETHANE_DENSITY_KG_PER_NM3,
+            'calculation':'candidate biomethane kg/year ÷ density × average value per Nm3; candidate-specific annual volume is used, with no feed-yield proxy',
+            'standard_conditions':'Nm3 at 0 degC and 101.325 kPa; biomethane treated as methane for mass-volume conversion',
+            'caveat':'Screening overlay only; actual SDE++ support depends on eligible biomethane injection and annual correction amounts.'},
         'financial_basis':FINANCIAL_BASIS,'carbon_basis':CARBON_BASIS,'lca_project_basis':LCA_BASIS,
         'groups':{k:{'requested_designs':v['requested_designs'],'sample_count':v['sample_count'],
                      'evaluated_count':v['evaluated_count'],'rejected_count':v['rejected_count'],
@@ -335,9 +373,10 @@ def main():
                      'support_front_counts':{case:len(front.get('points',[])) for case,front in v['fronts']['by_support_case'].items()},
                      'selected_candidate_counts':{name:len(rows) for name,rows in v['selected_candidates'].items()}}
                   for k,v in groups.items()},
-        'limitations':['DEI+ 30/45/60% and SDE++ €/t-feed amounts are user-defined what-if values, not awarded or verified RVO tariffs.',
+        'limitations':['C30/C45/C60/C0 CAPEX grant fractions are user-defined what-if values, not awards or verified RVO eligibility determinations.',
+                       'The OPEX overlay multiplies each candidate\'s modeled biomethane volume by the average €1.87/Nm3 value; €1.28–€2.46/Nm3 is retained as a later sensitivity range. This is not a verified RVO tariff or guaranteed support.',
                        'RVO DEI+ eligibility, eligible cost base, grant ceiling and co-funding conditions are not assessed.',
-                       'RVO SDE++ in-kind support is modeled as user-specified €/t wet feed for 15 years; official tariffs are tied to eligible renewable-gas grid injection and annual corrections.',
+                       'RVO SDE++ support is modeled from each candidate\'s biomethane output for 15 years without official annual market corrections or an eligibility test.',
                        'CAPEX is high direct uninstalled screening cost; installation and unpriced/uncosted components may be missing.',
                        'OPEX remains partial; NPV is a pre-tax screening calculation, not the model financial NPV.',
                        'Operational climate inventory is limited to electricity, heat, and modeled process emissions at the stated factors.',

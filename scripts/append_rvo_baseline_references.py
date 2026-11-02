@@ -17,22 +17,23 @@ def main():
     base=json.loads(SOURCE.read_text(encoding='utf-8'))['configuration']
     groups={}
     for group,protein in [('protein_enabled',base['simulation']['scenarios']['protein_recovery']),('protein_bypass','PR0')]:
-        cases=[]
-        for cid,support in SUPPORT_SCENARIOS.items():
-            config=deepcopy(base);scenarios=config['simulation']['scenarios'];scenarios['feed_preparation']='F1';scenarios['protein_recovery']=protein
-            config['simulation']['request_id']=f'rvo_pareto_baseline_{group}_{cid}'
-            config['project_basis']['screening_estimates']=True;config['use_screening_process_assumptions']=True;config['use_screening_lca_factors']=True
-            config['financial_assumptions']['use_screening_price_benchmarks']=True;config['lca']=deepcopy(LCA_BASIS)
-            config['candidate_economics']={'labour_reduction':0.0,'logistics_reduction':0.0,'energy_reduction':0.0,'protein_yield_uplift':0.0,'nutrient_recovery_uplift':0.0,
-                'tax_rate':0.0,'project_lifetime_years':FINANCIAL_BASIS['project_lifetime_years'],'discount_rate':FINANCIAL_BASIS['discount_rate'],'opex_support_years':FINANCIAL_BASIS['opex_support_years'],
-                'soil_carbon_retention_fraction':CARBON_BASIS['soil_carbon_retention_fraction'],'furniture_carbon_retention_fraction':1.0,
-                'grant_scenario_id':cid,'grant_scenario_name':support['name'],'grant_awarding_organization':GRANT_AWARDER if support['grant_fraction'] else 'None (OPEX-only case)',
-                'operating_support_scenario_name':support['name'],'operating_support_awarding_organization':GRANT_AWARDER,
-                'capex_grant_fraction':support['grant_fraction'],'opex_premium_eur_per_t_feed':support['opex_eur_t']}
-            item={'sample_id':f'baseline_reference_{group}_{cid}','group':group,'design_id':f'baseline_reference_{group}','support_case':cid,'configuration':config}
-            row=_evaluate(item);row['baseline_reference']=True;cases.append(row)
-            print(group,cid,row['status'],flush=True)
+        case_id='C0';support=SUPPORT_SCENARIOS[case_id]
+        config=deepcopy(base);scenarios=config['simulation']['scenarios'];scenarios['feed_preparation']='F1';scenarios['protein_recovery']=protein
+        config['simulation']['request_id']=f'rvo_pareto_baseline_{group}_{case_id}'
+        config['project_basis']['screening_estimates']=True;config['use_screening_process_assumptions']=True;config['use_screening_lca_factors']=True
+        config['financial_assumptions']['use_screening_price_benchmarks']=True;config['lca']=deepcopy(LCA_BASIS)
+        config['candidate_economics']={'labour_reduction':0.0,'logistics_reduction':0.0,'energy_reduction':0.0,'protein_yield_uplift':0.0,'nutrient_recovery_uplift':0.0,
+            'tax_rate':0.0,'project_lifetime_years':FINANCIAL_BASIS['project_lifetime_years'],'discount_rate':FINANCIAL_BASIS['discount_rate'],'opex_support_years':FINANCIAL_BASIS['opex_support_years'],
+            'soil_carbon_retention_fraction':CARBON_BASIS['soil_carbon_retention_fraction'],'furniture_carbon_retention_fraction':1.0,
+            'grant_scenario_id':case_id,'grant_scenario_name':support['name'],'grant_awarding_organization':'None (zero CAPEX grant)',
+            'operating_support_scenario_name':support['name'],'operating_support_awarding_organization':GRANT_AWARDER,
+            'capex_grant_fraction':0.0,'opex_premium_eur_per_t_feed':0.0}
+        item={'sample_id':f'baseline_reference_{group}_{case_id}','group':group,'design_id':f'baseline_reference_{group}','support_case':case_id,'configuration':config}
+        base_row=_evaluate(item)
+        cases=runner._paired_support_rows(base_row)
+        for row in cases: row['baseline_reference']=True
         groups[group]=cases
+        print(group,'paired baseline routes',base_row['status'],flush=True)
     manifest_path=OUT/'rvo_pareto_manifest.json';manifest=json.loads(manifest_path.read_text(encoding='utf-8'))
     for group,cases in groups.items():
         batch=manifest['groups_payload'][group];rows=batch['samples']
