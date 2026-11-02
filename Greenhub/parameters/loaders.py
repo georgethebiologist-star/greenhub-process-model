@@ -46,8 +46,8 @@ _PHASE_SHEETS = (
 _SCENARIO_CONTROLS = {
     "control.scenario.feed_preparation": (
         "selected_phase3_scenario",
-        "F2",
-        ("F0", "F1", "F2", "F3"),
+        "F1",
+        ("F0", "F1"),
         "Feed-preparation scenario",
     ),
     "control.scenario.protein_recovery": (

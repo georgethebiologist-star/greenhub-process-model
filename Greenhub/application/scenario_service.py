@@ -17,7 +17,7 @@ from .contracts import ScenarioSelection, ValidationIssue
 
 class ScenarioService:
     _groups = {
-        "feed_preparation": FRONT_END_SCENARIOS,
+        "feed_preparation": {key: value for key, value in FRONT_END_SCENARIOS.items() if key in {"F0", "F1"}},
         "protein_recovery": PROTEIN_RECOVERY_SCENARIOS,
         "anaerobic_digestion": DIGESTION_SCENARIOS,
         "biogas_upgrading": BIOGAS_UPGRADING_SCENARIOS,

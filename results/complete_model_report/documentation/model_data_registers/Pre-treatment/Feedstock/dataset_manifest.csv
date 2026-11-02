@@ -1,0 +1,9 @@
+file_name,description,row_count,schema_version,encoding,delimiter,integration_readiness,limitations
+pretreatment_feed_composition.csv,Individual untreated-feed composition observations.,56,1.0,UTF-8,",",schema-valid; applicability review required,
+pretreatment_feed_physical_properties.csv,Physical-property schema with explicit missing rows.,8,1.0,UTF-8,",",schema-valid; applicability review required,Direct numerical coverage not found in selected sources.
+seasonal_feed_variability.csv,Seasonal and harvest-date composition observations.,26,1.0,UTF-8,",",schema-valid; applicability review required,
+no_pretreatment_baseline.csv,PT0 baseline registry with unresolved values blank.,7,1.0,UTF-8,",",schema-valid; applicability review required,"Untreated release, pressing and energy values unresolved."
+source_register.csv,Bibliographic provenance register.,4,1.0,UTF-8,",",schema-valid; applicability review required,
+equation_registry.csv,Source equations and Python translations.,8,1.0,UTF-8,",",schema-valid; applicability review required,
+assumption_and_missing_data_register.csv,Unresolved parameters and actions.,26,1.0,UTF-8,",",schema-valid; applicability review required,
+optional_calculated_summary.csv,Within-study calculated ranges and medians only.,15,1.0,UTF-8,",",schema-valid; applicability review required,

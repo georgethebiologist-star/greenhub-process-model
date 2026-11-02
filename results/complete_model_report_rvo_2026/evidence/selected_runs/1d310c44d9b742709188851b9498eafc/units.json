@@ -1,0 +1,2234 @@
+[
+  {
+    "design_results": {
+      "CO2 absorbed": {
+        "basis": "unit design result",
+        "origin": "A611 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 5.3024280964205985,
+        "warning": null
+      },
+      "Column diameter": {
+        "basis": "unit design result",
+        "origin": "A611 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "m",
+        "value": 0.013545714182601185,
+        "warning": null
+      },
+      "Fresh-water makeup": {
+        "basis": "unit design result",
+        "origin": "A611 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 1.0741130074234562,
+        "warning": null
+      },
+      "Gas feed": {
+        "basis": "unit design result",
+        "origin": "A611 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "Nm3/hr",
+        "value": 7.16075338282305,
+        "warning": null
+      },
+      "Gross circulating water": {
+        "basis": "unit design result",
+        "origin": "A611 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 21.48226014846915,
+        "warning": null
+      },
+      "Methane co-absorbed": {
+        "basis": "unit design result",
+        "origin": "A611 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.06048110682471955,
+        "warning": null
+      },
+      "Packing height": {
+        "basis": "unit design result",
+        "origin": "A611 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "m",
+        "value": 8.0,
+        "warning": null
+      },
+      "Pressure drop": {
+        "basis": "unit design result",
+        "origin": "A611 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "Pa",
+        "value": 20000.0,
+        "warning": null
+      },
+      "Water-to-gas ratio": {
+        "basis": "unit design result",
+        "origin": "A611 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/Nm3",
+        "value": 3.0,
+        "warning": null
+      },
+      "Working volume": {
+        "basis": "unit design result",
+        "origin": "A611 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "m3",
+        "value": 0.0011528788811213907,
+        "warning": null
+      }
+    },
+    "display_name": "High-pressure water absorber",
+    "heat_duties": [],
+    "power": {
+      "basis": "instantaneous demand",
+      "origin": "A611 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.0,
+      "warning": null
+    },
+    "process_area": "biogas_conditioning_and_upgrading",
+    "unit_id": "A611",
+    "warnings": [
+      "A611 is a calibrated Level-1 apparent-partition model; no electrolyte speciation or Henry stages are active."
+    ]
+  },
+  {
+    "design_results": {
+      "CO2 released": {
+        "basis": "unit design result",
+        "origin": "A612 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 4.4894268479121395,
+        "warning": null
+      },
+      "Methane released": {
+        "basis": "unit design result",
+        "origin": "A612 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.01139617086872239,
+        "warning": null
+      },
+      "Purge water": {
+        "basis": "unit design result",
+        "origin": "A612 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 1.078938856537623,
+        "warning": null
+      },
+      "Recycled water": {
+        "basis": "unit design result",
+        "origin": "A612 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 20.499838274214834,
+        "warning": null
+      },
+      "Regeneration electricity": {
+        "basis": "unit design result",
+        "origin": "A612 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kW",
+        "value": 0.02302615937231579,
+        "warning": null
+      },
+      "Regeneration off-gas": {
+        "basis": "unit design result",
+        "origin": "A612 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "Nm3/hr",
+        "value": 2.302615937231579,
+        "warning": null
+      }
+    },
+    "display_name": "Scrubbing-water regeneration",
+    "heat_duties": [],
+    "power": {
+      "basis": "instantaneous demand",
+      "origin": "A612 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.02302615937231579,
+      "warning": null
+    },
+    "process_area": "biogas_conditioning_and_upgrading",
+    "unit_id": "A612",
+    "warnings": []
+  },
+  {
+    "design_results": {
+      "Dry-solids load": {
+        "basis": "unit design result",
+        "origin": "C301 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 117.87681005905029,
+        "warning": null
+      },
+      "Equipment count": {
+        "basis": "unit design result",
+        "origin": "C301 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "-",
+        "value": 1.0,
+        "warning": null
+      },
+      "Hydraulic throughput": {
+        "basis": "unit design result",
+        "origin": "C301 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "m3/hr",
+        "value": 1.5828817712041312,
+        "warning": null
+      },
+      "Hydraulic throughput per train": {
+        "basis": "unit design result",
+        "origin": "C301 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "m3/hr",
+        "value": 1.5828817712041312,
+        "warning": null
+      },
+      "Polymer flow": {
+        "basis": "unit design result",
+        "origin": "C301 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0,
+        "warning": null
+      },
+      "Sludge flow": {
+        "basis": "unit design result",
+        "origin": "C301 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 439.90121879582915,
+        "warning": null
+      },
+      "Sludge moisture": {
+        "basis": "unit design result",
+        "origin": "C301 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "fraction",
+        "value": 0.8,
+        "warning": null
+      },
+      "Specific electricity": {
+        "basis": "unit design result",
+        "origin": "C301 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kWh/m3",
+        "value": 0.8,
+        "warning": null
+      },
+      "Wash-water flow": {
+        "basis": "unit design result",
+        "origin": "C301 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0,
+        "warning": null
+      }
+    },
+    "display_name": "Primary centrifuge",
+    "heat_duties": [],
+    "power": {
+      "basis": "instantaneous demand",
+      "origin": "C301 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 1.266305416963305,
+      "warning": null
+    },
+    "process_area": "feed_preparation_and_primary_separation",
+    "unit_id": "C301",
+    "warnings": []
+  },
+  {
+    "design_results": {
+      "Compressors in parallel": {
+        "basis": "unit design result",
+        "origin": "C611 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": null,
+        "value": 1.0,
+        "warning": null
+      },
+      "Driver efficiency": {
+        "basis": "unit design result",
+        "origin": "C611 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": null,
+        "value": 0.8,
+        "warning": null
+      },
+      "Ideal duty": {
+        "basis": "unit design result",
+        "origin": "C611 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kJ/hr",
+        "value": 0.0,
+        "warning": null
+      },
+      "Ideal power": {
+        "basis": "unit design result",
+        "origin": "C611 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kW",
+        "value": 0.6683855107622806,
+        "warning": null
+      }
+    },
+    "display_name": "Isentropic compressor",
+    "heat_duties": [],
+    "power": {
+      "basis": "instantaneous demand",
+      "origin": "C611 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 1.1139758512704676,
+      "warning": null
+    },
+    "process_area": "biogas_conditioning_and_upgrading",
+    "unit_id": "C611",
+    "warnings": []
+  },
+  {
+    "design_results": {
+      "Gas flow": {
+        "basis": "unit design result",
+        "origin": "D611 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "Nm3/hr",
+        "value": 4.471127747489389,
+        "warning": null
+      },
+      "Pressure drop": {
+        "basis": "unit design result",
+        "origin": "D611 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "Pa",
+        "value": 10000.0,
+        "warning": null
+      },
+      "Water entering": {
+        "basis": "unit design result",
+        "origin": "D611 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.07691342243857438,
+        "warning": null
+      },
+      "Water removal": {
+        "basis": "unit design result",
+        "origin": "D611 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "fraction",
+        "value": 0.995,
+        "warning": null
+      },
+      "Water removed": {
+        "basis": "unit design result",
+        "origin": "D611 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.07652885532638151,
+        "warning": null
+      },
+      "Working volume": {
+        "basis": "unit design result",
+        "origin": "D611 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "m3",
+        "value": 0.004063907257013741,
+        "warning": null
+      }
+    },
+    "display_name": "Gas moisture guard",
+    "heat_duties": [],
+    "power": {
+      "basis": "instantaneous demand",
+      "origin": "D611 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.0,
+      "warning": null
+    },
+    "process_area": "biogas_conditioning_and_upgrading",
+    "unit_id": "D611",
+    "warnings": []
+  },
+  {
+    "design_results": {
+      "Area": {
+        "basis": "unit design result",
+        "origin": "E611 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "ft^2",
+        "value": 0.3128161096818091,
+        "warning": null
+      },
+      "Fouling correction factor": {
+        "basis": "unit design result",
+        "origin": "E611 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": null,
+        "value": 0.9426889034483948,
+        "warning": null
+      },
+      "Log-mean temperature difference": {
+        "basis": "unit design result",
+        "origin": "E611 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "K",
+        "value": 65.05363874652261,
+        "warning": null
+      },
+      "Operating pressure": {
+        "basis": "unit design result",
+        "origin": "E611 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "psi",
+        "value": 145.0777202072539,
+        "warning": null
+      },
+      "Overall heat transfer coefficient": {
+        "basis": "unit design result",
+        "origin": "E611 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kW/m^2/K",
+        "value": 0.5,
+        "warning": null
+      },
+      "Total tube length": {
+        "basis": "unit design result",
+        "origin": "E611 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "ft",
+        "value": 20.0,
+        "warning": null
+      }
+    },
+    "display_name": "Heat exchanger",
+    "heat_duties": [
+      {
+        "basis": "heat utility duty",
+        "origin": "E611 heat utility",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kJ/hr",
+        "value": -3208.2504516589543,
+        "warning": null
+      }
+    ],
+    "power": {
+      "basis": "instantaneous demand",
+      "origin": "E611 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.0,
+      "warning": null
+    },
+    "process_area": "biogas_conditioning_and_upgrading",
+    "unit_id": "E611",
+    "warnings": []
+  },
+  {
+    "design_results": {
+      "Bed media inventory": {
+        "basis": "unit design result",
+        "origin": "F601 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg",
+        "value": 2.1368391556168933,
+        "warning": null
+      },
+      "Bed volume": {
+        "basis": "unit design result",
+        "origin": "F601 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "m3",
+        "value": 0.0042736783112337865,
+        "warning": null
+      },
+      "Equivalent media replacement": {
+        "basis": "unit design result",
+        "origin": "F601 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0,
+        "warning": null
+      },
+      "Fan electricity": {
+        "basis": "unit design result",
+        "origin": "F601 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kW",
+        "value": 0.006574889709590441,
+        "warning": null
+      },
+      "Gas flow": {
+        "basis": "unit design result",
+        "origin": "F601 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "Nm3/hr",
+        "value": 6.896347393894325,
+        "warning": null
+      },
+      "Particles removed": {
+        "basis": "unit design result",
+        "origin": "F601 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0,
+        "warning": null
+      },
+      "Pressure drop": {
+        "basis": "unit design result",
+        "origin": "F601 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "Pa",
+        "value": 2000.0,
+        "warning": null
+      },
+      "Siloxanes removed": {
+        "basis": "unit design result",
+        "origin": "F601 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0,
+        "warning": null
+      }
+    },
+    "display_name": "Particle and siloxane filter",
+    "heat_duties": [],
+    "power": {
+      "basis": "instantaneous demand",
+      "origin": "F601 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.006574889709590441,
+      "warning": null
+    },
+    "process_area": "biogas_conditioning_and_upgrading",
+    "unit_id": "F601",
+    "warnings": [
+      "F601 uses a D5-equivalent aggregate siloxane marker and empirical media capacity; no competitive adsorption is claimed."
+    ]
+  },
+  {
+    "design_results": {
+      "Latent cooling": {
+        "basis": "unit design result",
+        "origin": "G601 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kW",
+        "value": 0.09062309369214282,
+        "warning": null
+      },
+      "Outlet temperature": {
+        "basis": "unit design result",
+        "origin": "G601 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "degC",
+        "value": 15.0,
+        "warning": null
+      },
+      "Pressure drop": {
+        "basis": "unit design result",
+        "origin": "G601 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "Pa",
+        "value": 1500.0,
+        "warning": null
+      },
+      "Sensible cooling": {
+        "basis": "unit design result",
+        "origin": "G601 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kW",
+        "value": 0.20450497834061632,
+        "warning": null
+      },
+      "Total cooling": {
+        "basis": "unit design result",
+        "origin": "G601 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kW",
+        "value": 0.29512807203275915,
+        "warning": null
+      },
+      "Water expected to condense": {
+        "basis": "unit design result",
+        "origin": "G601 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.13294341372930488,
+        "warning": null
+      },
+      "Wet gas flow": {
+        "basis": "unit design result",
+        "origin": "G601 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "Nm3/hr",
+        "value": 7.084139984718035,
+        "warning": null
+      }
+    },
+    "display_name": "Raw-biogas cooler",
+    "heat_duties": [
+      {
+        "basis": "heat utility duty",
+        "origin": "G601 heat utility",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kJ/hr",
+        "value": -1062.461059317933,
+        "warning": null
+      }
+    ],
+    "power": {
+      "basis": "instantaneous demand",
+      "origin": "G601 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.007084139984718035,
+      "warning": null
+    },
+    "process_area": "biogas_conditioning_and_upgrading",
+    "unit_id": "G601",
+    "warnings": [
+      "G601 uses a Magnus pure-water saturation pressure and ideal-gas humidity; mixed-gas fugacity is not solved."
+    ]
+  },
+  {
+    "design_results": {
+      "Area": {
+        "basis": "unit design result",
+        "origin": "H501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "ft^2",
+        "value": 10.28711201694141,
+        "warning": null
+      },
+      "Fouling correction factor": {
+        "basis": "unit design result",
+        "origin": "H501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": null,
+        "value": 0.9999999999999997,
+        "warning": null
+      },
+      "Log-mean temperature difference": {
+        "basis": "unit design result",
+        "origin": "H501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "K",
+        "value": 100.52532605822569,
+        "warning": null
+      },
+      "Operating pressure": {
+        "basis": "unit design result",
+        "origin": "H501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "psi",
+        "value": 50.01380310880829,
+        "warning": null
+      },
+      "Overall heat transfer coefficient": {
+        "basis": "unit design result",
+        "origin": "H501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kW/m^2/K",
+        "value": 0.5,
+        "warning": null
+      },
+      "Total tube length": {
+        "basis": "unit design result",
+        "origin": "H501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "ft",
+        "value": 20.0,
+        "warning": null
+      }
+    },
+    "display_name": "Heat exchanger",
+    "heat_duties": [
+      {
+        "basis": "heat utility duty",
+        "origin": "H501 heat utility",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kJ/hr",
+        "value": 172945.04519752375,
+        "warning": null
+      }
+    ],
+    "power": {
+      "basis": "instantaneous demand",
+      "origin": "H501 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.0,
+      "warning": null
+    },
+    "process_area": "anaerobic_digestion",
+    "unit_id": "H501",
+    "warnings": []
+  },
+  {
+    "design_results": {},
+    "display_name": "Mixer",
+    "heat_duties": [],
+    "power": {
+      "basis": "instantaneous demand",
+      "origin": "M403 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.0,
+      "warning": null
+    },
+    "process_area": "protein_recovery",
+    "unit_id": "M403",
+    "warnings": []
+  },
+  {
+    "design_results": {
+      "Base solution flow": {
+        "basis": "unit design result",
+        "origin": "M501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.1142980552408302,
+        "warning": null
+      },
+      "Dilution water": {
+        "basis": "unit design result",
+        "origin": "M501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0,
+        "warning": null
+      },
+      "Inlet pH": {
+        "basis": "unit design result",
+        "origin": "M501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "-",
+        "value": 7.0,
+        "warning": null
+      },
+      "Liquid throughput": {
+        "basis": "unit design result",
+        "origin": "M501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "m3/hr",
+        "value": 1.1429805524083019,
+        "warning": null
+      },
+      "Mixing time": {
+        "basis": "unit design result",
+        "origin": "M501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "min",
+        "value": 5.0,
+        "warning": null
+      },
+      "Mixing volume": {
+        "basis": "unit design result",
+        "origin": "M501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "m3",
+        "value": 0.09524837936735848,
+        "warning": null
+      },
+      "Pure base flow": {
+        "basis": "unit design result",
+        "origin": "M501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0571490276204151,
+        "warning": null
+      },
+      "Specific mixing power": {
+        "basis": "unit design result",
+        "origin": "M501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kW/m3",
+        "value": 0.05,
+        "warning": null
+      },
+      "Target pH": {
+        "basis": "unit design result",
+        "origin": "M501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "-",
+        "value": 7.2,
+        "warning": null
+      },
+      "Trace-nutrient solution": {
+        "basis": "unit design result",
+        "origin": "M501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0,
+        "warning": null
+      }
+    },
+    "display_name": "Digester-feed conditioning",
+    "heat_duties": [],
+    "power": {
+      "basis": "instantaneous demand",
+      "origin": "M501 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.004762418968367925,
+      "warning": null
+    },
+    "process_area": "anaerobic_digestion",
+    "unit_id": "M501",
+    "warnings": [
+      "M501 pH is metadata; the empirical base dose does not solve buffering or electrolyte activity.",
+      "Trace nutrients remain disabled because no deficiency-based dosing data are available."
+    ]
+  },
+  {
+    "design_results": {},
+    "display_name": "Mixer",
+    "heat_duties": [],
+    "power": {
+      "basis": "instantaneous demand",
+      "origin": "M606 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.0,
+      "warning": null
+    },
+    "process_area": "biogas_conditioning_and_upgrading",
+    "unit_id": "M606",
+    "warnings": []
+  },
+  {
+    "design_results": {},
+    "display_name": "Mixer",
+    "heat_duties": [],
+    "power": {
+      "basis": "instantaneous demand",
+      "origin": "M607 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.0,
+      "warning": null
+    },
+    "process_area": "biogas_conditioning_and_upgrading",
+    "unit_id": "M607",
+    "warnings": []
+  },
+  {
+    "design_results": {},
+    "display_name": "Mixer",
+    "heat_duties": [],
+    "power": {
+      "basis": "instantaneous demand",
+      "origin": "M610 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.0,
+      "warning": null
+    },
+    "process_area": "biogas_conditioning_and_upgrading",
+    "unit_id": "M610",
+    "warnings": []
+  },
+  {
+    "design_results": {},
+    "display_name": "Mixer",
+    "heat_duties": [],
+    "power": {
+      "basis": "instantaneous demand",
+      "origin": "M618 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.0,
+      "warning": null
+    },
+    "process_area": "biogas_conditioning_and_upgrading",
+    "unit_id": "M618",
+    "warnings": []
+  },
+  {
+    "design_results": {},
+    "display_name": "Mixer",
+    "heat_duties": [],
+    "power": {
+      "basis": "instantaneous demand",
+      "origin": "M619 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.0,
+      "warning": null
+    },
+    "process_area": "biogas_conditioning_and_upgrading",
+    "unit_id": "M619",
+    "warnings": []
+  },
+  {
+    "design_results": {},
+    "display_name": "Mixer",
+    "heat_duties": [],
+    "power": {
+      "basis": "instantaneous demand",
+      "origin": "M698 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.0,
+      "warning": null
+    },
+    "process_area": "biogas_conditioning_and_upgrading",
+    "unit_id": "M698",
+    "warnings": []
+  },
+  {
+    "design_results": {},
+    "display_name": "Mixer",
+    "heat_duties": [],
+    "power": {
+      "basis": "instantaneous demand",
+      "origin": "M699 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.0,
+      "warning": null
+    },
+    "process_area": "biogas_conditioning_and_upgrading",
+    "unit_id": "M699",
+    "warnings": []
+  },
+  {
+    "design_results": {},
+    "display_name": "Mixer",
+    "heat_duties": [],
+    "power": {
+      "basis": "instantaneous demand",
+      "origin": "M799 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.0,
+      "warning": null
+    },
+    "process_area": "digestate_treatment_and_nutrient_recovery",
+    "unit_id": "M799",
+    "warnings": []
+  },
+  {
+    "design_results": {
+      "Efficiency": {
+        "basis": "unit design result",
+        "origin": "P611 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": null,
+        "value": 0.35198262084282433,
+        "warning": null
+      },
+      "Flow rate": {
+        "basis": "unit design result",
+        "origin": "P611 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "gpm",
+        "value": 0.09053372941404039,
+        "warning": null
+      },
+      "Head": {
+        "basis": "unit design result",
+        "origin": "P611 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "ft",
+        "value": 852.9466851819656,
+        "warning": null
+      },
+      "Ideal power": {
+        "basis": "unit design result",
+        "origin": "P611 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "hp",
+        "value": 0.006855056487627388,
+        "warning": null
+      },
+      "Motor size": {
+        "basis": "unit design result",
+        "origin": "P611 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "hp",
+        "value": 0.25,
+        "warning": null
+      },
+      "Power": {
+        "basis": "unit design result",
+        "origin": "P611 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "hp",
+        "value": 0.019475553853235475,
+        "warning": null
+      }
+    },
+    "display_name": "Pump",
+    "heat_duties": [],
+    "power": {
+      "basis": "instantaneous demand",
+      "origin": "P611 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.014523157235820637,
+      "warning": null
+    },
+    "process_area": "biogas_conditioning_and_upgrading",
+    "unit_id": "P611",
+    "warnings": []
+  },
+  {
+    "design_results": {
+      "Actual HRT": {
+        "basis": "unit design result",
+        "origin": "R501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "d",
+        "value": 20.000000000000004,
+        "warning": null
+      },
+      "Actual SRT": {
+        "basis": "unit design result",
+        "origin": "R501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "d",
+        "value": 20.0,
+        "warning": null
+      },
+      "Ammonium-N generated": {
+        "basis": "unit design result",
+        "origin": "R501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg N/hr",
+        "value": 1.9329932478108507,
+        "warning": null
+      },
+      "Biomass production": {
+        "basis": "unit design result",
+        "origin": "R501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.9029190795301542,
+        "warning": null
+      },
+      "COD loading": {
+        "basis": "unit design result",
+        "origin": "R501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg COD/m3/d",
+        "value": 1.8055414481298178,
+        "warning": null
+      },
+      "Carbon dioxide production": {
+        "basis": "unit design result",
+        "origin": "R501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 6.552680224326408,
+        "warning": null
+      },
+      "Converted substrate COD": {
+        "basis": "unit design result",
+        "origin": "R501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg O2/hr",
+        "value": 16.026813661660235,
+        "warning": null
+      },
+      "Diameter": {
+        "basis": "unit design result",
+        "origin": "R501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "m",
+        "value": 9.8885342999055,
+        "warning": null
+      },
+      "Feed COD": {
+        "basis": "unit design result",
+        "origin": "R501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg O2/hr",
+        "value": 41.278102633113654,
+        "warning": null
+      },
+      "Feed VS": {
+        "basis": "unit design result",
+        "origin": "R501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 25.32062931637992,
+        "warning": null
+      },
+      "Gas production": {
+        "basis": "unit design result",
+        "origin": "R501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "Nm3/hr",
+        "value": 7.986712721959821,
+        "warning": null
+      },
+      "Headspace volume": {
+        "basis": "unit design result",
+        "origin": "R501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "m3",
+        "value": 113.9139504960209,
+        "warning": null
+      },
+      "Heat loss": {
+        "basis": "unit design result",
+        "origin": "R501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kW",
+        "value": 6.29253844915382,
+        "warning": null
+      },
+      "Hydrogen sulfide generated": {
+        "basis": "unit design result",
+        "origin": "R501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.059563325031650086,
+        "warning": null
+      },
+      "Liquid height": {
+        "basis": "unit design result",
+        "origin": "R501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "m",
+        "value": 9.8885342999055,
+        "warning": null
+      },
+      "Liquid throughput": {
+        "basis": "unit design result",
+        "origin": "R501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "m3/hr",
+        "value": 1.1430948504635428,
+        "warning": null
+      },
+      "Methane production": {
+        "basis": "unit design result",
+        "origin": "R501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 3.1416747248022863,
+        "warning": null
+      },
+      "Mixing electrical power": {
+        "basis": "unit design result",
+        "origin": "R501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kW",
+        "value": 2.2861897009270855,
+        "warning": null
+      },
+      "Mixing shaft power": {
+        "basis": "unit design result",
+        "origin": "R501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kW",
+        "value": 2.743427641112503,
+        "warning": null
+      },
+      "Number of digesters": {
+        "basis": "unit design result",
+        "origin": "R501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "-",
+        "value": 1.0,
+        "warning": null
+      },
+      "Orthophosphate-P generated": {
+        "basis": "unit design result",
+        "origin": "R501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg P/hr",
+        "value": 0.0,
+        "warning": null
+      },
+      "Surface area": {
+        "basis": "unit design result",
+        "origin": "R501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "m2",
+        "value": 476.32492621677477,
+        "warning": null
+      },
+      "Total volume": {
+        "basis": "unit design result",
+        "origin": "R501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "m3",
+        "value": 759.4263366401392,
+        "warning": null
+      },
+      "VS loading": {
+        "basis": "unit design result",
+        "origin": "R501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg VS/m3/d",
+        "value": 1.1075471692533656,
+        "warning": null
+      },
+      "Working volume": {
+        "basis": "unit design result",
+        "origin": "R501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "m3",
+        "value": 548.6855282225006,
+        "warning": null
+      }
+    },
+    "display_name": "Anaerobic digester",
+    "heat_duties": [
+      {
+        "basis": "heat utility duty",
+        "origin": "R501 heat utility",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kJ/hr",
+        "value": 23845.40885995132,
+        "warning": null
+      }
+    ],
+    "power": {
+      "basis": "instantaneous demand",
+      "origin": "R501 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 2.2861897009270855,
+      "warning": null
+    },
+    "process_area": "anaerobic_digestion",
+    "unit_id": "R501",
+    "warnings": [
+      "R501 is a steady-state staged empirical model, not ADM1 or a dynamic microbial model.",
+      "Formula-free pseudo-components are balanced on mass, COD, C, N, P, and S; full H/O stoichiometry is not claimed.",
+      "VFA and population dynamics are reported as stage ledgers rather than explicit transient intermediates.",
+      "HRT, COD-OLR, and VS-OLR sizing bases differ by more than 25%; the selected sizing rule is visible and requires project reconciliation."
+    ]
+  },
+  {
+    "design_results": {
+      "Bed volume": {
+        "basis": "unit design result",
+        "origin": "R601 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "m3",
+        "value": 0.010282756160415555,
+        "warning": null
+      },
+      "Gas flow": {
+        "basis": "unit design result",
+        "origin": "R601 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "Nm3/hr",
+        "value": 6.9142857062424765,
+        "warning": null
+      },
+      "H2S entering": {
+        "basis": "unit design result",
+        "origin": "R601 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.010952269021801596,
+        "warning": null
+      },
+      "H2S removed": {
+        "basis": "unit design result",
+        "origin": "R601 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.01084274633158358,
+        "warning": null
+      },
+      "Media consumption": {
+        "basis": "unit design result",
+        "origin": "R601 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.1084274633158358,
+        "warning": null
+      },
+      "Oxygen supplied": {
+        "basis": "unit design result",
+        "origin": "R601 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0,
+        "warning": null
+      },
+      "Pressure drop": {
+        "basis": "unit design result",
+        "origin": "R601 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "Pa",
+        "value": 2500.0,
+        "warning": null
+      },
+      "Removal": {
+        "basis": "unit design result",
+        "origin": "R601 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "fraction",
+        "value": 0.99,
+        "warning": null
+      }
+    },
+    "display_name": "Hydrogen-sulfide removal",
+    "heat_duties": [],
+    "power": {
+      "basis": "instantaneous demand",
+      "origin": "R601 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.0,
+      "warning": null
+    },
+    "process_area": "biogas_conditioning_and_upgrading",
+    "unit_id": "R601",
+    "warnings": [
+      "Activated-carbon mode retains intact H2S-equivalent mass and does not invent oxidation products.",
+      "Iron-sponge mode uses Fe2O3 + 3 H2S -> Fe2S3 + 3 H2O without hydration or mixed iron phases.",
+      "Biological mode uses complete H2S-to-elemental-sulfur stoichiometry with no kinetic or biomass-growth claim."
+    ]
+  },
+  {
+    "design_results": {
+      "Ammonia entering": {
+        "basis": "unit design result",
+        "origin": "R602 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0027953987376242518,
+        "warning": null
+      },
+      "Ammonia removed": {
+        "basis": "unit design result",
+        "origin": "R602 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.002655628800743039,
+        "warning": null
+      },
+      "Gas flow": {
+        "basis": "unit design result",
+        "origin": "R602 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "Nm3/hr",
+        "value": 6.907154758154987,
+        "warning": null
+      },
+      "Methane absorbed": {
+        "basis": "unit design result",
+        "origin": "R602 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0014932379966985268,
+        "warning": null
+      },
+      "Pressure drop": {
+        "basis": "unit design result",
+        "origin": "R602 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "Pa",
+        "value": 1500.0,
+        "warning": null
+      },
+      "Pure acid demand": {
+        "basis": "unit design result",
+        "origin": "R602 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0,
+        "warning": null
+      },
+      "Scrubber liquor": {
+        "basis": "unit design result",
+        "origin": "R602 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 1.3958393479495101,
+        "warning": null
+      },
+      "Water demand": {
+        "basis": "unit design result",
+        "origin": "R602 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 1.3814309516309975,
+        "warning": null
+      }
+    },
+    "display_name": "Biogas ammonia removal",
+    "heat_duties": [],
+    "power": {
+      "basis": "instantaneous demand",
+      "origin": "R602 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.0,
+      "warning": null
+    },
+    "process_area": "biogas_conditioning_and_upgrading",
+    "unit_id": "R602",
+    "warnings": [
+      "R602 water-wash partitions are empirical and do not solve pH-dependent Henry equilibrium.",
+      "Acid mode uses molecular salt bookkeeping and does not claim rigorous electrolyte speciation."
+    ]
+  },
+  {
+    "design_results": {
+      "Cake moisture": {
+        "basis": "unit design result",
+        "origin": "S201 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "fraction",
+        "value": 0.37877395404835956,
+        "warning": null
+      },
+      "Equipment count": {
+        "basis": "unit design result",
+        "origin": "S201 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "-",
+        "value": 2.0,
+        "warning": null
+      },
+      "Fibre cake flow": {
+        "basis": "unit design result",
+        "origin": "S201 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 1582.8817712041314,
+        "warning": null
+      },
+      "Juice yield": {
+        "basis": "unit design result",
+        "origin": "S201 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/kg wet feed",
+        "value": 0.5,
+        "warning": null
+      },
+      "Raw liquid flow": {
+        "basis": "unit design result",
+        "origin": "S201 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 1582.8817712041312,
+        "warning": null
+      },
+      "Specific electricity": {
+        "basis": "unit design result",
+        "origin": "S201 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kWh/t wet",
+        "value": 5.0,
+        "warning": null
+      },
+      "Wet throughput": {
+        "basis": "unit design result",
+        "origin": "S201 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 3165.7635424082623,
+        "warning": null
+      },
+      "Wet throughput per train": {
+        "basis": "unit design result",
+        "origin": "S201 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "t/hr",
+        "value": 1.5828817712041312,
+        "warning": null
+      }
+    },
+    "display_name": "Screw press",
+    "heat_duties": [],
+    "power": {
+      "basis": "instantaneous demand",
+      "origin": "S201 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 15.828817712041312,
+      "warning": null
+    },
+    "process_area": "feed_preparation_and_primary_separation",
+    "unit_id": "S201",
+    "warnings": [
+      "Target solids moisture and liquid yield are inconsistent by 38.75%; 'juice_yield_priority' determined the water split."
+    ]
+  },
+  {
+    "design_results": {
+      "Condensate": {
+        "basis": "unit design result",
+        "origin": "S601 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.14272061781308285,
+        "warning": null
+      },
+      "Gas flow": {
+        "basis": "unit design result",
+        "origin": "S601 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "Nm3/hr",
+        "value": 6.9142857062424765,
+        "warning": null
+      },
+      "Gas residence time": {
+        "basis": "unit design result",
+        "origin": "S601 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "min",
+        "value": 2.0,
+        "warning": null
+      },
+      "Liquid carryover": {
+        "basis": "unit design result",
+        "origin": "S601 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "fraction",
+        "value": 0.01,
+        "warning": null
+      },
+      "Water removed": {
+        "basis": "unit design result",
+        "origin": "S601 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.13161397959201185,
+        "warning": null
+      },
+      "Working volume": {
+        "basis": "unit design result",
+        "origin": "S601 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "m3",
+        "value": 0.2467861478499733,
+        "warning": null
+      }
+    },
+    "display_name": "Biogas condensate separator",
+    "heat_duties": [],
+    "power": {
+      "basis": "instantaneous demand",
+      "origin": "S601 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.0,
+      "warning": null
+    },
+    "process_area": "biogas_conditioning_and_upgrading",
+    "unit_id": "S601",
+    "warnings": [
+      "S601 uses specified trace-gas dissolution fractions; Henry-law and droplet-size distributions require data."
+    ]
+  },
+  {
+    "design_results": {},
+    "display_name": "Splitter",
+    "heat_duties": [],
+    "power": {
+      "basis": "instantaneous demand",
+      "origin": "S610 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.0,
+      "warning": null
+    },
+    "process_area": "biogas_conditioning_and_upgrading",
+    "unit_id": "S610",
+    "warnings": []
+  },
+  {
+    "design_results": {
+      "Cake moisture": {
+        "basis": "unit design result",
+        "origin": "S701 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "fraction",
+        "value": 0.8,
+        "warning": null
+      },
+      "Captured dry particulate": {
+        "basis": "unit design result",
+        "origin": "S701 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 5.706009258873941,
+        "warning": null
+      },
+      "Dry-solids capture": {
+        "basis": "unit design result",
+        "origin": "S701 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "fraction",
+        "value": 0.2240927603902755,
+        "warning": null
+      },
+      "Electricity": {
+        "basis": "unit design result",
+        "origin": "S701 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kW",
+        "value": 0.5672813243975137,
+        "warning": null
+      },
+      "Feed throughput": {
+        "basis": "unit design result",
+        "origin": "S701 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "m3/hr",
+        "value": 1.1345626487950273,
+        "warning": null
+      },
+      "Liquid entrainment": {
+        "basis": "unit design result",
+        "origin": "S701 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "fraction",
+        "value": 0.020578882266224275,
+        "warning": null
+      }
+    },
+    "display_name": "Digestate solid-liquid separation",
+    "heat_duties": [],
+    "power": {
+      "basis": "instantaneous demand",
+      "origin": "S701 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.5672813243975137,
+      "warning": null
+    },
+    "process_area": "digestate_treatment_and_nutrient_recovery",
+    "unit_id": "S701",
+    "warnings": [
+      "S701 uses the 'screw_press' option with a component-class allocation calibrated by cake moisture; no vendor curve is claimed."
+    ]
+  },
+  {
+    "design_results": {
+      "Heat loss at feed temperature": {
+        "basis": "unit design result",
+        "origin": "T701 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kW",
+        "value": 1.5533330656895523,
+        "warning": null
+      },
+      "Heat-transfer area": {
+        "basis": "unit design result",
+        "origin": "T701 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "m2",
+        "value": 35.3030242202171,
+        "warning": null
+      },
+      "Liquid throughput": {
+        "basis": "unit design result",
+        "origin": "T701 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "m3/hr",
+        "value": 1.1345626487950273,
+        "warning": null
+      },
+      "Mixer electricity": {
+        "basis": "unit design result",
+        "origin": "T701 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kW",
+        "value": 0.15127501983933697,
+        "warning": null
+      },
+      "Released gas": {
+        "basis": "unit design result",
+        "origin": "T701 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0,
+        "warning": null
+      },
+      "Residence time": {
+        "basis": "unit design result",
+        "origin": "T701 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "hr",
+        "value": 12.0,
+        "warning": null
+      },
+      "Tank diameter": {
+        "basis": "unit design result",
+        "origin": "T701 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "m",
+        "value": 2.5710265312517753,
+        "warning": null
+      },
+      "Tank height": {
+        "basis": "unit design result",
+        "origin": "T701 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "m",
+        "value": 3.08523183750213,
+        "warning": null
+      },
+      "Total volume": {
+        "basis": "unit design result",
+        "origin": "T701 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "m3",
+        "value": 16.017355041812152,
+        "warning": null
+      },
+      "Working volume": {
+        "basis": "unit design result",
+        "origin": "T701 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "m3",
+        "value": 13.614751785540328,
+        "warning": null
+      }
+    },
+    "display_name": "Digestate equalization",
+    "heat_duties": [],
+    "power": {
+      "basis": "instantaneous demand",
+      "origin": "T701 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.15127501983933697,
+      "warning": null
+    },
+    "process_area": "digestate_treatment_and_nutrient_recovery",
+    "unit_id": "T701",
+    "warnings": [
+      "T701 is a steady-state homogenization vessel; storage dynamics and settling are not modelled."
+    ]
+  },
+  {
+    "design_results": {
+      "Equipment count": {
+        "basis": "unit design result",
+        "origin": "U101 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "-",
+        "value": 2.0,
+        "warning": null
+      },
+      "Reject flow": {
+        "basis": "unit design result",
+        "origin": "U101 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 10.481608999646095,
+        "warning": null
+      },
+      "Specific electricity": {
+        "basis": "unit design result",
+        "origin": "U101 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kWh/t wet",
+        "value": 1.5,
+        "warning": null
+      },
+      "Wet throughput": {
+        "basis": "unit design result",
+        "origin": "U101 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 3176.2451514079085,
+        "warning": null
+      },
+      "Wet throughput per train": {
+        "basis": "unit design result",
+        "origin": "U101 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "t/hr",
+        "value": 1.5881225757039543,
+        "warning": null
+      }
+    },
+    "display_name": "Feed preparation",
+    "heat_duties": [],
+    "power": {
+      "basis": "instantaneous demand",
+      "origin": "U101 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 4.764367727111863,
+      "warning": null
+    },
+    "process_area": "feed_preparation_and_primary_separation",
+    "unit_id": "U101",
+    "warnings": []
+  },
+  {
+    "design_results": {
+      "Ammonia": {
+        "basis": "unit design result",
+        "origin": "V501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "ppmv dry",
+        "value": 636.4398143678483,
+        "warning": null
+      },
+      "Carbon dioxide dry fraction": {
+        "basis": "unit design result",
+        "origin": "V501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "mol fraction",
+        "value": 0.38472376379142503,
+        "warning": null
+      },
+      "Dry raw biogas": {
+        "basis": "unit design result",
+        "origin": "V501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "Nm3/hr",
+        "value": 6.800774385329314,
+        "warning": null
+      },
+      "Gas capture efficiency": {
+        "basis": "unit design result",
+        "origin": "V501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "fraction",
+        "value": 0.98,
+        "warning": null
+      },
+      "Hydrogen sulfide": {
+        "basis": "unit design result",
+        "origin": "V501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "ppmv dry",
+        "value": 1091.897768803189,
+        "warning": null
+      },
+      "Methane dry fraction": {
+        "basis": "unit design result",
+        "origin": "V501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "mol fraction",
+        "value": 0.6135478986254039,
+        "warning": null
+      },
+      "Methane in digestate": {
+        "basis": "unit design result",
+        "origin": "V501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.09425024174406858,
+        "warning": null
+      },
+      "Methane in raw biogas": {
+        "basis": "unit design result",
+        "origin": "V501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "Nm3/hr",
+        "value": 4.172600833144274,
+        "warning": null
+      },
+      "Uncaptured methane": {
+        "basis": "unit design result",
+        "origin": "V501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.060948489661164285,
+        "warning": null
+      },
+      "Water vapor": {
+        "basis": "unit design result",
+        "origin": "V501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "mol fraction wet",
+        "value": 0.04000000000000001,
+        "warning": null
+      },
+      "Wet raw biogas": {
+        "basis": "unit design result",
+        "origin": "V501 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "Nm3/hr",
+        "value": 7.084139984718035,
+        "warning": null
+      }
+    },
+    "display_name": "Raw-biogas disengagement",
+    "heat_duties": [],
+    "power": {
+      "basis": "instantaneous demand",
+      "origin": "V501 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.0,
+      "warning": null
+    },
+    "process_area": "anaerobic_digestion",
+    "unit_id": "V501",
+    "warnings": [
+      "V501 uses empirical Level-1 gas partitioning; Henry-law and kLa calculations are not active.",
+      "Dissolved H2S/HS-/S-2 are carried by one HydrogenSulfide component; speciation is reporting metadata.",
+      "Raw-biogas moisture is a specified wet-mole fraction, not a saturation calculation."
+    ]
+  },
+  {
+    "design_results": {
+      "Gas flow": {
+        "basis": "unit design result",
+        "origin": "V611 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "Nm3/hr",
+        "value": 4.495050982489195,
+        "warning": null
+      },
+      "Pressure drop": {
+        "basis": "unit design result",
+        "origin": "V611 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "Pa",
+        "value": 0.0,
+        "warning": null
+      },
+      "Water entering": {
+        "basis": "unit design result",
+        "origin": "V611 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.09614177804821798,
+        "warning": null
+      },
+      "Water removal": {
+        "basis": "unit design result",
+        "origin": "V611 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "fraction",
+        "value": 0.2,
+        "warning": null
+      },
+      "Water removed": {
+        "basis": "unit design result",
+        "origin": "V611 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0192283556096436,
+        "warning": null
+      },
+      "Working volume": {
+        "basis": "unit design result",
+        "origin": "V611 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "m3",
+        "value": 0.004085651616338199,
+        "warning": null
+      }
+    },
+    "display_name": "Gas moisture guard",
+    "heat_duties": [],
+    "power": {
+      "basis": "instantaneous demand",
+      "origin": "V611 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.0,
+      "warning": null
+    },
+    "process_area": "biogas_conditioning_and_upgrading",
+    "unit_id": "V611",
+    "warnings": []
+  },
+  {
+    "design_results": {
+      "CO2 released": {
+        "basis": "unit design result",
+        "origin": "V612 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.808420200704467,
+        "warning": null
+      },
+      "Flash gas": {
+        "basis": "unit design result",
+        "origin": "V612 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "Nm3/hr",
+        "value": 0.48002770490969693,
+        "warning": null
+      },
+      "Flash pressure": {
+        "basis": "unit design result",
+        "origin": "V612 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "bar",
+        "value": 2.0,
+        "warning": null
+      },
+      "Methane recovered": {
+        "basis": "unit design result",
+        "origin": "V612 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.04884073229452454,
+        "warning": null
+      },
+      "Rich water": {
+        "basis": "unit design result",
+        "origin": "V612 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 26.937147953908532,
+        "warning": null
+      },
+      "Working volume": {
+        "basis": "unit design result",
+        "origin": "V612 design",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "m3",
+        "value": 0.002244762329492378,
+        "warning": null
+      }
+    },
+    "display_name": "Rich-water flash",
+    "heat_duties": [],
+    "power": {
+      "basis": "instantaneous demand",
+      "origin": "V612 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.0,
+      "warning": null
+    },
+    "process_area": "biogas_conditioning_and_upgrading",
+    "unit_id": "V612",
+    "warnings": []
+  }
+]

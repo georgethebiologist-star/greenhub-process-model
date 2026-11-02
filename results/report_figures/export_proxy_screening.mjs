@@ -1,0 +1,1 @@
+throw new Error("The frontend proxy Pareto export is retired. Use scripts/run_rvo_pareto_analysis.py and scripts/generate_rvo_pareto_pngs.py.");

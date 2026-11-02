@@ -16,7 +16,7 @@ SCHEMA_VERSION = "1.0.0"
 
 @dataclass(frozen=True)
 class ScenarioSelection:
-    feed_preparation: str = "F2"
+    feed_preparation: str = "F1"
     protein_recovery: str = "PR3"
     anaerobic_digestion: str = "AD1"
     biogas_upgrading: str = "BG2"

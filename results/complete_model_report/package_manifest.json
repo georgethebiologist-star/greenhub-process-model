@@ -1,0 +1,43 @@
+{
+  "generated_utc": "2026-11-02T18:16:00.5371324Z",
+  "pdf_pages": 300,
+  "main_report_pages": 34,
+  "atlas_pages": 266,
+  "figure_count": 266,
+  "category_counts": {
+    "01_baseline": 6,
+    "02_technical": 2,
+    "03_tea": 1,
+    "04_lca": 3,
+    "05_hotspots": 1,
+    "06_scenario_comparison": 12,
+    "07_optimization": 37,
+    "08_candidate_comparison": 198,
+    "09_uncertainty": 6
+  },
+  "selected_run_stream_copies": 34,
+  "source_batch_job_id": null,
+  "documentation_and_evidence_files": 1132,
+  "copied_file_count": 1398,
+  "source_pngs_preserved_byte_for_byte": true,
+  "historical_document_note": "scientific_report archive contains an earlier F2/PEF baseline; current findings use F1 only",
+  "report_status": "historical_snapshot_with_current_supersession_notice",
+  "current_capex_schedule": "../report_figures/capex_breakdown_by_flow.csv",
+  "pareto_copy_cleanup": "Blocked by automatic filesystem review; retained copies are flagged historical.",
+  "source_batch_status": "original batch folder removed; compressed source copy remains in this historical package",
+  "pareto_candidate_outputs_status": "historical; pre-current-CAPEX; do not use",
+  "figure_count_basis": "historical package snapshot; not the current curated figure library",
+  "pareto_derivative_artifacts_remaining": {
+    "report_figure_candidate_pngs": 198,
+    "report_figure_scenario_pngs": 12,
+    "report_figure_uncertainty_pngs": 6,
+    "package_figure_candidate_pngs": 198,
+    "package_figure_optimization_pngs": 37,
+    "package_figure_scenario_pngs": 12,
+    "package_figure_uncertainty_pngs": 6,
+    "package_frontier_json_and_manifest_files": 35,
+    "package_compressed_source_batch": "eed439a280ad488aa235a19b0efc32af.json.gz",
+    "report_figure_selected_source_run_files": 546,
+    "report_figure_selected_source_run_directories": 7
+  }
+}

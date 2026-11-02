@@ -1,0 +1,49 @@
+{
+  "schema_name": "GreenHubSimulationResult",
+  "schema_version": "0.2-checkpoint1-draft",
+  "implementation_status": "architecture_only",
+  "availability_states": [
+    "calculated_zero",
+    "not_applicable",
+    "missing",
+    "not_implemented",
+    "failed",
+    "unavailable_scenario",
+    "unavailable_data_gate"
+  ],
+  "required_top_level_fields": [
+    "run_id",
+    "status",
+    "simulation_request",
+    "resolved_parameters",
+    "provenance",
+    "summary",
+    "process_areas",
+    "streams",
+    "units",
+    "balances",
+    "utilities",
+    "products",
+    "warnings",
+    "validation",
+    "completeness",
+    "plots",
+    "exports"
+  ],
+  "run_files": [
+    "simulation_request.json",
+    "resolved_parameters.csv",
+    "provenance.json",
+    "summary.json",
+    "process_areas.json",
+    "streams.csv",
+    "units.csv",
+    "balances.csv",
+    "utilities.csv",
+    "products.csv",
+    "warnings.csv",
+    "validation.csv",
+    "completeness.csv",
+    "plots/plot_manifest.json"
+  ]
+}

@@ -58,13 +58,15 @@ def sample_configurations(base,specifications,count=8,seed=42,mode='design',max_
     return configs
 
 
-def pareto_front(samples,x,y):
+def pareto_front(samples,x,y,*,require_technical_eligibility=True):
     eligible=[]; excluded=[]
     for sample in samples:
         report=sample.get('outputs') or {}; objectives=report.get('objectives',{})
         a,b=objectives.get(x,{}),objectives.get(y,{})
-        if not report.get('feasibility',{}).get('eligible_for_ranking') or not all(o.get('eligible') and isinstance(o.get('value'),(int,float)) and math.isfinite(o['value']) for o in (a,b)):
-            excluded.append({'sample_id':sample['sample_id'],'reason':sample.get('error') or 'incomplete objectives or failed technical/evidence checks'})
+        technical_ok = report.get('feasibility',{}).get('eligible_for_ranking')
+        if (require_technical_eligibility and not technical_ok) or not all(o.get('eligible') and isinstance(o.get('value'),(int,float)) and math.isfinite(o['value']) for o in (a,b)):
+            reason = sample.get('error') or ('incomplete objective values' if technical_ok or not require_technical_eligibility else 'failed technical/evidence checks')
+            excluded.append({'sample_id':sample['sample_id'],'reason':reason})
             continue
         point={'sample_id':sample['sample_id'],'x':a['value'],'y':b['value']}
         scores=(a['value']*(-1 if a['direction']=='maximize' else 1),b['value']*(-1 if b['direction']=='maximize' else 1))
@@ -74,13 +76,53 @@ def pareto_front(samples,x,y):
                    if isinstance(sample.get('outputs', {}).get('objectives', {}).get(x, {}), dict)), {})
     y_meta = next((sample.get('outputs', {}).get('objectives', {}).get(y, {}) for sample in samples
                    if isinstance(sample.get('outputs', {}).get('objectives', {}).get(y, {}), dict)), {})
-    return {'label':'Pareto among sampled feasible scenarios','x_objective':x,'y_objective':y,
+    return {'label':'Pareto among sampled scenarios','x_objective':x,'y_objective':y,
             'objective_metadata':{
                 'x': {'direction': x_meta.get('direction'), 'unit': x_meta.get('unit'), 'definition': x_meta.get('definition')},
                 'y': {'direction': y_meta.get('direction'), 'unit': y_meta.get('unit'), 'definition': y_meta.get('definition')},
             },
             'points':front,'eligible_points':[p for p,s in eligible],'excluded':excluded,
-            'negative_profit_policy':'Retained when objectives complete; never rejected for losing money.'}
+            'negative_profit_policy':'Retained when objectives complete; never rejected for losing money.',
+            'technical_gate_required':require_technical_eligibility}
+
+
+def pareto_front_3d(samples, objectives, *, require_technical_eligibility=False):
+    """Return nondominated points for three declared numeric objectives."""
+    if len(objectives) != 3:
+        raise ValueError('Three objective names are required for a 3-D Pareto front.')
+    candidates=[]; excluded=[]; metadata={}
+    directions=[]
+    for sample in samples:
+        report=sample.get('outputs') or {}; values=[]; valid=True
+        technical_ok=report.get('feasibility',{}).get('eligible_for_ranking')
+        for name in objectives:
+            obj=report.get('objectives',{}).get(name,{})
+            if name not in metadata and obj:
+                metadata[name]={'direction':obj.get('direction'),'unit':obj.get('unit'),'definition':obj.get('definition')}
+            if not (obj.get('eligible') and isinstance(obj.get('value'),(int,float)) and math.isfinite(obj['value'])):
+                valid=False
+            values.append(obj)
+        if (require_technical_eligibility and not technical_ok) or not valid:
+            excluded.append({'sample_id':sample.get('sample_id'),'reason':'incomplete objectives' if valid is False else 'failed technical/evidence checks'})
+            continue
+        signs=[-1 if obj.get('direction')=='maximize' else 1 for obj in values]
+        score=tuple(float(obj['value'])*sign for obj,sign in zip(values,signs))
+        candidates.append((sample,values,score))
+    front=[]; all_points=[]
+    for candidate in candidates:
+        score=candidate[2]
+        sample,values,_=candidate
+        point={'sample_id':sample.get('sample_id'),
+               **{name:obj.get('value') for name,obj in zip(objectives,values)},
+               'technical_eligible':bool((sample.get('outputs') or {}).get('feasibility',{}).get('eligible_for_ranking'))}
+        all_points.append(point)
+        if not any(all(other[2][i] <= score[i] for i in range(3)) and any(other[2][i] < score[i] for i in range(3))
+                   for other in candidates if other is not candidate):
+            front.append(point)
+    return {'label':'Three-objective Pareto among sampled scenarios','objectives':list(objectives),
+            'objective_metadata':metadata,'points':front,'eligible_points':all_points,
+            'excluded':excluded,'technical_gate_required':require_technical_eligibility,
+            'note':'Point set is sample-bounded; rows retain unprofitable scenarios. Technical/evidence eligibility is reported per point.'}
 
 
 def run_batch(evaluator,base,specifications,count=8,seed=42,mode='design',runtime_limit_seconds=180):

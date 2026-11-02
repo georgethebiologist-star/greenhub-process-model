@@ -1,0 +1,56 @@
+{
+  "annual_biomass_target": null,
+  "biomass_schedule": null,
+  "calculation_mode": "structural",
+  "design_overrides": [],
+  "end_date": null,
+  "expert_scientific_overrides": [],
+  "export_formats": [
+    "json",
+    "csv"
+  ],
+  "feed_composition": {},
+  "feed_overrides": [],
+  "feed_supply_profile_id": null,
+  "initial_storage_inventory": {
+    "component_mass_fractions": {},
+    "moisture_fraction": null,
+    "storage_age_h": 0.0,
+    "temperature_k": null,
+    "total_mass_kg": 0.0
+  },
+  "operating_overrides": [],
+  "operating_schedule": {
+    "operating_dates": [],
+    "operating_days_per_week": 7,
+    "operating_hours_per_day": 24,
+    "shutdown_dates": [],
+    "target_throughput_kg_hr": null
+  },
+  "plant_capacity_kg_hr": 3319.030969131894,
+  "project_id": "greenhub",
+  "request_id": "rvo_pf_protein_bypass_0043_A",
+  "requested_outputs": [],
+  "requested_plots": [],
+  "resolution_mode": "steady_state",
+  "scenarios": {
+    "anaerobic_digestion": "AD3",
+    "biogas_upgrading": "BG2",
+    "feed_preparation": "F1",
+    "nutrient_recovery": "NR7",
+    "process_order": "C",
+    "protein_recovery": "PR0"
+  },
+  "schema_version": "1.0.0",
+  "selected_month": "July",
+  "start_date": null,
+  "storage_conditions": {
+    "aerobic_fraction": 0.21,
+    "storage_days": 30.0
+  },
+  "strict_validation": true,
+  "time_horizon": null,
+  "time_step": null,
+  "user_notes": null,
+  "wet_feed_rate_kg_hr": 3319.030969131894
+}

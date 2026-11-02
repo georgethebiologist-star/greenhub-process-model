@@ -1,0 +1,2 @@
+record_id,canonical_field,value,unit,time_label,start_date,end_date,sample_id,sample_location,feedstock,material_state,measurement_method,lab_reference,source_id,measured_date,data_status,notes
+EXAMPLE-001,moisture_wet_basis,,kg water/kg wet biomass,YYYY-MM,,,SAMPLE-ID,intake,roadside grass,fresh,gravimetric moisture method,LAB-REFERENCE,PROJECT-SOURCE-ID,YYYY-MM-DD,example_do_not_use,Replace placeholders with project data and set data_status to measured_project only after validation.

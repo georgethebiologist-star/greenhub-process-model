@@ -127,7 +127,7 @@ export const DYNAMIC_BASELINE_REPORT: DynamicReport = {
     environmental:{contributions_kg_co2e_per_year:{avoided_natural_gas:-2481268.928,electricity:168292.308,heat:84677.83,fertilizer_displacement:-1060117.11,methane_slip:192937.134},net_kg_co2e_per_year:-3095478.767,kg_co2e_per_tonne_feed:-103.182626,kg_co2e_per_kg_dried_protein:-28.154163}},
 };
 
-const empiricalBase = runSimulation({calculation_mode:'structural',selected_month:'July',scenarios:{feed_front_end:'F2',protein_recovery:'PR3',anaerobic_digestion:'AD1',biogas_upgrading:'BG2',nutrient_recovery:'NR4',process_order:'A'}});
+const empiricalBase = runSimulation({calculation_mode:'structural',selected_month:'July',scenarios:{feed_front_end:'F1',protein_recovery:'PR3',anaerobic_digestion:'AD1',biogas_upgrading:'BG2',nutrient_recovery:'NR4',process_order:'A'}});
 
 function buildEmpiricalAnnual(): AnnualSummary {
   const productRatios: Record<string,number> = {dry_protein_product:.0363293,biomethane:.0334568,phosphorus_product:.01978,ammonium_product:.040257,nutrient_rich_solids:.05,potassium_concentrate:0};

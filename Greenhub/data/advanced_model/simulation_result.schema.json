@@ -386,7 +386,7 @@
           "type": "string"
         },
         "feed_preparation": {
-          "default": "F2",
+          "default": "F1",
           "type": "string"
         },
         "nutrient_recovery": {

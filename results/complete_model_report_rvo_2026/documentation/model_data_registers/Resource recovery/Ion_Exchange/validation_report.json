@@ -1,0 +1,114 @@
+[
+  {
+    "file": "assumption_and_missing_data_register.csv",
+    "rows": 333,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true,
+    "utf8": true
+  },
+  {
+    "file": "breakthrough_curves.csv",
+    "rows": 13,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true,
+    "utf8": true
+  },
+  {
+    "file": "column_design.csv",
+    "rows": 18,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true,
+    "utf8": true
+  },
+  {
+    "file": "competing_ion_effects.csv",
+    "rows": 26,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true,
+    "utf8": true
+  },
+  {
+    "file": "dataset_manifest.csv",
+    "rows": 13,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true,
+    "utf8": true
+  },
+  {
+    "file": "equilibrium_isotherms.csv",
+    "rows": 43,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true,
+    "utf8": true
+  },
+  {
+    "file": "ion_exchange_equation_registry.csv",
+    "rows": 8,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true,
+    "utf8": true
+  },
+  {
+    "file": "ion_exchange_equipment_costs.csv",
+    "rows": 102,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true,
+    "utf8": true
+  },
+  {
+    "file": "ion_exchange_media_database.csv",
+    "rows": 89,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true,
+    "utf8": true
+  },
+  {
+    "file": "ion_exchange_scenario_controller.csv",
+    "rows": 6,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true,
+    "utf8": true
+  },
+  {
+    "file": "kinetic_parameters.csv",
+    "rows": 25,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true,
+    "utf8": true
+  },
+  {
+    "file": "media_lifetime.csv",
+    "rows": 26,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true,
+    "utf8": true
+  },
+  {
+    "file": "regeneration_data.csv",
+    "rows": 38,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true,
+    "utf8": true
+  },
+  {
+    "file": "source_register.csv",
+    "rows": 12,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true,
+    "utf8": true
+  }
+]

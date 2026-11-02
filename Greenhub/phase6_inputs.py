@@ -249,10 +249,10 @@ def load_phase6_inputs(
     phase3 = (
         phase3_scenario_id
         or optional_text(control.get("selected_phase3_scenario"))
-        or "F2"
+        or "F1"
     ).upper()
-    if phase3 not in {"F0", "F1", "F2", "F3"}:
-        raise ValueError("Phase 6 upstream front-end scenario must be F0-F3.")
+    if phase3 not in {"F0", "F1"}:
+        raise ValueError("Phase 6 upstream front-end scenario must be F0 or F1; PEF scenarios are retired.")
     month = selected_month or optional_text(control.get("selected_month")) or "July"
     structural = as_bool(
         control.get("phase6_structural_test_mode"),

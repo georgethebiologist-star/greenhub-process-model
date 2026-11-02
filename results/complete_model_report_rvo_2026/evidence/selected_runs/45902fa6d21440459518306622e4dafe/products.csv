@@ -1,0 +1,5 @@
+product_id,stream_id,mass_flow,classification
+dry_protein_product,dry_protein_product,"{""basis"": ""wet stream"", ""origin"": ""BioSTEAM stream"", ""status"": ""calculated"", ""uncertainty"": null, ""unit"": ""kg/hr"", ""value"": 13.703481030377798, ""warning"": null}",candidate_product_not_regulatory_qualified
+biomethane,membrane_stage_2_retentate,"{""basis"": ""wet stream"", ""origin"": ""BioSTEAM stream"", ""status"": ""calculated"", ""uncertainty"": null, ""unit"": ""kg/hr"", ""value"": 3.232804474000524, ""warning"": null}",candidate_product_not_regulatory_qualified
+phosphorus_product,struvite_product,"{""basis"": ""wet stream"", ""origin"": ""BioSTEAM stream"", ""status"": ""calculated"", ""uncertainty"": null, ""unit"": ""kg/hr"", ""value"": 0.28000572666420315, ""warning"": null}",candidate_product_not_regulatory_qualified
+nutrient_rich_solids,nutrient_rich_digestate_solids,"{""basis"": ""wet stream"", ""origin"": ""BioSTEAM stream"", ""status"": ""calculated"", ""uncertainty"": null, ""unit"": ""kg/hr"", ""value"": 13.504308344435163, ""warning"": null}",candidate_product_not_regulatory_qualified

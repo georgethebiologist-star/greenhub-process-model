@@ -1,0 +1,4 @@
+﻿register_id,topic,python_variable,required_value,unit,data_status,reason_missing,recommended_source,affected_files,notes
+PSA_LIM_001,raw isotherm observations,q_observed,,mol/kg,missing,Values were plotted rather than tabulated; fitted parameters are available.,Authors' machine-readable supporting data.,bed_properties_and_capacity.csv,
+PSA_LIM_002,adsorbent lifetime,adsorbent_lifetime,,year,missing,No universal replacement interval.,Manufacturer guarantee and operating logs for the selected adsorbent.,lifetime_and_sensitivity.csv,
+PSA_LIM_003,vacuum duty,vacuum_specific_energy,,kWh/Nm3,missing,Configuration-specific and not tabulated separately.,Validated VPSA pilot electricity submetering.,vacuum_and_compression_energy.csv,

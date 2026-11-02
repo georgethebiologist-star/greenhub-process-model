@@ -1,0 +1,114 @@
+[
+  {
+    "file": "assumption_and_missing_data_register.csv",
+    "rows": 455,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true,
+    "utf8": true
+  },
+  {
+    "file": "concentration_energy.csv",
+    "rows": 55,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true,
+    "utf8": true
+  },
+  {
+    "file": "concentration_equation_registry.csv",
+    "rows": 12,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true,
+    "utf8": true
+  },
+  {
+    "file": "concentration_equipment_costs.csv",
+    "rows": 180,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true,
+    "utf8": true
+  },
+  {
+    "file": "concentration_feed_properties.csv",
+    "rows": 21,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true,
+    "utf8": true
+  },
+  {
+    "file": "concentration_scenario_controller.csv",
+    "rows": 6,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true,
+    "utf8": true
+  },
+  {
+    "file": "dataset_manifest.csv",
+    "rows": 13,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true,
+    "utf8": true
+  },
+  {
+    "file": "electrodialysis_performance.csv",
+    "rows": 27,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true,
+    "utf8": true
+  },
+  {
+    "file": "evaporation_performance.csv",
+    "rows": 20,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true,
+    "utf8": true
+  },
+  {
+    "file": "membrane_concentration_performance.csv",
+    "rows": 68,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true,
+    "utf8": true
+  },
+  {
+    "file": "product_composition.csv",
+    "rows": 82,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true,
+    "utf8": true
+  },
+  {
+    "file": "scaling_and_solubility_limits.csv",
+    "rows": 31,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true,
+    "utf8": true
+  },
+  {
+    "file": "source_register.csv",
+    "rows": 12,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true,
+    "utf8": true
+  },
+  {
+    "file": "water_recovery_and_quality.csv",
+    "rows": 13,
+    "unique_ids": true,
+    "columns_consistent": true,
+    "populated_values_traceable": true,
+    "utf8": true
+  }
+]

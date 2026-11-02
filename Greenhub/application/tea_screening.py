@@ -36,6 +36,18 @@ def prepare_screening_basis(basis, records, measures, result):
     quantities = dict(basis.annual_quantities)
     quantities.setdefault('TEA-029', {'value': basis.staffing_people * basis.paid_hours_per_person, 'unit': 'paid hour', 'notes': 'User staffing basis: people × 1500 paid hours/person/year.'})
     quantities.setdefault('TEA-032', {'value': float(measures.get('annual_throughput_kg') or 0) / 1000, 'unit': 't/year', 'notes': 'Processed wet feed used as haulage quantity proxy; delivery losses and inbound water require review.'})
+    # Price actual modeled magnesium reagent from R711. A zero design result is
+    # meaningful (no modeled MgCl2 demand); do not infer a dose from recovered P.
+    annual_hours = measures.get('operating_hours_per_year')
+    if annual_hours is not None and 'TEA-051' not in quantities:
+        for unit in measures.get('design_capacities', ()):
+            if unit.get('unit_id') == 'R711' and unit.get('design_name') == 'Magnesium reagent':
+                quantities['TEA-051'] = {
+                    'value': float(unit['value']) * float(annual_hours),
+                    'unit': 'kg/year',
+                    'notes': 'BioSTEAM R711 Magnesium reagent design result × modeled annual operating hours; no stoichiometric dose inferred where the model reports zero.',
+                }
+                break
     includes = set(basis.include_cost_ids) | {'TEA-029', 'TEA-032'}
     excludes = set(basis.exclude_cost_ids)
     # Normalize gas by component moles at 273.15 K, 101325 Pa, dry basis.
@@ -48,20 +60,24 @@ def prepare_screening_basis(basis, records, measures, result):
         for record in records:
             if 'Nm3/h' in (record.capacity_unit or ''):
                 capacities.setdefault(record.cost_id, {'value': nm3, 'unit': record.capacity_unit, 'notes': 'Dry ideal gas component-mole conversion at 273.15 K and 101325 Pa; representative stream, seasonal peak sizing still requires review.'})
-        methane = raw.components.get('Methane')
-        if methane is not None and methane.value is not None and methane.value > 0:
-            capacities.setdefault('TEA-013', {'value': float(methane.value) / 16.04246 * 22.414 * 9.94 * 0.35,
-                'unit': 'kWe installed', 'notes': 'AD cost comparator only: methane LHV 9.94 kWh/Nm3 × assumed 35% electric efficiency. Does not activate CHP or electricity credits.'})
+    for unit in measures.get('design_capacities', ()):
+        if unit.get('unit_id') == 'R501' and unit.get('design_name') == 'Working volume':
+            capacities['TEA-013'] = {'value': float(unit['value']), 'unit': 'working volume m3',
+                'notes': 'Formed BioSTEAM digester working volume; screen cost at Dutch tank EUR/m3 range.'}
     if measures.get('annual_heat_kwh') is not None:
         quantities.setdefault('TEA-038', {'value': float(measures['annual_heat_kwh']), 'unit': 'kWh/year', 'notes': 'Annual positive simulated heating duty; register delivered-heat benchmark.'})
     includes.update({'TEA-030', 'TEA-038'})
     # A top-down maintenance allowance already covers mechanical wear.
     if 'TEA-053' not in basis.include_cost_ids:
         excludes.add('TEA-053')
-    records = tuple(replace(record, reference_capacity=1.0, scaling_exponent=1.0,
-                            notes=record.notes + ' Linear per-kWe reference conversion: EUR/kWe multiplied by energy-equivalent kWe; no CHP activation.')
-                    if record.cost_id == 'TEA-013' and record.reference_capacity is None else record
+    records = tuple(replace(record, reference_value_eur=1500.0, reference_unit='EUR/m3 digester tank; midpoint of EUR 1,200-1,800/m3 range',
+                            reference_capacity=1.0, capacity_unit='working volume m3', scaling_exponent=1.0,
+                            installed_factor=1.0, source_title='Dutch screening range for CSTR digester tanks',
+                            source_url='https://energy-solutions.co/articles/sub/anaerobic-digestion-economic-analysis-2027-2035',
+                            confidence='Low; secondary screening source', source_status='user-provided screening range',
+                            notes=record.notes + ' Replaced plant-level kWe basis with user-provided Dutch small-tank EUR 1,200-1,800/m3 range; midpoint used, tank only, installation and balance-of-plant excluded.')
+                    if record.cost_id == 'TEA-013' else record
                     for record in records)
-    notes = (basis.notes + ' Dashboard screening: staffing at declared paid hours/person/year; water-like hydraulic capacity proxies; 1 h vessels and 30 d digestion; unscaled package references where reference capacity is absent. AD kWe capacity is an energy-equivalent cost comparator at 35% electric efficiency, not formed CHP. Routine maintenance uses 2% of the calculated screening capital subtotal; mechanical wear excluded to avoid overlap. Missing installation remains excluded.').strip()
+    notes = (basis.notes + ' Dashboard screening: staffing at declared paid hours/person/year; water-like hydraulic capacity proxies at 1 kg/L; digester tank cost uses formed working volume at midpoint of user-provided Dutch EUR 1,200-1,800/m3 range; unscaled package references where reference capacity is absent. Routine maintenance uses 2% of calculated screening capital subtotal; mechanical wear excluded to avoid overlap. Missing installation remains excluded.').strip()
     return replace(basis, capacities=capacities, annual_quantities=quantities,
                    include_cost_ids=tuple(sorted(includes)), exclude_cost_ids=tuple(sorted(excludes)), notes=notes), records

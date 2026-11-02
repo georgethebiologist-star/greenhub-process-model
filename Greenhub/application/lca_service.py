@@ -10,19 +10,31 @@ class LCAReport:
 
 
 def screening_lca_factors():
-    """Return opt-in screening factors already present in the data register."""
+    """Return traceable Dutch-average electricity and heat factors for screening."""
     return {
         "electricity": ClimateFactor(
-            factor_id="electricity", value=0.20, quantity_unit="kWh",
-            source_status="proxy_factor", basis="CBS integral electricity generation factor",
-            geography="Netherlands", reference_year=2024,
-            source_url="https://www.cbs.nl/en-gb/background/2025/49/energy-and-emission-factors-electricity-update-2024",
-            source_table_page="Electricity emission factors update 2024",
-            retrieval_date="2026-10-28", evidence_class="official_dataset_proxy",
-            applicability="Screening proxy for Dutch electricity generation; replace with declared consumption LCI.",
-            conversion_method="identity", uncertainty="Consumption mix and market-boundary uncertainty not quantified",
-            warning="Opt-in screening proxy; not a supplier-specific attributional or consequential electricity LCI.",
-        )
+            factor_id="electricity", value=0.264, quantity_unit="kWh",
+            source_status="proxy_factor", basis="Midpoint of user-specified Dutch grid range 0.254–0.274 kg CO2e/kWh",
+            geography="Netherlands", reference_year=2025,
+            source_url="https://www.electricitymaps.com/grid-in-review-2025/the-netherlands; https://carbonrecycling.co.uk/emission-factors/electricity/netherlands",
+            source_table_page="2025 generation/flow-traced intensity; user-provided range endpoints",
+            retrieval_date="2026-11-02", evidence_class="national_average_proxy",
+            applicability="Operational screening factor; 0.264 is the arithmetic midpoint of the supplied 0.254–0.274 range.",
+            conversion_method="identity", uncertainty="0.254–0.274 kg CO2e/kWh; boundary and year differences represented as a range, not a confidence interval",
+            warning="Dutch-average proxy, not a site supplier factor; sensitivity range retained in optimization metadata.",
+        ),
+        "heat": ClimateFactor(
+            factor_id="heat", value=30.96 / 277.7777777778, quantity_unit="kWh",
+            source_status="direct_literature", basis="30.96 kg CO2e/GJ total end-user heat-network factor converted using 1 GJ = 277.7778 kWh",
+            geography="Netherlands", reference_year=2022,
+            source_url="https://cedelft.eu/publications/chain-emissions-for-heat-grids-in-2022-and-2030/",
+            source_table_page="End-user heat-grid factor, 2022",
+            retrieval_date="2026-11-02", evidence_class="national_average_factor",
+            applicability="Dutch average heat-network factor supplied by the user; plant-specific network mix may differ.",
+            conversion_method="30.96 kg CO2e/GJ ÷ 277.7778 kWh/GJ",
+            uncertainty="No probability distribution supplied; use only as a declared national-average scenario factor",
+            warning="Average 2022 heat-grid factor; not a supplier-specific plant factor.",
+        ),
     }
 
 

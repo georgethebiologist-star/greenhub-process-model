@@ -1,0 +1,18 @@
+field_path,data_type,unit,description
+summary_kpis,object,,Compact run-level key performance indicators.
+process_areas[],ProcessAreaResult,,"Area membership, boundary streams, maturity, and metrics."
+streams[].total_mass,NumericalValue,kg/hr,Total wet stream mass flow.
+streams[].components,object<NumericalValue>,kg/hr,Component mass-flow mapping.
+units[].power,NumericalValue,kW,Unit electricity demand.
+balances[].residual,NumericalValue,kg/hr or kmol/hr,Signed outlet-minus-inlet residual.
+products[].mass_flow,NumericalValue,kg/hr,Product stream wet mass flow.
+resolved_parameters[],ParameterResolutionResult,,"Resolved value, source, status, and warnings."
+validation,ValidationSummary,,Blocking and warning validation findings.
+graph,ProcessGraph,,Frontend-ready unit and stream topology.
+plots[],PlotSpecification,,Stable plot metadata and availability.
+export_references,object<string>,,Run-relative artifact references only.
+feed_supply_series[],object,kg,"Available, collected, and uncollected wet biomass with provenance."
+storage_inventory_series[],object,kg,"Storage receipts, withdrawals, overflow, inventory, and age."
+throughput_series[],object,kg and kg/hr,"Scheduled, capacity-limited process throughput."
+capacity_utilization_series[],object,fraction,"Eligible unit load, capacity, and utilization."
+seasonal_summary,object,,"Integrated seasonal feed, storage, product, utility, and balance totals."

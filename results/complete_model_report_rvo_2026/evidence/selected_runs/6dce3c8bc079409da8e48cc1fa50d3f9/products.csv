@@ -1,0 +1,3 @@
+product_id,stream_id,mass_flow,classification
+dry_protein_product,dry_protein_product,"{""basis"": ""wet stream"", ""origin"": ""BioSTEAM stream"", ""status"": ""calculated"", ""uncertainty"": null, ""unit"": ""kg/hr"", ""value"": 13.820003516528203, ""warning"": null}",candidate_product_not_regulatory_qualified
+biomethane,membrane_stage_2_retentate,"{""basis"": ""wet stream"", ""origin"": ""BioSTEAM stream"", ""status"": ""calculated"", ""uncertainty"": null, ""unit"": ""kg/hr"", ""value"": 3.2634263747198857, ""warning"": null}",candidate_product_not_regulatory_qualified

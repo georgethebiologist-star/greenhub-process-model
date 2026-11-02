@@ -255,7 +255,7 @@ def load_phase7_inputs(
     phase3 = (
         phase3_scenario_id
         or optional_text(control.get("selected_phase3_scenario"))
-        or "F2"
+        or "F1"
     ).upper()
     if phase6 not in {f"BG{i}" for i in range(7)}:
         raise ValueError("Phase 7 upstream biogas scenario must be BG0-BG6.")

@@ -1,0 +1,35 @@
+{
+  "figure_count": 42,
+  "baseline_run_id": "fa95cc05b95649548ceda68575a8be8e",
+  "baseline_git_commit": "a64bdc076c59bea1befcd734d5ddffb7073c2406",
+  "extra_case_ids": [
+    "baseline_F2_PR3_AD1_BG2_NR4_A",
+    "no_targeted_nutrients",
+    "struvite_only",
+    "ammonium_only",
+    "no_pef_F1",
+    "nutrient_order_B",
+    "calcium_phosphate_NR5",
+    "ion_exchange_NR6",
+    "potassium_NR7",
+    "membrane_BG3",
+    "psa_BG4"
+  ],
+  "gas_normalization": "Dry ideal-gas Nm3 at 273.15 K and 101325 Pa; species mass divided by stated molecular weight.",
+  "omitted_objectives": [
+    "complete installed CAPEX",
+    "complete OPEX",
+    "revenue",
+    "NPV",
+    "IRR",
+    "complete GHG",
+    "Pareto optimum",
+    "MCDA"
+  ],
+  "source_files": [
+    "scientific_report/baseline_report.json",
+    "scientific_report/route_comparison.csv",
+    "results/report_figures/extra_cases.csv",
+    "Greenhub/results/checkpoint3c_may_nov_final"
+  ]
+}

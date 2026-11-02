@@ -1,0 +1,12 @@
+parameter_id,python_variable,value,unit,normalized_si_value,normalized_si_unit,basis,process,material_feed_type,operating_conditions,valid_range,data_status,source_title,authors,year,doi_or_stable_id,exact_location,notes,uncertainty,transferability,source_url
+AS_PKA_A,ammonium_pKa_A,0.09018,dimensionless,0.09018,dimensionless,pKa=A+B/T_K,ammonia speciation,dilute aqueous solution,T in K,,literature-reported,Aqueous ammonia equilibrium calculations: effect of pH and temperature,Emerson et al.,1975,EPA-600/3-75-006,equilibrium equation,High-ionic-strength digestate may require activity correction.,,medium,https://nepis.epa.gov/Exe/ZyPURL.cgi?Dockey=30000I7U.TXT
+AS_PKA_B,ammonium_pKa_B,2729.92,K,2729.92,K,pKa=A+B/T_K,ammonia speciation,dilute aqueous solution,T in K,,literature-reported,Aqueous ammonia equilibrium calculations: effect of pH and temperature,Emerson et al.,1975,EPA-600/3-75-006,equilibrium equation,,,medium,https://nepis.epa.gov/Exe/ZyPURL.cgi?Dockey=30000I7U.TXT
+AS_MW,ammonia_molar_mass,17.031,g/mol,0.017031,kg/mol,molecular mass,unit conversion,ammonia,,,literature-reported,Aqueous ammonia equilibrium calculations: effect of pH and temperature,Emerson et al.,1975,EPA-600/3-75-006,NH3-N conversion basis,Keep N-mass and molecular-NH3 mass bases separate.,,high,https://nepis.epa.gov/Exe/ZyPURL.cgi?Dockey=30000I7U.TXT
+AS_TAN,TAN,,,,,kg N/m3,ammonia speciation,digestate/high-ammonia liquid,,,missing,,,,,,Scenario-specific input or calculated output.,,,
+AS_PH,liquid_pH,,,,,dimensionless,ammonia speciation,digestate/high-ammonia liquid,,,missing,,,,,,Scenario-specific input or calculated output.,,,
+AS_T,temperature,,,,,K,ammonia speciation,digestate/high-ammonia liquid,,,missing,,,,,,Scenario-specific input or calculated output.,,,
+AS_P,absolute_pressure,,,,,Pa,ammonia speciation,digestate/high-ammonia liquid,,,missing,,,,,,Scenario-specific input or calculated output.,,,
+AS_I,ionic_strength,,,,,mol/kg,ammonia speciation,digestate/high-ammonia liquid,,,missing,,,,,,Scenario-specific input or calculated output.,,,
+AS_ALK,alkalinity,,,,,mol charge/m3,ammonia speciation,digestate/high-ammonia liquid,,,missing,,,,,,Scenario-specific input or calculated output.,,,
+AS_NH3,free_ammonia_N,,,,,kg N/m3,ammonia speciation,digestate/high-ammonia liquid,,,missing,,,,,,Scenario-specific input or calculated output.,,,
+AS_NH4,ammonium_N,,,,,kg N/m3,ammonia speciation,digestate/high-ammonia liquid,,,missing,,,,,,Scenario-specific input or calculated output.,,,

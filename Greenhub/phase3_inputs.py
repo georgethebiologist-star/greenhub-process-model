@@ -304,14 +304,14 @@ def load_phase3_inputs(
     scenario_id: str | None = None,
     selected_month: str | None = None,
 ) -> Phase3InputBundle:
-    """Load the selected F0-F3 scenario and its standardized feed inputs."""
+    """Load an active F0/F1 scenario and its standardized feed inputs."""
 
     path = ensure_input_workbook(path)
     control = _load_control(path)
     scenario = scenario_id or optional_text(control.get("selected_phase3_scenario")) or "F0"
     scenario = scenario.upper()
-    if scenario not in {"F0", "F1", "F2", "F3"}:
-        raise ValueError("selected_phase3_scenario must be one of F0, F1, F2, or F3.")
+    if scenario not in {"F0", "F1"}:
+        raise ValueError("selected_phase3_scenario must be F0 or F1; PEF scenarios are retired.")
     month = selected_month or optional_text(control.get("selected_month")) or "July"
     # Keep the workbook's established grass_baseline selector for compatibility;
     # the measured VARTA profile is available as the explicit default candidate

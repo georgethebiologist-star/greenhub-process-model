@@ -1,0 +1,590 @@
+[
+  {
+    "demand": {
+      "basis": "instantaneous demand",
+      "origin": "C301 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 1.2340137017934303,
+      "warning": null
+    },
+    "kind": "electricity",
+    "unit_id": "C301",
+    "utility_id": "C301:electricity"
+  },
+  {
+    "demand": {
+      "basis": "instantaneous demand",
+      "origin": "C401 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.8952438456730129,
+      "warning": null
+    },
+    "kind": "electricity",
+    "unit_id": "C401",
+    "utility_id": "C401:electricity"
+  },
+  {
+    "demand": {
+      "basis": "instantaneous demand",
+      "origin": "C621 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.4930765364351668,
+      "warning": null
+    },
+    "kind": "electricity",
+    "unit_id": "C621",
+    "utility_id": "C621:electricity"
+  },
+  {
+    "demand": {
+      "basis": "instantaneous demand",
+      "origin": "D401 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.2602654637673289,
+      "warning": null
+    },
+    "kind": "electricity",
+    "unit_id": "D401",
+    "utility_id": "D401:electricity"
+  },
+  {
+    "demand": {
+      "basis": "instantaneous demand",
+      "origin": "D621 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.0,
+      "warning": null
+    },
+    "kind": "electricity",
+    "unit_id": "D621",
+    "utility_id": "D621:electricity"
+  },
+  {
+    "demand": {
+      "basis": "instantaneous demand",
+      "origin": "D711 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.0,
+      "warning": null
+    },
+    "kind": "electricity",
+    "unit_id": "D711",
+    "utility_id": "D711:electricity"
+  },
+  {
+    "demand": {
+      "basis": "instantaneous demand",
+      "origin": "DR401 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 3.370289484966997,
+      "warning": null
+    },
+    "kind": "electricity",
+    "unit_id": "DR401",
+    "utility_id": "DR401:electricity"
+  },
+  {
+    "demand": {
+      "basis": "heat utility duty",
+      "origin": "DR401 heat utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kJ/hr",
+      "value": 98885.69694754193,
+      "warning": null
+    },
+    "kind": "heat",
+    "unit_id": "DR401",
+    "utility_id": "DR401:heat:1"
+  },
+  {
+    "demand": {
+      "basis": "instantaneous demand",
+      "origin": "E621 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.0,
+      "warning": null
+    },
+    "kind": "electricity",
+    "unit_id": "E621",
+    "utility_id": "E621:electricity"
+  },
+  {
+    "demand": {
+      "basis": "heat utility duty",
+      "origin": "E621 heat utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kJ/hr",
+      "value": -1394.290172962028,
+      "warning": null
+    },
+    "kind": "heat",
+    "unit_id": "E621",
+    "utility_id": "E621:heat:1"
+  },
+  {
+    "demand": {
+      "basis": "instantaneous demand",
+      "origin": "F601 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.0030706248943628417,
+      "warning": null
+    },
+    "kind": "electricity",
+    "unit_id": "F601",
+    "utility_id": "F601:electricity"
+  },
+  {
+    "demand": {
+      "basis": "instantaneous demand",
+      "origin": "G601 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.003307922816116891,
+      "warning": null
+    },
+    "kind": "electricity",
+    "unit_id": "G601",
+    "utility_id": "G601:electricity"
+  },
+  {
+    "demand": {
+      "basis": "heat utility duty",
+      "origin": "G601 heat utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kJ/hr",
+      "value": -482.973986608856,
+      "warning": null
+    },
+    "kind": "heat",
+    "unit_id": "G601",
+    "utility_id": "G601:heat:1"
+  },
+  {
+    "demand": {
+      "basis": "instantaneous demand",
+      "origin": "H501 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.0,
+      "warning": null
+    },
+    "kind": "electricity",
+    "unit_id": "H501",
+    "utility_id": "H501:electricity"
+  },
+  {
+    "demand": {
+      "basis": "heat utility duty",
+      "origin": "H501 heat utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kJ/hr",
+      "value": 165283.25898541824,
+      "warning": null
+    },
+    "kind": "heat",
+    "unit_id": "H501",
+    "utility_id": "H501:heat:1"
+  },
+  {
+    "demand": {
+      "basis": "instantaneous demand",
+      "origin": "M401 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.009281947596402417,
+      "warning": null
+    },
+    "kind": "electricity",
+    "unit_id": "M401",
+    "utility_id": "M401:electricity"
+  },
+  {
+    "demand": {
+      "basis": "instantaneous demand",
+      "origin": "M402 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.0,
+      "warning": null
+    },
+    "kind": "electricity",
+    "unit_id": "M402",
+    "utility_id": "M402:electricity"
+  },
+  {
+    "demand": {
+      "basis": "instantaneous demand",
+      "origin": "M403 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.00451167147154132,
+      "warning": null
+    },
+    "kind": "electricity",
+    "unit_id": "M403",
+    "utility_id": "M403:electricity"
+  },
+  {
+    "demand": {
+      "basis": "instantaneous demand",
+      "origin": "M501 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.004526613983816576,
+      "warning": null
+    },
+    "kind": "electricity",
+    "unit_id": "M501",
+    "utility_id": "M501:electricity"
+  },
+  {
+    "demand": {
+      "basis": "instantaneous demand",
+      "origin": "M606 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.0,
+      "warning": null
+    },
+    "kind": "electricity",
+    "unit_id": "M606",
+    "utility_id": "M606:electricity"
+  },
+  {
+    "demand": {
+      "basis": "instantaneous demand",
+      "origin": "M607 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.0,
+      "warning": null
+    },
+    "kind": "electricity",
+    "unit_id": "M607",
+    "utility_id": "M607:electricity"
+  },
+  {
+    "demand": {
+      "basis": "instantaneous demand",
+      "origin": "M621 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.0,
+      "warning": null
+    },
+    "kind": "electricity",
+    "unit_id": "M621",
+    "utility_id": "M621:electricity"
+  },
+  {
+    "demand": {
+      "basis": "instantaneous demand",
+      "origin": "M622 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.0,
+      "warning": null
+    },
+    "kind": "electricity",
+    "unit_id": "M622",
+    "utility_id": "M622:electricity"
+  },
+  {
+    "demand": {
+      "basis": "instantaneous demand",
+      "origin": "M629 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.0,
+      "warning": null
+    },
+    "kind": "electricity",
+    "unit_id": "M629",
+    "utility_id": "M629:electricity"
+  },
+  {
+    "demand": {
+      "basis": "instantaneous demand",
+      "origin": "M698 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.0,
+      "warning": null
+    },
+    "kind": "electricity",
+    "unit_id": "M698",
+    "utility_id": "M698:electricity"
+  },
+  {
+    "demand": {
+      "basis": "instantaneous demand",
+      "origin": "M699 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.0,
+      "warning": null
+    },
+    "kind": "electricity",
+    "unit_id": "M699",
+    "utility_id": "M699:electricity"
+  },
+  {
+    "demand": {
+      "basis": "instantaneous demand",
+      "origin": "M798 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.0,
+      "warning": null
+    },
+    "kind": "electricity",
+    "unit_id": "M798",
+    "utility_id": "M798:electricity"
+  },
+  {
+    "demand": {
+      "basis": "instantaneous demand",
+      "origin": "M799 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.0,
+      "warning": null
+    },
+    "kind": "electricity",
+    "unit_id": "M799",
+    "utility_id": "M799:electricity"
+  },
+  {
+    "demand": {
+      "basis": "instantaneous demand",
+      "origin": "R401 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.11190548070912663,
+      "warning": null
+    },
+    "kind": "electricity",
+    "unit_id": "R401",
+    "utility_id": "R401:electricity"
+  },
+  {
+    "demand": {
+      "basis": "instantaneous demand",
+      "origin": "R501 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 2.17299198970318,
+      "warning": null
+    },
+    "kind": "electricity",
+    "unit_id": "R501",
+    "utility_id": "R501:electricity"
+  },
+  {
+    "demand": {
+      "basis": "heat utility duty",
+      "origin": "R501 heat utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kJ/hr",
+      "value": 23066.949243267598,
+      "warning": null
+    },
+    "kind": "heat",
+    "unit_id": "R501",
+    "utility_id": "R501:heat:1"
+  },
+  {
+    "demand": {
+      "basis": "instantaneous demand",
+      "origin": "R601 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.0,
+      "warning": null
+    },
+    "kind": "electricity",
+    "unit_id": "R601",
+    "utility_id": "R601:electricity"
+  },
+  {
+    "demand": {
+      "basis": "instantaneous demand",
+      "origin": "R602 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.0,
+      "warning": null
+    },
+    "kind": "electricity",
+    "unit_id": "R602",
+    "utility_id": "R602:electricity"
+  },
+  {
+    "demand": {
+      "basis": "instantaneous demand",
+      "origin": "R711 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.05346868946261124,
+      "warning": null
+    },
+    "kind": "electricity",
+    "unit_id": "R711",
+    "utility_id": "R711:electricity"
+  },
+  {
+    "demand": {
+      "basis": "instantaneous demand",
+      "origin": "S201 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 15.425171272417879,
+      "warning": null
+    },
+    "kind": "electricity",
+    "unit_id": "S201",
+    "utility_id": "S201:electricity"
+  },
+  {
+    "demand": {
+      "basis": "instantaneous demand",
+      "origin": "S601 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.0,
+      "warning": null
+    },
+    "kind": "electricity",
+    "unit_id": "S601",
+    "utility_id": "S601:electricity"
+  },
+  {
+    "demand": {
+      "basis": "instantaneous demand",
+      "origin": "S701 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.5413321328005958,
+      "warning": null
+    },
+    "kind": "electricity",
+    "unit_id": "S701",
+    "utility_id": "S701:electricity"
+  },
+  {
+    "demand": {
+      "basis": "instantaneous demand",
+      "origin": "S711 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.004200085899963048,
+      "warning": null
+    },
+    "kind": "electricity",
+    "unit_id": "S711",
+    "utility_id": "S711:electricity"
+  },
+  {
+    "demand": {
+      "basis": "instantaneous demand",
+      "origin": "T701 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.1443552354134922,
+      "warning": null
+    },
+    "kind": "electricity",
+    "unit_id": "T701",
+    "utility_id": "T701:electricity"
+  },
+  {
+    "demand": {
+      "basis": "instantaneous demand",
+      "origin": "U101 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 4.642872862170526,
+      "warning": null
+    },
+    "kind": "electricity",
+    "unit_id": "U101",
+    "utility_id": "U101:electricity"
+  },
+  {
+    "demand": {
+      "basis": "instantaneous demand",
+      "origin": "V501 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.0,
+      "warning": null
+    },
+    "kind": "electricity",
+    "unit_id": "V501",
+    "utility_id": "V501:electricity"
+  },
+  {
+    "demand": {
+      "basis": "instantaneous demand",
+      "origin": "W711 power utility",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kW",
+      "value": 0.0,
+      "warning": null
+    },
+    "kind": "electricity",
+    "unit_id": "W711",
+    "utility_id": "W711:electricity"
+  }
+]

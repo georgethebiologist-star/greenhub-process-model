@@ -1,0 +1,4 @@
+﻿register_id,topic,python_variable,required_value,unit,data_status,reason_missing,recommended_source,affected_files,notes
+MEM_LIM_001,module area,membrane_area,,m2,missing,Pilot abstract does not expose module area.,Full pilot paper supplementary information or manufacturer module datasheet.,operating_conditions_and_design.csv,
+MEM_LIM_002,ageing,permeance_decay_rate,,%/year,missing,No directly transferable industrial ageing curve was tabulated.,Long-duration wet-biogas module test with before/after permeance.,ageing_and_humidity.csv,
+MEM_LIM_003,cost scaling,cost_scaling_exponent,,dimensionless,missing,Only cost curves were available.,Tabulated vendor quotations by capacity and cost year.,cost_dataset.csv,No graph digitization performed.

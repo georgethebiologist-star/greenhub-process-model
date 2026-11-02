@@ -1,9 +1,9 @@
 {
-  "label": "Baseline screening preview",
-  "sourceRun": "34d3731b4e4e4f11bb06ae87e1ecabb7",
+  "label": "F1 baseline screening preview (PEF disabled)",
+  "sourceRun": "56637c072af84ec2bf77e5f24e4299bf",
   "sourceCommit": "",
   "scenario": [
-    "F2",
+    "F1",
     "PR3",
     "AD1",
     "BG2",
@@ -12,10 +12,10 @@
   "feedTonnes": 8759.999999999998,
   "dryFeedTonnes": 3065.999999999999,
   "people": 5,
-  "paidHoursPerPerson": 1500,
-  "capital": 1443281.0496535953,
-  "revenue": 132776.07361721294,
-  "opex": 570002.8258557371,
+  "paidHoursPerPerson": 1500.0,
+  "capital": 1056825.43535767,
+  "revenue": 78156.1669178204,
+  "opex": 518306.3221424037,
   "costs": [
     {
       "name": "Operators, maintenance, laboratory and management",
@@ -26,12 +26,12 @@
       "value": 94345.19999999998
     },
     {
-      "name": "Dutch non-household electricity tariff, 500\u20131,999 MWh/y",
-      "value": 54329.58856064858
+      "name": "Dutch non-household electricity tariff, 500–1,999 MWh/y",
+      "value": 17008.525621617206
     },
     {
       "name": "Natural gas boiler useful heat proxy",
-      "value": 33212.41630201669
+      "value": 26566.08781363307
     },
     {
       "name": "Acid and caustic (H2SO4/HCl, NaOH/lime)",
@@ -43,33 +43,33 @@
     },
     {
       "name": "Magnesium salt (MgCl2/MgO/MgSO4)",
-      "value": null
+      "value": 7.311678197290334e-15
     },
     {
       "name": "Routine plant maintenance allowance",
-      "value": 28865.6209930719
+      "value": 21136.508707153404
     }
   ],
   "revenues": [
     {
       "name": "dry_protein_product",
-      "value": 112305.80674027727
+      "value": 64625.62812372172
     },
     {
       "name": "biomethane",
-      "value": 10859.974934446958
+      "value": 5492.255838472753
     },
     {
       "name": "Solid struvite",
-      "value": 0.0
+      "value": 1.3279261370573128e-14
     },
     {
       "name": "Ammonium sulfate (dry equivalent)",
-      "value": 7619.560510925692
+      "value": 6453.576761260079
     },
     {
       "name": "nutrient_rich_solids",
-      "value": 1990.7314315630158
+      "value": 1584.706194365857
     }
   ],
   "capitalLines": [
@@ -86,10 +86,6 @@
       "value": 66899.0
     },
     {
-      "name": "Continuous pulsed-electric-field skid",
-      "value": 680000.0
-    },
-    {
       "name": "Acid/base dosing and precipitation tanks",
       "value": 9723.939580156575
     },
@@ -99,15 +95,15 @@
     },
     {
       "name": "CSTR / PFR / thermophilic / two-stage digester package",
-      "value": 12725.228374244341
+      "value": 323640.98785368894
     },
     {
       "name": "Gas holder, condensate traps, flare, H2S removal, drying and filters",
-      "value": 16577.083354194165
+      "value": 9739.549263869274
     },
     {
       "name": "Water scrubbing upgrader package",
-      "value": 27029.192908440993
+      "value": 16495.353223396232
     },
     {
       "name": "Digestate screw press / decanter / filter press",
@@ -122,9 +118,9 @@
       "value": 69519.45851579547
     }
   ],
-  "electricityKwh": 272875.8842825142,
-  "heatKwh": 418819.8777051285,
-  "methaneKg": 215.20438201789187,
+  "electricityKwh": 85427.04983233151,
+  "heatKwh": 335007.4125300513,
+  "methaneKg": 110.18938468725275,
   "teaMissing": [
     {
       "cost_id": "TEA-043",
@@ -137,12 +133,6 @@
       "code": "missing_quantity",
       "required_input": "annual simulation quantity or explicit project basis",
       "message": "Activated carbon / H2S adsorbent: annual simulation quantity or explicit project basis is required; no value was invented."
-    },
-    {
-      "cost_id": "TEA-051",
-      "code": "missing_quantity",
-      "required_input": "annual simulation quantity or explicit project basis",
-      "message": "Magnesium salt (MgCl2/MgO/MgSO4): annual simulation quantity or explicit project basis is required; no value was invented."
     },
     {
       "cost_id": "PROJECT-BOUNDARY",
@@ -176,11 +166,11 @@
     {
       "product_id": "dry_protein_product",
       "equipment_or_cost_item": "dry_protein_product",
-      "quantity": 70191.12921267329,
+      "quantity": 40391.01757732607,
       "quantity_unit": "kg/year",
       "unit_cost_eur": 1.6,
       "reference_unit": "EUR/kg",
-      "annual_revenue_eur": 112305.80674027727,
+      "annual_revenue_eur": 64625.62812372172,
       "quantity_source": "simulation_product_output",
       "quantity_component": null,
       "warning": "WUR table reports potato feed protein 0.8 EUR/kg and soy concentrates 1.2-2.8 EUR/kg. Grass-derived product must match protein %, digestibility, contaminants and buyer grade; low-price proxy only, not food-grade isolate. | Actual roadside grass protein stream grade is unknown; the report's gel has ~29.7% protein on dry matter and is not equivalent to a dry feed concentrate."
@@ -188,11 +178,11 @@
     {
       "product_id": "biomethane",
       "equipment_or_cost_item": "biomethane",
-      "quantity": 12340.88060732609,
+      "quantity": 6241.19981644631,
       "quantity_unit": "m3/year",
       "unit_cost_eur": 0.88,
       "reference_unit": "EUR/m3",
-      "annual_revenue_eur": 10859.974934446958,
+      "annual_revenue_eur": 5492.255838472753,
       "quantity_source": "dry gas at 293.15 K and 101325 Pa; ideal-gas reference conversion",
       "quantity_component": null,
       "warning": "Dry product gas, not compressed process volume or Nm3; sale/injection quality and certificate eligibility remain unverified."
@@ -200,11 +190,11 @@
     {
       "product_id": "phosphorus_product",
       "equipment_or_cost_item": "Solid struvite",
-      "quantity": 0.0,
+      "quantity": 2.405663291770494e-14,
       "quantity_unit": "kg/year",
       "unit_cost_eur": 0.552,
       "reference_unit": "EUR/kg",
-      "annual_revenue_eur": 0.0,
+      "annual_revenue_eur": 1.3279261370573128e-14,
       "quantity_source": "confirmed_component:Struvite; dry pure-compound equivalent, finishing/grade unverified",
       "quantity_component": "Struvite",
       "warning": "Only actual struvite compound earns baseline revenue. Wet separator solids, dissolved P and a marketed liquid fertilizer blend are not equivalent to pure solid struvite. Pure struvite contains approximately 5.7% N, 12.6% elemental P and no K. No EUR/L conversion without a defined liquid formulation, concentration, density and buyer price. FX: 0.92 EUR/USD is an explicit assumption, not a market quote."
@@ -212,11 +202,11 @@
     {
       "product_id": "ammonium_product",
       "equipment_or_cost_item": "Ammonium sulfate (dry equivalent)",
-      "quantity": 24759.733901753727,
+      "quantity": 20970.87398862702,
       "quantity_unit": "kg/year",
       "unit_cost_eur": 0.30774,
       "reference_unit": "EUR/kg",
-      "annual_revenue_eur": 7619.560510925692,
+      "annual_revenue_eur": 6453.576761260079,
       "quantity_source": "confirmed_component:AmmoniumSulfate; dry pure-compound equivalent, finishing/grade unverified",
       "quantity_component": "AmmoniumSulfate",
       "warning": "Price dry ammonium-sulfate compound equivalent, never carrier water. Recovered solution is not 98-99% agricultural-grade salt; crystallization/drying, purity, contamination, transport and offtake are unverified. FX: 0.92 EUR/USD is an explicit assumption, not a market quote."
@@ -224,11 +214,11 @@
     {
       "product_id": "nutrient_rich_solids",
       "equipment_or_cost_item": "nutrient_rich_solids",
-      "quantity": 49768.285789075395,
+      "quantity": 39617.65485914642,
       "quantity_unit": "kg/year",
       "unit_cost_eur": 0.04,
       "reference_unit": "EUR/kg",
-      "annual_revenue_eur": 1990.7314315630158,
+      "annual_revenue_eur": 1584.706194365857,
       "quantity_source": "simulation_product_output",
       "quantity_component": null,
       "warning": "Grass silage market is 40-90 EUR/t but nutrient-rich solids could instead be a low-value residue; base 40 is a scenario placeholder only where agronomic/feed quality and contaminants pass. If waste classification applies, value can be negative after disposal cost. | Must characterize dry matter |  NPK |  contaminants |  pathogens |  stability and legal product status; no generic price for this heterogeneous stream."
@@ -276,9 +266,9 @@
     }
   },
   "recovery": {
-    "dissolvedPEquivalentKg": 1150.625241886035,
-    "orthophosphatePKg": 0.0,
-    "ammoniumNitrogenKg": 5407.757653871637
+    "dissolvedPEquivalentKg": 651.6370347055612,
+    "orthophosphatePKg": 3.799042852311836e-15,
+    "ammoniumNitrogenKg": 4578.041596569279
   },
   "sugarAudit": {
     "run_id": "34d3731b4e4e4f11bb06ae87e1ecabb7",

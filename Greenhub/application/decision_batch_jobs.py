@@ -8,13 +8,12 @@ from uuid import uuid4
 import json
 import time
 
-from Greenhub.scenario_exploration import pareto_front, sample_configurations, set_path
+from Greenhub.scenario_exploration import pareto_front, pareto_front_3d, sample_configurations, set_path
 
 
 class DecisionBatchJobs:
-    def __init__(self, root: Path, evaluator, *, read_roots=()):
+    def __init__(self, root: Path, evaluator):
         self.root = Path(root) / "decision_batches"
-        self.read_roots = tuple(Path(item) / "decision_batches" for item in read_roots)
         self.root.mkdir(parents=True, exist_ok=True)
         self.evaluator = evaluator
         self._lock = RLock()
@@ -147,17 +146,22 @@ class DecisionBatchJobs:
         try:
             doc["pareto_fronts"] = [pareto_front(reports, "operating_profit", metric)
                                     for metric in ("climate", "installed_capex", "route_trl")]
+            doc["optimization_fronts"] = {
+                "net_carbon_vs_npv": pareto_front(reports, "npv", "net_carbon", require_technical_eligibility=False),
+                "subsidy_vs_npv": pareto_front(reports, "npv", "subsidy_granted", require_technical_eligibility=False),
+                "net_carbon_npv_subsidy": pareto_front_3d(reports, ("net_carbon", "npv", "subsidy_granted"), require_technical_eligibility=False),
+                "frontier_definition": "Sample-bounded numeric nondominance; no-profit-loss filter; technical/evidence eligibility remains attached to each sample and does not silently remove conditional routes.",
+            }
         except Exception as error:
             doc["pareto_fronts"] = []
+            doc["optimization_fronts"] = {}
             doc["pareto_error"] = f"{type(error).__name__}: {error}"
         doc["status"] = "completed"; doc["updated_at"] = self._now(); self._save(doc)
 
     def _path(self, job_id):
         if not job_id.isalnum(): raise ValueError("Invalid decision batch job ID.")
         filename = f"{job_id}.json"
-        primary = self.root / filename
-        if primary.exists(): return primary
-        return next((root / filename for root in self.read_roots if (root / filename).exists()), primary)
+        return self.root / filename
 
     def _load(self, job_id):
         path = self._path(job_id)

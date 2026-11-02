@@ -1,0 +1,10 @@
+﻿dataset_id,filename,purpose,row_count,primary_key,encoding,delimiter,integration_readiness,material_state_rule,known_limitations
+DS-PU-001,pef_operating_parameters.csv,PEF equipment and operating conditions,30,parameter_id,UTF-8 with BOM,",",partial,Fresh wet alfalfa and grass-clover rows are explicit,Several electrical waveform and conductivity fields missing.
+DS-PU-002,pef_treatment_response.csv,"PEF juice, protein and solids responses",21,parameter_id,UTF-8 with BOM,",",partial,Fresh wet leafy biomass only in populated rows,"No cell-disintegration index, sugars, temperature rise or efficiency."
+DS-PU-003,ultrasound_operating_parameters.csv,Full amplitude-time ultrasound condition matrix,65,parameter_id,UTF-8 with BOM,",",condition_matrix_ready,Dry powder slurry is marked separately from fresh wet biomass,Specific energy and power density unavailable.
+DS-PU-004,ultrasound_treatment_response.csv,Ultrasound response observations with graph-only gaps,71,parameter_id,UTF-8 with BOM,",",partial,Pumpkin leaf proxy only,Most time-course values are graph-only and not digitized.
+DS-PU-005,pef_ultrasound_equation_registry.csv,Source and candidate equations,7,equation_id,UTF-8 with BOM,",",registry_ready,Original material and state recorded,Candidate energy equations require measurement.
+DS-PU-006,pef_ultrasound_scenario_controller.csv,Scenario routing and missing-data guardrails,6,scenario_id,UTF-8 with BOM,",",ready,Technology and material state separated,US continuous-flow scenario lacks direct data.
+DS-PU-007,source_register.csv,Bibliographic source register,3,source_id,UTF-8 with BOM,",",ready,Material scope explicit,Small primary-source set.
+DS-PU-008,assumption_and_missing_data_register.csv,Open data gaps,10,register_id,UTF-8 with BOM,",",ready,No numeric assumptions,High-priority measurements remain.
+DS-PU-009,validation_report.csv,Final structural and numeric traceability validation,9,filename,UTF-8 with BOM,",",ready,not applicable,Schema-level validation does not independently reproduce experiments.

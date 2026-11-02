@@ -80,13 +80,15 @@ FRONT_END_SCENARIOS = {
 
 
 def get_front_end_scenario(scenario_id: str) -> FrontEndScenario:
-    """Return an F0-F3 definition with a clear validation error."""
+    """Return an enabled F0/F1 definition; PEF routes are retired."""
 
     key = str(scenario_id).upper()
     try:
+        if key not in {"F0", "F1"}:
+            raise KeyError(key)
         return FRONT_END_SCENARIOS[key]
     except KeyError as error:
-        raise ValueError(f"Unknown Phase 3 scenario '{scenario_id}'; use F0, F1, F2, or F3.") from error
+        raise ValueError(f"Feed preparation scenario '{scenario_id}' is disabled; use F0 or F1 (no PEF).") from error
 
 
 @dataclass(frozen=True)

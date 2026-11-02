@@ -1,5 +1,67 @@
 {
   "$defs": {
+    "biomass_schedule": {
+      "additionalProperties": false,
+      "properties": {
+        "active_months": {
+          "items": {
+            "maximum": 12,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "annual_available_biomass_tonnes": {
+          "default": 30000,
+          "minimum": 0,
+          "type": "number"
+        },
+        "annual_processed_biomass_tonnes": {
+          "default": 30000,
+          "minimum": 0,
+          "type": "number"
+        },
+        "collection_refinery_fraction": {
+          "default": 1,
+          "maximum": 1,
+          "minimum": 0,
+          "type": "number"
+        },
+        "feed_basis": {
+          "enum": [
+            "tonnes_per_year",
+            "kg_per_hr"
+          ],
+          "type": "string"
+        },
+        "feed_kg_per_hr": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "peak_date": {
+          "format": "date",
+          "type": "string"
+        },
+        "season_end": {
+          "format": "date",
+          "type": "string"
+        },
+        "season_start": {
+          "format": "date",
+          "type": "string"
+        },
+        "spread_days": {
+          "maximum": 366,
+          "minimum": 1,
+          "type": "number"
+        }
+      },
+      "type": [
+        "object",
+        "null"
+      ]
+    },
     "initial_storage_inventory": {
       "additionalProperties": false,
       "properties": {
@@ -159,7 +221,7 @@
           "type": "string"
         },
         "feed_preparation": {
-          "default": "F2",
+          "default": "F1",
           "type": "string"
         },
         "nutrient_recovery": {
@@ -195,6 +257,9 @@
         "null"
       ]
     },
+    "biomass_schedule": {
+      "$ref": "#/$defs/biomass_schedule"
+    },
     "calculation_mode": {
       "default": "structural",
       "enum": [
@@ -229,6 +294,14 @@
       },
       "type": "array"
     },
+    "feed_composition": {
+      "additionalProperties": {
+        "maximum": 1,
+        "minimum": 0,
+        "type": "number"
+      },
+      "type": "object"
+    },
     "feed_overrides": {
       "$ref": "#/$defs/parameter_overrides"
     },
@@ -246,6 +319,13 @@
     },
     "operating_schedule": {
       "$ref": "#/$defs/operating_schedule"
+    },
+    "plant_capacity_kg_hr": {
+      "exclusiveMinimum": 0,
+      "type": [
+        "number",
+        "null"
+      ]
     },
     "project_id": {
       "minLength": 1,
@@ -331,6 +411,13 @@
         "null"
       ]
     },
+    "storage_conditions": {
+      "description": "Opt-in component retention or source-gated grass reaction package; see decision-support options.",
+      "type": [
+        "object",
+        "null"
+      ]
+    },
     "strict_validation": {
       "default": true,
       "type": "boolean"
@@ -365,6 +452,13 @@
     "user_notes": {
       "type": [
         "string",
+        "null"
+      ]
+    },
+    "wet_feed_rate_kg_hr": {
+      "exclusiveMinimum": 0,
+      "type": [
+        "number",
         "null"
       ]
     }

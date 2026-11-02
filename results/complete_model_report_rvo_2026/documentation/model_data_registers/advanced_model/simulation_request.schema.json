@@ -1,0 +1,473 @@
+{
+  "$defs": {
+    "biomass_schedule": {
+      "additionalProperties": false,
+      "properties": {
+        "active_months": {
+          "items": {
+            "maximum": 12,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "annual_available_biomass_tonnes": {
+          "default": 30000,
+          "minimum": 0,
+          "type": "number"
+        },
+        "annual_processed_biomass_tonnes": {
+          "default": 30000,
+          "minimum": 0,
+          "type": "number"
+        },
+        "collection_refinery_fraction": {
+          "default": 1,
+          "maximum": 1,
+          "minimum": 0,
+          "type": "number"
+        },
+        "feed_basis": {
+          "enum": [
+            "tonnes_per_year",
+            "kg_per_hr"
+          ],
+          "type": "string"
+        },
+        "feed_kg_per_hr": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "peak_date": {
+          "format": "date",
+          "type": "string"
+        },
+        "season_end": {
+          "format": "date",
+          "type": "string"
+        },
+        "season_start": {
+          "format": "date",
+          "type": "string"
+        },
+        "spread_days": {
+          "maximum": 366,
+          "minimum": 1,
+          "type": "number"
+        }
+      },
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "initial_storage_inventory": {
+      "additionalProperties": false,
+      "properties": {
+        "component_mass_fractions": {
+          "additionalProperties": {
+            "minimum": 0,
+            "type": "number"
+          },
+          "type": "object"
+        },
+        "moisture_fraction": {
+          "maximum": 1,
+          "minimum": 0,
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "storage_age_h": {
+          "default": 0,
+          "minimum": 0,
+          "type": "number"
+        },
+        "temperature_k": {
+          "exclusiveMinimum": 0,
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "total_mass_kg": {
+          "default": 0,
+          "minimum": 0,
+          "type": "number"
+        }
+      },
+      "type": "object"
+    },
+    "operating_schedule": {
+      "additionalProperties": false,
+      "properties": {
+        "operating_dates": {
+          "items": {
+            "format": "date",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "operating_days_per_week": {
+          "maximum": 7,
+          "minimum": 0,
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "operating_hours_per_day": {
+          "maximum": 24,
+          "minimum": 0,
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "shutdown_dates": {
+          "items": {
+            "format": "date",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "target_throughput_kg_hr": {
+          "minimum": 0,
+          "type": [
+            "number",
+            "null"
+          ]
+        }
+      },
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "parameter_override": {
+      "additionalProperties": false,
+      "properties": {
+        "parameter_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "provenance_note": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "reason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "rebuild_required": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "requester": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "timestamp": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "unit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "value": {
+          "type": [
+            "number",
+            "string",
+            "boolean"
+          ]
+        }
+      },
+      "required": [
+        "parameter_id",
+        "value"
+      ],
+      "type": "object"
+    },
+    "parameter_overrides": {
+      "items": {
+        "$ref": "#/$defs/parameter_override"
+      },
+      "type": "array"
+    },
+    "scenario_selection": {
+      "additionalProperties": false,
+      "properties": {
+        "anaerobic_digestion": {
+          "default": "AD1",
+          "type": "string"
+        },
+        "biogas_upgrading": {
+          "default": "BG2",
+          "type": "string"
+        },
+        "feed_preparation": {
+          "default": "F1",
+          "type": "string"
+        },
+        "nutrient_recovery": {
+          "default": "NR4",
+          "type": "string"
+        },
+        "process_order": {
+          "default": "A",
+          "enum": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "type": "string"
+        },
+        "protein_recovery": {
+          "default": "PR3",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "$id": "simulation_request.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "annual_biomass_target": {
+      "exclusiveMinimum": 0,
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "biomass_schedule": {
+      "$ref": "#/$defs/biomass_schedule"
+    },
+    "calculation_mode": {
+      "default": "structural",
+      "enum": [
+        "structural",
+        "literature_default",
+        "project_data",
+        "calibrated",
+        "expert_override"
+      ],
+      "type": "string"
+    },
+    "design_overrides": {
+      "$ref": "#/$defs/parameter_overrides"
+    },
+    "end_date": {
+      "format": "date",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "expert_scientific_overrides": {
+      "$ref": "#/$defs/parameter_overrides"
+    },
+    "export_formats": {
+      "items": {
+        "enum": [
+          "json",
+          "csv"
+        ],
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "feed_composition": {
+      "additionalProperties": {
+        "maximum": 1,
+        "minimum": 0,
+        "type": "number"
+      },
+      "type": "object"
+    },
+    "feed_overrides": {
+      "$ref": "#/$defs/parameter_overrides"
+    },
+    "feed_supply_profile_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "initial_storage_inventory": {
+      "$ref": "#/$defs/initial_storage_inventory"
+    },
+    "operating_overrides": {
+      "$ref": "#/$defs/parameter_overrides"
+    },
+    "operating_schedule": {
+      "$ref": "#/$defs/operating_schedule"
+    },
+    "plant_capacity_kg_hr": {
+      "exclusiveMinimum": 0,
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "project_id": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "request_id": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "requested_outputs": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "detail_level": {
+            "default": "summary",
+            "type": "string"
+          },
+          "output_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "output_id"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "requested_plots": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "formats": {
+            "items": {
+              "enum": [
+                "json",
+                "csv",
+                "png",
+                "svg"
+              ],
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "plot_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "plot_id"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "resolution_mode": {
+      "default": "steady_state",
+      "enum": [
+        "steady_state",
+        "monthly_independent",
+        "quasi_dynamic",
+        "dynamic"
+      ],
+      "type": "string"
+    },
+    "scenarios": {
+      "$ref": "#/$defs/scenario_selection"
+    },
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "selected_month": {
+      "default": "July",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "start_date": {
+      "format": "date",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "storage_conditions": {
+      "description": "Opt-in component retention or source-gated grass reaction package; see decision-support options.",
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "strict_validation": {
+      "default": true,
+      "type": "boolean"
+    },
+    "time_horizon": {
+      "maxItems": 2,
+      "minItems": 2,
+      "prefixItems": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "time_step": {
+      "enum": [
+        "monthly",
+        "daily",
+        null
+      ],
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "user_notes": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "wet_feed_rate_kg_hr": {
+      "exclusiveMinimum": 0,
+      "type": [
+        "number",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "request_id",
+    "project_id"
+  ],
+  "title": "GreenHub SimulationRequest",
+  "type": "object"
+}

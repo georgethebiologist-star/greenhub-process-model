@@ -1,0 +1,12 @@
+filename,purpose,row_count,populated_numeric_rows,missing_rows,integration_status,schema
+digestate_total_composition.csv,digestate total composition,17,12,5,ready_with_documented_gaps,common parameter schema
+digestate_soluble_composition.csv,digestate soluble composition,14,8,6,ready_with_documented_gaps,common parameter schema
+digestate_ionic_composition.csv,digestate ionic composition,13,4,9,ready_with_documented_gaps,common parameter schema
+digestate_physical_properties.csv,digestate physical properties,8,3,5,ready_with_documented_gaps,common parameter schema
+digestate_speciation_inputs.csv,digestate speciation inputs,9,3,6,ready_with_documented_gaps,common parameter schema
+digestate_separation_performance.csv,digestate separation performance,31,31,0,ready_with_documented_gaps,common parameter schema
+digestate_separation_equipment.csv,digestate separation equipment,20,5,15,ready_with_documented_gaps,common parameter schema
+digestate_seasonal_variability.csv,digestate seasonal variability,56,0,56,ready_with_documented_gaps,common parameter schema
+equation_registry.csv,equation registry,4,0,0,ready_with_documented_gaps,registry-specific schema
+source_register.csv,source register,3,0,0,ready_with_documented_gaps,registry-specific schema
+assumption_and_missing_data_register.csv,assumption and missing data register,102,0,0,ready_with_documented_gaps,registry-specific schema

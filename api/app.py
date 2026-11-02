@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import mimetypes
 import re
+import csv
 from dataclasses import dataclass
 from io import BytesIO
 from pathlib import Path
@@ -48,6 +49,7 @@ class APIError(Exception):
 class FileResponse:
     path: Path
     download_name: str
+    inline: bool = False
 
 
 class GreenHubAPI:
@@ -64,7 +66,6 @@ class GreenHubAPI:
         self.decision_batch_jobs = DecisionBatchJobs(
             (run_root or RESULTS_DIR / "runs"),
             __import__("Greenhub.application.decision_support_service", fromlist=["DecisionSupportService"]).DecisionSupportService(self.simulations).evaluate,
-            read_roots=() if run_root is not None else (RESULTS_DIR / "actual_pareto_2000",),
         )
         self.graphs = self.simulations.graphs
         self.plots = self.simulations.plots
@@ -106,6 +107,84 @@ class GreenHubAPI:
             from Greenhub.scenario_exploration import run_batch, sensitivity
             if method == 'GET' and path == '/api/v1/decision-support/options':
                 return options()
+            figure_match = re.fullmatch(r'/api/v1/decision-support/pareto/latest/figures/(protein_enabled|protein_bypass)', path)
+            if method == 'GET' and figure_match:
+                from Greenhub.settings import PROJECT_ROOT
+                group = figure_match.group(1)
+                artifact = PROJECT_ROOT / 'results' / 'report_figures' / '07_optimization' / f'pareto_3d_carbon_npv_support_{group}.png'
+                if not artifact.is_file():
+                    raise APIError(404, 'pareto_figure_not_found', 'The current Pareto figure is not available.')
+                return FileResponse(artifact, artifact.name, inline=True)
+            figure_index_path = '/api/v1/decision-support/pareto/latest/figure-index'
+            if method == 'GET' and path == figure_index_path:
+                from Greenhub.settings import PROJECT_ROOT
+                index_path = PROJECT_ROOT / 'results' / 'report_figures' / 'figure_index.csv'
+                if not index_path.is_file():
+                    raise APIError(404, 'pareto_figure_index_not_found', 'The current Pareto figure index is not available.')
+                figures = []
+                with index_path.open(encoding='utf-8-sig', newline='') as stream:
+                    for figure_id, row in enumerate(csv.DictReader(stream), 1):
+                        relative_path = Path(row['file_location'])
+                        artifact = (PROJECT_ROOT / relative_path).resolve()
+                        root = (PROJECT_ROOT / 'results' / 'report_figures').resolve()
+                        if not artifact.is_relative_to(root) or not artifact.is_file():
+                            continue
+                        figures.append({
+                            'figure_id': figure_id,
+                            'figure_name': row.get('figure_name'),
+                            'description': row.get('description'),
+                            'source_dataset': row.get('source_dataset'),
+                            'scenario': row.get('scenario'),
+                            'units': row.get('units'),
+                            'category': relative_path.parent.as_posix(),
+                            'image_url': f"/decision-support/pareto/latest/figures/by-id/{figure_id}",
+                        })
+                return {'schema_version': 'greenhub-rvo-figures-1.0', 'count': len(figures), 'figures': figures}
+            figure_by_id = re.fullmatch(r'/api/v1/decision-support/pareto/latest/figures/by-id/(\d+)', path)
+            if method == 'GET' and figure_by_id:
+                from Greenhub.settings import PROJECT_ROOT
+                index_path = PROJECT_ROOT / 'results' / 'report_figures' / 'figure_index.csv'
+                figure_id = int(figure_by_id.group(1))
+                if not index_path.is_file():
+                    raise APIError(404, 'pareto_figure_index_not_found', 'The current Pareto figure index is not available.')
+                with index_path.open(encoding='utf-8-sig', newline='') as stream:
+                    row = next((item for number, item in enumerate(csv.DictReader(stream), 1) if number == figure_id), None)
+                if row is None:
+                    raise APIError(404, 'pareto_figure_not_found', 'The requested indexed Pareto figure is not available.')
+                artifact = (PROJECT_ROOT / row['file_location']).resolve()
+                root = (PROJECT_ROOT / 'results' / 'report_figures').resolve()
+                if not artifact.is_relative_to(root) or not artifact.is_file():
+                    raise APIError(404, 'pareto_figure_not_found', 'The requested indexed Pareto figure is not available.')
+                return FileResponse(artifact, artifact.name, inline=True)
+            if method == 'GET' and path == '/api/v1/decision-support/pareto/latest/report':
+                from Greenhub.settings import PROJECT_ROOT
+                artifact = PROJECT_ROOT / 'results' / 'complete_model_report_rvo_2026' / 'GreenHub_RVO_Pareto_Report.pdf'
+                if not artifact.is_file():
+                    raise APIError(404, 'pareto_report_not_found', 'The current Pareto report is not available.')
+                return FileResponse(artifact, artifact.name)
+            if method == 'GET' and path == '/api/v1/decision-support/pareto/latest':
+                from Greenhub.settings import RESULTS_DIR
+                artifact = RESULTS_DIR / 'pareto_rvo_2026' / 'latest.json'
+                if not artifact.exists():
+                    raise APIError(404, 'pareto_not_found', 'No replacement RVO Pareto analysis has been published yet.')
+                source = json.loads(artifact.read_text(encoding='utf-8'))
+                groups = {}
+                for name, result in source.get('groups_payload', {}).items():
+                    groups[name] = {
+                        'group': result.get('group'),
+                        'requested_designs': result.get('requested_designs'),
+                        'sample_count': result.get('sample_count'),
+                        'evaluated_count': result.get('evaluated_count'),
+                        'rejected_count': result.get('rejected_count'),
+                        'fronts': result.get('fronts', {}),
+                        'selected_candidates': result.get('selected_candidates', {}),
+                    }
+                return {key: source.get(key) for key in (
+                    'schema_version', 'created_at_utc', 'seed', 'designs_per_protein_group',
+                    'feed_preparation', 'optimization_objectives', 'support_scenarios',
+                    'grant_awarding_organization', 'financial_basis', 'carbon_basis',
+                    'limitations', 'groups',
+                )} | {'groups_payload': groups}
             job_match = re.fullmatch(r'/api/v1/decision-support/batch-jobs/([a-zA-Z0-9]+)(?:/(cancel|resume))?', path)
             if job_match:
                 job_id, action = job_match.groups()
@@ -155,7 +234,7 @@ class GreenHubAPI:
                 return report
             match=re.fullmatch(r'/api/v1/decision-support/runs/([a-zA-Z0-9_-]+)',path)
             if method=='GET' and match:
-                artifact=self.repository.get(match.group(1)).run_directory/'decision_support.json'
+                artifact=self._stored_run_directory(match.group(1))/'decision_support.json'
                 if not artifact.exists(): raise APIError(404,'analysis_not_found','No decision-support analysis exists for this run.')
                 return json.loads(artifact.read_text(encoding='utf-8'))
         if path.startswith("/api/v1/dynamic-complete/"):
@@ -297,7 +376,16 @@ class GreenHubAPI:
         }
 
     def _run_resource(self, run_id: str, resource: str) -> object:
-        context = self.repository.get(run_id)
+        try:
+            context = self.repository.get(run_id)
+        except RunNotFoundError:
+            stored = {"units": "units.json", "utilities": "utilities.json"}.get(resource)
+            if stored is None:
+                raise
+            artifact = self._stored_run_directory(run_id) / stored
+            if not artifact.is_file():
+                raise RunNotFoundError(f"Stored run '{run_id}' has no '{resource}' resource.")
+            return json.loads(artifact.read_text(encoding="utf-8"))
         resources = {
             "status": lambda: self.simulations.get_run_status(run_id),
             "summary": lambda: self.results.get_summary(run_id),
@@ -321,6 +409,14 @@ class GreenHubAPI:
             return resources[resource]()
         except KeyError as error:
             raise APIError(404, "resource_not_found", f"Unknown simulation resource '{resource}'.") from error
+
+    def _stored_run_directory(self, run_id: str) -> Path:
+        from Greenhub.settings import RESULTS_DIR
+        root = Path(self.simulations.run_root or RESULTS_DIR / "runs").resolve()
+        candidate = (root / run_id).resolve()
+        if root not in candidate.parents or not candidate.is_dir():
+            raise APIError(404, "run_not_found", f"Stored run '{run_id}' was not found.")
+        return candidate
 
     def _artifact(self, run_id: str, reference: str) -> FileResponse:
         context = self.repository.get(run_id)
@@ -398,7 +494,7 @@ class GreenHubAPI:
         start_response("200 OK", [
             ("Content-Type", content_type),
             ("Content-Length", str(len(encoded))),
-            ("Content-Disposition", f'attachment; filename="{response.download_name}"'),
+            ("Content-Disposition", f'{"inline" if response.inline else "attachment"}; filename="{response.download_name}"'),
             ("Access-Control-Allow-Origin", "*"),
             ("Access-Control-Allow-Methods", "GET, POST, OPTIONS"),
         ])

@@ -6,7 +6,7 @@ import { runSimulation, DEFAULT_PARAMETERS, PROCESS_AREAS } from './src/data/gre
 
 async function startServer() {
   const app = express();
-  const PORT = 3000;
+  const PORT = Number(process.env.PORT || 3000);
 
   app.use(cors());
   app.use(express.json({ limit: '2mb' }));

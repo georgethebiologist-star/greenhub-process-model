@@ -1,0 +1,13 @@
+parameter_id,python_variable,value,unit,normalized_si_value,normalized_si_unit,basis,process,material_feed_type,operating_conditions,valid_range,data_status,source_title,authors,year,doi_or_stable_id,exact_location,notes,uncertainty,transferability,source_url
+EN_ABBA_EXT,external_energy_input,0,kWh,0,MJ,external purchased energy,air-bubble stripping,livestock-manure digestate liquid fraction,heat and power supplied by biogas CHP,,literature-reported,Ammonia Recovery from Livestock Manure Digestate through an Air-Bubble Stripping Reactor: Evaluation of Performance and Energy Balance,Abbà et al.,2023,10.3390/en16041643,energy-balance statement,Zero external energy is not zero process duty.,,high,https://doi.org/10.3390/en16041643
+EN_ABBA_T,operating_temperature_high,68,°C,341.15,K,bulk liquid temperature,thermal air stripping,livestock-manure digestate liquid fraction,highest tested,,measured,Ammonia Recovery from Livestock Manure Digestate through an Air-Bubble Stripping Reactor: Evaluation of Performance and Energy Balance,Abbà et al.,2023,10.3390/en16041643,abstract,,,high,https://doi.org/10.3390/en16041643
+EN_REQ_heat_duty,heat_duty,,,,,kW,stripping and absorption,digestate/gas,,,missing,,,,,,Needed to distinguish process duty from external utility demand.,,,
+EN_REQ_specific_heat,specific_heat,,,,,MJ/kg N,stripping and absorption,digestate/gas,,,missing,,,,,,Needed to distinguish process duty from external utility demand.,,,
+EN_REQ_blower_power,blower_power,,,,,kW,stripping and absorption,digestate/gas,,,missing,,,,,,Needed to distinguish process duty from external utility demand.,,,
+EN_REQ_pump_power,pump_power,,,,,kW,stripping and absorption,digestate/gas,,,missing,,,,,,Needed to distinguish process duty from external utility demand.,,,
+EN_REQ_vacuum_power,vacuum_power,,,,,kW,stripping and absorption,digestate/gas,,,missing,,,,,,Needed to distinguish process duty from external utility demand.,,,
+EN_REQ_specific_electricity,specific_electricity,,,,,kWh/kg N,stripping and absorption,digestate/gas,,,missing,,,,,,Needed to distinguish process duty from external utility demand.,,,
+EN_REQ_heat_recovery,heat_recovery,,,,,fraction,stripping and absorption,digestate/gas,,,missing,,,,,,Needed to distinguish process duty from external utility demand.,,,
+EN_REQ_CHP_heat,CHP_heat,,,,,kW,stripping and absorption,digestate/gas,,,missing,,,,,,Needed to distinguish process duty from external utility demand.,,,
+EN_REQ_CHP_power,CHP_power,,,,,kW,stripping and absorption,digestate/gas,,,missing,,,,,,Needed to distinguish process duty from external utility demand.,,,
+EN_REQ_cooling_duty,cooling_duty,,,,,kW,stripping and absorption,digestate/gas,,,missing,,,,,,Needed to distinguish process duty from external utility demand.,,,

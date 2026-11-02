@@ -1,0 +1,706 @@
+{
+  "job_id": "eed439a280ad488aa235a19b0efc32af",
+  "source_batch": "C:\\my\\Spaak\\Greenhub\\Model\\Greenhub\\results\\actual_pareto_2000\\decision_batches\\eed439a280ad488aa235a19b0efc32af.json",
+  "status": "Non-PEF (F1) BioSTEAM-evaluated process routes with screening TEA/LCA and candidate economic overlay",
+  "feed_preparation_filter": "F1; PEF (F2) excluded before Pareto filtering",
+  "rank_definition": "0 = highest annualized after-tax screening profit; 10 = lowest attributional climate load; intermediate ranks selected by normalized front arc length",
+  "groups": {
+    "all": {
+      "eligible_count": 1049,
+      "front_count": 42,
+      "front": [
+        {
+          "sample_id": "backend-eed439a2-1286",
+          "profit_eur_y": 75511.38340264936,
+          "climate_kg_co2e_y": 23292.991263030883
+        },
+        {
+          "sample_id": "backend-eed439a2-0140",
+          "profit_eur_y": 75272.17673937485,
+          "climate_kg_co2e_y": 23122.19141049279
+        },
+        {
+          "sample_id": "backend-eed439a2-1688",
+          "profit_eur_y": 71208.66114406307,
+          "climate_kg_co2e_y": 22238.294283354247
+        },
+        {
+          "sample_id": "backend-eed439a2-1180",
+          "profit_eur_y": 63426.23255295888,
+          "climate_kg_co2e_y": 22208.11933272837
+        },
+        {
+          "sample_id": "backend-eed439a2-1890",
+          "profit_eur_y": 63251.56352914535,
+          "climate_kg_co2e_y": 21477.017856559884
+        },
+        {
+          "sample_id": "backend-eed439a2-0032",
+          "profit_eur_y": 62757.08351278981,
+          "climate_kg_co2e_y": 20835.818080440848
+        },
+        {
+          "sample_id": "backend-eed439a2-0312",
+          "profit_eur_y": 62151.86650049489,
+          "climate_kg_co2e_y": 20520.901621967696
+        },
+        {
+          "sample_id": "backend-eed439a2-0953",
+          "profit_eur_y": 61682.19983284671,
+          "climate_kg_co2e_y": 19578.42193090768
+        },
+        {
+          "sample_id": "backend-eed439a2-0521",
+          "profit_eur_y": 56672.836734609824,
+          "climate_kg_co2e_y": 18354.79628530737
+        },
+        {
+          "sample_id": "backend-eed439a2-0699",
+          "profit_eur_y": 55440.56264035723,
+          "climate_kg_co2e_y": 17881.442622900733
+        },
+        {
+          "sample_id": "backend-eed439a2-1947",
+          "profit_eur_y": 54766.12084296623,
+          "climate_kg_co2e_y": 17249.348831252075
+        },
+        {
+          "sample_id": "backend-eed439a2-0416",
+          "profit_eur_y": 54129.30334124621,
+          "climate_kg_co2e_y": 16662.758720174676
+        },
+        {
+          "sample_id": "backend-eed439a2-1777",
+          "profit_eur_y": 49615.55042096357,
+          "climate_kg_co2e_y": 15818.995144487048
+        },
+        {
+          "sample_id": "backend-eed439a2-0132",
+          "profit_eur_y": 48727.85803560562,
+          "climate_kg_co2e_y": 15746.22479491011
+        },
+        {
+          "sample_id": "backend-eed439a2-1373",
+          "profit_eur_y": 47591.394536169944,
+          "climate_kg_co2e_y": 15187.175134631454
+        },
+        {
+          "sample_id": "backend-eed439a2-0341",
+          "profit_eur_y": 44380.324352236516,
+          "climate_kg_co2e_y": 15039.217374819169
+        },
+        {
+          "sample_id": "backend-eed439a2-1841",
+          "profit_eur_y": 43343.178441347634,
+          "climate_kg_co2e_y": 14979.37892071144
+        },
+        {
+          "sample_id": "backend-eed439a2-1696",
+          "profit_eur_y": 43220.32694786855,
+          "climate_kg_co2e_y": 14901.33738888544
+        },
+        {
+          "sample_id": "backend-eed439a2-1584",
+          "profit_eur_y": 42865.06285706557,
+          "climate_kg_co2e_y": 14833.073311873197
+        },
+        {
+          "sample_id": "backend-eed439a2-0104",
+          "profit_eur_y": 42041.092615703245,
+          "climate_kg_co2e_y": 14298.29029574214
+        },
+        {
+          "sample_id": "backend-eed439a2-1597",
+          "profit_eur_y": 40468.35398250262,
+          "climate_kg_co2e_y": 13339.674204594454
+        },
+        {
+          "sample_id": "backend-eed439a2-0513",
+          "profit_eur_y": 38750.93256780682,
+          "climate_kg_co2e_y": 12609.925248297797
+        },
+        {
+          "sample_id": "backend-eed439a2-1384",
+          "profit_eur_y": 36094.42601233048,
+          "climate_kg_co2e_y": 12479.800807263147
+        },
+        {
+          "sample_id": "backend-eed439a2-1216",
+          "profit_eur_y": 35088.01752776872,
+          "climate_kg_co2e_y": 11940.568403707774
+        },
+        {
+          "sample_id": "backend-eed439a2-0208",
+          "profit_eur_y": 34585.65471600341,
+          "climate_kg_co2e_y": 11379.886330129957
+        },
+        {
+          "sample_id": "backend-eed439a2-1901",
+          "profit_eur_y": 33306.55622135474,
+          "climate_kg_co2e_y": 10636.582679876272
+        },
+        {
+          "sample_id": "backend-eed439a2-1226",
+          "profit_eur_y": 32192.234133012076,
+          "climate_kg_co2e_y": 10332.86696844769
+        },
+        {
+          "sample_id": "backend-eed439a2-0759",
+          "profit_eur_y": 31244.539957309065,
+          "climate_kg_co2e_y": 10283.591690209207
+        },
+        {
+          "sample_id": "backend-eed439a2-1995",
+          "profit_eur_y": 29883.151548541056,
+          "climate_kg_co2e_y": 9380.38845467025
+        },
+        {
+          "sample_id": "backend-eed439a2-0558",
+          "profit_eur_y": 25378.50145614095,
+          "climate_kg_co2e_y": 8446.705418793092
+        },
+        {
+          "sample_id": "backend-eed439a2-0661",
+          "profit_eur_y": 23545.77360355219,
+          "climate_kg_co2e_y": 8435.534639377043
+        },
+        {
+          "sample_id": "backend-eed439a2-0048",
+          "profit_eur_y": 21778.0844004884,
+          "climate_kg_co2e_y": 8131.476745169427
+        },
+        {
+          "sample_id": "backend-eed439a2-0565",
+          "profit_eur_y": 20066.818278920644,
+          "climate_kg_co2e_y": 7827.648109004484
+        },
+        {
+          "sample_id": "backend-eed439a2-0469",
+          "profit_eur_y": 19804.72260920453,
+          "climate_kg_co2e_y": 7570.679095252304
+        },
+        {
+          "sample_id": "backend-eed439a2-0109",
+          "profit_eur_y": 19264.278595762735,
+          "climate_kg_co2e_y": 7460.087484973716
+        },
+        {
+          "sample_id": "backend-eed439a2-1816",
+          "profit_eur_y": 18874.634686687732,
+          "climate_kg_co2e_y": 7411.334763383158
+        },
+        {
+          "sample_id": "backend-eed439a2-0512",
+          "profit_eur_y": 16276.245112983474,
+          "climate_kg_co2e_y": 7355.578208784717
+        },
+        {
+          "sample_id": "backend-eed439a2-1529",
+          "profit_eur_y": 1686.5396628410663,
+          "climate_kg_co2e_y": 7344.435005922949
+        },
+        {
+          "sample_id": "backend-eed439a2-1312",
+          "profit_eur_y": -3352.3851320980875,
+          "climate_kg_co2e_y": 6918.9487095335835
+        },
+        {
+          "sample_id": "backend-eed439a2-1325",
+          "profit_eur_y": -8009.383401536278,
+          "climate_kg_co2e_y": 6562.809142119711
+        },
+        {
+          "sample_id": "backend-eed439a2-1580",
+          "profit_eur_y": -8618.650015250885,
+          "climate_kg_co2e_y": 6529.743420019193
+        },
+        {
+          "sample_id": "backend-eed439a2-1211",
+          "profit_eur_y": -9048.308173582966,
+          "climate_kg_co2e_y": 6405.144733508544
+        }
+      ],
+      "ranks": [
+        {
+          "rank": 0,
+          "sample_id": "backend-eed439a2-1286",
+          "source_sample_id": "actual-42-1286",
+          "run_id": "1bb3f182da164633a673cb57007ce90d",
+          "report": "C:\\my\\Spaak\\Greenhub\\Model\\results\\report_figures\\biosteam_frontiers\\all\\rank_00.json",
+          "configuration": {
+            "feed_preparation": "F1",
+            "protein_recovery": "PR3",
+            "anaerobic_digestion": "AD1",
+            "biogas_upgrading": "BG0",
+            "nutrient_recovery": "NR3",
+            "process_order": "A"
+          },
+          "feed_rate_kg_h": 1389.586370652431,
+          "profit_eur_y": 75511.38340264936,
+          "climate_kg_co2e_y": 23292.991263030883
+        },
+        {
+          "rank": 1,
+          "sample_id": "backend-eed439a2-1180",
+          "source_sample_id": "actual-42-1180",
+          "run_id": "5bee2e26dc3c493494a3e59fb53be108",
+          "report": "C:\\my\\Spaak\\Greenhub\\Model\\results\\report_figures\\biosteam_frontiers\\all\\rank_01.json",
+          "configuration": {
+            "feed_preparation": "F1",
+            "protein_recovery": "PR2",
+            "anaerobic_digestion": "AD1",
+            "biogas_upgrading": "BG3",
+            "nutrient_recovery": "NR3",
+            "process_order": "A"
+          },
+          "feed_rate_kg_h": 1324.8367802847365,
+          "profit_eur_y": 63426.23255295888,
+          "climate_kg_co2e_y": 22208.11933272837
+        },
+        {
+          "rank": 2,
+          "sample_id": "backend-eed439a2-0953",
+          "source_sample_id": "actual-42-0953",
+          "run_id": "30068847a9d7468a9ad5cdec884bec5b",
+          "report": "C:\\my\\Spaak\\Greenhub\\Model\\results\\report_figures\\biosteam_frontiers\\all\\rank_02.json",
+          "configuration": {
+            "feed_preparation": "F1",
+            "protein_recovery": "PR3",
+            "anaerobic_digestion": "AD3",
+            "biogas_upgrading": "BG0",
+            "nutrient_recovery": "NR4",
+            "process_order": "A"
+          },
+          "feed_rate_kg_h": 1187.9375749439741,
+          "profit_eur_y": 61682.19983284671,
+          "climate_kg_co2e_y": 19578.42193090768
+        },
+        {
+          "rank": 3,
+          "sample_id": "backend-eed439a2-1947",
+          "source_sample_id": "actual-42-1947",
+          "run_id": "e1229d22fd6a410383052c9dac19e6ee",
+          "report": "C:\\my\\Spaak\\Greenhub\\Model\\results\\report_figures\\biosteam_frontiers\\all\\rank_03.json",
+          "configuration": {
+            "feed_preparation": "F1",
+            "protein_recovery": "PR1",
+            "anaerobic_digestion": "AD3",
+            "biogas_upgrading": "BG0",
+            "nutrient_recovery": "NR3",
+            "process_order": "A"
+          },
+          "feed_rate_kg_h": 1458.5799782720158,
+          "profit_eur_y": 54766.12084296623,
+          "climate_kg_co2e_y": 17249.348831252075
+        },
+        {
+          "rank": 4,
+          "sample_id": "backend-eed439a2-1373",
+          "source_sample_id": "actual-42-1373",
+          "run_id": "028ce1f6ff144c12be7f4f3cb4d82f98",
+          "report": "C:\\my\\Spaak\\Greenhub\\Model\\results\\report_figures\\biosteam_frontiers\\all\\rank_04.json",
+          "configuration": {
+            "feed_preparation": "F1",
+            "protein_recovery": "PR3",
+            "anaerobic_digestion": "AD1",
+            "biogas_upgrading": "BG0",
+            "nutrient_recovery": "NR4",
+            "process_order": "A"
+          },
+          "feed_rate_kg_h": 904.2121735506887,
+          "profit_eur_y": 47591.394536169944,
+          "climate_kg_co2e_y": 15187.175134631454
+        },
+        {
+          "rank": 5,
+          "sample_id": "backend-eed439a2-1597",
+          "source_sample_id": "actual-42-1597",
+          "run_id": "8088da95855d4bbaaa9599807db1ef50",
+          "report": "C:\\my\\Spaak\\Greenhub\\Model\\results\\report_figures\\biosteam_frontiers\\all\\rank_05.json",
+          "configuration": {
+            "feed_preparation": "F1",
+            "protein_recovery": "PR1",
+            "anaerobic_digestion": "AD1",
+            "biogas_upgrading": "BG0",
+            "nutrient_recovery": "NR3",
+            "process_order": "A"
+          },
+          "feed_rate_kg_h": 802.0870524960718,
+          "profit_eur_y": 40468.35398250262,
+          "climate_kg_co2e_y": 13339.674204594454
+        },
+        {
+          "rank": 6,
+          "sample_id": "backend-eed439a2-0208",
+          "source_sample_id": "actual-42-0208",
+          "run_id": "520944a3fae14541a889a13bda3bbd98",
+          "report": "C:\\my\\Spaak\\Greenhub\\Model\\results\\report_figures\\biosteam_frontiers\\all\\rank_06.json",
+          "configuration": {
+            "feed_preparation": "F1",
+            "protein_recovery": "PR3",
+            "anaerobic_digestion": "AD3",
+            "biogas_upgrading": "BG2",
+            "nutrient_recovery": "NR3",
+            "process_order": "A"
+          },
+          "feed_rate_kg_h": 679.9272126086997,
+          "profit_eur_y": 34585.65471600341,
+          "climate_kg_co2e_y": 11379.886330129957
+        },
+        {
+          "rank": 7,
+          "sample_id": "backend-eed439a2-0558",
+          "source_sample_id": "actual-42-0558",
+          "run_id": "990eb9c13db24eea9696f0ee5d2dbdec",
+          "report": "C:\\my\\Spaak\\Greenhub\\Model\\results\\report_figures\\biosteam_frontiers\\all\\rank_07.json",
+          "configuration": {
+            "feed_preparation": "F1",
+            "protein_recovery": "PR3",
+            "anaerobic_digestion": "AD3",
+            "biogas_upgrading": "BG3",
+            "nutrient_recovery": "NR4",
+            "process_order": "A"
+          },
+          "feed_rate_kg_h": 504.32892869099896,
+          "profit_eur_y": 25378.50145614095,
+          "climate_kg_co2e_y": 8446.705418793092
+        },
+        {
+          "rank": 8,
+          "sample_id": "backend-eed439a2-0512",
+          "source_sample_id": "actual-42-0512",
+          "run_id": "30302c69493c42b29b36b846fd77725d",
+          "report": "C:\\my\\Spaak\\Greenhub\\Model\\results\\report_figures\\biosteam_frontiers\\all\\rank_08.json",
+          "configuration": {
+            "feed_preparation": "F1",
+            "protein_recovery": "PR2",
+            "anaerobic_digestion": "AD0",
+            "biogas_upgrading": "BG0",
+            "nutrient_recovery": "NR0",
+            "process_order": "A"
+          },
+          "feed_rate_kg_h": 506.34957855361694,
+          "profit_eur_y": 16276.245112983474,
+          "climate_kg_co2e_y": 7355.578208784717
+        },
+        {
+          "rank": 9,
+          "sample_id": "backend-eed439a2-1529",
+          "source_sample_id": "actual-42-1529",
+          "run_id": "98b8467e23fc45c8a0136c61f4149274",
+          "report": "C:\\my\\Spaak\\Greenhub\\Model\\results\\report_figures\\biosteam_frontiers\\all\\rank_09.json",
+          "configuration": {
+            "feed_preparation": "F1",
+            "protein_recovery": "PR0",
+            "anaerobic_digestion": "AD1",
+            "biogas_upgrading": "BG0",
+            "nutrient_recovery": "NR1",
+            "process_order": "A"
+          },
+          "feed_rate_kg_h": 523.3736313373853,
+          "profit_eur_y": 1686.5396628410663,
+          "climate_kg_co2e_y": 7344.435005922949
+        },
+        {
+          "rank": 10,
+          "sample_id": "backend-eed439a2-1211",
+          "source_sample_id": "actual-42-1211",
+          "run_id": "108b8cc293534e359644d2d9a95b1b08",
+          "report": "C:\\my\\Spaak\\Greenhub\\Model\\results\\report_figures\\biosteam_frontiers\\all\\rank_10.json",
+          "configuration": {
+            "feed_preparation": "F1",
+            "protein_recovery": "PR0",
+            "anaerobic_digestion": "AD0",
+            "biogas_upgrading": "BG0",
+            "nutrient_recovery": "NR0",
+            "process_order": "A"
+          },
+          "feed_rate_kg_h": 531.0974441154605,
+          "profit_eur_y": -9048.308173582966,
+          "climate_kg_co2e_y": 6405.144733508544
+        }
+      ]
+    },
+    "protein_bypass": {
+      "eligible_count": 247,
+      "front_count": 15,
+      "front": [
+        {
+          "sample_id": "backend-eed439a2-0454",
+          "profit_eur_y": 15398.003214332482,
+          "climate_kg_co2e_y": 17827.996016233217
+        },
+        {
+          "sample_id": "backend-eed439a2-1589",
+          "profit_eur_y": 13860.689448555619,
+          "climate_kg_co2e_y": 16455.804377059914
+        },
+        {
+          "sample_id": "backend-eed439a2-1491",
+          "profit_eur_y": 12222.728367623069,
+          "climate_kg_co2e_y": 15324.978240463992
+        },
+        {
+          "sample_id": "backend-eed439a2-0555",
+          "profit_eur_y": 10771.396268505454,
+          "climate_kg_co2e_y": 14642.741044126144
+        },
+        {
+          "sample_id": "backend-eed439a2-0557",
+          "profit_eur_y": 10200.624381628286,
+          "climate_kg_co2e_y": 11671.009589241332
+        },
+        {
+          "sample_id": "backend-eed439a2-1381",
+          "profit_eur_y": 8260.385117463917,
+          "climate_kg_co2e_y": 11462.619735854023
+        },
+        {
+          "sample_id": "backend-eed439a2-0332",
+          "profit_eur_y": 7979.106437031943,
+          "climate_kg_co2e_y": 10791.029397310189
+        },
+        {
+          "sample_id": "backend-eed439a2-1945",
+          "profit_eur_y": 7681.092036844301,
+          "climate_kg_co2e_y": 9335.768620587804
+        },
+        {
+          "sample_id": "backend-eed439a2-1443",
+          "profit_eur_y": 5564.748683313561,
+          "climate_kg_co2e_y": 8782.383110402943
+        },
+        {
+          "sample_id": "backend-eed439a2-1470",
+          "profit_eur_y": 4577.635787694744,
+          "climate_kg_co2e_y": 7738.8374135208205
+        },
+        {
+          "sample_id": "backend-eed439a2-1529",
+          "profit_eur_y": 1686.5396628410663,
+          "climate_kg_co2e_y": 7344.435005922949
+        },
+        {
+          "sample_id": "backend-eed439a2-1312",
+          "profit_eur_y": -3352.3851320980875,
+          "climate_kg_co2e_y": 6918.9487095335835
+        },
+        {
+          "sample_id": "backend-eed439a2-1325",
+          "profit_eur_y": -8009.383401536278,
+          "climate_kg_co2e_y": 6562.809142119711
+        },
+        {
+          "sample_id": "backend-eed439a2-1580",
+          "profit_eur_y": -8618.650015250885,
+          "climate_kg_co2e_y": 6529.743420019193
+        },
+        {
+          "sample_id": "backend-eed439a2-1211",
+          "profit_eur_y": -9048.308173582966,
+          "climate_kg_co2e_y": 6405.144733508544
+        }
+      ],
+      "ranks": [
+        {
+          "rank": 0,
+          "sample_id": "backend-eed439a2-0454",
+          "source_sample_id": "actual-42-0454",
+          "run_id": "20fb5b811d0e4cb9b33a5a0c441a3b2c",
+          "report": "C:\\my\\Spaak\\Greenhub\\Model\\results\\report_figures\\biosteam_frontiers\\protein_bypass\\rank_00.json",
+          "configuration": {
+            "feed_preparation": "F1",
+            "protein_recovery": "PR0",
+            "anaerobic_digestion": "AD3",
+            "biogas_upgrading": "BG0",
+            "nutrient_recovery": "NR3",
+            "process_order": "A"
+          },
+          "feed_rate_kg_h": 1338.014435792606,
+          "profit_eur_y": 15398.003214332482,
+          "climate_kg_co2e_y": 17827.996016233217
+        },
+        {
+          "rank": 1,
+          "sample_id": "backend-eed439a2-1589",
+          "source_sample_id": "actual-42-1589",
+          "run_id": "070effa38aec44e7bfb28e0665a2b0d0",
+          "report": "C:\\my\\Spaak\\Greenhub\\Model\\results\\report_figures\\biosteam_frontiers\\protein_bypass\\rank_01.json",
+          "configuration": {
+            "feed_preparation": "F1",
+            "protein_recovery": "PR0",
+            "anaerobic_digestion": "AD3",
+            "biogas_upgrading": "BG0",
+            "nutrient_recovery": "NR4",
+            "process_order": "A"
+          },
+          "feed_rate_kg_h": 1195.426339809309,
+          "profit_eur_y": 13860.689448555619,
+          "climate_kg_co2e_y": 16455.804377059914
+        },
+        {
+          "rank": 2,
+          "sample_id": "backend-eed439a2-0555",
+          "source_sample_id": "actual-42-0555",
+          "run_id": "8561366cffcf4fdf94f571a2dbe6324b",
+          "report": "C:\\my\\Spaak\\Greenhub\\Model\\results\\report_figures\\biosteam_frontiers\\protein_bypass\\rank_02.json",
+          "configuration": {
+            "feed_preparation": "F1",
+            "protein_recovery": "PR0",
+            "anaerobic_digestion": "AD1",
+            "biogas_upgrading": "BG0",
+            "nutrient_recovery": "NR3",
+            "process_order": "A"
+          },
+          "feed_rate_kg_h": 1257.3340343776902,
+          "profit_eur_y": 10771.396268505454,
+          "climate_kg_co2e_y": 14642.741044126144
+        },
+        {
+          "rank": 3,
+          "sample_id": "backend-eed439a2-0557",
+          "source_sample_id": "actual-42-0557",
+          "run_id": "ecb05c86f525455cb46f2e5bef5cf1a8",
+          "report": "C:\\my\\Spaak\\Greenhub\\Model\\results\\report_figures\\biosteam_frontiers\\protein_bypass\\rank_03.json",
+          "configuration": {
+            "feed_preparation": "F1",
+            "protein_recovery": "PR0",
+            "anaerobic_digestion": "AD3",
+            "biogas_upgrading": "BG0",
+            "nutrient_recovery": "NR4",
+            "process_order": "A"
+          },
+          "feed_rate_kg_h": 847.8365417734032,
+          "profit_eur_y": 10200.624381628286,
+          "climate_kg_co2e_y": 11671.009589241332
+        },
+        {
+          "rank": 4,
+          "sample_id": "backend-eed439a2-1381",
+          "source_sample_id": "actual-42-1381",
+          "run_id": "c42790274f2e484c9ca2cbe93c863b0e",
+          "report": "C:\\my\\Spaak\\Greenhub\\Model\\results\\report_figures\\biosteam_frontiers\\protein_bypass\\rank_04.json",
+          "configuration": {
+            "feed_preparation": "F1",
+            "protein_recovery": "PR0",
+            "anaerobic_digestion": "AD3",
+            "biogas_upgrading": "BG0",
+            "nutrient_recovery": "NR3",
+            "process_order": "A"
+          },
+          "feed_rate_kg_h": 834.8409818378132,
+          "profit_eur_y": 8260.385117463917,
+          "climate_kg_co2e_y": 11462.619735854023
+        },
+        {
+          "rank": 5,
+          "sample_id": "backend-eed439a2-1945",
+          "source_sample_id": "actual-42-1945",
+          "run_id": "41e61fe4fcc44e438b85bff810789f54",
+          "report": "C:\\my\\Spaak\\Greenhub\\Model\\results\\report_figures\\biosteam_frontiers\\protein_bypass\\rank_05.json",
+          "configuration": {
+            "feed_preparation": "F1",
+            "protein_recovery": "PR0",
+            "anaerobic_digestion": "AD1",
+            "biogas_upgrading": "BG0",
+            "nutrient_recovery": "NR4",
+            "process_order": "A"
+          },
+          "feed_rate_kg_h": 663.0093738462216,
+          "profit_eur_y": 7681.092036844301,
+          "climate_kg_co2e_y": 9335.768620587804
+        },
+        {
+          "rank": 6,
+          "sample_id": "backend-eed439a2-1443",
+          "source_sample_id": "actual-42-1443",
+          "run_id": "999a369dc9d444c0be7a245352a35db1",
+          "report": "C:\\my\\Spaak\\Greenhub\\Model\\results\\report_figures\\biosteam_frontiers\\protein_bypass\\rank_06.json",
+          "configuration": {
+            "feed_preparation": "F1",
+            "protein_recovery": "PR0",
+            "anaerobic_digestion": "AD3",
+            "biogas_upgrading": "BG0",
+            "nutrient_recovery": "NR3",
+            "process_order": "A"
+          },
+          "feed_rate_kg_h": 639.6350492052991,
+          "profit_eur_y": 5564.748683313561,
+          "climate_kg_co2e_y": 8782.383110402943
+        },
+        {
+          "rank": 7,
+          "sample_id": "backend-eed439a2-1529",
+          "source_sample_id": "actual-42-1529",
+          "run_id": "68657b79ad57489e881d453dfbcf85d7",
+          "report": "C:\\my\\Spaak\\Greenhub\\Model\\results\\report_figures\\biosteam_frontiers\\protein_bypass\\rank_07.json",
+          "configuration": {
+            "feed_preparation": "F1",
+            "protein_recovery": "PR0",
+            "anaerobic_digestion": "AD1",
+            "biogas_upgrading": "BG0",
+            "nutrient_recovery": "NR1",
+            "process_order": "A"
+          },
+          "feed_rate_kg_h": 523.3736313373853,
+          "profit_eur_y": 1686.5396628410663,
+          "climate_kg_co2e_y": 7344.435005922949
+        },
+        {
+          "rank": 8,
+          "sample_id": "backend-eed439a2-1312",
+          "source_sample_id": "actual-42-1312",
+          "run_id": "102cd2e2817a4768a41d565264b4a682",
+          "report": "C:\\my\\Spaak\\Greenhub\\Model\\results\\report_figures\\biosteam_frontiers\\protein_bypass\\rank_08.json",
+          "configuration": {
+            "feed_preparation": "F1",
+            "protein_recovery": "PR0",
+            "anaerobic_digestion": "AD3",
+            "biogas_upgrading": "BG4",
+            "nutrient_recovery": "NR0",
+            "process_order": "A"
+          },
+          "feed_rate_kg_h": 502.81766542682794,
+          "profit_eur_y": -3352.3851320980875,
+          "climate_kg_co2e_y": 6918.9487095335835
+        },
+        {
+          "rank": 9,
+          "sample_id": "backend-eed439a2-1325",
+          "source_sample_id": "actual-42-1325",
+          "run_id": "6aa672cdb3cb45bfb5fcc01fd37205e1",
+          "report": "C:\\my\\Spaak\\Greenhub\\Model\\results\\report_figures\\biosteam_frontiers\\protein_bypass\\rank_09.json",
+          "configuration": {
+            "feed_preparation": "F1",
+            "protein_recovery": "PR0",
+            "anaerobic_digestion": "AD0",
+            "biogas_upgrading": "BG0",
+            "nutrient_recovery": "NR0",
+            "process_order": "A"
+          },
+          "feed_rate_kg_h": 544.1705545485947,
+          "profit_eur_y": -8009.383401536278,
+          "climate_kg_co2e_y": 6562.809142119711
+        },
+        {
+          "rank": 10,
+          "sample_id": "backend-eed439a2-1211",
+          "source_sample_id": "actual-42-1211",
+          "run_id": "af77a6a1831d4f95895a5a6082b208cc",
+          "report": "C:\\my\\Spaak\\Greenhub\\Model\\results\\report_figures\\biosteam_frontiers\\protein_bypass\\rank_10.json",
+          "configuration": {
+            "feed_preparation": "F1",
+            "protein_recovery": "PR0",
+            "anaerobic_digestion": "AD0",
+            "biogas_upgrading": "BG0",
+            "nutrient_recovery": "NR0",
+            "process_order": "A"
+          },
+          "feed_rate_kg_h": 531.0974441154605,
+          "profit_eur_y": -9048.308173582966,
+          "climate_kg_co2e_y": 6405.144733508544
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "proxy_figure_count": 41,
+  "sampled_cases": 2000,
+  "front_cases": 6,
+  "matched_route_cases": 7,
+  "seed": 42,
+  "source": "frontend/src/data/paretoScreening.ts",
+  "method": "2000 stratified biomass fractions; seeded categorical routes and independent uniform uncertainty draws",
+  "scope": "Screening proxy using saved process/cost anchors and stated engineering assumptions; not validated BioSTEAM TEA, complete LCA, or a robust optimum. Default orthophosphate share is zero; N/P route has no struvite.",
+  "matched_basis": "30,000 t/y available; 50% processed; 5,160 h/y; all assumptions at range midpoints",
+  "front_selected": {
+    "Economic": "S-42-1231",
+    "Climate": "S-42-1932",
+    "Balanced": "S-42-1510"
+  },
+  "financial_basis": "20 years, 8% discount; constant annual operating cash flow; partial capital/OPEX",
+  "gas_basis": "Methane Nm3 at 273.15 K, 101325 Pa; sales dry product m3 at 293.15 K, 101325 Pa",
+  "negative_profit_cases": 2000,
+  "negative_offset_cases": 2000
+}

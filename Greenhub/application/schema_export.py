@@ -32,7 +32,7 @@ SCENARIO_SELECTION_SCHEMA = {
     "type": "object",
     "additionalProperties": False,
     "properties": {
-        "feed_preparation": {"type": "string", "default": "F2"},
+        "feed_preparation": {"type": "string", "default": "F1"},
         "protein_recovery": {"type": "string", "default": "PR3"},
         "anaerobic_digestion": {"type": "string", "default": "AD1"},
         "biogas_upgrading": {"type": "string", "default": "BG2"},
@@ -458,6 +458,37 @@ def openapi_schema() -> dict[str, object]:
 
     add("/api/v1/health", "GET", "health")
     add('/api/v1/decision-support/options', 'GET', 'decisionSupportOptions')
+    add('/api/v1/decision-support/pareto/latest', 'GET', 'getLatestRvoParetoAnalysis')
+    paths['/api/v1/decision-support/pareto/latest']['get']['description'] = (
+        'Returns the latest no-PEF BioSTEAM Pareto analysis, with separate protein-enabled and '
+        'protein-bypassed groups, RVO-labelled support what-if cases, selected candidates and fronts.'
+    )
+    add('/api/v1/decision-support/pareto/latest/figures/{group}', 'GET', 'getLatestRvoParetoFigure')
+    paths['/api/v1/decision-support/pareto/latest/figures/{group}']['get']['parameters'] = [{
+        'name': 'group', 'in': 'path', 'required': True,
+        'schema': {'type': 'string', 'enum': ['protein_enabled', 'protein_bypass']},
+    }]
+    paths['/api/v1/decision-support/pareto/latest/figures/{group}']['get']['responses']['200'] = {
+        'description': 'Static 3D Pareto PNG for the selected protein group.',
+        'content': {'image/png': {'schema': {'type': 'string', 'format': 'binary'}}},
+    }
+    add('/api/v1/decision-support/pareto/latest/figure-index', 'GET', 'getLatestRvoParetoFigureIndex')
+    paths['/api/v1/decision-support/pareto/latest/figure-index']['get']['description'] = (
+        'Returns the current indexed PNG library with source dataset, scenario, units, category, and image URL.'
+    )
+    add('/api/v1/decision-support/pareto/latest/figures/by-id/{figure_id}', 'GET', 'getLatestRvoParetoFigureById')
+    paths['/api/v1/decision-support/pareto/latest/figures/by-id/{figure_id}']['get']['parameters'] = [{
+        'name': 'figure_id', 'in': 'path', 'required': True, 'schema': {'type': 'integer', 'minimum': 1},
+    }]
+    paths['/api/v1/decision-support/pareto/latest/figures/by-id/{figure_id}']['get']['responses']['200'] = {
+        'description': 'An indexed current Pareto-analysis PNG figure.',
+        'content': {'image/png': {'schema': {'type': 'string', 'format': 'binary'}}},
+    }
+    add('/api/v1/decision-support/pareto/latest/report', 'GET', 'downloadLatestRvoParetoReport')
+    paths['/api/v1/decision-support/pareto/latest/report']['get']['responses']['200'] = {
+        'description': 'Current PDF report with selected candidates and the indexed PNG atlas.',
+        'content': {'application/pdf': {'schema': {'type': 'string', 'format': 'binary'}}},
+    }
     add('/api/v1/decision-support/runs/{run_id}', 'GET', 'decisionSupportRun')
     for action in ('evaluate','batch','sensitivity'):
         route='/api/v1/decision-support/'+action
@@ -520,6 +551,8 @@ def openapi_schema() -> dict[str, object]:
             parameters.append({"name": "parameter_id", "in": "path", "required": True, "schema": {"type": "string"}})
         if "{plot_id}" in path:
             parameters.append({"name": "plot_id", "in": "path", "required": True, "schema": {"type": "string"}})
+        if "{group}" in path and not methods.get("get", {}).get("parameters"):
+            parameters.append({"name": "group", "in": "path", "required": True, "schema": {"type": "string", "enum": ["protein_enabled", "protein_bypass"]}})
         if parameters:
             for operation in methods.values():
                 operation["parameters"] = parameters

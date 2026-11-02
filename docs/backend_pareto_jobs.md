@@ -1,16 +1,28 @@
-# Backend-evaluated Pareto batches
+# Pareto analysis API
 
-The backend decision-batch endpoint evaluates real candidate configurations through the process, TEA and LCA services. The current Explore/Optimization UI is intentionally an offline visual preview while live controls are deferred: it uses the local seeded sampler and clearly labels its proxy scores; it does not issue batch-job requests or present the preview as BioSTEAM output. The backend flow described here remains available for a later UI connection.
+## Published BioSTEAM analysis
 
-The **Evaluate 2,000 matching points** action submits the local screening point IDs, feed rates, and route selections to `/api/v1/decision-support/batch-jobs`. It does not submit local proxy scores. Each mapped configuration uses the existing `DecisionSupportService.evaluate()` pipeline (simulation, then post-route TEA/LCA). The job stores the original `source_sample_id`, so a backend result can be compared with its exact local candidate. Incompatible/failed candidates remain recorded with rejection reasons; incomplete objectives are not plotted. Returned objectives remain screening/proxy/incomplete when their underlying evidence is so classified; a backend run is not scientific validation. Generic sampled batches remain available through the same endpoint for other callers.
+The website's current optimization view reads the latest completed RVO support analysis from:
 
-Job lifecycle endpoints:
+```text
+GET /api/v1/decision-support/pareto/latest
+GET /api/v1/decision-support/pareto/latest/figures/{group}
+```
 
-- `POST /api/v1/decision-support/batch-jobs`: start; body accepts configuration and exactly one of `specifications` or `candidate_overrides`, plus count (1–2,000), seed, and mode. Each override row contains a unique source `sample_id` and path/value overrides restricted to `simulation.*`.
-- `GET /api/v1/decision-support/batch-jobs/{job_id}`: progress and compact candidate summaries.
-- `POST .../{job_id}/cancel` and `POST .../{job_id}/resume`: cooperative cancellation and resume; completed candidates are not rerun.
-- `GET .../{job_id}/candidates/{sample_id}`: full configuration, report, feasibility and provenance for a selected candidate.
+The response contains the support assumptions, separate protein-enabled and protein-bypassed groups, their two- and three-objective fronts, and the selected candidate metadata. The canonical batch JSON, plots, reproducibility steps and objective definitions are documented in [RVO Pareto methodology](RVO_PARETO_METHODOLOGY.md). The API reads only `Greenhub/results/pareto_rvo_2026/latest.json`; it does not fall back to historic Pareto batches.
 
-Job records are atomically persisted under the configured results root in `decision_batches/`. The default API can also read the existing `results/actual_pareto_2000/decision_batches/` saved run when present, without changing the public job endpoints. They survive worker interruption/restart; call resume to continue a nonterminal persisted job. Current execution uses one daemon worker per job and no distributed queue. A worker process must remain alive while a job is running; interruption preserves completed candidate records. Polling returns compact objective summaries plus source point IDs; full TEA/LCA reports are fetched on candidate selection. The UI shows a sampled Pareto front for backend-returned, objective-eligible pairs; climate is minimized and may still be based on a partial inventory, so technical/evidence readiness and missing LCA inputs must be checked per candidate.
+The `figures/{group}` endpoint serves the corresponding current 3D PNG inline for `protein_enabled` or `protein_bypass`; it is the same file indexed in the report-figure library.
 
-Candidate economics are an explicit screening overlay. The detail view reports base revenue/OPEX, optimization savings/uplift, subsidy, subsidy-adjusted capital, tax, annual capital recovery, and the optimized after-tax-profit objective. The report's base NPV/IRR/payback values are not silently re-labelled as subsidy-adjusted financial KPIs.
+Candidate detail is read from the stored BioSTEAM run using:
+
+```text
+GET /api/v1/decision-support/runs/{run_id}
+GET /api/v1/simulations/{run_id}/units
+GET /api/v1/simulations/{run_id}/utilities
+```
+
+The UI uses those resources for cost, equipment energy, and operational-climate hotspots. The support cases are user-supplied screening scenarios named with RVO; this API does not assert grant eligibility or awards.
+
+## Ad hoc batch jobs
+
+The generic `/api/v1/decision-support/batch-jobs` lifecycle remains available for callers that submit new candidate configurations. It writes jobs under the configured current `runs/decision_batches/` root. Historical Pareto job directories are not read or resumed by this service. These ad hoc jobs are separate from the published RVO front and do not replace or mutate its manifest.

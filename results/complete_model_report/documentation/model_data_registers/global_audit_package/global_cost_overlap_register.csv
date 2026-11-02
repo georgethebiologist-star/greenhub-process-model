@@ -1,0 +1,25 @@
+equipment_or_technology,python_variable,cost_scope_or_basis,dataset_count,datasets,double_counting_risk
+,specific_investment_cost_min,source-reported basis,2,Bigas production + upgrade/MEA/cost_dataset.csv; Bigas production + upgrade/Membrane/cost_dataset.csv,review_required
+,specific_investment_cost_max,source-reported basis,2,Bigas production + upgrade/MEA/cost_dataset.csv; Bigas production + upgrade/Membrane/cost_dataset.csv,review_required
+,cost_scaling_factor,source-reported basis,3,Bigas production + upgrade/MEA/cost_dataset.csv; Bigas production + upgrade/Membrane/cost_dataset.csv; Bigas production + upgrade/PSA/cost_dataset.csv,review_required
+,feed_tank_purchase_cost,currency,2,Resource recovery/Ammonia_Recovery/ammonia_equipment_costs.csv; Resource recovery/Ion_Exchange/ion_exchange_equipment_costs.csv,review_required
+,feed_tank_installed_cost,currency,2,Resource recovery/Ammonia_Recovery/ammonia_equipment_costs.csv; Resource recovery/Ion_Exchange/ion_exchange_equipment_costs.csv,review_required
+,feed_tank_cost_year,year,2,Resource recovery/Ammonia_Recovery/ammonia_equipment_costs.csv; Resource recovery/Ion_Exchange/ion_exchange_equipment_costs.csv,review_required
+,feed_tank_duty,kW,2,Resource recovery/Ammonia_Recovery/ammonia_equipment_costs.csv; Resource recovery/Ion_Exchange/ion_exchange_equipment_costs.csv,review_required
+,feed_tank_energy_demand,kWh/h,2,Resource recovery/Ammonia_Recovery/ammonia_equipment_costs.csv; Resource recovery/Ion_Exchange/ion_exchange_equipment_costs.csv,review_required
+,feed_tank_equipment_life,year,2,Resource recovery/Ammonia_Recovery/ammonia_equipment_costs.csv; Resource recovery/Ion_Exchange/ion_exchange_equipment_costs.csv,review_required
+,feed_tank_maintenance_fraction,fraction/year,2,Resource recovery/Ammonia_Recovery/ammonia_equipment_costs.csv; Resource recovery/Ion_Exchange/ion_exchange_equipment_costs.csv,review_required
+,pump_purchase_cost,currency,2,Resource recovery/Ammonia_Recovery/ammonia_equipment_costs.csv; Resource recovery/Ion_Exchange/ion_exchange_equipment_costs.csv,review_required
+,pump_installed_cost,currency,2,Resource recovery/Ammonia_Recovery/ammonia_equipment_costs.csv; Resource recovery/Ion_Exchange/ion_exchange_equipment_costs.csv,review_required
+,pump_cost_year,year,2,Resource recovery/Ammonia_Recovery/ammonia_equipment_costs.csv; Resource recovery/Ion_Exchange/ion_exchange_equipment_costs.csv,review_required
+,pump_duty,kW,2,Resource recovery/Ammonia_Recovery/ammonia_equipment_costs.csv; Resource recovery/Ion_Exchange/ion_exchange_equipment_costs.csv,review_required
+,pump_energy_demand,kWh/h,2,Resource recovery/Ammonia_Recovery/ammonia_equipment_costs.csv; Resource recovery/Ion_Exchange/ion_exchange_equipment_costs.csv,review_required
+,pump_equipment_life,year,2,Resource recovery/Ammonia_Recovery/ammonia_equipment_costs.csv; Resource recovery/Ion_Exchange/ion_exchange_equipment_costs.csv,review_required
+,pump_maintenance_fraction,fraction/year,2,Resource recovery/Ammonia_Recovery/ammonia_equipment_costs.csv; Resource recovery/Ion_Exchange/ion_exchange_equipment_costs.csv,review_required
+,product_tank_purchase_cost,currency,2,Resource recovery/Ammonia_Recovery/ammonia_equipment_costs.csv; Resource recovery/Ion_Exchange/ion_exchange_equipment_costs.csv,review_required
+,product_tank_installed_cost,currency,2,Resource recovery/Ammonia_Recovery/ammonia_equipment_costs.csv; Resource recovery/Ion_Exchange/ion_exchange_equipment_costs.csv,review_required
+,product_tank_cost_year,year,2,Resource recovery/Ammonia_Recovery/ammonia_equipment_costs.csv; Resource recovery/Ion_Exchange/ion_exchange_equipment_costs.csv,review_required
+,product_tank_duty,kW,2,Resource recovery/Ammonia_Recovery/ammonia_equipment_costs.csv; Resource recovery/Ion_Exchange/ion_exchange_equipment_costs.csv,review_required
+,product_tank_energy_demand,kWh/h,2,Resource recovery/Ammonia_Recovery/ammonia_equipment_costs.csv; Resource recovery/Ion_Exchange/ion_exchange_equipment_costs.csv,review_required
+,product_tank_equipment_life,year,2,Resource recovery/Ammonia_Recovery/ammonia_equipment_costs.csv; Resource recovery/Ion_Exchange/ion_exchange_equipment_costs.csv,review_required
+,product_tank_maintenance_fraction,fraction/year,2,Resource recovery/Ammonia_Recovery/ammonia_equipment_costs.csv; Resource recovery/Ion_Exchange/ion_exchange_equipment_costs.csv,review_required

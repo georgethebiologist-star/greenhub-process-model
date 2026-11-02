@@ -7,7 +7,7 @@ import {buildSync} from 'esbuild';
 import React from 'react';
 import {renderToStaticMarkup} from 'react-dom/server';
 
-const code=buildSync({stdin:{contents:`export {DecisionResults} from './src/components/DecisionSupport'; export {default as DecisionOverview} from './src/components/DecisionOverview'; export {default as AnalyticsPreview} from './src/components/AnalyticsPreview'; export {previewFinance,baselineSnapshot} from './src/data/decisionPreview'; export {generateScreeningBatch,evaluateCandidate,markPareto,defaultRanges,defaultSettings} from './src/data/paretoScreening'; export {buildDecisionConfiguration} from './src/data/decisionSupport';`,resolveDir:process.cwd()},bundle:true,write:false,platform:'node',format:'cjs',packages:'external',loader:{'.css':'empty'},define:{'import.meta.env':'{}'}}).outputFiles[0].text;
+const code=buildSync({stdin:{contents:`export {DecisionResults} from './src/components/DecisionSupport'; export {default as DecisionOverview} from './src/components/DecisionOverview'; export {default as AnalyticsPreview} from './src/components/AnalyticsPreview'; export {previewFinance,baselineSnapshot} from './src/data/decisionPreview'; export {buildDecisionConfiguration} from './src/data/decisionSupport';`,resolveDir:process.cwd()},bundle:true,write:false,platform:'node',format:'cjs',packages:'external',loader:{'.css':'empty'},define:{'import.meta.env':'{}'}}).outputFiles[0].text;
 const compiled=new Module(path.resolve('scripts/decision-check.cjs'));
 compiled.filename=path.resolve('scripts/decision-check.cjs');
 compiled.require=createRequire(import.meta.url);compiled._compile(code,compiled.filename);
@@ -29,29 +29,12 @@ assert.equal(screeningConfig.use_screening_lca_factors,true,'Screening LCA check
 assert.equal(report.configuration.simulation.wet_feed_rate_kg_hr,1000,'Request construction must not mutate saved result.');
 console.log('Decision support rendering, evidence, readiness and request payload checks passed.');
 
-const previewProps={scenario:{feed_front_end:'F2',protein_recovery:'PR3',anaerobic_digestion:'AD1',biogas_upgrading:'BG2',nutrient_recovery:'NR4',process_order:'A'},setScenario:()=>{},feed:{feedAmountKgh:500,operatingDaysPerWeek:7,operatingHoursPerDay:24,moisturePct:78,liquidFractionPct:62,proteinPct:18,nitrogenPct:1.1,phosphorusPct:.12},setFeed:()=>{},month:'July',setMonth:()=>{},mode:'structural',setMode:()=>{},running:false,onRun:()=>{}};
-const hotspotsHtml=renderToStaticMarkup(React.createElement(AnalyticsPreview,{...previewProps,view:'hotspots'}));
-assert.ok(hotspotsHtml.includes('BIOSTEAM'));
-assert.ok(hotspotsHtml.includes('Optimization assumptions'));
-assert.ok(hotspotsHtml.includes('Run model'));
-assert.ok(hotspotsHtml.includes('Model configuration'));
-assert.ok(hotspotsHtml.includes('Scenario details'));
-assert.ok(hotspotsHtml.includes('Annual cost by process step'));
-const optimizationHtml=renderToStaticMarkup(React.createElement(AnalyticsPreview,{...previewProps,view:'optimization'}));
-assert.ok(optimizationHtml.includes('BIOSTEAM'));
-assert.ok(optimizationHtml.includes('Pareto chart: after-tax profit'), 'Pareto graph has an accessible label.');
-assert.ok(optimizationHtml.includes('SCENARIOS'));
-assert.ok(optimizationHtml.includes('Attributional climate load · kg CO₂e/year · lower is better · credits excluded'));
-assert.ok(optimizationHtml.includes('Substitution credits · separate'));
-assert.ok(!optimizationHtml.includes('Illustrative screening model'));
-const paretoFixture=JSON.parse(fs.readFileSync('src/data/actualParetoPreview.json','utf8'));
-assert.equal(paretoFixture.completed_count,2000);
-assert.ok(paretoFixture.front.length>0);
-assert.ok(paretoFixture.climate_objective.includes('Attributional climate load'));
-assert.ok(paretoFixture.climate_objective.includes('credits are excluded'));
-assert.ok(paretoFixture.front.every(p=>paretoFixture.scenarios.some(s=>s.sample_id===p.sample_id)));
-assert.ok(new Set(paretoFixture.scenarios.map(s=>s.configuration.simulation.scenarios.protein_recovery)).size>1,'Preview scenarios retain distinct route configurations.');
-console.log('BioSTEAM optimization and concise chart rendering checks passed.');
+const hotspotsHtml=renderToStaticMarkup(React.createElement(AnalyticsPreview));
+assert.ok(hotspotsHtml.includes('Loading selected BioSTEAM candidates'));
+assert.ok(!hotspotsHtml.includes('Run Pareto analysis'));
+assert.ok(!hotspotsHtml.includes('SAVED BACKEND PREVIEW'));
+assert.ok(!hotspotsHtml.includes('actualParetoPreview'));
+console.log('Current Pareto candidate hotspot panel renders its API-backed loading state.');
 
 // Financial preview mathematics and offline rendering must remain independent of the API.
 const previewHtml=renderToStaticMarkup(React.createElement(DecisionOverview));

@@ -1,4 +1,4 @@
-"""Refresh bundled TEA/LCA/Pareto anchors from a completed recalculated run.
+"""Refresh the bundled baseline TEA/LCA anchor from a recalculated run.
 
 Usage: python scripts/refresh_sales_baseline.py REPORT_JSON RUNS_ROOT SUGAR_AUDIT_JSON
 The completed report comes from DecisionSupportService; this script never
@@ -16,9 +16,7 @@ streams = {s['stream_id']: s for s in json.loads((run / 'streams.json').read_tex
 sales_basis = json.loads((ROOT / 'Greenhub/data/tea/product_sales_basis.json').read_text())
 frontend = ROOT / 'frontend/src/data'
 baseline = json.loads((frontend / 'decisionBaseline.json').read_text())
-reference = json.loads((frontend / 'paretoReference.json').read_text())
 hours = report['analysis_period']['operating_hours']
-components = {r['quantity_component']: r['quantity'] for r in report['tea']['revenue_lines'] if r.get('quantity_component')}
 digestate = streams['digestate']['components']
 recovery = {'dissolvedPEquivalentKg': digestate.get('DissolvedPhosphorus', {}).get('value', 0) * hours,
             'orthophosphatePKg': digestate.get('Orthophosphate', {}).get('value', 0) * hours * 30.973762 / 94.9714,
@@ -30,8 +28,6 @@ baseline.update(sourceRun=report['run_id'], sourceCommit='',
     productSales=[{k:r.get(k) for k in ('product_id','equipment_or_cost_item','quantity','quantity_unit','unit_cost_eur','reference_unit','annual_revenue_eur','quantity_source','quantity_component','warning')} for r in report['tea']['revenue_lines']],
     salesBasis=sales_basis, recovery=recovery, sugarAudit=audit,
     teaMissing=report['tea']['missing_inputs'], lcaMissing=report['lca']['missing_inputs'])
-reference.update(sourceRun=report['run_id'], sourceCommit='', compoundProductsKg=components,
-                 recovery=recovery, salesBasis=sales_basis, sugarAudit=audit)
-for name, data in [('decisionBaseline.json', baseline), ('paretoReference.json', reference)]:
+for name, data in [('decisionBaseline.json', baseline)]:
     (frontend / name).write_text(json.dumps(data, indent=2) + '\n')
-print('Updated frontend baseline, exact sales quantities and Pareto reference:', report['run_id'])
+print('Updated frontend baseline and exact sales quantities:', report['run_id'])

@@ -1,0 +1,12 @@
+﻿filename,primary_key,row_count,unique_nonblank_primary_keys,utf8_encoding,comma_delimiter,populated_numeric_traceability,notes
+centrifuge_feed_rheology.csv,parameter_id,15,pass,pass,pass,pass,
+centrifuge_geometry_and_operation.csv,parameter_id,18,pass,pass,pass,pass,
+centrifuge_component_capture.csv,parameter_id,15,pass,pass,pass,pass,
+centrifuge_power_and_capacity.csv,parameter_id,10,pass,pass,pass,pass,
+centrifuge_dynamic_performance.csv,parameter_id,4,pass,pass,pass,pass,
+centrifuge_equation_registry.csv,equation_id,10,pass,pass,pass,pass,
+centrifuge_equipment_costs.csv,parameter_id,16,pass,pass,pass,pass,
+centrifuge_scenario_controller.csv,scenario_id,6,pass,pass,pass,pass,
+source_register.csv,source_id,9,pass,pass,pass,pass,
+assumption_and_missing_data_register.csv,register_id,8,pass,pass,pass,pass,
+dataset_manifest.csv,dataset_id,10,pass,pass,pass,pass,

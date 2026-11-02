@@ -1,0 +1,10 @@
+﻿figure_id,title,research_purpose,data_source,kpi,suggested_section,file_location
+F1,Annual solid products,Compare baseline product streams; wet product identity is not purity,baseline_report.json,t/y (reported stream mass),Results 6.2,C:\my\Spaak\Greenhub\Model\scientific_report\figures\baseline_products.svg
+F2,Electricity by stage,Locate electrical demand,baseline_report.json annual.process_pathway,MWh/y,Results 6.2,C:\my\Spaak\Greenhub\Model\scientific_report\figures\electricity_by_stage.svg
+F3,Route utility demand,Compare matched nutrient route utilities,route_comparison.csv,MWh/y,Results 6.4,C:\my\Spaak\Greenhub\Model\scientific_report\figures\route_utilities.svg
+F4,Phosphorus product stream,Isolate phosphorus route output,route_comparison.csv,t/y (reported stream mass),Results 6.3,C:\my\Spaak\Greenhub\Model\scientific_report\figures\route_phosphorus_stream.svg
+F5,Ammonium product stream,Isolate ammonia route output,route_comparison.csv,t/y (reported stream mass),Results 6.3,C:\my\Spaak\Greenhub\Model\scientific_report\figures\route_ammonium_stream.svg
+F6,Evidence gaps,Show why investment and climate ranking is not supported,"baseline_report.json tea, lca, warnings",Recorded items,Discussion 7.4,C:\my\Spaak\Greenhub\Model\scientific_report\figures\account_readiness.svg
+F7,Model warnings,Summarize baseline warnings without suppressing them,baseline_report.json warnings,Warning count,Discussion 7.5,C:\my\Spaak\Greenhub\Model\scientific_report\figures\warning_categories.svg
+F8,Model architecture,Show calculation order,Greenhub application and integration code,Process topology,Methods 4.2,C:\my\Spaak\Greenhub\Model\scientific_report\figures\model_architecture.svg
+F9,Baseline process flow,Show the active F2 PR3 AD1 BG2 NR4 A route,Greenhub application and integration code,Process topology,Methods 4.4,C:\my\Spaak\Greenhub\Model\scientific_report\figures\baseline_process_flow.svg

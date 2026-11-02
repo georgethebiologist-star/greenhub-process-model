@@ -1,0 +1,17 @@
+/**
+ * Icon Font original provided by Scite extension.
+ * This sits outside of the shadow dom. Otherwise the font does not render.
+ */
+@font-face {
+  font-family: scite-icons;
+  font-style: normal;
+  font-weight: normal;
+  src: url("https://cdn.scite.ai/assets/fonts/scite-icons/scite-icons.eot?v=5");
+  src:
+
+    url("https://cdn.scite.ai/assets/fonts/scite-icons/scite-icons.eot?v=5#iefix") format("embedded-opentype"),
+    url("https://cdn.scite.ai/assets/fonts/scite-icons/scite-icons.woff2?v=5") format("woff2"),
+    url("https://cdn.scite.ai/assets/fonts/scite-icons/scite-icons.woff?v=5") format("woff"),
+    url("https://cdn.scite.ai/assets/fonts/scite-icons/scite-icons.ttf?v=5") format("truetype"),
+    url("https://cdn.scite.ai/assets/fonts/scite-icons/scite-icons.svg?v=5#fontello") format("svg");
+}

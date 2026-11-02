@@ -27,6 +27,7 @@ import ModelComparisonPanel from './components/ModelComparisonPanel';
 import {decisionApi, type DecisionReport} from './data/decisionSupport';
 import DynamicCompleteDashboard from './components/DynamicCompleteDashboard';
 import AnalyticsPreview from './components/AnalyticsPreview';
+import ParetoScreening from './components/ParetoScreening';
 import type { CalculationMode, EmpiricalBiomassSchedule, ParameterDefinition, ResultSourceState, ScenarioSelection, SimulationResult } from './types';
 
 type RuntimeSource = 'python' | 'fallback';
@@ -36,7 +37,7 @@ type SavedRun = { label: string; result: SimulationResult; scenario: ScenarioSel
 type Artifact = { name: string; type: string; description: string; url?: string; available: boolean; warning?: string };
 
 const defaults: ScenarioSelection = {
-  feed_front_end: 'F2', protein_recovery: 'PR3', anaerobic_digestion: 'AD1',
+  feed_front_end: 'F1', protein_recovery: 'PR3', anaerobic_digestion: 'AD1',
   biogas_upgrading: 'BG2', nutrient_recovery: 'NR4', process_order: 'A',
 };
 const scheduleDefaults: EmpiricalBiomassSchedule = {
@@ -68,7 +69,7 @@ const modeLabels: Record<CalculationMode, string> = {
   structural: 'Structural model', literature_default: 'Literature defaults', calibrated: 'Calibrated data',
 };
 const scenarioGroups = [
-  { key: 'feed_front_end' as const, title: 'Feed preparation', affects: 'Liquid yield, solids split and electricity', options: [['F0','Measured liquid fraction','active'],['F1','Roadside grass without PEF','active'],['F2','PEF baseline','active'],['F3','PEF sensitivity-ready','active']] },
+  { key: 'feed_front_end' as const, title: 'Feed preparation', affects: 'Liquid yield and solids split', options: [['F0','Measured liquid fraction','active'],['F1','Roadside grass without PEF','active']] },
   { key: 'protein_recovery' as const, title: 'Protein recovery', affects: 'Protein yield and downstream COD', options: [['PR0','Bypass protein recovery','active'],['PR1','Acid precipitation','active'],['PR2','Heat coagulation','active'],['PR3','Combined acid and heat','active'],['PR4','Lactic fermentation','planned'],['PR5','CO₂-assisted precipitation','planned'],['PR6','Ultrafiltration','planned']] },
   { key: 'anaerobic_digestion' as const, title: 'Anaerobic digestion', affects: 'Biogas production and digestate', options: [['AD0','No digestion','active'],['AD1','Baseline digestion','active'],['AD2','Protein-rich liquid route','active'],['AD3','Alternative AD configuration','active'],['AD4','Advanced digestion route','active'],['AD5','Reserved digestion route','planned']] },
   { key: 'biogas_upgrading' as const, title: 'Biogas upgrading', affects: 'Biomethane recovery and utilities', options: [['BG0','No upgrading','active'],['BG1','Conditioning only','active'],['BG2','Baseline upgrading','active'],['BG3','Water scrubbing','active'],['BG4','Membrane separation','active'],['BG5','Amine absorption','active'],['BG6','Reserved upgrading route','planned']] },
@@ -231,7 +232,7 @@ export default function App() {
         <section className="panel advanced-link"><div><span className="eyebrow">Advanced parameters</span><h3>{changedParameters.length ? `${changedParameters.length} reviewed values differ from defaults` : 'Review evidence and technical parameters'}</h3><p>Detailed assumptions remain separate from the primary operating-scale controls.</p></div><button className="secondary" onClick={() => setTab('advanced')}>Open advanced parameters</button></section>
         <ConfigurationReview scenario={scenario} schedule={biomassSchedule} mode={mode} onRun={() => executeRun()} running={running}/>
       </div>}
-      {tab === 'explore' && <div className="page-stack"><PageIntro eyebrow="Explore" title="Performance and decisions" text={exploreView==='optimization'?'BioSTEAM Pareto results':'Process performance and contribution data'}/><div className="section-switcher" role="tablist" aria-label="Explore views">{([['performance','Performance'],['hotspots','Hotspots'],['optimization','Optimization'],['model-comparison','Model comparison']] as [ExploreView,string][]).map(([id,label])=><button role="tab" aria-selected={exploreView===id} className={exploreView===id?'active':''} key={id} onClick={()=>setExploreView(id)}>{label}</button>)}</div>{exploreView==='performance'&&<ResultsWorkbench result={result} graph={graph} artifacts={artifacts} runtime={runtime==='python'?'Quasi-dynamic process model':'Preview baseline'} sourceState={sourceState} savedRuns={savedRuns} onSaveRun={saveSnapshot}/ >}{(exploreView==='hotspots'||exploreView==='optimization')&&<AnalyticsPreview view={exploreView} scenario={scenario} setScenario={setScenario} feed={feed} setFeed={setFeed} month={month} setMonth={setMonth} mode={mode} setMode={setMode} running={running} onRun={()=>executeRun()}/ >}{exploreView==='model-comparison'&&<ModelComparisonPanel dynamic={result} empirical={empiricalComparison} live={runtime==='python'} busy={comparisonRunning} onRun={runEmpiricalComparison} error={comparisonError}/>}</div>}
+      {tab === 'explore' && <div className="page-stack"><PageIntro eyebrow="Explore" title="Performance and decisions" text={exploreView==='optimization'?'BioSTEAM Pareto results':'Process performance and contribution data'}/><div className="section-switcher" role="tablist" aria-label="Explore views">{([['performance','Performance'],['hotspots','Hotspots'],['optimization','Optimization'],['model-comparison','Model comparison']] as [ExploreView,string][]).map(([id,label])=><button role="tab" aria-selected={exploreView===id} className={exploreView===id?'active':''} key={id} onClick={()=>setExploreView(id)}>{label}</button>)}</div>{exploreView==='performance'&&<ResultsWorkbench result={result} graph={graph} artifacts={artifacts} runtime={runtime==='python'?'Quasi-dynamic process model':'Preview baseline'} sourceState={sourceState} savedRuns={savedRuns} onSaveRun={saveSnapshot}/ >}{exploreView==='hotspots'&&<AnalyticsPreview/>}{exploreView==='optimization'&&<ParetoScreening/>}{exploreView==='model-comparison'&&<ModelComparisonPanel dynamic={result} empirical={empiricalComparison} live={runtime==='python'} busy={comparisonRunning} onRun={runEmpiricalComparison} error={comparisonError}/>}</div>}
       {tab === 'reports' && <div className="page-stack"><PageIntro eyebrow="Reports" title="Download and share the run" text="Exports include the exact process request and the returned post-route decision analysis, when available."/><ReportCenter result={result} artifacts={artifacts} runtime={runtime === 'python' ? 'Quasi-dynamic process model' : 'Preview baseline'} exportContext={{process_run:runContext,post_route_decision_analysis:analysisReport}}/></div>}
       {tab === 'advanced' && <div className="page-stack">
         <PageIntro eyebrow="Advanced" title="Model settings" text="Detailed evidence, parameter values, model diagnostics, and secondary planning tools."/>

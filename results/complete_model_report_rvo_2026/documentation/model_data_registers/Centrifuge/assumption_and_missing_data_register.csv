@@ -1,0 +1,9 @@
+﻿register_id,related_file,scenario_id,required_variable,reason_missing,recommended_measurement_or_source,priority,model_consequence,status
+AMR-CEN-001,centrifuge_feed_rheology.csv,CEN-D1/CEN-S1,density and viscosity versus solids and temperature,No GreenHub measurements.,Measure density and rheology at process temperatures.,high,Settling/capacity blocked.,open
+AMR-CEN-002,centrifuge_feed_rheology.csv,CEN-D1/CEN-S1,PSD and particle density,Target-feed data unavailable.,Laser diffraction/microscopy and density measurement.,high,Cut size unavailable.,open
+AMR-CEN-003,centrifuge_geometry_and_operation.csv,CEN-D1,differential speed and torque envelope,Model-specific/proprietary.,Vendor map and pilot testing.,high,Cake transport and overload unavailable.,open
+AMR-CEN-004,centrifuge_geometry_and_operation.csv,CEN-S1,sigma factor and disc geometry,Candidate-machine data unavailable.,Request certified sigma and correction factor.,high,Scale-up blocked.,open
+AMR-CEN-005,centrifuge_component_capture.csv,CEN-C1/CEN-S1,protein loss and turbidity mass balance,Full matched dataset unavailable.,Feed/cake/centrate mass balance and NTU.,high,Protein yield optimization blocked.,open
+AMR-CEN-006,centrifuge_dynamic_performance.csv,CEN-D1/CEN-S1,"accumulation, overload and cleaning interval",No time series.,"Log torque, vibration, turbidity, discharge and CIP.",high,Availability unavailable.,open
+AMR-CEN-007,centrifuge_equipment_costs.csv,CEN-D1/CEN-S1,2026 Netherlands quotations,Public values historical/used.,Three supplier quotations including skid/CIP/installation.,high,TEA uncertainty large.,open
+AMR-CEN-008,centrifuge_dynamic_performance.csv,CEN-H1,hydrocyclone grade-efficiency curve,No direct green-stream evidence.,Vendor/pilot tests across pressure and solids.,medium,Scenario disabled.,open

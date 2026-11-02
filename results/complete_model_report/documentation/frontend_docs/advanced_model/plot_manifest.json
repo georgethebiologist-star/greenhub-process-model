@@ -1,0 +1,20 @@
+{
+  "checkpoint": 1,
+  "generated_plots": 0,
+  "manifest_status": "architecture_only",
+  "plots": [
+    {"plot_id": "SYS-AREA-MASS", "status": "planned"},
+    {"plot_id": "SYS-COMPONENT-FATE", "status": "planned"},
+    {"plot_id": "SYS-ELEMENT-FATE", "status": "planned"},
+    {"plot_id": "SEASON-FEED", "status": "planned"},
+    {"plot_id": "PRETREAT-RELEASE", "status": "blocked_by_data_gate"},
+    {"plot_id": "PROTEIN-PH", "status": "blocked_by_data_gate"},
+    {"plot_id": "PROTEIN-DRYING", "status": "blocked_by_data_gate"},
+    {"plot_id": "AD-STATES", "status": "blocked_by_data_gate"},
+    {"plot_id": "BG-PERFORMANCE", "status": "planned"},
+    {"plot_id": "NR-RECOVERY", "status": "planned"},
+    {"plot_id": "UTIL-BALANCE", "status": "blocked_by_missing_utility_area"},
+    {"plot_id": "VALIDATION-RESIDUALS", "status": "planned"}
+  ],
+  "source_policy": "structured_result_data_only"
+}

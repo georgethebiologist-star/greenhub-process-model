@@ -1,0 +1,46 @@
+﻿section,kpi,value,unit
+annual,feed_processed,8759999.999999998,kg/year
+products,dry_protein_product,70191.12921267329,kg/year
+products,biomethane,9038.603587165744,kg/year
+products,phosphorus_product,999.4422814389702,kg/year
+products,ammonium_product,87361.74133629932,kg/year
+products,potassium_concentrate,0.0,kg/year
+products,nutrient_rich_solids,49768.2857890754,kg/year
+named_products,struvite_product,999.4422814389702,kg/year
+utilities,electricity,272875.88428251416,kWh/year
+utilities,heating,418819.8777051285,kWh/year
+utilities,cooling,116710.11734615936,kWh/year
+tea,total_direct_capex_eur,49999.99999999999,see source report
+tea,partial_direct_capex_eur,49999.99999999999,see source report
+tea,partial_installed_capex_eur,0,see source report
+tea,total_installed_capex_eur,,see source report
+tea,annual_opex_eur,54329.58856064857,see source report
+tea,screening_estimates,False,see source report
+tea,screening_capital_basis_eur,,see source report
+tea,screening_operating_balance_eur_per_year,,see source report
+tea,annual_revenue_eur,0,see source report
+tea,annual_gross_profit_eur,,see source report
+tea,net_operating_margin_eur_per_year,,see source report
+tea,ebitda_like_operating_cash_flow_eur_per_year,,see source report
+tea,partial_operating_margin_eur_per_year,-54329.58856064857,see source report
+tea,selected_capex_lines_complete,False,see source report
+tea,selected_opex_lines_complete,False,see source report
+tea,totals_complete,False,see source report
+tea,base_annual_revenue_eur,0.0,see source report
+tea,base_annual_opex_eur,54329.58856064857,see source report
+tea,optimization_savings_eur_per_year,0.0,see source report
+tea,optimization_revenue_uplift_eur_per_year,0.0,see source report
+tea,optimized_annual_revenue_eur,0.0,see source report
+tea,optimized_annual_opex_eur,54329.58856064857,see source report
+tea,subsidy_eur,3499.9999999999995,see source report
+tea,subsidy_adjusted_capex_eur,46499.99999999999,see source report
+tea,tax_rate_applied,0.258,see source report
+tea,tax_eur_per_year,0.0,see source report
+tea,optimized_after_tax_profit_eur_per_year,-59065.71627092507,see source report
+lca,climate_kg_co2e_per_year,,see source report
+lca,partial_climate_kg_co2e_per_year,,see source report
+lca,substitution_credit_kg_co2e_per_year,,see source report
+lca,partial_substitution_credit_kg_co2e_per_year,,see source report
+lca,substitution_net_kg_co2e_per_year,,see source report
+lca,kg_co2e_per_tonne_wet_feed,,see source report
+lca,kg_co2e_per_tonne_dry_feed,,see source report

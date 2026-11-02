@@ -1,0 +1,45 @@
+{
+  "simulation": {
+    "schema_version": "1.0.0",
+    "request_id": "decision-support",
+    "project_id": "greenhub",
+    "calculation_mode": "structural",
+    "resolution_mode": "steady_state",
+    "selected_month": "July",
+    "scenarios": {
+      "feed_preparation": "F2",
+      "protein_recovery": "PR3",
+      "anaerobic_digestion": "AD1",
+      "biogas_upgrading": "BG2",
+      "nutrient_recovery": "NR4",
+      "process_order": "A"
+    },
+    "wet_feed_rate_kg_hr": 1000,
+    "plant_capacity_kg_hr": 1000,
+    "operating_schedule": {
+      "operating_days_per_week": 7,
+      "operating_hours_per_day": 24
+    },
+    "export_formats": [
+      "json",
+      "csv"
+    ],
+    "strict_validation": true
+  },
+  "project_basis": {
+    "currency": "EUR",
+    "price_year": 2026,
+    "location": "Netherlands"
+  },
+  "tea": {},
+  "financial_assumptions": {
+    "product_prices": {},
+    "use_screening_price_benchmarks": false
+  },
+  "use_screening_process_assumptions": false,
+  "use_screening_lca_factors": false,
+  "lca": {},
+  "climate_factors": {},
+  "additional_inventory": [],
+  "logistics_result": null
+}

@@ -1,0 +1,88 @@
+scenario,front_end_scenario,process_area,unit_id,unit_type,electricity_kw
+No PEF,F1,feed_preparation_and_primary_separation,U101,FeedPreparation,0.8467741935483872
+No PEF,F1,feed_preparation_and_primary_separation,S201,ScrewPress,2.8132661290322587
+No PEF,F1,feed_preparation_and_primary_separation,C301,PrimaryCentrifuge,0.22506129032258074
+No PEF,F1,protein_recovery,M401,AcidificationMixer,0.0016928556787634411
+No PEF,F1,protein_recovery,R401,ProteinPrecipitation,0.02040949127709174
+No PEF,F1,protein_recovery,C401,ProteinSeparator,0.16327593021673392
+No PEF,F1,protein_recovery,D401,MechanicalDewatering,0.04746760997608862
+No PEF,F1,protein_recovery,DR401,ProteinDryer,0.6146785073333586
+No PEF,F1,protein_recovery,M402,Mixer,0.0
+No PEF,F1,protein_recovery,M403,NeutralizationMixer,0.0008228454849577039
+No PEF,F1,anaerobic_digestion,M501,DigesterFeedConditioner,0.0008255707230068782
+No PEF,F1,anaerobic_digestion,H501,HXutility,0.0
+No PEF,F1,anaerobic_digestion,R501,AnaerobicDigester,0.49539196804750735
+No PEF,F1,anaerobic_digestion,V501,BiogasDisengagement,0.0
+No PEF,F1,biogas_conditioning_and_upgrading,G601,RawBiogasCooler,0.0006028992260675221
+No PEF,F1,biogas_conditioning_and_upgrading,S601,CondensateSeparator,0.0
+No PEF,F1,biogas_conditioning_and_upgrading,R601,HydrogenSulfideRemoval,0.0
+No PEF,F1,biogas_conditioning_and_upgrading,R602,AmmoniaRemoval,0.0
+No PEF,F1,biogas_conditioning_and_upgrading,F601,ParticleSiloxaneFilter,0.0005600029649417037
+No PEF,F1,biogas_conditioning_and_upgrading,M606,Mixer,0.0
+No PEF,F1,biogas_conditioning_and_upgrading,M607,Mixer,0.0
+No PEF,F1,biogas_conditioning_and_upgrading,M610,Mixer,0.0
+No PEF,F1,biogas_conditioning_and_upgrading,S610,Splitter,0.0
+No PEF,F1,biogas_conditioning_and_upgrading,C611,IsentropicCompressor,0.09453493467099544
+No PEF,F1,biogas_conditioning_and_upgrading,E611,HXutility,0.0
+No PEF,F1,biogas_conditioning_and_upgrading,A611,WaterAbsorber,0.0
+No PEF,F1,biogas_conditioning_and_upgrading,V611,GasWaterSeparator,0.0
+No PEF,F1,biogas_conditioning_and_upgrading,D611,GasWaterSeparator,0.0
+No PEF,F1,biogas_conditioning_and_upgrading,V612,WaterFlashTank,0.0
+No PEF,F1,biogas_conditioning_and_upgrading,A612,WaterRegenerator,0.0017720414771285637
+No PEF,F1,biogas_conditioning_and_upgrading,P611,Pump,0.0012315666867545214
+No PEF,F1,biogas_conditioning_and_upgrading,M618,Mixer,0.0
+No PEF,F1,biogas_conditioning_and_upgrading,M619,Mixer,0.0
+No PEF,F1,biogas_conditioning_and_upgrading,M698,Mixer,0.0
+No PEF,F1,biogas_conditioning_and_upgrading,M699,Mixer,0.0
+No PEF,F1,digestate_treatment_and_nutrient_recovery,T701,DigestateEqualization,0.026327768653707995
+No PEF,F1,digestate_treatment_and_nutrient_recovery,S701,DigestateSolidLiquidSeparator,0.09872913245140498
+No PEF,F1,digestate_treatment_and_nutrient_recovery,R711,StruviteCrystallizer,0.009751713160125849
+No PEF,F1,digestate_treatment_and_nutrient_recovery,S711,CrystalSeparator,0.0007660196257876142
+No PEF,F1,digestate_treatment_and_nutrient_recovery,W711,NutrientProductWasher,0.0
+No PEF,F1,digestate_treatment_and_nutrient_recovery,D711,NutrientProductDryer,0.0
+No PEF,F1,digestate_treatment_and_nutrient_recovery,M798,Mixer,0.0
+No PEF,F1,digestate_treatment_and_nutrient_recovery,M799,Mixer,0.0
+PEF,F2,feed_preparation_and_primary_separation,U101,FeedPreparation,0.8467741935483872
+PEF,F2,feed_preparation_and_primary_separation,U201,PulsedElectricField,11.253064516129035
+PEF,F2,feed_preparation_and_primary_separation,S201,ScrewPress,2.8132661290322587
+PEF,F2,feed_preparation_and_primary_separation,C301,PrimaryCentrifuge,0.26107109677419355
+PEF,F2,protein_recovery,M401,AcidificationMixer,0.002051270026881721
+PEF,F2,protein_recovery,R401,ProteinPrecipitation,0.024730624261592744
+PEF,F2,protein_recovery,C401,ProteinSeparator,0.19784499409274195
+PEF,F2,protein_recovery,D401,MechanicalDewatering,0.08156947946512115
+PEF,F2,protein_recovery,DR401,ProteinDryer,1.0536286171469258
+PEF,F2,protein_recovery,M402,Mixer,0.0
+PEF,F2,protein_recovery,M403,NeutralizationMixer,0.000983219372599916
+PEF,F2,anaerobic_digestion,M501,DigesterFeedConditioner,0.0009864901839344987
+PEF,F2,anaerobic_digestion,H501,HXutility,0.0
+PEF,F2,anaerobic_digestion,R501,AnaerobicDigester,0.591953299771735
+PEF,F2,anaerobic_digestion,V501,BiogasDisengagement,0.0
+PEF,F2,biogas_conditioning_and_upgrading,G601,RawBiogasCooler,0.0012924309336693356
+PEF,F2,biogas_conditioning_and_upgrading,S601,CondensateSeparator,0.0
+PEF,F2,biogas_conditioning_and_upgrading,R601,HydrogenSulfideRemoval,0.0
+PEF,F2,biogas_conditioning_and_upgrading,R602,AmmoniaRemoval,0.0
+PEF,F2,biogas_conditioning_and_upgrading,F601,ParticleSiloxaneFilter,0.0012006312847433714
+PEF,F2,biogas_conditioning_and_upgrading,M606,Mixer,0.0
+PEF,F2,biogas_conditioning_and_upgrading,M607,Mixer,0.0
+PEF,F2,biogas_conditioning_and_upgrading,M610,Mixer,0.0
+PEF,F2,biogas_conditioning_and_upgrading,S610,Splitter,0.0
+PEF,F2,biogas_conditioning_and_upgrading,C611,IsentropicCompressor,0.20371119950243385
+PEF,F2,biogas_conditioning_and_upgrading,E611,HXutility,0.0
+PEF,F2,biogas_conditioning_and_upgrading,A611,WaterAbsorber,0.0
+PEF,F2,biogas_conditioning_and_upgrading,V611,GasWaterSeparator,0.0
+PEF,F2,biogas_conditioning_and_upgrading,D611,GasWaterSeparator,0.0
+PEF,F2,biogas_conditioning_and_upgrading,V612,WaterFlashTank,0.0
+PEF,F2,biogas_conditioning_and_upgrading,A612,WaterRegenerator,0.004363564588073622
+PEF,F2,biogas_conditioning_and_upgrading,P611,Pump,0.0026566471606997346
+PEF,F2,biogas_conditioning_and_upgrading,M618,Mixer,0.0
+PEF,F2,biogas_conditioning_and_upgrading,M619,Mixer,0.0
+PEF,F2,biogas_conditioning_and_upgrading,M698,Mixer,0.0
+PEF,F2,biogas_conditioning_and_upgrading,M699,Mixer,0.0
+PEF,F2,digestate_treatment_and_nutrient_recovery,T701,DigestateEqualization,0.0313601924570303
+PEF,F2,digestate_treatment_and_nutrient_recovery,S701,DigestateSolidLiquidSeparator,0.11760072171386361
+PEF,F2,digestate_treatment_and_nutrient_recovery,R711,StruviteCrystallizer,0.01161079285460563
+PEF,F2,digestate_treatment_and_nutrient_recovery,S711,CrystalSeparator,0.0008965874359141968
+PEF,F2,digestate_treatment_and_nutrient_recovery,W711,NutrientProductWasher,0.0
+PEF,F2,digestate_treatment_and_nutrient_recovery,D711,NutrientProductDryer,0.0
+PEF,F2,digestate_treatment_and_nutrient_recovery,M798,Mixer,0.0
+PEF,F2,digestate_treatment_and_nutrient_recovery,M799,Mixer,0.0

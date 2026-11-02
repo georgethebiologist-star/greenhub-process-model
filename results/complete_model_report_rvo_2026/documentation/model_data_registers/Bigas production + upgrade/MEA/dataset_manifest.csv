@@ -1,0 +1,14 @@
+﻿filename,relative_path,description,row_count,encoding,delimiter,integration_status
+solvent_composition.csv,Greenhub/data/Biogas production + upgrade/Biogas_Upgrading/MEA/solvent_composition.csv,solvent composition,4,UTF-8 with BOM,",",ready_with_documented_gaps
+co2_loading_and_absorption.csv,Greenhub/data/Biogas production + upgrade/Biogas_Upgrading/MEA/co2_loading_and_absorption.csv,co2 loading and absorption,3,UTF-8 with BOM,",",ready_with_documented_gaps
+absorber_stripper_conditions.csv,Greenhub/data/Biogas production + upgrade/Biogas_Upgrading/MEA/absorber_stripper_conditions.csv,absorber stripper conditions,11,UTF-8 with BOM,",",ready_with_documented_gaps
+circulation_and_makeup.csv,Greenhub/data/Biogas production + upgrade/Biogas_Upgrading/MEA/circulation_and_makeup.csv,circulation and makeup,2,UTF-8 with BOM,",",ready_with_documented_gaps
+energy_and_duties.csv,Greenhub/data/Biogas production + upgrade/Biogas_Upgrading/MEA/energy_and_duties.csv,energy and duties,6,UTF-8 with BOM,",",ready_with_documented_gaps
+solvent_loss_degradation_corrosion.csv,Greenhub/data/Biogas production + upgrade/Biogas_Upgrading/MEA/solvent_loss_degradation_corrosion.csv,solvent loss degradation corrosion,5,UTF-8 with BOM,",",ready_with_documented_gaps
+performance_observations.csv,Greenhub/data/Biogas production + upgrade/Biogas_Upgrading/MEA/performance_observations.csv,performance observations,2,UTF-8 with BOM,",",ready_with_documented_gaps
+cost_dataset.csv,Greenhub/data/Biogas production + upgrade/Biogas_Upgrading/MEA/cost_dataset.csv,cost dataset,3,UTF-8 with BOM,",",ready_with_documented_gaps
+equipment_and_consumables.csv,Greenhub/data/Biogas production + upgrade/Biogas_Upgrading/MEA/equipment_and_consumables.csv,equipment and consumables,6,UTF-8 with BOM,",",ready_with_documented_gaps
+equation_registry.csv,Greenhub/data/Biogas production + upgrade/Biogas_Upgrading/MEA/equation_registry.csv,equation registry,5,UTF-8 with BOM,",",ready_with_documented_gaps
+scenario_controller.csv,Greenhub/data/Biogas production + upgrade/Biogas_Upgrading/MEA/scenario_controller.csv,scenario controller,6,UTF-8 with BOM,",",ready_with_documented_gaps
+limitation_and_missing_data_register.csv,Greenhub/data/Biogas production + upgrade/Biogas_Upgrading/MEA/limitation_and_missing_data_register.csv,limitation and missing data register,4,UTF-8 with BOM,",",ready_with_documented_gaps
+source_register.csv,Greenhub/data/Biogas production + upgrade/Biogas_Upgrading/MEA/source_register.csv,source register,3,UTF-8 with BOM,",",ready_with_documented_gaps

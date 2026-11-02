@@ -196,7 +196,7 @@
                 "type": "string"
               },
               "feed_preparation": {
-                "default": "F2",
+                "default": "F1",
                 "type": "string"
               },
               "nutrient_recovery": {
@@ -433,6 +433,68 @@
       },
       "SimulationRequest": {
         "$defs": {
+          "biomass_schedule": {
+            "additionalProperties": false,
+            "properties": {
+              "active_months": {
+                "items": {
+                  "maximum": 12,
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                "type": "array",
+                "uniqueItems": true
+              },
+              "annual_available_biomass_tonnes": {
+                "default": 30000,
+                "minimum": 0,
+                "type": "number"
+              },
+              "annual_processed_biomass_tonnes": {
+                "default": 30000,
+                "minimum": 0,
+                "type": "number"
+              },
+              "collection_refinery_fraction": {
+                "default": 1,
+                "maximum": 1,
+                "minimum": 0,
+                "type": "number"
+              },
+              "feed_basis": {
+                "enum": [
+                  "tonnes_per_year",
+                  "kg_per_hr"
+                ],
+                "type": "string"
+              },
+              "feed_kg_per_hr": {
+                "minimum": 0,
+                "type": "number"
+              },
+              "peak_date": {
+                "format": "date",
+                "type": "string"
+              },
+              "season_end": {
+                "format": "date",
+                "type": "string"
+              },
+              "season_start": {
+                "format": "date",
+                "type": "string"
+              },
+              "spread_days": {
+                "maximum": 366,
+                "minimum": 1,
+                "type": "number"
+              }
+            },
+            "type": [
+              "object",
+              "null"
+            ]
+          },
           "initial_storage_inventory": {
             "additionalProperties": false,
             "properties": {
@@ -592,7 +654,7 @@
                 "type": "string"
               },
               "feed_preparation": {
-                "default": "F2",
+                "default": "F1",
                 "type": "string"
               },
               "nutrient_recovery": {
@@ -625,6 +687,9 @@
               "number",
               "null"
             ]
+          },
+          "biomass_schedule": {
+            "$ref": "#/components/schemas/SimulationRequest/$defs/biomass_schedule"
           },
           "calculation_mode": {
             "default": "structural",
@@ -660,6 +725,14 @@
             },
             "type": "array"
           },
+          "feed_composition": {
+            "additionalProperties": {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            "type": "object"
+          },
           "feed_overrides": {
             "$ref": "#/components/schemas/SimulationRequest/$defs/parameter_overrides"
           },
@@ -677,6 +750,13 @@
           },
           "operating_schedule": {
             "$ref": "#/components/schemas/SimulationRequest/$defs/operating_schedule"
+          },
+          "plant_capacity_kg_hr": {
+            "exclusiveMinimum": 0,
+            "type": [
+              "number",
+              "null"
+            ]
           },
           "project_id": {
             "minLength": 1,
@@ -762,6 +842,13 @@
               "null"
             ]
           },
+          "storage_conditions": {
+            "description": "Opt-in component retention or source-gated grass reaction package; see decision-support options.",
+            "type": [
+              "object",
+              "null"
+            ]
+          },
           "strict_validation": {
             "default": true,
             "type": "boolean"
@@ -796,6 +883,13 @@
           "user_notes": {
             "type": [
               "string",
+              "null"
+            ]
+          },
+          "wet_feed_rate_kg_hr": {
+            "exclusiveMinimum": 0,
+            "type": [
+              "number",
               "null"
             ]
           }
@@ -1194,7 +1288,7 @@
                 "type": "string"
               },
               "feed_preparation": {
-                "default": "F2",
+                "default": "F1",
                 "type": "string"
               },
               "nutrient_recovery": {
@@ -1311,6 +1405,593 @@
   },
   "openapi": "3.1.0",
   "paths": {
+    "/api/v1/decision-support/batch": {
+      "post": {
+        "operationId": "decisionSupportBatch",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "configuration": {
+                    "properties": {
+                      "additional_inventory": {
+                        "items": {
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      "climate_factors": {
+                        "type": "object"
+                      },
+                      "financial_assumptions": {
+                        "type": "object"
+                      },
+                      "logistics_result": {
+                        "description": "Optional precomputed logistics result forwarded to TEA and LCA; it does not alter process chemistry or balances.",
+                        "type": [
+                          "object",
+                          "null"
+                        ]
+                      },
+                      "simulation": {
+                        "$ref": "#/components/schemas/SimulationRequest"
+                      },
+                      "use_screening_lca_factors": {
+                        "default": false,
+                        "description": "Explicitly opt in to the traceable electricity LCA screening proxy; project-specific factors should replace it.",
+                        "type": "boolean"
+                      },
+                      "use_screening_process_assumptions": {
+                        "default": false,
+                        "description": "Explicitly opt in to the traceable screening process-assumption profile.",
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "simulation"
+                    ],
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "configuration"
+                ],
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": [
+                    "object",
+                    "array"
+                  ]
+                }
+              }
+            },
+            "description": "Successful GreenHub response"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/api/v1/decision-support/evaluate": {
+      "post": {
+        "operationId": "decisionSupportEvaluate",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "configuration": {
+                    "properties": {
+                      "additional_inventory": {
+                        "items": {
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      "climate_factors": {
+                        "type": "object"
+                      },
+                      "financial_assumptions": {
+                        "type": "object"
+                      },
+                      "logistics_result": {
+                        "description": "Optional precomputed logistics result forwarded to TEA and LCA; it does not alter process chemistry or balances.",
+                        "type": [
+                          "object",
+                          "null"
+                        ]
+                      },
+                      "simulation": {
+                        "$ref": "#/components/schemas/SimulationRequest"
+                      },
+                      "use_screening_lca_factors": {
+                        "default": false,
+                        "description": "Explicitly opt in to the traceable electricity LCA screening proxy; project-specific factors should replace it.",
+                        "type": "boolean"
+                      },
+                      "use_screening_process_assumptions": {
+                        "default": false,
+                        "description": "Explicitly opt in to the traceable screening process-assumption profile.",
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "simulation"
+                    ],
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "configuration"
+                ],
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": [
+                    "object",
+                    "array"
+                  ]
+                }
+              }
+            },
+            "description": "Successful GreenHub response"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/api/v1/decision-support/options": {
+      "get": {
+        "operationId": "decisionSupportOptions",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": [
+                    "object",
+                    "array"
+                  ]
+                }
+              }
+            },
+            "description": "Successful GreenHub response"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/api/v1/decision-support/pareto/latest": {
+      "get": {
+        "description": "Returns the latest no-PEF BioSTEAM Pareto analysis, with separate protein-enabled and protein-bypassed groups, RVO-labelled support what-if cases, selected candidates and fronts.",
+        "operationId": "getLatestRvoParetoAnalysis",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": [
+                    "object",
+                    "array"
+                  ]
+                }
+              }
+            },
+            "description": "Successful GreenHub response"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/api/v1/decision-support/pareto/latest/figure-index": {
+      "get": {
+        "description": "Returns the current indexed PNG library with source dataset, scenario, units, category, and image URL.",
+        "operationId": "getLatestRvoParetoFigureIndex",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": [
+                    "object",
+                    "array"
+                  ]
+                }
+              }
+            },
+            "description": "Successful GreenHub response"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/api/v1/decision-support/pareto/latest/figures/by-id/{figure_id}": {
+      "get": {
+        "operationId": "getLatestRvoParetoFigureById",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "figure_id",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "image/png": {
+                "schema": {
+                  "format": "binary",
+                  "type": "string"
+                }
+              }
+            },
+            "description": "An indexed current Pareto-analysis PNG figure."
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/api/v1/decision-support/pareto/latest/figures/{group}": {
+      "get": {
+        "operationId": "getLatestRvoParetoFigure",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "group",
+            "required": true,
+            "schema": {
+              "enum": [
+                "protein_enabled",
+                "protein_bypass"
+              ],
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "image/png": {
+                "schema": {
+                  "format": "binary",
+                  "type": "string"
+                }
+              }
+            },
+            "description": "Static 3D Pareto PNG for the selected protein group."
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/api/v1/decision-support/pareto/latest/report": {
+      "get": {
+        "operationId": "downloadLatestRvoParetoReport",
+        "responses": {
+          "200": {
+            "content": {
+              "application/pdf": {
+                "schema": {
+                  "format": "binary",
+                  "type": "string"
+                }
+              }
+            },
+            "description": "Current PDF report with selected candidates and the indexed PNG atlas."
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/api/v1/decision-support/runs/{run_id}": {
+      "get": {
+        "operationId": "decisionSupportRun",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": [
+                    "object",
+                    "array"
+                  ]
+                }
+              }
+            },
+            "description": "Successful GreenHub response"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/api/v1/decision-support/sensitivity": {
+      "post": {
+        "operationId": "decisionSupportSensitivity",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "configuration": {
+                    "properties": {
+                      "additional_inventory": {
+                        "items": {
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      "climate_factors": {
+                        "type": "object"
+                      },
+                      "financial_assumptions": {
+                        "type": "object"
+                      },
+                      "logistics_result": {
+                        "description": "Optional precomputed logistics result forwarded to TEA and LCA; it does not alter process chemistry or balances.",
+                        "type": [
+                          "object",
+                          "null"
+                        ]
+                      },
+                      "simulation": {
+                        "$ref": "#/components/schemas/SimulationRequest"
+                      },
+                      "use_screening_lca_factors": {
+                        "default": false,
+                        "description": "Explicitly opt in to the traceable electricity LCA screening proxy; project-specific factors should replace it.",
+                        "type": "boolean"
+                      },
+                      "use_screening_process_assumptions": {
+                        "default": false,
+                        "description": "Explicitly opt in to the traceable screening process-assumption profile.",
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "simulation"
+                    ],
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "configuration"
+                ],
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": [
+                    "object",
+                    "array"
+                  ]
+                }
+              }
+            },
+            "description": "Successful GreenHub response"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/api/v1/dynamic-complete/assumptions": {
+      "get": {
+        "operationId": "dynamicCompleteAssumptions",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": [
+                    "object",
+                    "array"
+                  ]
+                }
+              }
+            },
+            "description": "Successful GreenHub response"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/api/v1/dynamic-complete/default-summary": {
+      "get": {
+        "operationId": "dynamicCompleteDefaultSummary",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": [
+                    "object",
+                    "array"
+                  ]
+                }
+              }
+            },
+            "description": "Successful GreenHub response"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/api/v1/dynamic-complete/options": {
+      "get": {
+        "operationId": "dynamicCompleteOptions",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": [
+                    "object",
+                    "array"
+                  ]
+                }
+              }
+            },
+            "description": "Successful GreenHub response"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/api/v1/dynamic-complete/scenario-summary": {
+      "post": {
+        "operationId": "dynamicCompleteScenarioSummary",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "additionalProperties": false,
+                "properties": {
+                  "analysis_factors": {
+                    "additionalProperties": {
+                      "minimum": 0,
+                      "type": "number"
+                    },
+                    "type": "object"
+                  },
+                  "scenario": {
+                    "description": "Opt-in scenario fields and defaults are listed at /api/v1/dynamic-complete/options; unknown fields are rejected.",
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "scenario"
+                ],
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": [
+                    "object",
+                    "array"
+                  ]
+                }
+              }
+            },
+            "description": "Successful GreenHub response"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
     "/api/v1/feed-profiles": {
       "get": {
         "operationId": "listFeedProfiles",
@@ -1618,6 +2299,42 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/SimulationResult"
+                }
+              }
+            },
+            "description": "Successful GreenHub response"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/api/v1/simulations/{run_id}/annual-summary": {
+      "get": {
+        "operationId": "getAnnualSummary",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": [
+                    "object",
+                    "array"
+                  ]
                 }
               }
             },

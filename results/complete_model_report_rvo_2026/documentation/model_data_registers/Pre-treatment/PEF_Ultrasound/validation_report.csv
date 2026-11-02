@@ -1,0 +1,10 @@
+﻿filename,primary_key,row_count,unique_nonblank_primary_keys,utf8_encoding,comma_delimiter,populated_numeric_traceability,notes
+pef_operating_parameters.csv,parameter_id,30,pass,pass,pass,pass,
+pef_treatment_response.csv,parameter_id,21,pass,pass,pass,pass,
+ultrasound_operating_parameters.csv,parameter_id,65,pass,pass,pass,pass,
+ultrasound_treatment_response.csv,parameter_id,71,pass,pass,pass,pass,
+pef_ultrasound_equation_registry.csv,equation_id,7,pass,pass,pass,pass,
+pef_ultrasound_scenario_controller.csv,scenario_id,6,pass,pass,pass,pass,
+source_register.csv,source_id,3,pass,pass,pass,pass,
+assumption_and_missing_data_register.csv,register_id,10,pass,pass,pass,pass,
+dataset_manifest.csv,dataset_id,8,pass,pass,pass,pass,

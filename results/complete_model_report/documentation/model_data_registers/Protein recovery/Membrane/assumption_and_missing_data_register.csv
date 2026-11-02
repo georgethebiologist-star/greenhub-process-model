@@ -1,0 +1,13 @@
+missing_id,mandatory_input,python_variable,required_for,unit,material_feed_type,measurement_or_source_needed,why_unresolved,priority,value,data_status,minimum_design
+MISS-001,Full flux-time/VCF data,full_flux_timeseries,dynamic fouling,L/m2/h,grass juice,raw machine-readable experiments,only summary point accessible,critical,,missing,"time, VCF, TMP, velocity, temperature"
+MISS-002,Viscosity vs solids and temperature,feed_viscosity,flux and pumping,Pa*s,grass juice,rheometry,legacy value was assumption,critical,,missing,multiple shear rates and VCFs
+MISS-003,Solids and particle-size distribution,feed_tss,prefiltration/fouling,kg/m3 and um,grass juice,TSS and PSD,not directly available,critical,,missing,before/after pretreatment
+MISS-004,Sugar/mineral transmission,sugar_transmission,diafiltration/purity,fraction,grass juice,component analytics,legacy values assumed,critical,,missing,each solute and stage
+MISS-005,RuBisCO rejection,rubisco_rejection,fractionation,fraction,grass juice,proteomics/targeted assay,not safely extracted,high,,missing,run-level value and uncertainty
+MISS-006,Resistance decomposition,cake_resistance,dynamic flux model,1/m,all process feeds,pressure-flux-viscosity and cleaning tests,no source constants,critical,,missing,clean/fouled/rinsed/cleaned
+MISS-007,Cake compressibility and CP,cake_compressibility,TMP/VCF response,dimensionless,high-fouling feeds,TMP and velocity matrix,uncalibrated legacy equations,critical,,missing,multiple TMP/velocities
+MISS-008,Cleaning recovery and demand,cleaning_recovery,availability/lifetime,fraction and L/m2,selected train,repeat cycles,only protocol found,critical,,missing,≥5 filtration-CIP cycles
+MISS-009,Pump efficiency,feed_pump_efficiency,energy,fraction,selected skid,manufacturer curve,legacy 0.7 assumed,critical,,missing,operating flow/head point
+MISS-010,Membrane lifetime,module_lifetime,replacement,y or h,selected membrane,vendor and pilot history,no matching value,critical,,missing,define failure criterion
+MISS-011,Module/skid costs,skid_cost,TEA,EUR,GreenHub scale,quotes or cost curves,no defensible cost,critical,,missing,same scope/year/capacity
+MISS-012,Equipment scale exponent,cost_scaling_exponent,capacity scaling,dimensionless,selected architecture,vendor series,no universal exponent,high,,missing,separate module/pump/CIP scaling

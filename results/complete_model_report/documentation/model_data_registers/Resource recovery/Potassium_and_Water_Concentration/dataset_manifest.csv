@@ -1,0 +1,14 @@
+filename,purpose,row_count,populated_value_rows,missing_value_rows,integration_status
+assumption_and_missing_data_register.csv,assumption and missing data register,455,0,455,ready_with_documented_gaps
+concentration_energy.csv,concentration energy,55,1,54,ready_with_documented_gaps
+concentration_equation_registry.csv,concentration equation registry,12,0,12,ready_with_documented_gaps
+concentration_equipment_costs.csv,concentration equipment costs,180,0,180,ready_with_documented_gaps
+concentration_feed_properties.csv,concentration feed properties,21,5,16,ready_with_documented_gaps
+concentration_scenario_controller.csv,concentration scenario controller,6,0,6,ready_with_documented_gaps
+electrodialysis_performance.csv,electrodialysis performance,27,12,15,ready_with_documented_gaps
+evaporation_performance.csv,evaporation performance,20,4,16,ready_with_documented_gaps
+membrane_concentration_performance.csv,membrane concentration performance,68,8,60,ready_with_documented_gaps
+product_composition.csv,product composition,82,5,77,ready_with_documented_gaps
+scaling_and_solubility_limits.csv,scaling and solubility limits,31,3,28,ready_with_documented_gaps
+source_register.csv,source register,12,0,12,ready_with_documented_gaps
+water_recovery_and_quality.csv,water recovery and quality,13,4,9,ready_with_documented_gaps

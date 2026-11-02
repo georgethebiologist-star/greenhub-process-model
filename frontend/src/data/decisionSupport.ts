@@ -1,4 +1,4 @@
-import { API_BASE, apiJson } from './apiClient';
+import { apiJson } from './apiClient';
 export type Configuration = Record<string, any>;
 export interface DecisionReport {
   run_id: string; configuration: Configuration; scenario_ids: string[]; model_type: string;
@@ -17,14 +17,6 @@ export interface Batch {mode:string; seed:number; evaluated_count:number; sample
 export async function decisionApi<T>(path:string, body?:unknown):Promise<T> {
   return apiJson<T>(`/decision-support/${path}`,body===undefined?{}:{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
 }
-export type BackendJob={job_id:string;status:string;requested_count:number;completed_count:number;failed_count:number;seed?:number;mode?:string;samples:any[];pareto_fronts:any[]};
-export const backendJobApi={
-  start:(payload:unknown)=>decisionApi<BackendJob>('batch-jobs',payload),
-  status:(id:string)=>apiJson<BackendJob>(`/decision-support/batch-jobs/${encodeURIComponent(id)}`),
-  candidate:(id:string,sampleId:string)=>apiJson<any>(`/decision-support/batch-jobs/${encodeURIComponent(id)}/candidates/${encodeURIComponent(sampleId)}`),
-  cancel:(id:string)=>apiJson<BackendJob>(`/decision-support/batch-jobs/${encodeURIComponent(id)}/cancel`,{method:'POST'}),
-  resume:(id:string)=>apiJson<BackendJob>(`/decision-support/batch-jobs/${encodeURIComponent(id)}/resume`,{method:'POST'}),
-};
 export function buildDecisionConfiguration(base:Configuration, controls:Record<string,any>):Configuration {
   const config=structuredClone(base); const sim=config.simulation;
   config.use_screening_lca_factors=controls.screeningLca===true;
