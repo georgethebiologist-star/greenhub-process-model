@@ -24,7 +24,7 @@ from reportlab.platypus import (
 
 ROOT = Path(__file__).resolve().parents[1]
 RESULTS = ROOT / "Greenhub" / "results" / "pareto_rvo_2026"
-FIGURES = ROOT / "results" / "report_figures"
+FIGURES = ROOT / "results" / "report_figures" / "10_rvo_2026_support_adjusted"
 PACKAGE = ROOT / "results" / "complete_model_report_rvo_2026"
 DOCS = PACKAGE / "documentation"
 EVIDENCE = PACKAGE / "evidence"
@@ -181,7 +181,7 @@ def markdown_report(manifest: dict, rows_by_group: dict[str, list[dict]]) -> str
         "",
         "Separate protein-enabled and protein-bypassed process routes were optimized. The analysis contains three sampled Pareto views: net carbon minimized with NPV maximized; assumed support present value minimized with NPV maximized; and a three-objective front combining all three. The sample is bounded by the specified design space, not a proof of global optimum.",
         "",
-        "All physical cases use F1 feed preparation (PEF disabled). The four support what-if cases are paired onto each simulated process design, so financial support changes do not alter process outputs. Support amounts are user-supplied screening assumptions, not confirmed awards or official tariff determinations.",
+        "All physical cases use F1 feed preparation (PEF disabled). The four support what-if cases are paired onto each simulated process design, so financial support changes do not alter process outputs. Original modeled sales and partial OPEX are used unchanged: no assumed cost savings or yield/revenue uplifts are applied. Support amounts are user-supplied screening assumptions, not confirmed awards or official tariff determinations.",
         "",
         "## Support cases",
         "",

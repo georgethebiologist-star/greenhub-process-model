@@ -16,9 +16,7 @@ config=deepcopy(SOURCE['configuration'])
 config['financial_assumptions']['use_screening_price_benchmarks']=True
 config['project_basis']['screening_estimates']=True
 config['candidate_economics']={**config.get('candidate_economics',{}),
-    'labour_reduction':0,'logistics_reduction':0,'energy_reduction':0,
-    'protein_yield_uplift':0,'nutrient_recovery_uplift':0,
-    'subsidy_rate':0,'subsidy_cap_eur':0,'eligible_capex_fraction':0.35,
+    'capex_grant_fraction':0,
     'tax_rate':0.258,'project_lifetime_years':20,'discount_rate':0.08}
 assert config['simulation']==SOURCE['configuration']['simulation']
 dest=OUT/'baseline_no_pef_screening.json'

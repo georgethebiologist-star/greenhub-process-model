@@ -1,6 +1,6 @@
 # GreenHub current RVO Pareto report package
 
-This package replaces the earlier report snapshot for current Pareto interpretation. It was assembled from the no-PEF BioSTEAM launch dated 2026-11-02T18:24:18Z UTC and contains 98 indexed PNG figures, the current report in PDF/Markdown/HTML, and current source evidence.
+This package replaces the earlier report snapshot for current Pareto interpretation. It was assembled from the no-PEF BioSTEAM launch dated 2026-11-03T12:21:09Z UTC and contains 98 indexed PNG figures, the current report in PDF/Markdown/HTML, and current source evidence.
 
 ## Contents
 

@@ -42,6 +42,7 @@ SUPPORT_SCENARIOS = {
     'C0': {'name': 'C0 · no CAPEX grant; dynamic SDE++ value €1.87/Nm³ biomethane', 'grant_fraction': 0.0, 'opex_eur_nm3': BIOMETHANE_VALUE_AVERAGE_EUR_PER_NM3, 'grant_awarder':None, 'opex_awarder':'Netherlands Enterprise Agency (RVO)'},
 }
 FINANCIAL_BASIS = {
+    'performance_improvements': 'None: original modeled sales and OPEX; no assumed cost reductions or revenue/yield uplifts.',
     'project_lifetime_years': 20,
     'discount_rate': .08,
     'opex_support_years': 15,
@@ -95,11 +96,6 @@ def make_designs(base, group: str, count: int, seed: int):
         flow = 10 ** rng.uniform(log_min, log_max)
         process_order = rng.choice(('A', 'B', 'C')) if nutrients in ('NR4', 'NR7') else 'A'
         economics_core = {
-            'labour_reduction': rng.uniform(0.0, 0.30),
-            'logistics_reduction': rng.uniform(0.0, 0.25),
-            'energy_reduction': rng.uniform(0.0, 0.25),
-            'protein_yield_uplift': rng.uniform(0.0, 0.20) if group == 'protein_enabled' else 0.0,
-            'nutrient_recovery_uplift': rng.uniform(0.0, 0.15),
             'tax_rate': FINANCIAL_BASIS['tax_rate'],
             'project_lifetime_years': FINANCIAL_BASIS['project_lifetime_years'],
             'discount_rate': FINANCIAL_BASIS['discount_rate'],
@@ -194,6 +190,7 @@ def _paired_support_rows(base_row):
             'biomethane_support_volume_nm3_per_year':biomethane_nm3_year,
         })
         tea=_apply_candidate_economics({'totals':deepcopy(row['tea_totals'])},economics,row['annual'],())
+        config['candidate_economics']=deepcopy(tea['candidate_economics']['assumptions'])
         row['tea_totals']=tea['totals'];row['candidate_economics']=tea['candidate_economics'];row['configuration']=config
         row['biomethane_support']={
             'biomethane_kg_per_year':biomethane_kg_year,
@@ -204,7 +201,8 @@ def _paired_support_rows(base_row):
             'equivalent_eur_per_t_feed':dynamic_rate_per_t,
             'volume_basis':'biomethane product stream only; raw biogas excluded from this screening proxy',
         }
-        row['objectives']['operating_profit']['value']=tea['totals'].get('optimized_after_tax_profit_eur_per_year')
+        row['objectives']['operating_profit']['value']=tea['totals']['annual_revenue_eur']-tea['totals']['annual_opex_eur']
+        row['objectives']['operating_profit']['definition']='Original modeled annual sales minus partial OPEX, before support, tax and capital recovery; no assumed performance improvements.'
         row['objectives']['npv']['value']=tea['totals'].get('proxy_npv_eur')
         row['objectives']['subsidy_granted']['value']=tea['totals'].get('total_public_support_pv_eur')
         row['objectives']['npv']['definition']=(

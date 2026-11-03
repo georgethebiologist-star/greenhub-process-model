@@ -150,7 +150,7 @@ for group in ('protein_enabled','protein_bypass'):
             finance=config['candidate_economics'];life=int(finance.get('project_lifetime_years',20));discount=float(finance.get('discount_rate',.08));
             factor=float(life) if discount==0 else (1-(1+discount)**(-life))/discount
             high_capex=float(row['tea_totals']['high_direct_capex_eur']);grant=float(row['tea_totals']['subsidy_eur']);
-            annual_cash=float(row['tea_totals']['optimized_annual_revenue_eur'])-float(row['tea_totals']['optimized_annual_opex_eur'])
+            annual_cash=float(row['tea_totals']['annual_revenue_eur'])-float(row['tea_totals']['annual_opex_eur'])
             op_pv=annual_cash*factor;support_pv=float(c['values']['subsidy_granted'])-grant
             contributions=[-(high_capex-grant),op_pv,support_pv];total=sum(contributions)
             starts=[0,contributions[0],contributions[0]+contributions[1]]
@@ -267,7 +267,7 @@ for col,(group,label) in enumerate([('protein_enabled','Protein enabled'),('prot
     for row in (0,1):axs[row,col].grid(alpha=.16);axs[row,col].spines[['top','right']].set_visible(False)
 axs[0,0].set_ylabel('NPV (€ million)');axs[1,0].set_ylabel('Adjusted profit (€/t feed)');axs[0,1].legend(frameon=False,ncol=2,fontsize=8)
 fig.suptitle('Financial scale effects',x=.08,ha='left',fontweight='bold',fontsize=15)
-save(fig,tea_dir/'npv_profit_by_feed_scale.png','Screening NPV and adjusted annual profit across evaluated feed scales',Path('Greenhub/results/pareto_rvo_2026'),'All evaluated designs; cases A–D; design-space scatter, not probabilistic uncertainty','NPV: € million; profit intensity: €/t wet grass')
+save(fig,tea_dir/'npv_profit_by_feed_scale.png','Screening NPV and original annual operating profit across evaluated feed scales',Path('Greenhub/results/pareto_rvo_2026'),'All evaluated designs; cases A–D; design-space scatter, not probabilistic uncertainty','NPV: € million; profit intensity: €/t wet grass')
 
 fig,axs=plt.subplots(1,2,figsize=(9,5.5),sharey=True);case_order=['A','B','C','D'];x=np.arange(4);w=.62
 for ax,(group,label) in zip(axs,[('protein_enabled','Protein enabled'),('protein_bypass','Protein bypassed')]):
@@ -287,61 +287,81 @@ def stored_report(candidate):
     path=ROOT/'Greenhub'/'results'/'runs'/candidate['run_id']/'decision_support.json'
     return json.loads(path.read_text(encoding='utf-8'))
 
-climate_parts=[];opex_parts=[]
-for group,label,rank,chosen,row in endpoint_rows:
-    report=stored_report(chosen);inventory=report.get('lca',{}).get('inventory',[]);sums={'Electricity':0.0,'Heat':0.0,'Process methane':0.0}
-    for item in inventory:
-        val=item.get('climate_kg_co2e')
-        if val is None or not isinstance(val,(int,float)):continue
-        if item.get('flow_id')=='electricity':sums['Electricity']+=max(0,float(val))
-        elif item.get('flow_id')=='heat':sums['Heat']+=max(0,float(val))
-        elif 'Methane' in str(item.get('flow_id')):sums['Process methane']+=max(0,float(val))
-    climate_parts.append((f'{"Protein" if group=="protein_enabled" else "Bypass"} · r{rank}',sums))
-    costs={}
-    for item in report.get('tea',{}).get('opex_lines',[]):
-        value=item.get('annual_cost_eur')
-        if not isinstance(value,(int,float)) or value<=0:continue
-        kind=str(item.get('cost_type') or 'other').lower();key={'labor':'Labour','logistics':'Feed logistics','utility':'Utilities','maintenance':'Maintenance'}.get(kind,'Other')
-        costs[key]=costs.get(key,0.0)+float(value)
-    opex_parts.append((f'{"Protein" if group=="protein_enabled" else "Bypass"} · r{rank}',costs))
-
-fig,ax=plt.subplots(figsize=(9,5.6));x=np.arange(len(climate_parts));bottom=np.zeros(len(climate_parts))
-for key,color in [('Electricity',BLUE),('Heat',ROSE),('Process methane',YELLOW)]:
-    vals=np.asarray([p.get(key,0.0)/1000 for _,p in climate_parts]);ax.bar(x,vals,bottom=bottom,label=key,color=color);bottom+=vals
-ax.set_xticks(x,[name for name,_ in climate_parts]);ax.set_ylabel('t CO₂-eq/year');ax.set_title('Operational climate hotspots',loc='left',fontweight='bold');ax.legend(frameon=False,ncol=3);ax.grid(axis='y',alpha=.16);ax.spines[['top','right']].set_visible(False)
-save(fig,hotspot_dir/'operational_climate_by_stage.png','Electricity, heat and characterized process-methane burdens for representative Pareto endpoints',Path('Greenhub/results/pareto_rvo_2026')/'stored decision_support.json','Rank 0 and 10; protein enabled and bypassed; attributional gate-to-gate loads only','t CO2-eq/year')
-
-cost_keys=['Labour','Feed logistics','Utilities','Maintenance','Other'];fig,ax=plt.subplots(figsize=(9,5.6));x=np.arange(len(opex_parts));bottom=np.zeros(len(opex_parts));cost_colors=[BLUE,GREEN,YELLOW,ROSE,GREY]
-for key,color in zip(cost_keys,cost_colors):
-    vals=np.asarray([p.get(key,0.0)/1000 for _,p in opex_parts]);
-    if not np.any(vals):continue
-    ax.bar(x,vals,bottom=bottom,label=key,color=color);bottom+=vals
-ax.set_xticks(x,[name for name,_ in opex_parts]);ax.set_ylabel('€ thousand/year');ax.set_title('Recorded operating costs',loc='left',fontweight='bold');ax.legend(frameon=False,ncol=3);ax.grid(axis='y',alpha=.16);ax.spines[['top','right']].set_visible(False)
-save(fig,hotspot_dir/'opex_categories_by_endpoint.png','Recorded system-level OPEX categories at representative Pareto endpoints; shared costs are not product-allocated',Path('Greenhub/results/pareto_rvo_2026')/'stored decision_support.json','Rank 0 and 10; protein enabled and bypassed; recorded cost lines only','€ thousand/year')
-
-equipment_panels=[]
-for kind,title,color in [('electricity','Electricity by equipment',BLUE),('heat','Heat by equipment',ROSE)]:
-    unions={}
+have_endpoint_records = all(
+    all((ROOT/'Greenhub'/'results'/'runs'/chosen['run_id']/name).is_file()
+        for name in ('decision_support.json', 'units.json', 'utilities.json'))
+    for _, _, _, chosen, _ in endpoint_rows
+)
+if have_endpoint_records:
+    climate_parts=[];opex_parts=[]
     for group,label,rank,chosen,row in endpoint_rows:
-        if rank!=0:continue
-        run_dir=ROOT/'Greenhub'/'results'/'runs'/chosen['run_id'];unit_map={u['unit_id']:u.get('display_name',u['unit_id']) for u in json.loads((run_dir/'units.json').read_text(encoding='utf-8'))}
-        hours=float(row['annual']['period']['operating_hours'])
-        for utility in json.loads((run_dir/'utilities.json').read_text(encoding='utf-8')):
-            if str(utility.get('kind','')).lower()!=kind:continue
-            demand=utility.get('demand',{});value=demand.get('value') if isinstance(demand,dict) else demand;unit=demand.get('unit','kW') if isinstance(demand,dict) else 'kW'
-            if not isinstance(value,(int,float)) or not str(unit).lower()=='kw' or value<=0:continue
-            name=unit_map.get(utility.get('unit_id'),utility.get('unit_id'));unions[(group,name)]=float(value)*hours/1000
-    if unions:
-        equipment_panels.append((kind,title,color,unions))
-fig,axs=plt.subplots(1,len(equipment_panels),figsize=(6*len(equipment_panels),6),squeeze=False)
-for ax,(kind,title,color,unions) in zip(axs.ravel(),equipment_panels):
-    top=sorted(unions,key=lambda k:unions[k],reverse=True)[:12];labels=[f'{"Protein" if g=="protein_enabled" else "Bypass"} · {n}' for g,n in top];vals=[unions[k] for k in top]
-    ax.barh(labels[::-1],vals[::-1],color=color);ax.set_xlabel('MWh/year');ax.set_title(title,loc='left',fontweight='bold');ax.grid(axis='x',alpha=.16);ax.spines[['top','right']].set_visible(False)
-fig.suptitle('Equipment energy hotspots',x=.08,ha='left',fontweight='bold',fontsize=15)
-shown=', '.join(title.replace(' by equipment','').lower() for _,title,_,_ in equipment_panels)
-save(fig,hotspot_dir/'equipment_energy_by_endpoint.png',f'Largest saved equipment {shown} duties for economic-endpoint process runs',Path('Greenhub/results/pareto_rvo_2026')/'stored utilities.json','Rank 0; protein-enabled and protein-bypassed cases; annualized at each run schedule', 'MWh/year')
+        report=stored_report(chosen);inventory=report.get('lca',{}).get('inventory',[]);sums={'Electricity':0.0,'Heat':0.0,'Process methane':0.0}
+        for item in inventory:
+            val=item.get('climate_kg_co2e')
+            if val is None or not isinstance(val,(int,float)):continue
+            if item.get('flow_id')=='electricity':sums['Electricity']+=max(0,float(val))
+            elif item.get('flow_id')=='heat':sums['Heat']+=max(0,float(val))
+            elif 'Methane' in str(item.get('flow_id')):sums['Process methane']+=max(0,float(val))
+        climate_parts.append((f'{"Protein" if group=="protein_enabled" else "Bypass"} · r{rank}',sums))
+        costs={}
+        for item in report.get('tea',{}).get('opex_lines',[]):
+            value=item.get('annual_cost_eur')
+            if not isinstance(value,(int,float)) or value<=0:continue
+            kind=str(item.get('cost_type') or 'other').lower();key={'labor':'Labour','logistics':'Feed logistics','utility':'Utilities','maintenance':'Maintenance'}.get(kind,'Other')
+            costs[key]=costs.get(key,0.0)+float(value)
+        opex_parts.append((f'{"Protein" if group=="protein_enabled" else "Bypass"} · r{rank}',costs))
+
+    fig,ax=plt.subplots(figsize=(9,5.6));x=np.arange(len(climate_parts));bottom=np.zeros(len(climate_parts))
+    for key,color in [('Electricity',BLUE),('Heat',ROSE),('Process methane',YELLOW)]:
+        vals=np.asarray([p.get(key,0.0)/1000 for _,p in climate_parts]);ax.bar(x,vals,bottom=bottom,label=key,color=color);bottom+=vals
+    ax.set_xticks(x,[name for name,_ in climate_parts]);ax.set_ylabel('t CO₂-eq/year');ax.set_title('Operational climate hotspots',loc='left',fontweight='bold');ax.legend(frameon=False,ncol=3);ax.grid(axis='y',alpha=.16);ax.spines[['top','right']].set_visible(False)
+    save(fig,hotspot_dir/'operational_climate_by_stage.png','Electricity, heat and characterized process-methane burdens for representative Pareto endpoints',Path('Greenhub/results/pareto_rvo_2026')/'stored decision_support.json','Rank 0 and 10; protein enabled and bypassed; attributional gate-to-gate loads only','t CO2-eq/year')
+
+    cost_keys=['Labour','Feed logistics','Utilities','Maintenance','Other'];fig,ax=plt.subplots(figsize=(9,5.6));x=np.arange(len(opex_parts));bottom=np.zeros(len(opex_parts));cost_colors=[BLUE,GREEN,YELLOW,ROSE,GREY]
+    for key,color in zip(cost_keys,cost_colors):
+        vals=np.asarray([p.get(key,0.0)/1000 for _,p in opex_parts]);
+        if not np.any(vals):continue
+        ax.bar(x,vals,bottom=bottom,label=key,color=color);bottom+=vals
+    ax.set_xticks(x,[name for name,_ in opex_parts]);ax.set_ylabel('€ thousand/year');ax.set_title('Recorded operating costs',loc='left',fontweight='bold');ax.legend(frameon=False,ncol=3);ax.grid(axis='y',alpha=.16);ax.spines[['top','right']].set_visible(False)
+    save(fig,hotspot_dir/'opex_categories_by_endpoint.png','Recorded system-level OPEX categories at representative Pareto endpoints; shared costs are not product-allocated',Path('Greenhub/results/pareto_rvo_2026')/'stored decision_support.json','Rank 0 and 10; protein enabled and bypassed; recorded cost lines only','€ thousand/year')
+
+    equipment_panels=[]
+    for kind,title,color in [('electricity','Electricity by equipment',BLUE),('heat','Heat by equipment',ROSE)]:
+        unions={}
+        for group,label,rank,chosen,row in endpoint_rows:
+            if rank!=0:continue
+            run_dir=ROOT/'Greenhub'/'results'/'runs'/chosen['run_id'];unit_map={u['unit_id']:u.get('display_name',u['unit_id']) for u in json.loads((run_dir/'units.json').read_text(encoding='utf-8'))}
+            hours=float(row['annual']['period']['operating_hours'])
+            for utility in json.loads((run_dir/'utilities.json').read_text(encoding='utf-8')):
+                if str(utility.get('kind','')).lower()!=kind:continue
+                demand=utility.get('demand',{});value=demand.get('value') if isinstance(demand,dict) else demand;unit=demand.get('unit','kW') if isinstance(demand,dict) else 'kW'
+                if not isinstance(value,(int,float)) or not str(unit).lower()=='kw' or value<=0:continue
+                name=unit_map.get(utility.get('unit_id'),utility.get('unit_id'));unions[(group,name)]=float(value)*hours/1000
+        if unions:
+            equipment_panels.append((kind,title,color,unions))
+    fig,axs=plt.subplots(1,len(equipment_panels),figsize=(6*len(equipment_panels),6),squeeze=False)
+    for ax,(kind,title,color,unions) in zip(axs.ravel(),equipment_panels):
+        top=sorted(unions,key=lambda k:unions[k],reverse=True)[:12];labels=[f'{"Protein" if g=="protein_enabled" else "Bypass"} · {n}' for g,n in top];vals=[unions[k] for k in top]
+        ax.barh(labels[::-1],vals[::-1],color=color);ax.set_xlabel('MWh/year');ax.set_title(title,loc='left',fontweight='bold');ax.grid(axis='x',alpha=.16);ax.spines[['top','right']].set_visible(False)
+    fig.suptitle('Equipment energy hotspots',x=.08,ha='left',fontweight='bold',fontsize=15)
+    shown=', '.join(title.replace(' by equipment','').lower() for _,title,_,_ in equipment_panels)
+    save(fig,hotspot_dir/'equipment_energy_by_endpoint.png',f'Largest saved equipment {shown} duties for economic-endpoint process runs',Path('Greenhub/results/pareto_rvo_2026')/'stored utilities.json','Rank 0; protein-enabled and protein-bypassed cases; annualized at each run schedule', 'MWh/year')
+
+else:
+    # Missing archived detail must not produce stale charts or invented zeroes.
+    for name, title in [('operational_climate_by_stage', 'Operational climate hotspots'),
+                        ('opex_categories_by_endpoint', 'Recorded operating costs'),
+                        ('equipment_energy_by_endpoint', 'Equipment energy hotspots')]:
+        fig, ax = plt.subplots(figsize=(9, 5.6))
+        ax.axis('off')
+        ax.set_title(title, loc='left', fontweight='bold')
+        ax.text(.5, .5, 'Detailed records for the revised Pareto endpoints are unavailable.\nNo breakdown has been estimated.\nAggregate results remain available in the candidate tables.',
+                ha='center', va='center', transform=ax.transAxes, wrap=True)
+        save(fig, hotspot_dir/f'{name}.png', 'Unavailable: archived endpoint detail records missing; no breakdown estimated',
+             Path('Greenhub/results/pareto_rvo_2026/latest.json'), 'Recalculated endpoints', 'Unavailable')
+    print('Endpoint hotspot breakdowns flagged unavailable: archived detail records are missing.')
 
 for index_path in (FIGROOT/'rvo_pareto_figure_index.csv', FIGROOT/'figure_index.csv'):
     with index_path.open('w',newline='',encoding='utf-8-sig') as f:
-        w=csv.DictWriter(f,fieldnames=['figure_name','description','source_dataset','scenario','units','file_location']);w.writeheader();w.writerows(INDEX)
+        w=csv.DictWriter(f,fieldnames=['figure_name','description','source_dataset','scenario','units','file_location'],lineterminator='\n');w.writeheader();w.writerows(INDEX)
 print(f'Generated {len(INDEX)} PNGs; index: {FIGROOT/"rvo_pareto_figure_index.csv"}')

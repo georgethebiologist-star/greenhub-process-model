@@ -41,39 +41,34 @@ def _annuity_factor(rate: float, years: int) -> float:
 
 
 def _apply_candidate_economics(tea: dict, economics: dict, annual=None, units=()) -> dict:
-    """Apply transparent candidate-level screening overlays after the real run."""
+    """Apply public support to original process economics, without performance uplifts."""
+    # Old saved configurations may still contain improvement knobs. Ignore them
+    # rather than allowing historical requests to alter modeled costs or sales.
+    economics = {key: value for key, value in economics.items() if key not in {
+        'labour_reduction', 'logistics_reduction', 'energy_reduction',
+        'protein_yield_uplift', 'nutrient_recovery_uplift',
+        'subsidy_rate', 'subsidy_cap_eur', 'eligible_capex_fraction',
+    }}
     totals = tea.get('totals') or {}
     base_revenue = float(totals.get('annual_revenue_eur') or 0.0)
     base_opex = float(totals.get('annual_opex_eur') or 0.0)
     base_capex = float(totals.get('screening_capital_basis_eur') or totals.get('partial_direct_capex_eur') or 0.0)
-    labor = max(0.0, min(0.30, float(economics.get('labour_reduction', 0.0))))
-    logistics = max(0.0, min(0.25, float(economics.get('logistics_reduction', 0.0))))
-    energy = max(0.0, min(0.25, float(economics.get('energy_reduction', 0.0))))
-    yield_uplift = max(0.0, min(0.20, float(economics.get('protein_yield_uplift', 0.0))))
-    recovery_uplift = max(0.0, min(0.15, float(economics.get('nutrient_recovery_uplift', 0.0))))
     # Public support is never presumed. Pareto cases must carry an explicit
-    # grant fraction or subsidy rate plus its grant scenario metadata.
-    subsidy_rate = max(0.0, min(0.20, float(economics.get('subsidy_rate', 0.0))))
-    subsidy_cap = max(0.0, float(economics.get('subsidy_cap_eur', 250000.0)))
+    # grant fraction plus its grant scenario metadata.
     tax_rate = max(0.0, min(1.0, float(economics.get('tax_rate', 0.258))))
-    eligible_fraction = max(0.0, min(1.0, float(economics.get('eligible_capex_fraction', 0.35))))
-    savings = base_opex * (0.35 * labor + 0.20 * logistics + 0.45 * energy)
-    revenue_uplift = base_revenue * (0.65 * yield_uplift + 0.35 * recovery_uplift)
-    optimized_revenue = base_revenue + revenue_uplift
-    optimized_opex = max(0.0, base_opex - savings)
+    optimized_revenue = base_revenue
+    optimized_opex = base_opex
     lifetime = int(economics.get('project_lifetime_years', 20) or 20)
-    discount = float(economics.get('discount_rate', 0.08) or 0.08)
+    discount = float(economics.get('discount_rate', 0.08))
     high_capex = _high_direct_capex_basis(tea, units) or totals.get('high_direct_capex_eur') or base_capex
     grant_fraction = economics.get('capex_grant_fraction')
     if grant_fraction is not None:
         grant_fraction = max(0.0, min(0.60, float(grant_fraction)))
         subsidy = high_capex * grant_fraction
-        subsidy_basis = high_capex
         subsidy_capex = max(0.0, high_capex - subsidy)
     else:
-        subsidy = min(subsidy_cap, base_capex * eligible_fraction * subsidy_rate)
-        subsidy_basis = base_capex * eligible_fraction
-        subsidy_capex = max(0.0, base_capex - subsidy)
+        subsidy = 0.0
+        subsidy_capex = high_capex
     operating_profit = optimized_revenue - optimized_opex
     after_tax_operating_profit = operating_profit - max(0.0, operating_profit) * tax_rate
     recovery = 1 / lifetime if discount == 0 else discount / (1 - (1 + discount) ** (-lifetime))
@@ -94,8 +89,8 @@ def _apply_candidate_economics(tea: dict, economics: dict, annual=None, units=()
     totals.update({
         'base_annual_revenue_eur': base_revenue,
         'base_annual_opex_eur': base_opex,
-        'optimization_savings_eur_per_year': savings,
-        'optimization_revenue_uplift_eur_per_year': revenue_uplift,
+        'optimization_savings_eur_per_year': 0.0,
+        'optimization_revenue_uplift_eur_per_year': 0.0,
         'optimized_annual_revenue_eur': optimized_revenue,
         'optimized_annual_opex_eur': optimized_opex,
         'subsidy_eur': subsidy,
@@ -111,13 +106,13 @@ def _apply_candidate_economics(tea: dict, economics: dict, annual=None, units=()
         'tax_rate_applied': tax_rate,
         'tax_eur_per_year': max(0.0, operating_profit) * tax_rate,
         'optimized_after_tax_profit_eur_per_year': optimized_profit,
-        'optimization_status': 'candidate_screening_overlay',
+        'optimization_status': 'support_only_no_performance_uplifts',
     })
     tea['totals'] = totals
     tea['candidate_economics'] = {
         'assumptions': economics,
-        'optimization_savings_eur_per_year': savings,
-        'revenue_uplift_eur_per_year': revenue_uplift,
+        'optimization_savings_eur_per_year': 0.0,
+        'revenue_uplift_eur_per_year': 0.0,
         'subsidy_eur': subsidy,
         'grant_awarding_organization': economics.get('grant_awarding_organization'),
         'operating_support_awarding_organization': economics.get('operating_support_awarding_organization'),
@@ -253,6 +248,7 @@ class DecisionSupportService:
         logistics_result = config.get('logistics_result')
         tea=calculate_empirical_tea(result,project_basis=tea_basis,financial_assumptions=finance_config,logistics_result=logistics_result).to_dict()
         tea = _apply_candidate_economics(tea, config.get('candidate_economics') or {}, annual, result.units)
+        config['candidate_economics'] = deepcopy(tea['candidate_economics']['assumptions'])
         lca_factors = dict(config.get('climate_factors') or {})
         if use_screening_lca_factors:
             from .lca_service import screening_lca_factors
@@ -320,7 +316,7 @@ class DecisionSupportService:
                             'Operational climate inventory covers only included gate-to-gate groups and declared emission factors.'],
         }
         objectives={
-            'operating_profit':{'value':t.get('optimized_after_tax_profit_eur_per_year', t.get('net_operating_margin_eur_per_year')),'direction':'maximize','unit':'EUR/year','eligible':numerical_ok and t.get('optimized_after_tax_profit_eur_per_year', t.get('net_operating_margin_eur_per_year')) is not None,'definition':'Candidate-adjusted annual profit after tax, optimization savings and subsidy-adjusted annual capital recovery'},
+            'operating_profit':{'value':t['annual_revenue_eur']-t['annual_opex_eur'],'direction':'maximize','unit':'EUR/year','eligible':numerical_ok,'definition':'Original modeled annual sales minus partial OPEX, before support, tax and capital recovery; no assumed performance improvements.'},
             'climate':{'value':climate_value,'direction':'minimize','unit':'kg CO2e/year','eligible':numerical_ok and climate_value is not None,'definition':'Attributional plant climate estimate; partial inventory may be used for screening and must be completed before investment decisions'},
             'net_carbon':{'value':net_carbon_t_c_y,'direction':'minimize','unit':'t C/year','eligible':numerical_ok and net_carbon_t_c_y is not None,'definition':'Operational climate load converted from t CO2e to t C, less assumed carbon stored in furniture and soil-retained nutrient-rich solids; screening proxy.'},
             'npv':{'value':economics_result.get('proxy_npv_eur'),'direction':'maximize','unit':'EUR','eligible':numerical_ok and economics_result.get('proxy_npv_eur') is not None,'definition':economics_result.get('proxy_npv_basis','Proxy NPV unavailable; missing financial inputs.')},

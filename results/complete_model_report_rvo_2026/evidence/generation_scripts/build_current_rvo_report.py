@@ -24,7 +24,7 @@ from reportlab.platypus import (
 
 ROOT = Path(__file__).resolve().parents[1]
 RESULTS = ROOT / "Greenhub" / "results" / "pareto_rvo_2026"
-FIGURES = ROOT / "results" / "report_figures"
+FIGURES = ROOT / "results" / "report_figures" / "10_rvo_2026_support_adjusted"
 PACKAGE = ROOT / "results" / "complete_model_report_rvo_2026"
 DOCS = PACKAGE / "documentation"
 EVIDENCE = PACKAGE / "evidence"
@@ -181,7 +181,7 @@ def markdown_report(manifest: dict, rows_by_group: dict[str, list[dict]]) -> str
         "",
         "Separate protein-enabled and protein-bypassed process routes were optimized. The analysis contains three sampled Pareto views: net carbon minimized with NPV maximized; assumed support present value minimized with NPV maximized; and a three-objective front combining all three. The sample is bounded by the specified design space, not a proof of global optimum.",
         "",
-        "All physical cases use F1 feed preparation (PEF disabled). The four support what-if cases are paired onto each simulated process design, so financial support changes do not alter process outputs. Support amounts are user-supplied screening assumptions, not confirmed awards or official tariff determinations.",
+        "All physical cases use F1 feed preparation (PEF disabled). The four support what-if cases are paired onto each simulated process design, so financial support changes do not alter process outputs. Original modeled sales and partial OPEX are used unchanged: no assumed cost savings or yield/revenue uplifts are applied. Support amounts are user-supplied screening assumptions, not confirmed awards or official tariff determinations.",
         "",
         "## Support cases",
         "",
@@ -189,7 +189,7 @@ def markdown_report(manifest: dict, rows_by_group: dict[str, list[dict]]) -> str
         "|---|---|---:|---:|---:|",
     ]
     for case, support in manifest["support_scenarios"].items():
-        lines.append(f"| {case} | {support['name']} | {support['grant_fraction']:.0%} | €{support['opex_eur_t']:,.0f}/t wet grass/year | 15 years |")
+        lines.append(f"| {case} | {support['name']} | {support['grant_fraction']:.0%} | €{support['opex_eur_nm3']:.2f}/Nm³ biomethane (dynamic by candidate output) | 15 years |")
     lines += ["", "## Front sizes", "", "| Protein route | Net carbon vs NPV | Support PV vs NPV | Carbon, NPV, support |", "|---|---:|---:|---:|"]
     for group in ("protein_enabled", "protein_bypass"):
         pack = manifest["groups_payload"][group]
@@ -304,7 +304,7 @@ def make_pdf(manifest: dict, rows_by_group: dict[str, list[dict]], index: list[d
     ])), Spacer(1, 7 * mm), Paragraph("Support cases", styles["GHSubheading"])]
     support_data = [["Case", "Programme / named authority", "CAPEX grant", "Operating premium", "Term"]]
     for case, support in manifest["support_scenarios"].items():
-        support_data.append([case, Paragraph(esc(support["name"]), styles["GHSmall"]), f"{support['grant_fraction']:.0%}", f"EUR {support['opex_eur_t']:,.0f}/t/y", "15 y"])
+        support_data.append([case, Paragraph(esc(support["name"]), styles["GHSmall"]), f"{support['grant_fraction']:.0%}", f"EUR {support['opex_eur_nm3']:.2f}/Nm3 gas", "15 y"])
     story += [Table(support_data, colWidths=[34, 215, 58, 90, 42], style=TableStyle([
         ("BACKGROUND", (0, 0), (-1, 0), INK), ("TEXTCOLOR", (0, 0), (-1, 0), WHITE),
         ("FONTNAME", (0, 0), (-1, 0), bold_font), ("FONTNAME", (0, 1), (-1, -1), regular_font),

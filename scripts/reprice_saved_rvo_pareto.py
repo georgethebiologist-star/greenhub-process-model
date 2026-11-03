@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from copy import deepcopy
+import csv
 import json
 from pathlib import Path
 import sys
@@ -83,7 +84,7 @@ def main() -> None:
         )
 
     manifest.update({
-        "schema_version": "greenhub-rvo-pareto-1.1",
+        "schema_version": "greenhub-rvo-pareto-1.2",
         "created_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z"),
         "feed_preparation": "F1 only; PEF off",
         "support_scenarios": runner.SUPPORT_SCENARIOS,
@@ -97,6 +98,7 @@ def main() -> None:
             "caveat": "Screening overlay only; actual SDE++ support depends on eligible biomethane injection and annual correction amounts.",
         },
         "limitations": [
+            "Original modeled sales and partial OPEX are used unchanged; no assumed labour, logistics or energy savings, protein-yield or nutrient-recovery revenue uplifts are applied.",
             "C30/C45/C60/C0 CAPEX grant fractions are user-defined what-if values, not awards or verified RVO eligibility determinations.",
             "The OPEX overlay multiplies each candidate's modeled biomethane volume by the average €1.87/Nm3 value; €1.28–€2.46/Nm3 is retained as a later sensitivity range. This is not a verified RVO tariff or guaranteed support.",
             "RVO DEI+ eligibility, eligible cost base, grant ceiling and co-funding conditions are not assessed.",
@@ -124,6 +126,30 @@ def main() -> None:
     encoded = json.dumps(manifest, ensure_ascii=False, allow_nan=False)
     (OUT / "rvo_pareto_manifest.json").write_text(encoded, encoding="utf-8")
     SOURCE.write_text(encoded, encoding="utf-8")
+    ledger = []
+    for group_name, group in updated_groups.items():
+        for row in group['samples']:
+            if row.get('status') != 'evaluated':
+                continue
+            totals = row['tea_totals']
+            ledger.append({
+                'sample_id': row['sample_id'], 'group': group_name,
+                'support_case': row['support_case'],
+                'wet_feed_t_per_year': row['annual']['feed_processed']['value']/1000,
+                'high_direct_capex_eur': totals['high_direct_capex_eur'],
+                'original_sales_eur_per_year': totals['annual_revenue_eur'],
+                'original_partial_opex_eur_per_year': totals['annual_opex_eur'],
+                'original_operating_profit_eur_per_year': totals['annual_revenue_eur']-totals['annual_opex_eur'],
+                'capex_grant_eur': totals['subsidy_eur'],
+                'biomethane_support_eur_per_year': totals['opex_premium_eur_per_year'],
+                'total_support_pv_eur': totals['total_public_support_pv_eur'],
+                'npv_eur': totals['proxy_npv_eur'],
+                'net_carbon_t_c_per_year': row['objectives']['net_carbon']['value'],
+            })
+    with (OUT/'support_only_financial_ledger.csv').open('w', newline='', encoding='utf-8') as stream:
+        writer = csv.DictWriter(stream, fieldnames=list(ledger[0]), lineterminator='\n')
+        writer.writeheader()
+        writer.writerows(ledger)
     print("Repriced all saved process runs; no BioSTEAM process simulations were repeated.")
 
 

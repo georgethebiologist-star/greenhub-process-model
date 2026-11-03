@@ -1,0 +1,1601 @@
+[
+  {
+    "sample_id": "protein_enabled-0070-C45",
+    "run_id": "ad002022d4da40d9bd810c248c822637",
+    "selection": "10\u201315k \u00b7 Lowest support; min C tie \u00b7 C45",
+    "cashflows_eur": [
+      -800188.0792747851,
+      102073.6976222147,
+      102073.6976222147,
+      102073.6976222147,
+      102073.6976222147,
+      102073.6976222147,
+      102073.6976222147,
+      102073.6976222147,
+      102073.6976222147,
+      102073.6976222147,
+      102073.6976222147,
+      102073.6976222147,
+      102073.6976222147,
+      102073.6976222147,
+      102073.6976222147,
+      102073.6976222147,
+      83118.04778186162,
+      83118.04778186162,
+      83118.04778186162,
+      83118.04778186162,
+      83118.04778186162
+    ],
+    "irr": 0.10961028864259348,
+    "configuration": {
+      "simulation": {
+        "schema_version": "1.0.0",
+        "request_id": "rvo_pf_protein_enabled_0070_A",
+        "project_id": "greenhub",
+        "calculation_mode": "structural",
+        "resolution_mode": "steady_state",
+        "selected_month": "July",
+        "scenarios": {
+          "feed_preparation": "F1",
+          "protein_recovery": "PR1",
+          "anaerobic_digestion": "AD3",
+          "biogas_upgrading": "BG4",
+          "nutrient_recovery": "NR7",
+          "process_order": "A"
+        },
+        "wet_feed_rate_kg_hr": 1653.7671847115807,
+        "plant_capacity_kg_hr": 1653.7671847115807,
+        "operating_schedule": {
+          "operating_days_per_week": 7,
+          "operating_hours_per_day": 24
+        },
+        "export_formats": [
+          "json",
+          "csv"
+        ],
+        "strict_validation": true
+      },
+      "project_basis": {
+        "currency": "EUR",
+        "price_year": 2026,
+        "location": "Netherlands",
+        "screening_estimates": true
+      },
+      "tea": {},
+      "financial_assumptions": {
+        "product_prices": {},
+        "use_screening_price_benchmarks": true
+      },
+      "lca": {
+        "boundary": "factory gate-to-gate operational climate screening",
+        "included_groups": [
+          "electricity",
+          "heat",
+          "process_emissions"
+        ],
+        "exclusions": {
+          "materials": "Upstream material production is outside this factory-operational boundary; no zero-burden claim.",
+          "transport": "Offsite feedstock and product transport is excluded.",
+          "storage_emissions": "Storage emissions are excluded from this operational boundary; separate storage modelling is not characterized here.",
+          "waste": "Downstream waste treatment is excluded.",
+          "feedstock_production": "Cultivation and land-use change are excluded.",
+          "equipment": "Embodied equipment is excluded."
+        },
+        "inventory_completeness": {
+          "electricity": {
+            "status": "complete",
+            "note": "Modeled annual electricity activity; Dutch average factor and stated sensitivity applied."
+          },
+          "heat": {
+            "status": "complete",
+            "note": "Modeled annual process heat activity; user-supplied Dutch heat-network average applied."
+          },
+          "process_emissions": {
+            "status": "complete",
+            "note": "Modeled vented process methane and gas flows; terminal gas fate set to emitted for this screening case."
+          }
+        },
+        "terminal_gas_fate": "emitted"
+      },
+      "climate_factors": {},
+      "additional_inventory": [],
+      "logistics_result": null,
+      "use_screening_process_assumptions": true,
+      "use_screening_lca_factors": true,
+      "candidate_economics": {
+        "tax_rate": 0.0,
+        "project_lifetime_years": 20,
+        "discount_rate": 0.08,
+        "opex_support_years": 15,
+        "soil_carbon_retention_fraction": 0.1,
+        "furniture_carbon_retention_fraction": 1.0,
+        "grant_scenario_id": "C45",
+        "grant_scenario_name": "C45 \u00b7 RVO DEI+ CAPEX grant 45%; dynamic SDE++ value \u20ac1.87/Nm\u00b3 biomethane",
+        "grant_awarding_organization": "Netherlands Enterprise Agency (RVO)",
+        "operating_support_scenario_name": "C45 \u00b7 RVO DEI+ CAPEX grant 45%; dynamic SDE++ value \u20ac1.87/Nm\u00b3 biomethane",
+        "operating_support_awarding_organization": "Netherlands Enterprise Agency (RVO)",
+        "capex_grant_fraction": 0.45,
+        "opex_premium_eur_per_t_feed": 1.3084592487268527,
+        "opex_premium_eur_per_nm3_biomethane": 1.87,
+        "biomethane_density_kg_per_nm3": 0.716,
+        "biomethane_support_volume_nm3_per_year": 10136.711144573846
+      }
+    }
+  },
+  {
+    "sample_id": "protein_enabled-0070-C60",
+    "run_id": "ad002022d4da40d9bd810c248c822637",
+    "selection": "10\u201315k \u00b7 Highest NPV; min C tie \u00b7 C60",
+    "cashflows_eur": [
+      -581954.9667452982,
+      102073.6976222147,
+      102073.6976222147,
+      102073.6976222147,
+      102073.6976222147,
+      102073.6976222147,
+      102073.6976222147,
+      102073.6976222147,
+      102073.6976222147,
+      102073.6976222147,
+      102073.6976222147,
+      102073.6976222147,
+      102073.6976222147,
+      102073.6976222147,
+      102073.6976222147,
+      102073.6976222147,
+      83118.04778186162,
+      83118.04778186162,
+      83118.04778186162,
+      83118.04778186162,
+      83118.04778186162
+    ],
+    "irr": 0.16543667286530261,
+    "configuration": {
+      "simulation": {
+        "schema_version": "1.0.0",
+        "request_id": "rvo_pf_protein_enabled_0070_A",
+        "project_id": "greenhub",
+        "calculation_mode": "structural",
+        "resolution_mode": "steady_state",
+        "selected_month": "July",
+        "scenarios": {
+          "feed_preparation": "F1",
+          "protein_recovery": "PR1",
+          "anaerobic_digestion": "AD3",
+          "biogas_upgrading": "BG4",
+          "nutrient_recovery": "NR7",
+          "process_order": "A"
+        },
+        "wet_feed_rate_kg_hr": 1653.7671847115807,
+        "plant_capacity_kg_hr": 1653.7671847115807,
+        "operating_schedule": {
+          "operating_days_per_week": 7,
+          "operating_hours_per_day": 24
+        },
+        "export_formats": [
+          "json",
+          "csv"
+        ],
+        "strict_validation": true
+      },
+      "project_basis": {
+        "currency": "EUR",
+        "price_year": 2026,
+        "location": "Netherlands",
+        "screening_estimates": true
+      },
+      "tea": {},
+      "financial_assumptions": {
+        "product_prices": {},
+        "use_screening_price_benchmarks": true
+      },
+      "lca": {
+        "boundary": "factory gate-to-gate operational climate screening",
+        "included_groups": [
+          "electricity",
+          "heat",
+          "process_emissions"
+        ],
+        "exclusions": {
+          "materials": "Upstream material production is outside this factory-operational boundary; no zero-burden claim.",
+          "transport": "Offsite feedstock and product transport is excluded.",
+          "storage_emissions": "Storage emissions are excluded from this operational boundary; separate storage modelling is not characterized here.",
+          "waste": "Downstream waste treatment is excluded.",
+          "feedstock_production": "Cultivation and land-use change are excluded.",
+          "equipment": "Embodied equipment is excluded."
+        },
+        "inventory_completeness": {
+          "electricity": {
+            "status": "complete",
+            "note": "Modeled annual electricity activity; Dutch average factor and stated sensitivity applied."
+          },
+          "heat": {
+            "status": "complete",
+            "note": "Modeled annual process heat activity; user-supplied Dutch heat-network average applied."
+          },
+          "process_emissions": {
+            "status": "complete",
+            "note": "Modeled vented process methane and gas flows; terminal gas fate set to emitted for this screening case."
+          }
+        },
+        "terminal_gas_fate": "emitted"
+      },
+      "climate_factors": {},
+      "additional_inventory": [],
+      "logistics_result": null,
+      "use_screening_process_assumptions": true,
+      "use_screening_lca_factors": true,
+      "candidate_economics": {
+        "tax_rate": 0.0,
+        "project_lifetime_years": 20,
+        "discount_rate": 0.08,
+        "opex_support_years": 15,
+        "soil_carbon_retention_fraction": 0.1,
+        "furniture_carbon_retention_fraction": 1.0,
+        "grant_scenario_id": "C60",
+        "grant_scenario_name": "C60 \u00b7 RVO DEI+ CAPEX grant 60%; dynamic SDE++ value \u20ac1.87/Nm\u00b3 biomethane",
+        "grant_awarding_organization": "Netherlands Enterprise Agency (RVO)",
+        "operating_support_scenario_name": "C60 \u00b7 RVO DEI+ CAPEX grant 60%; dynamic SDE++ value \u20ac1.87/Nm\u00b3 biomethane",
+        "operating_support_awarding_organization": "Netherlands Enterprise Agency (RVO)",
+        "capex_grant_fraction": 0.6,
+        "opex_premium_eur_per_t_feed": 1.3084592487268527,
+        "opex_premium_eur_per_nm3_biomethane": 1.87,
+        "biomethane_density_kg_per_nm3": 0.716,
+        "biomethane_support_volume_nm3_per_year": 10136.711144573846
+      }
+    }
+  },
+  {
+    "sample_id": "protein_bypass-0116-C30",
+    "run_id": "4c3058c25a8b4249b035a2760be56af4",
+    "selection": "15\u201320k \u00b7 Lowest support; min C tie \u00b7 C30",
+    "cashflows_eur": [
+      -1101327.1504348302,
+      139064.51606178354,
+      139064.51606178354,
+      139064.51606178354,
+      139064.51606178354,
+      139064.51606178354,
+      139064.51606178354,
+      139064.51606178354,
+      139064.51606178354,
+      139064.51606178354,
+      139064.51606178354,
+      139064.51606178354,
+      139064.51606178354,
+      139064.51606178354,
+      139064.51606178354,
+      139064.51606178354,
+      93818.99663184513,
+      93818.99663184513,
+      93818.99663184513,
+      93818.99663184513,
+      93818.99663184513
+    ],
+    "irr": 0.10577418506847158,
+    "configuration": {
+      "simulation": {
+        "schema_version": "1.0.0",
+        "request_id": "rvo_pf_protein_bypass_0116_A",
+        "project_id": "greenhub",
+        "calculation_mode": "structural",
+        "resolution_mode": "steady_state",
+        "selected_month": "July",
+        "scenarios": {
+          "feed_preparation": "F1",
+          "protein_recovery": "PR0",
+          "anaerobic_digestion": "AD3",
+          "biogas_upgrading": "BG4",
+          "nutrient_recovery": "NR7",
+          "process_order": "A"
+        },
+        "wet_feed_rate_kg_hr": 1968.54106836405,
+        "plant_capacity_kg_hr": 1968.54106836405,
+        "operating_schedule": {
+          "operating_days_per_week": 7,
+          "operating_hours_per_day": 24
+        },
+        "export_formats": [
+          "json",
+          "csv"
+        ],
+        "strict_validation": true
+      },
+      "project_basis": {
+        "currency": "EUR",
+        "price_year": 2026,
+        "location": "Netherlands",
+        "screening_estimates": true
+      },
+      "tea": {},
+      "financial_assumptions": {
+        "product_prices": {},
+        "use_screening_price_benchmarks": true
+      },
+      "lca": {
+        "boundary": "factory gate-to-gate operational climate screening",
+        "included_groups": [
+          "electricity",
+          "heat",
+          "process_emissions"
+        ],
+        "exclusions": {
+          "materials": "Upstream material production is outside this factory-operational boundary; no zero-burden claim.",
+          "transport": "Offsite feedstock and product transport is excluded.",
+          "storage_emissions": "Storage emissions are excluded from this operational boundary; separate storage modelling is not characterized here.",
+          "waste": "Downstream waste treatment is excluded.",
+          "feedstock_production": "Cultivation and land-use change are excluded.",
+          "equipment": "Embodied equipment is excluded."
+        },
+        "inventory_completeness": {
+          "electricity": {
+            "status": "complete",
+            "note": "Modeled annual electricity activity; Dutch average factor and stated sensitivity applied."
+          },
+          "heat": {
+            "status": "complete",
+            "note": "Modeled annual process heat activity; user-supplied Dutch heat-network average applied."
+          },
+          "process_emissions": {
+            "status": "complete",
+            "note": "Modeled vented process methane and gas flows; terminal gas fate set to emitted for this screening case."
+          }
+        },
+        "terminal_gas_fate": "emitted"
+      },
+      "climate_factors": {},
+      "additional_inventory": [],
+      "logistics_result": null,
+      "use_screening_process_assumptions": true,
+      "use_screening_lca_factors": true,
+      "candidate_economics": {
+        "tax_rate": 0.0,
+        "project_lifetime_years": 20,
+        "discount_rate": 0.08,
+        "opex_support_years": 15,
+        "soil_carbon_retention_fraction": 0.1,
+        "furniture_carbon_retention_fraction": 1.0,
+        "grant_scenario_id": "C30",
+        "grant_scenario_name": "C30 \u00b7 RVO DEI+ CAPEX grant 30%; dynamic SDE++ value \u20ac1.87/Nm\u00b3 biomethane",
+        "grant_awarding_organization": "Netherlands Enterprise Agency (RVO)",
+        "operating_support_scenario_name": "C30 \u00b7 RVO DEI+ CAPEX grant 30%; dynamic SDE++ value \u20ac1.87/Nm\u00b3 biomethane",
+        "operating_support_awarding_organization": "Netherlands Enterprise Agency (RVO)",
+        "capex_grant_fraction": 0.3,
+        "opex_premium_eur_per_t_feed": 2.6237774342432094,
+        "opex_premium_eur_per_nm3_biomethane": 1.87,
+        "biomethane_density_kg_per_nm3": 0.716,
+        "biomethane_support_volume_nm3_per_year": 24195.464935795928
+      }
+    }
+  },
+  {
+    "sample_id": "protein_bypass-0116-C45",
+    "run_id": "4c3058c25a8b4249b035a2760be56af4",
+    "selection": "15\u201320k \u00b7 Trade-off; min C tie \u00b7 C45",
+    "cashflows_eur": [
+      -865328.4753416523,
+      139064.51606178354,
+      139064.51606178354,
+      139064.51606178354,
+      139064.51606178354,
+      139064.51606178354,
+      139064.51606178354,
+      139064.51606178354,
+      139064.51606178354,
+      139064.51606178354,
+      139064.51606178354,
+      139064.51606178354,
+      139064.51606178354,
+      139064.51606178354,
+      139064.51606178354,
+      139064.51606178354,
+      93818.99663184513,
+      93818.99663184513,
+      93818.99663184513,
+      93818.99663184513,
+      93818.99663184513
+    ],
+    "irr": 0.1470567099823613,
+    "configuration": {
+      "simulation": {
+        "schema_version": "1.0.0",
+        "request_id": "rvo_pf_protein_bypass_0116_A",
+        "project_id": "greenhub",
+        "calculation_mode": "structural",
+        "resolution_mode": "steady_state",
+        "selected_month": "July",
+        "scenarios": {
+          "feed_preparation": "F1",
+          "protein_recovery": "PR0",
+          "anaerobic_digestion": "AD3",
+          "biogas_upgrading": "BG4",
+          "nutrient_recovery": "NR7",
+          "process_order": "A"
+        },
+        "wet_feed_rate_kg_hr": 1968.54106836405,
+        "plant_capacity_kg_hr": 1968.54106836405,
+        "operating_schedule": {
+          "operating_days_per_week": 7,
+          "operating_hours_per_day": 24
+        },
+        "export_formats": [
+          "json",
+          "csv"
+        ],
+        "strict_validation": true
+      },
+      "project_basis": {
+        "currency": "EUR",
+        "price_year": 2026,
+        "location": "Netherlands",
+        "screening_estimates": true
+      },
+      "tea": {},
+      "financial_assumptions": {
+        "product_prices": {},
+        "use_screening_price_benchmarks": true
+      },
+      "lca": {
+        "boundary": "factory gate-to-gate operational climate screening",
+        "included_groups": [
+          "electricity",
+          "heat",
+          "process_emissions"
+        ],
+        "exclusions": {
+          "materials": "Upstream material production is outside this factory-operational boundary; no zero-burden claim.",
+          "transport": "Offsite feedstock and product transport is excluded.",
+          "storage_emissions": "Storage emissions are excluded from this operational boundary; separate storage modelling is not characterized here.",
+          "waste": "Downstream waste treatment is excluded.",
+          "feedstock_production": "Cultivation and land-use change are excluded.",
+          "equipment": "Embodied equipment is excluded."
+        },
+        "inventory_completeness": {
+          "electricity": {
+            "status": "complete",
+            "note": "Modeled annual electricity activity; Dutch average factor and stated sensitivity applied."
+          },
+          "heat": {
+            "status": "complete",
+            "note": "Modeled annual process heat activity; user-supplied Dutch heat-network average applied."
+          },
+          "process_emissions": {
+            "status": "complete",
+            "note": "Modeled vented process methane and gas flows; terminal gas fate set to emitted for this screening case."
+          }
+        },
+        "terminal_gas_fate": "emitted"
+      },
+      "climate_factors": {},
+      "additional_inventory": [],
+      "logistics_result": null,
+      "use_screening_process_assumptions": true,
+      "use_screening_lca_factors": true,
+      "candidate_economics": {
+        "tax_rate": 0.0,
+        "project_lifetime_years": 20,
+        "discount_rate": 0.08,
+        "opex_support_years": 15,
+        "soil_carbon_retention_fraction": 0.1,
+        "furniture_carbon_retention_fraction": 1.0,
+        "grant_scenario_id": "C45",
+        "grant_scenario_name": "C45 \u00b7 RVO DEI+ CAPEX grant 45%; dynamic SDE++ value \u20ac1.87/Nm\u00b3 biomethane",
+        "grant_awarding_organization": "Netherlands Enterprise Agency (RVO)",
+        "operating_support_scenario_name": "C45 \u00b7 RVO DEI+ CAPEX grant 45%; dynamic SDE++ value \u20ac1.87/Nm\u00b3 biomethane",
+        "operating_support_awarding_organization": "Netherlands Enterprise Agency (RVO)",
+        "capex_grant_fraction": 0.45,
+        "opex_premium_eur_per_t_feed": 2.6237774342432094,
+        "opex_premium_eur_per_nm3_biomethane": 1.87,
+        "biomethane_density_kg_per_nm3": 0.716,
+        "biomethane_support_volume_nm3_per_year": 24195.464935795928
+      }
+    }
+  },
+  {
+    "sample_id": "protein_bypass-0116-C60",
+    "run_id": "4c3058c25a8b4249b035a2760be56af4",
+    "selection": "15\u201320k \u00b7 Highest NPV; min C tie \u00b7 C60",
+    "cashflows_eur": [
+      -629329.8002484745,
+      139064.51606178354,
+      139064.51606178354,
+      139064.51606178354,
+      139064.51606178354,
+      139064.51606178354,
+      139064.51606178354,
+      139064.51606178354,
+      139064.51606178354,
+      139064.51606178354,
+      139064.51606178354,
+      139064.51606178354,
+      139064.51606178354,
+      139064.51606178354,
+      139064.51606178354,
+      139064.51606178354,
+      93818.99663184513,
+      93818.99663184513,
+      93818.99663184513,
+      93818.99663184513,
+      93818.99663184513
+    ],
+    "irr": 0.21396420066221788,
+    "configuration": {
+      "simulation": {
+        "schema_version": "1.0.0",
+        "request_id": "rvo_pf_protein_bypass_0116_A",
+        "project_id": "greenhub",
+        "calculation_mode": "structural",
+        "resolution_mode": "steady_state",
+        "selected_month": "July",
+        "scenarios": {
+          "feed_preparation": "F1",
+          "protein_recovery": "PR0",
+          "anaerobic_digestion": "AD3",
+          "biogas_upgrading": "BG4",
+          "nutrient_recovery": "NR7",
+          "process_order": "A"
+        },
+        "wet_feed_rate_kg_hr": 1968.54106836405,
+        "plant_capacity_kg_hr": 1968.54106836405,
+        "operating_schedule": {
+          "operating_days_per_week": 7,
+          "operating_hours_per_day": 24
+        },
+        "export_formats": [
+          "json",
+          "csv"
+        ],
+        "strict_validation": true
+      },
+      "project_basis": {
+        "currency": "EUR",
+        "price_year": 2026,
+        "location": "Netherlands",
+        "screening_estimates": true
+      },
+      "tea": {},
+      "financial_assumptions": {
+        "product_prices": {},
+        "use_screening_price_benchmarks": true
+      },
+      "lca": {
+        "boundary": "factory gate-to-gate operational climate screening",
+        "included_groups": [
+          "electricity",
+          "heat",
+          "process_emissions"
+        ],
+        "exclusions": {
+          "materials": "Upstream material production is outside this factory-operational boundary; no zero-burden claim.",
+          "transport": "Offsite feedstock and product transport is excluded.",
+          "storage_emissions": "Storage emissions are excluded from this operational boundary; separate storage modelling is not characterized here.",
+          "waste": "Downstream waste treatment is excluded.",
+          "feedstock_production": "Cultivation and land-use change are excluded.",
+          "equipment": "Embodied equipment is excluded."
+        },
+        "inventory_completeness": {
+          "electricity": {
+            "status": "complete",
+            "note": "Modeled annual electricity activity; Dutch average factor and stated sensitivity applied."
+          },
+          "heat": {
+            "status": "complete",
+            "note": "Modeled annual process heat activity; user-supplied Dutch heat-network average applied."
+          },
+          "process_emissions": {
+            "status": "complete",
+            "note": "Modeled vented process methane and gas flows; terminal gas fate set to emitted for this screening case."
+          }
+        },
+        "terminal_gas_fate": "emitted"
+      },
+      "climate_factors": {},
+      "additional_inventory": [],
+      "logistics_result": null,
+      "use_screening_process_assumptions": true,
+      "use_screening_lca_factors": true,
+      "candidate_economics": {
+        "tax_rate": 0.0,
+        "project_lifetime_years": 20,
+        "discount_rate": 0.08,
+        "opex_support_years": 15,
+        "soil_carbon_retention_fraction": 0.1,
+        "furniture_carbon_retention_fraction": 1.0,
+        "grant_scenario_id": "C60",
+        "grant_scenario_name": "C60 \u00b7 RVO DEI+ CAPEX grant 60%; dynamic SDE++ value \u20ac1.87/Nm\u00b3 biomethane",
+        "grant_awarding_organization": "Netherlands Enterprise Agency (RVO)",
+        "operating_support_scenario_name": "C60 \u00b7 RVO DEI+ CAPEX grant 60%; dynamic SDE++ value \u20ac1.87/Nm\u00b3 biomethane",
+        "operating_support_awarding_organization": "Netherlands Enterprise Agency (RVO)",
+        "capex_grant_fraction": 0.6,
+        "opex_premium_eur_per_t_feed": 2.6237774342432094,
+        "opex_premium_eur_per_nm3_biomethane": 1.87,
+        "biomethane_density_kg_per_nm3": 0.716,
+        "biomethane_support_volume_nm3_per_year": 24195.464935795928
+      }
+    }
+  },
+  {
+    "sample_id": "protein_enabled-0112-C0",
+    "run_id": "38408d5d3d4e41d293593826e0d5166e",
+    "selection": "20\u201325k \u00b7 Lowest support; min C tie \u00b7 C0",
+    "cashflows_eur": [
+      -2280649.112135375,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      394152.62478639954,
+      394152.62478639954,
+      394152.62478639954,
+      394152.62478639954,
+      394152.62478639954
+    ],
+    "irr": 0.17845987336957825,
+    "configuration": {
+      "simulation": {
+        "schema_version": "1.0.0",
+        "request_id": "rvo_pf_protein_enabled_0112_A",
+        "project_id": "greenhub",
+        "calculation_mode": "structural",
+        "resolution_mode": "steady_state",
+        "selected_month": "July",
+        "scenarios": {
+          "feed_preparation": "F1",
+          "protein_recovery": "PR3",
+          "anaerobic_digestion": "AD1",
+          "biogas_upgrading": "BG4",
+          "nutrient_recovery": "NR7",
+          "process_order": "C"
+        },
+        "wet_feed_rate_kg_hr": 2763.009345620052,
+        "plant_capacity_kg_hr": 2763.009345620052,
+        "operating_schedule": {
+          "operating_days_per_week": 7,
+          "operating_hours_per_day": 24
+        },
+        "export_formats": [
+          "json",
+          "csv"
+        ],
+        "strict_validation": true
+      },
+      "project_basis": {
+        "currency": "EUR",
+        "price_year": 2026,
+        "location": "Netherlands",
+        "screening_estimates": true
+      },
+      "tea": {},
+      "financial_assumptions": {
+        "product_prices": {},
+        "use_screening_price_benchmarks": true
+      },
+      "lca": {
+        "boundary": "factory gate-to-gate operational climate screening",
+        "included_groups": [
+          "electricity",
+          "heat",
+          "process_emissions"
+        ],
+        "exclusions": {
+          "materials": "Upstream material production is outside this factory-operational boundary; no zero-burden claim.",
+          "transport": "Offsite feedstock and product transport is excluded.",
+          "storage_emissions": "Storage emissions are excluded from this operational boundary; separate storage modelling is not characterized here.",
+          "waste": "Downstream waste treatment is excluded.",
+          "feedstock_production": "Cultivation and land-use change are excluded.",
+          "equipment": "Embodied equipment is excluded."
+        },
+        "inventory_completeness": {
+          "electricity": {
+            "status": "complete",
+            "note": "Modeled annual electricity activity; Dutch average factor and stated sensitivity applied."
+          },
+          "heat": {
+            "status": "complete",
+            "note": "Modeled annual process heat activity; user-supplied Dutch heat-network average applied."
+          },
+          "process_emissions": {
+            "status": "complete",
+            "note": "Modeled vented process methane and gas flows; terminal gas fate set to emitted for this screening case."
+          }
+        },
+        "terminal_gas_fate": "emitted"
+      },
+      "climate_factors": {},
+      "additional_inventory": [],
+      "logistics_result": null,
+      "use_screening_process_assumptions": true,
+      "use_screening_lca_factors": true,
+      "candidate_economics": {
+        "tax_rate": 0.0,
+        "project_lifetime_years": 20,
+        "discount_rate": 0.08,
+        "opex_support_years": 15,
+        "soil_carbon_retention_fraction": 0.1,
+        "furniture_carbon_retention_fraction": 1.0,
+        "grant_scenario_id": "C0",
+        "grant_scenario_name": "C0 \u00b7 no CAPEX grant; dynamic SDE++ value \u20ac1.87/Nm\u00b3 biomethane",
+        "grant_awarding_organization": "None (OPEX-only case)",
+        "operating_support_scenario_name": "C0 \u00b7 no CAPEX grant; dynamic SDE++ value \u20ac1.87/Nm\u00b3 biomethane",
+        "operating_support_awarding_organization": "Netherlands Enterprise Agency (RVO)",
+        "capex_grant_fraction": 0.0,
+        "opex_premium_eur_per_t_feed": 1.24743153109095,
+        "opex_premium_eur_per_nm3_biomethane": 1.87,
+        "biomethane_density_kg_per_nm3": 0.716,
+        "biomethane_support_volume_nm3_per_year": 16145.87444438862
+      }
+    }
+  },
+  {
+    "sample_id": "protein_enabled-0112-C30",
+    "run_id": "38408d5d3d4e41d293593826e0d5166e",
+    "selection": "20\u201325k \u00b7 Trade-off; min C tie \u00b7 C30",
+    "cashflows_eur": [
+      -1596454.3784947623,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      394152.62478639954,
+      394152.62478639954,
+      394152.62478639954,
+      394152.62478639954,
+      394152.62478639954
+    ],
+    "irr": 0.2629171291161211,
+    "configuration": {
+      "simulation": {
+        "schema_version": "1.0.0",
+        "request_id": "rvo_pf_protein_enabled_0112_A",
+        "project_id": "greenhub",
+        "calculation_mode": "structural",
+        "resolution_mode": "steady_state",
+        "selected_month": "July",
+        "scenarios": {
+          "feed_preparation": "F1",
+          "protein_recovery": "PR3",
+          "anaerobic_digestion": "AD1",
+          "biogas_upgrading": "BG4",
+          "nutrient_recovery": "NR7",
+          "process_order": "C"
+        },
+        "wet_feed_rate_kg_hr": 2763.009345620052,
+        "plant_capacity_kg_hr": 2763.009345620052,
+        "operating_schedule": {
+          "operating_days_per_week": 7,
+          "operating_hours_per_day": 24
+        },
+        "export_formats": [
+          "json",
+          "csv"
+        ],
+        "strict_validation": true
+      },
+      "project_basis": {
+        "currency": "EUR",
+        "price_year": 2026,
+        "location": "Netherlands",
+        "screening_estimates": true
+      },
+      "tea": {},
+      "financial_assumptions": {
+        "product_prices": {},
+        "use_screening_price_benchmarks": true
+      },
+      "lca": {
+        "boundary": "factory gate-to-gate operational climate screening",
+        "included_groups": [
+          "electricity",
+          "heat",
+          "process_emissions"
+        ],
+        "exclusions": {
+          "materials": "Upstream material production is outside this factory-operational boundary; no zero-burden claim.",
+          "transport": "Offsite feedstock and product transport is excluded.",
+          "storage_emissions": "Storage emissions are excluded from this operational boundary; separate storage modelling is not characterized here.",
+          "waste": "Downstream waste treatment is excluded.",
+          "feedstock_production": "Cultivation and land-use change are excluded.",
+          "equipment": "Embodied equipment is excluded."
+        },
+        "inventory_completeness": {
+          "electricity": {
+            "status": "complete",
+            "note": "Modeled annual electricity activity; Dutch average factor and stated sensitivity applied."
+          },
+          "heat": {
+            "status": "complete",
+            "note": "Modeled annual process heat activity; user-supplied Dutch heat-network average applied."
+          },
+          "process_emissions": {
+            "status": "complete",
+            "note": "Modeled vented process methane and gas flows; terminal gas fate set to emitted for this screening case."
+          }
+        },
+        "terminal_gas_fate": "emitted"
+      },
+      "climate_factors": {},
+      "additional_inventory": [],
+      "logistics_result": null,
+      "use_screening_process_assumptions": true,
+      "use_screening_lca_factors": true,
+      "candidate_economics": {
+        "tax_rate": 0.0,
+        "project_lifetime_years": 20,
+        "discount_rate": 0.08,
+        "opex_support_years": 15,
+        "soil_carbon_retention_fraction": 0.1,
+        "furniture_carbon_retention_fraction": 1.0,
+        "grant_scenario_id": "C30",
+        "grant_scenario_name": "C30 \u00b7 RVO DEI+ CAPEX grant 30%; dynamic SDE++ value \u20ac1.87/Nm\u00b3 biomethane",
+        "grant_awarding_organization": "Netherlands Enterprise Agency (RVO)",
+        "operating_support_scenario_name": "C30 \u00b7 RVO DEI+ CAPEX grant 30%; dynamic SDE++ value \u20ac1.87/Nm\u00b3 biomethane",
+        "operating_support_awarding_organization": "Netherlands Enterprise Agency (RVO)",
+        "capex_grant_fraction": 0.3,
+        "opex_premium_eur_per_t_feed": 1.24743153109095,
+        "opex_premium_eur_per_nm3_biomethane": 1.87,
+        "biomethane_density_kg_per_nm3": 0.716,
+        "biomethane_support_volume_nm3_per_year": 16145.87444438862
+      }
+    }
+  },
+  {
+    "sample_id": "protein_enabled-0112-C45",
+    "run_id": "38408d5d3d4e41d293593826e0d5166e",
+    "selection": "20\u201325k \u00b7 Trade-off; min C tie \u00b7 C45",
+    "cashflows_eur": [
+      -1254357.0116744563,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      394152.62478639954,
+      394152.62478639954,
+      394152.62478639954,
+      394152.62478639954,
+      394152.62478639954
+    ],
+    "irr": 0.3370460590641099,
+    "configuration": {
+      "simulation": {
+        "schema_version": "1.0.0",
+        "request_id": "rvo_pf_protein_enabled_0112_A",
+        "project_id": "greenhub",
+        "calculation_mode": "structural",
+        "resolution_mode": "steady_state",
+        "selected_month": "July",
+        "scenarios": {
+          "feed_preparation": "F1",
+          "protein_recovery": "PR3",
+          "anaerobic_digestion": "AD1",
+          "biogas_upgrading": "BG4",
+          "nutrient_recovery": "NR7",
+          "process_order": "C"
+        },
+        "wet_feed_rate_kg_hr": 2763.009345620052,
+        "plant_capacity_kg_hr": 2763.009345620052,
+        "operating_schedule": {
+          "operating_days_per_week": 7,
+          "operating_hours_per_day": 24
+        },
+        "export_formats": [
+          "json",
+          "csv"
+        ],
+        "strict_validation": true
+      },
+      "project_basis": {
+        "currency": "EUR",
+        "price_year": 2026,
+        "location": "Netherlands",
+        "screening_estimates": true
+      },
+      "tea": {},
+      "financial_assumptions": {
+        "product_prices": {},
+        "use_screening_price_benchmarks": true
+      },
+      "lca": {
+        "boundary": "factory gate-to-gate operational climate screening",
+        "included_groups": [
+          "electricity",
+          "heat",
+          "process_emissions"
+        ],
+        "exclusions": {
+          "materials": "Upstream material production is outside this factory-operational boundary; no zero-burden claim.",
+          "transport": "Offsite feedstock and product transport is excluded.",
+          "storage_emissions": "Storage emissions are excluded from this operational boundary; separate storage modelling is not characterized here.",
+          "waste": "Downstream waste treatment is excluded.",
+          "feedstock_production": "Cultivation and land-use change are excluded.",
+          "equipment": "Embodied equipment is excluded."
+        },
+        "inventory_completeness": {
+          "electricity": {
+            "status": "complete",
+            "note": "Modeled annual electricity activity; Dutch average factor and stated sensitivity applied."
+          },
+          "heat": {
+            "status": "complete",
+            "note": "Modeled annual process heat activity; user-supplied Dutch heat-network average applied."
+          },
+          "process_emissions": {
+            "status": "complete",
+            "note": "Modeled vented process methane and gas flows; terminal gas fate set to emitted for this screening case."
+          }
+        },
+        "terminal_gas_fate": "emitted"
+      },
+      "climate_factors": {},
+      "additional_inventory": [],
+      "logistics_result": null,
+      "use_screening_process_assumptions": true,
+      "use_screening_lca_factors": true,
+      "candidate_economics": {
+        "tax_rate": 0.0,
+        "project_lifetime_years": 20,
+        "discount_rate": 0.08,
+        "opex_support_years": 15,
+        "soil_carbon_retention_fraction": 0.1,
+        "furniture_carbon_retention_fraction": 1.0,
+        "grant_scenario_id": "C45",
+        "grant_scenario_name": "C45 \u00b7 RVO DEI+ CAPEX grant 45%; dynamic SDE++ value \u20ac1.87/Nm\u00b3 biomethane",
+        "grant_awarding_organization": "Netherlands Enterprise Agency (RVO)",
+        "operating_support_scenario_name": "C45 \u00b7 RVO DEI+ CAPEX grant 45%; dynamic SDE++ value \u20ac1.87/Nm\u00b3 biomethane",
+        "operating_support_awarding_organization": "Netherlands Enterprise Agency (RVO)",
+        "capex_grant_fraction": 0.45,
+        "opex_premium_eur_per_t_feed": 1.24743153109095,
+        "opex_premium_eur_per_nm3_biomethane": 1.87,
+        "biomethane_density_kg_per_nm3": 0.716,
+        "biomethane_support_volume_nm3_per_year": 16145.87444438862
+      }
+    }
+  },
+  {
+    "sample_id": "protein_enabled-0112-C60",
+    "run_id": "38408d5d3d4e41d293593826e0d5166e",
+    "selection": "20\u201325k \u00b7 Highest NPV; min C tie \u00b7 C60",
+    "cashflows_eur": [
+      -912259.64485415,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      424345.40999740624,
+      394152.62478639954,
+      394152.62478639954,
+      394152.62478639954,
+      394152.62478639954,
+      394152.62478639954
+    ],
+    "irr": 0.4648419140970127,
+    "configuration": {
+      "simulation": {
+        "schema_version": "1.0.0",
+        "request_id": "rvo_pf_protein_enabled_0112_A",
+        "project_id": "greenhub",
+        "calculation_mode": "structural",
+        "resolution_mode": "steady_state",
+        "selected_month": "July",
+        "scenarios": {
+          "feed_preparation": "F1",
+          "protein_recovery": "PR3",
+          "anaerobic_digestion": "AD1",
+          "biogas_upgrading": "BG4",
+          "nutrient_recovery": "NR7",
+          "process_order": "C"
+        },
+        "wet_feed_rate_kg_hr": 2763.009345620052,
+        "plant_capacity_kg_hr": 2763.009345620052,
+        "operating_schedule": {
+          "operating_days_per_week": 7,
+          "operating_hours_per_day": 24
+        },
+        "export_formats": [
+          "json",
+          "csv"
+        ],
+        "strict_validation": true
+      },
+      "project_basis": {
+        "currency": "EUR",
+        "price_year": 2026,
+        "location": "Netherlands",
+        "screening_estimates": true
+      },
+      "tea": {},
+      "financial_assumptions": {
+        "product_prices": {},
+        "use_screening_price_benchmarks": true
+      },
+      "lca": {
+        "boundary": "factory gate-to-gate operational climate screening",
+        "included_groups": [
+          "electricity",
+          "heat",
+          "process_emissions"
+        ],
+        "exclusions": {
+          "materials": "Upstream material production is outside this factory-operational boundary; no zero-burden claim.",
+          "transport": "Offsite feedstock and product transport is excluded.",
+          "storage_emissions": "Storage emissions are excluded from this operational boundary; separate storage modelling is not characterized here.",
+          "waste": "Downstream waste treatment is excluded.",
+          "feedstock_production": "Cultivation and land-use change are excluded.",
+          "equipment": "Embodied equipment is excluded."
+        },
+        "inventory_completeness": {
+          "electricity": {
+            "status": "complete",
+            "note": "Modeled annual electricity activity; Dutch average factor and stated sensitivity applied."
+          },
+          "heat": {
+            "status": "complete",
+            "note": "Modeled annual process heat activity; user-supplied Dutch heat-network average applied."
+          },
+          "process_emissions": {
+            "status": "complete",
+            "note": "Modeled vented process methane and gas flows; terminal gas fate set to emitted for this screening case."
+          }
+        },
+        "terminal_gas_fate": "emitted"
+      },
+      "climate_factors": {},
+      "additional_inventory": [],
+      "logistics_result": null,
+      "use_screening_process_assumptions": true,
+      "use_screening_lca_factors": true,
+      "candidate_economics": {
+        "tax_rate": 0.0,
+        "project_lifetime_years": 20,
+        "discount_rate": 0.08,
+        "opex_support_years": 15,
+        "soil_carbon_retention_fraction": 0.1,
+        "furniture_carbon_retention_fraction": 1.0,
+        "grant_scenario_id": "C60",
+        "grant_scenario_name": "C60 \u00b7 RVO DEI+ CAPEX grant 60%; dynamic SDE++ value \u20ac1.87/Nm\u00b3 biomethane",
+        "grant_awarding_organization": "Netherlands Enterprise Agency (RVO)",
+        "operating_support_scenario_name": "C60 \u00b7 RVO DEI+ CAPEX grant 60%; dynamic SDE++ value \u20ac1.87/Nm\u00b3 biomethane",
+        "operating_support_awarding_organization": "Netherlands Enterprise Agency (RVO)",
+        "capex_grant_fraction": 0.6,
+        "opex_premium_eur_per_t_feed": 1.24743153109095,
+        "opex_premium_eur_per_nm3_biomethane": 1.87,
+        "biomethane_density_kg_per_nm3": 0.716,
+        "biomethane_support_volume_nm3_per_year": 16145.87444438862
+      }
+    }
+  },
+  {
+    "sample_id": "protein_bypass-0043-C0",
+    "run_id": "5a8f117eb23d446cabc54b9a836ed6f7",
+    "selection": "25\u201330k \u00b7 Lowest support; min C tie \u00b7 C0",
+    "cashflows_eur": [
+      -2246340.7165934443,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      421448.435359078,
+      421448.435359078,
+      421448.435359078,
+      421448.435359078,
+      421448.435359078
+    ],
+    "irr": 0.21859034198690386,
+    "configuration": {
+      "simulation": {
+        "schema_version": "1.0.0",
+        "request_id": "rvo_pf_protein_bypass_0043_A",
+        "project_id": "greenhub",
+        "calculation_mode": "structural",
+        "resolution_mode": "steady_state",
+        "selected_month": "July",
+        "scenarios": {
+          "feed_preparation": "F1",
+          "protein_recovery": "PR0",
+          "anaerobic_digestion": "AD3",
+          "biogas_upgrading": "BG2",
+          "nutrient_recovery": "NR7",
+          "process_order": "C"
+        },
+        "wet_feed_rate_kg_hr": 3319.030969131894,
+        "plant_capacity_kg_hr": 3319.030969131894,
+        "operating_schedule": {
+          "operating_days_per_week": 7,
+          "operating_hours_per_day": 24
+        },
+        "export_formats": [
+          "json",
+          "csv"
+        ],
+        "strict_validation": true
+      },
+      "project_basis": {
+        "currency": "EUR",
+        "price_year": 2026,
+        "location": "Netherlands",
+        "screening_estimates": true
+      },
+      "tea": {},
+      "financial_assumptions": {
+        "product_prices": {},
+        "use_screening_price_benchmarks": true
+      },
+      "lca": {
+        "boundary": "factory gate-to-gate operational climate screening",
+        "included_groups": [
+          "electricity",
+          "heat",
+          "process_emissions"
+        ],
+        "exclusions": {
+          "materials": "Upstream material production is outside this factory-operational boundary; no zero-burden claim.",
+          "transport": "Offsite feedstock and product transport is excluded.",
+          "storage_emissions": "Storage emissions are excluded from this operational boundary; separate storage modelling is not characterized here.",
+          "waste": "Downstream waste treatment is excluded.",
+          "feedstock_production": "Cultivation and land-use change are excluded.",
+          "equipment": "Embodied equipment is excluded."
+        },
+        "inventory_completeness": {
+          "electricity": {
+            "status": "complete",
+            "note": "Modeled annual electricity activity; Dutch average factor and stated sensitivity applied."
+          },
+          "heat": {
+            "status": "complete",
+            "note": "Modeled annual process heat activity; user-supplied Dutch heat-network average applied."
+          },
+          "process_emissions": {
+            "status": "complete",
+            "note": "Modeled vented process methane and gas flows; terminal gas fate set to emitted for this screening case."
+          }
+        },
+        "terminal_gas_fate": "emitted"
+      },
+      "climate_factors": {},
+      "additional_inventory": [],
+      "logistics_result": null,
+      "use_screening_process_assumptions": true,
+      "use_screening_lca_factors": true,
+      "candidate_economics": {
+        "tax_rate": 0.0,
+        "project_lifetime_years": 20,
+        "discount_rate": 0.08,
+        "opex_support_years": 15,
+        "soil_carbon_retention_fraction": 0.1,
+        "furniture_carbon_retention_fraction": 1.0,
+        "grant_scenario_id": "C0",
+        "grant_scenario_name": "C0 \u00b7 no CAPEX grant; dynamic SDE++ value \u20ac1.87/Nm\u00b3 biomethane",
+        "grant_awarding_organization": "None (OPEX-only case)",
+        "operating_support_scenario_name": "C0 \u00b7 no CAPEX grant; dynamic SDE++ value \u20ac1.87/Nm\u00b3 biomethane",
+        "operating_support_awarding_organization": "Netherlands Enterprise Agency (RVO)",
+        "capex_grant_fraction": 0.0,
+        "opex_premium_eur_per_t_feed": 2.816311455478312,
+        "opex_premium_eur_per_nm3_biomethane": 1.87,
+        "biomethane_density_kg_per_nm3": 0.716,
+        "biomethane_support_volume_nm3_per_year": 43787.93714952519
+      }
+    }
+  },
+  {
+    "sample_id": "protein_bypass-0043-C30",
+    "run_id": "5a8f117eb23d446cabc54b9a836ed6f7",
+    "selection": "25\u201330k \u00b7 Trade-off; min C tie \u00b7 C30",
+    "cashflows_eur": [
+      -1572438.5016154111,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      421448.435359078,
+      421448.435359078,
+      421448.435359078,
+      421448.435359078,
+      421448.435359078
+    ],
+    "irr": 0.3182026641661403,
+    "configuration": {
+      "simulation": {
+        "schema_version": "1.0.0",
+        "request_id": "rvo_pf_protein_bypass_0043_A",
+        "project_id": "greenhub",
+        "calculation_mode": "structural",
+        "resolution_mode": "steady_state",
+        "selected_month": "July",
+        "scenarios": {
+          "feed_preparation": "F1",
+          "protein_recovery": "PR0",
+          "anaerobic_digestion": "AD3",
+          "biogas_upgrading": "BG2",
+          "nutrient_recovery": "NR7",
+          "process_order": "C"
+        },
+        "wet_feed_rate_kg_hr": 3319.030969131894,
+        "plant_capacity_kg_hr": 3319.030969131894,
+        "operating_schedule": {
+          "operating_days_per_week": 7,
+          "operating_hours_per_day": 24
+        },
+        "export_formats": [
+          "json",
+          "csv"
+        ],
+        "strict_validation": true
+      },
+      "project_basis": {
+        "currency": "EUR",
+        "price_year": 2026,
+        "location": "Netherlands",
+        "screening_estimates": true
+      },
+      "tea": {},
+      "financial_assumptions": {
+        "product_prices": {},
+        "use_screening_price_benchmarks": true
+      },
+      "lca": {
+        "boundary": "factory gate-to-gate operational climate screening",
+        "included_groups": [
+          "electricity",
+          "heat",
+          "process_emissions"
+        ],
+        "exclusions": {
+          "materials": "Upstream material production is outside this factory-operational boundary; no zero-burden claim.",
+          "transport": "Offsite feedstock and product transport is excluded.",
+          "storage_emissions": "Storage emissions are excluded from this operational boundary; separate storage modelling is not characterized here.",
+          "waste": "Downstream waste treatment is excluded.",
+          "feedstock_production": "Cultivation and land-use change are excluded.",
+          "equipment": "Embodied equipment is excluded."
+        },
+        "inventory_completeness": {
+          "electricity": {
+            "status": "complete",
+            "note": "Modeled annual electricity activity; Dutch average factor and stated sensitivity applied."
+          },
+          "heat": {
+            "status": "complete",
+            "note": "Modeled annual process heat activity; user-supplied Dutch heat-network average applied."
+          },
+          "process_emissions": {
+            "status": "complete",
+            "note": "Modeled vented process methane and gas flows; terminal gas fate set to emitted for this screening case."
+          }
+        },
+        "terminal_gas_fate": "emitted"
+      },
+      "climate_factors": {},
+      "additional_inventory": [],
+      "logistics_result": null,
+      "use_screening_process_assumptions": true,
+      "use_screening_lca_factors": true,
+      "candidate_economics": {
+        "tax_rate": 0.0,
+        "project_lifetime_years": 20,
+        "discount_rate": 0.08,
+        "opex_support_years": 15,
+        "soil_carbon_retention_fraction": 0.1,
+        "furniture_carbon_retention_fraction": 1.0,
+        "grant_scenario_id": "C30",
+        "grant_scenario_name": "C30 \u00b7 RVO DEI+ CAPEX grant 30%; dynamic SDE++ value \u20ac1.87/Nm\u00b3 biomethane",
+        "grant_awarding_organization": "Netherlands Enterprise Agency (RVO)",
+        "operating_support_scenario_name": "C30 \u00b7 RVO DEI+ CAPEX grant 30%; dynamic SDE++ value \u20ac1.87/Nm\u00b3 biomethane",
+        "operating_support_awarding_organization": "Netherlands Enterprise Agency (RVO)",
+        "capex_grant_fraction": 0.3,
+        "opex_premium_eur_per_t_feed": 2.816311455478312,
+        "opex_premium_eur_per_nm3_biomethane": 1.87,
+        "biomethane_density_kg_per_nm3": 0.716,
+        "biomethane_support_volume_nm3_per_year": 43787.93714952519
+      }
+    }
+  },
+  {
+    "sample_id": "protein_bypass-0043-C45",
+    "run_id": "5a8f117eb23d446cabc54b9a836ed6f7",
+    "selection": "25\u201330k \u00b7 Trade-off; min C tie \u00b7 C45",
+    "cashflows_eur": [
+      -1235487.3941263943,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      421448.435359078,
+      421448.435359078,
+      421448.435359078,
+      421448.435359078,
+      421448.435359078
+    ],
+    "irr": 0.4066275494206718,
+    "configuration": {
+      "simulation": {
+        "schema_version": "1.0.0",
+        "request_id": "rvo_pf_protein_bypass_0043_A",
+        "project_id": "greenhub",
+        "calculation_mode": "structural",
+        "resolution_mode": "steady_state",
+        "selected_month": "July",
+        "scenarios": {
+          "feed_preparation": "F1",
+          "protein_recovery": "PR0",
+          "anaerobic_digestion": "AD3",
+          "biogas_upgrading": "BG2",
+          "nutrient_recovery": "NR7",
+          "process_order": "C"
+        },
+        "wet_feed_rate_kg_hr": 3319.030969131894,
+        "plant_capacity_kg_hr": 3319.030969131894,
+        "operating_schedule": {
+          "operating_days_per_week": 7,
+          "operating_hours_per_day": 24
+        },
+        "export_formats": [
+          "json",
+          "csv"
+        ],
+        "strict_validation": true
+      },
+      "project_basis": {
+        "currency": "EUR",
+        "price_year": 2026,
+        "location": "Netherlands",
+        "screening_estimates": true
+      },
+      "tea": {},
+      "financial_assumptions": {
+        "product_prices": {},
+        "use_screening_price_benchmarks": true
+      },
+      "lca": {
+        "boundary": "factory gate-to-gate operational climate screening",
+        "included_groups": [
+          "electricity",
+          "heat",
+          "process_emissions"
+        ],
+        "exclusions": {
+          "materials": "Upstream material production is outside this factory-operational boundary; no zero-burden claim.",
+          "transport": "Offsite feedstock and product transport is excluded.",
+          "storage_emissions": "Storage emissions are excluded from this operational boundary; separate storage modelling is not characterized here.",
+          "waste": "Downstream waste treatment is excluded.",
+          "feedstock_production": "Cultivation and land-use change are excluded.",
+          "equipment": "Embodied equipment is excluded."
+        },
+        "inventory_completeness": {
+          "electricity": {
+            "status": "complete",
+            "note": "Modeled annual electricity activity; Dutch average factor and stated sensitivity applied."
+          },
+          "heat": {
+            "status": "complete",
+            "note": "Modeled annual process heat activity; user-supplied Dutch heat-network average applied."
+          },
+          "process_emissions": {
+            "status": "complete",
+            "note": "Modeled vented process methane and gas flows; terminal gas fate set to emitted for this screening case."
+          }
+        },
+        "terminal_gas_fate": "emitted"
+      },
+      "climate_factors": {},
+      "additional_inventory": [],
+      "logistics_result": null,
+      "use_screening_process_assumptions": true,
+      "use_screening_lca_factors": true,
+      "candidate_economics": {
+        "tax_rate": 0.0,
+        "project_lifetime_years": 20,
+        "discount_rate": 0.08,
+        "opex_support_years": 15,
+        "soil_carbon_retention_fraction": 0.1,
+        "furniture_carbon_retention_fraction": 1.0,
+        "grant_scenario_id": "C45",
+        "grant_scenario_name": "C45 \u00b7 RVO DEI+ CAPEX grant 45%; dynamic SDE++ value \u20ac1.87/Nm\u00b3 biomethane",
+        "grant_awarding_organization": "Netherlands Enterprise Agency (RVO)",
+        "operating_support_scenario_name": "C45 \u00b7 RVO DEI+ CAPEX grant 45%; dynamic SDE++ value \u20ac1.87/Nm\u00b3 biomethane",
+        "operating_support_awarding_organization": "Netherlands Enterprise Agency (RVO)",
+        "capex_grant_fraction": 0.45,
+        "opex_premium_eur_per_t_feed": 2.816311455478312,
+        "opex_premium_eur_per_nm3_biomethane": 1.87,
+        "biomethane_density_kg_per_nm3": 0.716,
+        "biomethane_support_volume_nm3_per_year": 43787.93714952519
+      }
+    }
+  },
+  {
+    "sample_id": "protein_bypass-0043-C60",
+    "run_id": "5a8f117eb23d446cabc54b9a836ed6f7",
+    "selection": "25\u201330k \u00b7 Highest NPV; min C tie \u00b7 C60",
+    "cashflows_eur": [
+      -898536.2866373777,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      503331.8778286901,
+      421448.435359078,
+      421448.435359078,
+      421448.435359078,
+      421448.435359078,
+      421448.435359078
+    ],
+    "irr": 0.5599887188085291,
+    "configuration": {
+      "simulation": {
+        "schema_version": "1.0.0",
+        "request_id": "rvo_pf_protein_bypass_0043_A",
+        "project_id": "greenhub",
+        "calculation_mode": "structural",
+        "resolution_mode": "steady_state",
+        "selected_month": "July",
+        "scenarios": {
+          "feed_preparation": "F1",
+          "protein_recovery": "PR0",
+          "anaerobic_digestion": "AD3",
+          "biogas_upgrading": "BG2",
+          "nutrient_recovery": "NR7",
+          "process_order": "C"
+        },
+        "wet_feed_rate_kg_hr": 3319.030969131894,
+        "plant_capacity_kg_hr": 3319.030969131894,
+        "operating_schedule": {
+          "operating_days_per_week": 7,
+          "operating_hours_per_day": 24
+        },
+        "export_formats": [
+          "json",
+          "csv"
+        ],
+        "strict_validation": true
+      },
+      "project_basis": {
+        "currency": "EUR",
+        "price_year": 2026,
+        "location": "Netherlands",
+        "screening_estimates": true
+      },
+      "tea": {},
+      "financial_assumptions": {
+        "product_prices": {},
+        "use_screening_price_benchmarks": true
+      },
+      "lca": {
+        "boundary": "factory gate-to-gate operational climate screening",
+        "included_groups": [
+          "electricity",
+          "heat",
+          "process_emissions"
+        ],
+        "exclusions": {
+          "materials": "Upstream material production is outside this factory-operational boundary; no zero-burden claim.",
+          "transport": "Offsite feedstock and product transport is excluded.",
+          "storage_emissions": "Storage emissions are excluded from this operational boundary; separate storage modelling is not characterized here.",
+          "waste": "Downstream waste treatment is excluded.",
+          "feedstock_production": "Cultivation and land-use change are excluded.",
+          "equipment": "Embodied equipment is excluded."
+        },
+        "inventory_completeness": {
+          "electricity": {
+            "status": "complete",
+            "note": "Modeled annual electricity activity; Dutch average factor and stated sensitivity applied."
+          },
+          "heat": {
+            "status": "complete",
+            "note": "Modeled annual process heat activity; user-supplied Dutch heat-network average applied."
+          },
+          "process_emissions": {
+            "status": "complete",
+            "note": "Modeled vented process methane and gas flows; terminal gas fate set to emitted for this screening case."
+          }
+        },
+        "terminal_gas_fate": "emitted"
+      },
+      "climate_factors": {},
+      "additional_inventory": [],
+      "logistics_result": null,
+      "use_screening_process_assumptions": true,
+      "use_screening_lca_factors": true,
+      "candidate_economics": {
+        "tax_rate": 0.0,
+        "project_lifetime_years": 20,
+        "discount_rate": 0.08,
+        "opex_support_years": 15,
+        "soil_carbon_retention_fraction": 0.1,
+        "furniture_carbon_retention_fraction": 1.0,
+        "grant_scenario_id": "C60",
+        "grant_scenario_name": "C60 \u00b7 RVO DEI+ CAPEX grant 60%; dynamic SDE++ value \u20ac1.87/Nm\u00b3 biomethane",
+        "grant_awarding_organization": "Netherlands Enterprise Agency (RVO)",
+        "operating_support_scenario_name": "C60 \u00b7 RVO DEI+ CAPEX grant 60%; dynamic SDE++ value \u20ac1.87/Nm\u00b3 biomethane",
+        "operating_support_awarding_organization": "Netherlands Enterprise Agency (RVO)",
+        "capex_grant_fraction": 0.6,
+        "opex_premium_eur_per_t_feed": 2.816311455478312,
+        "opex_premium_eur_per_nm3_biomethane": 1.87,
+        "biomethane_density_kg_per_nm3": 0.716,
+        "biomethane_support_volume_nm3_per_year": 43787.93714952519
+      }
+    }
+  }
+]

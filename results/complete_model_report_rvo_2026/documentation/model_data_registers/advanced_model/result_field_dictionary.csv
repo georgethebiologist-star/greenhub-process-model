@@ -1,11 +1,18 @@
 field_path,data_type,unit,description
 summary_kpis,object,,Compact run-level key performance indicators.
 process_areas[],ProcessAreaResult,,"Area membership, boundary streams, maturity, and metrics."
+process_areas[].metrics.biostimulant_product_*,number|null,kg/hr,PR7 wet concentrate component totals and elemental N/P/K/carbon values; separately tracks product moisture and solids.
+process_areas[].metrics.biostimulant_crossflow_electricity_kwh_m3_feed,number|null,kWh/m3 feed,"Optional source-noted PR7 crossflow recirculation specific electricity, added to the BioSTEAM electricity utility; excludes optional permeate-side pressure work."
+process_areas[].metrics.biostimulant_crossflow_electricity_kw,number|null,kW,PR7 crossflow electricity derived from the explicit kWh/m3 clarified-feed input and simulated feed volumetric flow.
+process_areas[].metrics.biostimulant_crossflow_electricity_source,string|null,,User-supplied provenance note for the PR7 crossflow-specific electricity input.
+biostimulant_screen.film_retention_diagnostics,object,,TUF free-state sigma/Peclet retention is applied at selected flux; LNF free-state film predictions remain diagnostic beside empirical screening factors; bound-state predictions are withheld pending diffusivity.
 streams[].total_mass,NumericalValue,kg/hr,Total wet stream mass flow.
 streams[].components,object<NumericalValue>,kg/hr,Component mass-flow mapping.
 units[].power,NumericalValue,kW,Unit electricity demand.
 balances[].residual,NumericalValue,kg/hr or kmol/hr,Signed outlet-minus-inlet residual.
 products[].mass_flow,NumericalValue,kg/hr,Product stream wet mass flow.
+products[].volumetric_flow,NumericalValue,m3/hr,Product stream volume flow at modeled BioSTEAM conditions; distinct from normalized gas volume.
+annual.volumetric_products,object<NumericalValue>,m3/year or m3/reported period,Annualized product volume at the modelled BioSTEAM stream conditions; not normalized Nm3.
 resolved_parameters[],ParameterResolutionResult,,"Resolved value, source, status, and warnings."
 validation,ValidationSummary,,Blocking and warning validation findings.
 graph,ProcessGraph,,Frontend-ready unit and stream topology.
@@ -16,3 +23,7 @@ storage_inventory_series[],object,kg,"Storage receipts, withdrawals, overflow, i
 throughput_series[],object,kg and kg/hr,"Scheduled, capacity-limited process throughput."
 capacity_utilization_series[],object,fraction,"Eligible unit load, capacity, and utilization."
 seasonal_summary,object,,"Integrated seasonal feed, storage, product, utility, and balance totals."
+seasonal_summary.active_process_operating_hours,number|null,h/year,Seasonal hours with positive modeled refinery throughput; used for operating-hour-based PR7 CIP cycles.
+seasonal_summary.pr7_feed_volume_m3_year,number|null,m3/year,"Clarified-juice volumetric feed through PR7_M101, integrated across seasonal timesteps."
+seasonal_summary.pr7_peak_membrane_area_m2,number|null,m2,Peak monthly PR7 membrane area for seasonal module-cost screening.
+seasonal_summary.pr7_maximum_peak_membrane_area_m2,number|null,m2,Upper area unavailable when unresolved component volume is not resolved.

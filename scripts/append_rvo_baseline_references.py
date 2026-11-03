@@ -22,7 +22,7 @@ def main():
         config['simulation']['request_id']=f'rvo_pareto_baseline_{group}_{case_id}'
         config['project_basis']['screening_estimates']=True;config['use_screening_process_assumptions']=True;config['use_screening_lca_factors']=True
         config['financial_assumptions']['use_screening_price_benchmarks']=True;config['lca']=deepcopy(LCA_BASIS)
-        config['candidate_economics']={'labour_reduction':0.0,'logistics_reduction':0.0,'energy_reduction':0.0,'protein_yield_uplift':0.0,'nutrient_recovery_uplift':0.0,
+        config['candidate_economics']={
             'tax_rate':0.0,'project_lifetime_years':FINANCIAL_BASIS['project_lifetime_years'],'discount_rate':FINANCIAL_BASIS['discount_rate'],'opex_support_years':FINANCIAL_BASIS['opex_support_years'],
             'soil_carbon_retention_fraction':CARBON_BASIS['soil_carbon_retention_fraction'],'furniture_carbon_retention_fraction':1.0,
             'grant_scenario_id':case_id,'grant_scenario_name':support['name'],'grant_awarding_organization':'None (zero CAPEX grant)',

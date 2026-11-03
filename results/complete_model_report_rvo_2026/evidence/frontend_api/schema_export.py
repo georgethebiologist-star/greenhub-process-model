@@ -70,6 +70,39 @@ BIOMASS_SCHEDULE_SCHEMA = {
     },
 }
 
+BIOSTIMULANT_ROUTE_SCHEMA = {
+    "type": ["object", "null"],
+    "additionalProperties": False,
+    "required": ["technology_id", "retention_matrix_source"],
+    "oneOf": [
+        {"required": ["flux_L_m2_h", "flux_source"]},
+        {"required": ["feed_to_reference_concentration_ratio", "flux_model_source", "transmembrane_pressure_bar", "pressure_source", "viscosity_Pa_s", "viscosity_source"]},
+    ],
+    "properties": {
+        "technology_id": {"type": "string", "enum": ["TUF", "LNF", "MEUF"]},
+        "flux_L_m2_h": {"type": ["number", "null"], "exclusiveMinimum": 0, "description": "Explicit empirical operating flux. Select this or the resistance method, not both."},
+        "flux_source": {"type": ["string", "null"], "minLength": 1, "description": "Evidence note required when an explicit empirical flux is supplied."},
+        "feed_to_reference_concentration_ratio": {"type": ["number", "null"], "exclusiveMinimum": 0, "description": "Optional Cf/C0 ratio for resistance-based flux calculation; no default is assumed."},
+        "flux_model_source": {"type": ["string", "null"], "minLength": 1, "description": "Required evidence/basis note for the supplied Cf/C0 input."},
+        "viscosity_Pa_s": {"type": ["number", "null"], "exclusiveMinimum": 0, "description": "Measured clarified-juice viscosity for the active no-fermentation feed; fermented-juice register value is not reused."},
+        "viscosity_source": {"type": ["string", "null"], "minLength": 1, "description": "Evidence note required with viscosity_Pa_s for the resistance flux method."},
+        "retention_matrix_source": {"type": "string", "minLength": 1},
+        "transmembrane_pressure_bar": {"type": ["number", "null"], "exclusiveMinimum": 0, "description": "Optional TMP; required with Cf/C0 for resistance-based flux, or with pump efficiency for pressure-work electricity."},
+        "pressure_source": {"type": ["string", "null"], "minLength": 1},
+        "pump_efficiency_fraction": {"type": ["number", "null"], "exclusiveMinimum": 0, "maximum": 1, "description": "Optional; when supplied it requires TMP and its own source note."},
+        "pump_efficiency_source": {"type": ["string", "null"], "minLength": 1},
+        "crossflow_electricity_kwh_m3_feed": {"type": ["number", "null"], "minimum": 0, "description": "Optional explicit crossflow recirculation electricity per m3 clarified feed; added to BioSTEAM electricity utilities and excludes separately modeled permeate-side pressure work."},
+        "crossflow_electricity_source": {"type": ["string", "null"], "minLength": 1, "description": "Required measurement/source note when crossflow_electricity_kwh_m3_feed is supplied."},
+        "component_retention_overrides": {"type": "object", "additionalProperties": {"type": "number", "minimum": 0, "maximum": 1}},
+        "component_retention_override_sources": {"type": "object", "additionalProperties": {"type": "string", "minLength": 1}},
+        "use_hormone_benchmarks": {"type": "boolean", "default": False, "description": "Explicitly add the user-supplied clarified-juice hormone benchmark as a separately tracked screening analyte feed; off by default."},
+        "hormone_benchmark_source": {"type": ["string", "null"], "minLength": 1, "description": "Required evidence note when use_hormone_benchmarks is true."},
+        "cip_solution_volume_L_per_step": {"type": ["number", "null"], "exclusiveMinimum": 0, "description": "Optional same nominal working-solution volume for each sequential CIP step; requires make-up fraction and evidence note."},
+        "cip_makeup_fraction_per_cycle": {"type": ["number", "null"], "minimum": 0, "maximum": 1, "description": "Fraction of each CIP working-solution batch replaced/made up after each event; requires volume and evidence note."},
+        "cip_input_source": {"type": ["string", "null"], "minLength": 1, "description": "Required source/evidence note when CIP volume and make-up fraction are supplied."},
+    },
+}
+
 INITIAL_INVENTORY_SCHEMA = {
     "type": "object",
     "additionalProperties": False,
@@ -160,6 +193,7 @@ SIMULATION_REQUEST_SCHEMA = {
         "plant_capacity_kg_hr": {"type": ["number", "null"], "exclusiveMinimum": 0},
         "feed_composition": {"type": "object", "additionalProperties": {"type":"number","minimum":0,"maximum":1}},
         "storage_conditions": {"type": ["object", "null"], "description":"Opt-in component retention or source-gated grass reaction package; see decision-support options."},
+        "biostimulant_route": BIOSTIMULANT_ROUTE_SCHEMA,
     },
     "$defs": {
         "scenario_selection": SCENARIO_SELECTION_SCHEMA,
@@ -170,6 +204,7 @@ SIMULATION_REQUEST_SCHEMA = {
         },
         "operating_schedule": OPERATING_SCHEDULE_SCHEMA,
         "biomass_schedule": BIOMASS_SCHEDULE_SCHEMA,
+        "biostimulant_route": BIOSTIMULANT_ROUTE_SCHEMA,
         "initial_storage_inventory": INITIAL_INVENTORY_SCHEMA,
     },
 }
@@ -307,11 +342,18 @@ SIMULATION_RESULT_SCHEMA["$defs"]["process_graph"]["$defs"] = {
 RESULT_FIELDS = (
     ("summary_kpis", "object", None, "Compact run-level key performance indicators."),
     ("process_areas[]", "ProcessAreaResult", None, "Area membership, boundary streams, maturity, and metrics."),
+    ("process_areas[].metrics.biostimulant_product_*", "number|null", "kg/hr", "PR7 wet concentrate component totals and elemental N/P/K/carbon values; separately tracks product moisture and solids."),
+    ("process_areas[].metrics.biostimulant_crossflow_electricity_kwh_m3_feed", "number|null", "kWh/m3 feed", "Optional source-noted PR7 crossflow recirculation specific electricity, added to the BioSTEAM electricity utility; excludes optional permeate-side pressure work."),
+    ("process_areas[].metrics.biostimulant_crossflow_electricity_kw", "number|null", "kW", "PR7 crossflow electricity derived from the explicit kWh/m3 clarified-feed input and simulated feed volumetric flow."),
+    ("process_areas[].metrics.biostimulant_crossflow_electricity_source", "string|null", None, "User-supplied provenance note for the PR7 crossflow-specific electricity input."),
+    ("biostimulant_screen.film_retention_diagnostics", "object", None, "TUF free-state sigma/Peclet retention is applied at selected flux; LNF free-state film predictions remain diagnostic beside empirical screening factors; bound-state predictions are withheld pending diffusivity."),
     ("streams[].total_mass", "NumericalValue", "kg/hr", "Total wet stream mass flow."),
     ("streams[].components", "object<NumericalValue>", "kg/hr", "Component mass-flow mapping."),
     ("units[].power", "NumericalValue", "kW", "Unit electricity demand."),
     ("balances[].residual", "NumericalValue", "kg/hr or kmol/hr", "Signed outlet-minus-inlet residual."),
     ("products[].mass_flow", "NumericalValue", "kg/hr", "Product stream wet mass flow."),
+    ("products[].volumetric_flow", "NumericalValue", "m3/hr", "Product stream volume flow at modeled BioSTEAM conditions; distinct from normalized gas volume."),
+    ("annual.volumetric_products", "object<NumericalValue>", "m3/year or m3/reported period", "Annualized product volume at the modelled BioSTEAM stream conditions; not normalized Nm3."),
     ("resolved_parameters[]", "ParameterResolutionResult", None, "Resolved value, source, status, and warnings."),
     ("validation", "ValidationSummary", None, "Blocking and warning validation findings."),
     ("graph", "ProcessGraph", None, "Frontend-ready unit and stream topology."),
@@ -322,6 +364,10 @@ RESULT_FIELDS = (
     ("throughput_series[]", "object", "kg and kg/hr", "Scheduled, capacity-limited process throughput."),
     ("capacity_utilization_series[]", "object", "fraction", "Eligible unit load, capacity, and utilization."),
     ("seasonal_summary", "object", None, "Integrated seasonal feed, storage, product, utility, and balance totals."),
+    ("seasonal_summary.active_process_operating_hours", "number|null", "h/year", "Seasonal hours with positive modeled refinery throughput; used for operating-hour-based PR7 CIP cycles."),
+    ("seasonal_summary.pr7_feed_volume_m3_year", "number|null", "m3/year", "Clarified-juice volumetric feed through PR7_M101, integrated across seasonal timesteps."),
+    ("seasonal_summary.pr7_peak_membrane_area_m2", "number|null", "m2", "Peak monthly PR7 membrane area for seasonal module-cost screening."),
+    ("seasonal_summary.pr7_maximum_peak_membrane_area_m2", "number|null", "m2", "Upper area unavailable when unresolved component volume is not resolved."),
 )
 
 
@@ -331,11 +377,17 @@ PLOT_CATALOG = (
     {"plot_id": "SYS-UNIT-POWER", "process_area": "shared_utilities_and_supporting_operations", "x_unit": None, "y_unit": "kW", "availability": "available"},
     {"plot_id": "DATA-READINESS", "process_area": "data_governance", "x_unit": None, "y_unit": "count", "availability": "available"},
     {"plot_id": "PR-PRECIP-RECOVERY", "process_area": "protein_recovery", "x_unit": None, "y_unit": "fraction", "availability": "conditional: PR1 literature_default"},
+    {"plot_id": "PR7-MASS-SPLIT", "process_area": "protein_recovery", "x_unit": None, "y_unit": "kg/hr", "availability": "conditional: PR7 full-plant run"},
+    {"plot_id": "PR7-HORMONE-CAPTURE", "process_area": "protein_recovery", "x_unit": None, "y_unit": "mg/hr", "availability": "conditional: PR7 full-plant run"},
+    {"plot_id": "PR7-PRODUCT-PROFILE", "process_area": "protein_recovery", "x_unit": None, "y_unit": "kg/hr", "availability": "conditional: PR7 full-plant run"},
+    {"plot_id": "PR7-ENERGY-BREAKDOWN", "process_area": "protein_recovery", "x_unit": None, "y_unit": "kW", "availability": "conditional: PR7 with sourced pressure-work and/or crossflow electricity inputs"},
     {"plot_id": "SEASONAL-FEED", "process_area": "feedstock_and_characterization", "x_unit": None, "y_unit": "kg", "availability": "conditional: quasi_dynamic"},
     {"plot_id": "SEASONAL-INVENTORY", "process_area": "feedstock_and_characterization", "x_unit": None, "y_unit": "kg", "availability": "conditional: quasi_dynamic"},
     {"plot_id": "SEASONAL-THROUGHPUT", "process_area": "integrated_system", "x_unit": None, "y_unit": "kg/hr", "availability": "conditional: quasi_dynamic"},
     {"plot_id": "SEASONAL-UTILIZATION", "process_area": "integrated_system", "x_unit": None, "y_unit": "fraction", "availability": "conditional: eligible capacity"},
     {"plot_id": "SEASONAL-PRODUCTS", "process_area": "integrated_system", "x_unit": None, "y_unit": "kg", "availability": "conditional: calculated products"},
+    {"plot_id": "SEASONAL-BIOSTIMULANT", "process_area": "protein_recovery", "x_unit": None, "y_unit": "kg/month", "availability": "conditional: PR7 seasonal simulation"},
+    {"plot_id": "SEASONAL-BIOSTIMULANT-VOLUME", "process_area": "protein_recovery", "x_unit": None, "y_unit": "m3/month", "availability": "conditional: PR7 seasonal simulation"},
     {"plot_id": "SEASONAL-ELECTRICITY", "process_area": "shared_utilities_and_supporting_operations", "x_unit": None, "y_unit": "kWh", "availability": "conditional: quasi_dynamic"},
     {"plot_id": "SEASONAL-MASS-RESIDUAL", "process_area": "integrated_system", "x_unit": None, "y_unit": "kg", "availability": "conditional: quasi_dynamic"},
 )
@@ -496,12 +548,117 @@ def openapi_schema() -> dict[str, object]:
         paths[route]['post']['requestBody']={'required':True,'content':{'application/json':{'schema':{'type':'object','required':['configuration'],'properties':{'configuration':{'type':'object','required':['simulation'],'properties':{
             'simulation':{'$ref':'#/components/schemas/SimulationRequest'},
             'use_screening_process_assumptions':{'type':'boolean','default':False,'description':'Explicitly opt in to the traceable screening process-assumption profile.'},
-            'use_screening_lca_factors':{'type':'boolean','default':False,'description':'Explicitly opt in to the traceable electricity LCA screening proxy; project-specific factors should replace it.'},
+            'use_screening_lca_factors':{'type':'boolean','default':False,'description':'Explicitly opt in to traceable Netherlands electricity and heat factors plus PR7 CIP reagent production factors; these are screening values and project-specific factors should replace them.'},
             'logistics_result':{'type':['object','null'],'description':'Optional precomputed logistics result forwarded to TEA and LCA; it does not alter process chemistry or balances.'},
             'financial_assumptions':{'type':'object'},'climate_factors':{'type':'object'},'additional_inventory':{'type':'array','items':{'type':'object'}},
         }}}}}}}
     add("/api/v1/model/info", "GET", "modelInfo")
     add("/api/v1/scenarios", "GET", "listScenarios")
+    add("/api/v1/biostimulant/options", "GET", "biostimulantScreeningOptions")
+    add("/api/v1/biostimulant/screen", "POST", "screenBiostimulantRoute")
+    paths["/api/v1/biostimulant/options"]["get"]["description"] = (
+        "Returns PR7 membrane-screening options. The screen uses clarified grass juice with no 14-day pre-membrane fermentation/storage; any downstream digestion remains controlled by the separate AD scenario. TUF/LNF co-retention inputs and MEUF gaps are separately identified."
+    )
+    paths["/api/v1/biostimulant/screen"]["post"]["description"] = (
+        "Calculates provisional analyte capture, membrane area, and gross revenue. Choose either empirical flux or the resistance model; conflicting flux methods are rejected. TUF free-state retention uses the sigma/Peclet relation at selected flux; supplied bound-pool factors remain empirical, and LNF film predictions are diagnostic. If component flows are supplied, the isolated BioSTEAM unit runs and conserves pools without documented retentions at a separate unresolved outlet. This is not a full plant simulation; unresolved pools gate complete product allocation, TEA and LCA."
+    )
+    paths["/api/v1/biostimulant/screen"]["post"]["responses"]["200"]["content"] = {
+        "application/json": {"schema": {
+            "type": "object",
+            "properties": {
+                "biosteam_unit": {"type": ["object", "null"], "properties": {
+                    "membrane_area_m2": {"type": ["number", "null"], "description": "Point estimate is null when unresolved outlet mass is nonzero."},
+                    "minimum_membrane_area_m2": {"type": "number", "description": "Known-permeate membrane-area floor (m²); unresolved pools are excluded."},
+                    "maximum_membrane_area_m2": {"type": ["number", "null"], "description": "Upper membrane-area screen (m²), null while any component fate remains unresolved."},
+                    "unresolved_stream_id": {"type": "string"},
+                    "unresolved_components_kg_hr": {"type": "object", "additionalProperties": {"type": "number"}},
+                    "unresolved_mass_kg_hr": {"type": "number", "description": "Unresolved outlet mass flow (kg/h)."},
+                    "unresolved_kg_year": {"type": "number", "description": "Unresolved outlet mass over supplied operating hours (kg/year)."},
+                    "mass_closure_error_kg_hr": {"type": "number", "description": "Overall unit mass closure error (kg/h)."},
+                }},
+                "film_retention_diagnostics": {
+                    "type": "object",
+                    "description": "TUF free-state sigma/Peclet retention is applied at selected flux; LNF free-state predictions are diagnostic beside empirical screen factors. Bound predictions are null until bound-payload diffusivity is supplied.",
+                    "properties": {
+                        "technology_id": {"type": "string"},
+                        "status": {"type": "string"},
+                        "flux_L_m2_h": {"type": "number"},
+                        "applied_to_process_split": {"type": "boolean"},
+                        "comparison_basis": {"type": "string"},
+                        "analytes": {"type": "array", "items": {"type": "object", "properties": {
+                            "solute_id": {"type": "string"},
+                            "weighted_state_retention_fraction": {"type": "number", "description": "Free/bound weighted process retention using the state-specific basis reported below."},
+                            "process_split_free_retention_fraction": {"type": "number"},
+                            "process_split_bound_retention_fraction": {"type": "number"},
+                            "film_free_retention_fraction": {"type": "number"},
+                            "film_free_peclet_number": {"type": "number"},
+                            "reflection_coefficient": {"type": "number"},
+                            "bound_film_retention_fraction": {"type": ["number", "null"]},
+                            "bound_prediction_status": {"type": "string"},
+                        }}},
+                    },
+                },
+                "component_mass_split": {"type": ["object", "null"], "properties": {
+                    "complete_mass_split": {"type": "boolean"},
+                    "unmapped_component_ids": {"type": "array", "items": {"type": "string"}},
+                    "unresolved_kg_hr": {"type": "object", "additionalProperties": {"type": "number"}},
+                    "mass_error_kg_hr": {"type": "number"},
+                }},
+                "mass_balance_readiness": {"type": ["object", "null"], "properties": {
+                    "component_fate_complete": {"type": "boolean"},
+                    "mass_balanced": {"type": "boolean"},
+                    "unmapped_nonzero_components": {"type": "array", "items": {"type": "string"}},
+                }},
+            },
+        }},
+    }
+    paths["/api/v1/biostimulant/screen"]["post"]["requestBody"] = {
+        "required": True,
+        "content": {"application/json": {"schema": {
+            "type": "object", "additionalProperties": False,
+            "required": ["feed_volume_m3_year", "technology_id", "operating_hours_year"],
+            "not": {"required": ["flux_L_m2_h", "resistance_flux_model"]},
+            "properties": {
+                "feed_volume_m3_year": {"type": "number", "minimum": 0, "description": "Annual clarified-juice feed volume (m³/year)."},
+                "technology_id": {"type": "string", "enum": ["TUF", "LNF", "MEUF"]},
+                "operating_hours_year": {"type": "number", "exclusiveMinimum": 0},
+                "concentration_factor": {"type": "number", "exclusiveMinimum": 1, "default": 10, "description": "Retentate concentration factor; default is the user-supplied value in the PR7 parameter register."},
+                "price_EUR_L": {"type": "number", "minimum": 0, "default": 2.5, "description": "Screening bulk-concentrate price; default is the user-supplied nominal value in the PR7 parameter register."},
+                "flux_L_m2_h": {"type": "number", "exclusiveMinimum": 0},
+                "resistance_flux_model": {
+                    "type": "object", "additionalProperties": False,
+                    "required": ["pressure_bar", "pressure_source", "feed_to_reference_concentration_ratio", "ratio_source", "viscosity_Pa_s", "viscosity_source"],
+                    "properties": {
+                        "pressure_bar": {"type": "number", "exclusiveMinimum": 0},
+                        "pressure_source": {"type": "string", "minLength": 1},
+                        "feed_to_reference_concentration_ratio": {"type": "number", "exclusiveMinimum": 0},
+                        "ratio_source": {"type": "string", "minLength": 1},
+                        "viscosity_Pa_s": {"type": "number", "exclusiveMinimum": 0, "description": "Measured clarified-juice viscosity for the no-fermentation feed; fermented-juice viscosity is not reused."},
+                        "viscosity_source": {"type": "string", "minLength": 1},
+                    },
+                    "description": "Resistance-equation flux method for TUF/LNF. Select this or empirical flux_L_m2_h, not both.",
+                },
+                "transmembrane_pressure_bar": {"type": "number", "exclusiveMinimum": 0, "description": "Optional pressure-work estimate input; requires pump_efficiency_fraction and matching evidence notes."},
+                "pump_efficiency_fraction": {"type": "number", "exclusiveMinimum": 0, "maximum": 1, "description": "Caller-supplied pump efficiency for the pressure-work estimate; no default is assumed."},
+                "run_id": {"type": "string", "description": "Optional completed model run; uses its clarified-protein-rich-liquid component flows for the co-retention split."},
+                "component_flows_kg_hr": {"type": "object", "additionalProperties": {"type": "number", "minimum": 0}, "description": "Optional actual feed component flows in kg/hour. Pools without a documented class retention are conserved in unresolved_kg_hr rather than assigned a guessed fraction."},
+                "component_flows_source": {"type": "string", "minLength": 1, "description": "Required source/evidence note for caller-supplied component_flows_kg_hr; not required when flows are loaded from run_id."},
+                "component_retention_overrides": {"type": "object", "additionalProperties": {"type": "number", "minimum": 0, "maximum": 1}, "description": "Explicit per-component retention fractions; each key must also appear in component_retention_override_sources."},
+                "component_retention_override_sources": {"type": "object", "additionalProperties": {"type": "string", "minLength": 1}, "description": "Required source/evidence note matching each explicit retention override."},
+                "annual_electricity_kwh": {"type": "number", "minimum": 0},
+                "electricity_kg_co2e_kwh": {"type": "number", "minimum": 0},
+                "electricity_price_eur_kwh": {"type": "number", "minimum": 0},
+                "annual_heat_kwh": {"type": "number", "minimum": 0},
+                "heat_kg_co2e_kwh": {"type": "number", "minimum": 0},
+                "heat_price_eur_kwh": {"type": "number", "minimum": 0},
+                "operational_input_sources": {"type": "object", "additionalProperties": {"type": "string", "minLength": 1}, "description": "Required source note for every supplied annual activity, emission factor, or energy price. Use explicit zero activity with a source note when the utility is not used."},
+                "cip_solution_volume_L_per_step": {"type": "number", "exclusiveMinimum": 0, "description": "Optional working-solution volume for each sequential CIP reagent step; requires make-up fraction and evidence note."},
+                "cip_makeup_fraction_per_cycle": {"type": "number", "minimum": 0, "maximum": 1},
+                "cip_input_source": {"type": "string", "minLength": 1},
+                "include_cip_screening_lca": {"type": "boolean", "default": False, "description": "Explicitly apply registered attributional upstream NaOH and citric-acid production factors to CIP chemical inventory; excludes cleaning wastewater and utilities."},
+            },
+        }}},
+    }
     add("/api/v1/process-areas", "GET", "listProcessAreas")
     add("/api/v1/feed-profiles", "GET", "listFeedProfiles")
     add(

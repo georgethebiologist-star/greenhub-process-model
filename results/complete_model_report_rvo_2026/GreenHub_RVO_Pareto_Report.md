@@ -1,28 +1,28 @@
 # GreenHub RVO Pareto analysis
 
-Current no-PEF BioSTEAM screening launch. Data assembled 2026-11-02T18:24:18Z UTC; seed 20261102; 128 sampled designs per protein group.
+Current no-PEF BioSTEAM screening launch. Data assembled 2026-11-03T12:21:09Z UTC; seed 20261102; 128 sampled designs per protein group.
 
 ## Scope and decision objectives
 
 Separate protein-enabled and protein-bypassed process routes were optimized. The analysis contains three sampled Pareto views: net carbon minimized with NPV maximized; assumed support present value minimized with NPV maximized; and a three-objective front combining all three. The sample is bounded by the specified design space, not a proof of global optimum.
 
-All physical cases use F1 feed preparation (PEF disabled). The four support what-if cases are paired onto each simulated process design, so financial support changes do not alter process outputs. Support amounts are user-supplied screening assumptions, not confirmed awards or official tariff determinations.
+All physical cases use F1 feed preparation (PEF disabled). The four support what-if cases are paired onto each simulated process design, so financial support changes do not alter process outputs. Original modeled sales and partial OPEX are used unchanged: no assumed cost savings or yield/revenue uplifts are applied. Support amounts are user-supplied screening assumptions, not confirmed awards or official tariff determinations.
 
 ## Support cases
 
 | Case | Named authority and programme | CAPEX grant | Operating support | Duration |
 |---|---|---:|---:|---:|
-| A | A · RVO DEI+ 30% + RVO SDE++ €20/t feed proxy | 30% | €20/t wet grass/year | 15 years |
-| B | B · RVO DEI+ 45% + RVO SDE++ €40/t feed proxy | 45% | €40/t wet grass/year | 15 years |
-| C | C · RVO DEI+ 60% + RVO SDE++ €60/t feed proxy | 60% | €60/t wet grass/year | 15 years |
-| D | D · RVO SDE++ €50/t feed proxy (OPEX only) | 0% | €50/t wet grass/year | 15 years |
+| C30 | C30 · RVO DEI+ CAPEX grant 30%; dynamic SDE++ value €1.87/Nm³ biomethane | 30% | €1.87/Nm³ biomethane (dynamic by candidate output) | 15 years |
+| C45 | C45 · RVO DEI+ CAPEX grant 45%; dynamic SDE++ value €1.87/Nm³ biomethane | 45% | €1.87/Nm³ biomethane (dynamic by candidate output) | 15 years |
+| C60 | C60 · RVO DEI+ CAPEX grant 60%; dynamic SDE++ value €1.87/Nm³ biomethane | 60% | €1.87/Nm³ biomethane (dynamic by candidate output) | 15 years |
+| C0 | C0 · no CAPEX grant; dynamic SDE++ value €1.87/Nm³ biomethane | 0% | €1.87/Nm³ biomethane (dynamic by candidate output) | 15 years |
 
 ## Front sizes
 
 | Protein route | Net carbon vs NPV | Support PV vs NPV | Carbon, NPV, support |
 |---|---:|---:|---:|
-| Protein enabled | 3 | 19 | 129 |
-| Protein bypassed | 4 | 26 | 106 |
+| Protein enabled | 9 | 10 | 78 |
+| Protein bypassed | 2 | 12 | 120 |
 
 ## Selected candidates
 
@@ -32,33 +32,33 @@ Ranks are sampled from the three-objective front. Rank 0 has the highest NPV; ra
 
 | Rank | P-B-N-P-K | Route | Case | Feed (t/y) | Net carbon (t C/y) | NPV (€) | Support PV (€) |
 |---:|---|---|:---:|---:|---:|---:|---:|
-| 0 | P1-B1-N1-P1-K1 | PR3/BG4/NR7 | C | 24,204 | -3,208.0 | 18,039,491 | 13,798,787 |
-| 1 | P1-B1-N1-P1-K1 | PR2/BG4/NR7 | C | 22,224 | -2,946.8 | 16,181,913 | 12,675,052 |
-| 2 | P1-B1-N1-P1-K1 | PR3/BG4/NR7 | D | 24,204 | -3,208.0 | 14,599,369 | 10,358,665 |
-| 3 | P1-B0-N0-P0-K0 | PR1/BG0/NR0 | C | 26,896 | -3,772.0 | 9,242,464 | 14,152,223 |
-| 4 | P1-B1-N0-P1-K0 | PR1/BG3/NR2 | C | 27,114 | -3,786.6 | 9,296,779 | 15,027,774 |
-| 5 | P1-B1-N1-P0-K0 | PR2/BG3/NR3 | C | 29,783 | -4,150.8 | 10,491,516 | 16,558,923 |
-| 6 | P1-B1-N0-P0-K0 | PR1/BG3/NR0 | C | 27,345 | -3,818.2 | 8,934,227 | 14,992,753 |
-| 7 | P1-B0-N0-P0-K0 | PR1/BG0/NR0 | C | 25,672 | -3,600.4 | 8,959,951 | 13,519,177 |
-| 8 | P1-B0-N0-P0-K0 | PR3/BG0/NR0 | C | 25,039 | -3,500.2 | 8,396,748 | 13,191,755 |
-| 9 | P1-B0-N0-P0-K0 | PR3/BG0/NR0 | D | 29,975 | -4,190.2 | 7,026,312 | 12,828,571 |
-| 10 | P1-B0-N0-P0-K0 | PR3/BG0/NR0 | C | 29,975 | -4,190.2 | 9,942,938 | 15,745,197 |
+| 0 | P1-B1-N1-P1-K1 | PR3/BG4/NR7 | C60 | 24,204 | -3,208.0 | 3,216,023 | 1,626,824 |
+| 1 | P1-B1-N1-P1-K1 | PR3/BG4/NR7 | C45 | 24,204 | -3,208.0 | 2,873,926 | 1,284,727 |
+| 2 | P1-B1-N1-P1-K1 | PR3/BG4/NR7 | C30 | 24,204 | -3,208.0 | 2,531,829 | 942,629 |
+| 3 | P1-B1-N1-P1-K1 | PR3/BG4/NR7 | C0 | 24,204 | -3,208.0 | 1,847,634 | 258,435 |
+| 4 | P1-B1-N0-P0-K0 | PR1/BG3/NR0 | C45 | 27,345 | -3,818.2 | -5,829,115 | 1,351,015 |
+| 5 | P1-B1-N0-P0-K0 | PR1/BG3/NR0 | C60 | 27,345 | -3,818.2 | -5,591,803 | 1,588,327 |
+| 6 | P1-B0-N0-P0-K0 | PR1/BG0/NR0 | C60 | 25,672 | -3,600.4 | -5,429,473 | 334,864 |
+| 7 | P1-B0-N0-P0-K0 | PR1/BG0/NR0 | C60 | 26,896 | -3,772.0 | -5,508,895 | 339,508 |
+| 8 | P1-B0-N0-P0-K0 | PR1/BG0/NR0 | C60 | 24,314 | -3,409.9 | -5,341,248 | 329,628 |
+| 9 | P1-B0-N0-P0-K0 | PR1/BG0/NR0 | C45 | 26,896 | -3,772.0 | -5,593,772 | 254,631 |
+| 10 | P1-B0-N0-P0-K0 | PR3/BG0/NR0 | C60 | 29,975 | -4,190.2 | -5,972,643 | 350,912 |
 
 ### Protein bypassed
 
 | Rank | P-B-N-P-K | Route | Case | Feed (t/y) | Net carbon (t C/y) | NPV (€) | Support PV (€) |
 |---:|---|---|:---:|---:|---:|---:|---:|
-| 0 | P0-B1-N1-P1-K1 | PR0/BG2/NR7 | C | 29,075 | -3,879.8 | 20,883,904 | 16,279,667 |
-| 1 | P0-B1-N1-P1-K1 | PR0/BG2/NR7 | D | 29,075 | -3,879.8 | 17,047,456 | 12,443,219 |
-| 2 | P0-B1-N1-P1-K1 | PR0/BG2/NR7 | B | 29,075 | -3,879.8 | 15,569,666 | 10,965,428 |
-| 3 | P0-B0-N0-P0-K0 | PR0/BG0/NR0 | C | 27,648 | -3,887.9 | 8,712,470 | 14,460,167 |
-| 4 | P0-B1-N0-P0-K0 | PR0/BG2/NR1 | C | 27,824 | -3,894.3 | 7,479,761 | 15,269,912 |
-| 5 | P0-B0-N0-P0-K0 | PR0/BG0/NR0 | D | 27,648 | -3,887.9 | 6,084,795 | 11,832,492 |
-| 6 | P0-B1-N0-P0-K0 | PR0/BG2/NR1 | D | 27,824 | -3,894.3 | 4,117,756 | 11,907,907 |
-| 7 | P0-B1-N0-P1-K0 | PR0/BG3/NR2 | D | 28,376 | -3,972.2 | 3,643,226 | 12,144,318 |
-| 8 | P0-B0-N0-P0-K0 | PR0/BG0/NR0 | B | 27,648 | -3,887.9 | 3,914,179 | 9,661,876 |
-| 9 | P0-B1-N0-P1-K0 | PR0/BG3/NR2 | B | 28,376 | -3,972.2 | 2,037,927 | 10,539,019 |
-| 10 | P0-B1-N0-P1-K0 | PR0/BG3/NR2 | C | 28,376 | -3,972.2 | 7,170,175 | 15,671,267 |
+| 0 | P0-B1-N1-P1-K1 | PR0/BG2/NR7 | C60 | 29,075 | -3,879.8 | 3,940,186 | 2,048,684 |
+| 1 | P0-B1-N1-P1-K1 | PR0/BG2/NR7 | C45 | 29,075 | -3,879.8 | 3,603,235 | 1,711,733 |
+| 2 | P0-B1-N1-P1-K1 | PR0/BG2/NR7 | C30 | 29,075 | -3,879.8 | 3,266,284 | 1,374,782 |
+| 3 | P0-B1-N1-P1-K1 | PR0/BG2/NR7 | C0 | 29,075 | -3,879.8 | 2,592,382 | 700,880 |
+| 4 | P0-B1-N0-P1-K0 | PR0/BG3/NR2 | C45 | 28,376 | -3,972.2 | -6,531,026 | 2,346,739 |
+| 5 | P0-B1-N0-P1-K0 | PR0/BG3/NR2 | C30 | 28,376 | -3,972.2 | -6,805,547 | 2,072,217 |
+| 6 | P0-B1-N0-P0-K0 | PR0/BG2/NR1 | C60 | 27,824 | -3,894.3 | -7,105,818 | 1,651,151 |
+| 7 | P0-B1-N0-P1-K0 | PR0/BG3/NR2 | C0 | 28,376 | -3,972.2 | -7,354,590 | 1,523,174 |
+| 8 | P0-B1-N0-P0-K0 | PR0/BG2/NR1 | C45 | 27,824 | -3,894.3 | -7,350,924 | 1,406,045 |
+| 9 | P0-B1-N0-P0-K0 | PR0/BG2/NR1 | C30 | 27,824 | -3,894.3 | -7,596,030 | 1,160,939 |
+| 10 | P0-B1-N0-P1-K0 | PR0/BG3/NR2 | C60 | 28,376 | -3,972.2 | -6,256,505 | 2,621,260 |
 
 ## Interpretation limits
 
