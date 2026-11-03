@@ -2,6 +2,7 @@
 
 from .requests import (
     SCHEMA_VERSION,
+    BiostimulantRouteOptions,
     BiomassSchedule,
     ParameterOverride,
     InitialStorageInventory,
@@ -17,6 +18,7 @@ from .results import *
 __all__ = (
     "ParameterOverride",
     "BiomassSchedule",
+    "BiostimulantRouteOptions",
     "InitialStorageInventory",
     "OperatingSchedule",
     "RequestedOutput",

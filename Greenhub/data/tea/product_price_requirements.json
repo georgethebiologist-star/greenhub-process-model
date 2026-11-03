@@ -18,6 +18,23 @@
       "warning": "Blank is not zero. User screening assumptions may be supplied explicitly in financial_assumptions.product_prices; no source validated price exists for this product grade."
     },
     {
+      "product_id": "biostimulant_product",
+      "value": null,
+      "unit": "EUR/L",
+      "basis": "liquid retentate at target VCF 10; compare target with modelled actual volume concentration factor",
+      "geography": "Netherlands; offtake location unconfirmed",
+      "reference_year": 2026,
+      "source_url": "",
+      "source_table_page": "",
+      "retrieval_date": "2026-11-02",
+      "source_status": "user_supplied_screening_proxy",
+      "evidence_class": "explicit_user_assumption",
+      "applicability": "User supplied €1.50–€3.50/L nominal €2.50/L; use only with explicit opt-in and verify specification, actual retentate volume and VCF.",
+      "conversion_scaling_method": "Main-run TEA multiplies €/L by simulated annual retentate volume in L at model conditions; no off-spec saleability assumed.",
+      "uncertainty": "User-supplied range; no probability distribution or market validation.",
+      "warning": "Screening proxy only. Does not establish an actual Dutch market price, regulatory status, quality grade, stability, or buyer/offtake."
+    },
+    {
       "product_id": "biomethane",
       "value": null,
       "unit": "EUR/Nm3",

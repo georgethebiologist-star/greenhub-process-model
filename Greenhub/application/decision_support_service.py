@@ -51,7 +51,9 @@ def _apply_candidate_economics(tea: dict, economics: dict, annual=None, units=()
     energy = max(0.0, min(0.25, float(economics.get('energy_reduction', 0.0))))
     yield_uplift = max(0.0, min(0.20, float(economics.get('protein_yield_uplift', 0.0))))
     recovery_uplift = max(0.0, min(0.15, float(economics.get('nutrient_recovery_uplift', 0.0))))
-    subsidy_rate = max(0.0, min(0.20, float(economics.get('subsidy_rate', 0.20))))
+    # Public support is never presumed. Pareto cases must carry an explicit
+    # grant fraction or subsidy rate plus its grant scenario metadata.
+    subsidy_rate = max(0.0, min(0.20, float(economics.get('subsidy_rate', 0.0))))
     subsidy_cap = max(0.0, float(economics.get('subsidy_cap_eur', 250000.0)))
     tax_rate = max(0.0, min(1.0, float(economics.get('tax_rate', 0.258))))
     eligible_fraction = max(0.0, min(1.0, float(economics.get('eligible_capex_fraction', 0.35))))
@@ -152,14 +154,15 @@ def default_configuration():
 def options():
     from Greenhub.storage_reactions import reaction_catalog
     from Greenhub.tea_finance import TEAFinancialAssumptions
-    from Greenhub.product_price_benchmarks import screening_tea_product_prices
+    from Greenhub.product_price_benchmarks import screening_tea_product_price_ranges, screening_tea_product_prices
     from Greenhub.process_assumption_profile import screening_process_assumption_profile
     return {'defaults':default_configuration(),'tea_basis':asdict(TEAProjectBasis()),
             'product_price_requirements':json.loads((Path(__file__).parents[1]/'data/tea/product_price_requirements.json').read_text())['products'],
             'financial_assumptions':asdict(TEAFinancialAssumptions()),'lca':lca_options(),
             'storage_reactions':reaction_catalog(),
             'screening_tea_product_prices':screening_tea_product_prices(),
-            'screening_price_activation': 'Set financial_assumptions.use_screening_price_benchmarks=true to opt in; explicit product_prices override benchmark values.',
+            'screening_tea_product_price_ranges':screening_tea_product_price_ranges(),
+            'screening_price_activation': 'Set financial_assumptions.use_screening_price_benchmarks=true to opt in; optional screening_product_ids limits activated benchmarks to listed products; explicit product_prices override benchmark values.',
             'screening_process_assumptions': screening_process_assumption_profile(),
             'readiness':{'validated_simulation_ready':False,'validated_tea_ready':False,'validated_lca_ready':False},
             'feedstock_options':[{'id':'workbook_grass','label':'Existing seasonal grass workbook'},
@@ -224,9 +227,23 @@ class DecisionSupportService:
             lca_basis['inventory_completeness']={key:{'status':'partial','note':'Partial-year simulation; annual inventory is not established.'} for key in lca_basis.get('inventory_completeness',{})}
         finance_config = deepcopy(config.get('financial_assumptions') or {})
         use_benchmarks = bool(finance_config.pop('use_screening_price_benchmarks', False))
+        screening_product_ids = finance_config.pop('screening_product_ids', None)
         if use_benchmarks:
             from Greenhub.product_price_benchmarks import screening_tea_product_prices
             benchmark_prices = screening_tea_product_prices()
+            if screening_product_ids is not None:
+                if not isinstance(screening_product_ids, (list, tuple)) or any(
+                    not isinstance(product_id, str) for product_id in screening_product_ids
+                ):
+                    raise ValueError('financial_assumptions.screening_product_ids must be a list of product IDs.')
+                unknown = sorted(set(screening_product_ids) - set(benchmark_prices))
+                if unknown:
+                    raise ValueError(f'Unknown screening product IDs: {unknown}.')
+                selected = set(screening_product_ids)
+                benchmark_prices = {
+                    product_id: price for product_id, price in benchmark_prices.items()
+                    if product_id in selected
+                }
             explicit_prices = dict(finance_config.get('product_prices') or {})
             finance_config['product_prices'] = {**benchmark_prices, **explicit_prices}
             finance_config['notes'] = (

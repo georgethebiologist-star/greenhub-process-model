@@ -6,7 +6,7 @@ import json
 import mimetypes
 import re
 import csv
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 from io import BytesIO
 from pathlib import Path
 from typing import Callable, Iterable, Mapping
@@ -89,6 +89,9 @@ class GreenHubAPI:
             return self._respond(start_response, 422, self._error_payload(APIError(422, error.code, str(error))))
         except RunStateError as error:
             return self._respond(start_response, 409, self._error_payload(APIError(409, error.code, str(error))))
+        except NotImplementedError as error:
+            message = str(error).strip("'") or "The selected process scenario is gated by missing data."
+            return self._respond(start_response, 422, self._error_payload(APIError(422, "scenario_gated", message)))
         except (KeyError, TypeError, ValueError) as error:
             message = str(error).strip("'") or "The request is invalid."
             return self._respond(start_response, 422, self._error_payload(APIError(422, "invalid_request", message)))
@@ -102,6 +105,383 @@ class GreenHubAPI:
             )
 
     def _dispatch(self, method: str, path: str, environ: Mapping[str, object]) -> object:
+        if path.startswith("/api/v1/biostimulant/"):
+            from Greenhub.biostimulant_screening import (
+                FLUX_BASELINE_L_M2_H,
+                calculate_component_split_balance,
+                calculate_cip_reagent_screen,
+                calculate_energy_tea_lca_screen,
+                calculate_hormone_capture,
+                compare_empirical_and_film_retention,
+                calculate_membrane_area_and_revenue,
+                calculate_meuf_surfactant_screen,
+                calculate_resistance_flux,
+                estimate_pressure_work_electricity,
+                simulate_biostimulant_membrane_unit,
+                split_component_flows,
+            )
+            if method == "GET" and path == "/api/v1/biostimulant/options":
+                return {
+                    "scenario_id": "PR7",
+                    "status": "screening_and_biosteam_unit; unresolved_pool_fate_preserved; complete_tea_lca_retention_gated",
+                    "feed_boundary": "clarified grass juice; no 14-day pre-membrane fermentation/storage",
+                    "fermentation_included": False,
+                    "pre_membrane_fermentation_included": False,
+                    "downstream_digestion_basis": "controlled by the selected anaerobic_digestion scenario; PR7 permeate proceeds downstream",
+                    "technologies": [
+                        {"id": key, "nominal_flux_L_m2_h": value, "flux_basis": "user-supplied screening baseline"}
+                        for key, value in FLUX_BASELINE_L_M2_H.items()
+                    ],
+                    "required_inputs": ["feed_volume_m3_year", "technology_id", "operating_hours_year"],
+                    "full_plant_route": {
+                        "scenario_id": "PR7",
+                        "benchmark_hormone_option": "use_hormone_benchmarks",
+                        "benchmark_hormone_default": False,
+                        "benchmark_hormone_source_required": True,
+                        "benchmark_hormone_basis": "User-supplied clarified-juice concentrations converted with simulated clarified-liquid volume; separate analyte-equivalent feed; screening proxy, not measured GreenHub composition. The supplied free/bound split is discussed for 14-day anaerobic material and is unvalidated at the no-fermentation PR7 boundary.",
+                        "fermentation_included": False,
+                        "pre_membrane_fermentation_included": False,
+                        "downstream_digestion_basis": "controlled by the selected anaerobic_digestion scenario; PR7 permeate proceeds downstream",
+                    },
+                    "optional_inputs": ["concentration_factor", "price_EUR_L", "flux_L_m2_h", "resistance_flux_model", "run_id", "component_flows_kg_hr", "component_flows_source", "component_retention_overrides", "component_retention_override_sources", "transmembrane_pressure_bar", "pump_efficiency_fraction", "annual_electricity_kwh", "electricity_kg_co2e_kwh", "electricity_price_eur_kwh", "annual_heat_kwh", "heat_kg_co2e_kwh", "heat_price_eur_kwh", "operational_input_sources", "cip_solution_volume_L_per_step", "cip_makeup_fraction_per_cycle", "cip_input_source", "include_cip_screening_lca"],
+                    "override_rule": "Every per-component retention override requires a matching source/evidence note.",
+                    "full_plant_retention_gate": {
+                        "observed_unmapped_component_ids": ["Lipids", "NonBiodegradableOrganics", "OrganicNitrogen", "PersistentOrganics", "Pesticides"],
+                        "scope_note": "Observed for the default clarified-grass-juice case; active IDs depend on feed composition.",
+                        "required_action": "Provide a documented per-component retention and source note for every nonzero pool without a class retention; otherwise product/permeate allocation, membrane-area point estimate, complete TEA revenue, and climate LCA remain gated while the mass-balanced unresolved outlet is reported.",
+                        "meuf_missing_component_class_retention": ["crude_proteins", "peptides_amino_acids", "sugars", "divalent_salts", "monovalent_salts"],
+                    },
+                    "limitations": [
+                        "Benchmark hormone concentrations and retentions are user-supplied proxies, not project measurements.",
+                        "The supplied free/bound split is described for a 14-day anaerobic state and is unvalidated for this no-fermentation PR7 feed boundary.",
+                        "Free/bound fractions describe feed composition. Tight-UF free-pool retention is recalculated at the selected flux with the supplied sigma/Peclet relation; bound-state retention and loose-NF/MEUF values remain empirical screening proxies, not independently validated measurements.",
+                        "Hormone capture is analyte-equivalent mass; carrier mass, product purity, and full retentate composition are not predicted.",
+                        "Unmapped or class-retention-missing pool mass is conserved at a separate unresolved BioSTEAM outlet; dependent full-route results remain incomplete.",
+                        "Area assumes permeate = feed × (1 − 1/VCF), with no downtime or flux decline.",
+                        "Gross revenue is a screening calculation and excludes membrane CAPEX, cleaning, labor, and other OPEX.",
+                        "Gross sales use the assumed concentration-factor volume and are not calculated from or validated by the simulated BioSTEAM retentate volume or product specification.",
+                        "Optional pressure-work electricity is a lower-bound estimate; it excludes crossflow recirculation, pressure losses, CIP, and auxiliaries.",
+                        "Optional energy TEA/LCA uses only user-entered annual utility quantities, prices, and factors with source notes; it is not a full route assessment.",
+                    "No fermentation stage is included.",
+                    "Resistance-model flux requires measured no-fermentation juice viscosity and sourced TMP and Cf/C0; the fermented-juice register viscosity is not reused.",
+                    ],
+                }
+            if method == "POST" and path == "/api/v1/biostimulant/screen":
+                payload = dict(self._read_json(environ))
+                allowed = {
+                    "feed_volume_m3_year", "technology_id", "operating_hours_year",
+                    "concentration_factor", "price_EUR_L", "flux_L_m2_h",
+                    "resistance_flux_model",
+                    "component_flows_kg_hr", "component_retention_overrides",
+                    "component_retention_override_sources",
+                    "component_flows_source",
+                    "run_id",
+                    "annual_electricity_kwh", "electricity_kg_co2e_kwh", "electricity_price_eur_kwh",
+                    "annual_heat_kwh", "heat_kg_co2e_kwh", "heat_price_eur_kwh", "operational_input_sources",
+                    "transmembrane_pressure_bar", "pump_efficiency_fraction",
+                    "cip_solution_volume_L_per_step", "cip_makeup_fraction_per_cycle", "cip_input_source",
+                    "include_cip_screening_lca",
+                }
+                if set(payload) - allowed:
+                    raise ValueError("Unknown biostimulant screening fields.")
+                if "include_cip_screening_lca" in payload and not isinstance(payload["include_cip_screening_lca"], bool):
+                    raise ValueError("include_cip_screening_lca must be a boolean.")
+                required = {"feed_volume_m3_year", "technology_id", "operating_hours_year"}
+                if not required.issubset(payload):
+                    raise ValueError("feed_volume_m3_year, technology_id, and operating_hours_year are required.")
+                resistance_flux_model = payload.get("resistance_flux_model")
+                resistance_flux_result = None
+                if resistance_flux_model is not None:
+                    if payload.get("flux_L_m2_h") is not None:
+                        raise ValueError("Select either flux_L_m2_h or resistance_flux_model, not both.")
+                    if not isinstance(resistance_flux_model, dict):
+                        raise ValueError("resistance_flux_model must be an object.")
+                    required_resistance_fields = {
+                        "pressure_bar", "pressure_source", "feed_to_reference_concentration_ratio",
+                        "ratio_source", "viscosity_Pa_s", "viscosity_source",
+                    }
+                    if set(resistance_flux_model) != required_resistance_fields:
+                        raise ValueError("resistance_flux_model requires TMP, Cf/C0, measured viscosity and a source note for each.")
+                    if any(not isinstance(resistance_flux_model[key], str) or not resistance_flux_model[key].strip()
+                           for key in ("pressure_source", "ratio_source", "viscosity_source")):
+                        raise ValueError("Resistance-model TMP, Cf/C0, and viscosity each require a source/evidence note.")
+                    if str(payload["technology_id"]).strip().upper() == "MEUF":
+                        raise ValueError("The resistance model is parameterized for TUF and LNF only; MEUF requires an empirical flux basis.")
+                    resistance_flux_result = calculate_resistance_flux(
+                        payload["technology_id"],
+                        resistance_flux_model["pressure_bar"],
+                        resistance_flux_model["feed_to_reference_concentration_ratio"],
+                        viscosity_Pa_s=resistance_flux_model["viscosity_Pa_s"],
+                    )
+                selected_flux = payload.get("flux_L_m2_h")
+                selected_flux_basis = "caller-supplied empirical flux" if selected_flux is not None else "user-supplied nominal empirical baseline"
+                if selected_flux is None and resistance_flux_result is not None:
+                    selected_flux = resistance_flux_result.predicted_flux_L_m2_h
+                    selected_flux_basis = "resistance equation using sourced TMP, Cf/C0, and unfermented-juice viscosity"
+                capture = calculate_hormone_capture(
+                    payload["feed_volume_m3_year"], payload["technology_id"],
+                    flux_L_m2_h=selected_flux,
+                )
+                film_retention_diagnostics = compare_empirical_and_film_retention(
+                    payload["technology_id"], selected_flux or FLUX_BASELINE_L_M2_H[str(payload["technology_id"]).strip().upper()]
+                )
+                membrane = calculate_membrane_area_and_revenue(
+                    payload["feed_volume_m3_year"], payload["technology_id"],
+                    operating_hours_year=payload["operating_hours_year"],
+                    **{key: payload[key] for key in ("concentration_factor", "price_EUR_L") if key in payload},
+                    **({"flux_L_m2_h": selected_flux} if selected_flux is not None else {}),
+                )
+                meuf_surfactant_screen = (
+                    calculate_meuf_surfactant_screen(payload["feed_volume_m3_year"])
+                    if str(payload["technology_id"]).strip().upper() == "MEUF" else None
+                )
+                cip_keys = {"cip_solution_volume_L_per_step", "cip_makeup_fraction_per_cycle", "cip_input_source"}
+                cip_supplied = cip_keys & set(payload)
+                if cip_supplied and cip_supplied != cip_keys:
+                    raise ValueError("CIP screening requires solution volume per step, make-up fraction per cycle, and an evidence note together.")
+                if payload.get("include_cip_screening_lca") and cip_supplied != cip_keys:
+                    raise ValueError("include_cip_screening_lca requires the complete CIP input set.")
+                cip_reagent_screen = None
+                if cip_supplied:
+                    cip_reagent_screen = calculate_cip_reagent_screen(
+                        operating_hours_year=payload["operating_hours_year"],
+                        solution_volume_L_per_step=payload["cip_solution_volume_L_per_step"],
+                        makeup_fraction_per_cycle=payload["cip_makeup_fraction_per_cycle"],
+                        input_source=payload["cip_input_source"],
+                        include_screening_lca=bool(payload.get("include_cip_screening_lca", False)),
+                    )
+                energy_input_names = (
+                    "annual_electricity_kwh", "electricity_kg_co2e_kwh", "electricity_price_eur_kwh",
+                    "annual_heat_kwh", "heat_kg_co2e_kwh", "heat_price_eur_kwh",
+                )
+                operational_sources = payload.get("operational_input_sources", {})
+                if not isinstance(operational_sources, dict):
+                    raise ValueError("operational_input_sources must be an object.")
+                hydraulic_keys = {"transmembrane_pressure_bar", "pump_efficiency_fraction"}
+                hydraulic_supplied = hydraulic_keys & set(payload)
+                if hydraulic_supplied and hydraulic_supplied != hydraulic_keys:
+                    raise ValueError("Pressure-work screening requires both transmembrane_pressure_bar and pump_efficiency_fraction.")
+                hydraulic_estimate = None
+                energy_values = {key: payload[key] for key in energy_input_names if key in payload}
+                expected_source_keys = set(energy_values) | hydraulic_supplied
+                if set(operational_sources) != expected_source_keys:
+                    raise ValueError("operational_input_sources must contain exactly one source note for every supplied utility or hydraulic input.")
+                energy_sources = {key: value for key, value in operational_sources.items() if key not in hydraulic_keys}
+                if hydraulic_supplied:
+                    if "annual_electricity_kwh" in energy_values:
+                        raise ValueError("Enter annual electricity or pressure-work inputs, not both.")
+                    for key in hydraulic_keys:
+                        if not isinstance(operational_sources.get(key), str) or not operational_sources[key].strip():
+                            raise ValueError(f"A source/evidence note is required for {key}.")
+                    hydraulic_estimate = estimate_pressure_work_electricity(
+                        payload["feed_volume_m3_year"], membrane.concentration_factor,
+                        payload["transmembrane_pressure_bar"], payload["pump_efficiency_fraction"],
+                    )
+                    energy_values["annual_electricity_kwh"] = hydraulic_estimate["electricity_kwh_year"]
+                    energy_sources["annual_electricity_kwh"] = (
+                        "Calculated pressure-work estimate; TMP: " + operational_sources["transmembrane_pressure_bar"]
+                        + "; pump efficiency: " + operational_sources["pump_efficiency_fraction"]
+                    )
+                energy_assessment = calculate_energy_tea_lca_screen(
+                    **energy_values, input_sources=energy_sources,
+                )
+                mass_split = None
+                component_balance = None
+                biosteam_unit = None
+                component_flows = payload.get("component_flows_kg_hr")
+                component_source = "caller-supplied component flows"
+                component_stream_id = None
+                feed_volume_consistency = None
+                flow_source = payload.get("component_flows_source")
+                if component_flows is not None:
+                    if not isinstance(component_flows, dict) or not component_flows:
+                        raise ValueError("component_flows_kg_hr must be a non-empty object keyed by GreenHub component ID.")
+                    if payload.get("run_id"):
+                        raise ValueError("Provide either run_id or component_flows_kg_hr, not both.")
+                    if not isinstance(flow_source, str) or not flow_source.strip():
+                        raise ValueError("Caller-supplied component_flows_kg_hr requires a source/evidence note.")
+                    component_source = "caller-supplied component flows: " + flow_source.strip()
+                elif flow_source is not None:
+                    raise ValueError("component_flows_source requires component_flows_kg_hr.")
+                overrides = payload.get("component_retention_overrides", {})
+                override_sources = payload.get("component_retention_override_sources", {})
+                if not isinstance(overrides, dict):
+                    raise ValueError("component_retention_overrides must be an object keyed by component ID.")
+                if not isinstance(override_sources, dict):
+                    raise ValueError("component_retention_override_sources must be an object keyed by component ID.")
+                if set(overrides) != set(override_sources):
+                    raise ValueError("Each component retention override must have exactly one matching source/evidence note.")
+                if any(not isinstance(source, str) or not source.strip() for source in override_sources.values()):
+                    raise ValueError("Each component retention override source must be a non-empty evidence note.")
+                if component_flows is None and not payload.get("run_id") and (overrides or override_sources):
+                    raise ValueError("Retention overrides require component_flows_kg_hr or run_id.")
+                if payload.get("run_id"):
+                    if component_flows is not None:
+                        raise ValueError("Provide either run_id or component_flows_kg_hr, not both.")
+                    run_streams = self.results.get_streams(str(payload["run_id"]))
+                    feed_stream = next((
+                        stream for stream in run_streams
+                        if "clarified_protein_rich_liquid" in stream.aliases
+                        or stream.stream_id == "clarified_protein_rich_liquid"
+                    ), None)
+                    if feed_stream is None:
+                        raise ValueError("The requested simulation has no clarified grass-juice stream.")
+                    component_flows = {
+                        ID: value.value for ID, value in feed_stream.components.items()
+                        if value.value is not None
+                    }
+                    component_source = "selected completed BioSTEAM run"
+                    component_stream_id = feed_stream.stream_id
+                    stream_mass_kg_hr = sum(
+                        float(value.value) for value in feed_stream.components.values()
+                        if value.value is not None
+                    )
+                    density_kg_m3 = 1000.0
+                    density_source = "documented model default"
+                    for parameter in self.results.get_provenance(str(payload["run_id"])):
+                        if parameter.parameter_id.endswith("phase4_feed_density_kg_m3") and parameter.value is not None:
+                            resolved_density = float(parameter.value)
+                            if resolved_density > 0.0:
+                                density_kg_m3 = resolved_density
+                                density_source = parameter.source or "resolved model parameter"
+                            break
+                    implied_volume = stream_mass_kg_hr / density_kg_m3 * float(payload["operating_hours_year"])
+                    entered_volume = float(payload["feed_volume_m3_year"])
+                    difference_pct = (
+                        abs(entered_volume - implied_volume) / implied_volume * 100.0
+                        if implied_volume > 0.0 else None
+                    )
+                    feed_volume_consistency = {
+                        "entered_volume_m3_year": entered_volume,
+                        "stream_mass_flow_kg_hr": stream_mass_kg_hr,
+                        "stream_implied_volume_m3_year": implied_volume,
+                        "density_basis_kg_m3": density_kg_m3,
+                        "density_source": density_source,
+                        "difference_pct": difference_pct,
+                        "status": "aligned" if difference_pct is not None and difference_pct <= 5.0 else "review",
+                    }
+                if component_flows is not None:
+                    if not isinstance(component_flows, dict):
+                        raise ValueError("component_flows_kg_hr must be an object keyed by GreenHub component ID.")
+                    mass_split = split_component_flows(
+                        component_flows, payload["technology_id"],
+                        component_retention_overrides=overrides,
+                        concentration_factor=payload.get("concentration_factor"),
+                        flux_L_m2_h=selected_flux,
+                    )
+                    component_balance = calculate_component_split_balance(
+                        component_flows, payload["technology_id"],
+                        component_retention_overrides=overrides,
+                        concentration_factor=payload.get("concentration_factor"),
+                        flux_L_m2_h=selected_flux,
+                    )
+                    if component_stream_id is None:
+                        stream_mass_kg_hr = sum(float(value) for value in component_flows.values())
+                        density_kg_m3 = 1000.0
+                        implied_volume = stream_mass_kg_hr / density_kg_m3 * float(payload["operating_hours_year"])
+                        entered_volume = float(payload["feed_volume_m3_year"])
+                        difference_pct = (
+                            abs(entered_volume - implied_volume) / implied_volume * 100.0
+                            if implied_volume > 0.0 else None
+                        )
+                        feed_volume_consistency = {
+                            "entered_volume_m3_year": entered_volume,
+                            "stream_mass_flow_kg_hr": stream_mass_kg_hr,
+                            "stream_implied_volume_m3_year": implied_volume,
+                            "density_basis_kg_m3": density_kg_m3,
+                            "density_source": "user-supplied screening convention: 1 kg juice ≈ 1 L",
+                            "difference_pct": difference_pct,
+                            "status": "aligned" if difference_pct is not None and difference_pct <= 5.0 else "review",
+                        }
+                    biosteam_unit = simulate_biostimulant_membrane_unit(
+                        component_flows, payload["technology_id"],
+                        operating_hours_year=payload["operating_hours_year"],
+                        flux_L_m2_h=selected_flux,
+                        component_retention_overrides=overrides,
+                        concentration_factor=payload.get("concentration_factor"),
+                    )
+                return {
+                    "scenario_id": "PR7",
+                    "status": (
+                        "BioSTEAM membrane-unit simulation; unresolved component fate remains gated"
+                        if biosteam_unit and mass_split is not None and not mass_split["complete_mass_split"]
+                        else "BioSTEAM membrane-unit simulation; screening scope only"
+                        if biosteam_unit else "screening_only; component coverage gate remains open"
+                    ),
+                    "feed_boundary": "clarified grass juice; no 14-day pre-membrane fermentation/storage",
+                    "fermentation_included": False,
+                    "pre_membrane_fermentation_included": False,
+                    "downstream_digestion_basis": "controlled by the selected anaerobic_digestion scenario; PR7 permeate proceeds downstream",
+                    "hormone_capture": [asdict(item) for item in capture],
+                    "membrane_screen": {**asdict(membrane), "flux_basis": selected_flux_basis},
+                    "resistance_flux_result": asdict(resistance_flux_result) if resistance_flux_result is not None else None,
+                    "film_retention_diagnostics": film_retention_diagnostics,
+                    "meuf_surfactant_screen": meuf_surfactant_screen,
+                    "cip_reagent_screen": cip_reagent_screen,
+                    "energy_tea_lca_screen": energy_assessment,
+                    "hydraulic_energy_estimate": hydraulic_estimate,
+                    "component_mass_split": mass_split,
+                    "component_balance": component_balance,
+                    "biosteam_unit": biosteam_unit,
+                    "component_mass_split_source": component_source if mass_split is not None else None,
+                    "component_flows_source": flow_source if component_flows is not None and not component_stream_id else None,
+                    "component_stream_id": component_stream_id,
+                    "component_retention_override_sources": override_sources if mass_split is not None else {},
+                    "feed_volume_consistency": feed_volume_consistency,
+                    "mass_balance_readiness": (
+                        None if mass_split is None else {
+                            "complete": mass_split["complete_mass_split"],
+                            "component_fate_complete": mass_split["complete_mass_split"],
+                            "mass_balanced": abs(float(mass_split["mass_error_kg_hr"])) <= 1e-8,
+                            "unmapped_nonzero_components": list(mass_split["unmapped_component_ids"]),
+                            "unmapped_component_flows_kg_hr": {
+                                ID: float(component_flows.get(ID, 0.0))
+                                for ID in mass_split["unmapped_component_ids"]
+                            },
+                            "mass_error_kg_hr": mass_split["mass_error_kg_hr"],
+                        }
+                    ),
+                    "tea_readiness": {
+                        "status": "partial_screen_only",
+                        "available": ["gross_sales_revenue_EUR_year", "membrane_module_CAPEX_EUR_range", "annualized_module_replacement_EUR_year_range"] + (["CIP_reagent_makeup_cost_EUR_year"] if cip_reagent_screen else []),
+                        "missing_or_excluded": [
+                            "installed skid, installation and balance-of-plant CAPEX", "original membrane quote price year",
+                            "labor, crossflow pumping, and CIP downtime, water, energy, and waste-treatment OPEX; optional CIP reagent screen is reported separately when activity inputs are supplied",
+                            "validated product quality, saleable yield, and sale-specification price (only the user-supplied €1.50–3.50/L concentrate proxy is available)",
+                        ],
+                        "replacement_basis": "EUR module purchase cost converted at dated ECB reference FX and straight-line annualized over the user-supplied 2.5–3 year module life; excludes removal, disposal, labor, and downtime; not discounted cash flow",
+                        "reference_only": [
+                            {"item": "NaOH 50 wt% solution", "value": "€235/t", "source": "https://eucx.eu/katalog/laugen", "note": "Indicative listed price dated 2026-11-01; reference-only until CIP volume and make-up fraction are established; procurement terms require confirmation."},
+                            {"item": "Citric acid bulk", "value": "€1,610/t", "source": "https://fdcm.eu/products/citric-acid/", "note": "Supplier listing at €1.61/kg; grade and delivery terms require confirmation; reference-only until CIP volume and make-up fraction are established."},
+                            {"item": "Dutch full-scale NF CIP interval", "value": "0.6–0.7 events/year", "source": "https://doi.org/10.1016/j.desal.2020.114865", "note": "Four Dutch drinking-water NF systems treating anoxic groundwater; reference context only. Feed fouling behavior is not transferable to GreenHub grass juice."},
+                            {"item": "Dutch full-scale RO CIP interval", "value": "7–17 events/year", "source": "https://doi.org/10.1016/j.desal.2020.114865", "note": "Three Dutch RO plants treating surface water or municipal effluent; reference context only. These frequencies do not replace the user-supplied 48 operating-hour PR7 screening interval."},
+                            {"item": "NF CIP protocol comparator", "value": "2 wt% citric acid and 0.01 M NaOH; 3 h each", "source": "https://doi.org/10.1016/j.desal.2020.114865", "note": "Protocol from Dutch full-scale water NF plants; differs from the user-supplied PR7 recipe and is not used to calculate PR7 chemical consumption."},
+                            {"item": "NF installed-system comparator", "value": "€300,000–350,000 per 100 m³/h permeate", "source": "https://emis.vito.be/nl/bbt/bbt-tools/selectiesystemen/wass/technieken/nanofiltratie", "note": "Water-treatment benchmark; not scaled into GreenHub CAPEX."},
+                            {"item": "Commercial NF package comparator", "value": "about €3,911 per 1 m³/h feed", "source": "https://www.tandfonline.com/doi/full/10.1080/15685551.2015.1092012", "note": "2015 biscuit-effluent estimate converted at current ECB FX, not inflation-adjusted or applied to GreenHub."},
+                            {"item": "Vegetable amino-acid biostimulant, 1,000 L", "value": "€2.609/L ex VAT", "source": "https://agrinutriment.fr/produit/acides-amines-metabolisme-azote/", "note": "Public supplier listing for a vegetable-protein hydrolysate with 24% free amino acids and 4.3% total N; unlike PR7 hormone-enriched grass-juice concentrate, therefore context only and excluded from PR7 revenue."},
+                        ],
+                    },
+                    "lca_readiness": {
+                        "status": energy_assessment["climate_status"],
+                        "missing_or_excluded": [
+                            "membrane pumping electricity and pump efficiency", "CIP solution volumes and make-up fraction unless supplied; cleaning wastewater fate; reagent climate factors are available only through the explicit screening-factor option or project-specific overrides",
+                            "MEUF surfactant price, acid precipitation inventory, recovery energy, and residual fate; the returned SDS screen is a material-use estimate only", "membrane manufacture and replacement impacts",
+                            "product substitution and use-phase fate",
+                        ],
+                        "reference_only": [
+                            {"item": "Hollow-fiber PSF/NMP membrane fabrication", "value": "4.399 kg CO₂-eq/m²", "source": "https://pub.epsilon.slu.se/22742/1/yadav_p_et_al_210311.pdf", "note": "European electricity mix; reference only, not applied to the supplied PES/PA spiral-wound modules."},
+                            {"item": "Hollow-fiber PSF/DMAc membrane fabrication", "value": "3.120 kg CO₂-eq/m²", "source": "https://pub.epsilon.slu.se/22742/1/yadav_p_et_al_210311.pdf", "note": "European electricity mix; reference only, not applied to the supplied PES/PA spiral-wound modules."},
+                        ],
+                    },
+                    "limitations": [
+                        "Hormone input concentrations and retentions are provisional user-supplied benchmarks; the supplied free/bound split is discussed for a 14-day anaerobic state and is unvalidated for fresh, unfermented PR7 feed.",
+                        "Capture values are analyte-equivalent; carrier mass and product purity are excluded.",
+                        "Benchmark hormone capture is calculated separately and is not added to the model component mass split unless the selected feed stream contains those hormone pools.",
+                        "Area assumes the supplied flux is constant and includes no cleaning downtime or fouling decline.",
+                        "Revenue is gross screening revenue only; CAPEX and OPEX are incomplete.",
+                        "Membrane module quotes are converted to EUR using the dated ECB reference rate; the original quote date is unknown, and the module-only values exclude installation and balance-of-plant equipment.",
+                    ],
+                }
         if path.startswith('/api/v1/decision-support/'):
             from Greenhub.application.decision_support_service import DecisionSupportService, options
             from Greenhub.scenario_exploration import run_batch, sensitivity

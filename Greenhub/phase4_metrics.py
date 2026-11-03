@@ -24,7 +24,7 @@ def _heat_duty_kw(unit) -> float:
 
 
 def _phase4_power(model) -> float:
-    phase4_ids = {"M401", "H401", "R401", "C401", "W401", "D401", "DR401", "M402", "M403"}
+    phase4_ids = {"M401", "H401", "R401", "C401", "W401", "D401", "DR401", "M402", "M403", "PR7_M101"}
     return sum(
         float(unit.power_utility.consumption)
         for ID, unit in model.units.items()
@@ -41,10 +41,18 @@ def _stream_indicators(stream, density_kg_m3: float) -> dict[str, float | None]:
 
 
 def calculate_phase4_metrics(model, validation=None) -> dict[str, float | str | None]:
-    """Calculate the PR0-PR6 common output schema for one steady month."""
+    """Calculate the common PR0-PR7 output schema for one steady month."""
 
     feed = model.streams["clarified_protein_rich_liquid"]
     product = model.streams["dry_protein_product"]
+    biostimulant_product = model.streams.get("biostimulant_product")
+    biostimulant_product = biostimulant_product if model.scenario.scenario_id == "PR7" else None
+    biostimulant_permeate = model.streams.get("biostimulant_permeate")
+    biostimulant_permeate = biostimulant_permeate if model.scenario.scenario_id == "PR7" else None
+    biostimulant_unresolved = model.streams.get("biostimulant_unresolved")
+    biostimulant_unresolved = biostimulant_unresolved if model.scenario.scenario_id == "PR7" else None
+    biostimulant_route = model.parameters.get("biostimulant_route", {})
+    benchmark_hormone_feed = model.streams.get("biostimulant_benchmark_hormone_feed")
     residual = model.streams["conditioned_protein_depleted_liquid"]
     exhaust = model.streams["dryer_exhaust"]
     density = float(model.parameters["values"].get("phase4_feed_density_kg_m3", 1000.0))
@@ -55,6 +63,11 @@ def calculate_phase4_metrics(model, validation=None) -> dict[str, float | str | 
     feed_peptides = float(feed.imass["Peptides"])
     feed_amino_acids = float(feed.imass["AminoAcids"])
     product_protein = _sum_ids(product, PROTEIN_POOL_IDS)
+    biostimulant_product_protein = (
+        _sum_ids(biostimulant_product, PROTEIN_POOL_IDS)
+        if biostimulant_product is not None else 0.0
+    )
+    recovered_protein = product_protein + biostimulant_product_protein
     usable_product_protein = _sum_ids(
         product,
         COMPONENT_GROUPS["protein_product_components"],
@@ -109,6 +122,10 @@ def calculate_phase4_metrics(model, validation=None) -> dict[str, float | str | 
         else 0.0
     )
     product_elements = calculate_elemental_flows(stream_component_flows(product))
+    biostimulant_elements = (
+        calculate_elemental_flows(stream_component_flows(biostimulant_product))
+        if biostimulant_product is not None else None
+    )
     product_ash = sum(
         float(product.imass[ID]) * COMPONENT_METADATA[ID].ash_fraction
         for ID in chemicals.IDs
@@ -146,7 +163,149 @@ def calculate_phase4_metrics(model, validation=None) -> dict[str, float | str | 
         "residual_liquid_protein_kg_hr": residual_protein,
         "precipitation_yield_fraction": _safe_ratio(precipitated, feed_recoverable),
         "separator_capture_fraction": _safe_ratio(wet_cake_protein, precipitated),
-        "overall_protein_recovery_fraction": _safe_ratio(product_protein, feed_protein),
+        "overall_protein_recovery_fraction": _safe_ratio(recovered_protein, feed_protein),
+        "biostimulant_product_flow_kg_hr": (
+            biostimulant_product.F_mass if biostimulant_product is not None else 0.0
+        ),
+        "protein_in_biostimulant_product_kg_hr": biostimulant_product_protein,
+        "biostimulant_product_water_kg_hr": (
+            float(biostimulant_product.imass["Water"]) if biostimulant_product is not None else None
+        ),
+        "biostimulant_product_dry_matter_kg_hr": (
+            biostimulant_product.F_mass - float(biostimulant_product.imass["Water"])
+            if biostimulant_product is not None else None
+        ),
+        "biostimulant_product_nitrogen_kg_hr": (
+            biostimulant_elements["nitrogen"] if biostimulant_elements is not None else None
+        ),
+        "biostimulant_product_phosphorus_kg_hr": (
+            biostimulant_elements["phosphorus"] if biostimulant_elements is not None else None
+        ),
+        "biostimulant_product_potassium_kg_hr": (
+            biostimulant_elements["potassium"] if biostimulant_elements is not None else None
+        ),
+        "biostimulant_product_carbon_kg_hr": (
+            biostimulant_elements["carbon"] if biostimulant_elements is not None else None
+        ),
+        "biostimulant_product_ash_kg_hr": (
+            sum(float(biostimulant_product.imass[ID]) * COMPONENT_METADATA[ID].ash_fraction for ID in chemicals.IDs)
+            if biostimulant_product is not None else None
+        ),
+        "biostimulant_product_peptides_kg_hr": (
+            float(biostimulant_product.imass["Peptides"]) if biostimulant_product is not None else None
+        ),
+        "biostimulant_product_amino_acids_kg_hr": (
+            float(biostimulant_product.imass["AminoAcids"]) if biostimulant_product is not None else None
+        ),
+        "biostimulant_product_sugars_kg_hr": (
+            _sum_ids(biostimulant_product, COMPONENT_GROUPS["soluble_sugars"] | COMPONENT_GROUPS["entrapped_sugars"])
+            if biostimulant_product is not None else None
+        ),
+        "biostimulant_product_contaminants_kg_hr": (
+            _sum_ids(biostimulant_product, COMPONENT_GROUPS["contaminants"])
+            if biostimulant_product is not None else None
+        ),
+        "biostimulant_membrane_area_m2": (
+            model.units["PR7_M101"].design_results.get("Membrane area")
+            if "PR7_M101" in model.units else None
+        ),
+        "biostimulant_minimum_membrane_area_m2": (
+            model.units["PR7_M101"].design_results.get("Minimum membrane area")
+            if "PR7_M101" in model.units else None
+        ),
+        "biostimulant_maximum_membrane_area_m2": (
+            model.units["PR7_M101"].design_results.get("Maximum membrane area")
+            if "PR7_M101" in model.units else None
+        ),
+        "biostimulant_unresolved_mass_kg_hr": (
+            biostimulant_unresolved.F_mass if biostimulant_unresolved is not None else 0.0
+        ),
+        "biostimulant_unresolved_component_ids": (
+            tuple(getattr(model.units["PR7_M101"], "unmapped_component_ids", ()))
+            if "PR7_M101" in model.units else ()
+        ),
+        "biostimulant_retention_status": (
+            "incomplete_unmapped_pools" if biostimulant_unresolved is not None and biostimulant_unresolved.F_mass > 1e-12
+            else "complete_screening_matrix" if biostimulant_product is not None
+            else "not_applicable"
+        ),
+        "biostimulant_feed_volume_m3_hr": (
+            model.units["PR7_M101"].design_results.get("Feed volumetric flow")
+            if "PR7_M101" in model.units else None
+        ),
+        "biostimulant_product_volume_m3_hr": (
+            model.units["PR7_M101"].design_results.get("Retentate volumetric flow")
+            if "PR7_M101" in model.units else None
+        ),
+        "biostimulant_target_concentration_factor": (
+            model.units["PR7_M101"].design_results.get("Target concentration factor")
+            if "PR7_M101" in model.units else None
+        ),
+        "biostimulant_actual_volume_concentration_factor": (
+            model.units["PR7_M101"].design_results.get("Actual volume concentration factor")
+            if "PR7_M101" in model.units else None
+        ),
+        "biostimulant_membrane_flux_L_m2_h": (
+            model.units["PR7_M101"].flux_L_m2_h
+            if "PR7_M101" in model.units else None
+        ),
+        "biostimulant_flux_method": (
+            biostimulant_route.get("flux_method", "empirical")
+        ) if biostimulant_product is not None else None,
+        "biostimulant_feed_to_reference_concentration_ratio": (
+            biostimulant_route.get("feed_to_reference_concentration_ratio")
+            if biostimulant_product is not None else None
+        ),
+        "biostimulant_resistance_model_flux_L_m2_h": (
+            biostimulant_route.get("resistance_model_flux_L_m2_h")
+            if biostimulant_product is not None else None
+        ),
+        "biostimulant_flux_evidence": (
+            biostimulant_route.get("resolved_flux_source")
+            if biostimulant_product is not None else None
+        ),
+        "biostimulant_membrane_pressure_bar": (
+            model.units["PR7_M101"].transmembrane_pressure_bar
+            if "PR7_M101" in model.units else None
+        ),
+        "biostimulant_pump_efficiency_fraction": (
+            model.units["PR7_M101"].pump_efficiency_fraction
+            if "PR7_M101" in model.units else None
+        ),
+        "biostimulant_crossflow_electricity_kwh_m3_feed": (
+            model.units["PR7_M101"].crossflow_electricity_kwh_m3_feed
+            if "PR7_M101" in model.units else None
+        ),
+        "biostimulant_crossflow_electricity_source": (
+            model.units["PR7_M101"].crossflow_electricity_source
+            if "PR7_M101" in model.units else None
+        ),
+        "biostimulant_crossflow_electricity_kw": (
+            model.units["PR7_M101"].crossflow_electricity_kw
+            if "PR7_M101" in model.units and model.units["PR7_M101"].crossflow_electricity_kwh_m3_feed is not None else None
+        ),
+        "biostimulant_pressure_work_electricity_kw": (
+            model.units["PR7_M101"].pressure_work_kw
+            if "PR7_M101" in model.units
+            and model.units["PR7_M101"].transmembrane_pressure_bar is not None
+            and model.units["PR7_M101"].pump_efficiency_fraction is not None else None
+        ),
+        "biostimulant_membrane_technology": (
+            model.units["PR7_M101"].technology_id
+            if "PR7_M101" in model.units else None
+        ),
+        "biostimulant_cip_solution_volume_L_per_step": (
+            biostimulant_route.get("cip_solution_volume_L_per_step")
+            if biostimulant_product is not None else None
+        ),
+        "biostimulant_cip_makeup_fraction_per_cycle": (
+            biostimulant_route.get("cip_makeup_fraction_per_cycle")
+            if biostimulant_product is not None else None
+        ),
+        "biostimulant_cip_input_source": (
+            biostimulant_route.get("cip_input_source")
+            if biostimulant_product is not None else None
+        ),
         "dry_protein_product_flow_kg_hr": product.F_mass,
         "dry_product_dry_matter_kg_hr": dry_product,
         "product_moisture_fraction": product_moisture,
@@ -211,6 +370,63 @@ def calculate_phase4_metrics(model, validation=None) -> dict[str, float | str | 
             else float(model.parameters["values"].get("feed_pH", 0.0))
         ),
     }
+    hormone_pools = {
+        "IAA": ("Indole3AceticAcid", "ProteinBoundIAA"),
+        "zeatin": ("Zeatin", "PeptideBoundZeatin"),
+        "zeatin_riboside": ("ZeatinRiboside", "BoundZeatinRiboside"),
+    }
+    values["biostimulant_hormone_feed_basis"] = (
+        "user_supplied_clarified_juice_benchmark_screening"
+        if biostimulant_route.get("use_hormone_benchmarks")
+        else "named_upstream_component_pools" if biostimulant_product is not None
+        else "not_applicable"
+    )
+    values["biostimulant_hormone_benchmark_source"] = biostimulant_route.get("hormone_benchmark_source")
+    values["biostimulant_hormone_benchmark_feed_kg_hr"] = (
+        float(benchmark_hormone_feed.F_mass) if benchmark_hormone_feed is not None else 0.0
+    )
+    for analyte, component_ids in hormone_pools.items():
+        feed_payload = _sum_ids(feed, component_ids) + (
+            _sum_ids(benchmark_hormone_feed, component_ids)
+            if benchmark_hormone_feed is not None else 0.0
+        )
+        product_payload = (
+            _sum_ids(biostimulant_product, component_ids)
+            if biostimulant_product is not None else None
+        )
+        permeate_payload = (
+            _sum_ids(biostimulant_permeate, component_ids)
+            if biostimulant_permeate is not None else None
+        )
+        values[f"biostimulant_{analyte}_feed_kg_hr"] = feed_payload
+        values[f"biostimulant_{analyte}_product_kg_hr"] = product_payload
+        values[f"biostimulant_{analyte}_permeate_kg_hr"] = permeate_payload
+        values[f"biostimulant_{analyte}_balance_error_kg_hr"] = (
+            feed_payload - float(product_payload) - float(permeate_payload)
+            if product_payload is not None and permeate_payload is not None else None
+        )
+        values[f"biostimulant_{analyte}_capture_fraction"] = (
+            _safe_ratio(float(product_payload), feed_payload)
+            if product_payload is not None else None
+        )
+    values["biostimulant_hormone_payload_feed_kg_hr"] = sum(
+        float(values[f"biostimulant_{analyte}_feed_kg_hr"] or 0.0)
+        for analyte in hormone_pools
+    )
+    values["biostimulant_hormone_payload_product_kg_hr"] = (
+        sum(float(values[f"biostimulant_{analyte}_product_kg_hr"] or 0.0) for analyte in hormone_pools)
+        if biostimulant_product is not None else None
+    )
+    values["biostimulant_hormone_payload_permeate_kg_hr"] = (
+        sum(float(values[f"biostimulant_{analyte}_permeate_kg_hr"] or 0.0) for analyte in hormone_pools)
+        if biostimulant_permeate is not None else None
+    )
+    values["biostimulant_hormone_payload_balance_error_kg_hr"] = (
+        float(values["biostimulant_hormone_payload_feed_kg_hr"])
+        - float(values["biostimulant_hormone_payload_product_kg_hr"])
+        - float(values["biostimulant_hormone_payload_permeate_kg_hr"])
+        if biostimulant_product is not None and biostimulant_permeate is not None else None
+    )
     if validation is not None:
         values["mass_balance_error_kg_hr"] = validation.overall_error_kg_hr
         values["maximum_element_error_kg_hr"] = max(
@@ -227,7 +443,7 @@ class SeasonalPhase4Result:
     """Monthly quantities and annual totals for one Phase 4 configuration."""
 
     monthly_rows: tuple[dict[str, object], ...]
-    annual_totals: dict[str, float]
+    annual_totals: dict[str, float | None]
     warnings: tuple[str, ...]
 
 
@@ -249,6 +465,20 @@ def aggregate_monthly_phase4_metrics(
         "conditioned_liquid_mass_kg": "conditioned_liquid_flow_kg_hr",
         "wash_water_kg": "wash_water_kg_hr",
         "salt_generated_kg": "salt_generated_kg_hr",
+        "biostimulant_hormone_payload_feed_kg": "biostimulant_hormone_payload_feed_kg_hr",
+        "biostimulant_hormone_benchmark_feed_kg": "biostimulant_hormone_benchmark_feed_kg_hr",
+        "biostimulant_hormone_payload_product_kg": "biostimulant_hormone_payload_product_kg_hr",
+        "biostimulant_hormone_payload_permeate_kg": "biostimulant_hormone_payload_permeate_kg_hr",
+        "biostimulant_unresolved_mass_kg": "biostimulant_unresolved_mass_kg_hr",
+        "biostimulant_IAA_feed_kg": "biostimulant_IAA_feed_kg_hr",
+        "biostimulant_IAA_product_kg": "biostimulant_IAA_product_kg_hr",
+        "biostimulant_IAA_permeate_kg": "biostimulant_IAA_permeate_kg_hr",
+        "biostimulant_zeatin_feed_kg": "biostimulant_zeatin_feed_kg_hr",
+        "biostimulant_zeatin_product_kg": "biostimulant_zeatin_product_kg_hr",
+        "biostimulant_zeatin_permeate_kg": "biostimulant_zeatin_permeate_kg_hr",
+        "biostimulant_zeatin_riboside_feed_kg": "biostimulant_zeatin_riboside_feed_kg_hr",
+        "biostimulant_zeatin_riboside_product_kg": "biostimulant_zeatin_riboside_product_kg_hr",
+        "biostimulant_zeatin_riboside_permeate_kg": "biostimulant_zeatin_riboside_permeate_kg_hr",
     }
     annual = {name: 0.0 for name in rate_to_quantity}
     annual.update(phase4_heat_kwh=0.0, phase4_electricity_kwh=0.0)
@@ -262,12 +492,50 @@ def aggregate_monthly_phase4_metrics(
             "operating_hours": hours,
             "protein_concentration_g_L": metrics["clarified_liquid_protein_concentration_g_L"],
         }
+        row["biostimulant_hormone_payload_capture_fraction"] = _safe_ratio(
+            float(metrics["biostimulant_hormone_payload_product_kg_hr"] or 0.0),
+            float(metrics["biostimulant_hormone_payload_feed_kg_hr"] or 0.0),
+        )
+        for analyte in ("IAA", "zeatin", "zeatin_riboside"):
+            row[f"biostimulant_{analyte}_capture_fraction"] = metrics[
+                f"biostimulant_{analyte}_capture_fraction"
+            ]
         for quantity_name, rate_name in rate_to_quantity.items():
             row[quantity_name] = float(metrics[rate_name] or 0.0) * hours
             annual[quantity_name] += float(row[quantity_name])
+        row["biostimulant_hormone_payload_balance_error_kg"] = (
+            row["biostimulant_hormone_payload_feed_kg"]
+            - row["biostimulant_hormone_payload_product_kg"]
+            - row["biostimulant_hormone_payload_permeate_kg"]
+        )
+        for analyte in ("IAA", "zeatin", "zeatin_riboside"):
+            row[f"biostimulant_{analyte}_balance_error_kg"] = (
+                row[f"biostimulant_{analyte}_feed_kg"]
+                - row[f"biostimulant_{analyte}_product_kg"]
+                - row[f"biostimulant_{analyte}_permeate_kg"]
+            )
         row["phase4_heat_kwh"] = float(metrics["total_phase4_heat_duty_kw"] or 0.0) * hours
         row["phase4_electricity_kwh"] = float(metrics["phase4_electricity_kw"] or 0.0) * hours
         annual["phase4_heat_kwh"] += float(row["phase4_heat_kwh"])
         annual["phase4_electricity_kwh"] += float(row["phase4_electricity_kwh"])
         rows.append(row)
+    for analyte in ("IAA", "zeatin", "zeatin_riboside"):
+        feed_key = f"biostimulant_{analyte}_feed_kg"
+        product_key = f"biostimulant_{analyte}_product_kg"
+        permeate_key = f"biostimulant_{analyte}_permeate_kg"
+        annual[f"biostimulant_{analyte}_capture_fraction"] = _safe_ratio(
+            annual[product_key], annual[feed_key]
+        )
+        annual[f"biostimulant_{analyte}_balance_error_kg"] = (
+            annual[feed_key] - annual[product_key] - annual[permeate_key]
+        )
+    annual["biostimulant_hormone_payload_capture_fraction"] = _safe_ratio(
+        annual["biostimulant_hormone_payload_product_kg"],
+        annual["biostimulant_hormone_payload_feed_kg"],
+    )
+    annual["biostimulant_hormone_payload_balance_error_kg"] = (
+        annual["biostimulant_hormone_payload_feed_kg"]
+        - annual["biostimulant_hormone_payload_product_kg"]
+        - annual["biostimulant_hormone_payload_permeate_kg"]
+    )
     return SeasonalPhase4Result(tuple(rows), annual, warnings)

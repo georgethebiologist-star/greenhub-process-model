@@ -337,7 +337,7 @@ def load_phase4_inputs(
     phase3_scenario_id: str | None = None,
     selected_month: str | None = None,
 ) -> Phase4InputBundle:
-    """Load selected PR0-PR6 controls and Phase 4 inputs from the master workbook."""
+    """Load selected PR0-PR7 controls and Phase 4 inputs from the master workbook."""
 
     workbook = ensure_input_workbook(path)
     control = _load_control(workbook)
@@ -346,8 +346,8 @@ def load_phase4_inputs(
         or optional_text(control.get("selected_phase4_scenario"))
         or "PR3"
     ).upper()
-    if scenario not in {f"PR{i}" for i in range(7)}:
-        raise ValueError("selected_phase4_scenario must be PR0, PR1, PR2, PR3, PR4, PR5, or PR6.")
+    if scenario not in {f"PR{i}" for i in range(8)}:
+        raise ValueError("selected_phase4_scenario must be PR0 through PR7.")
     upstream = (
         phase3_scenario_id
         or optional_text(control.get("selected_phase3_scenario"))

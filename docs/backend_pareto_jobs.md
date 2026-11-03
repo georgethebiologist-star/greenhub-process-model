@@ -21,7 +21,7 @@ GET /api/v1/simulations/{run_id}/units
 GET /api/v1/simulations/{run_id}/utilities
 ```
 
-The UI uses those resources for cost, equipment energy, and operational-climate hotspots. The support cases are user-supplied screening scenarios named with RVO; this API does not assert grant eligibility or awards.
+The UI uses those resources for cost, equipment energy, and operational-climate hotspots. The support cases are user-supplied screening scenarios named with RVO; this API does not assert grant eligibility or awards. Decision-support requests that omit `candidate_economics` apply no CAPEX grant or operating premium by default. Pareto subsidy cases must provide their grant fraction, dynamically calculated biomethane support, duration, and awarding-organization metadata explicitly.
 
 ## Ad hoc batch jobs
 

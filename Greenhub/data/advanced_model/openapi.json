@@ -495,6 +495,197 @@
               "null"
             ]
           },
+          "biostimulant_route": {
+            "additionalProperties": false,
+            "oneOf": [
+              {
+                "required": [
+                  "flux_L_m2_h",
+                  "flux_source"
+                ]
+              },
+              {
+                "required": [
+                  "feed_to_reference_concentration_ratio",
+                  "flux_model_source",
+                  "transmembrane_pressure_bar",
+                  "pressure_source",
+                  "viscosity_Pa_s",
+                  "viscosity_source"
+                ]
+              }
+            ],
+            "properties": {
+              "cip_input_source": {
+                "description": "Required source/evidence note when CIP volume and make-up fraction are supplied.",
+                "minLength": 1,
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "cip_makeup_fraction_per_cycle": {
+                "description": "Fraction of each CIP working-solution batch replaced/made up after each event; requires volume and evidence note.",
+                "maximum": 1,
+                "minimum": 0,
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "cip_solution_volume_L_per_step": {
+                "description": "Optional same nominal working-solution volume for each sequential CIP step; requires make-up fraction and evidence note.",
+                "exclusiveMinimum": 0,
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "component_retention_override_sources": {
+                "additionalProperties": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "type": "object"
+              },
+              "component_retention_overrides": {
+                "additionalProperties": {
+                  "maximum": 1,
+                  "minimum": 0,
+                  "type": "number"
+                },
+                "type": "object"
+              },
+              "crossflow_electricity_kwh_m3_feed": {
+                "description": "Optional explicit crossflow recirculation electricity per m3 clarified feed; added to BioSTEAM electricity utilities and excludes separately modeled permeate-side pressure work.",
+                "minimum": 0,
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "crossflow_electricity_source": {
+                "description": "Required measurement/source note when crossflow_electricity_kwh_m3_feed is supplied.",
+                "minLength": 1,
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "feed_to_reference_concentration_ratio": {
+                "description": "Optional Cf/C0 ratio for resistance-based flux calculation; no default is assumed.",
+                "exclusiveMinimum": 0,
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "flux_L_m2_h": {
+                "description": "Explicit empirical operating flux. Select this or the resistance method, not both.",
+                "exclusiveMinimum": 0,
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "flux_model_source": {
+                "description": "Required evidence/basis note for the supplied Cf/C0 input.",
+                "minLength": 1,
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "flux_source": {
+                "description": "Evidence note required when an explicit empirical flux is supplied.",
+                "minLength": 1,
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "hormone_benchmark_source": {
+                "description": "Required evidence note when use_hormone_benchmarks is true.",
+                "minLength": 1,
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "pressure_source": {
+                "minLength": 1,
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "pump_efficiency_fraction": {
+                "description": "Optional; when supplied it requires TMP and its own source note.",
+                "exclusiveMinimum": 0,
+                "maximum": 1,
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "pump_efficiency_source": {
+                "minLength": 1,
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "retention_matrix_source": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "technology_id": {
+                "enum": [
+                  "TUF",
+                  "LNF",
+                  "MEUF"
+                ],
+                "type": "string"
+              },
+              "transmembrane_pressure_bar": {
+                "description": "Optional TMP; required with Cf/C0 for resistance-based flux, or with pump efficiency for pressure-work electricity.",
+                "exclusiveMinimum": 0,
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "use_hormone_benchmarks": {
+                "default": false,
+                "description": "Explicitly add the user-supplied clarified-juice hormone benchmark as a separately tracked screening analyte feed; off by default.",
+                "type": "boolean"
+              },
+              "viscosity_Pa_s": {
+                "description": "Measured clarified-juice viscosity for the active no-fermentation feed; fermented-juice register value is not reused.",
+                "exclusiveMinimum": 0,
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "viscosity_source": {
+                "description": "Evidence note required with viscosity_Pa_s for the resistance flux method.",
+                "minLength": 1,
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "technology_id",
+              "retention_matrix_source"
+            ],
+            "type": [
+              "object",
+              "null"
+            ]
+          },
           "initial_storage_inventory": {
             "additionalProperties": false,
             "properties": {
@@ -690,6 +881,197 @@
           },
           "biomass_schedule": {
             "$ref": "#/components/schemas/SimulationRequest/$defs/biomass_schedule"
+          },
+          "biostimulant_route": {
+            "additionalProperties": false,
+            "oneOf": [
+              {
+                "required": [
+                  "flux_L_m2_h",
+                  "flux_source"
+                ]
+              },
+              {
+                "required": [
+                  "feed_to_reference_concentration_ratio",
+                  "flux_model_source",
+                  "transmembrane_pressure_bar",
+                  "pressure_source",
+                  "viscosity_Pa_s",
+                  "viscosity_source"
+                ]
+              }
+            ],
+            "properties": {
+              "cip_input_source": {
+                "description": "Required source/evidence note when CIP volume and make-up fraction are supplied.",
+                "minLength": 1,
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "cip_makeup_fraction_per_cycle": {
+                "description": "Fraction of each CIP working-solution batch replaced/made up after each event; requires volume and evidence note.",
+                "maximum": 1,
+                "minimum": 0,
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "cip_solution_volume_L_per_step": {
+                "description": "Optional same nominal working-solution volume for each sequential CIP step; requires make-up fraction and evidence note.",
+                "exclusiveMinimum": 0,
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "component_retention_override_sources": {
+                "additionalProperties": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "type": "object"
+              },
+              "component_retention_overrides": {
+                "additionalProperties": {
+                  "maximum": 1,
+                  "minimum": 0,
+                  "type": "number"
+                },
+                "type": "object"
+              },
+              "crossflow_electricity_kwh_m3_feed": {
+                "description": "Optional explicit crossflow recirculation electricity per m3 clarified feed; added to BioSTEAM electricity utilities and excludes separately modeled permeate-side pressure work.",
+                "minimum": 0,
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "crossflow_electricity_source": {
+                "description": "Required measurement/source note when crossflow_electricity_kwh_m3_feed is supplied.",
+                "minLength": 1,
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "feed_to_reference_concentration_ratio": {
+                "description": "Optional Cf/C0 ratio for resistance-based flux calculation; no default is assumed.",
+                "exclusiveMinimum": 0,
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "flux_L_m2_h": {
+                "description": "Explicit empirical operating flux. Select this or the resistance method, not both.",
+                "exclusiveMinimum": 0,
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "flux_model_source": {
+                "description": "Required evidence/basis note for the supplied Cf/C0 input.",
+                "minLength": 1,
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "flux_source": {
+                "description": "Evidence note required when an explicit empirical flux is supplied.",
+                "minLength": 1,
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "hormone_benchmark_source": {
+                "description": "Required evidence note when use_hormone_benchmarks is true.",
+                "minLength": 1,
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "pressure_source": {
+                "minLength": 1,
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "pump_efficiency_fraction": {
+                "description": "Optional; when supplied it requires TMP and its own source note.",
+                "exclusiveMinimum": 0,
+                "maximum": 1,
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "pump_efficiency_source": {
+                "minLength": 1,
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "retention_matrix_source": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "technology_id": {
+                "enum": [
+                  "TUF",
+                  "LNF",
+                  "MEUF"
+                ],
+                "type": "string"
+              },
+              "transmembrane_pressure_bar": {
+                "description": "Optional TMP; required with Cf/C0 for resistance-based flux, or with pump efficiency for pressure-work electricity.",
+                "exclusiveMinimum": 0,
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "use_hormone_benchmarks": {
+                "default": false,
+                "description": "Explicitly add the user-supplied clarified-juice hormone benchmark as a separately tracked screening analyte feed; off by default.",
+                "type": "boolean"
+              },
+              "viscosity_Pa_s": {
+                "description": "Measured clarified-juice viscosity for the active no-fermentation feed; fermented-juice register value is not reused.",
+                "exclusiveMinimum": 0,
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "viscosity_source": {
+                "description": "Evidence note required with viscosity_Pa_s for the resistance flux method.",
+                "minLength": 1,
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "technology_id",
+              "retention_matrix_source"
+            ],
+            "type": [
+              "object",
+              "null"
+            ]
           },
           "calculation_mode": {
             "default": "structural",
@@ -1405,6 +1787,405 @@
   },
   "openapi": "3.1.0",
   "paths": {
+    "/api/v1/biostimulant/options": {
+      "get": {
+        "description": "Returns PR7 membrane-screening options. The screen uses clarified grass juice with no 14-day pre-membrane fermentation/storage; any downstream digestion remains controlled by the separate AD scenario. TUF/LNF co-retention inputs and MEUF gaps are separately identified.",
+        "operationId": "biostimulantScreeningOptions",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": [
+                    "object",
+                    "array"
+                  ]
+                }
+              }
+            },
+            "description": "Successful GreenHub response"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/api/v1/biostimulant/screen": {
+      "post": {
+        "description": "Calculates provisional analyte capture, membrane area, and gross revenue. Choose either empirical flux or the resistance model; conflicting flux methods are rejected. TUF free-state retention uses the sigma/Peclet relation at selected flux; supplied bound-pool factors remain empirical, and LNF film predictions are diagnostic. If component flows are supplied, the isolated BioSTEAM unit runs and conserves pools without documented retentions at a separate unresolved outlet. This is not a full plant simulation; unresolved pools gate complete product allocation, TEA and LCA.",
+        "operationId": "screenBiostimulantRoute",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "additionalProperties": false,
+                "not": {
+                  "required": [
+                    "flux_L_m2_h",
+                    "resistance_flux_model"
+                  ]
+                },
+                "properties": {
+                  "annual_electricity_kwh": {
+                    "minimum": 0,
+                    "type": "number"
+                  },
+                  "annual_heat_kwh": {
+                    "minimum": 0,
+                    "type": "number"
+                  },
+                  "cip_input_source": {
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  "cip_makeup_fraction_per_cycle": {
+                    "maximum": 1,
+                    "minimum": 0,
+                    "type": "number"
+                  },
+                  "cip_solution_volume_L_per_step": {
+                    "description": "Optional working-solution volume for each sequential CIP reagent step; requires make-up fraction and evidence note.",
+                    "exclusiveMinimum": 0,
+                    "type": "number"
+                  },
+                  "component_flows_kg_hr": {
+                    "additionalProperties": {
+                      "minimum": 0,
+                      "type": "number"
+                    },
+                    "description": "Optional actual feed component flows in kg/hour. Pools without a documented class retention are conserved in unresolved_kg_hr rather than assigned a guessed fraction.",
+                    "type": "object"
+                  },
+                  "component_flows_source": {
+                    "description": "Required source/evidence note for caller-supplied component_flows_kg_hr; not required when flows are loaded from run_id.",
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  "component_retention_override_sources": {
+                    "additionalProperties": {
+                      "minLength": 1,
+                      "type": "string"
+                    },
+                    "description": "Required source/evidence note matching each explicit retention override.",
+                    "type": "object"
+                  },
+                  "component_retention_overrides": {
+                    "additionalProperties": {
+                      "maximum": 1,
+                      "minimum": 0,
+                      "type": "number"
+                    },
+                    "description": "Explicit per-component retention fractions; each key must also appear in component_retention_override_sources.",
+                    "type": "object"
+                  },
+                  "concentration_factor": {
+                    "default": 10,
+                    "description": "Retentate concentration factor; default is the user-supplied value in the PR7 parameter register.",
+                    "exclusiveMinimum": 1,
+                    "type": "number"
+                  },
+                  "electricity_kg_co2e_kwh": {
+                    "minimum": 0,
+                    "type": "number"
+                  },
+                  "electricity_price_eur_kwh": {
+                    "minimum": 0,
+                    "type": "number"
+                  },
+                  "feed_volume_m3_year": {
+                    "description": "Annual clarified-juice feed volume (m\u00b3/year).",
+                    "minimum": 0,
+                    "type": "number"
+                  },
+                  "flux_L_m2_h": {
+                    "exclusiveMinimum": 0,
+                    "type": "number"
+                  },
+                  "heat_kg_co2e_kwh": {
+                    "minimum": 0,
+                    "type": "number"
+                  },
+                  "heat_price_eur_kwh": {
+                    "minimum": 0,
+                    "type": "number"
+                  },
+                  "include_cip_screening_lca": {
+                    "default": false,
+                    "description": "Explicitly apply registered attributional upstream NaOH and citric-acid production factors to CIP chemical inventory; excludes cleaning wastewater and utilities.",
+                    "type": "boolean"
+                  },
+                  "operating_hours_year": {
+                    "exclusiveMinimum": 0,
+                    "type": "number"
+                  },
+                  "operational_input_sources": {
+                    "additionalProperties": {
+                      "minLength": 1,
+                      "type": "string"
+                    },
+                    "description": "Required source note for every supplied annual activity, emission factor, or energy price. Use explicit zero activity with a source note when the utility is not used.",
+                    "type": "object"
+                  },
+                  "price_EUR_L": {
+                    "default": 2.5,
+                    "description": "Screening bulk-concentrate price; default is the user-supplied nominal value in the PR7 parameter register.",
+                    "minimum": 0,
+                    "type": "number"
+                  },
+                  "pump_efficiency_fraction": {
+                    "description": "Caller-supplied pump efficiency for the pressure-work estimate; no default is assumed.",
+                    "exclusiveMinimum": 0,
+                    "maximum": 1,
+                    "type": "number"
+                  },
+                  "resistance_flux_model": {
+                    "additionalProperties": false,
+                    "description": "Resistance-equation flux method for TUF/LNF. Select this or empirical flux_L_m2_h, not both.",
+                    "properties": {
+                      "feed_to_reference_concentration_ratio": {
+                        "exclusiveMinimum": 0,
+                        "type": "number"
+                      },
+                      "pressure_bar": {
+                        "exclusiveMinimum": 0,
+                        "type": "number"
+                      },
+                      "pressure_source": {
+                        "minLength": 1,
+                        "type": "string"
+                      },
+                      "ratio_source": {
+                        "minLength": 1,
+                        "type": "string"
+                      },
+                      "viscosity_Pa_s": {
+                        "description": "Measured clarified-juice viscosity for the no-fermentation feed; fermented-juice viscosity is not reused.",
+                        "exclusiveMinimum": 0,
+                        "type": "number"
+                      },
+                      "viscosity_source": {
+                        "minLength": 1,
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "pressure_bar",
+                      "pressure_source",
+                      "feed_to_reference_concentration_ratio",
+                      "ratio_source",
+                      "viscosity_Pa_s",
+                      "viscosity_source"
+                    ],
+                    "type": "object"
+                  },
+                  "run_id": {
+                    "description": "Optional completed model run; uses its clarified-protein-rich-liquid component flows for the co-retention split.",
+                    "type": "string"
+                  },
+                  "technology_id": {
+                    "enum": [
+                      "TUF",
+                      "LNF",
+                      "MEUF"
+                    ],
+                    "type": "string"
+                  },
+                  "transmembrane_pressure_bar": {
+                    "description": "Optional pressure-work estimate input; requires pump_efficiency_fraction and matching evidence notes.",
+                    "exclusiveMinimum": 0,
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "feed_volume_m3_year",
+                  "technology_id",
+                  "operating_hours_year"
+                ],
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "biosteam_unit": {
+                      "properties": {
+                        "mass_closure_error_kg_hr": {
+                          "description": "Overall unit mass closure error (kg/h).",
+                          "type": "number"
+                        },
+                        "maximum_membrane_area_m2": {
+                          "description": "Upper membrane-area screen (m\u00b2), null while any component fate remains unresolved.",
+                          "type": [
+                            "number",
+                            "null"
+                          ]
+                        },
+                        "membrane_area_m2": {
+                          "description": "Point estimate is null when unresolved outlet mass is nonzero.",
+                          "type": [
+                            "number",
+                            "null"
+                          ]
+                        },
+                        "minimum_membrane_area_m2": {
+                          "description": "Known-permeate membrane-area floor (m\u00b2); unresolved pools are excluded.",
+                          "type": "number"
+                        },
+                        "unresolved_components_kg_hr": {
+                          "additionalProperties": {
+                            "type": "number"
+                          },
+                          "type": "object"
+                        },
+                        "unresolved_kg_year": {
+                          "description": "Unresolved outlet mass over supplied operating hours (kg/year).",
+                          "type": "number"
+                        },
+                        "unresolved_mass_kg_hr": {
+                          "description": "Unresolved outlet mass flow (kg/h).",
+                          "type": "number"
+                        },
+                        "unresolved_stream_id": {
+                          "type": "string"
+                        }
+                      },
+                      "type": [
+                        "object",
+                        "null"
+                      ]
+                    },
+                    "component_mass_split": {
+                      "properties": {
+                        "complete_mass_split": {
+                          "type": "boolean"
+                        },
+                        "mass_error_kg_hr": {
+                          "type": "number"
+                        },
+                        "unmapped_component_ids": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "type": "array"
+                        },
+                        "unresolved_kg_hr": {
+                          "additionalProperties": {
+                            "type": "number"
+                          },
+                          "type": "object"
+                        }
+                      },
+                      "type": [
+                        "object",
+                        "null"
+                      ]
+                    },
+                    "film_retention_diagnostics": {
+                      "description": "TUF free-state sigma/Peclet retention is applied at selected flux; LNF free-state predictions are diagnostic beside empirical screen factors. Bound predictions are null until bound-payload diffusivity is supplied.",
+                      "properties": {
+                        "analytes": {
+                          "items": {
+                            "properties": {
+                              "bound_film_retention_fraction": {
+                                "type": [
+                                  "number",
+                                  "null"
+                                ]
+                              },
+                              "bound_prediction_status": {
+                                "type": "string"
+                              },
+                              "film_free_peclet_number": {
+                                "type": "number"
+                              },
+                              "film_free_retention_fraction": {
+                                "type": "number"
+                              },
+                              "process_split_bound_retention_fraction": {
+                                "type": "number"
+                              },
+                              "process_split_free_retention_fraction": {
+                                "type": "number"
+                              },
+                              "reflection_coefficient": {
+                                "type": "number"
+                              },
+                              "solute_id": {
+                                "type": "string"
+                              },
+                              "weighted_state_retention_fraction": {
+                                "description": "Free/bound weighted process retention using the state-specific basis reported below.",
+                                "type": "number"
+                              }
+                            },
+                            "type": "object"
+                          },
+                          "type": "array"
+                        },
+                        "applied_to_process_split": {
+                          "type": "boolean"
+                        },
+                        "comparison_basis": {
+                          "type": "string"
+                        },
+                        "flux_L_m2_h": {
+                          "type": "number"
+                        },
+                        "status": {
+                          "type": "string"
+                        },
+                        "technology_id": {
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "mass_balance_readiness": {
+                      "properties": {
+                        "component_fate_complete": {
+                          "type": "boolean"
+                        },
+                        "mass_balanced": {
+                          "type": "boolean"
+                        },
+                        "unmapped_nonzero_components": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "type": [
+                        "object",
+                        "null"
+                      ]
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful GreenHub response"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
     "/api/v1/decision-support/batch": {
       "post": {
         "operationId": "decisionSupportBatch",
@@ -1439,7 +2220,7 @@
                       },
                       "use_screening_lca_factors": {
                         "default": false,
-                        "description": "Explicitly opt in to the traceable electricity LCA screening proxy; project-specific factors should replace it.",
+                        "description": "Explicitly opt in to traceable Netherlands electricity and heat factors plus PR7 CIP reagent production factors; these are screening values and project-specific factors should replace them.",
                         "type": "boolean"
                       },
                       "use_screening_process_assumptions": {
@@ -1520,7 +2301,7 @@
                       },
                       "use_screening_lca_factors": {
                         "default": false,
-                        "description": "Explicitly opt in to the traceable electricity LCA screening proxy; project-specific factors should replace it.",
+                        "description": "Explicitly opt in to traceable Netherlands electricity and heat factors plus PR7 CIP reagent production factors; these are screening values and project-specific factors should replace them.",
                         "type": "boolean"
                       },
                       "use_screening_process_assumptions": {
@@ -1814,7 +2595,7 @@
                       },
                       "use_screening_lca_factors": {
                         "default": false,
-                        "description": "Explicitly opt in to the traceable electricity LCA screening proxy; project-specific factors should replace it.",
+                        "description": "Explicitly opt in to traceable Netherlands electricity and heat factors plus PR7 CIP reagent production factors; these are screening values and project-specific factors should replace them.",
                         "type": "boolean"
                       },
                       "use_screening_process_assumptions": {

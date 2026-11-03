@@ -187,12 +187,33 @@ def validate_phase4_model(
     if failure_tolerance_kg_hr <= 0.0 or warning_tolerance_kg_hr < 0.0:
         raise ValueError("Phase 4 validation tolerances are invalid.")
     _assert_nonnegative_streams(model, failure_tolerance_kg_hr)
-    phase4_ids = ("M401", "H401", "R401", "C401", "W401", "D401", "DR401", "M402", "M403")
+    phase4_ids = ("M401", "H401", "R401", "C401", "W401", "D401", "DR401", "M402", "M403", "PR7_M101")
     unit_balances = tuple(
         _validate_one_unit(model.units[ID], failure_tolerance_kg_hr)
         for ID in phase4_ids
         if ID in model.units
     )
+    if model.scenario.scenario_id == "PR7":
+        hormone_groups = {
+            "IAA": ("Indole3AceticAcid", "ProteinBoundIAA"),
+            "zeatin": ("Zeatin", "PeptideBoundZeatin"),
+            "zeatin_riboside": ("ZeatinRiboside", "BoundZeatinRiboside"),
+        }
+        hormone_feed = model.streams["clarified_protein_rich_liquid"]
+        benchmark_feed = model.streams.get("biostimulant_benchmark_hormone_feed")
+        hormone_product = model.streams["biostimulant_product"]
+        hormone_permeate = model.streams["biostimulant_permeate"]
+        for analyte, component_ids in hormone_groups.items():
+            feed_mass = sum(float(hormone_feed.imass[ID]) for ID in component_ids)
+            if benchmark_feed is not None:
+                feed_mass += sum(float(benchmark_feed.imass[ID]) for ID in component_ids)
+            product_mass = sum(float(hormone_product.imass[ID]) for ID in component_ids)
+            permeate_mass = sum(float(hormone_permeate.imass[ID]) for ID in component_ids)
+            error = feed_mass - product_mass - permeate_mass
+            if abs(error) > failure_tolerance_kg_hr:
+                raise RuntimeError(
+                    f"PR7 {analyte} membrane balance failed by {error:.6g} kg/hr."
+                )
 
     inlet_raw = sum_stream_component_flows(model.system.ins)
     expected_out = _adjust_plant_inventory(model, inlet_raw)
@@ -224,37 +245,51 @@ def validate_phase4_model(
         )
 
     protein_feed = _protein(stream_component_flows(model.streams["clarified_protein_rich_liquid"]))
-    protein_product = _protein(stream_component_flows(model.streams["dry_protein_product"]))
+    product_stream_id = "biostimulant_product" if model.scenario.scenario_id == "PR7" else "dry_protein_product"
+    protein_product = _protein(stream_component_flows(model.streams[product_stream_id]))
     protein_liquid = _protein(
         stream_component_flows(model.streams["conditioned_protein_depleted_liquid"])
     )
+    unresolved_stream = model.streams.get("biostimulant_unresolved")
+    protein_unresolved = (
+        _protein(stream_component_flows(unresolved_stream)) if unresolved_stream is not None else 0.0
+    )
     protein_exhaust = _protein(stream_component_flows(model.streams["dryer_exhaust"]))
-    protein_error = protein_feed - protein_product - protein_liquid - protein_exhaust
+    protein_error = protein_feed - protein_product - protein_liquid - protein_unresolved - protein_exhaust
     if abs(protein_error) > failure_tolerance_kg_hr:
         raise RuntimeError(f"Phase 4 protein inventory failed by {protein_error:.6g} kg/hr.")
     protein_balance = {
         "protein_entering_kg_hr": protein_feed,
         "protein_in_product_kg_hr": protein_product,
         "protein_in_conditioned_liquid_kg_hr": protein_liquid,
+        "protein_in_unresolved_membrane_outlet_kg_hr": protein_unresolved,
         "protein_in_dryer_exhaust_kg_hr": protein_exhaust,
         "protein_balance_error_kg_hr": protein_error,
     }
 
     phase4_feed_flows = stream_component_flows(model.streams["clarified_protein_rich_liquid"])
-    product_flows = stream_component_flows(model.streams["dry_protein_product"])
+    benchmark_feed = model.streams.get("biostimulant_benchmark_hormone_feed")
+    if model.scenario.scenario_id == "PR7" and benchmark_feed is not None:
+        benchmark_flows = stream_component_flows(benchmark_feed)
+        for component_id, mass in benchmark_flows.items():
+            phase4_feed_flows[component_id] += mass
+    product_flows = stream_component_flows(model.streams[product_stream_id])
     residual_flows = stream_component_flows(model.streams["conditioned_protein_depleted_liquid"])
+    unresolved_flows = stream_component_flows(unresolved_stream) if unresolved_stream is not None else {}
     exhaust_flows = stream_component_flows(model.streams["dryer_exhaust"])
     nitrogen_feed = calculate_elemental_flows(phase4_feed_flows)["nitrogen"]
     nitrogen_product = calculate_elemental_flows(product_flows)["nitrogen"]
     nitrogen_residual = calculate_elemental_flows(residual_flows)["nitrogen"]
+    nitrogen_unresolved = calculate_elemental_flows(unresolved_flows)["nitrogen"] if unresolved_flows else 0.0
     nitrogen_exhaust = calculate_elemental_flows(exhaust_flows)["nitrogen"]
-    nitrogen_error = nitrogen_feed - nitrogen_product - nitrogen_residual - nitrogen_exhaust
+    nitrogen_error = nitrogen_feed - nitrogen_product - nitrogen_residual - nitrogen_unresolved - nitrogen_exhaust
     if abs(nitrogen_error) > failure_tolerance_kg_hr:
         raise RuntimeError(f"Phase 4 nitrogen balance failed by {nitrogen_error:.6g} kg/hr.")
     nitrogen_balance = {
         "nitrogen_entering_kg_hr": nitrogen_feed,
         "nitrogen_in_product_kg_hr": nitrogen_product,
         "nitrogen_in_conditioned_liquid_kg_hr": nitrogen_residual,
+        "nitrogen_in_unresolved_membrane_outlet_kg_hr": nitrogen_unresolved,
         "nitrogen_in_dryer_exhaust_kg_hr": nitrogen_exhaust,
         "nitrogen_balance_error_kg_hr": nitrogen_error,
     }
@@ -262,14 +297,16 @@ def validate_phase4_model(
     cod_feed = _cod(phase4_feed_flows)
     cod_product = _cod(product_flows)
     cod_residual = _cod(residual_flows)
+    cod_unresolved = _cod(unresolved_flows)
     cod_exhaust = _cod(exhaust_flows)
-    cod_error = cod_feed - cod_product - cod_residual - cod_exhaust
+    cod_error = cod_feed - cod_product - cod_residual - cod_unresolved - cod_exhaust
     if abs(cod_error) > failure_tolerance_kg_hr:
         raise RuntimeError(f"Phase 4 COD balance failed by {cod_error:.6g} kg O2/hr.")
     cod_balance = {
         "cod_entering_kg_hr": cod_feed,
         "cod_in_product_kg_hr": cod_product,
         "cod_in_conditioned_liquid_kg_hr": cod_residual,
+        "cod_in_unresolved_membrane_outlet_kg_hr": cod_unresolved,
         "cod_in_dryer_exhaust_kg_hr": cod_exhaust,
         "cod_balance_error_kg_hr": cod_error,
     }
@@ -277,19 +314,21 @@ def validate_phase4_model(
     toc_feed = _toc(phase4_feed_flows)
     toc_product = _toc(product_flows)
     toc_residual = _toc(residual_flows)
+    toc_unresolved = _toc(unresolved_flows)
     toc_exhaust = _toc(exhaust_flows)
-    toc_error = toc_feed - toc_product - toc_residual - toc_exhaust
+    toc_error = toc_feed - toc_product - toc_residual - toc_unresolved - toc_exhaust
     if abs(toc_error) > failure_tolerance_kg_hr:
         raise RuntimeError(f"Phase 4 TOC balance failed by {toc_error:.6g} kg C/hr.")
     toc_balance = {
         "toc_entering_kg_hr": toc_feed,
         "toc_in_product_kg_hr": toc_product,
         "toc_in_conditioned_liquid_kg_hr": toc_residual,
+        "toc_in_unresolved_membrane_outlet_kg_hr": toc_unresolved,
         "toc_in_dryer_exhaust_kg_hr": toc_exhaust,
         "toc_balance_error_kg_hr": toc_error,
     }
 
-    if model.scenario.scenario_id != "PR0":
+    if model.scenario.scenario_id in {"PR1", "PR2", "PR3"}:
         wet_cake = model.streams["wet_protein_cake"]
         moisture = float(wet_cake.imass["Water"]) / wet_cake.F_mass if wet_cake.F_mass else 0.0
         target = model.parameters["separator"].cake_moisture_fraction

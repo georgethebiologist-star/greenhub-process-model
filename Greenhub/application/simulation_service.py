@@ -54,7 +54,22 @@ class SimulationService:
         self.seasonal = SeasonalSimulationService(self.feed_profiles)
 
     def validate_request(self, request: SimulationRequest) -> tuple[ValidationIssue, ...]:
-        issues = list(self.scenarios.validate_scenario_chain(request.scenarios))
+        issues = list(self.scenarios.validate_scenario_chain(
+            request.scenarios,
+            biostimulant_route_configured=request.biostimulant_route is not None,
+        ))
+        if request.biostimulant_route is not None and request.scenarios.protein_recovery != "PR7":
+            issues.append(ValidationIssue(
+                code="PR7_CONFIG_WITHOUT_SCENARIO", severity="error",
+                message="biostimulant_route inputs require protein_recovery='PR7'.",
+                blocking=True, field="biostimulant_route",
+            ))
+        if request.biostimulant_route is not None and request.scenarios.anaerobic_digestion == "AD2":
+            issues.append(ValidationIssue(
+                code="PR7_ORDER_CONFLICT", severity="error",
+                message="AD2 bypasses Phase 4 and cannot follow PR7. Select AD0 to leave PR7 permeate undigested, or AD1/AD3 to digest the post-membrane permeate.",
+                blocking=True, field="anaerobic_digestion",
+            ))
         issues.extend(self.parameters.validate_overrides(request))
         if request.resolution_mode == ResolutionMode.DYNAMIC:
             issues.append(
@@ -124,7 +139,16 @@ class SimulationService:
         issues = self.validate_request(request)
         blocking = [item for item in issues if item.blocking]
         if blocking:
-            raise RequestValidationError("; ".join(item.message for item in blocking))
+            scenario_gate = any(
+                item.code == "SCENARIO_DATA_GATE"
+                and item.field == "protein_recovery"
+                and request.scenarios.protein_recovery == "PR7"
+                for item in blocking
+            )
+            raise RequestValidationError(
+                "; ".join(item.message for item in blocking),
+                code="scenario_gated" if scenario_gate else None,
+            )
         context = RunContext.create(request, self.run_root) if self.run_root else RunContext.create(request)
         context.transition(RunState.RESOLVING_PARAMETERS)
         context.resolved_parameters = self.parameters.resolve_parameters(request)
@@ -160,6 +184,10 @@ class SimulationService:
                     selected_month=request.selected_month,
                     process_order=selection.process_order,
                     parameter_overrides=model_overrides or None,
+                    biostimulant_route=(
+                        None if request.biostimulant_route is None
+                        else request.biostimulant_route.to_dict()
+                    ),
                 )
                 context.transition(RunState.SIMULATING)
                 if request.wet_feed_rate_kg_hr is not None or request.feed_composition or request.storage_conditions is not None or request.plant_capacity_kg_hr is not None:
@@ -250,6 +278,7 @@ class SimulationService:
                 "/".join(selection.scenario_ids),
                 literature_pr1,
                 seasonal=seasonal,
+                model=model,
             )
             overall = next(item for item in balances if item.balance_id == "overall_mass")
             total_power = sum((item.demand.value or 0.0) for item in utilities if item.kind == "electricity")
@@ -263,6 +292,11 @@ class SimulationService:
                 "dry_protein_product_mass": numerical(
                     model.streams["dry_protein_product"].F_mass if "dry_protein_product" in model.streams else 0.0,
                     "kg/hr", "wet stream", "BioSTEAM stream",
+                ),
+                "biostimulant_product_mass": numerical(
+                    model.streams["biostimulant_product"].F_mass if "biostimulant_product" in model.streams else 0.0,
+                    "kg/hr", "wet stream", "BioSTEAM stream",
+                    warning="Wet retentate mass only; product quality and sale specification are not validated." if "biostimulant_product" in model.streams else None,
                 ),
             }
             limitations = tuple(

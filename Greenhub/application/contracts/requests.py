@@ -146,6 +146,125 @@ class BiomassSchedule:
 
 
 @dataclass(frozen=True)
+class BiostimulantRouteOptions:
+    """Explicit PR7 membrane and evidence selections for steady-state or seasonal runs."""
+
+    technology_id: str
+    retention_matrix_source: str
+    flux_L_m2_h: float | None = None
+    flux_source: str | None = None
+    component_retention_overrides: dict[str, float] = field(default_factory=dict)
+    component_retention_override_sources: dict[str, str] = field(default_factory=dict)
+    feed_to_reference_concentration_ratio: float | None = None
+    flux_model_source: str | None = None
+    viscosity_Pa_s: float | None = None
+    viscosity_source: str | None = None
+    transmembrane_pressure_bar: float | None = None
+    pressure_source: str | None = None
+    pump_efficiency_fraction: float | None = None
+    pump_efficiency_source: str | None = None
+    crossflow_electricity_kwh_m3_feed: float | None = None
+    crossflow_electricity_source: str | None = None
+    use_hormone_benchmarks: bool = False
+    hormone_benchmark_source: str | None = None
+    cip_solution_volume_L_per_step: float | None = None
+    cip_makeup_fraction_per_cycle: float | None = None
+    cip_input_source: str | None = None
+
+    def __post_init__(self) -> None:
+        technology = str(self.technology_id).strip().upper()
+        if technology not in {"TUF", "LNF", "MEUF"}:
+            raise ValueError("PR7 technology_id must be TUF, LNF, or MEUF.")
+        object.__setattr__(self, "technology_id", technology)
+        if not isinstance(self.retention_matrix_source, str) or not self.retention_matrix_source.strip():
+            raise ValueError("PR7 retention_matrix_source is required as an evidence note.")
+        if self.flux_L_m2_h is not None:
+            if not isfinite(float(self.flux_L_m2_h)) or self.flux_L_m2_h <= 0.0:
+                raise ValueError("PR7 flux_L_m2_h must be finite and positive.")
+            if not isinstance(self.flux_source, str) or not self.flux_source.strip():
+                raise ValueError("PR7 empirical flux requires a non-empty flux_source evidence note.")
+        elif self.flux_source is not None:
+            raise ValueError("PR7 flux_source can only be supplied with an explicit flux_L_m2_h.")
+        if self.feed_to_reference_concentration_ratio is not None:
+            if self.flux_L_m2_h is not None:
+                raise ValueError("PR7 must select either empirical flux or resistance-model flux, not both.")
+            if not isfinite(float(self.feed_to_reference_concentration_ratio)) or self.feed_to_reference_concentration_ratio <= 0.0:
+                raise ValueError("PR7 feed_to_reference_concentration_ratio must be finite and positive.")
+            if not isinstance(self.flux_model_source, str) or not self.flux_model_source.strip():
+                raise ValueError("PR7 resistance-model concentration ratio requires a flux_model_source evidence note.")
+            if self.transmembrane_pressure_bar is None:
+                raise ValueError("PR7 resistance-model flux requires transmembrane_pressure_bar.")
+            if self.viscosity_Pa_s is None or not isfinite(float(self.viscosity_Pa_s)) or self.viscosity_Pa_s <= 0.0:
+                raise ValueError("PR7 no-fermentation resistance-model flux requires a positive measured viscosity_Pa_s.")
+            if not isinstance(self.viscosity_source, str) or not self.viscosity_source.strip():
+                raise ValueError("PR7 viscosity_Pa_s requires a viscosity_source evidence note.")
+        elif self.flux_model_source is not None:
+            raise ValueError("PR7 flux_model_source requires feed_to_reference_concentration_ratio.")
+        elif self.viscosity_Pa_s is not None or self.viscosity_source is not None:
+            raise ValueError("PR7 viscosity inputs are only accepted with the resistance-model flux method.")
+        if self.flux_L_m2_h is None and self.feed_to_reference_concentration_ratio is None:
+            raise ValueError("PR7 requires either an empirical flux or pressure and Cf/C0 for the resistance model.")
+        if self.transmembrane_pressure_bar is not None:
+            if not isfinite(float(self.transmembrane_pressure_bar)) or self.transmembrane_pressure_bar <= 0.0:
+                raise ValueError("PR7 transmembrane_pressure_bar must be finite and positive.")
+            if not isinstance(self.pressure_source, str) or not self.pressure_source.strip():
+                raise ValueError("PR7 transmembrane_pressure_bar requires a pressure_source evidence note.")
+        elif self.pressure_source is not None:
+            raise ValueError("PR7 pressure_source requires transmembrane_pressure_bar.")
+        if self.pump_efficiency_fraction is not None:
+            if self.transmembrane_pressure_bar is None:
+                raise ValueError("PR7 pump efficiency requires transmembrane_pressure_bar.")
+            if not isfinite(float(self.pump_efficiency_fraction)) or not 0.0 < self.pump_efficiency_fraction <= 1.0:
+                raise ValueError("PR7 pump_efficiency_fraction must be in (0, 1].")
+            if not isinstance(self.pump_efficiency_source, str) or not self.pump_efficiency_source.strip():
+                raise ValueError("PR7 pump_efficiency_fraction requires a pump_efficiency_source note.")
+        elif self.pump_efficiency_source is not None:
+            raise ValueError("PR7 pump_efficiency_source requires pump_efficiency_fraction.")
+        if self.crossflow_electricity_kwh_m3_feed is not None:
+            if (
+                not isfinite(float(self.crossflow_electricity_kwh_m3_feed))
+                or float(self.crossflow_electricity_kwh_m3_feed) < 0.0
+            ):
+                raise ValueError("PR7 crossflow electricity must be finite and non-negative.")
+            if not isinstance(self.crossflow_electricity_source, str) or not self.crossflow_electricity_source.strip():
+                raise ValueError("PR7 crossflow electricity requires a source/evidence note.")
+        elif self.crossflow_electricity_source is not None:
+            raise ValueError("PR7 crossflow electricity source requires a crossflow electricity value.")
+        if not isinstance(self.use_hormone_benchmarks, bool):
+            raise TypeError("PR7 use_hormone_benchmarks must be boolean.")
+        if self.use_hormone_benchmarks:
+            if not isinstance(self.hormone_benchmark_source, str) or not self.hormone_benchmark_source.strip():
+                raise ValueError("PR7 benchmark hormone feed requires a hormone_benchmark_source evidence note.")
+        elif self.hormone_benchmark_source is not None:
+            raise ValueError("PR7 hormone_benchmark_source requires use_hormone_benchmarks=true.")
+        cip_values = (self.cip_solution_volume_L_per_step, self.cip_makeup_fraction_per_cycle)
+        if any(value is not None for value in cip_values):
+            if any(value is None for value in cip_values):
+                raise ValueError("PR7 CIP volume and make-up fraction must be supplied together.")
+            if not isfinite(float(self.cip_solution_volume_L_per_step)) or self.cip_solution_volume_L_per_step <= 0.0:
+                raise ValueError("PR7 CIP solution volume per step must be finite and positive.")
+            if not isfinite(float(self.cip_makeup_fraction_per_cycle)) or not 0.0 <= self.cip_makeup_fraction_per_cycle <= 1.0:
+                raise ValueError("PR7 CIP make-up fraction per cycle must be in [0, 1].")
+            if not isinstance(self.cip_input_source, str) or not self.cip_input_source.strip():
+                raise ValueError("PR7 CIP volume and make-up fraction require a source/evidence note.")
+        elif self.cip_input_source is not None:
+            raise ValueError("PR7 cip_input_source requires both CIP volume and make-up fraction.")
+        if set(self.component_retention_overrides) != set(self.component_retention_override_sources):
+            raise ValueError("Every PR7 component retention override requires exactly one matching source note.")
+        for component_id, value in self.component_retention_overrides.items():
+            if not isinstance(component_id, str) or not component_id.strip():
+                raise ValueError("PR7 component retention override IDs must be non-empty strings.")
+            if isinstance(value, bool) or not isfinite(float(value)) or not 0.0 <= float(value) <= 1.0:
+                raise ValueError(f"PR7 retention override for {component_id} must be in [0, 1].")
+            source = self.component_retention_override_sources[component_id]
+            if not isinstance(source, str) or not source.strip():
+                raise ValueError(f"PR7 retention override for {component_id} requires a source note.")
+
+    def to_dict(self) -> dict[str, object]:
+        return to_json_compatible(self)
+
+
+@dataclass(frozen=True)
 class InitialStorageInventory:
     """Initial wet inventory and optional measured composition metadata."""
 
@@ -208,6 +327,7 @@ class SimulationRequest:
     plant_capacity_kg_hr: float | None = None
     feed_composition: dict[str, float] = field(default_factory=dict)
     storage_conditions: dict[str, object] | None = None
+    biostimulant_route: BiostimulantRouteOptions | None = None
 
     def __post_init__(self) -> None:
         for name in ("wet_feed_rate_kg_hr", "plant_capacity_kg_hr"):
@@ -260,6 +380,7 @@ class SimulationRequest:
             "start_date", "end_date", "time_step", "annual_biomass_target",
             "operating_schedule", "biomass_schedule", "initial_storage_inventory", "feed_supply_profile_id",
             "wet_feed_rate_kg_hr", "plant_capacity_kg_hr", "feed_composition", "storage_conditions",
+            "biostimulant_route",
         }
         unknown_fields = sorted(set(payload) - allowed_fields)
         if unknown_fields:
@@ -321,6 +442,36 @@ class SimulationRequest:
                 storage_age_h=float(inventory_payload.get("storage_age_h", 0.0)),
             )
         )
+        biostimulant_payload = payload.get("biostimulant_route")
+        if biostimulant_payload is not None and not isinstance(biostimulant_payload, Mapping):
+            raise ValueError("biostimulant_route must be an object or null.")
+        biostimulant_route = (
+            biostimulant_payload
+            if isinstance(biostimulant_payload, BiostimulantRouteOptions)
+            else BiostimulantRouteOptions(
+                technology_id=str(biostimulant_payload.get("technology_id", "")),
+                flux_L_m2_h=(None if biostimulant_payload.get("flux_L_m2_h") is None else float(biostimulant_payload["flux_L_m2_h"])),
+                flux_source=biostimulant_payload.get("flux_source"),
+                retention_matrix_source=str(biostimulant_payload.get("retention_matrix_source", "")),
+                component_retention_overrides={k: float(v) for k, v in dict(biostimulant_payload.get("component_retention_overrides", {})).items()},
+                component_retention_override_sources=dict(biostimulant_payload.get("component_retention_override_sources", {})),
+                feed_to_reference_concentration_ratio=(None if biostimulant_payload.get("feed_to_reference_concentration_ratio") is None else float(biostimulant_payload["feed_to_reference_concentration_ratio"])),
+                flux_model_source=biostimulant_payload.get("flux_model_source"),
+                viscosity_Pa_s=(None if biostimulant_payload.get("viscosity_Pa_s") is None else float(biostimulant_payload["viscosity_Pa_s"])),
+                viscosity_source=biostimulant_payload.get("viscosity_source"),
+                transmembrane_pressure_bar=(None if biostimulant_payload.get("transmembrane_pressure_bar") is None else float(biostimulant_payload["transmembrane_pressure_bar"])),
+                pressure_source=biostimulant_payload.get("pressure_source"),
+                pump_efficiency_fraction=(None if biostimulant_payload.get("pump_efficiency_fraction") is None else float(biostimulant_payload["pump_efficiency_fraction"])),
+                pump_efficiency_source=biostimulant_payload.get("pump_efficiency_source"),
+                crossflow_electricity_kwh_m3_feed=(None if biostimulant_payload.get("crossflow_electricity_kwh_m3_feed") is None else float(biostimulant_payload["crossflow_electricity_kwh_m3_feed"])),
+                crossflow_electricity_source=biostimulant_payload.get("crossflow_electricity_source"),
+                use_hormone_benchmarks=biostimulant_payload.get("use_hormone_benchmarks", False),
+                hormone_benchmark_source=biostimulant_payload.get("hormone_benchmark_source"),
+                cip_solution_volume_L_per_step=(None if biostimulant_payload.get("cip_solution_volume_L_per_step") is None else float(biostimulant_payload["cip_solution_volume_L_per_step"])),
+                cip_makeup_fraction_per_cycle=(None if biostimulant_payload.get("cip_makeup_fraction_per_cycle") is None else float(biostimulant_payload["cip_makeup_fraction_per_cycle"])),
+                cip_input_source=biostimulant_payload.get("cip_input_source"),
+            ) if biostimulant_payload else None
+        )
 
         def overrides(name: str) -> tuple[ParameterOverride, ...]:
             values = payload.get(name) or ()
@@ -367,4 +518,5 @@ class SimulationRequest:
             plant_capacity_kg_hr=payload.get("plant_capacity_kg_hr"),
             feed_composition=dict(payload.get("feed_composition") or {}),
             storage_conditions=payload.get("storage_conditions"),
+            biostimulant_route=biostimulant_route,
         )

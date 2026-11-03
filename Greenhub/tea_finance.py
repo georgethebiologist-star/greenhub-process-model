@@ -53,7 +53,7 @@ class TEAProductPrice:
             raise ValueError("Product prices must be finite and non-negative.")
         if _price_basis(self.unit) is None:
             raise ValueError(
-                "Product price unit must be EUR/kg, EUR/t, EUR/m3, or EUR/Nm3."
+                "Product price unit must be EUR/kg, EUR/t, EUR/L, EUR/m3, or EUR/Nm3."
             )
         if not self.source_status:
             raise ValueError("A product price requires source_status for traceability.")
@@ -399,6 +399,8 @@ def _price_basis(unit: str) -> str | None:
         return "tonne"
     if normalized in {"eur/m3", "eur/nm3", "€/m3", "€/nm3"}:
         return "m3"
+    if normalized in {"eur/l", "€/l"}:
+        return "L"
     return None
 
 

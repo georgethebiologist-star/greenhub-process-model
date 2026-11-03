@@ -158,7 +158,7 @@ def build_utilities(units: tuple[UnitResult, ...]) -> tuple[UtilityResult, ...]:
 
 def build_products(model) -> tuple[ProductResult, ...]:
     names = (
-        "dry_protein_product", "biomethane", "phosphorus_product",
+        "dry_protein_product", "biostimulant_product", "biomethane", "phosphorus_product",
         "ammonium_product", "potassium_concentrate", "nutrient_rich_solids",
     )
     return tuple(
@@ -167,6 +167,7 @@ def build_products(model) -> tuple[ProductResult, ...]:
             str(model.streams[name].ID),
             numerical(model.streams[name].F_mass, "kg/hr", "wet stream", "BioSTEAM stream"),
             "candidate_product_not_regulatory_qualified",
+            numerical(model.streams[name].F_vol, "m3/hr", "stream volume at model conditions", "BioSTEAM stream"),
         )
         for name in names
         if name in model.streams
@@ -204,7 +205,7 @@ def build_parameter_results(resolved) -> tuple[ParameterResolutionResult, ...]:
 
 
 def build_validation(model, balances) -> ValidationSummary:
-    issues = tuple(
+    issues = list(
         ValidationIssue(
             code="BALANCE_FAILED",
             severity="error",
@@ -216,5 +217,24 @@ def build_validation(model, balances) -> ValidationSummary:
         for item in balances
         if not item.passed
     )
+    unresolved = model.streams.get("biostimulant_unresolved")
+    if unresolved is not None and float(unresolved.F_mass) > 1e-12:
+        component_ids = tuple(
+            ID for ID in unresolved.chemicals.IDs if float(unresolved.imass[ID]) > 1e-12
+        )
+        issues.append(ValidationIssue(
+            code="PR7_RETENTION_UNRESOLVED",
+            severity="error",
+            message=(
+                "PR7 mass is conserved in biostimulant_unresolved, but product/permeate fate "
+                "and dependent product, area, TEA, and LCA results are incomplete for: "
+                + ", ".join(component_ids)
+            ),
+            blocking=True,
+            process_area="protein_recovery",
+            object_id="PR7_M101",
+            field="biostimulant_route.component_retention_overrides",
+        ))
+    issues = tuple(issues)
     warning_count = len(model.warnings)
     return ValidationSummary(not issues, len(issues), warning_count, issues)

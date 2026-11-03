@@ -335,6 +335,12 @@ class SeasonalSimulationService:
                     "products_kg": {},
                     "intermediate_streams_kg": {},
                     "volumetric_products_m3": {},
+                    "pr7_membrane_area_m2": 0.0,
+                    "pr7_membrane_area_min_m2": 0.0,
+                    "pr7_membrane_area_max_m2": 0.0,
+                    "pr7_feed_volume_m3": 0.0,
+                    "pr7_unresolved_mass_kg": 0.0,
+                    "pr7_unresolved_component_ids": (),
                 })
                 residual_rows.append({"time": step.label, "residual_output_kg": 0.0})
                 utility_rows.append({"time": step.label, **{key: 0.0 for key in total_utilities}})
@@ -355,6 +361,19 @@ class SeasonalSimulationService:
             volumetric_products = {
                 "biomethane": float(model.streams["biomethane"].F_vol) * operating_hours
             } if "biomethane" in model.streams else {}
+            if "biostimulant_product" in model.streams:
+                volumetric_products["biostimulant_product"] = (
+                    float(model.streams["biostimulant_product"].F_vol) * operating_hours
+                )
+            pr7_unit = model.units.get("PR7_M101")
+            pr7_feed_volume_m3 = (
+                float(pr7_unit.design_results.get("Feed volumetric flow") or 0.0) * operating_hours
+                if pr7_unit is not None else 0.0
+            )
+            pr7_unresolved_mass_kg = (
+                float(model.streams["biostimulant_unresolved"].F_mass) * operating_hours
+                if "biostimulant_unresolved" in model.streams else 0.0
+            )
             sale_components, dry_gas_moles = seasonal_sale_quantities(model, operating_hours)
             product_rows.append({
                 "time": step.label,
@@ -363,6 +382,27 @@ class SeasonalSimulationService:
                 "products_kg": products,
                 "intermediate_streams_kg": intermediate_streams,
                 "volumetric_products_m3": volumetric_products,
+                "pr7_membrane_area_m2": (
+                    model.units["PR7_M101"].design_results.get("Membrane area")
+                    if "PR7_M101" in model.units else 0.0
+                ),
+                "pr7_membrane_area_min_m2": (
+                    float(model.units["PR7_M101"].design_results.get("Minimum membrane area") or 0.0)
+                    if "PR7_M101" in model.units else 0.0
+                ),
+                "pr7_membrane_area_max_m2": (
+                    (
+                        None
+                        if model.units["PR7_M101"].design_results.get("Maximum membrane area") is None
+                        else float(model.units["PR7_M101"].design_results["Maximum membrane area"])
+                    )
+                    if "PR7_M101" in model.units else 0.0
+                ),
+                "pr7_feed_volume_m3": pr7_feed_volume_m3,
+                "pr7_unresolved_mass_kg": pr7_unresolved_mass_kg,
+                "pr7_unresolved_component_ids": (
+                    tuple(getattr(pr7_unit, "unmapped_component_ids", ())) if pr7_unit else ()
+                ),
                 "terminal_gases_kg": {name:{c.ID:float(model.streams[name].imass[c.ID])*operating_hours for c in model.streams[name].chemicals if model.streams[name].imass[c.ID]>0}
                                      for name in ('uncaptured_biogas','reject_gas','phase7_offgas','chp_exhaust') if name in model.streams and model.streams[name].sink is None},
             })
@@ -422,6 +462,36 @@ class SeasonalSimulationService:
                 for unit, values in sorted(utilization_totals.items())
             },
             "total_products_kg": dict(sorted(total_products.items())),
+            "pr7_peak_membrane_area_m2": (
+                None if any(row.get("pr7_unresolved_mass_kg", 0.0) > 1e-12 for row in product_rows)
+                else max((float(row.get("pr7_membrane_area_m2") or 0.0) for row in product_rows), default=0.0)
+            ),
+            "pr7_minimum_peak_membrane_area_m2": max((float(row.get("pr7_membrane_area_min_m2") or 0.0) for row in product_rows), default=0.0),
+            "pr7_maximum_peak_membrane_area_m2": (
+                None
+                if any(
+                    row.get("pr7_unresolved_mass_kg", 0.0) > 1e-12
+                    and row.get("pr7_membrane_area_max_m2") is None
+                    for row in product_rows
+                )
+                else max((float(row.get("pr7_membrane_area_max_m2") or 0.0) for row in product_rows), default=0.0)
+            ),
+            "pr7_feed_volume_m3_year": sum(
+                float(row.get("pr7_feed_volume_m3") or 0.0) for row in product_rows
+            ),
+            "pr7_unresolved_mass_kg_year": sum(
+                float(row.get("pr7_unresolved_mass_kg") or 0.0) for row in product_rows
+            ),
+            "pr7_unresolved_component_ids": tuple(sorted({
+                component_id for row in product_rows for component_id in row.get("pr7_unresolved_component_ids", ())
+            })),
+            "scheduled_operating_hours": sum(
+                float(row["available_operating_hours"]) for row in throughput_rows
+            ),
+            "active_process_operating_hours": sum(
+                float(row["available_operating_hours"])
+                for row in throughput_rows if float(row["actual_throughput_kg_hr"]) > 0.0
+            ),
             "total_utilities": total_utilities,
             "storage_mass_residual_kg": sum(row["storage_mass_residual_kg"] for row in storage_rows),
             "incoming_residence_net_loss_kg": sum(row["raw_biomass_received_kg"]-row["biomass_received_kg"] for row in storage_rows),
@@ -448,6 +518,10 @@ class SeasonalSimulationService:
             selected_month=month,
             process_order=selection.process_order,
             parameter_overrides=model_overrides or None,
+            biostimulant_route=(
+                None if request.biostimulant_route is None
+                else request.biostimulant_route.to_dict()
+            ),
         )
 
     @staticmethod

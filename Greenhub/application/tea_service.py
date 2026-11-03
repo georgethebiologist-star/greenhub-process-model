@@ -8,8 +8,10 @@ utilities, scenario IDs, or model overrides.
 from __future__ import annotations
 
 from collections import Counter, defaultdict
+import csv
 from dataclasses import asdict, dataclass, field, is_dataclass
 from math import isfinite
+from pathlib import Path
 import re
 from typing import Any, Iterable, Mapping, Sequence
 
@@ -242,6 +244,80 @@ def _calculate_post_route_tea(
             opex_lines.append(line)
         missing.extend(issues)
 
+    cip_screen = measures.get("pr7_cip_reagent_screen")
+    if measures.get("pr7_route_selected") and cip_screen:
+        opex_lines.append({
+            "cost_id": "PR7-CIP-REAGENTS",
+            "process_area": "protein_recovery",
+            "cost_type": "opex",
+            "description": "PR7 NaOH and citric-acid CIP make-up chemicals",
+            "annual_cost_eur": float(cip_screen["total_reagent_cost_eur_year"]),
+            "quantity": float(cip_screen["solution_mass_replaced_kg_year_per_step"]),
+            "quantity_unit": "kg/year per cleaning step",
+            "unit_cost_eur": None,
+            "calculation_status": "partial_user_input_screening",
+            "source_status": "indicative_prices_and_explicit_user_activity_inputs",
+            "input_source": cip_screen["input_source"],
+            "cost_boundary": cip_screen["cost_boundary"],
+            "warning": "Chemical make-up subtotal only; excludes CIP water, heating, labor, downtime, wastewater, and cleaning-loop recovery.",
+        })
+
+    if measures.get("pr7_route_selected"):
+        module_screen = measures.get("pr7_membrane_module_screen")
+        if isinstance(module_screen, Mapping):
+            replacement_high = _number(module_screen.get("module_replacement_high_EUR_year"))
+            replacement_low = _number(module_screen.get("module_replacement_low_EUR_year"))
+            if replacement_high is not None:
+                opex_lines.append({
+                    "cost_id": "PR7-MEMBRANE-REPLACEMENT-SCREEN",
+                    "process_area": "protein_recovery",
+                    "cost_type": "opex",
+                    "description": "PR7 membrane-module replacement allowance (upper-bound screen)",
+                    "annual_cost_eur": replacement_high,
+                    "quantity": _number(module_screen.get("area_m2")),
+                    "quantity_unit": "m2 full resolved membrane area",
+                    "unit_cost_eur": None,
+                    "calculation_status": "partial_user_input_screening_upper_bound",
+                    "source_status": "user_supplied_module_price_and_lifetime_ranges",
+                    "input_source": "biostimulant_membrane_options.csv; biostimulant_membrane_gated_parameters.csv",
+                    "cost_boundary": "membrane-module purchase replacement only; excludes installation, removal, labor, downtime, disposal, and working capital",
+                    "range_low_eur_year": replacement_low,
+                    "range_high_eur_year": replacement_high,
+                    "selection_basis": "upper annualized bound: high module purchase price divided by 2.5-year low lifetime; no probability distribution is assumed",
+                    "warning": "Included in annual OPEX only when the full PR7 membrane area is resolved; installation and replacement event financing remain incomplete.",
+                })
+
+    if measures.get("pr7_route_selected"):
+        module_range = measures.get("pr7_membrane_module_screen_range")
+        module_screen = measures.get("pr7_membrane_module_screen")
+        module_cost_basis = module_screen or (
+            module_range.get("minimum_area_cost_screen") if isinstance(module_range, Mapping) else None
+        )
+        if isinstance(module_cost_basis, Mapping):
+            capex_lines.append({
+                "cost_id": "PR7-MODULE-CAPEX-SCREEN",
+                "process_area": "protein_recovery",
+                "cost_type": "capex",
+                "equipment_or_cost_item": "PR7 membrane module purchase (uninstalled screening range)",
+                "direct_cost_eur": None,
+                "installed_cost_eur": None,
+                "direct_cost_range_low_eur": float(module_cost_basis["module_capex_low_EUR"]),
+                "direct_cost_range_high_eur": float(module_cost_basis["module_capex_high_EUR"]),
+                "project_capacity": module_cost_basis.get("area_m2"),
+                "reference_capacity": 1.0,
+                "project_capacity_unit": "m² membrane area",
+                "capacity_unit": "m² membrane area",
+                "calculation_status": "partial_user_input_screening_range",
+                "source_status": "user_supplied_unverified_quote_range_converted_to_EUR",
+                "input_source": "biostimulant_membrane_options.csv; biostimulant_membrane_gated_parameters.csv",
+                "cost_boundary": "membrane module media only; excludes pressure vessel/skid, piping, pumps, instrumentation, installation, commissioning, and indirects",
+                "area_basis": (
+                    "full simulated membrane area"
+                    if module_screen else "known-stream minimum area floor; unresolved component fate prevents a full-area estimate"
+                ),
+                "warning": "Range is disclosed as module purchase only and is excluded from direct and installed CAPEX totals until the full project boundary and installation basis are established.",
+            })
+
     price_lines, price_missing, revenue_status, price_traceability = _product_price_lines(
         measures, basis, finance, revenue_lines, model_type=model_type
     )
@@ -281,6 +357,59 @@ def _calculate_post_route_tea(
         missing.append({"cost_id": "PROJECT-BOUNDARY", "code": "unconfirmed_cost_boundary", "required_input": "Review equipment, installation, indirects, replacements, utilities, consumables, labor, maintenance, logistics and disposal; declare included boundary and exclusions."})
     if not basis.price_basis_confirmed:
         missing.append({"cost_id": "PROJECT-PRICE-BASIS", "code": "unconfirmed_price_basis", "required_input": "Confirm common EUR price year and location, with explicit cost_multipliers where conversion/escalation is necessary."})
+    if measures.get("pr7_route_selected"):
+        capex_complete = False
+        opex_complete = False
+        pr7_missing = [
+            {"cost_id": "PR7-MODULE-CAPEX", "code": "missing_installed_skid_basis", "required_input": "Installed membrane skid and installation basis; the uninstalled module-only EUR range is displayed as a separate partial CAPEX line and excluded from installed CAPEX totals."},
+            {"cost_id": "PR7-MODULE-REPLACEMENT", "code": "missing_replacement_disposal_basis", "required_input": "Disposal and replacement labor/downtime costs; only the membrane-module purchase allowance is estimated in EUR from the 2.5–3.0 year user-supplied life."},
+            *(
+                [{"cost_id": "PR7-CROSSFLOW", "code": "missing_crossflow_energy", "required_input": "Measured or sourced crossflow recirculation electricity in kWh/m³ clarified feed, excluding any separately modeled permeate-side pressure work."}]
+                if not measures.get("pr7_crossflow_electricity_supplied") else []
+            ),
+            {"cost_id": "PR7-AUXILIARY-ENERGY", "code": "missing_other_auxiliary_energy", "required_input": "Controls, instrumentation, cleaning, and other auxiliary energy beyond the separately reported permeate-side pressure work and crossflow recirculation electricity."},
+            {"cost_id": "PR7-PRODUCT-SPEC", "code": "missing_product_basis", "required_input": "Confirm retentate specification, actual annual sale volume and market/offtake basis. A user-supplied €1.50–3.50/L price may be explicitly screened against simulated retentate volume, but it is not validated revenue."},
+        ]
+        if (
+            float(measures.get("annual_pr7_unresolved_mass_kg") or 0.0) > 1e-12
+            or float(measures.get("pr7_unresolved_mass_kg_hr") or 0.0) > 1e-12
+        ):
+            component_ids = ", ".join(measures.get("pr7_unresolved_component_ids", ()))
+            pr7_missing.append({
+                "cost_id": "PR7-UNMAPPED-RETENTION",
+                "code": "unresolved_membrane_component_fate",
+                "required_input": (
+                    f"Provide documented retention values and source notes for the unresolved component pools ({component_ids}). "
+                    "Their mass is conserved at a separate outlet; retentate revenue, permeate downstream yield, and membrane area are partial."
+                ),
+            })
+            revenue_status = "incomplete_unresolved_retention"
+            warnings.append("PR7 sales are a partial lower-bound screen because unresolved membrane pools are excluded from retentate product volume and value.")
+        if not cip_screen:
+            pr7_missing.append({"cost_id": "PR7-CIP", "code": "missing_cip_activity_basis", "required_input": "CIP solution volume per step and make-up fraction per cycle, each with an evidence note. The 48 operating-hour interval and indicative EUR reagent prices are registered; validate cleaning demand and procurement grade for grass juice."})
+        else:
+            pr7_missing.append({"cost_id": "PR7-CIP-REMAINDER", "code": "incomplete_cip_boundary", "required_input": "CIP wastewater fate, downtime/labor, water, and energy. A PR7-CIP-REAGENTS line reports the explicit annual EUR make-up-chemical subtotal only."})
+        target_vcf = _number(measures.get("pr7_target_concentration_factor"))
+        actual_vcf = _number(measures.get("pr7_actual_volume_concentration_factor"))
+        if target_vcf and actual_vcf and abs(actual_vcf - target_vcf) / target_vcf > 0.05:
+            pr7_missing.append({
+                "cost_id": "PR7-VCF-MISMATCH",
+                "code": "target_actual_vcf_mismatch",
+                "required_input": f"Actual model VCF {actual_vcf:.4g} differs from target VCF {target_vcf:.4g} by more than 5%; confirm final sale-volume and price basis.",
+            })
+        if not measures.get("pr7_pressure_work_supplied"):
+            pr7_missing.append({"cost_id": "PR7-PRESSURE-WORK", "code": "missing_pressure_work_inputs", "required_input": "Sourced transmembrane pressure and pump efficiency for the idealized permeate-side electricity estimate."})
+        if measures.get("pr7_membrane_technology") == "MEUF":
+            meuf = measures.get("pr7_meuf_surfactant_screen")
+            pr7_missing.append({"cost_id": "PR7-MEUF-SURFACTANT", "code": "incomplete_surfactant_cost_basis", "required_input": "SDS gross dose and unrecovered make-up are screened from the user-supplied dose/recovery basis when annual clarified-juice flow is available. Industrial-grade SDS price, acid identity/stoichiometry, recovery energy, replacement inventory, residual limit and disposal remain required; the €230/kg lab-grade listing is reference-only and excluded." if meuf else "MEUF SDS dose is not annualized because a steady-state clarified-juice flow and operating-hour basis are unavailable; price, acid identity/stoichiometry, recovery energy, residual limit and disposal remain required."})
+        missing.extend(pr7_missing)
+        selected_capex_complete = False
+        selected_opex_complete = False
+        if measures.get("pr7_membrane_module_screen"):
+            warnings.append("PR7 membrane-module purchase remains excluded from installed CAPEX; the conservative annualized replacement upper bound is included in OPEX because full membrane area is resolved.")
+        else:
+            warnings.append("PR7 membrane module and replacement are not included in annual OPEX because only a known-stream area floor is available; unresolved feed-pool fate prevents a full-area estimate.")
+        warnings.append("PR7 full-route TEA remains partial because CIP, crossflow auxiliaries, installed-module/skid CAPEX, replacement event financing and disposal, and product-basis inputs are incomplete.")
     capex_complete = capex_complete and basis.cost_boundary_complete and basis.price_basis_confirmed
     opex_complete = opex_complete and basis.cost_boundary_complete and basis.price_basis_confirmed
     replacement_schedule = _replacement_schedule(selected, capex_lines, finance)
@@ -347,6 +476,142 @@ def _calculate_post_route_tea(
         }
         for record in selected
     ) + tuple(price_traceability)
+    pr7_module_range = measures.get("pr7_membrane_module_screen_range")
+    pr7_module = measures.get("pr7_membrane_module_screen") or (
+        pr7_module_range.get("minimum_area_cost_screen")
+        if pr7_module_range else None
+    )
+    if pr7_module:
+        traceability += (
+            {
+                "cost_id": "PR7-MODULE-CAPEX-SCREEN",
+                "source_title": "User-supplied PR7 membrane module price range",
+                "source_url": pr7_module["fx_source"],
+                "confidence": "user_supplied_unverified",
+                "source_status": "user_supplied_unverified",
+                "source_sheet": "biostimulant_membrane_options.csv",
+                "source_row": None,
+                "value": [pr7_module["module_capex_low_EUR"], pr7_module["module_capex_high_EUR"]],
+                "unit": "EUR/module at simulated area",
+                "basis": (
+                    "known-stream permeate area floor only"
+                    if not measures.get("pr7_membrane_module_screen")
+                    else "module membrane area only"
+                ),
+                "geography": "not specified in supplied quote range",
+                "reference_year": None,
+                "retrieval_date": pr7_module["fx_date"],
+                "evidence_class": "user-supplied quote converted using official FX reference rate",
+                "applicability": pr7_module["cost_boundary"],
+                "conversion_method": f"simulated area × supplied USD/m² range × {pr7_module['fx_eur_per_usd']} EUR/USD; ECB rate dated {pr7_module['fx_date']}",
+                "source_value_usd": [
+                    pr7_module.get(
+                        "source_module_capex_low_USD",
+                        pr7_module["module_capex_low_EUR"] / pr7_module["fx_eur_per_usd"],
+                    ),
+                    pr7_module.get(
+                        "source_module_capex_high_USD",
+                        pr7_module["module_capex_high_EUR"] / pr7_module["fx_eur_per_usd"],
+                    ),
+                ],
+                "fx_source": pr7_module["fx_source"],
+                "uncertainty": (
+                    "known-stream area floor; unresolved pool fate prevents an upper area estimate; user-supplied price range and original quote date/scope are not verified"
+                    if not measures.get("pr7_membrane_module_screen")
+                    else "user-supplied price range; original quote date and installation scope not verified"
+                ),
+            },
+            {
+                "cost_id": "PR7-MODULE-LIFETIME-SCREEN",
+                "source_title": "User-supplied PR7 membrane lifetime range",
+                "source_url": "",
+                "confidence": "user_supplied_unverified",
+                "source_status": "user_supplied_unverified",
+                "source_sheet": "biostimulant_membrane_gated_parameters.csv",
+                "source_row": None,
+                "value": [pr7_module["lifetime_min_year"], pr7_module["lifetime_max_year"]],
+                "unit": "year",
+                "basis": "linear annual replacement allowance screen only",
+                "geography": "not specified",
+                "reference_year": None,
+                "retrieval_date": None,
+                "evidence_class": "user_supplied_unverified",
+                "applicability": "Does not include module installation, removal, disposal, downtime, or working capital.",
+                "conversion_method": "straight-line EUR module purchase cost / lifetime range; excludes removal, disposal, labor and downtime",
+                "uncertainty": "2.5–3.0 years supplied; no probability distribution",
+            },
+        )
+    if measures.get("pr7_route_selected"):
+        cost_reference_path = (
+            Path(__file__).resolve().parents[1]
+            / "data" / "Protein recovery" / "Membrane"
+            / "biostimulant_membrane_cost_references.csv"
+        )
+        with cost_reference_path.open("r", newline="", encoding="utf-8-sig") as handle:
+            for record in csv.DictReader(handle):
+                if not record["reference_id"].startswith(("NF_", "GRASS_", "GRASSA_")):
+                    continue
+                traceability += ({
+                    "cost_id": f"PR7-CONTEXT-{record['reference_id']}",
+                    "source_title": record["source_title"],
+                    "source_url": record["source_url"],
+                    "confidence": "contextual_analogue_not_applied",
+                    "source_status": "contextual_analogue_not_applied",
+                    "source_sheet": "biostimulant_membrane_cost_references.csv",
+                    "source_row": record["reference_id"],
+                    "value": record["value_eur"],
+                    "unit": record["unit"],
+                    "basis": record["application_status"],
+                    "geography": record["geographic_scope"],
+                    "reference_year": record["source_date"],
+                    "retrieval_date": record["source_date"],
+                    "evidence_class": "contextual_analogue_not_applied",
+                    "applicability": record["reason_not_applied_directly"],
+                    "conversion_method": record["conversion_basis"],
+                    "uncertainty": "Not transferred to GreenHub grass-juice TEA.",
+                    "warning": "Reference shown for context only; excluded from CAPEX/OPEX totals.",
+                },)
+        if measures.get("pr7_crossflow_electricity_supplied"):
+            traceability += ({
+                "cost_id": "PR7-CROSSFLOW-ELECTRICITY",
+                "source_title": "Explicit PR7 crossflow-specific electricity input",
+                "source_url": "",
+                "confidence": "explicit_user_input_requires_source_note",
+                "source_status": "explicit_user_input",
+                "source_sheet": "SimulationRequest.biostimulant_route",
+                "source_row": None,
+                "value": measures.get("pr7_crossflow_electricity_kwh_m3_feed"),
+                "unit": "kWh/m3 clarified feed",
+                "basis": "crossflow recirculation electricity, excluding separately modeled permeate-side pressure work",
+                "geography": basis.location,
+                "reference_year": basis.price_year,
+                "retrieval_date": None,
+                "evidence_class": "explicit_user_input",
+                "applicability": "Applied to simulated clarified-juice volumetric feed and included in the BioSTEAM electricity utility.",
+                "conversion_method": "specific electricity × modeled clarified-feed volume flow",
+                "uncertainty": "Not propagated; caller must supply measurement/source note.",
+                "warning": str(measures.get("pr7_crossflow_electricity_source") or ""),
+            },)
+    if cip_screen:
+        traceability += tuple({
+            "cost_id": "PR7-CIP-REAGENTS",
+            "source_title": f"Registered {item['parameter_id']} price reference",
+            "source_url": item["source_reference"],
+            "confidence": item["source_status"],
+            "source_status": item["source_status"],
+            "source_sheet": "biostimulant_membrane_gated_parameters.csv",
+            "source_row": None,
+            "value": item["value"],
+            "unit": item["units"],
+            "basis": item["model_use"],
+            "geography": "source-specific; see supplier listing",
+            "reference_year": None,
+            "retrieval_date": item["source_date"],
+            "evidence_class": "indicative_price_reference_only",
+            "applicability": "Applied to explicit PR7 reagent make-up quantity; verify grade, delivery terms, and current price.",
+            "conversion_method": "EUR/t price multiplied by calculated annual reagent mass in tonnes.",
+            "uncertainty": "Indicative supplier reference; not a procurement quote.",
+        } for item in cip_screen["price_references"])
     route_summary = {
         **route,
         "model_type": model_type,
@@ -355,7 +620,23 @@ def _calculate_post_route_tea(
         "throughput_kg_per_hr": measures.get("throughput_kg_per_hr"),
         "annual_products_kg": measures.get("annual_products_kg", {}),
         "annual_products_m3": measures.get("annual_products_m3", {}),
+        "pr7_target_concentration_factor": measures.get("pr7_target_concentration_factor"),
+        "pr7_actual_volume_concentration_factor": measures.get("pr7_actual_volume_concentration_factor"),
+        "pr7_feed_volume_m3_per_hr": measures.get("pr7_feed_volume_m3_per_hr"),
+        "pr7_retentate_volume_m3_per_hr": measures.get("pr7_retentate_volume_m3_per_hr"),
         "annual_products_nm3": measures.get("annual_products_nm3", {}),
+        "pr7_membrane_module_screen": measures.get("pr7_membrane_module_screen"),
+        "pr7_membrane_module_screen_range": measures.get("pr7_membrane_module_screen_range"),
+        "pr7_membrane_replacement_opex_eur_year": (
+            measures.get("pr7_membrane_module_screen", {}).get("module_replacement_high_EUR_year")
+            if measures.get("pr7_membrane_module_screen") else None
+        ),
+        "pr7_membrane_replacement_basis": "upper annualized replacement bound included in OPEX when full area is resolved; module purchase remains excluded from installed CAPEX",
+        "pr7_crossflow_electricity_kwh_m3_feed": measures.get("pr7_crossflow_electricity_kwh_m3_feed"),
+        "pr7_crossflow_electricity_source": measures.get("pr7_crossflow_electricity_source"),
+        "pr7_crossflow_electricity_supplied": measures.get("pr7_crossflow_electricity_supplied", False),
+        "pr7_cip_reagent_screen": measures.get("pr7_cip_reagent_screen"),
+        "pr7_meuf_surfactant_screen": measures.get("pr7_meuf_surfactant_screen"),
         "quantity_warnings": measures.get("quantity_warnings", []),
         "partial_time_grid_totals": measures.get("partial_time_grid_totals", {}),
         "annual_chp_electricity_output_kwh": measures.get("annual_chp_electricity_output_kwh"),
@@ -685,6 +966,80 @@ def _empirical_measures(result: object, basis: TEAProjectBasis, *, logistics_res
         for item in result.products
         if _number(item.mass_flow.value) != 0 and _slug(str(item.product_id)) in _SALEABLE_PRODUCTS
     ]
+    if getattr(result.selected_scenarios, "protein_recovery", None) == "PR7":
+        measures["pr7_route_selected"] = True
+        membrane_unit = next((item for item in result.units if item.unit_id == "PR7_M101"), None)
+        area_item = membrane_unit.design_results.get("Membrane area") if membrane_unit else None
+        area_m2 = _number(getattr(area_item, "value", None))
+        minimum_area_m2 = _number(getattr(membrane_unit.design_results.get("Minimum membrane area"), "value", None)) if membrane_unit else None
+        maximum_area_m2 = _number(getattr(membrane_unit.design_results.get("Maximum membrane area"), "value", None)) if membrane_unit else None
+        if result.seasonal_summary:
+            peak_area = _number(result.seasonal_summary.get("pr7_peak_membrane_area_m2"))
+            if peak_area is not None:
+                area_m2 = peak_area
+            minimum_area_m2 = _number(result.seasonal_summary.get("pr7_minimum_peak_membrane_area_m2"))
+            maximum_area_m2 = _number(result.seasonal_summary.get("pr7_maximum_peak_membrane_area_m2"))
+        protein_area = next((item for item in result.process_areas if item.process_area_id == "protein_recovery"), None)
+        technology = protein_area.metrics.get("biostimulant_membrane_technology") if protein_area else None
+        measures["pr7_membrane_technology"] = str(technology) if technology else None
+        if area_m2 is not None and technology:
+            from Greenhub.biostimulant_screening import calculate_membrane_module_cost_range
+            measures["pr7_membrane_module_screen"] = calculate_membrane_module_cost_range(str(technology), area_m2)
+            measures["pr7_membrane_module_screen"]["area_basis"] = (
+                "peak monthly membrane area" if result.seasonal_summary else "steady-state membrane area"
+            )
+        else:
+            measures["pr7_membrane_module_screen"] = None
+            if not technology:
+                message = "PR7 membrane technology is missing; no membrane-module cost or replacement screen was derived."
+            elif minimum_area_m2 is not None and maximum_area_m2 is None:
+                message = (
+                    "PR7 full membrane area is unresolved because some nonzero feed pools lack retention/fate data; "
+                    "only the known-stream minimum-area module-cost floor is reported, with no replacement OPEX."
+                )
+            else:
+                message = "PR7 usable membrane area is unresolved; no full module-cost or replacement screen was derived."
+            measures.setdefault("quantity_warnings", []).append(message)
+        if technology and minimum_area_m2 is not None and (
+            maximum_area_m2 is None or maximum_area_m2 >= minimum_area_m2
+        ):
+            from Greenhub.biostimulant_screening import calculate_membrane_module_cost_range
+            measures["pr7_membrane_module_screen_range"] = {
+                "technology_id": str(technology),
+                "minimum_area_m2": minimum_area_m2,
+                "maximum_area_m2": maximum_area_m2,
+                "minimum_area_cost_screen": calculate_membrane_module_cost_range(str(technology), minimum_area_m2),
+                "maximum_area_cost_screen": (
+                    calculate_membrane_module_cost_range(str(technology), maximum_area_m2)
+                    if maximum_area_m2 is not None else None
+                ),
+                "status": "known_stream_area_floor_only_unresolved_pool_fate" if maximum_area_m2 is None else "membrane_area_screen",
+            }
+        if membrane_unit:
+            for key, design_name in (
+                ("pr7_target_concentration_factor", "Target concentration factor"),
+                ("pr7_actual_volume_concentration_factor", "Actual volume concentration factor"),
+                ("pr7_feed_volume_m3_per_hr", "Feed volumetric flow"),
+                ("pr7_retentate_volume_m3_per_hr", "Retentate volumetric flow"),
+            ):
+                design_value = membrane_unit.design_results.get(design_name)
+                measures[key] = _number(getattr(design_value, "value", None))
+        if protein_area:
+            measures["pr7_cip_solution_volume_L_per_step"] = protein_area.metrics.get("biostimulant_cip_solution_volume_L_per_step")
+            measures["pr7_cip_makeup_fraction_per_cycle"] = protein_area.metrics.get("biostimulant_cip_makeup_fraction_per_cycle")
+            measures["pr7_cip_input_source"] = protein_area.metrics.get("biostimulant_cip_input_source")
+            measures["pr7_crossflow_electricity_kwh_m3_feed"] = protein_area.metrics.get("biostimulant_crossflow_electricity_kwh_m3_feed")
+            measures["pr7_crossflow_electricity_source"] = protein_area.metrics.get("biostimulant_crossflow_electricity_source")
+            measures["pr7_crossflow_electricity_supplied"] = (
+                measures["pr7_crossflow_electricity_kwh_m3_feed"] is not None
+                and bool(measures["pr7_crossflow_electricity_source"])
+            )
+        pressure_work_supplied = bool(
+            membrane_unit
+            and membrane_unit.design_results.get("Transmembrane pressure") is not None
+            and membrane_unit.design_results.get("Pump efficiency") is not None
+        )
+        measures["pr7_pressure_work_supplied"] = pressure_work_supplied
     feed = next((item for item in result.streams if 'feed' in item.aliases or item.stream_id == 'feed'), None)
     if feed and feed.total_mass.value is not None:
         measures["throughput_kg_per_hr"] = float(feed.total_mass.value)
@@ -695,8 +1050,70 @@ def _empirical_measures(result: object, basis: TEAProjectBasis, *, logistics_res
         # Integrated quantities have an established period; a TEA basis may
         # confirm it but must not replace it with a different denominator.
         hours = _sum_known(item.get("available_operating_hours") for item in result.throughput_series)
+        measures["scheduled_operating_hours"] = float(hours or 0.0)
+        measures["active_process_operating_hours"] = float(
+            result.seasonal_summary.get("active_process_operating_hours", 0.0) or 0.0
+        )
+        if result.selected_scenarios.protein_recovery == "PR7":
+            measures["annual_pr7_feed_volume_m3"] = float(
+                result.seasonal_summary.get("pr7_feed_volume_m3_year", 0.0) or 0.0
+            )
+            measures["annual_pr7_unresolved_mass_kg"] = float(
+                result.seasonal_summary.get("pr7_unresolved_mass_kg_year", 0.0) or 0.0
+            )
+            measures["pr7_unresolved_component_ids"] = tuple(
+                result.seasonal_summary.get("pr7_unresolved_component_ids", ())
+            )
     if hours is not None:
         measures["operating_hours_per_year"] = float(hours)
+    if measures.get("pr7_route_selected") and not result.seasonal_summary and hours is not None:
+        unresolved_stream = next((item for item in result.streams if "biostimulant_unresolved" in item.aliases), None)
+        unresolved_rate = _number(unresolved_stream.total_mass.value) if unresolved_stream else 0.0
+        measures["pr7_unresolved_mass_kg_hr"] = unresolved_rate or 0.0
+        measures["annual_pr7_unresolved_mass_kg"] = (unresolved_rate or 0.0) * float(hours)
+        measures["pr7_unresolved_component_ids"] = tuple(
+            component_id for component_id, value in unresolved_stream.components.items()
+            if (_number(value.value) or 0.0) > 1e-12
+        ) if unresolved_stream else ()
+    elif measures.get("pr7_route_selected") and not result.seasonal_summary:
+        unresolved_stream = next((item for item in result.streams if "biostimulant_unresolved" in item.aliases), None)
+        measures["pr7_unresolved_mass_kg_hr"] = _number(unresolved_stream.total_mass.value) if unresolved_stream else 0.0
+        measures["pr7_unresolved_component_ids"] = tuple(
+            component_id for component_id, value in unresolved_stream.components.items()
+            if (_number(value.value) or 0.0) > 1e-12
+        ) if unresolved_stream else ()
+    if (
+        measures.get("pr7_route_selected")
+        and measures.get("pr7_cip_solution_volume_L_per_step") is not None
+        and measures.get("pr7_cip_makeup_fraction_per_cycle") is not None
+        and measures.get("pr7_cip_input_source")
+        and hours is not None
+    ):
+        from Greenhub.biostimulant_screening import calculate_cip_reagent_screen
+        measures["pr7_cip_reagent_screen"] = calculate_cip_reagent_screen(
+            operating_hours_year=float(
+                measures.get("active_process_operating_hours", hours)
+                if result.seasonal_summary else hours
+            ),
+            solution_volume_L_per_step=float(measures["pr7_cip_solution_volume_L_per_step"]),
+            makeup_fraction_per_cycle=float(measures["pr7_cip_makeup_fraction_per_cycle"]),
+            input_source=str(measures["pr7_cip_input_source"]),
+        )
+    if (
+        measures.get("pr7_route_selected")
+        and measures.get("pr7_membrane_technology") == "MEUF"
+        and (
+            measures.get("annual_pr7_feed_volume_m3") is not None
+            or measures.get("pr7_feed_volume_m3_per_hr") is not None
+        )
+        and (hours is not None or result.seasonal_summary)
+    ):
+        from Greenhub.biostimulant_screening import calculate_meuf_surfactant_screen
+        measures["pr7_meuf_surfactant_screen"] = calculate_meuf_surfactant_screen(
+            float(measures.get("annual_pr7_feed_volume_m3") or 0.0)
+            if result.seasonal_summary else
+            float(measures["pr7_feed_volume_m3_per_hr"]) * float(hours)
+        )
     annual_throughput = None
     if result.seasonal_summary:
         annual_throughput = _number(result.seasonal_summary.get("total_biomass_processed_kg"))
@@ -729,6 +1146,10 @@ def _empirical_measures(result: object, basis: TEAProjectBasis, *, logistics_res
             annual_cooling_kwh=None if cooling_kj_hr is None else cooling_kj_hr / 3600.0 * hours,
             annual_products_kg={
                 str(item.product_id): None if item.mass_flow.value is None else float(item.mass_flow.value) * hours for item in result.products
+            },
+            annual_products_m3={
+                str(item.product_id): None if item.volumetric_flow is None or item.volumetric_flow.value is None else float(item.volumetric_flow.value) * hours
+                for item in result.products if item.volumetric_flow is not None
             },
         )
     from .sale_quantities import SALE_COMPONENTS, dry_gas_kmol, reference_volume_m3
@@ -1026,6 +1447,7 @@ def _convert_unit(value: float, from_unit: str | None, to_unit: str | None) -> f
         "t/year": "t/y", "tonnes/year": "t/y", "wet tonnes/year": "t/y", "wet t/y": "t/y",
         "kwh/year": "kwh/y", "kwh": "kwh/y", "mwh/year": "mwh/y", "mwh": "mwh/y",
         "gj/year": "gj/y", "gj": "gj/y", "m3/year": "m3/y", "m3/y": "m3/y",
+        "l/year": "l/y", "l/y": "l/y",
         "wet t/h": "t/h", "wet tonnes/h": "t/h", "t/h": "t/h",
         "nm3/h raw gas": "nm3/h", "nm3/h": "nm3/h",
         "m3/hr": "m3/h", "m3/h": "m3/h", "kg/hr": "kg/h", "kg/h": "kg/h",
@@ -1040,6 +1462,7 @@ def _convert_unit(value: float, from_unit: str | None, to_unit: str | None) -> f
         ("kg/y", "t/y"): 1 / 1000.0, ("t/y", "kg/y"): 1000.0,
         ("mwh/y", "kwh/y"): 1000.0, ("kwh/y", "mwh/y"): 1 / 1000.0,
         ("gj/y", "kwh/y"): 1 / 0.0036, ("kwh/y", "gj/y"): 0.0036,
+        ("m3/y", "l/y"): 1000.0, ("l/y", "m3/y"): 1 / 1000.0,
     }
     factor = conversions.get((source, target))
     return None if factor is None else value * factor
@@ -1157,6 +1580,7 @@ def _coerce_financial_assumptions(
 _SALEABLE_PRODUCTS = {
     "dry_protein_product",
     "dried_protein_product",
+    "biostimulant_product",
     "biomethane",
     "biomethane_product",
     "press_cake",
@@ -1382,12 +1806,12 @@ def _annual_product_quantity(
             value, unit = _quantity_value(raw, _product_price_basis(price_unit))
             return value, unit, "explicit_project_basis"
     price_basis = _product_price_basis(price_unit)
-    target = 'annual_products_nm3' if price_basis == 'Nm3/year' else "annual_products_m3" if price_basis == "m3/year" else "annual_products_kg"
+    target = 'annual_products_nm3' if price_basis == 'Nm3/year' else "annual_products_m3" if price_basis in {"m3/year", "L/year"} else "annual_products_kg"
     values = measures.get(target, {})
     if isinstance(values, Mapping):
         for alias in aliases:
             if alias in values and _number(values[alias]) is not None:
-                unit = price_basis if target.endswith('m3') else 'kg/year'
+                unit = 'm3/year' if target == 'annual_products_m3' else price_basis if target == 'annual_products_nm3' else 'kg/year'
                 return float(values[alias]), unit, "simulation_product_output"
     return None
 
@@ -1400,6 +1824,8 @@ def _product_price_basis(unit: str) -> str:
         return 'Nm3/year'
     if normalized in {"eur/m3", "€/m3"}:
         return "m3/year"
+    if normalized in {"eur/l", "€/l"}:
+        return "L/year"
     return "kg/year"
 
 

@@ -61,7 +61,7 @@ export default function AnalyticsPreview(){
       <Chart title="Heat by unit" rows={heat} color="#d277a3" unit={heat[0]?.unit||'kWh/year'} loading={detailLoading}/>
       <Chart title="Operational climate burdens" rows={climate} color="#0c3338" unit="kg CO₂-eq/year" loading={detailLoading}/>
     </div>
-    <details className="pareto-limitations"><summary>Candidate scope and assumptions</summary><p>{selected.scenario_label}; {selected.configuration?.candidate_economics?.grant_awarding_organization||'RVO'} support is a user-defined screening assumption. The displayed cost, energy and climate hotspot breakdown comes from the paired stored BioSTEAM process run. Net-carbon storage assumptions and NPV boundaries are described in the Pareto methodology.</p><p>Route switches, in Protein–Biogas–N–P–K order: {candidateName(selected).split(' · ')[0]}.</p></details>
+    <details className="pareto-limitations"><summary>Candidate scope and assumptions</summary><p>{selected.scenario_label}; support awarding organization: {selected.configuration?.candidate_economics?.grant_awarding_organization||'not specified'}. Support is a user-defined screening assumption. The displayed cost, energy and climate hotspot breakdown comes from the paired stored BioSTEAM process run. Net-carbon storage assumptions and NPV boundaries are described in the Pareto methodology.</p><p>Route switches, in Protein–Biogas–N–P–K order: {candidateName(selected).split(' · ')[0]}.</p></details>
   </section>;
 }
 

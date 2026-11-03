@@ -261,8 +261,8 @@ def load_phase7_inputs(
         raise ValueError("Phase 7 upstream biogas scenario must be BG0-BG6.")
     if phase5 not in {f"AD{i}" for i in range(6)}:
         raise ValueError("Phase 7 upstream digestion scenario must be AD0-AD5.")
-    if phase4 not in {f"PR{i}" for i in range(7)}:
-        raise ValueError("Phase 7 upstream protein scenario must be PR0-PR6.")
+    if phase4 not in {f"PR{i}" for i in range(8)}:
+        raise ValueError("Phase 7 upstream protein scenario must be PR0-PR7.")
     if phase3 not in {"F0", "F1", "F2", "F3"}:
         raise ValueError("Phase 7 upstream front-end scenario must be F0-F3.")
     month = selected_month or optional_text(control.get("selected_month")) or "July"

@@ -31,6 +31,7 @@ from Greenhub.phase4_units import (
     ProteinDryer,
     ProteinPrecipitation,
     ProteinSeparator,
+    BiostimulantMembraneRecovery,
     acidification_parameters_from_mapping,
     dewatering_parameters_from_mapping,
     dryer_parameters_from_mapping,
@@ -483,13 +484,13 @@ def create_phase4_scenario(
     selected_month: str | None = None,
     workbook_path: Path = INPUT_WORKBOOK_PATH,
     parameter_overrides: Mapping[str, object] | None = None,
+    biostimulant_route: Mapping[str, object] | None = None,
     input_bundle: Phase4InputBundle | None = None,
 ) -> Phase4Model:
-    """Build one fresh PR0-PR6 model without simulating it.
+    """Build one fresh PR0-PR7 model without simulating it.
 
-    PR4-PR6 remain deliberately inactive until their scenario-specific data
-    requirements are supplied. The active PR0-PR3 systems share the same
-    clarified-liquid inlet and common output naming.
+    PR4-PR6 remain gated. PR7 can be built when explicit membrane inputs are
+    supplied; it shares the clarified-liquid inlet with the protein routes.
     """
 
     bundle = input_bundle or load_phase4_inputs(
@@ -503,7 +504,7 @@ def create_phase4_scenario(
     if phase3_scenario_id and bundle.phase3_scenario_id != phase3_scenario_id.upper():
         raise ValueError("Provided Phase4InputBundle does not match requested upstream scenario.")
     scenario = get_protein_recovery_scenario(bundle.scenario_id)
-    if not scenario.active:
+    if not scenario.active and not (scenario.scenario_id == "PR7" and biostimulant_route):
         requirements = ", ".join(scenario.missing_data_requirements)
         raise NotImplementedError(
             f"Phase 4 scenario {scenario.scenario_id} is inactive because the following "
@@ -530,12 +531,15 @@ def create_phase4_scenario(
     }
     warnings = list(bundle.warnings)
     warnings.extend(upstream.warnings)
-    assumptions = [
-        "Phase 4 pH values are screening-level metadata, not electrolyte-equilibrium predictions.",
-        "Protein precipitation and heat coagulation are mass-conserving empirical pool transfers.",
-        "Custom Phase 4 units have no CAPEX because no approved project correlation is available.",
-        "Drying air is utility-only; no air mass, humidity, or recycle calculation is claimed.",
-    ]
+    assumptions = ["Custom Phase 4 units have no CAPEX because no approved project correlation is available."]
+    if scenario.scenario_id == "PR7":
+        assumptions.append("PR7 is a direct clarified-juice membrane split with no 14-day pre-membrane fermentation/storage step, protein precipitation, or drying. Any downstream anaerobic digestion remains controlled by the separate AD scenario and receives the PR7 permeate.")
+    else:
+        assumptions.extend((
+            "Phase 4 pH values are screening-level metadata, not electrolyte-equilibrium predictions.",
+            "Protein precipitation and heat coagulation are mass-conserving empirical pool transfers.",
+            "Drying air is utility-only; no air mass, humidity, or recycle calculation is claimed.",
+        ))
     side_products = _phase4_side_products(upstream)
 
     if scenario.scenario_id == "PR0":
@@ -561,6 +565,155 @@ def create_phase4_scenario(
         )
         final_ends = side_products + [M403 - 0]
         assumptions.append("PR0 bypasses protein recovery and preserves clarified-liquid protein for later pathways.")
+    elif scenario.scenario_id == "PR7":
+        if not isinstance(biostimulant_route, Mapping):
+            raise ValueError("PR7 requires explicit biostimulant_route selections.")
+        technology = str(biostimulant_route.get("technology_id", "")).strip().upper()
+        flux_value = biostimulant_route.get("flux_L_m2_h")
+        matrix_source = str(biostimulant_route.get("retention_matrix_source", "")).strip()
+        flux_source = str(biostimulant_route.get("flux_source") or "").strip()
+        flux_model_prediction = None
+        ratio = biostimulant_route.get("feed_to_reference_concentration_ratio")
+        pressure = biostimulant_route.get("transmembrane_pressure_bar")
+        if ratio is not None:
+            if flux_value is not None:
+                raise ValueError("PR7 must select either empirical flux or resistance-model flux, not both.")
+            if pressure is None or not str(biostimulant_route.get("flux_model_source", "")).strip():
+                raise ValueError("PR7 resistance-model flux requires a sourced TMP and Cf/C0 ratio.")
+            from Greenhub.biostimulant_screening import calculate_resistance_flux, membrane_flux_bounds
+            flux_model_prediction = calculate_resistance_flux(
+                technology, pressure, ratio,
+                viscosity_Pa_s=biostimulant_route.get("viscosity_Pa_s"),
+            ).predicted_flux_L_m2_h
+            empirical_flux_low, empirical_flux_high = membrane_flux_bounds(technology)
+            if not empirical_flux_low <= flux_model_prediction <= empirical_flux_high:
+                warnings.append(
+                    f"PR7 resistance-model flux prediction {flux_model_prediction:.4g} L/(m²·h) "
+                    f"falls outside the user-supplied {technology} empirical range "
+                    f"{empirical_flux_low:g}–{empirical_flux_high:g} L/(m²·h); review its applicability."
+                )
+        if flux_value is None:
+            if flux_model_prediction is None:
+                raise ValueError("PR7 requires an empirical flux or a pressure/Cf-to-C0 resistance-model estimate.")
+            flux = flux_model_prediction
+            flux_source = (
+                "Resistance equation using GreenHub gated parameter register; "
+                + str(biostimulant_route.get("flux_model_source", "")).strip()
+            )
+        else:
+            flux = float(flux_value)
+        overrides = dict(biostimulant_route.get("component_retention_overrides", {}))
+        override_sources = dict(biostimulant_route.get("component_retention_override_sources", {}))
+        use_hormone_benchmarks = biostimulant_route.get("use_hormone_benchmarks", False)
+        if not isinstance(use_hormone_benchmarks, bool):
+            raise TypeError("PR7 use_hormone_benchmarks must be boolean.")
+        hormone_benchmark_source = str(biostimulant_route.get("hormone_benchmark_source") or "").strip()
+        if use_hormone_benchmarks and not hormone_benchmark_source:
+            raise ValueError("PR7 benchmark hormone feed requires a source/evidence note.")
+        if not use_hormone_benchmarks and hormone_benchmark_source:
+            raise ValueError("PR7 hormone_benchmark_source requires use_hormone_benchmarks=true.")
+        from Greenhub.biostimulant_screening import hormone_benchmark_feed_flows_kg_hr
+        benchmark_hormone_flows = (
+            hormone_benchmark_feed_flows_kg_hr(float(clarified.F_vol))
+            if use_hormone_benchmarks else {}
+        )
+        hormone_ids = set(benchmark_hormone_flows)
+        preexisting_hormone_ids = sorted(
+            ID for ID in hormone_ids if float(clarified.imass[ID]) > 1e-12
+        )
+        if preexisting_hormone_ids:
+            raise ValueError(
+                "PR7 benchmark hormone feed would double-count existing named hormone pools: "
+                + ", ".join(preexisting_hormone_ids)
+                + ". Disable benchmark mode or supply measured hormone pools through the upstream feed composition."
+            )
+        benchmark_hormone_feed = bst.Stream(
+            "pr7_benchmark_hormone_feed", thermo=clarified.chemicals, units="kg/hr"
+        )
+        benchmark_hormone_feed.T = clarified.T
+        benchmark_hormone_feed.P = clarified.P
+        for ID, flow in benchmark_hormone_flows.items():
+            benchmark_hormone_feed.imass[ID] = flow
+        if not matrix_source or not flux_source:
+            raise ValueError("PR7 requires evidence notes for the selected retention matrix and permeate flux.")
+        if set(overrides) != set(override_sources) or any(not str(value).strip() for value in override_sources.values()):
+            raise ValueError("Each PR7 component retention override requires a matching evidence note.")
+        from Greenhub.biostimulant_screening import split_component_flows
+        split_flows = {
+            ID: float(clarified.imass[ID]) + float(benchmark_hormone_feed.imass[ID])
+            for ID in clarified.chemicals.IDs
+        }
+        split = split_component_flows(
+            split_flows, technology,
+            flux_L_m2_h=flux,
+            component_retention_overrides=overrides,
+        )
+        if flux <= 0.0:
+            raise ValueError("PR7 flux_L_m2_h must be finite and positive.")
+        M701 = BiostimulantMembraneRecovery(
+            ID="PR7_M101", ins=(clarified, benchmark_hormone_feed),
+            outs=("biostimulant_product", "biostimulant_permeate", "biostimulant_unresolved"),
+            technology_id=technology, flux_L_m2_h=flux,
+            component_retention_overrides=overrides,
+            transmembrane_pressure_bar=biostimulant_route.get("transmembrane_pressure_bar"),
+            pump_efficiency_fraction=biostimulant_route.get("pump_efficiency_fraction"),
+            crossflow_electricity_kwh_m3_feed=biostimulant_route.get("crossflow_electricity_kwh_m3_feed"),
+            crossflow_electricity_source=biostimulant_route.get("crossflow_electricity_source"),
+            hormone_benchmark_source=hormone_benchmark_source or None,
+        )
+        dry_product = bst.Stream("dry_protein_product")
+        dryer_exhaust = bst.Stream("dryer_exhaust")
+        acid_solution = bst.Stream("acid_solution")
+        base_solution = bst.Stream("base_solution")
+        wash_water = bst.Stream("protein_cake_wash_water")
+        streams.update(
+            biostimulant_product=M701 - 0,
+            biostimulant_permeate=M701 - 1,
+            biostimulant_unresolved=M701 - 2,
+            biostimulant_benchmark_hormone_feed=benchmark_hormone_feed,
+            protein_depleted_liquid=M701 - 1,
+            conditioned_protein_depleted_liquid=M701 - 1,
+            dry_protein_product=dry_product,
+            dryer_exhaust=dryer_exhaust,
+            acid_solution=acid_solution,
+            base_solution=base_solution,
+            protein_cake_wash_water=wash_water,
+        )
+        units["PR7_M101"] = M701
+        parameters["biostimulant_route"] = {
+            **dict(biostimulant_route),
+            "technology_id": technology,
+            "flux_method": "resistance_model" if flux_value is None else "empirical",
+            "selected_flux_input_L_m2_h": flux_value,
+            "flux_L_m2_h": flux,
+            "resolved_flux_source": flux_source,
+            "resistance_model_flux_L_m2_h": flux_model_prediction,
+            "component_retention_overrides": overrides,
+            "component_retention_override_sources": override_sources,
+            "pressure_source": biostimulant_route.get("pressure_source"),
+            "pump_efficiency_source": biostimulant_route.get("pump_efficiency_source"),
+            "benchmark_hormone_feed_flows_kg_hr": benchmark_hormone_flows,
+            "hormone_benchmark_source": hormone_benchmark_source or None,
+        }
+        warnings.append(
+            "PR7 uses user-supplied membrane retention and flux data. Installed membrane/skid CAPEX, CIP, and product conditioning are not modeled; pump duty is only represented by separately disclosed optional pressure-work and crossflow inputs."
+        )
+        assumptions.append(
+            f"PR7 {technology} retention matrix evidence: {matrix_source}; flux evidence: {flux_source}."
+        )
+        if flux_model_prediction is not None and flux_value is not None:
+            assumptions.append(
+                f"PR7 resistance-model diagnostic flux: {flux_model_prediction:.6g} L/(m²·h); "
+                "the explicitly selected empirical flux remains the design basis."
+            )
+        assumptions.append(
+            (
+                "The full-plant mass balance uses the modeled clarified-juice hormone composition plus a separately tracked, user-supplied benchmark analyte feed; this is a screening correction, not measured GreenHub composition."
+                if use_hormone_benchmarks
+                else "Hormone pools follow modeled clarified-juice composition; the optional screening benchmark feed is not injected into this full-plant mass balance."
+            )
+        )
+        final_ends = side_products + [M701 - 0, M701 - 1, M701 - 2]
     else:
         titration_points = tuple(
             (point.acid_dose_kg_m3, point.resulting_pH)
@@ -893,7 +1046,10 @@ def _phase5_boundary_side_products(model: Phase4Model) -> list[bst.Stream]:
     """Return products that remain external when Phase 4 liquid enters digestion."""
 
     ends = _phase4_side_products(model.upstream_model)
-    if model.scenario.scenario_id != "PR0":
+    if model.scenario.scenario_id == "PR7":
+        ends.append(model.streams["biostimulant_product"])
+        ends.append(model.streams["biostimulant_unresolved"])
+    elif model.scenario.scenario_id != "PR0":
         ends.extend(
             (
                 model.streams["dry_protein_product"],
@@ -911,6 +1067,7 @@ def create_phase5_scenario(
     selected_month: str | None = None,
     workbook_path: Path = INPUT_WORKBOOK_PATH,
     parameter_overrides: Mapping[str, object] | None = None,
+    biostimulant_route: Mapping[str, object] | None = None,
     input_bundle: Phase5InputBundle | None = None,
 ) -> Phase5Model:
     """Build one fresh AD0-AD5 model without simulating it.
@@ -948,6 +1105,7 @@ def create_phase5_scenario(
         selected_month=bundle.selected_month,
         workbook_path=workbook_path,
         parameter_overrides=parameter_overrides,
+        biostimulant_route=biostimulant_route,
     )
     flowsheet = upstream.flowsheet
     units = dict(upstream.units)
@@ -1764,6 +1922,7 @@ def create_phase6_scenario(
     selected_month: str | None = None,
     workbook_path: Path = INPUT_WORKBOOK_PATH,
     parameter_overrides: Mapping[str, object] | None = None,
+    biostimulant_route: Mapping[str, object] | None = None,
     input_bundle: Phase6InputBundle | None = None,
 ) -> Phase6Model:
     """Build a fresh BG0-BG6 model without simulating it."""
@@ -1795,6 +1954,7 @@ def create_phase6_scenario(
         selected_month=bundle.selected_month,
         workbook_path=workbook_path,
         parameter_overrides=parameter_overrides,
+        biostimulant_route=biostimulant_route,
     )
     flowsheet = upstream.flowsheet
     units = dict(upstream.units)

@@ -221,8 +221,8 @@ def load_phase5_inputs(
         or optional_text(control.get("selected_phase4_scenario"))
         or "PR3"
     ).upper()
-    if phase4 not in {f"PR{i}" for i in range(7)}:
-        raise ValueError("Phase 5 upstream protein scenario must be PR0-PR6.")
+    if phase4 not in {f"PR{i}" for i in range(8)}:
+        raise ValueError("Phase 5 upstream protein scenario must be PR0-PR7.")
     phase3 = (
         phase3_scenario_id
         or optional_text(control.get("selected_phase3_scenario"))

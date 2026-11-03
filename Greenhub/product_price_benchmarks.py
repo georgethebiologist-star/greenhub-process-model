@@ -77,6 +77,7 @@ def load_product_price_benchmarks(
 
 _TEA_PRODUCT_IDS = {
     "Protein product": ("dry_protein_product", "EUR/kg"),
+    "Biostimulant concentrate": ("biostimulant_product", "EUR/L"),
     "Press cake": ("press_cake", "EUR/kg"),
     "Ammonium product": ("ammonium_product", "EUR/kg"),
     # Keep the legacy benchmark label as an input alias while exposing the
@@ -112,7 +113,11 @@ def screening_tea_product_prices(
         output[product_id] = {
             "value_eur_per_unit": benchmark.screening_base / divisor,
             "unit": unit,
-            "source_status": "industrial_benchmark_screening_assumption",
+            "source_status": (
+                "user_supplied_screening_proxy"
+                if benchmark.market_status.lower().startswith("user-supplied")
+                else "industrial_benchmark_screening_assumption"
+            ),
             "source_title": benchmark.source_type,
             "source_url": benchmark.source_url,
             "notes": benchmark.traceability,
@@ -145,5 +150,34 @@ def screening_tea_product_prices(
             'notes': data['warning'] + ' FX: 0.92 EUR/USD is an explicit assumption, not a market quote.',
             'conversion_method': 'USD/t × 0.92 EUR/USD / 1000 kg/t',
             'uncertainty': f"{data['low_usd_t']}-{data['high_usd_t']} USD/t; FX unverified",
+        }
+    return output
+
+
+def screening_tea_product_price_ranges(
+    path: Path = DEFAULT_PRICE_BENCHMARK_PATH,
+) -> dict[str, dict[str, object]]:
+    """Return low/base/high benchmark values in the corresponding TEA units.
+
+    This is presentation metadata for explicit sensitivity selection; it is
+    deliberately kept separate from ``TEAProductPrice`` records so range
+    endpoints cannot be mistaken for active prices or probability bounds.
+    """
+
+    output: dict[str, dict[str, object]] = {}
+    for benchmark in load_product_price_benchmarks(path):
+        mapping = _TEA_PRODUCT_IDS.get(benchmark.product)
+        if mapping is None:
+            continue
+        product_id, unit = mapping
+        divisor = 1000.0 if benchmark.unit.startswith("EUR/t") else 1.0
+        output[product_id] = {
+            "low_eur_per_unit": benchmark.low / divisor,
+            "base_eur_per_unit": benchmark.screening_base / divisor,
+            "high_eur_per_unit": benchmark.high / divisor,
+            "unit": unit,
+            "basis": benchmark.basis,
+            "source_status": "screening_sensitivity_endpoints_not_probability_bounds",
+            "source_url": benchmark.source_url,
         }
     return output

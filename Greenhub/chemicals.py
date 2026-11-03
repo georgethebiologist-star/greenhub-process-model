@@ -138,6 +138,15 @@ FORMULA_PSEUDOCOMPONENTS: tuple[tuple[str, str, str, str], ...] = (
     # Equivalent formula preserves C/H/O/N when MEA is assigned to the
     # unresolved degradation-products inventory.
     ("MEADegradationProducts", "C2H7NO", "l", "Water"),
+    # Hormone pools are gated inputs to the separate biostimulant pathway.
+    # Bound pools track hormone payload mass; protein/peptide carrier mass is
+    # retained in its existing component pool.
+    ("Indole3AceticAcid", "C10H9NO2", "l", "Water"),
+    ("Zeatin", "C10H13N5O", "l", "Water"),
+    ("ProteinBoundIAA", "C10H9NO2", "l", "Water"),
+    ("PeptideBoundZeatin", "C10H13N5O", "l", "Water"),
+    ("ZeatinRiboside", "C15H21N5O5", "l", "Water"),
+    ("BoundZeatinRiboside", "C15H21N5O5", "l", "Water"),
     ("DicalciumPhosphate", "CaHPO4", "s", "Glucose"),
     ("Hydroxyapatite", "Ca5HO13P3", "s", "Glucose"),
     # These formulas retain the common aluminosilicate framework so the

@@ -14,6 +14,7 @@ COMPONENT_GROUPS: dict[str, frozenset[str]] = {
     "suspended_proteins": frozenset({"SuspendedProtein", "PrecipitatedProtein", "HeatCoagulatedProtein", "DegradedProtein"}),
     "peptides": frozenset({"Peptides"}),
     "amino_acids": frozenset({"AminoAcids"}),
+    "biostimulant_hormones": frozenset({"Indole3AceticAcid", "Zeatin", "ProteinBoundIAA", "PeptideBoundZeatin", "ZeatinRiboside", "BoundZeatinRiboside"}),
     "recoverable_proteins": frozenset({"SolubleProtein", "SuspendedProtein", "PrecipitatedProtein", "HeatCoagulatedProtein"}),
     "protein_product_components": frozenset({"SolubleProtein", "SuspendedProtein", "PrecipitatedProtein", "HeatCoagulatedProtein"}),
     "protein_equivalents": frozenset({"SolubleProtein", "SuspendedProtein", "PrecipitatedProtein", "HeatCoagulatedProtein", "DegradedProtein", "Peptides", "AminoAcids"}),
@@ -29,7 +30,7 @@ COMPONENT_GROUPS: dict[str, frozenset[str]] = {
     "neutralization_salts": frozenset({"SodiumChloride", "CalciumChloride", "SodiumSulfate", "CalciumSulfate"}),
     "dissolved_minerals": frozenset({"HydrogenIon", "HydroxideIon", "PotassiumIon", "SodiumIon", "MagnesiumIon", "CalciumIon", "ChlorideIon", "SulfateIon", "BicarbonateIon", "CarbonateIon", "SolubleInertSolids", "SodiumChloride", "CalciumChloride", "SodiumSulfate"}),
     "suspended_solids": frozenset({"SuspendedProtein", "PrecipitatedProtein", "HeatCoagulatedProtein", "DegradedProtein", "EntrappedSugars", "Cellulose", "Hemicellulose", "Lignin", "Pectin", "Starch", "ParticulateBiodegradableOrganics", "ParticulateNitrogen", "ParticulatePotassium", "MicrobialBiomass", "SuspendedSolids", "SuspendedInertSolids", "InertSolids", "Ash", "Sand", "Litter", "ParticulatePhosphorus", "HeavyMetals", "Microplastics", "PathogenIndicators", "CalciumSulfate"}),
-    "dissolved_solids": frozenset({"SolubleProtein", "Peptides", "AminoAcids", "SolubleInertSolids", "HydrogenIon", "HydroxideIon", "Ammonium", "NitrateIon", "NitriteIon", "Orthophosphate", "DissolvedPhosphorus", "OrganicPhosphorus", "PotassiumIon", "SodiumIon", "MagnesiumIon", "CalciumIon", "ChlorideIon", "SulfateIon", "BicarbonateIon", "CarbonateIon", "SodiumChloride", "CalciumChloride", "SodiumSulfate", "Flocculant"}),
+    "dissolved_solids": frozenset({"SolubleProtein", "Peptides", "AminoAcids", "Indole3AceticAcid", "Zeatin", "ProteinBoundIAA", "PeptideBoundZeatin", "ZeatinRiboside", "BoundZeatinRiboside", "SolubleInertSolids", "HydrogenIon", "HydroxideIon", "Ammonium", "NitrateIon", "NitriteIon", "Orthophosphate", "DissolvedPhosphorus", "OrganicPhosphorus", "PotassiumIon", "SodiumIon", "MagnesiumIon", "CalciumIon", "ChlorideIon", "SulfateIon", "BicarbonateIon", "CarbonateIon", "SodiumChloride", "CalciumChloride", "SodiumSulfate", "Flocculant"}),
     "volatile_solids": frozenset({"SolubleProtein", "SuspendedProtein", "PrecipitatedProtein", "HeatCoagulatedProtein", "DegradedProtein", "Peptides", "AminoAcids", "EntrappedSugars", "Cellulose", "Hemicellulose", "Lignin", "Pectin", "Starch", "Lipids", "OtherBiodegradableOrganics", "ParticulateBiodegradableOrganics", "NonBiodegradableOrganics", "MicrobialBiomass", "SuspendedSolids"}),
     "fixed_solids": frozenset({"SolubleInertSolids", "SuspendedInertSolids", "InertSolids", "Ash", "Sand", "Litter", "HeavyMetals"}),
     "biogas_components": frozenset({"Methane", "CarbonDioxide", "Hydrogen", "HydrogenSulfide", "Ammonia", "Oxygen", "Nitrogen", "Siloxanes"}),
@@ -56,7 +57,7 @@ COMPONENT_GROUPS: dict[str, frozenset[str]] = {
 }
 
 COMPONENT_GROUPS["soluble_cod_components"] = frozenset(
-    COMPONENT_GROUPS["soluble_sugars"] | COMPONENT_GROUPS["organic_acids"] | COMPONENT_GROUPS["soluble_proteins"] | COMPONENT_GROUPS["peptides"] | COMPONENT_GROUPS["amino_acids"] | {"Lipids", "OtherBiodegradableOrganics", "NonBiodegradableOrganics"}
+    COMPONENT_GROUPS["soluble_sugars"] | COMPONENT_GROUPS["organic_acids"] | COMPONENT_GROUPS["soluble_proteins"] | COMPONENT_GROUPS["peptides"] | COMPONENT_GROUPS["amino_acids"] | COMPONENT_GROUPS["biostimulant_hormones"] | {"Lipids", "OtherBiodegradableOrganics", "NonBiodegradableOrganics"}
 )
 COMPONENT_GROUPS["particulate_cod_components"] = frozenset(
     COMPONENT_GROUPS["structural_carbohydrates"] | COMPONENT_GROUPS["entrapped_sugars"] | COMPONENT_GROUPS["suspended_proteins"] | {"ParticulateBiodegradableOrganics", "MicrobialBiomass", "SuspendedSolids", "Microplastics"}

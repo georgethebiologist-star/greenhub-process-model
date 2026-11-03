@@ -16,7 +16,7 @@ class PlotService:
         self.repository = repository
 
     def specifications(
-        self, run_id: str, scenario: str, literature_pr1: bool, seasonal=None
+        self, run_id: str, scenario: str, literature_pr1: bool, seasonal=None, model=None
     ) -> tuple[PlotSpecification, ...]:
         common = dict(scenario=scenario, run_id=run_id, warnings=(), availability_status="available")
         plots = [
@@ -68,6 +68,53 @@ class PlotService:
                 availability_status="available" if literature_pr1 else "unavailable_scenario",
             )
         )
+        if "PR7" in str(scenario).split("/"):
+            plots.append(
+                PlotSpecification(
+                    "PR7-MASS-SPLIT", "Biostimulant membrane split", "protein_recovery",
+                    "Juice component", "Mass flow", None, "kg/hr",
+                    ("streams.biostimulant_product.components", "streams.biostimulant_permeate.components", "streams.biostimulant_unresolved.components"),
+                    **common,
+                )
+            )
+            plots.append(
+                PlotSpecification(
+                    "PR7-HORMONE-CAPTURE", "PR7 hormone payload in feed and product", "protein_recovery",
+                    "Analyte", "Hormone payload", None, "mg/hr",
+                    ("streams.clarified_protein_rich_liquid.components", "streams.biostimulant_product.components", "streams.biostimulant_permeate.components", "streams.biostimulant_unresolved.components"),
+                    **common,
+                )
+            )
+            plots.append(
+                PlotSpecification(
+                    "PR7-PRODUCT-PROFILE", "PR7 product mass profile", "protein_recovery",
+                    "Product pool", "Mass flow", None, "kg/hr",
+                    ("streams.clarified_protein_rich_liquid.components", "streams.biostimulant_product.components", "streams.biostimulant_permeate.components", "streams.biostimulant_unresolved.components"),
+                    **common,
+                )
+            )
+            membrane = model.units.get("PR7_M101") if model is not None else None
+            pressure_basis = bool(
+                membrane
+                and membrane.transmembrane_pressure_bar is not None
+                and membrane.pump_efficiency_fraction is not None
+            )
+            crossflow_basis = bool(
+                membrane and membrane.crossflow_electricity_kwh_m3_feed is not None
+            )
+            plots.append(
+                PlotSpecification(
+                    "PR7-ENERGY-BREAKDOWN", "PR7 membrane electricity", "protein_recovery",
+                    "Electricity source", "Power demand", None, "kW",
+                    ("units.PR7_M101.design_results.Pressure work", "units.PR7_M101.design_results.Crossflow electricity"),
+                    warnings=() if pressure_basis or crossflow_basis else (
+                        "Unavailable: no sourced pressure-work or crossflow-specific electricity input was supplied.",
+                    ),
+                    availability_status="available" if pressure_basis or crossflow_basis else "unavailable_missing_energy_basis",
+                    scenario=scenario,
+                    run_id=run_id,
+                )
+            )
         if seasonal is not None:
             plots.extend(self._seasonal_specifications(run_id, scenario, seasonal))
         return tuple(plots)
@@ -98,6 +145,10 @@ class PlotService:
             plots.append(spec("SEASONAL-PRODUCTS", "Product generation", "Product mass", "kg", ("product_series",)))
         if "dry_protein_product" in product_names:
             plots.append(spec("SEASONAL-PROTEIN", "Protein production", "Dry protein product", "kg", ("product_series.dry_protein_product",), "protein_recovery"))
+        if "biostimulant_product" in product_names:
+            plots.append(spec("SEASONAL-BIOSTIMULANT", "Biostimulant concentrate", "Wet concentrate", "kg/month", ("product_series.biostimulant_product",), "protein_recovery"))
+            if any(float(row.get("volumetric_products_m3", {}).get("biostimulant_product", 0.0)) > 0.0 for row in seasonal.product_series):
+                plots.append(spec("SEASONAL-BIOSTIMULANT-VOLUME", "Biostimulant volume", "Concentrate volume", "m3/month", ("product_series.volumetric_products_m3.biostimulant_product",), "protein_recovery"))
         if "biomethane" in product_names:
             plots.append(spec("SEASONAL-BIOMETHANE", "Biomethane production", "Biomethane", "kg", ("product_series.biomethane",), "biogas_conditioning_and_upgrading"))
         nutrients = {"phosphorus_product", "ammonium_product", "potassium_concentrate", "nutrient_rich_solids"}
@@ -160,6 +211,105 @@ class PlotService:
             unit = next(item for item in result.units if item.unit_id == "R401")
             recovery = unit.design_results["Acid recovery"].value
             series = (PlotSeries("recovery", "Recovery", (result.selected_scenarios.protein_recovery,), (recovery,)),)
+        elif plot_id == "PR7-MASS-SPLIT":
+            retentate = next((item for item in result.streams if "biostimulant_product" in item.aliases), None)
+            permeate = next((item for item in result.streams if "biostimulant_permeate" in item.aliases), None)
+            unresolved = next((item for item in result.streams if "biostimulant_unresolved" in item.aliases), None)
+            components = sorted(set(retentate.components if retentate else ()) | set(permeate.components if permeate else ()) | set(unresolved.components if unresolved else ()))
+            series = (
+                PlotSeries("retentate", "Retentate", tuple(components), tuple((retentate.components.get(ID).value or 0.0) if retentate and retentate.components.get(ID) else 0.0 for ID in components)),
+                PlotSeries("permeate", "Permeate", tuple(components), tuple((permeate.components.get(ID).value or 0.0) if permeate and permeate.components.get(ID) else 0.0 for ID in components)),
+                PlotSeries("unresolved", "Unresolved fate", tuple(components), tuple((unresolved.components.get(ID).value or 0.0) if unresolved and unresolved.components.get(ID) else 0.0 for ID in components)),
+            )
+        elif plot_id == "PR7-HORMONE-CAPTURE":
+            feed = next((item for item in result.streams if "clarified_protein_rich_liquid" in item.aliases), None)
+            benchmark_feed = next((item for item in result.streams if "biostimulant_benchmark_hormone_feed" in item.aliases), None)
+            product = next((item for item in result.streams if "biostimulant_product" in item.aliases), None)
+            permeate = next((item for item in result.streams if "biostimulant_permeate" in item.aliases), None)
+            groups = {
+                "IAA": ("Indole3AceticAcid", "ProteinBoundIAA"),
+                "Zeatin": ("Zeatin", "PeptideBoundZeatin"),
+                "Zeatin riboside": ("ZeatinRiboside", "BoundZeatinRiboside"),
+            }
+            def analyte_mg_hr(streams_to_sum, component_ids):
+                return sum(
+                    float(stream.components[component].value or 0.0)
+                    for stream in streams_to_sum
+                    if stream is not None
+                    for component in component_ids
+                    if component in stream.components
+                ) * 1e6
+            labels = tuple(groups)
+            series = (
+                PlotSeries("feed", "Feed", labels, tuple(analyte_mg_hr((feed, benchmark_feed), ids) for ids in groups.values())),
+                PlotSeries("retentate", "Retentate product", labels, tuple(analyte_mg_hr((product,), ids) for ids in groups.values())),
+                PlotSeries("permeate", "Permeate", labels, tuple(analyte_mg_hr((permeate,), ids) for ids in groups.values())),
+            )
+        elif plot_id == "PR7-PRODUCT-PROFILE":
+            from Greenhub.component_groups import COMPONENT_GROUPS
+            from Greenhub.phase4_validation import PROTEIN_POOL_IDS
+
+            feed = next((item for item in result.streams if "clarified_protein_rich_liquid" in item.aliases), None)
+            benchmark_feed = next((item for item in result.streams if "biostimulant_benchmark_hormone_feed" in item.aliases), None)
+            retentate = next((item for item in result.streams if "biostimulant_product" in item.aliases), None)
+            permeate = next((item for item in result.streams if "biostimulant_permeate" in item.aliases), None)
+            unresolved = next((item for item in result.streams if "biostimulant_unresolved" in item.aliases), None)
+            streams_to_compare = (feed, retentate, permeate, unresolved)
+            category_ids = {
+                "Water": {"Water"},
+                "Protein pools": set(PROTEIN_POOL_IDS),
+                "Peptides": {"Peptides"},
+                "Amino acids": {"AminoAcids"},
+                "Sugars": set(COMPONENT_GROUPS["soluble_sugars"] | COMPONENT_GROUPS["entrapped_sugars"]),
+            }
+            all_ids = set().union(*(
+                set(stream.components) for stream in (*streams_to_compare, benchmark_feed) if stream is not None
+            ))
+            assigned_ids = set().union(*category_ids.values())
+            category_ids["Other pools"] = all_ids - assigned_ids
+            labels = tuple(category_ids)
+            series = tuple(
+                PlotSeries(
+                    key,
+                    label,
+                    labels,
+                    tuple(
+                        sum(
+                            float(stream.components[component].value or 0.0)
+                            for component in category_ids[label]
+                            if component in stream.components
+                        ) + (
+                            sum(
+                                float(benchmark_feed.components[component].value or 0.0)
+                                for component in category_ids[label]
+                                if component in benchmark_feed.components
+                            ) if key == "feed" and benchmark_feed is not None else 0.0
+                        ) if stream is not None else 0.0
+                        for label in labels
+                    ),
+                )
+                for key, label, stream in zip(
+                    ("feed", "retentate", "permeate"),
+                    ("Feed", "Retentate", "Permeate"),
+                    streams_to_compare,
+                )
+            )
+        elif plot_id == "PR7-ENERGY-BREAKDOWN":
+            unit = next(item for item in result.units if item.unit_id == "PR7_M101")
+            pressure = unit.design_results.get("Pressure work")
+            crossflow = unit.design_results.get("Crossflow electricity")
+            energy_series = []
+            if pressure is not None and pressure.value is not None:
+                energy_series.append(PlotSeries(
+                    "pressure_work", "Permeate pressure work", ("PR7",),
+                    (pressure.value,),
+                ))
+            if crossflow is not None and crossflow.value is not None:
+                energy_series.append(PlotSeries(
+                    "crossflow", "Crossflow recirculation", ("PR7",),
+                    (crossflow.value,),
+                ))
+            series = tuple(energy_series)
         elif plot_id == "STATE-FLOW":
             series = (PlotSeries("flow", "Flow", tuple(x["unit_id"] for x in result.process_state_snapshots), tuple(x["flow_kg_hr"] for x in result.process_state_snapshots)),)
         elif plot_id == "STATE-COD":
@@ -241,11 +391,12 @@ class PlotService:
                 PlotSeries(unit, unit, tuple(item["time"] for item in rows), tuple(1.0 if item["bottleneck_unit"] == unit else 0.0 for item in rows))
                 for unit in sorted({item["bottleneck_unit"] for item in rows if item["bottleneck_unit"]})
             )
-        if plot_id in {"SEASONAL-PRODUCTS", "SEASONAL-PROTEIN", "SEASONAL-BIOMETHANE", "SEASONAL-NUTRIENTS"}:
+        if plot_id in {"SEASONAL-PRODUCTS", "SEASONAL-PROTEIN", "SEASONAL-BIOSTIMULANT", "SEASONAL-BIOMETHANE", "SEASONAL-NUTRIENTS"}:
             rows = result.product_series
             names = sorted({name for item in rows for name, value in item["products_kg"].items() if value > 0.0})
             filters = {
                 "SEASONAL-PROTEIN": {"dry_protein_product"},
+                "SEASONAL-BIOSTIMULANT": {"biostimulant_product"},
                 "SEASONAL-BIOMETHANE": {"biomethane"},
                 "SEASONAL-NUTRIENTS": {"phosphorus_product", "ammonium_product", "potassium_concentrate", "nutrient_rich_solids"},
             }
@@ -255,6 +406,13 @@ class PlotService:
                 PlotSeries(name, name.replace("_", " ").title(), tuple(item["time"] for item in rows), tuple(item["products_kg"].get(name, 0.0) for item in rows))
                 for name in names
             )
+        if plot_id == "SEASONAL-BIOSTIMULANT-VOLUME":
+            rows = result.product_series
+            return (PlotSeries(
+                "biostimulant_product", "Biostimulant concentrate",
+                tuple(item["time"] for item in rows),
+                tuple(item.get("volumetric_products_m3", {}).get("biostimulant_product", 0.0) for item in rows),
+            ),)
         utility_keys = {
             "SEASONAL-ELECTRICITY": "electricity_kwh",
             "SEASONAL-HEATING": "heating_kwh",

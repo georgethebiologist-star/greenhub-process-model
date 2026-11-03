@@ -62,6 +62,197 @@
         "null"
       ]
     },
+    "biostimulant_route": {
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "required": [
+            "flux_L_m2_h",
+            "flux_source"
+          ]
+        },
+        {
+          "required": [
+            "feed_to_reference_concentration_ratio",
+            "flux_model_source",
+            "transmembrane_pressure_bar",
+            "pressure_source",
+            "viscosity_Pa_s",
+            "viscosity_source"
+          ]
+        }
+      ],
+      "properties": {
+        "cip_input_source": {
+          "description": "Required source/evidence note when CIP volume and make-up fraction are supplied.",
+          "minLength": 1,
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "cip_makeup_fraction_per_cycle": {
+          "description": "Fraction of each CIP working-solution batch replaced/made up after each event; requires volume and evidence note.",
+          "maximum": 1,
+          "minimum": 0,
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "cip_solution_volume_L_per_step": {
+          "description": "Optional same nominal working-solution volume for each sequential CIP step; requires make-up fraction and evidence note.",
+          "exclusiveMinimum": 0,
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "component_retention_override_sources": {
+          "additionalProperties": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "component_retention_overrides": {
+          "additionalProperties": {
+            "maximum": 1,
+            "minimum": 0,
+            "type": "number"
+          },
+          "type": "object"
+        },
+        "crossflow_electricity_kwh_m3_feed": {
+          "description": "Optional explicit crossflow recirculation electricity per m3 clarified feed; added to BioSTEAM electricity utilities and excludes separately modeled permeate-side pressure work.",
+          "minimum": 0,
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "crossflow_electricity_source": {
+          "description": "Required measurement/source note when crossflow_electricity_kwh_m3_feed is supplied.",
+          "minLength": 1,
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "feed_to_reference_concentration_ratio": {
+          "description": "Optional Cf/C0 ratio for resistance-based flux calculation; no default is assumed.",
+          "exclusiveMinimum": 0,
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "flux_L_m2_h": {
+          "description": "Explicit empirical operating flux. Select this or the resistance method, not both.",
+          "exclusiveMinimum": 0,
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "flux_model_source": {
+          "description": "Required evidence/basis note for the supplied Cf/C0 input.",
+          "minLength": 1,
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "flux_source": {
+          "description": "Evidence note required when an explicit empirical flux is supplied.",
+          "minLength": 1,
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "hormone_benchmark_source": {
+          "description": "Required evidence note when use_hormone_benchmarks is true.",
+          "minLength": 1,
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "pressure_source": {
+          "minLength": 1,
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "pump_efficiency_fraction": {
+          "description": "Optional; when supplied it requires TMP and its own source note.",
+          "exclusiveMinimum": 0,
+          "maximum": 1,
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "pump_efficiency_source": {
+          "minLength": 1,
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "retention_matrix_source": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "technology_id": {
+          "enum": [
+            "TUF",
+            "LNF",
+            "MEUF"
+          ],
+          "type": "string"
+        },
+        "transmembrane_pressure_bar": {
+          "description": "Optional TMP; required with Cf/C0 for resistance-based flux, or with pump efficiency for pressure-work electricity.",
+          "exclusiveMinimum": 0,
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "use_hormone_benchmarks": {
+          "default": false,
+          "description": "Explicitly add the user-supplied clarified-juice hormone benchmark as a separately tracked screening analyte feed; off by default.",
+          "type": "boolean"
+        },
+        "viscosity_Pa_s": {
+          "description": "Measured clarified-juice viscosity for the active no-fermentation feed; fermented-juice register value is not reused.",
+          "exclusiveMinimum": 0,
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "viscosity_source": {
+          "description": "Evidence note required with viscosity_Pa_s for the resistance flux method.",
+          "minLength": 1,
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "technology_id",
+        "retention_matrix_source"
+      ],
+      "type": [
+        "object",
+        "null"
+      ]
+    },
     "initial_storage_inventory": {
       "additionalProperties": false,
       "properties": {
@@ -259,6 +450,197 @@
     },
     "biomass_schedule": {
       "$ref": "#/$defs/biomass_schedule"
+    },
+    "biostimulant_route": {
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "required": [
+            "flux_L_m2_h",
+            "flux_source"
+          ]
+        },
+        {
+          "required": [
+            "feed_to_reference_concentration_ratio",
+            "flux_model_source",
+            "transmembrane_pressure_bar",
+            "pressure_source",
+            "viscosity_Pa_s",
+            "viscosity_source"
+          ]
+        }
+      ],
+      "properties": {
+        "cip_input_source": {
+          "description": "Required source/evidence note when CIP volume and make-up fraction are supplied.",
+          "minLength": 1,
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "cip_makeup_fraction_per_cycle": {
+          "description": "Fraction of each CIP working-solution batch replaced/made up after each event; requires volume and evidence note.",
+          "maximum": 1,
+          "minimum": 0,
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "cip_solution_volume_L_per_step": {
+          "description": "Optional same nominal working-solution volume for each sequential CIP step; requires make-up fraction and evidence note.",
+          "exclusiveMinimum": 0,
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "component_retention_override_sources": {
+          "additionalProperties": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "component_retention_overrides": {
+          "additionalProperties": {
+            "maximum": 1,
+            "minimum": 0,
+            "type": "number"
+          },
+          "type": "object"
+        },
+        "crossflow_electricity_kwh_m3_feed": {
+          "description": "Optional explicit crossflow recirculation electricity per m3 clarified feed; added to BioSTEAM electricity utilities and excludes separately modeled permeate-side pressure work.",
+          "minimum": 0,
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "crossflow_electricity_source": {
+          "description": "Required measurement/source note when crossflow_electricity_kwh_m3_feed is supplied.",
+          "minLength": 1,
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "feed_to_reference_concentration_ratio": {
+          "description": "Optional Cf/C0 ratio for resistance-based flux calculation; no default is assumed.",
+          "exclusiveMinimum": 0,
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "flux_L_m2_h": {
+          "description": "Explicit empirical operating flux. Select this or the resistance method, not both.",
+          "exclusiveMinimum": 0,
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "flux_model_source": {
+          "description": "Required evidence/basis note for the supplied Cf/C0 input.",
+          "minLength": 1,
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "flux_source": {
+          "description": "Evidence note required when an explicit empirical flux is supplied.",
+          "minLength": 1,
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "hormone_benchmark_source": {
+          "description": "Required evidence note when use_hormone_benchmarks is true.",
+          "minLength": 1,
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "pressure_source": {
+          "minLength": 1,
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "pump_efficiency_fraction": {
+          "description": "Optional; when supplied it requires TMP and its own source note.",
+          "exclusiveMinimum": 0,
+          "maximum": 1,
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "pump_efficiency_source": {
+          "minLength": 1,
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "retention_matrix_source": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "technology_id": {
+          "enum": [
+            "TUF",
+            "LNF",
+            "MEUF"
+          ],
+          "type": "string"
+        },
+        "transmembrane_pressure_bar": {
+          "description": "Optional TMP; required with Cf/C0 for resistance-based flux, or with pump efficiency for pressure-work electricity.",
+          "exclusiveMinimum": 0,
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "use_hormone_benchmarks": {
+          "default": false,
+          "description": "Explicitly add the user-supplied clarified-juice hormone benchmark as a separately tracked screening analyte feed; off by default.",
+          "type": "boolean"
+        },
+        "viscosity_Pa_s": {
+          "description": "Measured clarified-juice viscosity for the active no-fermentation feed; fermented-juice register value is not reused.",
+          "exclusiveMinimum": 0,
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "viscosity_source": {
+          "description": "Evidence note required with viscosity_Pa_s for the resistance flux method.",
+          "minLength": 1,
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "technology_id",
+        "retention_matrix_source"
+      ],
+      "type": [
+        "object",
+        "null"
+      ]
     },
     "calculation_mode": {
       "default": "structural",

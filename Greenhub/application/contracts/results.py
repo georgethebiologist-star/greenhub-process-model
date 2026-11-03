@@ -72,6 +72,7 @@ class ProductResult:
     stream_id: str
     mass_flow: NumericalValue
     classification: str
+    volumetric_flow: NumericalValue | None = None
 
 
 @dataclass(frozen=True)

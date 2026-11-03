@@ -44,7 +44,12 @@ class ScenarioService:
             )
         )
 
-    def validate_scenario_chain(self, selection: ScenarioSelection) -> tuple[ValidationIssue, ...]:
+    def validate_scenario_chain(
+        self,
+        selection: ScenarioSelection,
+        *,
+        biostimulant_route_configured: bool = False,
+    ) -> tuple[ValidationIssue, ...]:
         issues = []
         selected = {
             "feed_preparation": selection.feed_preparation,
@@ -66,12 +71,21 @@ class ScenarioService:
                     )
                 )
                 continue
-            if hasattr(scenario, "active") and not scenario.active:
+            configured_pr7 = (
+                group == "protein_recovery" and scenario_id == "PR7"
+                and biostimulant_route_configured
+            )
+            if hasattr(scenario, "active") and not scenario.active and not configured_pr7:
+                requirements = tuple(getattr(scenario, "missing_data_requirements", ()))
+                gate_detail = (
+                    " Required inputs: " + "; ".join(requirements)
+                    if requirements else ""
+                )
                 issues.append(
                     ValidationIssue(
                         code="SCENARIO_DATA_GATE",
                         severity="error",
-                        message=f"Scenario '{scenario_id}' is inactive because its data gate is incomplete.",
+                        message=f"Scenario '{scenario_id}' is inactive because its data gate is incomplete.{gate_detail}",
                         blocking=True,
                         field=group,
                     )

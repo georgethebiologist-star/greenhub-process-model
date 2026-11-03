@@ -60,8 +60,9 @@ function summaryCsv(result:SimulationResult) {
   const rows:[string,string,string][]=[['Metric','Value','Unit'],['Run ID',result.run_id,''],['Timestamp',result.timestamp,''],['Validation',result.validation.status,'']];
   if(annual){
     rows.push(['Feed processed',String(annual.feed_processed.value),'kg/year']);
-    rows.push(['Dry protein product',String(annual.products.dry_protein_product?.value??''),'kg/year']);
-    rows.push(['Biomethane product',String(annual.products.biomethane?.value??''),'kg/year']);
+    rows.push([result.scenarios.protein_recovery==='PR7'?'Biostimulant wet retentate':'Dry protein product',String(annual.products[result.scenarios.protein_recovery==='PR7'?'biostimulant_product':'dry_protein_product']?.value??''),'kg/year']);
+    rows.push(['Biomethane product volume',String(annual.volumetric_products?.biomethane?.value??''),'m³/year at modelled stream conditions']);
+    rows.push(['Biomethane mass',String(annual.products.biomethane?.value??''),'kg/year']);
     rows.push(['Electricity',String(annual.utilities.electricity?.value??''),'kWh/year']);
     rows.push(['Overall mass closure',String(annual.balance.overall_closure_pct),'%']);
   } else {
@@ -76,20 +77,24 @@ function summaryCsv(result:SimulationResult) {
 function StoryView({result,annual}:{result:SimulationResult;annual:AnnualSummary|null}) {
   const products = productRows(result,annual);
   const utilities = utilityRows(result,annual);
+  const pr7Metrics=result.process_areas.protein_recovery.metrics||{};
   const active = result.units.filter(unit=>unit.status==='active').length;
   const warnings = result.validation.issues.length;
   return <div className="story-stack">
     <section className="decision-kpis">
       <Outcome label="Feed processed" value={annual ? formatMass(annual.feed_processed.value) : `${result.balances.mass_in_kgh.toFixed(1)} kg/h`} tone="green"/>
-      <Outcome label="Protein product" value={annual ? formatMass(annual.products.dry_protein_product?.value || 0) : `${result.metrics.protein_recovered_kgh.toFixed(1)} kg/h`} tone="green"/>
-      <Outcome label="Biomethane" value={annual ? formatMass(annual.products.biomethane?.value || 0) : `${result.metrics.biomethane_flow_m3h.toFixed(1)} kg/h`} tone="blue"/>
+      <Outcome label={result.scenarios.protein_recovery==='PR7'?'Biostimulant retentate':'Protein product'} value={annual ? formatMass(result.scenarios.protein_recovery==='PR7'?(annual.products.biostimulant_product?.value||0):(annual.products.dry_protein_product?.value||0)) : result.scenarios.protein_recovery==='PR7'?`${Number(result.process_areas.protein_recovery.metrics?.biostimulant_product_flow_kg_hr||0).toFixed(1)} kg/h wet retentate`:`${result.metrics.protein_recovered_kgh.toFixed(1)} kg/h`} tone="green"/>
+      <Outcome label="Biomethane" value={annual ? `${(annual.volumetric_products?.biomethane?.value||0).toLocaleString(undefined,{maximumFractionDigits:1})} m³/year` : `${result.metrics.biomethane_flow_m3h.toFixed(1)} m³/h`} tone="blue"/>
       <Outcome label="Mass closure" value={`${(annual?.balance.overall_closure_pct ?? result.balances.mass_closure_pct).toFixed(3)}%`} tone={result.validation.status==='pass'?'green':'rose'}/>
     </section>
     {annual && <div className="method-note"><CheckCircle2 size={15}/><div><strong>{annual.method_label}</strong><span>{annual.basis}</span></div></div>}
+    {result.scenarios.protein_recovery==='PR7'&&<div className="method-note"><Activity size={15}/><div><strong>Membrane flux · {String(pr7Metrics.biostimulant_flux_method||'not reported').replaceAll('_',' ')}</strong><span>{Number(pr7Metrics.biostimulant_membrane_flux_L_m2_h||0).toLocaleString(undefined,{maximumFractionDigits:2})} L/(m²·h) · {Number(pr7Metrics.biostimulant_membrane_area_m2||0).toLocaleString(undefined,{maximumFractionDigits:1})} m² area · VCF target {Number(pr7Metrics.biostimulant_target_concentration_factor||0).toLocaleString(undefined,{maximumFractionDigits:2})} · simulated {pr7Metrics.biostimulant_actual_volume_concentration_factor==null?'n/a':Number(pr7Metrics.biostimulant_actual_volume_concentration_factor).toLocaleString(undefined,{maximumFractionDigits:2})}{pr7Metrics.biostimulant_feed_to_reference_concentration_ratio!==null&&pr7Metrics.biostimulant_feed_to_reference_concentration_ratio!==undefined?` · Cf/C0 ${Number(pr7Metrics.biostimulant_feed_to_reference_concentration_ratio).toPrecision(3)}`:''}</span><small>{String(pr7Metrics.biostimulant_flux_evidence||'')}</small></div></div>}
+    {result.scenarios.protein_recovery==='PR7'&&pr7Metrics.biostimulant_hormone_feed_basis==='user_supplied_clarified_juice_benchmark_screening'&&<div className="method-note"><Activity size={15}/><div><strong>Hormone feed · benchmark screening input</strong><span>{Number(pr7Metrics.biostimulant_hormone_benchmark_feed_kg_hr||0).toPrecision(3)} kg/h analyte-equivalent supplement · {String(pr7Metrics.biostimulant_hormone_benchmark_source||'source not reported')}</span><small>Separate trace feed, based on supplied clarified-juice benchmark concentrations; not a GreenHub measurement.</small></div></div>}
     <section className="story-grid">
       <article className="story-chart"><div className="story-title"><Package/><div><h4>Recovered products</h4><p>Where useful material leaves the process.</p></div></div><SimpleBar data={products} unit={annual?'t/year':'kg/h'}/></article>
       <article className="story-chart"><div className="story-title"><Zap/><div><h4>Utility demand</h4><p>Period energy is separated from instantaneous power.</p></div></div>{annual?<div className="utility-summary"><div><span>Electricity</span><strong>{formatEnergy(annual.utilities.electricity?.value||0)}</strong></div><div><span>Heating</span><strong>{formatHeat(annual.display_utilities?.heating?.value||0)}</strong></div><div><span>Cooling</span><strong>{formatHeat(annual.display_utilities?.cooling?.value||0)}</strong></div></div>:<SimpleBar data={utilities} unit="kW instantaneous"/>}</article>
     </section>
+    {result.scenarios.protein_recovery==='PR7'&&<PR7HormoneCapture result={result} annual={annual}/>}
     <section className="process-readout">
       <div><span>Process activity</span><strong>{active} active units</strong><small>{result.units.length-active} bypassed or inactive</small></div>
       <div><span>Quality checks</span><strong>{warnings ? `${warnings} items to review` : 'No blocking issues'}</strong><small>{result.validation.status === 'pass' ? 'Balance checks passed' : 'Use results with the listed cautions'}</small></div>
@@ -98,13 +103,39 @@ function StoryView({result,annual}:{result:SimulationResult;annual:AnnualSummary
   </div>;
 }
 
+function PR7HormoneCapture({result,annual}:{result:SimulationResult;annual:AnnualSummary|null}) {
+  const feed=result.streams.find(stream=>stream.id==='clarified_protein_rich_liquid');
+  const product=result.streams.find(stream=>stream.id==='biostimulant_product');
+  const permeate=result.streams.find(stream=>stream.id==='biostimulant_permeate');
+  const pr7Assumptions=result.units.find(unit=>unit.id==='PR7_M101')?.warnings?.filter(warning=>warning.includes('solid-phase'))||[];
+  const groups=[
+    ['IAA',['Indole3AceticAcid','ProteinBoundIAA']],
+    ['Zeatin',['Zeatin','PeptideBoundZeatin']],
+    ['Zeatin riboside',['ZeatinRiboside','BoundZeatinRiboside']],
+  ] as const;
+  const hasPools=Boolean(feed?.components_kg_hr&&groups.some(([,ids])=>ids.some(id=>id in (feed.components_kg_hr||{}))));
+  if(!hasPools)return <section className="panel">{pr7Assumptions.length>0&&<div className="method-note"><Activity size={15}/><div><strong>Solid-pool screening assumption</strong><span>Unclassified model solids are assigned complete membrane retention. Validate particulate capture and fouling using the clarified-juice feed.</span></div></div>}<Empty title="No non-zero hormone pools in this run" text="The sparse stream export contains no non-zero IAA, zeatin or zeatin-riboside feed mass. This is a model-input result, not a measurement of real grass juice."/></section>;
+  const multiplier=annual?annual.period.operating_hours*1e6:1e6;
+  const unit=annual?'mg/year':'mg/h';
+  const rows=groups.map(([label,ids])=>{
+    const input=ids.reduce((sum,id)=>sum+(feed?.components_kg_hr?.[id]||0),0);
+    const captured=ids.reduce((sum,id)=>sum+(product?.components_kg_hr?.[id]||0),0);
+    const passed=ids.reduce((sum,id)=>sum+(permeate?.components_kg_hr?.[id]||0),0);
+    return {label,feed:input*multiplier,retentate:captured*multiplier,permeate:passed*multiplier,capture:input>0?captured/input:null,balanceError:input-captured-passed};
+  });
+  const anyDeclared=rows.some(row=>row.feed>0);
+  return <section className="panel"><div className="story-title"><Package/><div><h4>Hormone recovery</h4><p>Modelled analyte payload entering the membrane and leaving in retentate or permeate.</p></div></div>{pr7Assumptions.length>0&&<div className="method-note"><Activity size={15}/><div><strong>Solid-pool screening assumption</strong><span>Unclassified model solids are assigned complete membrane retention. Validate particulate capture and fouling using the clarified-juice feed.</span></div></div>}
+    {anyDeclared?<><div className="ds-chart"><ResponsiveContainer width="100%" height={260}><BarChart data={rows} margin={{top:12,right:16,bottom:4,left:8}}><CartesianGrid stroke="#d4cec7" vertical={false}/><XAxis dataKey="label" stroke="#587174" fontSize={10}/><YAxis stroke="#587174" fontSize={9} unit={` ${unit}`}/><Tooltip contentStyle={tooltipStyle} formatter={(value:number,name:string)=>[`${Number(value).toLocaleString(undefined,{maximumFractionDigits:2})} ${unit}`,name]}/><Legend/><Bar dataKey="feed" name="Feed" fill={chartColors[1]} radius={[3,3,0,0]}/><Bar dataKey="retentate" name="Retentate" fill={chartColors[0]} radius={[3,3,0,0]}/><Bar dataKey="permeate" name="Permeate" fill={chartColors[2]} radius={[3,3,0,0]}/></BarChart></ResponsiveContainer></div><div className="process-readout">{rows.map(row=><div key={row.label}><span>{row.label} capture</span><strong>{row.capture==null?'Not defined':`${(row.capture*100).toFixed(1)}%`}</strong><small>{row.capture==null?'No analyte declared in feed':`Retentate / feed · balance error ${row.balanceError.toExponential(2)} kg/h`}</small></div>)}</div></>:<p className="method-note"><strong>No hormone analyte mass was declared in this run’s feed composition.</strong> Screening benchmarks are not inserted into the plant mass balance; this result is not a measurement of hormone absence in grass juice.</p>}
+  </section>;
+}
+
 function AnnualView({result,annual}:{result:SimulationResult;annual:AnnualSummary|null}) {
   if (!annual) return <Empty title="Annual results are not available" text="Run the Python model to calculate a full-year operating plan."/>;
   const charts = annual.chart_data;
   const schedule = annual.biomass_schedule;
   const nutrient = (annual.named_products?.struvite_product?.value||annual.products.phosphorus_product?.value||0)+(annual.products.ammonium_product?.value||0)+(annual.products.potassium_concentrate?.value||0);
   return <div className="annual-stack">
-    <section className="decision-kpis annual-kpis"><Outcome label="Annual feed" value={formatMass(annual.feed_processed.value)} tone="green"/><Outcome label="Protein" value={formatMass(annual.products.dry_protein_product?.value||0)} tone="green"/><Outcome label="Biomethane" value={formatMass(annual.products.biomethane?.value||0)} tone="blue"/><Outcome label="Nutrient products" value={formatMass(nutrient)} tone="yellow"/><Outcome label="Electricity" value={formatEnergy(annual.utilities.electricity?.value||0)} tone="rose"/></section>
+    <section className="decision-kpis annual-kpis"><Outcome label="Annual feed" value={formatMass(annual.feed_processed.value)} tone="green"/><Outcome label={result.scenarios.protein_recovery==='PR7'?'Biostimulant retentate':'Protein'} value={formatMass(annual.products[result.scenarios.protein_recovery==='PR7'?'biostimulant_product':'dry_protein_product']?.value||0)} tone="green"/><Outcome label="Biomethane" value={`${(annual.volumetric_products?.biomethane?.value||0).toLocaleString(undefined,{maximumFractionDigits:1})} m³/year`} tone="blue"/><Outcome label="Nutrient products" value={formatMass(nutrient)} tone="yellow"/><Outcome label="Electricity" value={formatEnergy(annual.utilities.electricity?.value||0)} tone="rose"/></section>
     <section className="annual-basis"><div><span>Calculation basis</span><strong>{annual.method_label}</strong><p>{annual.basis}</p></div><dl><div><dt>Operating hours</dt><dd>{annual.period.operating_hours.toLocaleString(undefined,{maximumFractionDigits:0})} h/year</dd></div><div><dt>Schedule</dt><dd>{annual.period.schedule_source}</dd></div><div><dt>Balance result</dt><dd>{annual.balance.passed?'Passed':'Review required'}</dd></div></dl></section>
     {charts?.schedule?.length ? <>
       <section className="schedule-facts"><div><span>Available</span><strong>{schedule.annual_available_tonnes.toLocaleString(undefined,{maximumFractionDigits:0})} t/year</strong></div><div><span>Processed</span><strong>{schedule.annual_processed_tonnes.toLocaleString(undefined,{maximumFractionDigits:0})} t/year</strong></div><div><span>Unused</span><strong>{schedule.annual_unused_tonnes.toLocaleString(undefined,{maximumFractionDigits:0})} t/year</strong></div><div><span>Utilization</span><strong>{(schedule.utilization_fraction*100).toFixed(1)}%</strong></div><div><span>Peak month</span><strong>{schedule.peak_month_processed_tonnes.toLocaleString(undefined,{maximumFractionDigits:0})} t</strong></div></section>
@@ -153,7 +184,7 @@ function Outcome({label,value,tone}:{label:string;value:string;tone:string}) { r
 function SimpleBar({data,unit}:{data:Array<{name:string;value:number}>;unit:string}) { return <ResponsiveContainer width="100%" height={240}><BarChart data={data} layout="vertical" margin={{left:12,right:22}}><CartesianGrid stroke="#d4cec7" horizontal={false}/><XAxis type="number" stroke="#587174" fontSize={9} unit={` ${unit}`}/><YAxis type="category" dataKey="name" width={115} stroke="#587174" fontSize={9}/><Tooltip contentStyle={tooltipStyle}/><Bar dataKey="value" radius={[0,4,4,0]}>{data.map((item,index)=><Cell key={item.name} fill={chartColors[index%chartColors.length]}/>)}</Bar></BarChart></ResponsiveContainer>; }
 function DataTable({headers,rows}:{headers:string[];rows:string[][]}) { return <div className="data-table-wrap"><table className="data-table"><thead><tr>{headers.map(header=><th key={header}>{header}</th>)}</tr></thead><tbody>{rows.map((row,index)=><tr key={index}>{row.map((cell,column)=><td key={column}>{cell}</td>)}</tr>)}</tbody></table>{!rows.length&&<div className="empty-state">No data returned for this run.</div>}</div>; }
 function Empty({title,text}:{title:string;text:string}) { return <div className="empty-state"><BarChart3 size={22}/><strong>{title}</strong><span>{text}</span></div>; }
-function productRows(result:SimulationResult,annual:AnnualSummary|null) { const values = annual ? [['Protein',annual.products.dry_protein_product?.value||0],['Biomethane',annual.products.biomethane?.value||0],['Struvite',annual.named_products?.struvite_product?.value||annual.products.phosphorus_product?.value||0],['Ammonium sulfate',annual.products.ammonium_product?.value||0],['Potassium',annual.products.potassium_concentrate?.value||0]] : [['Protein',result.metrics.protein_recovered_kgh],['Biomethane',result.metrics.biomethane_flow_m3h],['Struvite',result.metrics.struvite_yield_kgh],['Ammonium sulfate',result.metrics.ammonia_sulfate_kgh],['Potassium',result.metrics.potassium_concentrate_kgh]]; return values.map(([name,value])=>({name:String(name),value:Number(value)/(annual?1000:1)})); }
+function productRows(result:SimulationResult,annual:AnnualSummary|null) { const isPR7=result.scenarios.protein_recovery==='PR7'; const values = annual ? [[isPR7?'Biostimulant retentate':'Protein',annual.products[isPR7?'biostimulant_product':'dry_protein_product']?.value||0],['Struvite',annual.named_products?.struvite_product?.value||annual.products.phosphorus_product?.value||0],['Ammonium sulfate',annual.products.ammonium_product?.value||0],['Potassium',annual.products.potassium_concentrate?.value||0]] : [[isPR7?'Biostimulant retentate':'Protein',isPR7?Number(result.process_areas.protein_recovery.metrics?.biostimulant_product_flow_kg_hr||0):result.metrics.protein_recovered_kgh],['Struvite',result.metrics.struvite_yield_kgh],['Ammonium sulfate',result.metrics.ammonia_sulfate_kgh],['Potassium',result.metrics.potassium_concentrate_kgh]]; return values.map(([name,value])=>({name:String(name),value:Number(value)/(annual?1000:1)})); }
 function utilityRows(result:SimulationResult,annual:AnnualSummary|null) { return annual ? [['Electricity',annual.utilities.electricity?.value||0],['Heating',annual.utilities.heating?.value||0],['Cooling',annual.utilities.cooling?.value||0]].map(([name,value])=>({name:String(name),value:Number(value)/1000})) : [{name:'Electricity',value:Math.abs(result.metrics.total_power_kw)},{name:'Heating',value:Math.abs(result.metrics.total_heat_kw)}]; }
 function formatMass(value:number) { return `${(value/1000).toLocaleString(undefined,{maximumFractionDigits:1})} t/year`; }
 function formatEnergy(value:number) { return `${(value/1000).toLocaleString(undefined,{maximumFractionDigits:1})} MWh/year`; }

@@ -172,18 +172,38 @@ PROTEIN_RECOVERY_SCENARIOS = {
         "Architecture reserved; membrane design and retention data are not available.",
         ("membrane flux", "retention matrix", "TMP", "fouling factor", "cleaning cycle"),
     ),
+    "PR7": ProteinRecoveryScenario(
+        "PR7",
+        "Biostimulant membrane recovery",
+        False,
+        False,
+        False,
+        False,
+        "Clarified-juice phytohormone-enriched product route with selectable tight UF, loose NF, or MEUF screening membranes; no fermentation unit is included.",
+        (
+            "full-plant run: explicit TUF/LNF/MEUF selection, positive flux, and evidence notes for flux and retention matrix",
+            "complete component retention for every nonzero component in the selected clarified-juice feed; source-noted per-component values where the class matrix does not apply",
+            "monthly seasonal PR7 integration is implemented; verify full-year coverage and active-month throughput for each selected feed schedule",
+            "AD2 bypasses Phase 4 and cannot follow PR7; use AD0 for no digestion or AD1/AD3 for post-membrane digestion",
+            "measured hormone pools in feed composition before claiming full-plant hormone recovery (screening benchmarks do not populate the plant feed)",
+            "validated membrane energy, CIP, replacement, and installation data before complete PR7 energy/CAPEX/OPEX reporting",
+            "validated product specification, retentate volume basis, and price before PR7 product revenue is reported",
+            "MEUF-specific surfactant inventory, recovery, and residual handling before MEUF utility/economic claims",
+            "project validation of user-supplied screening sources and operating assumptions",
+        ),
+    ),
 }
 
 
 def get_protein_recovery_scenario(scenario_id: str) -> ProteinRecoveryScenario:
-    """Return PR0-PR6 metadata with a clear validation error."""
+    """Return PR0-PR7 metadata with a clear validation error."""
 
     key = str(scenario_id).upper()
     try:
         return PROTEIN_RECOVERY_SCENARIOS[key]
     except KeyError as error:
         raise ValueError(
-            f"Unknown Phase 4 scenario '{scenario_id}'; use PR0 through PR6."
+            f"Unknown Phase 4 scenario '{scenario_id}'; use PR0 through PR7."
         ) from error
 
 

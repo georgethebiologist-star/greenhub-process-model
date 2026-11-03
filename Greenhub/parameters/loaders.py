@@ -53,7 +53,7 @@ _SCENARIO_CONTROLS = {
     "control.scenario.protein_recovery": (
         "selected_phase4_scenario",
         "PR3",
-        tuple(f"PR{i}" for i in range(7)),
+        tuple(f"PR{i}" for i in range(8)),
         "Protein-recovery scenario",
     ),
     "control.scenario.anaerobic_digestion": (

@@ -506,6 +506,7 @@ def create_phase7_scenario(
     process_order: str | None = None,
     workbook_path: Path = INPUT_WORKBOOK_PATH,
     parameter_overrides: Mapping[str, object] | None = None,
+    biostimulant_route: Mapping[str, object] | None = None,
     input_bundle: Phase7InputBundle | None = None,
 ) -> Phase7Model:
     """Build one fresh NR0-NR7 integrated model without simulating it."""
@@ -537,6 +538,7 @@ def create_phase7_scenario(
         selected_month=bundle.selected_month,
         workbook_path=workbook_path,
         parameter_overrides=parameter_overrides,
+        biostimulant_route=biostimulant_route,
     )
     flowsheet = upstream.flowsheet
     units = dict(upstream.units)

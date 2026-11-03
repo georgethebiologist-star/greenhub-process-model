@@ -1,5 +1,7 @@
 """Read-only post-route climate inventory; missing evidence never becomes zero."""
+import csv
 from dataclasses import asdict, dataclass
+from pathlib import Path
 from Greenhub.lca_inventory import ClimateFactor, coerce_basis, coerce_flow, load_climate_factors, GROUPS, METHOD
 
 
@@ -10,7 +12,7 @@ class LCAReport:
 
 
 def screening_lca_factors():
-    """Return traceable Dutch-average electricity and heat factors for screening."""
+    """Return opt-in utility and PR7 chemical climate factors for screening."""
     return {
         "electricity": ClimateFactor(
             factor_id="electricity", value=0.264, quantity_unit="kWh",
@@ -35,6 +37,38 @@ def screening_lca_factors():
             uncertainty="No probability distribution supplied; use only as a declared national-average scenario factor",
             warning="Average 2022 heat-grid factor; not a supplier-specific plant factor.",
         ),
+        **_screening_chemical_climate_factors(),
+    }
+
+
+def _screening_chemical_climate_factors():
+    """Load opt-in PR7 reagent factors from their provenance register."""
+    path = (
+        Path(__file__).resolve().parents[1]
+        / "data" / "Protein recovery" / "Membrane" / "biostimulant_chemical_lca_factors.csv"
+    )
+    with path.open("r", newline="", encoding="utf-8-sig") as handle:
+        rows = list(csv.DictReader(handle))
+    return {
+        row["factor_id"]: ClimateFactor(
+            factor_id=row["factor_id"],
+            value=float(row["value"]),
+            quantity_unit=row["quantity_unit"],
+            source_status=row["source_status"],
+            basis=f"{row['system_boundary']}; {row['allocation']}; {row['model_use']}",
+            geography=row["geography"],
+            reference_year=int(row["reference_year"]),
+            source_url=row["source_url"],
+            source_table_page=row["source_title"],
+            retrieval_date=row["retrieval_date"],
+            evidence_class=row["evidence_class"],
+            applicability=row["model_use"],
+            conversion_method="identity; factor value is kg CO2e per kg active reagent",
+            uncertainty=row["uncertainty"],
+            method=row["method"],
+            warning=row["warning"],
+        )
+        for row in rows
     }
 
 
@@ -149,6 +183,8 @@ def calculate_empirical_lca(result, project_basis=None, *, factors=None, additio
     basis=coerce_basis(project_basis); seasonal=result.seasonal_summary
     hours=basis.operating_hours_per_year
     if seasonal:
+        if getattr(getattr(result, "selected_scenarios", None), "protein_recovery", None) == "PR7":
+            hours = seasonal.get("active_process_operating_hours")
         energy=seasonal.get('total_utilities',{})
         electricity=energy.get('electricity_kwh'); heat=energy.get('heating_kwh')
     else:
@@ -164,9 +200,120 @@ def calculate_empirical_lca(result, project_basis=None, *, factors=None, additio
                 raise ValueError('Empirical heat demand must be kJ/h.')
             return sum(max(0,float(u.demand.value)) for u in utilities)/3600*hours
         electricity=annual_utility('electricity'); heat=annual_utility('heat')
-    def row(name,group,q,unit,factor,**kwargs):
-        return dict(flow_id=name,group=group,quantity=q,unit=unit,factor_id=factor,accounting_key=name,source_id='simulation:'+result.run_id,**kwargs)
+    def row(name,group,q,unit,factor,*,source_id=None,**kwargs):
+        return dict(flow_id=name,group=group,quantity=q,unit=unit,factor_id=factor,accounting_key=name,source_id=source_id or 'simulation:'+result.run_id,**kwargs)
     inventory=[row('electricity','electricity',electricity,'kWh','electricity'),row('heat','heat',heat,'kWh','heat')]
+    if getattr(getattr(result, "selected_scenarios", None), "protein_recovery", None) == "PR7":
+        pr7_unit = next((item for item in result.units if item.unit_id == "PR7_M101"), None)
+        pr7_metrics = next((item.metrics for item in result.process_areas if item.process_area_id == "protein_recovery"), {})
+        pressure_known = bool(
+            pr7_unit
+            and pr7_unit.design_results.get("Transmembrane pressure") is not None
+            and pr7_unit.design_results.get("Pump efficiency") is not None
+        )
+        if not pressure_known:
+            inventory.append(row(
+                "pr7_permeate_pressure_work", "electricity", None, "kWh", "electricity",
+                warning="No sourced TMP/pump-efficiency pair supplied; PR7 idealized permeate-side electricity is unresolved.",
+                source_id="simulation:PR7_M101",
+            ))
+        if pr7_metrics.get("biostimulant_crossflow_electricity_kwh_m3_feed") is None:
+            inventory.append(row(
+                "pr7_crossflow_electricity", "electricity", None, "kWh", "electricity",
+                warning="Crossflow recirculation electricity is unresolved; no specific-energy default is assumed.",
+                source_id="simulation:PR7_M101"))
+        inventory.append(row(
+            "pr7_other_auxiliary_electricity", "electricity", None, "kWh", "electricity",
+            warning="Controls, instrumentation, cleaning, and other auxiliary electricity are not modeled; supplied crossflow energy is already included in the whole-plant electricity flow.",
+            source_id="simulation:PR7_M101"))
+        cip_volume = pr7_metrics.get("biostimulant_cip_solution_volume_L_per_step")
+        cip_makeup = pr7_metrics.get("biostimulant_cip_makeup_fraction_per_cycle")
+        cip_source = pr7_metrics.get("biostimulant_cip_input_source")
+        pr7_cip_hours = (
+            seasonal.get("active_process_operating_hours")
+            if seasonal else hours
+        )
+        if cip_volume is not None and cip_makeup is not None and cip_source and pr7_cip_hours is not None:
+            from Greenhub.biostimulant_screening import calculate_cip_reagent_screen
+            cip = calculate_cip_reagent_screen(
+                operating_hours_year=float(pr7_cip_hours),
+                solution_volume_L_per_step=float(cip_volume),
+                makeup_fraction_per_cycle=float(cip_makeup),
+                input_source=str(cip_source),
+            )
+            inventory.extend((
+                row("pr7_cip_naoh_active_makeup", "materials", cip["naoh"]["active_naoh_kg_year"], "kg", "pr7_cip_naoh_active",
+                    warning="CIP active NaOH quantified; opt-in European industry-average upstream factor applied when screening factors are enabled. Cleaning wastewater fate remains unresolved.",
+                    source_id="simulation:PR7_M101"),
+                row("pr7_cip_citric_acid_makeup", "materials", cip["citric_acid"]["citric_acid_kg_year"], "kg", "pr7_cip_citric_acid",
+                    warning="CIP citric acid quantified; opt-in Belgian producer cradle-to-gate proxy applied when screening factors are enabled. Cleaning wastewater fate remains unresolved.",
+                    source_id="simulation:PR7_M101"),
+            ))
+        else:
+            inventory.append(row(
+                "pr7_cip_chemical_inventory", "materials", None, "kg", None,
+                warning="CIP solution volume and make-up fraction with evidence note are required to calculate the working-chemical inventory; upstream production factors and waste fate are also missing.",
+                source_id="simulation:PR7_M101"))
+        if getattr(result.selected_scenarios, "protein_recovery", None) == "PR7":
+            if pr7_metrics.get("biostimulant_membrane_technology") == "MEUF":
+                meuf_inventory = None
+                feed_rate = pr7_metrics.get("biostimulant_feed_volume_m3_hr")
+                if seasonal:
+                    annual_feed_volume = seasonal.get("pr7_feed_volume_m3_year")
+                    if annual_feed_volume is not None:
+                        from Greenhub.biostimulant_screening import calculate_meuf_surfactant_screen
+                        meuf_inventory = calculate_meuf_surfactant_screen(float(annual_feed_volume))
+                elif feed_rate is not None and hours is not None:
+                    from Greenhub.biostimulant_screening import calculate_meuf_surfactant_screen
+                    meuf_inventory = calculate_meuf_surfactant_screen(float(feed_rate) * float(hours))
+                if meuf_inventory:
+                    for dose_key, label in (("dose_low", "low"), ("dose_high", "high")):
+                        dose = meuf_inventory[dose_key]
+                        inventory.append(row(
+                            f"pr7_meuf_sds_makeup_{label}", "materials",
+                            dose["unrecovered_makeup_SDS_kg_year"], "kg", None,
+                            scenario=label,
+                            warning="Calculated unrecovered SDS screening quantity from the user-supplied CMC dose and 94.5% recovery; no upstream climate factor, acid inventory, residual-fate allocation, or single selected dose is available.",
+                            source_id="simulation:PR7_M101"))
+                else:
+                    inventory.append(row(
+                        "pr7_meuf_surfactant_makeup", "materials", None, "kg", None,
+                        warning="Annual MEUF SDS make-up is unresolved because no supported clarified-juice volume basis is available.",
+                        source_id="simulation:PR7_M101"))
+        unresolved_mass_kg_year = None
+        unresolved_ids = ()
+        if seasonal:
+            unresolved_mass_kg_year = seasonal.get("pr7_unresolved_mass_kg_year")
+            unresolved_ids = seasonal.get("pr7_unresolved_component_ids", ())
+        else:
+            unresolved_stream = next(
+                (stream for stream in result.streams if "biostimulant_unresolved" in stream.aliases), None
+            )
+            if unresolved_stream is not None:
+                if hours is not None:
+                    unresolved_mass_kg_year = float(unresolved_stream.total_mass.value or 0.0) * float(hours)
+                unresolved_ids = tuple(
+                    component_id for component_id, value in unresolved_stream.components.items()
+                    if value.value is not None and float(value.value) > 1e-12
+                )
+                unresolved_rate = float(unresolved_stream.total_mass.value or 0.0)
+            else:
+                unresolved_rate = 0.0
+        unresolved_present = (
+            unresolved_mass_kg_year is not None and float(unresolved_mass_kg_year) > 1e-12
+        ) or (not seasonal and unresolved_rate > 1e-12)
+        if unresolved_present:
+            unresolved_quantity = (
+                float(unresolved_mass_kg_year)
+                if unresolved_mass_kg_year is not None else None
+            )
+            inventory.append(row(
+                "pr7_unresolved_membrane_pool_fate", "materials", unresolved_quantity, "kg", None,
+                direction="burden", compartment="unresolved",
+                warning=("PR7 mass is conserved at the unresolved outlet, but component-specific membrane fate is unknown; "
+                         "quantity is annualized only when an operating-hours basis is available; "
+                         "no climate factor or product allocation is applied. Pools: " + ", ".join(unresolved_ids)),
+                source_id="simulation:PR7_M101"))
     # Exported process gases are inventories, not automatically atmospheric emissions.
     terminal={}
     if seasonal:
@@ -227,5 +374,5 @@ def lca_options():
     return {'project_basis':asdict(coerce_basis(None)),'factor_templates':[f.to_dict() for f in load_climate_factors().values()],
             'screening_factors': {key: value.to_dict() for key, value in screening_lca_factors().items()},
             'inventory_groups':GROUPS,'supported_impacts':['climate_GWP100'],
-            'screening_activation':'Set use_screening_lca_factors=true to opt in; explicit climate_factors overrides take precedence.',
-            'note':'Missing utility factors and inventories require explicit evidence; no generic fertilizer credit is applied.'}
+            'screening_activation':'Set use_screening_lca_factors=true to opt in to Netherlands utility plus PR7 CIP reagent factors; explicit climate_factors overrides take precedence. PR7 membrane manufacture/replacement and unresolved auxiliary inventories remain uncharacterized.',
+            'note':'Missing utility factors and inventories require explicit evidence; no generic fertilizer credit is applied. PR7 membrane-manufacturing figures in the evidence register are reference-only and are not included in climate totals.'}

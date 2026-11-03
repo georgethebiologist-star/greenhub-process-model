@@ -35,6 +35,34 @@
     "y_unit": "fraction"
   },
   {
+    "availability": "conditional: PR7 full-plant run",
+    "plot_id": "PR7-MASS-SPLIT",
+    "process_area": "protein_recovery",
+    "x_unit": null,
+    "y_unit": "kg/hr"
+  },
+  {
+    "availability": "conditional: PR7 full-plant run",
+    "plot_id": "PR7-HORMONE-CAPTURE",
+    "process_area": "protein_recovery",
+    "x_unit": null,
+    "y_unit": "mg/hr"
+  },
+  {
+    "availability": "conditional: PR7 full-plant run",
+    "plot_id": "PR7-PRODUCT-PROFILE",
+    "process_area": "protein_recovery",
+    "x_unit": null,
+    "y_unit": "kg/hr"
+  },
+  {
+    "availability": "conditional: PR7 with sourced pressure-work and/or crossflow electricity inputs",
+    "plot_id": "PR7-ENERGY-BREAKDOWN",
+    "process_area": "protein_recovery",
+    "x_unit": null,
+    "y_unit": "kW"
+  },
+  {
     "availability": "conditional: quasi_dynamic",
     "plot_id": "SEASONAL-FEED",
     "process_area": "feedstock_and_characterization",
@@ -68,6 +96,20 @@
     "process_area": "integrated_system",
     "x_unit": null,
     "y_unit": "kg"
+  },
+  {
+    "availability": "conditional: PR7 seasonal simulation",
+    "plot_id": "SEASONAL-BIOSTIMULANT",
+    "process_area": "protein_recovery",
+    "x_unit": null,
+    "y_unit": "kg/month"
+  },
+  {
+    "availability": "conditional: PR7 seasonal simulation",
+    "plot_id": "SEASONAL-BIOSTIMULANT-VOLUME",
+    "process_area": "protein_recovery",
+    "x_unit": null,
+    "y_unit": "m3/month"
   },
   {
     "availability": "conditional: quasi_dynamic",

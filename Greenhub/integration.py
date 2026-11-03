@@ -220,6 +220,15 @@ class IntegratedGreenHubModel:
         phase5_units = _new_units(phase5.units, phase4.units)
         phase6_units = _new_units(phase6.units, phase5.units)
         phase7_units = _new_units(model.units, phase6.units)
+        protein_depleted_outlet = (
+            "biostimulant_permeate"
+            if "biostimulant_permeate" in streams
+            else "conditioned_protein_depleted_liquid"
+        )
+        protein_inlet_names = ("clarified_protein_rich_liquid",)
+        benchmark_hormone_feed = streams.get("biostimulant_benchmark_hormone_feed")
+        if benchmark_hormone_feed is not None and float(benchmark_hormone_feed.F_mass) > 1e-12:
+            protein_inlet_names += ("biostimulant_benchmark_hormone_feed",)
 
         self.process_areas = {
             "feedstock_and_characterization": ProcessAreaView(
@@ -256,10 +265,16 @@ class IntegratedGreenHubModel:
                 key="protein_recovery",
                 name="Protein Recovery",
                 units=phase4_units,
-                inlet_streams=_select_streams(streams, ("clarified_protein_rich_liquid", "clarified_liquid")),
+                inlet_streams=_select_streams(streams, protein_inlet_names),
                 outlet_streams=_select_streams(
                     streams,
-                    ("dry_protein_product", "conditioned_protein_depleted_liquid", "dryer_exhaust"),
+                    (
+                        "dry_protein_product",
+                        "biostimulant_product",
+                        "biostimulant_unresolved",
+                        protein_depleted_outlet,
+                        "dryer_exhaust",
+                    ),
                 ),
                 assumptions=phase4.assumptions,
                 warnings=_new_messages(phase4.warnings, phase3.warnings),
@@ -352,6 +367,7 @@ def create_integrated_greenhub_system(
     process_order: str | None = None,
     workbook_path: Path = INPUT_WORKBOOK_PATH,
     parameter_overrides: Mapping[str, object] | None = None,
+    biostimulant_route: Mapping[str, object] | None = None,
     input_bundle: Phase7InputBundle | None = None,
 ) -> IntegratedGreenHubModel:
     """Build the complete plant through the established, tested factory.
@@ -370,6 +386,7 @@ def create_integrated_greenhub_system(
         process_order=process_order,
         workbook_path=workbook_path,
         parameter_overrides=parameter_overrides,
+        biostimulant_route=biostimulant_route,
         input_bundle=input_bundle,
     )
     return IntegratedGreenHubModel(legacy_model, source_workbook_path=workbook_path)

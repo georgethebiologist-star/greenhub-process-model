@@ -1,5 +1,5 @@
 export type CalculationMode = 'structural' | 'literature_default' | 'calibrated';
-export type ResolutionMode = 'strict' | 'fallback';
+export type ResolutionMode = 'steady_state' | 'quasi_dynamic' | 'dynamic';
 export type ResultSourceStatus = 'live_python' | 'live_api' | 'preview_baseline' | 'backend_unavailable' | 'stale_previous_result';
 
 export interface ResultSourceState {
@@ -74,6 +74,30 @@ export interface ParameterOverride {
   reason?: string;
 }
 
+export interface BiostimulantRouteRequest {
+  technology_id: 'TUF' | 'LNF' | 'MEUF';
+  retention_matrix_source: string;
+  flux_L_m2_h?: number;
+  flux_source?: string;
+  feed_to_reference_concentration_ratio?: number;
+  flux_model_source?: string;
+  viscosity_Pa_s?: number;
+  viscosity_source?: string;
+  transmembrane_pressure_bar?: number;
+  pressure_source?: string;
+  pump_efficiency_fraction?: number;
+  pump_efficiency_source?: string;
+  crossflow_electricity_kwh_m3_feed?: number;
+  crossflow_electricity_source?: string;
+  cip_solution_volume_L_per_step?: number;
+  cip_makeup_fraction_per_cycle?: number;
+  cip_input_source?: string;
+  component_retention_overrides?: Record<string, number>;
+  component_retention_override_sources?: Record<string, string>;
+  use_hormone_benchmarks?: boolean;
+  hormone_benchmark_source?: string | null;
+}
+
 export interface SimulationRequest {
   schema_version?: string;
   request_id?: string;
@@ -83,6 +107,7 @@ export interface SimulationRequest {
   selected_month?: string;
   scenarios?: ScenarioSelection;
   design_overrides?: ParameterOverride[];
+  biostimulant_route?: BiostimulantRouteRequest | null;
 }
 
 export interface EmpiricalBiomassSchedule {
@@ -106,6 +131,7 @@ export interface ProcessAreaInfo {
   streams: string[];
   key_assumptions: string[];
   limitations: string[];
+  metrics?: Record<string, number | string | null>;
 }
 
 export interface UnitOperation {
@@ -119,6 +145,7 @@ export interface UnitOperation {
   pressure_bar: number;
   status: 'active' | 'bypass' | 'disabled';
   status_reason?: string;
+  warnings?: string[];
 }
 
 export interface ProcessStream {
@@ -132,6 +159,7 @@ export interface ProcessStream {
   nitrogen_kgh: number;
   phosphorus_kgh: number;
   potassium_kgh: number;
+  components_kg_hr?: Record<string, number>;
 }
 
 export interface SystemBalances {
@@ -213,6 +241,7 @@ export interface SimulationResult {
   run_id: string;
   timestamp: string;
   calculation_mode: CalculationMode;
+  resolution_mode?: ResolutionMode;
   selected_month: string;
   scenarios: ScenarioSelection;
   process_areas: Record<ProcessAreaId, ProcessAreaInfo>;
@@ -248,6 +277,7 @@ export interface AnnualSummary {
   };
   feed_processed: AnnualValue;
   products: Record<string, AnnualValue>;
+  volumetric_products?: Record<string, AnnualValue>;
   named_products?: Record<string, AnnualValue>;
   utilities: Record<string, AnnualValue>;
   balance: {
@@ -296,6 +326,7 @@ export interface AnnualSummary {
     energy: Array<Record<string, number | string>>;
     mass_balance: Array<Record<string, number | string>>;
     annual_product_mix: Array<Record<string, number | string>>;
+    annual_volumetric_product_mix?: Array<Record<string, number | string>>;
     groups: Record<string, string[]>;
   };
   display_utilities: Record<string, AnnualValue>;

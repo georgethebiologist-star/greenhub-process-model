@@ -8,6 +8,11 @@ class GreenHubApplicationError(RuntimeError):
 class RequestValidationError(GreenHubApplicationError):
     code = "request_validation_failed"
 
+    def __init__(self, message: str, *, code: str | None = None) -> None:
+        super().__init__(message)
+        if code:
+            self.code = code
+
 
 class RunNotFoundError(GreenHubApplicationError):
     code = "run_not_found"

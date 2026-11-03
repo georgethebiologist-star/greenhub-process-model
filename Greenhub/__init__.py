@@ -24,6 +24,21 @@ from Greenhub.phase3_inputs import Phase3InputBundle, load_phase3_inputs
 from Greenhub.phase3_metrics import RawLiquidInterface, SeasonalFrontEndResult
 from Greenhub.phase4_inputs import Phase4InputBundle, load_phase4_inputs
 from Greenhub.phase4_metrics import SeasonalPhase4Result
+from Greenhub.phase4_units import BiostimulantMembraneRecovery
+from Greenhub.biostimulant_screening import (
+    HormoneCaptureResult,
+    MembraneFluxResult,
+    MembraneScreeningResult,
+    calculate_film_retention,
+    calculate_component_split_balance,
+    calculate_energy_tea_lca_screen,
+    calculate_hormone_capture,
+    calculate_membrane_area_and_revenue,
+    calculate_resistance_flux,
+    estimate_pressure_work_electricity,
+    simulate_biostimulant_membrane_unit,
+    split_component_flows,
+)
 from Greenhub.phase5_inputs import Phase5InputBundle, load_phase5_inputs
 from Greenhub.phase5_metrics import SeasonalPhase5Result
 from Greenhub.phase6_inputs import Phase6InputBundle, load_phase6_inputs
@@ -100,6 +115,17 @@ __all__ = [
     "SeparatorParameters",
     "SeasonalFrontEndResult",
     "SeasonalPhase4Result",
+    "BiostimulantMembraneRecovery",
+    "HormoneCaptureResult",
+    "MembraneFluxResult",
+    "MembraneScreeningResult",
+    "calculate_hormone_capture",
+    "calculate_film_retention",
+    "calculate_component_split_balance",
+    "calculate_energy_tea_lca_screen",
+    "calculate_membrane_area_and_revenue",
+    "calculate_resistance_flux",
+    "split_component_flows",
     "SeasonalPhase5Result",
     "SeasonalPhase7Result",
     "characterize_feed",

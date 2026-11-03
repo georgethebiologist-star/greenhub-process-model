@@ -1,4 +1,4 @@
-filename,scope,row_count,validation_status,integration_readiness
+﻿filename,scope,row_count,validation_status,integration_readiness
 assumption_and_missing_data_register.csv,assumption and missing data register,12,PASS,partial_ready
 cleaning_data.csv,cleaning data,4,PASS,partial_ready
 diafiltration_data.csv,diafiltration data,10,PASS,partial_ready
@@ -12,3 +12,16 @@ module_lifetime_and_cost.csv,module lifetime and cost,5,PASS,partial_ready
 rejection_data_by_component.csv,rejection data by component,8,PASS,partial_ready
 scenario_controller.csv,scenario controller,3,PASS,partial_ready
 source_register.csv,source register,10,PASS,partial_ready
+biostimulant_chemical_lca_factors.csv,PR7 chemical life-cycle factors,2,PASS,partially_integrated_missing_upstream_impacts
+biostimulant_cip_evidence.csv,PR7 cleaning evidence,4,PASS,user_supplied_48_operating_hour_and_recipe_screen;consumption_open_not_costed
+biostimulant_hormone_benchmarks.csv,PR7 hormone mass-balance benchmarks,3,PASS,user_supplied_screening_data
+biostimulant_membrane_component_retention.csv,PR7 component co-retention matrix,7,PASS,TUF_LNF_screening_values;MEUF_class_retention_gated
+biostimulant_membrane_cost_references.csv,PR7 EUR cost references,11,PASS,partial_cost_basis_with_contextual_grass_biorefinery_and_water_treatment_analogs_not_applied_without_transferable_quote
+biostimulant_membrane_energy_references.csv,PR7 contextual membrane energy references,3,PASS,water_treatment_comparators_only_not_applied_to_grass_juice
+biostimulant_membrane_gated_parameters.csv,PR7 gated parameters and evidence,48,PASS,partial_ready_with_required_inputs_missing
+biostimulant_membrane_lca_references.csv,PR7 membrane LCA references,4,PASS,reference_only_no_transferable_module_inventory
+biostimulant_membrane_options.csv,PR7 membrane option ranges,3,PASS,user_supplied_screening_ranges
+biostimulant_retention_evidence_assessment.csv,PR7 retention evidence assessment,6,PASS,screening_values_not_independently_validated
+biostimulant_unmapped_pool_evidence.csv,PR7 external membrane-retention evidence,9,PASS,evidence_context_only_not_applied
+biostimulant_feed_property_references.csv,PR7 fresh-feed rheology context references,2,PASS,context_only_no_transferable_fresh_grass_viscosity; no proxy auto-applied
+biostimulant_product_price_references.csv,PR7 product-price context references,1,PASS,public_supplier_comparator_not_applied; not an equivalent PR7 offtake product

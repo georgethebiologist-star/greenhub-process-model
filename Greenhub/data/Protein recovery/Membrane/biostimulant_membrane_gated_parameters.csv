@@ -1,0 +1,49 @@
+parameter_id,component_target,value,units,membrane_class,source_reference,source_status,model_use,source_date
+Viscosity_Mu,Grass_Juice,1.35E-03,Pa*s,ALL,User-supplied Gate 4 parameter block; fermented juice only,user_supplied_unverified_not_applicable_to_no_fermentation_feed,reference_only; resistance flux must use explicit unfermented-juice viscosity,
+Resistance_Rm,TUF_Membrane,1.80E+12,m^-1,TUF,User-supplied attachment; source token Nordic_Filtr_2023 not independently traceable,user_supplied_unverified,flux_model,
+Resistance_Rm,LNF_Membrane,6.50E+12,m^-1,LNF,User-supplied attachment; source token Industrial_Scale_Ex not independently traceable,user_supplied_unverified,flux_model,
+TMP_Low,TUF_Membrane,2.0,bar,TUF,user_supplied_note,user_supplied_unverified,operating_range,
+TMP_High,TUF_Membrane,6.0,bar,TUF,user_supplied_note,user_supplied_unverified,operating_range,
+TMP_Low,LNF_Membrane,4.0,bar,LNF,user_supplied_note,user_supplied_unverified,operating_range,
+TMP_High,LNF_Membrane,15.0,bar,LNF,user_supplied_note,user_supplied_unverified,operating_range,
+Resistance_Rf,Fouling_Cake,2.40E+12,m^-1,ALL,User-supplied attachment; source token Biopolymers_2025 not independently traceable,user_supplied_unverified,flux_model,
+Resistance_Rg0,Gel_Layer,4.10E+12,m^-1,ALL,User-supplied attachment; engineering-model label only; no traceable publication supplied,user_supplied_unverified,flux_model_requires_Cf_over_C0,
+Resistance_Rg_Concentration_Exponent,Gel_Layer,1.2,dimensionless,ALL,user_supplied_equation,user_supplied_unverified,flux_model_requires_Cf_over_C0,
+Concentration_Reference_C0,Gel_Layer,,kg/m3,ALL,missing,not_needed_if_ratio_is_supplied,not_required_when_Cf_C0_ratio_is_supplied,
+Concentration_Cf,Gel_Layer,,kg/m3,ALL,missing,not_needed_if_ratio_is_supplied,not_required_when_Cf_C0_ratio_is_supplied,
+Crossflow_Velocity,Feed_Spacer,,m/s,ALL,supplied_Rg_equation_has_no_velocity_term,equation_incomplete,not_used_until_a_sourced_velocity_relation_is_added,
+Boundary_Delta,Polarization_Layer,2.50E-05,m,ALL,User-supplied attachment; engineering-model label only; no traceable publication supplied,user_supplied_unverified,film_model,
+Diffusivity_Dm,Indole3AceticAcid,6.20E-10,m^2/s,ALL,User-supplied attachment; PubChem_Fick_Model token does not identify a traceable diffusivity source,user_supplied_unverified,free_solute_film_model,
+Diffusivity_Dm,Zeatin,5.40E-10,m^2/s,ALL,User-supplied attachment; Patent_App_3919090 token not independently matched to this diffusivity,user_supplied_unverified,free_solute_film_model,
+Diffusivity_Dm,ZeatinRiboside,4.60E-10,m^2/s,ALL,User-supplied attachment; PubChem CID record is not evidence for the supplied diffusivity value,user_supplied_unverified,free_solute_film_model,
+Diffusivity_Dm,Bound_Hormone,,m^2/s,ALL,missing,user_missing,required_gate_for_bound_film_model,
+Reflection_Sigma,Free_Hormone_TUF,0.12,dimensionless,TUF,user_supplied_note,user_supplied_unverified,film_model_diagnostic,
+Reflection_Sigma,Free_Hormone_LNF,0.96,dimensionless,LNF,user_supplied_note,user_supplied_unverified,film_model_diagnostic,
+Reflection_Sigma,Bound_Hormone_TUF,0.85,dimensionless,TUF,user_supplied_note,user_supplied_unverified,film_model_diagnostic,
+Reflection_Sigma,Bound_Hormone_LNF,0.99,dimensionless,LNF,user_supplied_note,user_supplied_unverified,film_model_diagnostic,
+Baseline_Flux,TUF,22,L/(m2*h),TUF,user_supplied_note,user_supplied_unverified,empirical_screening_reference,
+Baseline_Flux,LNF,12,L/(m2*h),LNF,user_supplied_note,user_supplied_unverified,empirical_screening_reference,
+Concentration_Factor,Retentate,10,dimensionless,ALL,user_supplied_note,user_supplied_unverified,volume_and_revenue_screen,
+Product_Price_Low,Concentrate_Bulk,1.50,EUR/L,ALL,user_supplied_note,user_supplied_unverified,screening_tea_range,
+Product_Price_Nominal,Concentrate_Bulk,2.50,EUR/L,ALL,user_supplied_note,user_supplied_unverified,screening_tea_nominal,
+Product_Price_High,Concentrate_Bulk,3.50,EUR/L,ALL,user_supplied_note,user_supplied_unverified,screening_tea_range,
+Membrane_Cost_Low,Module,133.737525,EUR/m2,TUF,user-supplied USD quote × ECB 2026-11-02 rate (1 EUR = 1.1216 USD),source_quote_converted_EUR; original USD quote retained in biostimulant_membrane_options.csv,area_cost_EUR,2026-11-02
+Membrane_Cost_High,Module,312.054225,EUR/m2,TUF,user-supplied USD quote × ECB 2026-11-02 rate (1 EUR = 1.1216 USD),source_quote_converted_EUR; original USD quote retained in biostimulant_membrane_options.csv,area_cost_EUR,2026-11-02
+Membrane_Cost_Low,Module,222.895875,EUR/m2,LNF,user-supplied USD quote × ECB 2026-11-02 rate (1 EUR = 1.1216 USD),source_quote_converted_EUR; original USD quote retained in biostimulant_membrane_options.csv,area_cost_EUR,2026-11-02
+Membrane_Cost_High,Module,490.370925,EUR/m2,LNF,user-supplied USD quote × ECB 2026-11-02 rate (1 EUR = 1.1216 USD),source_quote_converted_EUR; original USD quote retained in biostimulant_membrane_options.csv,area_cost_EUR,2026-11-02
+Membrane_Lifetime_Low,Module,2.5,year,ALL,user_supplied_note,user_supplied_unverified,replacement_schedule,
+Membrane_Lifetime_High,Module,3.0,year,ALL,user_supplied_note,user_supplied_unverified,replacement_schedule,
+CIP_Interval,Membrane,48,operating_hour,ALL,user_supplied_note,user_supplied_unverified,opex_schedule,
+CIP_Sodium_Hydroxide_Concentration,CIP_Solution,0.5,wt%,ALL,user_supplied_note,user_supplied_unverified,opex_reagent_rate_missing_solution_volume,
+CIP_Citric_Acid_Concentration,CIP_Solution,0.3,wt%,ALL,user_supplied_note,user_supplied_unverified,opex_reagent_rate_missing_solution_volume,
+SDS_CMC,MEUF_Surfactant,8.0,mmol/L,MEUF,user_supplied_note,user_supplied_unverified,meuf_reagent_rate,
+MEUF_Surfactant_Dose_Low,MEUF_Surfactant,1.2,times_CMC,MEUF,user_supplied_note,user_supplied_unverified,meuf_reagent_rate,
+MEUF_Surfactant_Dose_High,MEUF_Surfactant,1.5,times_CMC,MEUF,user_supplied_note,user_supplied_unverified,meuf_reagent_rate,
+MEUF_Surfactant_Recovery,MEUF_Surfactant,0.945,fraction,MEUF,user_supplied_note,user_supplied_unverified,meuf_reagent_rate,
+FX_USD_EUR,USD_to_EUR,0.8915835,EUR/USD,ALL,https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/eurofxref-graph-usd.en.html,official_reference_rate,convert_user_supplied_membrane_quotes,2026-11-02
+CIP_NaOH_50pct_Price,NaOH_50wt_solution,235,EUR/t,ALL,https://eucx.eu/katalog/laugen,indicative_internet_price_not_applied,cost_per_mass_of_50wt_percent_product; CIP_volume_and_cycles_missing,2026-11-01
+CIP_Citric_Acid_Price,Citric_Acid_bulk,1610,EUR/t,ALL,https://fdcm.eu/products/citric-acid/,indicative_internet_price_not_applied,source_lists_1000kg_bulk_at_1.61_EUR_per_kg; grade_and_delivery_terms_to_confirm,2026-11-02
+Viscosity_Mu,Grass_Juice_Unfermented,,Pa*s,ALL,https://doi.org/10.1016/j.fufo.2024.100331,peer_reviewed_fresh_timothy_green_juice_study_does_not_report_viscosity; user_missing,required_gate_for_resistance_flux; cited study documents fresh plant green juice and composition but no rheology value,2026-11-03
+SDS_Molecular_Weight,Sodium_Dodecyl_Sulfate,288.38,g/mol,MEUF,https://pubchem.ncbi.nlm.nih.gov/compound/Sodium%20dodecyl%20sulfate,authoritative_reference,convert_surfactant_molar_dose_to_mass,2026-11-02
+MEUF_SDS_Price_LabGrade,SDS,230,EUR/kg,MEUF,https://www.biomol.com/products/chemicals/detergents/sodium-dodecyl-sulfate-sds-ultra-pure-51430.1,laboratory_grade_reference_only,not_used_for_industrial_TEA; 1 kg ultra-pure listing; obtain bulk process-grade quote,2026-11-02
+MEUF_SDS_Price_20kg_Pack,SDS,39.25,EUR/kg,MEUF,https://www.sigmaaldrich.com/DE/en/product/mm/817034,20kg_pharma_grade_pack_reference_only,785_EUR_per_20_kg_pack;not_used_for_industrial_TEA;request_process_grade_bulk_quote,2026-11-03

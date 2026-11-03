@@ -9,6 +9,7 @@ from .biomass_schedule import build_empirical_biomass_schedule
 
 PRODUCT_KEYS = (
     "dry_protein_product",
+    "biostimulant_product",
     "biomethane",
     "phosphorus_product",
     "ammonium_product",
@@ -65,6 +66,10 @@ def _from_quasi_dynamic(result, request) -> dict[str, object]:
             },
             "mass_residual_kg": float(balances_by_time.get(label, {}).get("overall_mass_residual_kg", 0.0)),
         })
+    volumetric_products = {}
+    for row in monthly:
+        for name, value in row["volumetric_products_m3"].items():
+            volumetric_products[name] = volumetric_products.get(name, 0.0) + float(value)
     if any(len(str(row['period']))>7 for row in monthly):
         grouped={}
         for row in monthly:
@@ -90,6 +95,7 @@ def _from_quasi_dynamic(result, request) -> dict[str, object]:
         },
         "feed_processed": _value(processed, f"kg/{suffix}"),
         "products": {key: _value(value, f"kg/{suffix}") for key, value in products.items()},
+        "volumetric_products": {key: _value(value, f"m3/{suffix}") for key, value in volumetric_products.items()},
         "named_products": {key: _value(value, f"kg/{suffix}") for key, value in _named_nutrient_products(products, request).items()},
         "utilities": {
             "electricity": _value(float(utilities.get("electricity_kwh", 0.0)), f"kWh/{suffix}"),
@@ -112,6 +118,11 @@ def _annualize_steady_state(result, request) -> dict[str, object]:
         key: float(next((item.mass_flow.value or 0.0 for item in result.products if item.product_id == key), 0.0))
         * operating_hours
         for key in PRODUCT_KEYS
+    }
+    volumetric_products = {
+        item.product_id: float(item.volumetric_flow.value) * operating_hours
+        for item in result.products
+        if item.volumetric_flow is not None and item.volumetric_flow.value is not None
     }
     electricity = sum(
         float(item.demand.value or 0.0) for item in result.utilities if item.kind == "electricity"
@@ -143,6 +154,7 @@ def _annualize_steady_state(result, request) -> dict[str, object]:
         },
         "feed_processed": {"value": processed_feed, "unit": "kg/year"},
         "products": {key: _value(value, "kg/year") for key, value in products.items()},
+        "volumetric_products": {key: _value(value, "m3/year") for key, value in volumetric_products.items()},
         "named_products": {key: _value(value, "kg/year") for key, value in _named_nutrient_products(products, request).items()},
         "utilities": {
             "electricity": _value(electricity, "kWh/year"),
@@ -203,6 +215,7 @@ def _with_empirical_reporting(summary: dict[str, object], result, request) -> di
         "bulk_streams": "tonnes/month",
         "small_products": "tonnes/month",
         "biomethane": "m3/month",
+        "volumetric_products": "m3/year or m3/reported period",
         "electricity": "MWh/month",
         "heat": "GJ/month",
         "annual_electricity": "MWh/year",
@@ -309,6 +322,7 @@ def _chart_data(
         products.append({
             "period": period,
             "protein_tonnes": float(product.get("dry_protein_product", 0.0)) / 1000.0,
+            "biostimulant_product_tonnes": float(product.get("biostimulant_product", 0.0)) / 1000.0,
             "phosphorus_product_tonnes": float(product.get("phosphorus_product", 0.0)) / 1000.0,
             "struvite_tonnes": float(product.get("phosphorus_product", 0.0)) / 1000.0,
             "ammonium_product_tonnes": float(product.get("ammonium_product", 0.0)) / 1000.0,
@@ -336,6 +350,11 @@ def _chart_data(
     product_mix = [
         {"product": key, "tonnes_per_year": float(value.get("value", 0.0)) / 1000.0}
         for key, value in annual_products.items()
+        if key != "biomethane" and float(value.get("value", 0.0)) > 0.0
+    ]
+    volumetric_product_mix = [
+        {"product": key, "volume_m3_per_year": float(value.get("value", 0.0))}
+        for key, value in summary.get("volumetric_products", {}).items()
         if float(value.get("value", 0.0)) > 0.0
     ]
     return {
@@ -346,10 +365,11 @@ def _chart_data(
         "energy": energy,
         "mass_balance": balance,
         "annual_product_mix": product_mix,
+        "annual_volumetric_product_mix": volumetric_product_mix,
         "groups": {
             "large_mass": ("feed_processed_tonnes", "press_cake_tonnes", "digestate_tonnes"),
             "small_products": (
-                "protein_tonnes", "phosphorus_product_tonnes", "ammonium_product_tonnes",
+                "protein_tonnes", "biostimulant_product_tonnes", "phosphorus_product_tonnes", "ammonium_product_tonnes",
                 "potassium_concentrate_tonnes", "nutrient_rich_solids_tonnes",
             ),
         },
@@ -357,19 +377,27 @@ def _chart_data(
 
 
 def _process_pathway(result) -> list[dict[str, object]]:
-    stage_definitions = (
+    stage_definitions = [
         ("feed", "Feed", {"feedstock_and_characterization", "front_end"}),
         ("pretreatment", "Pre-treatment / press", {"feed_preparation_and_primary_separation"}),
-        ("protein", "Protein recovery", {"protein_recovery"}),
+    ]
+    is_pr7 = getattr(result.selected_scenarios, "protein_recovery", None) == "PR7"
+    stage_definitions.append((
+        "biostimulant" if is_pr7 else "protein",
+        "Biostimulant membrane recovery" if is_pr7 else "Protein recovery",
+        {"protein_recovery"},
+    ))
+    stage_definitions.extend((
         ("ad", "Anaerobic digestion", {"anaerobic_digestion"}),
         ("gas", "Gas upgrading / CHP", {"biogas_conditioning_and_upgrading", "biogas_upgrading"}),
         ("nutrients", "Nutrient recovery / products", {"digestate_treatment_and_nutrient_recovery", "nutrient_recovery"}),
-    )
+    ))
     areas = {item.process_area_id: item for item in result.process_areas}
     units = {item.unit_id: item for item in result.units}
     products = {item.product_id: float(item.mass_flow.value or 0.0) for item in result.products}
     product_stages = {
         "protein": ("dry_protein_product",),
+        "biostimulant": ("biostimulant_product",),
         "gas": ("biomethane",),
         "nutrients": ("phosphorus_product", "ammonium_product", "potassium_concentrate", "nutrient_rich_solids"),
     }

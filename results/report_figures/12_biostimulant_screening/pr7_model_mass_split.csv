@@ -1,0 +1,69 @@
+﻿stream_alias,stream_label,component_id,category,mass_kg_hr,simulation_run_id,scenario,technology,flux_L_m2_h,fermentation
+clarified_protein_rich_liquid,Clarified juice,Water,Water,197.829145161,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+clarified_protein_rich_liquid,Clarified juice,Ammonium,Salts + minerals,0.100596774194,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+clarified_protein_rich_liquid,Clarified juice,PotassiumIon,Salts + minerals,0.251491935484,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+clarified_protein_rich_liquid,Clarified juice,SolubleProtein,Protein,1.93629032258,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+clarified_protein_rich_liquid,Clarified juice,SuspendedProtein,Protein,0.317540322581,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+clarified_protein_rich_liquid,Clarified juice,Peptides,Peptides + amino acids,0.135483870968,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+clarified_protein_rich_liquid,Clarified juice,AminoAcids,Peptides + amino acids,0.135483870968,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+clarified_protein_rich_liquid,Clarified juice,Cellulose,Structural + other organics,0.304838709677,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+clarified_protein_rich_liquid,Clarified juice,Hemicellulose,Structural + other organics,0.296370967742,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+clarified_protein_rich_liquid,Clarified juice,Lignin,Structural + other organics,0.0677419354839,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+clarified_protein_rich_liquid,Clarified juice,Pectin,Structural + other organics,0.127016129032,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+clarified_protein_rich_liquid,Clarified juice,Starch,Structural + other organics,0.0423387096774,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+clarified_protein_rich_liquid,Clarified juice,Lipids,Unresolved pools,0.609677419355,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+clarified_protein_rich_liquid,Clarified juice,NonBiodegradableOrganics,Unresolved pools,0.381048387097,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+clarified_protein_rich_liquid,Clarified juice,SuspendedSolids,Structural + other organics,0.0677419354839,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+clarified_protein_rich_liquid,Clarified juice,InertSolids,Other mapped,0.00304838709677,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+clarified_protein_rich_liquid,Clarified juice,Ash,Other mapped,0.016935483871,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+clarified_protein_rich_liquid,Clarified juice,OrganicNitrogen,Unresolved pools,0.251491935484,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+clarified_protein_rich_liquid,Clarified juice,ParticulatePhosphorus,Other mapped,0.00225806451613,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+clarified_protein_rich_liquid,Clarified juice,HeavyMetals,Other mapped,0.000112903225806,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+clarified_protein_rich_liquid,Clarified juice,PersistentOrganics,Unresolved pools,0.000279435483871,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+clarified_protein_rich_liquid,Clarified juice,Pesticides,Unresolved pools,0.000279435483871,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+clarified_protein_rich_liquid,Clarified juice,Microplastics,Structural + other organics,0.000225806451613,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+clarified_protein_rich_liquid,Clarified juice,PathogenIndicators,Other mapped,0.000282258064516,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+clarified_protein_rich_liquid,Clarified juice,EntrappedSugars,Sugars,0.0846774193548,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+clarified_protein_rich_liquid,Clarified juice,ParticulateBiodegradableOrganics,Structural + other organics,0.127016129032,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+clarified_protein_rich_liquid,Clarified juice,ParticulateNitrogen,Other mapped,0.00282258064516,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+clarified_protein_rich_liquid,Clarified juice,DissolvedPhosphorus,Other mapped,0.0442580645161,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+clarified_protein_rich_liquid,Clarified juice,ParticulatePotassium,Other mapped,0.00395161290323,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+clarified_protein_rich_liquid,Clarified juice,Sand,Other mapped,0.000541935483871,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+clarified_protein_rich_liquid,Clarified juice,Litter,Other mapped,0.0016935483871,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+biostimulant_product,Retentate,Water,Water,19.7829145161,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+biostimulant_product,Retentate,SolubleProtein,Protein,1.71361693548,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+biostimulant_product,Retentate,SuspendedProtein,Protein,0.281023185484,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+biostimulant_product,Retentate,Peptides,Peptides + amino acids,0.0304838709677,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+biostimulant_product,Retentate,AminoAcids,Peptides + amino acids,0.0304838709677,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+biostimulant_product,Retentate,Cellulose,Structural + other organics,0.304838709677,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+biostimulant_product,Retentate,Hemicellulose,Structural + other organics,0.296370967742,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+biostimulant_product,Retentate,Lignin,Structural + other organics,0.0677419354839,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+biostimulant_product,Retentate,Pectin,Structural + other organics,0.127016129032,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+biostimulant_product,Retentate,Starch,Structural + other organics,0.0423387096774,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+biostimulant_product,Retentate,SuspendedSolids,Structural + other organics,0.0677419354839,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+biostimulant_product,Retentate,InertSolids,Other mapped,0.00304838709677,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+biostimulant_product,Retentate,Ash,Other mapped,0.016935483871,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+biostimulant_product,Retentate,ParticulatePhosphorus,Other mapped,0.00225806451613,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+biostimulant_product,Retentate,HeavyMetals,Other mapped,0.000112903225806,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+biostimulant_product,Retentate,Microplastics,Structural + other organics,0.000225806451613,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+biostimulant_product,Retentate,PathogenIndicators,Other mapped,0.000282258064516,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+biostimulant_product,Retentate,EntrappedSugars,Sugars,0.0846774193548,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+biostimulant_product,Retentate,ParticulateBiodegradableOrganics,Structural + other organics,0.127016129032,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+biostimulant_product,Retentate,ParticulateNitrogen,Other mapped,0.00282258064516,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+biostimulant_product,Retentate,DissolvedPhosphorus,Other mapped,0.000885161290323,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+biostimulant_product,Retentate,ParticulatePotassium,Other mapped,0.00395161290323,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+biostimulant_product,Retentate,Sand,Other mapped,0.000541935483871,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+biostimulant_product,Retentate,Litter,Other mapped,0.0016935483871,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+biostimulant_permeate,Permeate,Water,Water,178.046230645,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+biostimulant_permeate,Permeate,Ammonium,Salts + minerals,0.100596774194,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+biostimulant_permeate,Permeate,PotassiumIon,Salts + minerals,0.251491935484,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+biostimulant_permeate,Permeate,SolubleProtein,Protein,0.222673387097,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+biostimulant_permeate,Permeate,SuspendedProtein,Protein,0.0365171370968,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+biostimulant_permeate,Permeate,Peptides,Peptides + amino acids,0.105,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+biostimulant_permeate,Permeate,AminoAcids,Peptides + amino acids,0.105,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+biostimulant_permeate,Permeate,DissolvedPhosphorus,Other mapped,0.0433729032258,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+biostimulant_unresolved,Unresolved outlet,Lipids,Unresolved pools,0.609677419355,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+biostimulant_unresolved,Unresolved outlet,NonBiodegradableOrganics,Unresolved pools,0.381048387097,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+biostimulant_unresolved,Unresolved outlet,OrganicNitrogen,Unresolved pools,0.251491935484,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+biostimulant_unresolved,Unresolved outlet,PersistentOrganics,Unresolved pools,0.000279435483871,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded
+biostimulant_unresolved,Unresolved outlet,Pesticides,Unresolved pools,0.000279435483871,99771f7a4e2341aa8738fdecd31df297,PR7 full-plant structural steady-state,TUF,22,excluded

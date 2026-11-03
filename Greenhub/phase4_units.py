@@ -10,7 +10,7 @@ can be checked explicitly.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from math import ceil
+from math import ceil, isfinite
 from typing import Iterable, Mapping
 
 import biosteam as bst
@@ -1227,6 +1227,247 @@ class ProteinDryer(bst.Unit):
             float(exhaust.imass["Water"])
             * self.parameters.electricity_kwh_per_kg_water_evaporated
         )
+
+
+class BiostimulantMembraneRecovery(bst.Unit):
+    """Component-retention split and nominal membrane-area design for PR7.
+
+    Component retentions come from the user-supplied screening matrices. Feed
+    pools without a stated retention are conserved in a third, unresolved
+    outlet; this permits partial mass-balanced simulation without guessing
+    their fate. Optional pressure work covers idealized permeate-side pumping
+    only; crossflow, pressure loss, cleaning, installed cost, and conditioning
+    remain outside the unit.
+    """
+
+    _N_ins = 2
+    _N_outs = 3
+    line = "Biostimulant membrane screening"
+    _units = {
+        "Permeate flux": "L/m2/hr",
+        "Membrane area": "m2",
+        "Minimum membrane area": "m2",
+        "Maximum membrane area": "m2",
+        "Retentate flow": "kg/hr",
+        "Permeate flow": "kg/hr",
+        "Feed volumetric flow": "m3/hr",
+        "Retentate volumetric flow": "m3/hr",
+        "Permeate volumetric flow": "m3/hr",
+        "Unresolved volumetric flow": "m3/hr",
+        "Unresolved component mass": "kg/hr",
+        "Target concentration factor": "dimensionless",
+        "Actual volume concentration factor": "dimensionless",
+        "Mass closure error": "kg/hr",
+        "Pressure work": "kW",
+        "Crossflow electricity": "kW",
+        "Total electricity demand": "kW",
+        "Transmembrane pressure": "bar",
+        "Pump efficiency": "fraction",
+        "Crossflow specific electricity": "kWh/m3 feed",
+    }
+
+    def _init(
+        self,
+        technology_id: str,
+        flux_L_m2_h: float | None = None,
+        component_retention_overrides: Mapping[str, float] | None = None,
+        transmembrane_pressure_bar: float | None = None,
+        pump_efficiency_fraction: float | None = None,
+        crossflow_electricity_kwh_m3_feed: float | None = None,
+        crossflow_electricity_source: str | None = None,
+        concentration_factor: float | None = None,
+        hormone_benchmark_source: str | None = None,
+    ):
+        from Greenhub.biostimulant_screening import FLUX_BASELINE_L_M2_H
+
+        technology = str(technology_id).strip().upper()
+        if technology not in FLUX_BASELINE_L_M2_H:
+            raise ValueError("technology_id must be TUF, LNF, or MEUF.")
+        selected_flux = (
+            FLUX_BASELINE_L_M2_H[technology]
+            if flux_L_m2_h is None else float(flux_L_m2_h)
+        )
+        if selected_flux <= 0.0:
+            raise ValueError("flux_L_m2_h must be positive.")
+        self.technology_id = technology
+        self.flux_L_m2_h = selected_flux
+        from Greenhub.biostimulant_screening import _parameter_value
+        self.concentration_factor = (
+            _parameter_value("Concentration_Factor", "Retentate")
+            if concentration_factor is None else float(concentration_factor)
+        )
+        if not isfinite(self.concentration_factor) or self.concentration_factor <= 1.0:
+            raise ValueError("PR7 concentration_factor must be finite and greater than one.")
+        self.component_retention_overrides = dict(component_retention_overrides or {})
+        self.hormone_benchmark_source = hormone_benchmark_source
+        self.transmembrane_pressure_bar = transmembrane_pressure_bar
+        self.pump_efficiency_fraction = pump_efficiency_fraction
+        self.crossflow_electricity_kwh_m3_feed = crossflow_electricity_kwh_m3_feed
+        self.crossflow_electricity_source = crossflow_electricity_source
+        self.pressure_work_kw = 0.0
+        self.crossflow_electricity_kw = 0.0
+        if crossflow_electricity_kwh_m3_feed is not None and (
+            not isfinite(float(crossflow_electricity_kwh_m3_feed))
+            or float(crossflow_electricity_kwh_m3_feed) < 0.0
+            or not str(crossflow_electricity_source or "").strip()
+        ):
+            raise ValueError("PR7 crossflow electricity must be non-negative and include an evidence note.")
+        if crossflow_electricity_kwh_m3_feed is None and crossflow_electricity_source is not None:
+            raise ValueError("PR7 crossflow electricity source requires a specific-energy value.")
+        if transmembrane_pressure_bar is not None and (
+            not isfinite(float(transmembrane_pressure_bar)) or float(transmembrane_pressure_bar) <= 0.0
+        ):
+            raise ValueError("PR7 transmembrane pressure must be finite and positive.")
+        if pump_efficiency_fraction is not None and (
+            not isfinite(float(pump_efficiency_fraction)) or not 0.0 < float(pump_efficiency_fraction) <= 1.0
+        ):
+            raise ValueError("PR7 pump efficiency must be in (0, 1].")
+        if pump_efficiency_fraction is not None and transmembrane_pressure_bar is None:
+            raise ValueError("PR7 pump efficiency requires transmembrane pressure.")
+        self.component_split: dict[str, object] = {}
+        self.component_balance: dict[str, object] = {}
+        self.warnings = [
+            "Membrane unit omits fermentation, unsupplied crossflow recirculation, pressure losses, CIP, installed membrane cost, and product conditioning.",
+            f"Bulk water hold-up is set from target VCF={self.concentration_factor:g}; this is a volume-balance assumption, not measured membrane water rejection. Actual stream VCF is reported.",
+        ]
+        if technology == "MEUF":
+            self.warnings.append(
+                "MEUF SDS dosing and 94.5% recovery are screened separately; surfactant and acid precipitation-loop mass are not included in this BioSTEAM component balance or retentate composition."
+            )
+        if transmembrane_pressure_bar is None or pump_efficiency_fraction is None:
+            self.warnings.append("No sourced PR7 TMP/pump-efficiency pair was supplied; membrane pumping electricity is excluded.")
+        else:
+            self.warnings.append("PR7 electricity is an idealized permeate-side pressure-work estimate; crossflow recirculation and auxiliary loads are excluded.")
+        if crossflow_electricity_kwh_m3_feed is None:
+            self.warnings.append("PR7 crossflow recirculation electricity is unresolved; no default specific energy is assumed.")
+        else:
+            self.warnings.append("PR7 crossflow electricity uses an explicit sourced kWh/m3 clarified-feed input and excludes optional permeate-side pressure work.")
+        if hormone_benchmark_source:
+            self.warnings.append(
+                "PR7 includes a separate user-supplied benchmark analyte-equivalent feed at the clarified-juice boundary; it is an explicit screening correction, not measured GreenHub hormone content. Source: "
+                + str(hormone_benchmark_source).strip()
+            )
+
+    def _run(self):
+        from Greenhub.biostimulant_screening import (
+            calculate_component_split_balance,
+            split_component_flows,
+        )
+
+        feed, analyte_feed = self.ins
+        retentate, permeate, unresolved = self.outs
+        split = split_component_flows(
+            {
+                ID: float(feed.imass[ID]) + float(analyte_feed.imass[ID])
+                for ID in chemicals.IDs
+            },
+            self.technology_id,
+            flux_L_m2_h=self.flux_L_m2_h,
+            component_retention_overrides=self.component_retention_overrides,
+            concentration_factor=self.concentration_factor,
+        )
+        if not split["complete_mass_split"]:
+            self.unmapped_component_ids = tuple(split["unmapped_component_ids"])
+            self.warnings.append(
+                "PR7 retention gate: pools without a documented class-specific membrane retention are preserved in the unresolved outlet; "
+                "product/permeate allocation, VCF, membrane area and complete TEA/LCA remain unresolved: "
+                + ", ".join(self.unmapped_component_ids)
+            )
+        else:
+            self.unmapped_component_ids = ()
+        if split.get("assumed_solid_phase_component_ids"):
+            self.warnings.append(
+                "PR7 screening assumption: unclassified solid-phase pools are fully retained by sieving; verify particulate capture, fouling, and feed clarification with membrane tests."
+            )
+        retentate.empty()
+        permeate.empty()
+        unresolved.empty()
+        for ID, flow in split["retentate_kg_hr"].items():
+            retentate.imass[ID] = flow
+        for ID, flow in split["permeate_kg_hr"].items():
+            permeate.imass[ID] = flow
+        for ID, flow in split["unresolved_kg_hr"].items():
+            unresolved.imass[ID] = flow
+        for outlet in (retentate, permeate, unresolved):
+            outlet.T = feed.T
+            outlet.P = feed.P
+            outlet.phase = feed.phase
+        self.component_split = split
+        self.component_balance = calculate_component_split_balance(
+            {
+                ID: float(feed.imass[ID]) + float(analyte_feed.imass[ID])
+                for ID in chemicals.IDs
+            },
+            self.technology_id,
+            flux_L_m2_h=self.flux_L_m2_h,
+            component_retention_overrides=self.component_retention_overrides,
+            concentration_factor=self.concentration_factor,
+        )
+        if self.transmembrane_pressure_bar is not None and self.pump_efficiency_fraction is not None:
+            pressure_pa = float(self.transmembrane_pressure_bar) * 1e5
+            permeate_m3_hr = max(0.0, float(permeate.F_vol))
+            self.pressure_work_kw = (
+                pressure_pa * permeate_m3_hr / 3600.0 / 1000.0
+                / float(self.pump_efficiency_fraction)
+            )
+        if self.crossflow_electricity_kwh_m3_feed is not None:
+            feed_m3_hr = float(feed.F_vol) + float(analyte_feed.F_vol)
+            self.crossflow_electricity_kw = (
+                float(self.crossflow_electricity_kwh_m3_feed) * feed_m3_hr
+            )
+        self.power_utility.consumption = self.pressure_work_kw + self.crossflow_electricity_kw
+
+    def _design(self):
+        feed, analyte_feed = self.ins
+        retentate, permeate, unresolved = self.outs
+        volumetric_permeate_L_hr = max(0.0, float(permeate.F_vol)) * 1000.0
+        unresolved_volume_L_hr = max(0.0, float(unresolved.F_vol)) * 1000.0
+        minimum_area = volumetric_permeate_L_hr / self.flux_L_m2_h
+        unresolved_mass = float(unresolved.F_mass)
+        maximum_area = (
+            None
+            if unresolved_mass > 1e-12
+            else (volumetric_permeate_L_hr + unresolved_volume_L_hr) / self.flux_L_m2_h
+        )
+        area = None if unresolved.F_mass > 1e-12 else minimum_area
+        self.design_results["Permeate flux"] = self.flux_L_m2_h
+        self.design_results["Membrane area"] = area
+        self.design_results["Minimum membrane area"] = minimum_area
+        self.design_results["Maximum membrane area"] = maximum_area
+        self.design_results["Retentate flow"] = float(retentate.F_mass)
+        self.design_results["Permeate flow"] = float(permeate.F_mass)
+        total_feed_volume = float(feed.F_vol) + float(analyte_feed.F_vol)
+        self.design_results["Feed volumetric flow"] = total_feed_volume
+        self.design_results["Retentate volumetric flow"] = float(retentate.F_vol)
+        self.design_results["Permeate volumetric flow"] = float(permeate.F_vol)
+        self.design_results["Unresolved volumetric flow"] = float(unresolved.F_vol)
+        self.design_results["Target concentration factor"] = self.concentration_factor
+        self.design_results["Actual volume concentration factor"] = (
+            total_feed_volume / float(retentate.F_vol) if retentate.F_vol > 0 else None
+        ) if unresolved.F_mass <= 1e-12 else None
+        self.design_results["Unresolved component mass"] = float(unresolved.F_mass)
+        if maximum_area is None:
+            self.warnings.append(
+                "PR7 upper membrane-area bound is unavailable while component fate is unresolved; pseudo-component volume estimates are not used to size membrane area. The reported minimum area covers mapped permeate only."
+            )
+        self.design_results["Mass closure error"] = float(
+            feed.F_mass + analyte_feed.F_mass - retentate.F_mass - permeate.F_mass - unresolved.F_mass
+        )
+        self.design_results["Pressure work"] = (
+            float(self.pressure_work_kw)
+            if self.transmembrane_pressure_bar is not None and self.pump_efficiency_fraction is not None
+            else None
+        )
+        self.design_results["Crossflow electricity"] = (
+            float(self.crossflow_electricity_kw)
+            if self.crossflow_electricity_kwh_m3_feed is not None else None
+        )
+        self.design_results["Total electricity demand"] = float(self.power_utility.consumption)
+        self.design_results["Crossflow specific electricity"] = self.crossflow_electricity_kwh_m3_feed
+        if self.transmembrane_pressure_bar is not None:
+            self.design_results["Transmembrane pressure"] = float(self.transmembrane_pressure_bar)
+        if self.pump_efficiency_fraction is not None:
+            self.design_results["Pump efficiency"] = float(self.pump_efficiency_fraction)
 
 
 _NEUTRALIZATION_REACTION_NAMES = {
