@@ -373,7 +373,7 @@ function Overview({ result, activeUnits, runtime, limitations, analysis, analysi
   const outcomes = annual ? [
     ['Feed processed', annual.feed_processed.value / 1000, 't/year', 'green'],
     [result.scenarios.protein_recovery==='PR7'?'Biostimulant retentate':'Protein product', (annual.products[result.scenarios.protein_recovery==='PR7'?'biostimulant_product':'dry_protein_product']?.value || 0) / 1000, 't/year wet mass', 'green'],
-    ['Biomethane', annual.volumetric_products?.biomethane?.value || 0, 'm³/year', 'blue'],
+    ['Biomethane', annual.volumetric_products?.biomethane?.value == null ? 'Not reported' : annual.volumetric_products.biomethane.value, annual.volumetric_products?.biomethane?.unit?.replace('m3/','m³/') || 'm³/year', 'blue'],
     ['Electricity', (annual.utilities.electricity?.value || 0) / 1000, 'MWh/year', 'rose'],
     ['Mass closure', annual.balance.overall_closure_pct, '%', annual.balance.passed ? 'green' : 'rose'],
     ['Nutrient products', (nutrientTotal||0) / 1000, 't/year', 'yellow'],
