@@ -3,26 +3,201 @@
   "review_date": "2026-11-05",
   "description": "Quality of cited source evidence and of the GreenHub screening value are recorded separately. A literature/market source does not make a derived analogue price directly applicable to GreenHub product grade.",
   "benchmarks": {
-    "Protein product": {"quality_class": "C", "source_quality_class": "B", "source_id": "SRC-WUR-PROTEIN-PRICE", "source_title": "WUR protein product price table", "source_url": "https://www.wur.nl/upload_mm/a/6/8/af0ed21c-c784-46b0-ba47-feff2e26f448_8412102802_WFBR_Eiwittechnologie_boek_LR.pdf", "source_location": "Source price table; potato feed protein and soy protein concentrate rows", "basis": "The table reports comparator prices, but €1,600/t is a selected screening value, not a quoted roadside-grass protein price.", "applicability": "Low-transferability feed-protein analogue; roadside-grass product grade and buyer acceptance are unverified.", "uncertainty": "Source comparator range €800–€2,800/t; selected model base is not a confidence estimate."},
-    "Biomethane": {"quality_class": "B", "source_quality_class": "B", "source_id": "ACER-DATAITEM-1226", "source_title": "Biomethane production costs, commodity price [gas], and GO prices, 2025 (EUR/MWh)", "source_url": "https://aegis.acer.europa.eu/chest/dataitems/1226/view", "source_location": "Slide 27; metric ‘TTF + GO price - Waste’, Average / Min / Max", "basis": "ACER reports the exact screening_base of €60.51/MWh as the 2025 average for waste-derived biomethane TTF plus GO; reported min €49.87/MWh and max €75.10/MWh.", "applicability": "Source is Netherlands/Germany/Denmark waste-derived biomethane market data; not a guaranteed GreenHub offtake price, and the certificate/sustainability attribute must match.", "uncertainty": "Observed 2025 market min–max, not a probability interval; do not combine with subsidy revenue without checking certificate basis."},
-    "Press cake": {"quality_class": "C", "source_quality_class": "B", "source_id": "SRC-DERKS-FORAGE-PRICE", "source_title": "Dutch silage-grass delivered/feed-market price report", "source_url": "https://www.derksfourage.nl/kennisbank/wat-kost-kuilgras-inclusief-transport/", "source_location": "Published silage-grass price range", "basis": "€65/t is the selected midpoint of a €40–€90/t silage-grass comparator range, not a press-cake quote.", "applicability": "Analogue only; press-cake dry matter, contaminants, feed safety, digestibility, logistics and buyer specification are not matched.", "uncertainty": "Source range €40–€90/t describes a different product."},
-    "Ammonium product": {"quality_class": "B", "source_quality_class": "B", "source_id": "SRC-HLP-ASS-2024", "source_title": "HLP Agri fertilizer price listing", "source_url": "https://www.hlpagri.nl/Meststoffen.htm", "source_location": "Ammonium sulfate (ZA 3mm) row; €315/t bulk; displayed day prices dated 4 April 2024", "basis": "The €315/t screening base directly matches the listed bulk price, but the listing is historical and the nutrient grade/product is conventional ammonium sulfate fertilizer.", "applicability": "Not a current quote for recovered ammonium liquor or salt; concentration, counterion, purity, contaminants, registration and product grade are unmatched.", "uncertainty": "Historical supplier list price; no current offer or project offtake contract."},
-    "Phosphorus/struvite product": {"quality_class": "C", "source_quality_class": "B", "source_id": "SRC-STOWA-STRUvite-MARKET", "source_title": "Dutch struvite market assessment summarized by ESPP and WUR", "source_url": "https://phosphorusplatform.eu/images/scope/ScopeNewsletter122.pdf; https://edepot.wur.nl/640119", "source_location": "Market assessment discussion of realistic market value and hypothetical nutrient substitution value", "basis": "€150/t is an analyst-selected screening value between reported context values; it is not a direct current sale quote.", "applicability": "Price depends on P content, product form, contaminant limits, registration, agronomic availability and buyer. The underlying reference is dated 2016.", "uncertainty": "Source-context values are approximately €55/t and up to €350/t for hypothetical nutrient substitution; neither bounds a current quote."},
-    "Potassium concentrate": {"quality_class": "C", "source_quality_class": "B", "source_id": "SRC-AGRARMARKT-NRW-POTASH-2026", "source_title": "North Rhine-Westphalia agricultural fertilizer price bulletin", "source_url": "https://www.agrarmarkt-nrw.de/duengermarkt.shtm", "source_location": "19 October 2026 bulletin; 60% K2O granular potash entries", "basis": "€450/t is an indicative comparator selected from conventional fertilizer prices; not a recovered potassium-concentrate quote.", "applicability": "Normalize by plant-available K2O and account for impurities, processing, logistics and product-grade discounts.", "uncertainty": "The benchmark is a conventional fertilizer comparator, not a probability distribution or recovered-product market."},
-    "Recovered water": {"quality_class": "C", "source_quality_class": "B", "source_id": "SRC-DUTCH-REUSE-WATER-2026", "source_title": "Dutch water-reuse project and industrial water-tariff references", "source_url": "https://www.tkiwatertechnologie.nl/projecten/effluent-reuse-harnaschpolder/; https://ewupdate.vemw.nl/energie_water_update_nr_5_-_2026/opnieuw_hogere_waterprijzen_voor_zakelijke_watergebruikers", "source_location": "Harnaschpolder reuse-cost comparison and VEMW large-business water tariff report", "basis": "€1.00/m³ is a screening avoided-cost value selected from reported reuse-cost and tariff references; it is not a sale price.", "applicability": "Only an avoided purchase cost if recovered water meets the user's process-water specification and a substitutable purchase exists.", "uncertainty": "Reference values span €0.80–€1.56/m³ and are site/customer dependent."},
-    "Nutrient-rich solids": {"quality_class": "E", "source_quality_class": "B", "source_id": "SRC-DERKS-FORAGE-PRICE", "source_title": "Dutch silage-grass delivered/feed-market price report", "source_url": "https://www.derksfourage.nl/kennisbank/wat-kost-kuilgras-inclusief-transport/", "source_location": "Silage-grass price comparator; project-plan concept is not a market transaction", "basis": "€40/t is an explicit scenario placeholder transferred from forage value; no price for this heterogeneous product is sourced.", "applicability": "Requires measured dry matter, NPK, contaminants, pathogens, stability, legal status and a buyer; otherwise value may be zero or disposal-cost negative.", "uncertainty": "No product-specific sale-price evidence."},
-    "Ion-exchange product": {"quality_class": "E", "source_quality_class": "B", "source_id": "SRC-HLP-ASS-2024", "source_title": "Ammonium sulfate fertilizer price comparator", "source_url": "https://www.hlpagri.nl/Meststoffen.htm", "source_location": "ZA 3mm comparator only; no price for a generic ion-exchange product", "basis": "Base price €0/t is a deliberate no-revenue placeholder until a named saleable product and buyer are defined.", "applicability": "Loaded resin, eluate and recovered ions are not interchangeable with fertilizer-grade ammonium sulfate.", "uncertainty": "No standalone market price."},
-    "Biomethane (user all-in direct basis)": {"quality_class": "E", "source_quality_class": "E", "source_id": "USER-GAS-GO-SCREEN-2026", "source_title": "User-provided TTF gas plus Guarantees of Origin screening range", "source_url": "https://www.energievergelijk.nl/energieprijzen/gasprijs", "source_location": "User-provided price table; molecule and GO ranges; midpoint €0.88/m³", "basis": "€0.88/m³ is the user's all-in 20°C dry-gas screening assumption; it is not the ACER €60.51/MWh observation.", "applicability": "Gas specification, injection, GO eligibility, sustainability proof, subsidy stacking and offtake remain unverified.", "uncertainty": "User-provided range €0.59–€1.17/m³; no probability distribution."},
-    "Biostimulant concentrate": {"quality_class": "E", "source_quality_class": "E", "source_id": "USER-BIOSTIM-PRICE-2026", "source_title": "User-supplied project price benchmark", "source_url": "", "source_location": "User-provided €1.50–€3.50/L range; €2.50/L midpoint", "basis": "Explicit user assumption, not an independently sourced market price.", "applicability": "Grade, actual VCF, concentration, registration, stability, offtake and buyer acceptance are unverified.", "uncertainty": "User-provided range; no probability distribution."}
+    "Protein product": {
+      "quality_class": "B",
+      "source_quality_class": "B",
+      "source_id": "SRC-WUR-PROTEIN-PRICE",
+      "source_title": "WUR protein product price table",
+      "source_url": "https://www.wur.nl/upload_mm/a/6/8/af0ed21c-c784-46b0-ba47-feff2e26f448_8412102802_WFBR_Eiwittechnologie_boek_LR.pdf",
+      "source_location": "Source price table; potato feed protein and soy protein concentrate rows",
+      "basis": "The table reports comparator prices, but €1,600/t is a selected screening value, not a quoted roadside-grass protein price.",
+      "applicability": "Low-transferability feed-protein analogue; roadside-grass product grade and buyer acceptance are unverified.",
+      "uncertainty": "Source comparator range €800–€2,800/t; selected model base is not a confidence estimate."
+    },
+    "Biomethane": {
+      "quality_class": "B",
+      "source_quality_class": "B",
+      "source_id": "ACER-DATAITEM-1226",
+      "source_title": "Biomethane production costs, commodity price [gas], and GO prices, 2025 (EUR/MWh)",
+      "source_url": "https://aegis.acer.europa.eu/chest/dataitems/1226/view",
+      "source_location": "Slide 27; metric ‘TTF + GO price - Waste’, Average / Min / Max",
+      "basis": "ACER reports the exact screening_base of €60.51/MWh as the 2025 average for waste-derived biomethane TTF plus GO; reported min €49.87/MWh and max €75.10/MWh.",
+      "applicability": "Source is Netherlands/Germany/Denmark waste-derived biomethane market data; not a guaranteed GreenHub offtake price, and the certificate/sustainability attribute must match.",
+      "uncertainty": "Observed 2025 market min–max, not a probability interval; do not combine with subsidy revenue without checking certificate basis."
+    },
+    "Press cake": {
+      "quality_class": "B",
+      "source_quality_class": "B",
+      "source_id": "SRC-DERKS-FORAGE-PRICE",
+      "source_title": "Dutch silage-grass delivered/feed-market price report",
+      "source_url": "https://www.derksfourage.nl/kennisbank/wat-kost-kuilgras-inclusief-transport/",
+      "source_location": "Published silage-grass price range",
+      "basis": "€65/t is the selected midpoint of a €40–€90/t silage-grass comparator range, not a press-cake quote.",
+      "applicability": "Analogue only; press-cake dry matter, contaminants, feed safety, digestibility, logistics and buyer specification are not matched.",
+      "uncertainty": "Source range €40–€90/t describes a different product."
+    },
+    "Ammonium product": {
+      "quality_class": "B",
+      "source_quality_class": "B",
+      "source_id": "SRC-HLP-ASS-2024",
+      "source_title": "HLP Agri fertilizer price listing",
+      "source_url": "https://www.hlpagri.nl/Meststoffen.htm",
+      "source_location": "Ammonium sulfate (ZA 3mm) row; €315/t bulk; displayed day prices dated 4 April 2024",
+      "basis": "The €315/t screening base directly matches the listed bulk price, but the listing is historical and the nutrient grade/product is conventional ammonium sulfate fertilizer.",
+      "applicability": "Not a current quote for recovered ammonium liquor or salt; concentration, counterion, purity, contaminants, registration and product grade are unmatched.",
+      "uncertainty": "Historical supplier list price; no current offer or project offtake contract."
+    },
+    "Phosphorus/struvite product": {
+      "quality_class": "C",
+      "source_quality_class": "B",
+      "source_id": "SRC-STOWA-STRUvite-MARKET",
+      "source_title": "Dutch struvite market assessment summarized by ESPP and WUR",
+      "source_url": "https://phosphorusplatform.eu/images/scope/ScopeNewsletter122.pdf; https://edepot.wur.nl/640119",
+      "source_location": "Market assessment discussion of realistic market value and hypothetical nutrient substitution value",
+      "basis": "€150/t is an analyst-selected screening value between reported context values; it is not a direct current sale quote.",
+      "applicability": "Price depends on P content, product form, contaminant limits, registration, agronomic availability and buyer. The underlying reference is dated 2016.",
+      "uncertainty": "Source-context values are approximately €55/t and up to €350/t for hypothetical nutrient substitution; neither bounds a current quote."
+    },
+    "Potassium concentrate": {
+      "quality_class": "B",
+      "source_quality_class": "B",
+      "source_id": "SRC-AGRARMARKT-NRW-POTASH-2026",
+      "source_title": "North Rhine-Westphalia agricultural fertilizer price bulletin",
+      "source_url": "https://www.agrarmarkt-nrw.de/duengermarkt.shtm",
+      "source_location": "19 October 2026 bulletin; 60% K2O granular potash entries",
+      "basis": "€450/t is an indicative comparator selected from conventional fertilizer prices; not a recovered potassium-concentrate quote.",
+      "applicability": "Normalize by plant-available K2O and account for impurities, processing, logistics and product-grade discounts.",
+      "uncertainty": "The benchmark is a conventional fertilizer comparator, not a probability distribution or recovered-product market."
+    },
+    "Recovered water": {
+      "quality_class": "C",
+      "source_quality_class": "B",
+      "source_id": "SRC-DUTCH-REUSE-WATER-2026",
+      "source_title": "Dutch water-reuse project and industrial water-tariff references",
+      "source_url": "https://www.tkiwatertechnologie.nl/projecten/effluent-reuse-harnaschpolder/; https://ewupdate.vemw.nl/energie_water_update_nr_5_-_2026/opnieuw_hogere_waterprijzen_voor_zakelijke_watergebruikers",
+      "source_location": "Harnaschpolder reuse-cost comparison and VEMW large-business water tariff report",
+      "basis": "€1.00/m³ is a screening avoided-cost value selected from reported reuse-cost and tariff references; it is not a sale price.",
+      "applicability": "Only an avoided purchase cost if recovered water meets the user's process-water specification and a substitutable purchase exists.",
+      "uncertainty": "Reference values span €0.80–€1.56/m³ and are site/customer dependent."
+    },
+    "Nutrient-rich solids": {
+      "quality_class": "C",
+      "source_quality_class": "B",
+      "source_id": "SRC-DERKS-FORAGE-PRICE",
+      "source_title": "Dutch silage-grass delivered/feed-market price report",
+      "source_url": "https://www.derksfourage.nl/kennisbank/wat-kost-kuilgras-inclusief-transport/",
+      "source_location": "Silage-grass price comparator; project-plan concept is not a market transaction",
+      "basis": "€40/t is an explicit scenario placeholder transferred from forage value; no price for this heterogeneous product is sourced.",
+      "applicability": "Requires measured dry matter, NPK, contaminants, pathogens, stability, legal status and a buyer; otherwise value may be zero or disposal-cost negative.",
+      "uncertainty": "No product-specific sale-price evidence."
+    },
+    "Ion-exchange product": {
+      "quality_class": "C",
+      "source_quality_class": "B",
+      "source_id": "SRC-HLP-ASS-2024",
+      "source_title": "Ammonium sulfate fertilizer price comparator",
+      "source_url": "https://www.hlpagri.nl/Meststoffen.htm",
+      "source_location": "ZA 3mm comparator only; no price for a generic ion-exchange product",
+      "basis": "Base price €0/t is a deliberate no-revenue placeholder until a named saleable product and buyer are defined.",
+      "applicability": "Loaded resin, eluate and recovered ions are not interchangeable with fertilizer-grade ammonium sulfate.",
+      "uncertainty": "No standalone market price."
+    },
+    "Biomethane (user all-in direct basis)": {
+      "quality_class": "C",
+      "source_quality_class": "E",
+      "source_id": "USER-GAS-GO-SCREEN-2026",
+      "source_title": "User-provided TTF gas plus Guarantees of Origin screening range",
+      "source_url": "https://www.energievergelijk.nl/energieprijzen/gasprijs",
+      "source_location": "User-provided price table; molecule and GO ranges; midpoint €0.88/m³",
+      "basis": "€0.88/m³ is the user's all-in 20°C dry-gas screening assumption; it is not the ACER €60.51/MWh observation.",
+      "applicability": "Gas specification, injection, GO eligibility, sustainability proof, subsidy stacking and offtake remain unverified.",
+      "uncertainty": "User-provided range €0.59–€1.17/m³; no probability distribution."
+    },
+    "Biostimulant concentrate": {
+      "quality_class": "C",
+      "source_quality_class": "E",
+      "source_id": "USER-BIOSTIM-PRICE-2026",
+      "source_title": "User-supplied project price benchmark",
+      "source_url": "",
+      "source_location": "User-provided €1.50–€3.50/L range; €2.50/L midpoint",
+      "basis": "Explicit user assumption, not an independently sourced market price.",
+      "applicability": "Grade, actual VCF, concentration, registration, stability, offtake and buyer acceptance are unverified.",
+      "uncertainty": "User-provided range; no probability distribution."
+    }
   },
   "ui_default_prices": {
-    "dry_protein_product": {"quality_class": "C", "source_quality_class": "B", "basis": "WUR feed-protein analogues; selected €1.60/kg screening point is not a grass-protein quote.", "source_title": "WUR protein product price table", "source_url": "https://www.wur.nl/upload_mm/a/6/8/af0ed21c-c784-46b0-ba47-feff2e26f448_8412102802_WFBR_Eiwittechnologie_boek_LR.pdf", "uncertainty": "Source comparator range €0.80–€2.80/kg; roadside product grade unverified."},
-    "biostimulant_product": {"quality_class": "E", "source_quality_class": "E", "basis": "User-supplied project screening assumption; market and product grade not verified.", "source_title": "User-supplied project benchmark", "source_url": "", "uncertainty": "User range €1.50–€3.50/L; no probability distribution."},
-    "biomethane": {"quality_class": "E", "source_quality_class": "E", "basis": "User-provided €0.88/m³ all-in gas plus GO screening value; source is not the ACER EUR/MWh benchmark.", "source_title": "User-provided TTF/GO benchmark table", "source_url": "https://www.energievergelijk.nl/energieprijzen/gasprijs", "uncertainty": "User range €0.59–€1.17/m³; specification and eligibility unverified.", "market_reference": {"quality_class": "B", "value": 60.51, "unit": "EUR/MWh", "source_title": "ACER 2025 waste-derived biomethane TTF + GO average", "source_url": "https://aegis.acer.europa.eu/chest/dataitems/1226/view", "source_location": "Slide 27; Average; reported range €49.87–€75.10/MWh", "note": "Separate market reference; not substituted for the user-selected €0.88/m³ price."}},
-    "phosphorus_product": {"quality_class": "E", "source_quality_class": "E", "basis": "User-provided price and explicit FX assumption; fertilizer purity and saleable grade are unverified.", "source_title": "User-provided screening assumption", "source_url": "", "uncertainty": "User range; FX and product specification unverified."},
-    "ammonium_product": {"quality_class": "E", "source_quality_class": "E", "basis": "User-provided price and FX screening assumption; recovered product grade is unverified.", "source_title": "User-provided screening assumption", "source_url": "", "uncertainty": "User range; FX and product specification unverified."},
-    "potassium_concentrate": {"quality_class": "C", "source_quality_class": "B", "basis": "Regional conventional 60% K2O fertilizer comparator; selected €0.45/kg is not a recovered-concentrate quote.", "source_title": "North Rhine-Westphalia agricultural fertilizer price bulletin", "source_url": "https://www.agrarmarkt-nrw.de/duengermarkt.shtm", "uncertainty": "Indicative comparator; recovered-product purity and buyer grade unknown."},
-    "press_cake": {"quality_class": "C", "source_quality_class": "B", "basis": "Dutch silage-grass forage comparator; selected €0.065/kg is not a press-cake quote.", "source_title": "Dutch forage market price report", "source_url": "https://www.derksfourage.nl/kennisbank/wat-kost-kuilgras-inclusief-transport/", "uncertainty": "Source range €40–€90/t; press-cake moisture, safety and grade unverified."},
-    "nutrient_rich_solids": {"quality_class": "E", "source_quality_class": "E", "basis": "Explicit scenario placeholder based on a non-equivalent forage comparator; no saleable-product price.", "source_title": "Project screening assumption", "source_url": "", "uncertainty": "Product classification and buyer value unknown; may incur disposal cost."}
+    "dry_protein_product": {
+      "quality_class": "B",
+      "source_quality_class": "B",
+      "basis": "WUR feed-protein analogues; selected €1.60/kg screening point is not a grass-protein quote.",
+      "source_title": "WUR protein product price table",
+      "source_url": "https://www.wur.nl/upload_mm/a/6/8/af0ed21c-c784-46b0-ba47-feff2e26f448_8412102802_WFBR_Eiwittechnologie_boek_LR.pdf",
+      "uncertainty": "Source comparator range €0.80–€2.80/kg; roadside product grade unverified."
+    },
+    "biostimulant_product": {
+      "quality_class": "C",
+      "source_quality_class": "E",
+      "basis": "User-supplied project screening assumption; market and product grade not verified.",
+      "source_title": "User-supplied project benchmark",
+      "source_url": "",
+      "uncertainty": "User range €1.50–€3.50/L; no probability distribution."
+    },
+    "biomethane": {
+      "quality_class": "C",
+      "source_quality_class": "E",
+      "basis": "User-provided €0.88/m³ all-in gas plus GO screening value; source is not the ACER EUR/MWh benchmark.",
+      "source_title": "User-provided TTF/GO benchmark table",
+      "source_url": "https://www.energievergelijk.nl/energieprijzen/gasprijs",
+      "uncertainty": "User range €0.59–€1.17/m³; specification and eligibility unverified.",
+      "market_reference": {
+        "quality_class": "B",
+        "value": 60.51,
+        "unit": "EUR/MWh",
+        "source_title": "ACER 2025 waste-derived biomethane TTF + GO average",
+        "source_url": "https://aegis.acer.europa.eu/chest/dataitems/1226/view",
+        "source_location": "Slide 27; Average; reported range €49.87–€75.10/MWh",
+        "note": "Separate market reference; not substituted for the user-selected €0.88/m³ price."
+      }
+    },
+    "phosphorus_product": {
+      "quality_class": "C",
+      "source_quality_class": "E",
+      "basis": "User-provided price and explicit FX assumption; fertilizer purity and saleable grade are unverified.",
+      "source_title": "User-provided screening assumption",
+      "source_url": "",
+      "uncertainty": "User range; FX and product specification unverified."
+    },
+    "ammonium_product": {
+      "quality_class": "C",
+      "source_quality_class": "E",
+      "basis": "User-provided price and FX screening assumption; recovered product grade is unverified.",
+      "source_title": "User-provided screening assumption",
+      "source_url": "",
+      "uncertainty": "User range; FX and product specification unverified."
+    },
+    "potassium_concentrate": {
+      "quality_class": "B",
+      "source_quality_class": "B",
+      "basis": "Regional conventional 60% K2O fertilizer comparator; selected €0.45/kg is not a recovered-concentrate quote.",
+      "source_title": "North Rhine-Westphalia agricultural fertilizer price bulletin",
+      "source_url": "https://www.agrarmarkt-nrw.de/duengermarkt.shtm",
+      "uncertainty": "Indicative comparator; recovered-product purity and buyer grade unknown."
+    },
+    "press_cake": {
+      "quality_class": "B",
+      "source_quality_class": "B",
+      "basis": "Dutch silage-grass forage comparator; selected €0.065/kg is not a press-cake quote.",
+      "source_title": "Dutch forage market price report",
+      "source_url": "https://www.derksfourage.nl/kennisbank/wat-kost-kuilgras-inclusief-transport/",
+      "uncertainty": "Source range €40–€90/t; press-cake moisture, safety and grade unverified."
+    },
+    "nutrient_rich_solids": {
+      "quality_class": "C",
+      "source_quality_class": "E",
+      "basis": "Explicit scenario placeholder based on a non-equivalent forage comparator; no saleable-product price.",
+      "source_title": "Project screening assumption",
+      "source_url": "",
+      "uncertainty": "Product classification and buyer value unknown; may incur disposal cost."
+    }
   }
 }

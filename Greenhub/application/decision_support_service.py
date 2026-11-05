@@ -311,7 +311,7 @@ def options():
     from Greenhub.tea_finance import TEAFinancialAssumptions
     from Greenhub.product_price_benchmarks import product_price_source_references, screening_tea_product_price_ranges, screening_tea_product_prices
     from Greenhub.process_assumption_profile import screening_process_assumption_profile
-    return {'defaults':default_configuration(),'biomethane_bonus_default':{'rate_eur_per_m3':DEFAULT_BIOMETHANE_BONUS_EUR_PER_M3,'duration_years':DEFAULT_BIOMETHANE_BONUS_YEARS,'basis':'Midpoint of the supplied €1.28–€2.46/m³ biomethane screening range.','enabled_by_default':False},'tea_basis':asdict(TEAProjectBasis()),
+    return {'defaults':default_configuration(),'capabilities':{'reuse_completed_run_for_analysis':True},'biomethane_bonus_default':{'rate_eur_per_m3':DEFAULT_BIOMETHANE_BONUS_EUR_PER_M3,'duration_years':DEFAULT_BIOMETHANE_BONUS_YEARS,'basis':'Midpoint of the supplied €1.28–€2.46/m³ biomethane screening range.','enabled_by_default':False},'tea_basis':asdict(TEAProjectBasis()),
             'product_price_requirements':json.loads((Path(__file__).parents[1]/'data/tea/product_price_requirements.json').read_text())['products'],
             'financial_assumptions':asdict(TEAFinancialAssumptions()),'lca':lca_options(),
             'storage_reactions':reaction_catalog(),
@@ -337,12 +337,14 @@ class DecisionSupportService:
         config=deepcopy(configuration)
         allowed=set(default_configuration())
         allowed.add('candidate_economics')
+        allowed.add('existing_run_id')
         if set(config)-allowed: raise ValueError('Unknown decision support fields: '+', '.join(sorted(set(config)-allowed)))
         if not isinstance(config.get('simulation'),dict): raise ValueError('simulation request object is required.')
+        existing_run_id = config.pop('existing_run_id', None)
         use_screening_process_assumptions = bool(config.pop('use_screening_process_assumptions', False))
         use_screening_lca_factors = bool(config.pop('use_screening_lca_factors', False))
         process_assumption_profile = None
-        if use_screening_process_assumptions:
+        if use_screening_process_assumptions and not existing_run_id:
             from Greenhub.process_assumption_profile import screening_process_assumption_profile, screening_storage_conditions
             process_assumption_profile = screening_process_assumption_profile()
             simulation_config = config['simulation'] = deepcopy(config['simulation'])
@@ -350,9 +352,23 @@ class DecisionSupportService:
                 simulation_config['storage_conditions'] = screening_storage_conditions()
         project=config.get('project_basis',{})
         if set(project)-{'currency','price_year','location','screening_estimates'}: raise ValueError('Project basis uses currency, price_year, location and screening_estimates; put explicit process quantities in simulation.')
-        request=SimulationRequest.from_dict(config['simulation'])
-        run_id=self.simulations.create_run(request)
-        result=self.simulations.execute_run(run_id)
+        if existing_run_id:
+            # The UI has already completed this exact BioSTEAM run. Reuse its
+            # in-memory result for TEA/LCA instead of simulating the same case
+            # a second time (which can exceed the browser's request timeout).
+            context = self.simulations.repository.get(str(existing_run_id))
+            if context.result is None:
+                raise ValueError(f"Completed simulation '{existing_run_id}' has no result to analyze.")
+            submitted_request = SimulationRequest.from_dict(config['simulation'])
+            if submitted_request.request_id != context.request.request_id:
+                raise ValueError('The supplied simulation request does not match existing_run_id.')
+            request = context.request
+            run_id = context.run_id
+            result = context.result
+        else:
+            request=SimulationRequest.from_dict(config['simulation'])
+            run_id=self.simulations.create_run(request)
+            result=self.simulations.execute_run(run_id)
         annual=build_annual_summary(result,request)
         hours=float(annual['period']['operating_hours']); wet=annual['feed_processed']['value']
         dry=None

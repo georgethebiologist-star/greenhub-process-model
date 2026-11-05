@@ -166,7 +166,7 @@ def screening_tea_product_prices(
                    source_title=user_price['source_title'], source_url=user_price['source_url'],
                    reference_year=2026, reference_period='2026',
                    source_table_or_page=user_price['source_location'],
-                   evidence_class='explicit_user_assumption', quality_class='E', source_quality_class='E',
+                   evidence_class='explicit_user_assumption', quality_class='C', source_quality_class='E',
                    stable_identifier=user_price['source_id'],
                    quality_rationale='User-supplied price range and midpoint; not the separate ACER market observation.')
     for key, product, label in (('ammonium_sulfate', 'ammonium_product', 'Ammonium sulfate (dry equivalent)'), ('struvite', 'phosphorus_product', 'Solid struvite')):
@@ -180,7 +180,7 @@ def screening_tea_product_prices(
             'notes': data['warning'] + ' FX: 0.92 EUR/USD is an explicit assumption, not a market quote.',
             'conversion_method': 'USD/t × 0.92 EUR/USD / 1000 kg/t',
             'uncertainty': f"{data['low_usd_t']}-{data['high_usd_t']} USD/t; FX unverified",
-            'quality_class': 'E', 'source_quality_class': 'E',
+            'quality_class': 'C', 'source_quality_class': 'E',
             'stable_identifier': 'USER-SCREENING-ASSUMPTION',
             'quality_rationale': 'User-provided price range with an explicit, unverified currency conversion assumption.',
         }

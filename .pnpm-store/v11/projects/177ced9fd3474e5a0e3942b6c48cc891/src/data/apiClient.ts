@@ -123,6 +123,22 @@ export async function fetchRunResources(runId: string, specifications: any[] = [
   return { graph, artifacts, plots, annual };
 }
 
+export async function fetchRunResult(runId: string): Promise<any> {
+  const id=encodeURIComponent(runId);
+  const [status,summary,areas,streams,units,balances,validation,graph,plots,annual,utilities,exports]=await Promise.all([
+    apiJson<any>(`/simulations/${id}/status`),apiJson<any>(`/simulations/${id}/summary`),
+    apiJson<any[]>(`/simulations/${id}/process-areas`),apiJson<any[]>(`/simulations/${id}/streams`),
+    apiJson<any[]>(`/simulations/${id}/units`),apiJson<any[]>(`/simulations/${id}/balances`),
+    apiJson<any>(`/simulations/${id}/validation`),apiJson<any>(`/simulations/${id}/graph`),
+    apiJson<any[]>(`/simulations/${id}/plots`),apiJson<any>(`/simulations/${id}/annual-summary`),
+    apiJson<any[]>(`/simulations/${id}/utilities`),apiJson<any>(`/simulations/${id}/exports`),
+  ]);
+  const history=status.state_history||[];
+  return {run_id:runId,created_at:history[0]?.[1],completed_at:history.at(-1)?.[1],resolution_mode:'steady_state',
+    calculation_mode:'structural',selected_scenarios:{},summary_kpis:summary,process_areas:areas,streams,units,balances,
+    validation,warnings:annual.warnings||[],limitations:[],graph,plots,export_references:exports,annual,utilities};
+}
+
 function normalizePlotData(value: any): PlotCatalogItem {
   const spec = value.specification || {};
   const rows: Array<Record<string, string | number>> = [];

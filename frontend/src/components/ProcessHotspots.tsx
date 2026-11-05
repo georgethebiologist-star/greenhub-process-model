@@ -13,7 +13,7 @@ const emptyTooltip = { background: '#fffdf9', border: '1px solid #c9c2ba', borde
 
 type ChartRow = { name: string; Electricity?: number; Heating?: number; Cooling?: number; Heat?: number; 'Process emissions'?: number; value?: number | null };
 
-export default function ProcessHotspots({ result, analysis }: { result: SimulationResult; analysis: DecisionReport | null }) {
+export default function ProcessHotspots({ result, analysis, limitations = [] }: { result: SimulationResult; analysis: DecisionReport | null; limitations?: string[] }) {
   const tea = analysis?.tea || {};
   const lca = analysis?.lca || {};
   const units: any[] = result.units || [];
@@ -47,9 +47,10 @@ export default function ProcessHotspots({ result, analysis }: { result: Simulati
 
   const climateRows = makeClimateRows(lca.inventory || [], energyWeights);
   const climateTotal = climateRows.reduce((total, row) => total + Number(row.Electricity || 0) + Number(row.Heat || 0) + Number(row['Process emissions'] || 0), 0);
+  const analysisFailure = limitations.find(item => item.startsWith('Post-route assessment:'));
 
   return <section className="panel analytics-preview" aria-label="Process hotspots">
-    <header className="analytics-preview-head"><div><span className="eyebrow">RUN-SPECIFIC HOTSPOTS</span><h2>Process hotspots</h2><p>Energy, capital, operating costs and climate burdens for the current simulation.</p></div></header>
+    <header className="analytics-preview-head"><div><span className="eyebrow">RUN-SPECIFIC HOTSPOTS</span><h2>Process hotspots</h2><p>Energy, capital, operating costs and climate burdens for the current simulation.</p>{analysisFailure&&<p className="analytics-hotspot-error" role="status">Post-route analysis failed: {analysisFailure.replace(/^Post-route assessment:\s*/, '')}</p>}</div></header>
     <div className="analytics-hotspot-grid">
       <section className="analytics-hotspot-card"><h3>Energy by process step <span>· MWh/year</span></h3>
         {energyUnavailable ? <div className="analytics-hotspot-empty">Annual energy or unit-level demand is not available for this run.</div> : <div className="analytics-preview-hotspots"><ResponsiveContainer width="100%" height="100%"><BarChart data={energyRows} layout="vertical" margin={{ top: 8, right: 18, bottom: 8, left: 8 }}><CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="var(--line)"/><XAxis type="number" tickFormatter={compact} tick={{ fontSize: 9 }}/><YAxis type="category" dataKey="name" width={144} tick={{ fontSize: 9 }}/><Tooltip contentStyle={emptyTooltip} formatter={(value: number, name: string) => [`${number(value)} MWh/year`, name]}/><Legend/><Bar dataKey="Electricity" stackId="utility" fill={colors.electricity}/><Bar dataKey="Heating" stackId="utility" fill={colors.heating}/><Bar dataKey="Cooling" stackId="utility" fill={colors.cooling}/></BarChart></ResponsiveContainer></div>}

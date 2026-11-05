@@ -23,12 +23,12 @@
     "SolubleProtein": {
       "label": "Soluble protein",
       "model_baseline_percent": 0.2550166666666666,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0025501666666666663,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "Smit et al. 2022",
-      "source_id": "SRC-SMIT-2022",
+        "source_id": "SRC-SMIT-2022",
         "source_title": "Biomass Pre-Extraction as a Versatile Strategy to Improve Biorefinery Feedstock Flexibility, Sugar Yields, and Lignin Purity",
         "doi": "10.1021/acssuschemeng.2c00838",
         "source_url": "https://doi.org/10.1021/acssuschemeng.2c00838",
@@ -44,10 +44,10 @@
     "SuspendedProtein": {
       "label": "Suspended protein",
       "model_baseline_percent": 1.2750833333333331,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.012750833333333331,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "Smit et al. 2022",
         "source_title": "Biomass Pre-Extraction as a Versatile Strategy to Improve Biorefinery Feedstock Flexibility, Sugar Yields, and Lignin Purity",
         "doi": "10.1021/acssuschemeng.2c00838",
@@ -64,10 +64,10 @@
     "PrecipitatedProtein": {
       "label": "Precipitated protein",
       "model_baseline_percent": 0.0,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
@@ -76,10 +76,10 @@
     "HeatCoagulatedProtein": {
       "label": "Heat-coagulated protein",
       "model_baseline_percent": 0.0,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
@@ -88,10 +88,10 @@
     "DegradedProtein": {
       "label": "Degraded protein",
       "model_baseline_percent": 0.0,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
@@ -100,22 +100,22 @@
     "Peptides": {
       "label": "Peptides",
       "model_baseline_percent": 0.08426000000000004,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0008426000000000004
     },
     "AminoAcids": {
       "label": "Amino acids",
       "model_baseline_percent": 0.08426000000000004,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0008426000000000004
     },
     "MicrobialBiomass": {
       "label": "Microbial biomass",
       "model_baseline_percent": 0.0,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
@@ -131,16 +131,16 @@
         "source": "Smit et al. 2022",
         "source_id": "SRC-SMIT-2022",
         "doi": "10.1021/acssuschemeng.2c00838",
-      "source_title": "Biomass Pre-Extraction as a Versatile Strategy to Improve Biorefinery Feedstock Flexibility, Sugar Yields, and Lignin Purity",
-      "url": "https://doi.org/10.1021/acssuschemeng.2c00838",
-      "source_location": "Main-text discussion accompanying Figure 2; reported roadside-grass extractive sugars",
-      "geography": "Study geography not verified in the available source metadata",
-      "reference_year": 2022,
-      "retrieval_date": "2026-11-05",
-      "basis": "Extractive sugars reported as 7.2% of feedstock mass in a dry-basis composition context; converted using the VARTA default dry-matter fraction; represented by the aggregate model sugar pool.",
-      "conversion_method": "0.072 kg/kg dry feed × VARTA dry-matter fraction = wet-feed fraction",
-      "uncertainty": "No uncertainty interval for the 7.2% aggregate value is reported in the cited main-text statement; between-sample variability is not represented.",
-      "applicability": "Roadside-grass literature value; extraction-feed preparation and species mix may differ from Dutch VARTA grass."
+        "source_title": "Biomass Pre-Extraction as a Versatile Strategy to Improve Biorefinery Feedstock Flexibility, Sugar Yields, and Lignin Purity",
+        "url": "https://doi.org/10.1021/acssuschemeng.2c00838",
+        "source_location": "Main-text discussion accompanying Figure 2; reported roadside-grass extractive sugars",
+        "geography": "Study geography not verified in the available source metadata",
+        "reference_year": 2022,
+        "retrieval_date": "2026-11-05",
+        "basis": "Extractive sugars reported as 7.2% of feedstock mass in a dry-basis composition context; converted using the VARTA default dry-matter fraction; represented by the aggregate model sugar pool.",
+        "conversion_method": "0.072 kg/kg dry feed × VARTA dry-matter fraction = wet-feed fraction",
+        "uncertainty": "No uncertainty interval for the 7.2% aggregate value is reported in the cited main-text statement; between-sample variability is not represented.",
+        "applicability": "Roadside-grass literature value; extraction-feed preparation and species mix may differ from Dutch VARTA grass."
       }
     },
     "Starch": {
@@ -178,18 +178,18 @@
       "source": {
         "data_class": "B",
         "source": "Truba et al. 2017",
-      "source_id": "SRC-TRUBA-2017",
+        "source_id": "SRC-TRUBA-2017",
         "doi": "10.12911/22998993/66249",
-      "source_title": "The Effect of Soil Conditioners on Cellulose, Hemicellulose, and the ADL Fibre Fraction Concentration in Dactylis glomerata and Lolium perenne",
-      "url": "https://www.jeeng.net/pdf-66249-6937",
-      "source_location": "Table 4, p. 109; Lolium perenne mean across 2012–2014 and fertilizer treatments",
-      "geography": "Siedlce, Poland",
-      "reference_year": 2017,
-      "retrieval_date": "2026-11-05",
-      "basis": "240.8 g/kg dry matter; Lolium perenne cv. Info proxy converted with VARTA dry matter.",
-      "conversion_method": "240.8 g/kg dry matter ÷ 1000 × VARTA dry-matter fraction",
-      "uncertainty": "Three field replicates and treatment/year LSD results are reported, but no uncertainty interval for the species-average value is given; inter-site and roadside transferability are unquantified.",
-      "applicability": "Polish experimental perennial ryegrass; cultivar, management, soil and harvest stage differ from Dutch roadside grass."
+        "source_title": "The Effect of Soil Conditioners on Cellulose, Hemicellulose, and the ADL Fibre Fraction Concentration in Dactylis glomerata and Lolium perenne",
+        "url": "https://www.jeeng.net/pdf-66249-6937",
+        "source_location": "Table 4, p. 109; Lolium perenne mean across 2012–2014 and fertilizer treatments",
+        "geography": "Siedlce, Poland",
+        "reference_year": 2017,
+        "retrieval_date": "2026-11-05",
+        "basis": "240.8 g/kg dry matter; Lolium perenne cv. Info proxy converted with VARTA dry matter.",
+        "conversion_method": "240.8 g/kg dry matter ÷ 1000 × VARTA dry-matter fraction",
+        "uncertainty": "Three field replicates and treatment/year LSD results are reported, but no uncertainty interval for the species-average value is given; inter-site and roadside transferability are unquantified.",
+        "applicability": "Polish experimental perennial ryegrass; cultivar, management, soil and harvest stage differ from Dutch roadside grass."
       }
     },
     "Hemicellulose": {
@@ -200,18 +200,18 @@
       "source": {
         "data_class": "B",
         "source": "Truba et al. 2017",
-      "source_id": "SRC-TRUBA-2017",
+        "source_id": "SRC-TRUBA-2017",
         "doi": "10.12911/22998993/66249",
-      "source_title": "The Effect of Soil Conditioners on Cellulose, Hemicellulose, and the ADL Fibre Fraction Concentration in Dactylis glomerata and Lolium perenne",
-      "url": "https://www.jeeng.net/pdf-66249-6937",
-      "source_location": "Table 5, p. 110; Lolium perenne mean across 2012–2014 and fertilizer treatments",
-      "geography": "Siedlce, Poland",
-      "reference_year": 2017,
-      "retrieval_date": "2026-11-05",
-      "basis": "149.7 g/kg dry matter; Lolium perenne cv. Info proxy converted with VARTA dry matter.",
-      "conversion_method": "149.7 g/kg dry matter ÷ 1000 × VARTA dry-matter fraction",
-      "uncertainty": "Three field replicates and treatment/year LSD results are reported, but no uncertainty interval for the species-average value is given; inter-site and roadside transferability are unquantified.",
-      "applicability": "Polish experimental perennial ryegrass; cultivar, management, soil and harvest stage differ from Dutch roadside grass."
+        "source_title": "The Effect of Soil Conditioners on Cellulose, Hemicellulose, and the ADL Fibre Fraction Concentration in Dactylis glomerata and Lolium perenne",
+        "url": "https://www.jeeng.net/pdf-66249-6937",
+        "source_location": "Table 5, p. 110; Lolium perenne mean across 2012–2014 and fertilizer treatments",
+        "geography": "Siedlce, Poland",
+        "reference_year": 2017,
+        "retrieval_date": "2026-11-05",
+        "basis": "149.7 g/kg dry matter; Lolium perenne cv. Info proxy converted with VARTA dry matter.",
+        "conversion_method": "149.7 g/kg dry matter ÷ 1000 × VARTA dry-matter fraction",
+        "uncertainty": "Three field replicates and treatment/year LSD results are reported, but no uncertainty interval for the species-average value is given; inter-site and roadside transferability are unquantified.",
+        "applicability": "Polish experimental perennial ryegrass; cultivar, management, soil and harvest stage differ from Dutch roadside grass."
       }
     },
     "Lignin": {
@@ -222,33 +222,33 @@
       "source": {
         "data_class": "B",
         "source": "Truba et al. 2017",
-      "source_id": "SRC-TRUBA-2017",
+        "source_id": "SRC-TRUBA-2017",
         "doi": "10.12911/22998993/66249",
-      "source_title": "The Effect of Soil Conditioners on Cellulose, Hemicellulose, and the ADL Fibre Fraction Concentration in Dactylis glomerata and Lolium perenne",
-      "url": "https://www.jeeng.net/pdf-66249-6937",
-      "source_location": "Table 6, p. 110; Lolium perenne mean across 2012–2014 and fertilizer treatments",
-      "geography": "Siedlce, Poland",
-      "reference_year": 2017,
-      "retrieval_date": "2026-11-05",
-      "basis": "ADL 41.2 g/kg dry matter; Lolium perenne cv. Info proxy converted with VARTA dry matter.",
-      "conversion_method": "41.2 g/kg dry matter ÷ 1000 × VARTA dry-matter fraction",
-      "uncertainty": "Three field replicates and treatment/year LSD results are reported, but no uncertainty interval for the species-average value is given; inter-site and roadside transferability are unquantified.",
-      "applicability": "ADL is an operational lignin proxy and includes cutin/ash; not equivalent to a chemically pure lignin measurement. Polish experimental perennial ryegrass differs from Dutch roadside grass."
+        "source_title": "The Effect of Soil Conditioners on Cellulose, Hemicellulose, and the ADL Fibre Fraction Concentration in Dactylis glomerata and Lolium perenne",
+        "url": "https://www.jeeng.net/pdf-66249-6937",
+        "source_location": "Table 6, p. 110; Lolium perenne mean across 2012–2014 and fertilizer treatments",
+        "geography": "Siedlce, Poland",
+        "reference_year": 2017,
+        "retrieval_date": "2026-11-05",
+        "basis": "ADL 41.2 g/kg dry matter; Lolium perenne cv. Info proxy converted with VARTA dry matter.",
+        "conversion_method": "41.2 g/kg dry matter ÷ 1000 × VARTA dry-matter fraction",
+        "uncertainty": "Three field replicates and treatment/year LSD results are reported, but no uncertainty interval for the species-average value is given; inter-site and roadside transferability are unquantified.",
+        "applicability": "ADL is an operational lignin proxy and includes cutin/ash; not equivalent to a chemically pure lignin measurement. Polish experimental perennial ryegrass differs from Dutch roadside grass."
       }
     },
     "Pectin": {
       "label": "Pectin",
       "model_baseline_percent": 0.6319500000000002,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.006319500000000002
     },
     "Glucose": {
       "label": "Glucose",
       "model_baseline_percent": 0.0,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
@@ -257,10 +257,10 @@
     "Fructose": {
       "label": "Fructose",
       "model_baseline_percent": 0.0,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
@@ -269,10 +269,10 @@
     "Sucrose": {
       "label": "Sucrose",
       "model_baseline_percent": 0.0,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
@@ -281,10 +281,10 @@
     "Xylose": {
       "label": "Xylose",
       "model_baseline_percent": 0.0,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
@@ -293,10 +293,10 @@
     "Arabinose": {
       "label": "Arabinose",
       "model_baseline_percent": 0.0,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
@@ -305,10 +305,10 @@
     "Galactose": {
       "label": "Galactose",
       "model_baseline_percent": 0.0,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
@@ -317,10 +317,10 @@
     "Mannose": {
       "label": "Mannose",
       "model_baseline_percent": 0.0,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
@@ -329,10 +329,10 @@
     "Maltose": {
       "label": "Maltose",
       "model_baseline_percent": 0.0,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
@@ -341,10 +341,10 @@
     "AceticAcid": {
       "label": "Acetic acid",
       "model_baseline_percent": 0.0,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
@@ -353,10 +353,10 @@
     "LacticAcid": {
       "label": "Lactic acid",
       "model_baseline_percent": 0.0,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
@@ -365,10 +365,10 @@
     "PropionicAcid": {
       "label": "Propionic acid",
       "model_baseline_percent": 0.0,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
@@ -377,10 +377,10 @@
     "ButyricAcid": {
       "label": "Butyric acid",
       "model_baseline_percent": 0.0,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
@@ -389,10 +389,10 @@
     "FormicAcid": {
       "label": "Formic acid",
       "model_baseline_percent": 0.0,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
@@ -401,10 +401,10 @@
     "SuccinicAcid": {
       "label": "Succinic acid",
       "model_baseline_percent": 0.0,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
@@ -413,10 +413,10 @@
     "CitricAcid": {
       "label": "Citric acid",
       "model_baseline_percent": 0.0,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
@@ -425,10 +425,10 @@
     "MalicAcid": {
       "label": "Malic acid",
       "model_baseline_percent": 0.0,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
@@ -437,10 +437,10 @@
     "OxalicAcid": {
       "label": "Oxalic acid",
       "model_baseline_percent": 0.0,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
@@ -449,16 +449,16 @@
     "Lipids": {
       "label": "Lipids",
       "model_baseline_percent": 0.3370400000000002,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0033704000000000017
     },
     "OtherBiodegradableOrganics": {
       "label": "Other biodegradable organics",
       "model_baseline_percent": 0.0,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
@@ -467,22 +467,22 @@
     "ParticulateBiodegradableOrganics": {
       "label": "Particulate biodegradable organics",
       "model_baseline_percent": 0.6319500000000002,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.006319500000000002
     },
     "NonBiodegradableOrganics": {
       "label": "Non-biodegradable organics",
       "model_baseline_percent": 0.21065000000000006,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0021065000000000007
     },
     "PersistentOrganics": {
       "label": "Persistent organics",
       "model_baseline_percent": 0.0002106500000000001,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 2.106500000000001e-06,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Unvalidated trace-level placeholder inherited from the legacy profile; not a measured roadside-grass concentration and not supported by direct literature for this value.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
@@ -491,10 +491,10 @@
     "Pesticides": {
       "label": "Pesticides",
       "model_baseline_percent": 0.0002106500000000001,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 2.106500000000001e-06,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Unvalidated trace-level placeholder inherited from the legacy profile; not a measured roadside-grass concentration and not supported by direct literature for this value.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
@@ -503,28 +503,28 @@
     "Ammonium": {
       "label": "Ammonium",
       "model_baseline_percent": 0.008426000000000003,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 8.426000000000002e-05
     },
     "OrganicNitrogen": {
       "label": "Organic nitrogen",
       "model_baseline_percent": 0.02106500000000001,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0002106500000000001
     },
     "ParticulateNitrogen": {
       "label": "Particulate nitrogen",
       "model_baseline_percent": 0.02106500000000001,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0002106500000000001
     },
     "OrganicPhosphorus": {
       "label": "Organic phosphorus",
       "model_baseline_percent": 0.0,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
@@ -533,34 +533,34 @@
     "DissolvedPhosphorus": {
       "label": "Dissolved phosphorus",
       "model_baseline_percent": 0.0042130000000000015,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 4.213000000000001e-05
     },
     "ParticulatePhosphorus": {
       "label": "Particulate phosphorus",
       "model_baseline_percent": 0.016852000000000006,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.00016852000000000005
     },
     "ParticulatePotassium": {
       "label": "Particulate potassium",
       "model_baseline_percent": 0.02949100000000001,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0002949100000000001
     },
     "PotassiumIon": {
       "label": "Potassium ion",
       "model_baseline_percent": 0.02106500000000001,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0002106500000000001
     },
     "HydrogenIon": {
       "label": "Hydrogen ion",
       "model_baseline_percent": 0.0,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
@@ -569,10 +569,10 @@
     "HydroxideIon": {
       "label": "Hydroxide ion",
       "model_baseline_percent": 0.0,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
@@ -581,10 +581,10 @@
     "NitrateIon": {
       "label": "Nitrate ion",
       "model_baseline_percent": 0.0,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
@@ -593,10 +593,10 @@
     "NitriteIon": {
       "label": "Nitrite ion",
       "model_baseline_percent": 0.0,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
@@ -605,10 +605,10 @@
     "Orthophosphate": {
       "label": "Orthophosphate",
       "model_baseline_percent": 0.0,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
@@ -617,10 +617,10 @@
     "SodiumIon": {
       "label": "Sodium ion",
       "model_baseline_percent": 0.0,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
@@ -629,10 +629,10 @@
     "MagnesiumIon": {
       "label": "Magnesium ion",
       "model_baseline_percent": 0.0,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
@@ -641,10 +641,10 @@
     "CalciumIon": {
       "label": "Calcium ion",
       "model_baseline_percent": 0.0,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
@@ -653,10 +653,10 @@
     "ChlorideIon": {
       "label": "Chloride ion",
       "model_baseline_percent": 0.0,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
@@ -665,10 +665,10 @@
     "SulfateIon": {
       "label": "Sulfate ion",
       "model_baseline_percent": 0.0,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
@@ -677,10 +677,10 @@
     "BicarbonateIon": {
       "label": "Bicarbonate ion",
       "model_baseline_percent": 0.0,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
@@ -689,10 +689,10 @@
     "CarbonateIon": {
       "label": "Carbonate ion",
       "model_baseline_percent": 0.0,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
@@ -706,33 +706,33 @@
       "source": {
         "data_class": "B",
         "source": "Brown et al. 2020",
-      "source_id": "SRC-BROWN-2020",
+        "source_id": "SRC-BROWN-2020",
         "doi": "10.1016/j.biombioe.2020.105570",
-      "source_title": "An Assessment of Road-Verge Grass as a Feedstock for Farm-Fed Anaerobic Digestion Plants",
-      "url": "https://doi.org/10.1016/j.biombioe.2020.105570",
-      "source_location": "Table 3; fresh verge grass, proximate analysis on dry basis",
-      "geography": "United Kingdom; precise sample location not recorded in this profile",
-      "reference_year": 2020,
-      "retrieval_date": "2026-11-05",
-      "basis": "Fresh verge-grass ash 17.9% of dry matter, converted with the VARTA dry-matter fraction.",
-      "conversion_method": "0.179 kg/kg dry matter × VARTA dry-matter fraction = wet-feed fraction",
-      "uncertainty": "Source reports 17.9 ± 2.0% dry matter for fresh verge grass; model uses the central value only and does not sample the reported spread.",
-      "applicability": "Direct roadside/verge-grass evidence, but country, site, collection equipment and contamination conditions may differ from VARTA."
+        "source_title": "An Assessment of Road-Verge Grass as a Feedstock for Farm-Fed Anaerobic Digestion Plants",
+        "url": "https://doi.org/10.1016/j.biombioe.2020.105570",
+        "source_location": "Table 3; fresh verge grass, proximate analysis on dry basis",
+        "geography": "United Kingdom; precise sample location not recorded in this profile",
+        "reference_year": 2020,
+        "retrieval_date": "2026-11-05",
+        "basis": "Fresh verge-grass ash 17.9% of dry matter, converted with the VARTA dry-matter fraction.",
+        "conversion_method": "0.179 kg/kg dry matter × VARTA dry-matter fraction = wet-feed fraction",
+        "uncertainty": "Source reports 17.9 ± 2.0% dry matter for fresh verge grass; model uses the central value only and does not sample the reported spread.",
+        "applicability": "Direct roadside/verge-grass evidence, but country, site, collection equipment and contamination conditions may differ from VARTA."
       }
     },
     "SuspendedSolids": {
       "label": "Suspended solids",
       "model_baseline_percent": 0.3370400000000002,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0033704000000000017
     },
     "SolubleInertSolids": {
       "label": "Soluble inert solids",
       "model_baseline_percent": 0.0,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
@@ -741,10 +741,10 @@
     "SuspendedInertSolids": {
       "label": "Suspended inert solids",
       "model_baseline_percent": 0.0,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
@@ -753,28 +753,28 @@
     "InertSolids": {
       "label": "Inert solids",
       "model_baseline_percent": 0.08426000000000004,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0008426000000000004
     },
     "Sand": {
       "label": "Sand",
       "model_baseline_percent": 0.1685200000000001,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0016852000000000008
     },
     "Litter": {
       "label": "Litter",
       "model_baseline_percent": 0.04213000000000002,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0004213000000000002
     },
     "HeavyMetals": {
       "label": "Heavy metals",
       "model_baseline_percent": 0.0008426000000000004,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 8.426000000000004e-06,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Unvalidated trace-level placeholder inherited from the legacy profile; not a measured roadside-grass concentration and not supported by direct literature for this value.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
@@ -783,10 +783,10 @@
     "Microplastics": {
       "label": "Microplastics",
       "model_baseline_percent": 0.0008426000000000004,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 8.426000000000004e-06,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Unvalidated trace-level placeholder inherited from the legacy profile; not a measured roadside-grass concentration and not supported by direct literature for this value.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
@@ -795,10 +795,10 @@
     "PathogenIndicators": {
       "label": "Pathogen indicators",
       "model_baseline_percent": 0.0021065000000000007,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 2.1065000000000006e-05,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Unvalidated trace-level placeholder inherited from the legacy profile; not a measured roadside-grass concentration and not supported by direct literature for this value.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
@@ -807,10 +807,10 @@
     "Indole3AceticAcid": {
       "label": "Free auxin (IAA)",
       "model_baseline_percent": 0.0,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
@@ -819,10 +819,10 @@
     "ProteinBoundIAA": {
       "label": "Protein-bound IAA",
       "model_baseline_percent": 0.0,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
@@ -831,10 +831,10 @@
     "Zeatin": {
       "label": "Free zeatin",
       "model_baseline_percent": 0.0,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
@@ -843,10 +843,10 @@
     "PeptideBoundZeatin": {
       "label": "Peptide-bound zeatin",
       "model_baseline_percent": 0.0,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
@@ -855,10 +855,10 @@
     "ZeatinRiboside": {
       "label": "Zeatin riboside",
       "model_baseline_percent": 0.0,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
@@ -867,10 +867,10 @@
     "BoundZeatinRiboside": {
       "label": "Bound zeatin riboside",
       "model_baseline_percent": 0.0,
-      "data_class": "E",
+      "data_class": "C",
       "wet_mass_fraction": 0.0,
       "source": {
-        "data_class": "E",
+        "data_class": "C",
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
         "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
         "uncertainty": "Unknown; no empirical uncertainty interval is available."
