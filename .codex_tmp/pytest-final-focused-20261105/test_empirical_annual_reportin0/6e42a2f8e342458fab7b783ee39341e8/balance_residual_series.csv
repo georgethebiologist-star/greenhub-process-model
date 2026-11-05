@@ -1,0 +1,13 @@
+time,overall_mass_residual_kg,element_residuals_kg
+2026-01,0.0,{}
+2026-02,0.0,{}
+2026-03,0.0,{}
+2026-04,-5.096480890642852e-07,"{""calcium"": 0.0, ""carbon"": 0.0, ""chloride"": 0.0, ""hydrogen"": 6.821210263296962e-13, ""magnesium"": 0.0, ""nitrogen"": 0.0, ""oxygen"": 5.4569682106375694e-12, ""phosphorus"": 0.0, ""potassium"": 0.0, ""sodium"": 0.0, ""sulfur"": 0.0}"
+2026-05,-1.3751166989095509e-05,"{""calcium"": 0.0, ""carbon"": 0.0, ""chloride"": 1.652011860642233e-13, ""hydrogen"": 0.0, ""magnesium"": 0.0, ""nitrogen"": 0.0, ""oxygen"": 0.0, ""phosphorus"": -1.0325074129013956e-14, ""potassium"": 0.0, ""sodium"": 1.652011860642233e-13, ""sulfur"": 8.260059303211165e-14}"
+2026-06,-2.7590212994255126e-05,"{""calcium"": 0.0, ""carbon"": 0.0, ""chloride"": 0.0, ""hydrogen"": -4.092726157978177e-11, ""magnesium"": 0.0, ""nitrogen"": 0.0, ""oxygen"": -3.2741809263825417e-10, ""phosphorus"": 0.0, ""potassium"": -1.5987211554602254e-13, ""sodium"": 0.0, ""sulfur"": 0.0}"
+2026-07,-4.381264443509281e-05,"{""calcium"": 0.0, ""carbon"": 0.0, ""chloride"": 0.0, ""hydrogen"": 4.229150363244116e-11, ""magnesium"": 0.0, ""nitrogen"": 0.0, ""oxygen"": 3.383320290595293e-10, ""phosphorus"": -4.1300296516055823e-14, ""potassium"": 1.652011860642233e-13, ""sodium"": 0.0, ""sulfur"": 3.304023721284466e-13}"
+2026-08,-4.9883674364537e-05,"{""calcium"": 0.0, ""carbon"": 0.0, ""chloride"": 0.0, ""hydrogen"": -8.458300726488233e-11, ""magnesium"": 0.0, ""nitrogen"": 0.0, ""oxygen"": -6.766640581190586e-10, ""phosphorus"": 0.0, ""potassium"": 0.0, ""sodium"": 0.0, ""sulfur"": 0.0}"
+2026-09,-4.057430487591773e-05,"{""calcium"": 0.0, ""carbon"": -6.394884621840902e-13, ""chloride"": 0.0, ""hydrogen"": 4.092726157978177e-11, ""magnesium"": 0.0, ""nitrogen"": 0.0, ""oxygen"": 3.2741809263825417e-10, ""phosphorus"": 0.0, ""potassium"": -1.5987211554602254e-13, ""sodium"": 0.0, ""sulfur"": 0.0}"
+2026-10,-2.6090812752954662e-05,"{""calcium"": 0.0, ""carbon"": 3.304023721284466e-13, ""chloride"": 0.0, ""hydrogen"": 2.114575181622058e-11, ""magnesium"": 0.0, ""nitrogen"": 0.0, ""oxygen"": 3.383320290595293e-10, ""phosphorus"": 0.0, ""potassium"": 8.260059303211165e-14, ""sodium"": 0.0, ""sulfur"": 0.0}"
+2026-11,-1.139984669862315e-05,"{""calcium"": 0.0, ""carbon"": 0.0, ""chloride"": 0.0, ""hydrogen"": -9.890754881780595e-12, ""magnesium"": 0.0, ""nitrogen"": 0.0, ""oxygen"": -1.5825207810848951e-10, ""phosphorus"": 0.0, ""potassium"": 0.0, ""sodium"": 0.0, ""sulfur"": -7.72715225139109e-14}"
+2026-12,0.0,{}

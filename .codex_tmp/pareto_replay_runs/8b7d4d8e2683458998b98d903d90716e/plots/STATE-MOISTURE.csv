@@ -1,0 +1,17 @@
+series_id,label,x,y
+inlet_moisture,Inlet moisture,C301,0.9669949909326102
+inlet_moisture,Inlet moisture,H501,0.9901530677540786
+inlet_moisture,Inlet moisture,M403,0.9901530677540786
+inlet_moisture,Inlet moisture,M501,0.9901530677540786
+inlet_moisture,Inlet moisture,R501,0.9901530677540786
+inlet_moisture,Inlet moisture,S201,0.8581931373369083
+inlet_moisture,Inlet moisture,U101,0.8570000000000001
+inlet_moisture,Inlet moisture,V501,0.9901530677540786
+outlet_moisture,Outlet moisture,C301,0.9901530677540786
+outlet_moisture,Outlet moisture,H501,0.9901530677540786
+outlet_moisture,Outlet moisture,M403,0.9901530677540786
+outlet_moisture,Outlet moisture,M501,0.9901530677540786
+outlet_moisture,Outlet moisture,R501,0.9901530677540786
+outlet_moisture,Outlet moisture,S201,0.7493912837412059
+outlet_moisture,Outlet moisture,U101,0.8581931373369083
+outlet_moisture,Outlet moisture,V501,0.9901530677540786

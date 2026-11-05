@@ -85,8 +85,13 @@ def _record(name, value, unit, policy, status, source="", warning="Proxy assumpt
     source = str(source).replace("\\", "/")
     if PureWindowsPath(source).is_absolute() or source.startswith("/"):
         source = PureWindowsPath(source).name
-    return dict(name=name, value=value, unit=unit, policy_id=policy, source_status=status,
-                certainty_class=certainty, source_file=source, source_id=source_id or name, warning=warning)
+    record = dict(name=name, value=value, unit=unit, policy_id=policy, source_status=status,
+                  certainty_class=certainty, source_file=source, source_id=source_id or name, warning=warning)
+    # This labels the cited source evidence, not the transferability or the
+    # certainty of applying it to GreenHub; those remain in certainty_class.
+    if status == "direct_dataset":
+        record["quality_class"] = "B"
+    return record
 
 
 def _step_evidence(step):
@@ -116,9 +121,17 @@ def _step_evidence(step):
                 records.append({**_record(name, value, "fraction" if "fraction" in name else "policy metadata", policy.get("policy_id", unit.unit_id), status,
                                           "Greenhub/dynamic_process.py", "; ".join(policy.get("warnings", ())) or "Upstream proxy policy; inspect source records.", certainty=certainty), "provenance": prov})
         for source in prov.get("evidence", []):
-            records.append(_record(source.get("record_id", "source"), source.get("normalized_value", source.get("value")), source.get("normalized_unit") or source.get("unit", ""),
-                                   policy.get("policy_id", unit.unit_id), "direct_dataset", source.get("source_file", ""),
-                                   source.get("warning") or source.get("notes") or "Source observation transferred as a proxy.", source.get("source_id", "")))
+            record = _record(source.get("record_id", "source"), source.get("normalized_value", source.get("value")), source.get("normalized_unit") or source.get("unit", ""),
+                             policy.get("policy_id", unit.unit_id), "direct_dataset", source.get("source_file", ""),
+                             source.get("warning") or source.get("notes") or "Source observation transferred as a proxy.",
+                             source.get("source_id", ""), source.get("evidence_class", "direct_usable"))
+            record.update({
+                "record_id": source.get("record_id"),
+                "source_title": source.get("source_title"),
+                "source_url": source.get("doi_or_url"),
+                "source_location": source.get("source_location"),
+            })
+            records.append(record)
     records.append(_record("feed_pool_policy", preview.feed_pools.provenance, "policy metadata", "FEED-POOL-PROXY", "literature_proxy", "Greenhub/dynamic_feedstock.py", "Whole-grass pooling and seasonal mapping are not site-validated."))
     closure = preview.provenance.get("proxy_closure_policy") or {}
     for name, value in closure.items():

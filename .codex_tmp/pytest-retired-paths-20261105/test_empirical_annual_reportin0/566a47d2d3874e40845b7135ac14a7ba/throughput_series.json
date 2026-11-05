@@ -1,0 +1,122 @@
+[
+  {
+    "actual_throughput_kg": 0.0,
+    "actual_throughput_kg_hr": 0.0,
+    "available_operating_hours": 0.0,
+    "backlog_kg": 0.0,
+    "idle_capacity_kg": null,
+    "maximum_throughput_kg": null,
+    "rejected_or_overflow_kg": 0.0,
+    "time": "2026-01"
+  },
+  {
+    "actual_throughput_kg": 0.0,
+    "actual_throughput_kg_hr": 0.0,
+    "available_operating_hours": 0.0,
+    "backlog_kg": 0.0,
+    "idle_capacity_kg": null,
+    "maximum_throughput_kg": null,
+    "rejected_or_overflow_kg": 0.0,
+    "time": "2026-02"
+  },
+  {
+    "actual_throughput_kg": 0.0,
+    "actual_throughput_kg_hr": 0.0,
+    "available_operating_hours": 0.0,
+    "backlog_kg": 0.0,
+    "idle_capacity_kg": null,
+    "maximum_throughput_kg": null,
+    "rejected_or_overflow_kg": 0.0,
+    "time": "2026-03"
+  },
+  {
+    "actual_throughput_kg": 71576.11320304393,
+    "actual_throughput_kg_hr": 1491.1690250634153,
+    "available_operating_hours": 48.0,
+    "backlog_kg": 0.0,
+    "idle_capacity_kg": 384919.5855308434,
+    "maximum_throughput_kg": 456495.69873388734,
+    "rejected_or_overflow_kg": 0.0,
+    "time": "2026-04"
+  },
+  {
+    "actual_throughput_kg": 1931231.5899514775,
+    "actual_throughput_kg_hr": 2595.7413843433837,
+    "available_operating_hours": 744.0,
+    "backlog_kg": 0.0,
+    "idle_capacity_kg": 5144451.740423774,
+    "maximum_throughput_kg": 7075683.330375252,
+    "rejected_or_overflow_kg": 0.0,
+    "time": "2026-05"
+  },
+  {
+    "actual_throughput_kg": 3874725.029447476,
+    "actual_throughput_kg_hr": 5381.562540899272,
+    "available_operating_hours": 720.0,
+    "backlog_kg": 0.0,
+    "idle_capacity_kg": 2972710.451560833,
+    "maximum_throughput_kg": 6847435.481008309,
+    "rejected_or_overflow_kg": 0.0,
+    "time": "2026-06"
+  },
+  {
+    "actual_throughput_kg": 6153234.163482148,
+    "actual_throughput_kg_hr": 8270.476026185683,
+    "available_operating_hours": 744.0,
+    "backlog_kg": 0.0,
+    "idle_capacity_kg": 922449.1668931032,
+    "maximum_throughput_kg": 7075683.330375251,
+    "rejected_or_overflow_kg": 0.0,
+    "time": "2026-07"
+  },
+  {
+    "actual_throughput_kg": 7005627.059777479,
+    "actual_throughput_kg_hr": 9416.16540292672,
+    "available_operating_hours": 744.0,
+    "backlog_kg": 7.777808463701996e-10,
+    "idle_capacity_kg": 70056.27059777547,
+    "maximum_throughput_kg": 7075683.330375254,
+    "rejected_or_overflow_kg": 0.0,
+    "time": "2026-08"
+  },
+  {
+    "actual_throughput_kg": 5698348.21710224,
+    "actual_throughput_kg_hr": 7914.372523753111,
+    "available_operating_hours": 720.0,
+    "backlog_kg": 6.326437392958618e-10,
+    "idle_capacity_kg": 1149087.263906069,
+    "maximum_throughput_kg": 6847435.481008309,
+    "rejected_or_overflow_kg": 0.0,
+    "time": "2026-09"
+  },
+  {
+    "actual_throughput_kg": 3664274.713776116,
+    "actual_throughput_kg_hr": 4925.100421742091,
+    "available_operating_hours": 744.0,
+    "backlog_kg": 4.0681621557859996e-10,
+    "idle_capacity_kg": 3411408.6165991356,
+    "maximum_throughput_kg": 7075683.330375251,
+    "rejected_or_overflow_kg": 0.0,
+    "time": "2026-10"
+  },
+  {
+    "actual_throughput_kg": 1600983.113260015,
+    "actual_throughput_kg_hr": 2300.2630937643894,
+    "available_operating_hours": 696.0,
+    "backlog_kg": 7.109793257509336e-10,
+    "idle_capacity_kg": 5018204.518381349,
+    "maximum_throughput_kg": 6619187.631641364,
+    "rejected_or_overflow_kg": 0.0,
+    "time": "2026-11"
+  },
+  {
+    "actual_throughput_kg": 0.0,
+    "actual_throughput_kg_hr": 0.0,
+    "available_operating_hours": 0.0,
+    "backlog_kg": 7.109793257509336e-10,
+    "idle_capacity_kg": null,
+    "maximum_throughput_kg": null,
+    "rejected_or_overflow_kg": 0.0,
+    "time": "2026-12"
+  }
+]

@@ -4,7 +4,7 @@ from Greenhub.systems import create_phase3_scenario
 
 
 def test_centrifuge_removes_solids_and_retains_soluble_protein():
-    model = create_phase3_scenario("F2").simulate()
+    model = create_phase3_scenario("F1").simulate()
     raw = model.streams["raw_liquid_fraction"]
     clarified = model.streams["clarified_liquid"]
     sludge = model.streams["primary_sludge"]

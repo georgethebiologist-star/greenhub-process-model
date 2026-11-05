@@ -295,6 +295,30 @@ PROCESS_GRAPH_SCHEMA = {
     "$defs": {"numerical_value": NUMERICAL_VALUE_SCHEMA},
 }
 
+PARAMETER_RESOLUTION_RESULT_SCHEMA = {
+    "type": "object",
+    "required": ["parameter_id", "value", "unit", "status", "source", "selection_reason", "warnings"],
+    "properties": {
+        "parameter_id": {"type": "string"},
+        "value": {},
+        "unit": {"type": ["string", "null"]},
+        "status": {"type": "string"},
+        "source": {"type": ["string", "null"]},
+        "selection_reason": {"type": "string"},
+        "warnings": {"type": "array", "items": {"type": "string"}},
+        # Optional additive evidence metadata; clients built for 1.0 may ignore it.
+        "quality_class": {"type": ["string", "null"], "enum": ["A", "B", "C", "D", "E", None]},
+        "evidence_class": {"type": ["string", "null"]},
+        "source_title": {"type": ["string", "null"]},
+        "stable_identifier": {"type": ["string", "null"]},
+        "source_url": {"type": ["string", "null"], "format": "uri"},
+        "exact_source_location": {"type": ["string", "null"]},
+        "basis": {"type": ["string", "null"]},
+        "uncertainty": {"type": ["object", "string", "null"]},
+    },
+}
+
+
 SIMULATION_RESULT_SCHEMA = {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "simulation_result.schema.json",
@@ -327,7 +351,7 @@ SIMULATION_RESULT_SCHEMA = {
         "validation": {"type": "object"},
         "warnings": {"type": "array", "items": {"type": "string"}},
         "limitations": {"type": "array", "items": {"type": "string"}},
-        "resolved_parameters": {"type": "array", "items": {"type": "object"}},
+        "resolved_parameters": {"type": "array", "items": PARAMETER_RESOLUTION_RESULT_SCHEMA},
         "model_maturity": {"type": "object", "additionalProperties": {"type": "string"}},
         "dataset_readiness": {"type": "object", "additionalProperties": {"type": "integer"}},
         "plots": {"type": "array", "items": {"type": "object"}},
@@ -372,7 +396,7 @@ RESULT_FIELDS = (
     ("products[].mass_flow", "NumericalValue", "kg/hr", "Product stream wet mass flow."),
     ("products[].volumetric_flow", "NumericalValue", "m3/hr", "Product stream volume flow at modeled BioSTEAM conditions; distinct from normalized gas volume."),
     ("annual.volumetric_products", "object<NumericalValue>", "m3/year or m3/reported period", "Annualized product volume at the modelled BioSTEAM stream conditions; not normalized Nm3."),
-    ("resolved_parameters[]", "ParameterResolutionResult", None, "Resolved value, source, status, and warnings."),
+    ("resolved_parameters[]", "ParameterResolutionResult", None, "Resolved value, source, status, warnings, plus optional additive evidence metadata (quality class, source identifier/title/location, basis, and uncertainty)."),
     ("validation", "ValidationSummary", None, "Blocking and warning validation findings."),
     ("graph", "ProcessGraph", None, "Frontend-ready unit and stream topology."),
     ("plots[]", "PlotSpecification", None, "Stable plot metadata and availability."),

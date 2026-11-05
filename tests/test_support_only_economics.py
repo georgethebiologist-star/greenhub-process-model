@@ -86,11 +86,11 @@ def test_all_published_scenarios_reconcile_to_original_operating_margin():
             totals = row['tea_totals']
             assumptions = row['configuration']['candidate_economics']
             cash = totals['annual_revenue_eur'] - totals['annual_opex_eur']
-            expected = -totals['high_direct_capex_eur'] + totals['subsidy_eur']
-            for year in range(1, assumptions['project_lifetime_years'] + 1):
-                support = totals['opex_premium_eur_per_year'] if year <= totals['opex_support_years'] else 0
-                expected += (cash + support) / (1+assumptions['discount_rate'])**year
+            cash_flows = row['candidate_economics']['annual_cash_flows_eur']
+            expected = sum(flow / (1 + assumptions['discount_rate'])**year
+                           for year, flow in enumerate(cash_flows))
             assert totals['proxy_npv_eur'] == pytest.approx(expected, abs=.001)
+            assert 'after-tax' in totals['proxy_npv_basis'].lower()
             assert totals['optimized_annual_revenue_eur'] == totals['annual_revenue_eur']
             assert totals['optimized_annual_opex_eur'] == totals['annual_opex_eur']
             assert totals['optimization_savings_eur_per_year'] == 0

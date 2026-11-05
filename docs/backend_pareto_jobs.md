@@ -9,7 +9,7 @@ GET /api/v1/decision-support/pareto/latest
 GET /api/v1/decision-support/pareto/latest/figures/{group}
 ```
 
-The response contains the support assumptions, separate protein-enabled and protein-bypassed groups, their two- and three-objective fronts, and the selected candidate metadata. The canonical batch JSON, plots, reproducibility steps and objective definitions are documented in [RVO Pareto methodology](RVO_PARETO_METHODOLOGY.md). The API reads only `Greenhub/results/pareto_rvo_2026/latest.json`; it does not fall back to historic Pareto batches.
+The response contains the support assumptions, separate protein-enabled and protein-bypassed groups, their two- and three-objective fronts, and the selected candidate metadata. The canonical batch JSON, plots, reproducibility steps and objective definitions are documented in [RVO Pareto methodology](RVO_PARETO_METHODOLOGY.md). The API serves the current compact `Greenhub/results/pareto_rvo_2026/latest_ui.json` projection when available and falls back to the detailed `latest.json` only for older installations; neither path reads retired/historic Pareto batches.
 
 The `figures/{group}` endpoint serves the corresponding current 3D PNG inline for `protein_enabled` or `protein_bypass`; it is the same file indexed in the report-figure library.
 

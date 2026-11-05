@@ -212,6 +212,13 @@ export interface ParameterDefinition {
   unit: string;
   default_value: number | string | boolean;
   quality_class: 'A' | 'B' | 'C' | 'D' | 'E';
+  source_title?: string;
+  stable_identifier?: string;
+  source_url?: string;
+  source_location?: string;
+  evidence_class?: string;
+  basis?: string;
+  uncertainty?: unknown;
   min_value?: number;
   max_value?: number;
   is_editable: boolean;

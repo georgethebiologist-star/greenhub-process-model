@@ -1,0 +1,95 @@
+[
+  {
+    "changed_properties": [
+      "flow_kg_hr",
+      "moisture_fraction",
+      "solids_kg_hr",
+      "density_kg_m3",
+      "viscosity_pa_s",
+      "soluble_protein_kg_hr",
+      "carbohydrates_kg_hr",
+      "cod_kg_hr"
+    ],
+    "flow_kg_hr": 92.88913528380742,
+    "outlet_flow_kg_hr": 81.57649249455626,
+    "solids_kg_hr": 3.0658067523040557,
+    "unit_id": "C301"
+  },
+  {
+    "changed_properties": [
+      "temperature_k",
+      "density_kg_m3",
+      "viscosity_pa_s"
+    ],
+    "flow_kg_hr": 81.57649249455626,
+    "outlet_flow_kg_hr": 81.57649249455626,
+    "solids_kg_hr": 0.8032781944538101,
+    "unit_id": "H501"
+  },
+  {
+    "changed_properties": [],
+    "flow_kg_hr": 81.57649249455626,
+    "outlet_flow_kg_hr": 81.57649249455626,
+    "solids_kg_hr": 0.8032781944538101,
+    "unit_id": "M403"
+  },
+  {
+    "changed_properties": [],
+    "flow_kg_hr": 81.57649249455626,
+    "outlet_flow_kg_hr": 81.57649249455626,
+    "solids_kg_hr": 0.8032781944538101,
+    "unit_id": "M501"
+  },
+  {
+    "changed_properties": [
+      "temperature_k",
+      "pressure_pa",
+      "density_kg_m3",
+      "viscosity_pa_s"
+    ],
+    "flow_kg_hr": 81.57649249455626,
+    "outlet_flow_kg_hr": 81.57649249455626,
+    "solids_kg_hr": 0.8032781944538101,
+    "unit_id": "R501"
+  },
+  {
+    "changed_properties": [
+      "flow_kg_hr",
+      "moisture_fraction",
+      "solids_kg_hr",
+      "density_kg_m3",
+      "viscosity_pa_s",
+      "soluble_protein_kg_hr",
+      "carbohydrates_kg_hr",
+      "cod_kg_hr"
+    ],
+    "flow_kg_hr": 185.7782705676148,
+    "outlet_flow_kg_hr": 92.88913528380742,
+    "solids_kg_hr": 26.34463370016846,
+    "unit_id": "S201"
+  },
+  {
+    "changed_properties": [
+      "flow_kg_hr",
+      "moisture_fraction",
+      "solids_kg_hr",
+      "density_kg_m3",
+      "viscosity_pa_s"
+    ],
+    "flow_kg_hr": 186.03691583132596,
+    "outlet_flow_kg_hr": 185.7782705676148,
+    "solids_kg_hr": 26.603278963879603,
+    "unit_id": "U101"
+  },
+  {
+    "changed_properties": [
+      "pressure_pa",
+      "density_kg_m3",
+      "viscosity_pa_s"
+    ],
+    "flow_kg_hr": 81.57649249455626,
+    "outlet_flow_kg_hr": 81.57649249455626,
+    "solids_kg_hr": 0.8032781944538101,
+    "unit_id": "V501"
+  }
+]

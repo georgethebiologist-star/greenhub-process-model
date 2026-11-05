@@ -1,0 +1,9 @@
+location,direction,element,flow_kg_hr
+complete Phase 7 boundary,input,phosphorus,0.044345065909605776
+nutrient_rich_digestate_solids,output,phosphorus,0.002547161566676368
+struvite_product,output,phosphorus,0.00012041098891529656
+ammonium_salt_product,output,phosphorus,0.0
+nitrogen_depleted_liquor,output,phosphorus,0.04167749335401411
+phase7_wastewater,output,phosphorus,0.0
+phase7_offgas,output,phosphorus,0.0
+balance residual,residual,phosphorus,0.0

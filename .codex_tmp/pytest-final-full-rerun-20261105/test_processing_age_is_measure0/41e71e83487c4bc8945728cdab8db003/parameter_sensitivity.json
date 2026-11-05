@@ -1,0 +1,2692 @@
+[
+  {
+    "parameter_id": "control.process_order",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "control.scenario.anaerobic_digestion",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "control.scenario.biogas_upgrading",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "control.scenario.feed_preparation",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "control.scenario.nutrient_recovery",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "control.scenario.protein_recovery",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "control.selected_month",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.amino_acid_recovery_to_juice",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.ammonium_recovery_to_juice",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.cake_moisture_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.cell_disintegration_index",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.cellulose_recovery_to_cake",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.centrifuge_capacity_m3_per_h",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.centrifuge_electricity_kwh_per_m3",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.cleaning_biomass_loss_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.cleaning_capacity_t_per_h",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.cleaning_electricity_kwh_per_t_wet",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.cleaning_enabled",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.cleaning_inert_removal_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.cleaning_litter_removal_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.cleaning_sand_removal_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.contaminant_recovery_to_cake",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.dissolved_nitrogen_release_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.dissolved_p_loss_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.dissolved_phosphorus_release_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.dry_solids_recovery_to_cake",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.effective_heat_capacity_kj_per_kg_k",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.electric_field_strength_kv_per_cm",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.heavy_metal_particulate_removal_efficiency",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.hemicellulose_recovery_to_cake",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.inert_solids_recovery_to_cake",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.juice_yield_improvement_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.juice_yield_kg_per_kg_wet_feed",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.lignin_recovery_to_cake",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.liquid_entrainment_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.liquid_recovery_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.mass_loss_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.measured_liquid_storage_time_h",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.microplastic_removal_efficiency",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.number_of_pulses",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.optional_polymer_kg_per_t_ds",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.organic_acid_recovery_to_juice",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.particulate_cod_removal_efficiency",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.particulate_p_removal_efficiency",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.pef_capacity_t_per_h",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.phosphate_recovery_to_juice",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.potassium_recovery_to_juice",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.potassium_release_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.press_capacity_t_per_h",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.press_constraint_priority",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.press_electricity_kwh_per_t_wet",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.pulse_width_us",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.raw_liquid_density_kg_m3",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.sand_removal_efficiency",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.sludge_moisture_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.sludge_solids_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.soluble_cod_increase_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.soluble_protein_loss_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.soluble_protein_recovery_to_juice",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.soluble_protein_release_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.soluble_salt_recovery_to_juice",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.specific_energy_kwh_per_t_wet",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.sugar_recovery_to_juice",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.sugar_release_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.suspended_protein_recovery_to_juice",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.suspended_protein_removal_efficiency",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.suspended_protein_solubilization_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.temperature_mode",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.temperature_rise_c",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.thermal_retention_efficiency",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.treatment_temperature_c",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.treatment_time_s",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.tss_removal_efficiency",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.vss_removal_efficiency",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.wash_water_kg_per_kg_feed",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase3.water_recovery_to_juice",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.acid_demand_method",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.acid_dose_kg_per_m3",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.acid_mixing_power_kw_per_m3",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.acid_mixing_time_min",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.acid_purity",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.acid_reagent_temperature_C",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.acid_solution_mass_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.acid_type",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.base_demand_method",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.base_dose_kg_per_m3",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.base_purity",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.base_reagent_temperature_C",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.base_solution_mass_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.base_type",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.buffer_capacity_mol_H_per_L_pH",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.co_precipitation_colloidal_carbohydrates_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.co_precipitation_heavy_metals_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.co_precipitation_lipids_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.co_precipitation_microplastics_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.co_precipitation_mineral_ash_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.co_precipitation_other_particulates_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.co_precipitation_particulate_phosphorus_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.co_precipitation_suspended_solids_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.dewatering_capacity_kg_hr",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.dewatering_electricity_kwh_per_t_wet",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.dewatering_protein_capture_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.dryer_capacity_kg_hr",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.dryer_dust_loss_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.dryer_electricity_kwh_per_kg_water_evaporated",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.dryer_energy_method",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.dryer_heat_loss_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.dryer_heat_source",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.dryer_protein_entrainment_loss_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.dryer_residence_time_min",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.dryer_temperature_C",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.dryer_thermal_efficiency",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.dryer_type",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.effective_precipitation_pH_width",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.effective_protein_pI",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.feed_alkalinity_mg_caco3_L",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.feed_pH",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.heat_coagulation_efficiency",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.heat_coagulation_kinetic_model",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.heat_coagulation_rate_constant_per_min",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.kinetic_reference_temperature_C",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.maximum_heat_coagulation_recovery",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.maximum_protein_recovery",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.neutralization_mixing_power_kw_per_m3",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.neutralization_mixing_time_min",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.phase4_feed_density_kg_m3",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.precipitated_protein_capture_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.precipitation_activation_energy_kj_per_mol",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.precipitation_efficiency",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.precipitation_kinetic_model",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.precipitation_mixing_power_kw_per_m3",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.precipitation_rate_constant_per_min",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.precipitation_residence_time_min",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.precipitation_temperature_C",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.precipitation_working_volume_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.product_outlet_temperature_C",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.protein_cake_moisture_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.protein_separator_capacity_m3_hr",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.protein_separator_electricity_kwh_per_m3",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.protein_separator_solids_capacity_kg_hr",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.protein_wash_loss_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.residual_acid_removal_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.residual_sugar_removal_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.salt_wash_efficiency",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.separator_soluble_protein_loss_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.soluble_cod_removal_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.specific_heat_demand_kj_per_kg_water",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.suspended_protein_capture_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.target_digester_feed_pH",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.target_dryer_feed_solids_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.target_pH",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.target_product_moisture_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.thermal_protein_degradation_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.wash_stage_count",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.wash_water_kg_per_kg_dry_cake",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase4.washed_cake_moisture_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.acetate_conversion",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.ambient_temperature_c",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.amino_acid_conversion_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.ammonia_gas_transfer_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.ammonia_inhibition_constant_kg_n_m3",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.biodegradable_cod_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.biomass_cod_yield_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.butyrate_conversion",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.carbohydrate_biodegradable_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.cellulose_hydrolysis_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.cod_conversion_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.conditioning_base_dose_kg_m3",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.conditioning_base_purity",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.conditioning_base_solution_mass_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.conditioning_base_type",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.conditioning_enabled",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.conditioning_method",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.conditioning_mixing_power_kw_m3",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.conditioning_mixing_time_min",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.conditioning_reagent_temperature_c",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.digester_feed_heat_capacity_kj_kg_k",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.digester_feed_heating_efficiency",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.digester_feed_pH",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.digester_freeboard_m",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.digester_headspace_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.digester_heat_loss_u_w_m2_k",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.digester_height_to_diameter_ratio",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.digester_hrt_days",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.digester_maximum_pH",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.digester_minimum_pH",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.digester_operating_pressure_bar",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.digester_optimum_pH_high",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.digester_optimum_pH_low",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.digester_pH",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.digester_sizing_mode",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.digester_srt_days",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.digester_temperature_c",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.digester_working_volume_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.digestion_calculation_mode",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.dilution_water_kg_per_kg_feed",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.dissolved_co2_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.dissolved_hydrogen_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.dissolved_methane_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.free_ammonia_inhibition_enabled",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.gas_capture_efficiency",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.h2s_gas_transfer_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.hemicellulose_hydrolysis_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.lactate_conversion",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.lipid_acidogenesis_conversion",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.lipid_biodegradable_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.lipid_hydrolysis_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.maximum_single_digester_volume_m3",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.methane_yield_nm3_kg_cod_converted",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.methanogenesis_conversion",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.mixing_motor_efficiency",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.mixing_schedule_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.organic_n_mineralization_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.organic_p_mineralization_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.other_cod_biodegradable_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.other_cod_conversion",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.pH_inhibition_enabled",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.particulate_p_release_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.pectin_hydrolysis_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.peptide_conversion_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.phase5_feed_density_kg_m3",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.propionate_conversion",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.protein_acidogenesis_conversion",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.protein_biodegradable_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.protein_hydrolysis_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.raw_biogas_pressure_pa",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.raw_biogas_temperature_c",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.raw_biogas_water_vapor_mol_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.specific_mixing_power_kw_m3",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.starch_hydrolysis_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.sugar_acidogenesis_conversion",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.sulfate_reduction_enabled",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.sulfate_reduction_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.suspended_solids_hydrolysis_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.target_cod_olr_kg_m3_day",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.target_digester_feed_pH",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase5.target_vs_olr_kg_m3_day",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.air_oxygen_mol_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.ammonia_removal_enabled",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.ammonia_removal_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.ammonia_removal_technology",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.ammonia_scrubber_acid_purity",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.ammonia_scrubber_acid_type",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.ammonia_scrubber_co2_absorption_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.ammonia_scrubber_h2s_absorption_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.ammonia_scrubber_methane_absorption_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.ammonia_scrubber_water_kg_per_nm3",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.ammonia_unit_pressure_drop_pa",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.biogas_heat_capacity_kj_kg_k",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.biological_oxygen_utilization_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.condensate_ammonia_dissolved_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.condensate_co2_dissolved_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.condensate_h2s_dissolved_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.condensate_liquid_carryover_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.condensate_separator_enabled",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.condensate_separator_residence_time_min",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.filter_contact_time_s",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.filter_fan_efficiency",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.filter_media_bulk_density_kg_m3",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.filter_media_capacity_kg_contaminant_per_kg",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.filter_pressure_drop_pa",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.gas_cooler_enabled",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.gas_cooler_fan_power_kw_per_nm3_hr",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.gas_cooler_outlet_temperature_c",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.gas_cooler_pressure_drop_pa",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.h2s_empty_bed_contact_time_s",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.h2s_media_bulk_density_kg_m3",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.h2s_media_capacity_kg_h2s_per_kg",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.h2s_removal_enabled",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.h2s_removal_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.h2s_removal_technology",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.h2s_unit_pressure_drop_pa",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.mea_absorber_packing_height_m",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.mea_absorber_pressure_bar",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.mea_absorber_pressure_drop_pa",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.mea_absorber_temperature_c",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.mea_absorber_velocity_m_s",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.mea_absorption_heat_kj_per_mol_co2",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.mea_antifoam_kg_per_kg_mea",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.mea_co2_capture_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.mea_compressor_efficiency",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.mea_degradation_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.mea_h2s_capture_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.mea_h2s_regeneration_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.mea_lean_cooler_temperature_c",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.mea_lean_loading_mol_co2_per_mol_mea",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.mea_methane_absorption_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.mea_pump_pressure_bar",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.mea_reflux_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.mea_regeneration_energy_mj_per_kg_co2",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.mea_rich_lean_heat_recovery_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.mea_rich_loading_mol_co2_per_mol_mea",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.mea_solution_mass_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.mea_solvent_heat_capacity_kj_kg_k",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.mea_solvent_loss_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.mea_stripper_packing_height_m",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.mea_stripper_pressure_bar",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.mea_stripper_temperature_c",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.mea_stripper_velocity_m_s",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.mea_water_overhead_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.membrane_aftercooler_temperature_c",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.membrane_ammonia_permeance_gpu",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.membrane_annual_replacement_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.membrane_area_stage1_m2",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.membrane_area_stage2_m2",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.membrane_area_stage3_m2",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.membrane_carbondioxide_permeance_gpu",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.membrane_compressor_efficiency",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.membrane_dryer_pressure_drop_pa",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.membrane_dryer_water_removal_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.membrane_feed_pressure_bar",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.membrane_hydrogen_permeance_gpu",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.membrane_hydrogensulfide_permeance_gpu",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.membrane_lifetime_years",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.membrane_material_id",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.membrane_methane_permeance_gpu",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.membrane_nitrogen_permeance_gpu",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.membrane_nominal_module_area_m2",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.membrane_number_of_stages",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.membrane_oxygen_permeance_gpu",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.membrane_permeate_pressure_bar",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.membrane_recycle_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.membrane_segments_per_stage",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.membrane_siloxanes_permeance_gpu",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.membrane_stage_pressure_drop_bar",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.membrane_target_stage_cut",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.membrane_water_permeance_gpu",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.particle_filter_enabled",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.particle_removal_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.pretreatment_enabled",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.psa_adsorbent_bulk_density_kg_m3",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.psa_adsorption_pressure_bar",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.psa_adsorption_time_min",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.psa_ammonia_adsorption_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.psa_annual_attrition_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.psa_blowdown_pressure_bar",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.psa_carbondioxide_adsorption_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.psa_compressor_efficiency",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.psa_dryer_pressure_drop_pa",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.psa_dryer_water_removal_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.psa_hydrogen_adsorption_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.psa_hydrogensulfide_adsorption_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.psa_methane_adsorption_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.psa_nitrogen_adsorption_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.psa_number_of_beds",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.psa_operating_hours_per_year",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.psa_oxygen_adsorption_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.psa_pressure_drop_pa",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.psa_purge_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.psa_purge_recycle_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.psa_reference_pressure_bar",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.psa_regeneration_time_min",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.psa_siloxanes_adsorption_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.psa_vacuum_electricity_kwh_nm3_offgas",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.psa_water_adsorption_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.psa_working_capacity_kg_co2_per_kg_adsorbent",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.siloxane_removal_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.upgrading_maximum_ammonia_ppmv_dry",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.upgrading_maximum_feed_temperature_c",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.upgrading_maximum_h2s_ppmv_dry",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.upgrading_maximum_oxygen_mol_fraction_dry",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.upgrading_maximum_particulate_kg_hr",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.upgrading_maximum_siloxane_kg_hr",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.upgrading_maximum_water_mol_fraction_wet",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.upgrading_minimum_feed_pressure_bar",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.upgrading_minimum_methane_mol_fraction_dry",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.water_latent_heat_kj_kg",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.water_scrubber_absorber_packing_height_m",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.water_scrubber_absorber_pressure_bar",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.water_scrubber_absorber_pressure_drop_pa",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.water_scrubber_absorber_temperature_c",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.water_scrubber_absorber_velocity_m_s",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.water_scrubber_ammonia_absorption_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.water_scrubber_co2_absorption_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.water_scrubber_compressor_efficiency",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.water_scrubber_dryer_pressure_drop_pa",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.water_scrubber_flash_gas_recycle_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.water_scrubber_flash_pressure_bar",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.water_scrubber_flash_release_ammonia_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.water_scrubber_flash_release_co2_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.water_scrubber_flash_release_h2s_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.water_scrubber_flash_release_methane_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.water_scrubber_flash_residence_time_min",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.water_scrubber_h2s_absorption_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.water_scrubber_methane_absorption_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.water_scrubber_product_dryer_water_removal_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.water_scrubber_product_flash_water_removal_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.water_scrubber_purge_water_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.water_scrubber_reference_pressure_bar",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.water_scrubber_reference_temperature_c",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.water_scrubber_reference_water_to_gas_kg_nm3",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.water_scrubber_regeneration_electricity_kwh_nm3_offgas",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.water_scrubber_regeneration_pressure_bar",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.water_scrubber_regeneration_release_ammonia_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.water_scrubber_regeneration_release_co2_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.water_scrubber_regeneration_release_h2s_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.water_scrubber_regeneration_release_methane_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.water_scrubber_temperature_coefficient_per_c",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.water_scrubber_water_density_kg_m3",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.water_scrubber_water_mode",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.water_scrubber_water_to_gas_kg_nm3",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase6.water_scrubbing_calculation_level",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.ammonia_absorber_acid_excess_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.ammonia_absorber_acid_solution_mass_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.ammonia_absorber_acid_type",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.ammonia_absorber_capture_efficiency",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.ammonia_absorber_co2_absorption_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.ammonia_absorber_pressure_drop_pa",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.ammonia_absorber_water_kg_per_kg_nh3",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.ammonia_base_dose_kg_m3",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.ammonia_base_solution_mass_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.ammonia_base_type",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.ammonia_co2_removal_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.ammonia_conditioning_mixing_power_kw_m3",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.ammonia_gas_mover_efficiency",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.ammonia_gas_to_liquid_ratio_nm3_m3",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.ammonia_neutralization_heat_kj_mol",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.ammonia_packing_height_m",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.ammonia_steam_kg_kg_liquid",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.ammonia_steam_latent_heat_kj_kg",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.ammonia_stripper_pH",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.ammonia_stripper_pressure_bar",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.ammonia_stripper_pressure_drop_pa",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.ammonia_stripper_temperature_c",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.ammonia_stripping_medium",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.ammonia_superficial_velocity_m_s",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.ammonia_transfer_coefficient",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.ammonia_water_evaporation_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.ammonium_product_storage_time_h",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.calcium_phosphate_base_dose_kg_m3",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.calcium_phosphate_base_solution_mass_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.calcium_phosphate_base_type",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.calcium_phosphate_ca_to_p_molar_ratio",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.calcium_phosphate_calcium_source",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.calcium_phosphate_carbonate_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.calcium_phosphate_crystal_capture_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.calcium_phosphate_dissolution_efficiency",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.calcium_phosphate_impurity_capture_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.calcium_phosphate_mixing_power_kw_m3",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.calcium_phosphate_product_id",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.calcium_phosphate_product_moisture_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.calcium_phosphate_recovery_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.calcium_phosphate_residence_time_min",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.calcium_phosphate_separator_electricity_kwh_kg",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.calcium_phosphate_solution_mass_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.calcium_phosphate_target_pH",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.digestate_biomass_capture_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.digestate_cake_moisture_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.digestate_contaminant_capture_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.digestate_equalization_enabled",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.digestate_inert_capture_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.digestate_particulate_capture_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.digestate_particulate_p_capture_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.digestate_separator_electricity_kwh_m3",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.digestate_separator_technology",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.equalization_ambient_temperature_c",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.equalization_ammonia_release_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.equalization_co2_release_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.equalization_h2s_release_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.equalization_heat_transfer_coefficient_w_m2_k",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.equalization_height_to_diameter_ratio",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.equalization_methane_release_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.equalization_mixing_power_kw_m3",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.equalization_residence_time_h",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.equalization_working_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.ion_exchange_ammonium_recovery_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.ion_exchange_bed_density_kg_m3",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.ion_exchange_breakthrough_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.ion_exchange_brine_mass_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.ion_exchange_capacity_kg_nh4_kg_media",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.ion_exchange_nacl_molar_ratio",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.ion_exchange_pressure_drop_pa",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.ion_exchange_rinse_water_kg_kg_media",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.ion_exchange_service_time_h",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.phase7_chp_electricity_available_kw",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.phase7_digestate_density_kg_m3",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.phase7_heat_recovery_efficiency",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.phase7_liquid_heat_capacity_kj_kg_k",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.phase7_motor_efficiency",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.phase7_process_order",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.phase7_product_dryer_thermal_efficiency",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.phase7_product_drying_enabled",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.phase7_product_drying_temperature_c",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.phase7_product_fan_electricity_kwh_kg_water",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.phase7_product_heat_capacity_kj_kg_k",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.phase7_product_latent_heat_kj_kg",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.phase7_product_stability_limit_c",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.phase7_product_target_moisture_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.phase7_product_washing_enabled",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.phase7_pump_efficiency",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.phase7_recovered_heat_available_kw",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.phase7_recovered_heat_temperature_c",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.phase7_sizing_safety_factor",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.phase7_wash_electricity_kwh_kg_product",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.phase7_wash_impurity_removal_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.phase7_wash_product_loss_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.phase7_wash_water_kg_per_kg_dry_product",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.potassium_concentration_method",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.potassium_evaporation_latent_heat_kj_kg",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.potassium_evaporation_temperature_c",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.potassium_evaporation_thermal_efficiency",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.potassium_evaporation_water_removal_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.potassium_evaporator_electricity_kwh_kg_water",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.potassium_membrane_cleaning_water_kg_m2_hr",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.potassium_membrane_contaminant_rejection_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.potassium_membrane_divalent_rejection_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.potassium_membrane_electricity_kwh_m3_permeate",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.potassium_membrane_k_rejection_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.potassium_membrane_monovalent_rejection_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.potassium_membrane_organic_rejection_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.potassium_membrane_osmotic_pressure_bar",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.potassium_membrane_pressure_bar",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.potassium_membrane_reference_net_pressure_bar",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.potassium_membrane_reference_water_recovery_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.potassium_membrane_water_flux_l_m2_hr",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.potassium_product_storage_time_h",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.struvite_ammonium_availability_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.struvite_base_dose_kg_m3",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.struvite_base_solution_mass_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.struvite_base_type",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.struvite_calcium_carbonate_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.struvite_calcium_phosphate_competition_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.struvite_crystal_capture_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.struvite_impurity_capture_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.struvite_magnesium_dissolution_efficiency",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.struvite_magnesium_hydroxide_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.struvite_magnesium_solution_mass_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.struvite_magnesium_source",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.struvite_magnesium_to_p_molar_ratio",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.struvite_mixing_power_kw_m3",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.struvite_phosphate_recovery_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.struvite_product_moisture_fraction",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.struvite_residence_time_min",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.struvite_seed_kg_per_kg_p",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.struvite_separator_electricity_kwh_kg",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "phase7.struvite_target_pH",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "seasonal.storage_capacity_kg",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  },
+  {
+    "parameter_id": "seasonal.storage_degradation_rate_per_day",
+    "sensitivity": null,
+    "status": "not_available_without_eligible_equation"
+  }
+]

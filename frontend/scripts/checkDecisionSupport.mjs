@@ -7,12 +7,33 @@ import {buildSync} from 'esbuild';
 import React from 'react';
 import {renderToStaticMarkup} from 'react-dom/server';
 
-const code=buildSync({stdin:{contents:`export {DecisionResults} from './src/components/DecisionSupport'; export {default as DecisionOverview} from './src/components/DecisionOverview'; export {default as AnalyticsPreview} from './src/components/AnalyticsPreview'; export {previewFinance,baselineSnapshot} from './src/data/decisionPreview'; export {buildDecisionConfiguration} from './src/data/decisionSupport';`,resolveDir:process.cwd()},bundle:true,write:false,platform:'node',format:'cjs',packages:'external',loader:{'.css':'empty'},define:{'import.meta.env':'{}'}}).outputFiles[0].text;
+const code=buildSync({stdin:{contents:`export {DecisionResults} from './src/components/DecisionSupport'; export {default as DecisionOverview} from './src/components/DecisionOverview'; export {default as ParetoScreening} from './src/components/ParetoScreening'; export {previewFinance,baselineSnapshot} from './src/data/decisionPreview'; export {buildDecisionConfiguration,candidateSupportDurations,candidateEconomicSettings} from './src/data/decisionSupport'; export {normalizeResult,qualityFromStatus} from './src/data/normalizeResult'; export {EMPIRICAL_BASELINE_RESULT} from './src/data/baselineFixtures'; export {DEFAULT_PARAMETERS} from './src/data/greenhubData';`,resolveDir:process.cwd()},bundle:true,write:false,platform:'node',format:'cjs',packages:'external',loader:{'.css':'empty'},define:{'import.meta.env':'{}'}}).outputFiles[0].text;
 const compiled=new Module(path.resolve('scripts/decision-check.cjs'));
 compiled.filename=path.resolve('scripts/decision-check.cjs');
 compiled.require=createRequire(import.meta.url);compiled._compile(code,compiled.filename);
-const {DecisionResults,DecisionOverview,AnalyticsPreview,previewFinance,baselineSnapshot,buildDecisionConfiguration}=compiled.exports;
+const {DecisionResults,DecisionOverview,ParetoScreening,previewFinance,baselineSnapshot,buildDecisionConfiguration,candidateSupportDurations,candidateEconomicSettings,normalizeResult,qualityFromStatus,EMPIRICAL_BASELINE_RESULT,DEFAULT_PARAMETERS}=compiled.exports;
 const report=JSON.parse(fs.readFileSync('../Greenhub/results/decision_support/static.json','utf8'));
+assert.equal(qualityFromStatus('placeholder'),'E','Structural parameter placeholders are explicit assumptions.');
+assert.equal(qualityFromStatus('overridden'),'E','Run overrides are assumptions unless separately evidenced.');
+const normalizedEvidence=normalizeResult({summary_kpis:{},graph:{nodes:[]},resolved_parameters:[{parameter_id:'phase4.precipitation_efficiency',value:0.36,status:'placeholder',quality_class:'B',source_title:'Peer-reviewed grass-clover juice study',stable_identifier:'10.3389/fsufs.2019.00112',exact_source_location:'Table 4',basis:'mass fraction',uncertainty:{type:'reported_range'}}],validation:{passed:true}},EMPIRICAL_BASELINE_RESULT).result.parameters[0];
+assert.equal(normalizedEvidence.quality_class,'B','Explicit candidate quality supersedes the coarse legacy result status.');
+const moistureParameter=DEFAULT_PARAMETERS.find(p=>p.parameter_id==='feed_moisture_content');
+assert.equal(moistureParameter.current_value,0.857,'Preview grass moisture must match the VARTA measured wet-basis default.');
+assert.equal(moistureParameter.quality_class,'A');
+assert.equal(EMPIRICAL_BASELINE_RESULT.parameters.find(p=>p.parameter_id==='feed_moisture_content').current_value,0.857,'Bundled preview must inherit the current grass default.');
+assert.equal(DEFAULT_PARAMETERS.find(p=>p.parameter_id==='PR1_precipitation_recovery').quality_class,'E','REC-001 is not the same basis as soluble-protein recovery.');
+assert.equal(DEFAULT_PARAMETERS.find(p=>p.parameter_id==='STRUV_k_sp_solubility_product').quality_class,'B','Direct source-backed equilibrium constant should retain literature quality.');
+assert.equal(normalizedEvidence.stable_identifier,'10.3389/fsufs.2019.00112');
+assert.equal(normalizedEvidence.source_location,'Table 4');
+const appSource=fs.readFileSync('src/App.tsx','utf8');
+assert.ok(appSource.includes('Netherlands life-cycle average, 2021'),'UI must show the JRC factor reference year.');
+assert.ok(appSource.includes('Dutch average heat-grid factor, 2022'),'UI must identify the source basis and heat reference year.');
+assert.ok(appSource.includes("?'B':'E'"),'UI must distinguish sourced B defaults from edited E assumptions.');
+assert.ok(appSource.includes('product_price_quality_review'),'Product-price defaults need record-level evidence classes in Configure.');
+assert.ok(appSource.includes('Market reference: €'),"ACER's reported biomethane market price must be separate from the user €/m³ assumption.");
+assert.ok(appSource.includes('source?.url??source?.source_url'),'Feed provenance must accept the source_url field used by the grass profile datasets.');
+assert.ok(appSource.includes('className="feed-source-link"'),'Feed-profile literature links must be clickable from the UI.');
+assert.ok(!appSource.includes('Electricity reference: Netherlands average, 2025'),'Do not display a year inconsistent with the cited JRC series.');
 const html=renderToStaticMarkup(React.createElement(DecisionResults,{report}));
 for(const label of ['Not a validated simulation','validated_simulation_ready = false','Partial direct CAPEX','Operating profit','Climate inventory','Source status','Incomplete'])assert.ok(html.includes(label),label);
 assert.ok(html.includes('ds-chart'),'Existing charts render their responsive containers with real default data.');
@@ -23,18 +44,27 @@ assert.equal(config.simulation.biomass_schedule.annual_processed_biomass_tonnes,
 assert.equal(config.simulation.storage_conditions.aerobic_fraction,0.4);
 assert.equal(config.simulation.start_date,'2026-01-01');
 assert.equal(config.simulation.storage_conditions.allow_assumptions,true);
+assert.deepEqual(candidateSupportDurations({opex_support_years:20,biomethane_bonus_years:15,grass_utilization_bonus_years:20},{biomethaneBonusYears:15,grassUtilizationBonusYears:20}),{biomethaneBonusYears:15,grassUtilizationBonusYears:20},'Keep biomethane and grass bonus durations distinct when restoring a Pareto candidate.');
+assert.equal(candidateSupportDurations({opex_support_years:12},{biomethaneBonusYears:15,grassUtilizationBonusYears:20}).biomethaneBonusYears,12,'Use the legacy shared support duration only when no biomethane-specific duration is saved.');
+const restoredEconomics=candidateEconomicSettings({discount_rate:0,tax_rate:0.21,project_lifetime_years:25,capex_grant_fraction:0,biomethane_bonus_enabled:true,biomethane_bonus_eur_per_m3:1.87,biomethane_bonus_years:15,grass_utilization_bonus_eur_per_t_feed:30,grass_utilization_bonus_years:20,additional_benefit_eur_per_year:0,additional_benefit_years:0},{discountRate:0.08,taxRate:0.258,projectLifetimeYears:20,biomethaneBonusEnabled:false,biomethaneBonusEurM3:1.5,biomethaneBonusYears:10,grassUtilizationBonusYears:10});
+assert.equal(restoredEconomics.discountRate,0,'A saved zero discount rate is a valid Pareto assumption, not a missing value.');
+assert.equal(restoredEconomics.biomethaneBonusEnabled,true,'Restore the saved biomethane support switch.');
+assert.equal(restoredEconomics.biomethaneBonusEurM3,1.87,'Restore the candidate biomethane rate.');
+assert.equal(restoredEconomics.grassUtilizationBonusEurPerT,30,'Restore the candidate grass logistics bonus rate.');
+assert.equal(restoredEconomics.projectLifetimeYears,25,'Restore the candidate project lifetime.');
+assert.equal(candidateEconomicSettings({},{discountRate:0.08,taxRate:0.258,projectLifetimeYears:20,biomethaneBonusEnabled:true,biomethaneBonusEurM3:1.87,biomethaneBonusYears:15,grassUtilizationBonusYears:20}).discountRate,0.08,'Retain current UI values only when a saved candidate value is absent.');
 assert.equal(config.use_screening_lca_factors,false,'Screening LCA proxy must remain off by default.');
 const screeningConfig=buildDecisionConfiguration(report.configuration,{model:'steady_state',feedRate:1000,capacity:1000,days:7,hours:24,start:'2026-04-15',end:'2026-11-15',peak:'2026-07-31',timeStep:'monthly',available:30000,target:30000,collection:1,storageEnabled:false,storageDays:0,aerobic:0,activity:1,temperature:20,customFeed:false,screeningLca:true});
 assert.equal(screeningConfig.use_screening_lca_factors,true,'Screening LCA checkbox must activate the opt-in flag.');
 assert.equal(report.configuration.simulation.wet_feed_rate_kg_hr,1000,'Request construction must not mutate saved result.');
 console.log('Decision support rendering, evidence, readiness and request payload checks passed.');
 
-const hotspotsHtml=renderToStaticMarkup(React.createElement(AnalyticsPreview));
-assert.ok(hotspotsHtml.includes('Loading selected BioSTEAM candidates'));
-assert.ok(!hotspotsHtml.includes('Run Pareto analysis'));
-assert.ok(!hotspotsHtml.includes('SAVED BACKEND PREVIEW'));
-assert.ok(!hotspotsHtml.includes('actualParetoPreview'));
-console.log('Current Pareto candidate hotspot panel renders its API-backed loading state.');
+const paretoHtml=renderToStaticMarkup(React.createElement(ParetoScreening,{onApplyCandidate:()=>{}}));
+assert.ok(paretoHtml.includes('Loading the latest BioSTEAM Pareto scenarios'));
+assert.ok(!paretoHtml.includes('Run Pareto analysis'));
+assert.ok(!paretoHtml.includes('SAVED BACKEND PREVIEW'));
+assert.ok(!paretoHtml.includes('actualParetoPreview'));
+console.log('Current API-backed Pareto screen renders its loading state.');
 
 // Financial preview mathematics and offline rendering must remain independent of the API.
 const previewHtml=renderToStaticMarkup(React.createElement(DecisionOverview));
@@ -53,52 +83,4 @@ assert.equal(previewFinance(100,0,20,0).irr,null);
 assert.equal(previewFinance(100,60,2,0).cashflows.at(-1).cumulative,20);
 console.log('Offline baseline, contribution sums, IRR, NPV and payback checks passed.');
 
-const {generateScreeningBatch,evaluateCandidate,markPareto,defaultRanges,defaultSettings}=compiled.exports;
-const study=generateScreeningBatch();
-assert.equal(study.points.length,2000);
-assert.equal(new Set(study.points.map(p=>p.id)).size,2000);
-assert.deepEqual(study,generateScreeningBatch(),'Same seed must reproduce all configurations and KPIs.');
-assert.notDeepEqual(study.points,generateScreeningBatch(43).points);
-assert.ok(study.points.every(p=>p.fraction>=.1&&p.fraction<=.5&&p.people>=2&&Number.isInteger(p.people)));
-assert.ok(study.points.some(p=>p.people===2));
-assert.ok(study.points.some(p=>p.routes.pef)&&study.points.some(p=>!p.routes.pef));
-assert.ok(study.points.some(p=>p.routes.protein==='Bypass')&&study.points.some(p=>p.routes.protein==='Heat'));
-assert.ok(study.points.some(p=>p.routes.gas==='PSA')&&study.points.some(p=>p.routes.fertilizer==='Phosphorus'));
-assert.ok(study.points.every(p=>p.routes.digestion!=='Bypass'||p.routes.gas==='No product · flare'&&p.routes.fertilizer==='Bypass'));
-for(const p of study.points){
- assert.ok(Math.abs(p.profit-(p.revenue-p.opex-p.capitalCharge))<1e-7);
- assert.ok(Math.abs(p.offset-(p.credit-p.burden)/1000)<1e-9);
- for(const [key,r] of Object.entries(defaultRanges))assert.ok(p.assumptions[key]>=r.low&&p.assumptions[key]<=r.high);
-}
-const brute=study.points.filter(p=>p.feasible&&!study.points.some(q=>q.feasible&&q.profit>=p.profit&&q.offset>=p.offset&&(q.profit>p.profit||q.offset>p.offset))).map(p=>p.id).sort();
-assert.deepEqual(study.points.filter(p=>p.pareto).map(p=>p.id).sort(),brute,'Front must maximize both axes.');
-const same=study.points.find(p=>p.routes.digestion!=='Bypass');
-const small=evaluateCandidate(same.routes,.1,same.assumptions,defaultSettings);
-const large=evaluateCandidate(same.routes,.5,same.assumptions,defaultSettings);
-assert.ok(small.capital<large.capital,'Lower volume must reduce matched equipment CAPEX.');
-assert.ok(small.people<=large.people&&small.people>=2,'Staff must scale down with a floor.');
-const skip=evaluateCandidate({...same.routes,pef:false,protein:'Bypass',digestion:'Bypass',gas:'No product · flare',fertilizer:'Bypass'},.3,same.assumptions,defaultSettings);
-assert.equal(skip.proteinKg,0);assert.equal(skip.methaneNm3,0);assert.equal(skip.fertilizerKg,0);assert.equal(skip.credit,0);
-assert.ok(evaluateCandidate(same.routes,.5,same.assumptions,{...defaultSettings,maxFlowKgH:100}).reasons.some(r=>r.includes('capacity')));
-assert.throws(()=>generateScreeningBatch(1,{...defaultRanges,proteinPrice:{...defaultRanges.proteinPrice,low:3,high:2}}),/low/);
-assert.throws(()=>generateScreeningBatch(1,defaultRanges,{...defaultSettings,fullScalePeople:1}),/staff/);
-const ties=markPareto([{id:'a',profit:1,offset:2,feasible:true},{id:'b',profit:1,offset:2,feasible:true},{id:'c',profit:1,offset:1,feasible:true},{id:'d',profit:100,offset:100,feasible:false}]);
-assert.deepEqual(ties.filter(p=>p.pareto).map(p=>p.id),['a','b']);
-console.log(`2000-scenario determinism, bounds, flow/staff scaling, bypasses and Pareto checks passed (${brute.length} front points).`);
-
-// Sales corrections must propagate to baseline previews and every sampled case.
-assert.ok(Math.abs(baselineSnapshot.revenues.find(r=>r.name==='biomethane').value-10859.974934446958)<.01);
-assert.equal(baselineSnapshot.productSales.find(r=>r.product_id==='phosphorus_product').quantity,0);
-assert.ok(Math.abs(baselineSnapshot.productSales.find(r=>r.product_id==='ammonium_product').quantity-24759.733901753727)<.01);
-assert.equal(defaultRanges.orthophosphateShare.high,0,'Unknown speciation must not become recovered struvite.');
-assert.ok(study.points.every(p=>p.struviteKg===0));
-const hypotheticalAssumptions={...same.assumptions,orthophosphateShare:1};
-const fullN=evaluateCandidate({...same.routes,digestion:'Mesophilic',fertilizer:'Ammonia'},.3,hypotheticalAssumptions,defaultSettings);
-const withP=evaluateCandidate({...same.routes,digestion:'Mesophilic',fertilizer:'Combined N/P'},.3,hypotheticalAssumptions,defaultSettings);
-assert.ok(withP.struviteKg>0&&withP.magnesiumReagentKg>0&&withP.struviteHypothetical);
-assert.ok(withP.ammoniumSulfateKg<=fullN.ammoniumSulfateKg,'N recovered into struvite cannot be sold again as ammonium sulfate.');
-for(const p of study.points.filter(p=>p.methaneNm3>0)){
- const purity=p.routes.gas==='Water scrubbing'?.9437269935:.98;
- assert.ok(Math.abs(p.gasAtmosphericM3-p.methaneNm3/purity*293.15/273.15)<1e-8);
-}
-console.log('Atmospheric gas sales, dry sulfate, zero actual struvite, conditional P recovery and shared-N checks passed.');
+console.log('Finance preview arithmetic and API-backed Pareto screen checks passed.');

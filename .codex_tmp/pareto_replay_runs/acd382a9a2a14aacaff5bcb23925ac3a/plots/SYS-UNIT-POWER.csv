@@ -1,0 +1,5 @@
+series_id,label,x,y
+power,Electricity,C301,0.07431130822704594
+power,Electricity,M501,0.0003399020520606511
+power,Electricity,S201,0.928891352838074
+power,Electricity,U101,0.2790553737469889

@@ -1,0 +1,71 @@
+scenario_id,time_label,record_type,message
+dynamic_complete_proxy_baseline,2026-05,warning,complete proxy closure is not measured GreenHub performance
+dynamic_complete_proxy_baseline,2026-05,warning,"legacy result ratios are internal model references, not experimental truth"
+dynamic_complete_proxy_baseline,2026-05,warning,validated_simulation_ready remains false
+dynamic_complete_proxy_baseline,2026-05,warning,Mass-only drying excludes energy; zero reported dryer demand is not a zero-energy claim.
+dynamic_complete_proxy_baseline,2026-05,warning,press cake excluded from AD
+dynamic_complete_proxy_baseline,2026-05,warning,BMP potential is converted to a mass-conserving proxy gas/digestate split
+dynamic_complete_proxy_baseline,2026-05,warning,"AD kinetics, inhibition, and reactor design are not executed"
+dynamic_complete_proxy_baseline,2026-05,warning,water_scrubbing is a mutually exclusive proxy gas route
+dynamic_complete_proxy_baseline,2026-05,warning,technology performance is not validated at GreenHub composition or scale
+dynamic_complete_proxy_baseline,2026-05,warning,resource product is a proxy candidate; quality and regulatory status are not validated
+dynamic_complete_proxy_baseline,2026-06,warning,complete proxy closure is not measured GreenHub performance
+dynamic_complete_proxy_baseline,2026-06,warning,"legacy result ratios are internal model references, not experimental truth"
+dynamic_complete_proxy_baseline,2026-06,warning,validated_simulation_ready remains false
+dynamic_complete_proxy_baseline,2026-06,warning,Mass-only drying excludes energy; zero reported dryer demand is not a zero-energy claim.
+dynamic_complete_proxy_baseline,2026-06,warning,press cake excluded from AD
+dynamic_complete_proxy_baseline,2026-06,warning,BMP potential is converted to a mass-conserving proxy gas/digestate split
+dynamic_complete_proxy_baseline,2026-06,warning,"AD kinetics, inhibition, and reactor design are not executed"
+dynamic_complete_proxy_baseline,2026-06,warning,water_scrubbing is a mutually exclusive proxy gas route
+dynamic_complete_proxy_baseline,2026-06,warning,technology performance is not validated at GreenHub composition or scale
+dynamic_complete_proxy_baseline,2026-06,warning,resource product is a proxy candidate; quality and regulatory status are not validated
+dynamic_complete_proxy_baseline,2026-07,warning,complete proxy closure is not measured GreenHub performance
+dynamic_complete_proxy_baseline,2026-07,warning,"legacy result ratios are internal model references, not experimental truth"
+dynamic_complete_proxy_baseline,2026-07,warning,validated_simulation_ready remains false
+dynamic_complete_proxy_baseline,2026-07,warning,Mass-only drying excludes energy; zero reported dryer demand is not a zero-energy claim.
+dynamic_complete_proxy_baseline,2026-07,warning,press cake excluded from AD
+dynamic_complete_proxy_baseline,2026-07,warning,BMP potential is converted to a mass-conserving proxy gas/digestate split
+dynamic_complete_proxy_baseline,2026-07,warning,"AD kinetics, inhibition, and reactor design are not executed"
+dynamic_complete_proxy_baseline,2026-07,warning,water_scrubbing is a mutually exclusive proxy gas route
+dynamic_complete_proxy_baseline,2026-07,warning,technology performance is not validated at GreenHub composition or scale
+dynamic_complete_proxy_baseline,2026-07,warning,resource product is a proxy candidate; quality and regulatory status are not validated
+dynamic_complete_proxy_baseline,2026-08,warning,complete proxy closure is not measured GreenHub performance
+dynamic_complete_proxy_baseline,2026-08,warning,"legacy result ratios are internal model references, not experimental truth"
+dynamic_complete_proxy_baseline,2026-08,warning,validated_simulation_ready remains false
+dynamic_complete_proxy_baseline,2026-08,warning,Mass-only drying excludes energy; zero reported dryer demand is not a zero-energy claim.
+dynamic_complete_proxy_baseline,2026-08,warning,press cake excluded from AD
+dynamic_complete_proxy_baseline,2026-08,warning,BMP potential is converted to a mass-conserving proxy gas/digestate split
+dynamic_complete_proxy_baseline,2026-08,warning,"AD kinetics, inhibition, and reactor design are not executed"
+dynamic_complete_proxy_baseline,2026-08,warning,water_scrubbing is a mutually exclusive proxy gas route
+dynamic_complete_proxy_baseline,2026-08,warning,technology performance is not validated at GreenHub composition or scale
+dynamic_complete_proxy_baseline,2026-08,warning,resource product is a proxy candidate; quality and regulatory status are not validated
+dynamic_complete_proxy_baseline,2026-09,warning,complete proxy closure is not measured GreenHub performance
+dynamic_complete_proxy_baseline,2026-09,warning,"legacy result ratios are internal model references, not experimental truth"
+dynamic_complete_proxy_baseline,2026-09,warning,validated_simulation_ready remains false
+dynamic_complete_proxy_baseline,2026-09,warning,Mass-only drying excludes energy; zero reported dryer demand is not a zero-energy claim.
+dynamic_complete_proxy_baseline,2026-09,warning,press cake excluded from AD
+dynamic_complete_proxy_baseline,2026-09,warning,BMP potential is converted to a mass-conserving proxy gas/digestate split
+dynamic_complete_proxy_baseline,2026-09,warning,"AD kinetics, inhibition, and reactor design are not executed"
+dynamic_complete_proxy_baseline,2026-09,warning,water_scrubbing is a mutually exclusive proxy gas route
+dynamic_complete_proxy_baseline,2026-09,warning,technology performance is not validated at GreenHub composition or scale
+dynamic_complete_proxy_baseline,2026-09,warning,resource product is a proxy candidate; quality and regulatory status are not validated
+dynamic_complete_proxy_baseline,2026-10,warning,complete proxy closure is not measured GreenHub performance
+dynamic_complete_proxy_baseline,2026-10,warning,"legacy result ratios are internal model references, not experimental truth"
+dynamic_complete_proxy_baseline,2026-10,warning,validated_simulation_ready remains false
+dynamic_complete_proxy_baseline,2026-10,warning,Mass-only drying excludes energy; zero reported dryer demand is not a zero-energy claim.
+dynamic_complete_proxy_baseline,2026-10,warning,press cake excluded from AD
+dynamic_complete_proxy_baseline,2026-10,warning,BMP potential is converted to a mass-conserving proxy gas/digestate split
+dynamic_complete_proxy_baseline,2026-10,warning,"AD kinetics, inhibition, and reactor design are not executed"
+dynamic_complete_proxy_baseline,2026-10,warning,water_scrubbing is a mutually exclusive proxy gas route
+dynamic_complete_proxy_baseline,2026-10,warning,technology performance is not validated at GreenHub composition or scale
+dynamic_complete_proxy_baseline,2026-10,warning,resource product is a proxy candidate; quality and regulatory status are not validated
+dynamic_complete_proxy_baseline,2026-11,warning,complete proxy closure is not measured GreenHub performance
+dynamic_complete_proxy_baseline,2026-11,warning,"legacy result ratios are internal model references, not experimental truth"
+dynamic_complete_proxy_baseline,2026-11,warning,validated_simulation_ready remains false
+dynamic_complete_proxy_baseline,2026-11,warning,Mass-only drying excludes energy; zero reported dryer demand is not a zero-energy claim.
+dynamic_complete_proxy_baseline,2026-11,warning,press cake excluded from AD
+dynamic_complete_proxy_baseline,2026-11,warning,BMP potential is converted to a mass-conserving proxy gas/digestate split
+dynamic_complete_proxy_baseline,2026-11,warning,"AD kinetics, inhibition, and reactor design are not executed"
+dynamic_complete_proxy_baseline,2026-11,warning,water_scrubbing is a mutually exclusive proxy gas route
+dynamic_complete_proxy_baseline,2026-11,warning,technology performance is not validated at GreenHub composition or scale
+dynamic_complete_proxy_baseline,2026-11,warning,resource product is a proxy candidate; quality and regulatory status are not validated

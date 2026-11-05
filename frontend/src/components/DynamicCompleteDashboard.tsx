@@ -24,10 +24,11 @@ function Chart({title, unit, data, series, bars = false, xKey = 'month'}: {title
 }
 
 function EvidenceTable({records}: {records: Evidence[]}) {
-  return <div className="proxy-table-scroll"><table><thead><tr><th>policy_id / name</th><th>Value / unit</th><th>source_status / certainty_class</th><th>source_file / source_id</th><th>Warning</th></tr></thead><tbody>{records.map((r, i) => <tr key={i}>
+  return <div className="proxy-table-scroll"><table><thead><tr><th>policy_id / name</th><th>Value / unit</th><th>Data class</th><th>source_status / certainty_class</th><th>source_file / source_id</th><th>Warning</th></tr></thead><tbody>{records.map((r, i) => <tr key={i}>
     <td><code>{r.policy_id}</code><br/>{r.name}<small>{r.time_labels?.join(', ')}{r.usage === 'closure_registry' ? ' · registry; not selected unit evidence' : ''}</small></td>
     <td>{typeof r.value === 'object' ? <details><summary>Policy values</summary><pre>{JSON.stringify(r.value, null, 2)}</pre></details> : String(r.value)}<br/>{r.unit}</td>
-    <td><strong>{r.source_status}</strong><br/>{r.certainty_class}</td><td>{r.source_file || 'No source file'}<br/>{r.source_id}</td><td>{r.warning}{r.provenance != null && <details><summary>Full provenance</summary><pre>{JSON.stringify(r.provenance, null, 2)}</pre></details>}</td>
+    <td>{r.quality_class?<span className={`quality q-${r.quality_class}`} title="Source quality; transferability is shown separately">{r.quality_class}</span>:'—'}</td>
+    <td><strong>{r.source_status}</strong><br/>{r.certainty_class}</td><td>{r.source_url?<a href={r.source_url} target="_blank" rel="noreferrer">{r.source_title||r.source_id}</a>:r.source_file||'No source file'}<br/>{r.source_location&&<small>{r.source_location}</small>}<br/>{r.source_id}</td><td>{r.warning}{r.provenance != null && <details><summary>Full provenance</summary><pre>{JSON.stringify(r.provenance, null, 2)}</pre></details>}</td>
   </tr>)}</tbody></table></div>;
 }
 

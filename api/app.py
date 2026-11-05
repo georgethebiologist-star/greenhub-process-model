@@ -66,6 +66,7 @@ class GreenHubAPI:
         self.decision_batch_jobs = DecisionBatchJobs(
             (run_root or RESULTS_DIR / "runs"),
             __import__("Greenhub.application.decision_support_service", fromlist=["DecisionSupportService"]).DecisionSupportService(self.simulations).evaluate,
+            read_roots=() if run_root is not None else (RESULTS_DIR / "actual_pareto_2000",),
         )
         self.graphs = self.simulations.graphs
         self.plots = self.simulations.plots
@@ -544,27 +545,14 @@ class GreenHubAPI:
                 return FileResponse(artifact, artifact.name)
             if method == 'GET' and path == '/api/v1/decision-support/pareto/latest':
                 from Greenhub.settings import RESULTS_DIR
-                artifact = RESULTS_DIR / 'pareto_rvo_2026' / 'latest.json'
-                if not artifact.exists():
+                artifact = RESULTS_DIR / 'pareto_rvo_2026' / 'latest_ui.json'
+                if artifact.exists():
+                    return json.loads(artifact.read_text(encoding='utf-8'))
+                legacy_artifact = RESULTS_DIR / 'pareto_rvo_2026' / 'latest.json'
+                if not legacy_artifact.exists():
                     raise APIError(404, 'pareto_not_found', 'No replacement RVO Pareto analysis has been published yet.')
-                source = json.loads(artifact.read_text(encoding='utf-8'))
-                groups = {}
-                for name, result in source.get('groups_payload', {}).items():
-                    groups[name] = {
-                        'group': result.get('group'),
-                        'requested_designs': result.get('requested_designs'),
-                        'sample_count': result.get('sample_count'),
-                        'evaluated_count': result.get('evaluated_count'),
-                        'rejected_count': result.get('rejected_count'),
-                        'fronts': result.get('fronts', {}),
-                        'selected_candidates': result.get('selected_candidates', {}),
-                    }
-                return {key: source.get(key) for key in (
-                    'schema_version', 'created_at_utc', 'seed', 'designs_per_protein_group',
-                    'feed_preparation', 'optimization_objectives', 'support_scenarios',
-                    'grant_awarding_organization', 'financial_basis', 'carbon_basis',
-                    'biomethane_support_conversion', 'limitations', 'groups',
-                )} | {'groups_payload': groups}
+                from Greenhub.pareto_reporting import pareto_ui_projection
+                return pareto_ui_projection(json.loads(legacy_artifact.read_text(encoding='utf-8')))
             job_match = re.fullmatch(r'/api/v1/decision-support/batch-jobs/([a-zA-Z0-9]+)(?:/(cancel|resume))?', path)
             if job_match:
                 job_id, action = job_match.groups()

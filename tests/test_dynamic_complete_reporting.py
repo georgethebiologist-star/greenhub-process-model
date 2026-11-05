@@ -115,6 +115,11 @@ def test_frontend_visible_data_contract_and_traceability(baseline):
     assert all({"available_biomass_tonnes", "processed_biomass_tonnes", "unused_biomass_tonnes", "utilization_fraction"} <= row.keys() for row in baseline["biomass_schedule"]["monthly"])
     assert all({"policy_id", "value", "unit", "source_status", "certainty_class", "source_file", "source_id", "warning"} <= r.keys() for r in baseline["assumptions"])
     assert {"direct_dataset", "greenhub_legacy_proxy_result", "engineering_assumption"} <= baseline["assumption_counts"].keys()
+    raw_press_yield = next(r for r in baseline["assumptions"] if r.get("record_id") == "RAW_0001")
+    assert raw_press_yield["quality_class"] == "B"
+    assert raw_press_yield["source_url"] == "https://doi.org/10.3390/proteomes13010008"
+    assert raw_press_yield["source_location"] == "Table 1"
+    assert raw_press_yield["certainty_class"] == "direct_usable"
     assert any(r["policy_id"] == "engineering_proxy_closure_v1" for r in baseline["assumptions"])
     assert not any(str(r["source_file"]).startswith(("C:", "/")) for r in baseline["assumptions"])
 

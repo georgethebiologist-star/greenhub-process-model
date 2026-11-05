@@ -1,0 +1,3 @@
+﻿sample_id,group,support_case,wet_feed_t_per_year,high_direct_capex_eur,original_sales_eur_per_year,original_partial_opex_eur_per_year,original_operating_profit_eur_per_year,capex_grant_eur,biomethane_support_eur_per_year,total_support_pv_eur,npv_eur,net_carbon_t_c_per_year,scenario_status,product_gate_eligible,saleable_products,rejection_reason,grass_utilization_bonus_eur_per_wet_tonne
+eligible-1,protein_bypass,C0-GB0,1.0,,10,4,6,,,,,2,evaluated,True,biomethane,,0
+rejected-1,protein_bypass,C0-GB0,,,,,,,,,,,rejected,False,,No saleable product,

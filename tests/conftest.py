@@ -165,9 +165,9 @@ def simple_input_mapping():
 
 @pytest.fixture
 def phase3_values():
-    """Resolved structural F2 values for focused custom-unit tests."""
+    """Resolved structural values for the currently supported F1 route."""
 
-    return dict(load_phase3_inputs(scenario_id="F2").parameter_values)
+    return dict(load_phase3_inputs(scenario_id="F1").parameter_values)
 
 
 @pytest.fixture

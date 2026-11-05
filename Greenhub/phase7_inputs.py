@@ -263,8 +263,8 @@ def load_phase7_inputs(
         raise ValueError("Phase 7 upstream digestion scenario must be AD0-AD5.")
     if phase4 not in {f"PR{i}" for i in range(8)}:
         raise ValueError("Phase 7 upstream protein scenario must be PR0-PR7.")
-    if phase3 not in {"F0", "F1", "F2", "F3"}:
-        raise ValueError("Phase 7 upstream front-end scenario must be F0-F3.")
+    if phase3 not in {"F0", "F1"}:
+        raise ValueError("Phase 7 upstream front-end scenario must be F0 or F1; PEF routes F2/F3 are retired.")
     month = selected_month or optional_text(control.get("selected_month")) or "July"
     structural = as_bool(
         control.get("phase7_structural_test_mode"),

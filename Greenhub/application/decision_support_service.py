@@ -4,6 +4,7 @@ from copy import deepcopy
 from dataclasses import asdict
 from hashlib import sha256
 import json
+import math
 from collections import Counter
 from pathlib import Path
 
@@ -15,8 +16,14 @@ from .lca_service import calculate_empirical_lca, lca_options
 from Greenhub.component_metadata import COMPONENT_METADATA
 from Greenhub.tea_finance import _irr, _payback
 
-DEFAULT_BIOMETHANE_BONUS_EUR_PER_M3 = 1.87  # Midpoint of the supplied €1.28–€2.46/m³ screening range.
-DEFAULT_BIOMETHANE_BONUS_YEARS = 15
+ECONOMIC_DEFAULTS = json.loads((Path(__file__).parents[1] / 'data' / 'greenhub_economic_defaults.json').read_text(encoding='utf-8'))
+UI_FINANCE_DEFAULTS = ECONOMIC_DEFAULTS['economics']
+DEFAULT_BIOMETHANE_BONUS_EUR_PER_M3 = float(UI_FINANCE_DEFAULTS['biomethaneBonusEurM3'])
+DEFAULT_BIOMETHANE_BONUS_YEARS = int(UI_FINANCE_DEFAULTS['biomethaneBonusYears'])
+GRASS_BONUS_DEFAULTS = ECONOMIC_DEFAULTS['grass_utilization_bonus']
+MAX_GRASS_UTILIZATION_BONUS_EUR_PER_T = float(GRASS_BONUS_DEFAULTS['maximum_eur_per_wet_tonne'])
+DEFAULT_GRASS_UTILIZATION_BONUS_EUR_PER_T = float(GRASS_BONUS_DEFAULTS['default_eur_per_wet_tonne'])
+DEFAULT_GRASS_UTILIZATION_BONUS_YEARS = int(GRASS_BONUS_DEFAULTS['default_duration_years'])
 
 
 def _high_direct_capex_basis(tea: dict, units=()) -> float:
@@ -55,12 +62,21 @@ def _apply_candidate_economics(tea: dict, economics: dict, annual=None, units=()
     }}
     economics.setdefault('biomethane_bonus_eur_per_m3', DEFAULT_BIOMETHANE_BONUS_EUR_PER_M3)
     economics.setdefault('biomethane_bonus_years', DEFAULT_BIOMETHANE_BONUS_YEARS)
+    economics.setdefault('grass_utilization_bonus_eur_per_t_feed', DEFAULT_GRASS_UTILIZATION_BONUS_EUR_PER_T)
+    economics.setdefault('grass_utilization_bonus_years', DEFAULT_GRASS_UTILIZATION_BONUS_YEARS)
     economics.setdefault('logistics_cost_eur_per_t_km', 0.0)
     economics.setdefault('logistics_distance_km', 0.0)
     totals = tea.get('totals') or {}
     annual = annual or {}
     original_revenue = float(totals.get('annual_revenue_eur') or 0.0)
-    original_opex = float(totals.get('annual_opex_eur') or 0.0)
+    stored_opex_lines = list(tea.get('opex_lines') or [])
+    prior_user_cost_lines = [line for line in stored_opex_lines if str(line.get('cost_id') or '').startswith('USER-')]
+    base_opex_lines = [line for line in stored_opex_lines if not str(line.get('cost_id') or '').startswith('USER-')]
+    # Candidate overlays can be reapplied when a Pareto run pairs the same
+    # process result with several support cases. Remove prior user-entered lines
+    # from the subtotal first so repeated evaluation is deterministic.
+    prior_user_cost_total = sum(float(line.get('annual_cost_eur') or 0.0) for line in prior_user_cost_lines)
+    original_opex = max(0.0, float(totals.get('annual_opex_eur') or 0.0) - prior_user_cost_total)
     original_capex = float(totals.get('screening_capital_basis_eur') or totals.get('partial_direct_capex_eur') or 0.0)
     capex_override = economics.get('total_capex_override_eur')
     capex_estimate = _high_direct_capex_basis(tea, units) or totals.get('high_direct_capex_eur') or original_capex
@@ -82,13 +98,16 @@ def _apply_candidate_economics(tea: dict, economics: dict, annual=None, units=()
 
     # Optional rate entries replace the corresponding source-register rows. A
     # missing rate preserves the source model's original item and is never read as zero.
+    has_cost_register = bool(base_opex_lines)
     staff_cost = max(0.0, float(economics.get('staffing_people', 5))) * max(0.0, float(economics.get('paid_hours_per_person', 1500))) * max(0.0, float(economics.get('labor_cost_eur_per_person_hour', 47.9)))
-    replacements = {'TEA-029': 0.0, 'TEA-033': 0.0}
-    user_cost_lines = [{'cost_id':'USER-LABOR','process_area':'operations','process_step':'Labor',
+    replacements = {'TEA-033': 0.0}
+    if has_cost_register:
+        replacements['TEA-029'] = 0.0
+    user_cost_lines = ([{'cost_id':'USER-LABOR','process_area':'operations','process_step':'Labor',
                         'equipment_or_cost_item':'Staffing at user-entered headcount, paid hours and rate',
                         'annual_cost_eur':staff_cost,'quantity':max(0.0,float(economics.get('staffing_people',5)))*max(0.0,float(economics.get('paid_hours_per_person',1500))),
                         'quantity_unit':'person·hours/year','unit_cost_eur':max(0.0,float(economics.get('labor_cost_eur_per_person_hour',47.9))),
-                        'calculation_status':'user_headcount_times_hours_times_hourly_rate'}]
+                        'calculation_status':'user_headcount_times_hours_times_hourly_rate'}] if has_cost_register else [])
     electricity_mwh = annual_mwh('electricity')
     heat_mwh = annual_mwh('heating')
     cooling_mwh = annual_mwh('cooling')
@@ -111,14 +130,21 @@ def _apply_candidate_economics(tea: dict, economics: dict, annual=None, units=()
     if (logistic_rate in (None, '')) != (logistic_distance in (None, '')):
         raise ValueError('Logistics override needs both a €/t·km rate and a haul distance in km.')
     if logistic_rate not in (None, '') and logistic_distance not in (None, ''):
-        logistics_cost = annual_feed_t * max(0.0, float(logistic_rate)) * max(0.0, float(logistic_distance))
-        replacements.update({'TEA-032': 0.0})
-        user_cost_lines.append({'cost_id':'USER-LOGISTICS', 'process_area':'feedstock logistics',
-                                'process_step':'Grass transport', 'equipment_or_cost_item':'Wet grass haulage at user-entered rate and distance',
-                                'annual_cost_eur':logistics_cost, 'quantity':annual_feed_t*float(logistic_distance),
-                                'quantity_unit':'wet t·km/year', 'unit_cost_eur':float(logistic_rate),
-                                'calculation_status':'user_rate_times_simulated_tonnes_and_distance'})
-    original_lines = tea.get('opex_lines') or []
+        logistics_evidence_present = any(
+            line.get('cost_id') == 'TEA-032'
+            and line.get('calculation_status') == 'calculated_from_logistics_result'
+            for line in base_opex_lines
+        )
+        explicit_nonzero_override = float(logistic_rate) > 0 or float(logistic_distance) > 0
+        if not logistics_evidence_present or explicit_nonzero_override:
+            logistics_cost = annual_feed_t * max(0.0, float(logistic_rate)) * max(0.0, float(logistic_distance))
+            replacements.update({'TEA-032': 0.0})
+            user_cost_lines.append({'cost_id':'USER-LOGISTICS', 'process_area':'feedstock logistics',
+                                    'process_step':'Grass transport', 'equipment_or_cost_item':'Wet grass haulage at user-entered rate and distance',
+                                    'annual_cost_eur':logistics_cost, 'quantity':annual_feed_t*float(logistic_distance),
+                                    'quantity_unit':'wet t·km/year', 'unit_cost_eur':float(logistic_rate),
+                                    'calculation_status':'user_rate_times_simulated_tonnes_and_distance'})
+    original_lines = base_opex_lines
     replaced_cost = 0.0
     for line in original_lines:
         cost_id = line.get('cost_id')
@@ -149,25 +175,35 @@ def _apply_candidate_economics(tea: dict, economics: dict, annual=None, units=()
     additional_years = max(0, min(lifetime, int(economics.get('additional_benefit_years', 0) or 0)))
     legacy_premium_per_t = max(0.0, float(economics.get('opex_premium_eur_per_t_feed', 0.0) or 0.0))
     legacy_support = annual_feed_t * legacy_premium_per_t
-    operating_support_annual = legacy_support + gas_bonus_annual
+    grass_bonus_rate = float(economics.get('grass_utilization_bonus_eur_per_t_feed', 0.0) or 0.0)
+    if not math.isfinite(grass_bonus_rate) or not 0.0 <= grass_bonus_rate <= MAX_GRASS_UTILIZATION_BONUS_EUR_PER_T:
+        raise ValueError('Grass utilization bonus must be between €0 and €50 per wet tonne processed.')
+    grass_bonus_years = max(0, min(lifetime, int(economics.get('grass_utilization_bonus_years', 0) or 0)))
+    grass_bonus_annual = annual_feed_t * grass_bonus_rate
+    operating_support_annual = legacy_support + gas_bonus_annual + grass_bonus_annual
     annual_support_in_effect = operating_support_annual + additional_annual
     profit_during_support = operating_profit + annual_support_in_effect
-    support_undiscounted = capex_grant + legacy_support*support_years + gas_bonus_annual*gas_bonus_years + additional_annual*additional_years
+    effective_gas_bonus_years = gas_bonus_years if gas_bonus_annual > 0 else 0
+    effective_grass_bonus_years = grass_bonus_years if grass_bonus_annual > 0 else 0
+    effective_additional_years = additional_years if additional_annual > 0 else 0
+    support_undiscounted = capex_grant + legacy_support*support_years + gas_bonus_annual*effective_gas_bonus_years + grass_bonus_annual*effective_grass_bonus_years + additional_annual*effective_additional_years
     working_capital = max(0.0, float(economics.get('working_capital_eur', 0.0) or 0.0))
     residual_value = max(0.0, float(economics.get('residual_value_eur', 0.0) or 0.0))
     cashflows = [-(high_capex-capex_grant)-working_capital]
     for year in range(1, lifetime+1):
-        support = (legacy_support if year<=support_years else 0.0) + (gas_bonus_annual if year<=gas_bonus_years else 0.0) + (additional_annual if year<=additional_years else 0.0)
+        support = (legacy_support if year<=support_years else 0.0) + (gas_bonus_annual if year<=effective_gas_bonus_years else 0.0) + (grass_bonus_annual if year<=effective_grass_bonus_years else 0.0) + (additional_annual if year<=effective_additional_years else 0.0)
         pre_tax = operating_profit + support
         cash = pre_tax - max(0.0, pre_tax)*tax_rate
         if year == lifetime:
             cash += residual_value + working_capital
         cashflows.append(cash)
-    proxy_npv = sum(cash/(1.0+discount)**year for year,cash in enumerate(cashflows))
-    proxy_irr = _irr(cashflows)
-    proxy_payback = _payback(cashflows, 0.0)
+    revenue_complete = totals.get('revenue_status') in (None, 'complete')
+    computed_npv = sum(cash/(1.0+discount)**year for year,cash in enumerate(cashflows))
+    proxy_npv = computed_npv if revenue_complete else None
+    proxy_irr = _irr(cashflows) if revenue_complete else None
+    proxy_payback = _payback(cashflows, 0.0) if revenue_complete else None
     capex_grant_pv = capex_grant
-    support_pv = legacy_support*_annuity_factor(discount,support_years) + gas_bonus_annual*_annuity_factor(discount,gas_bonus_years) + additional_annual*_annuity_factor(discount,additional_years)
+    support_pv = legacy_support*_annuity_factor(discount,support_years) + gas_bonus_annual*_annuity_factor(discount,effective_gas_bonus_years) + grass_bonus_annual*_annuity_factor(discount,effective_grass_bonus_years) + additional_annual*_annuity_factor(discount,effective_additional_years)
     total_support_pv = capex_grant_pv + support_pv
     tax_annual = max(0.0, operating_profit+operating_support_annual+additional_annual)*tax_rate
     grant_fraction_applied = capex_grant/high_capex if high_capex else 0.0
@@ -199,7 +235,11 @@ def _apply_candidate_economics(tea: dict, economics: dict, annual=None, units=()
         'capex_grant_fraction_applied':grant_fraction_applied,
         'opex_premium_eur_per_year':operating_support_annual+additional_annual,
         'opex_premium_eur_per_t_feed':legacy_premium_per_t,
-        'opex_support_years':max(support_years,gas_bonus_years,additional_years),
+        'grass_utilization_bonus_eur_per_year':grass_bonus_annual,
+        'grass_utilization_bonus_eur_per_t_feed':grass_bonus_rate,
+        'grass_utilization_bonus_years':grass_bonus_years,
+        'grass_utilization_bonus_basis':'User-defined logistics grass bonus per wet tonne processed; distinct from CAPEX grants and biomethane support; not an awarded subsidy.',
+        'opex_support_years':max(support_years,effective_gas_bonus_years,effective_grass_bonus_years,effective_additional_years),
         'total_public_support_undiscounted_eur':support_undiscounted,
         'total_public_support_pv_eur':total_support_pv,
         'proxy_npv_eur':proxy_npv, 'proxy_irr':proxy_irr, 'proxy_simple_payback_years':proxy_payback,
@@ -219,9 +259,9 @@ def _apply_candidate_economics(tea: dict, economics: dict, annual=None, units=()
         'operating_profit_during_support_eur_per_year':profit_during_support,
         'annual_operating_support_eur_per_year':annual_support_in_effect,
         'npv_eur':proxy_npv,'irr':proxy_irr,'simple_payback_years':proxy_payback,
-        'financial_kpi_status':'user_assumption_screening_proxy',
+        'financial_kpi_status':'user_assumption_screening_proxy' if revenue_complete else 'incomplete',
         'financial_kpi_basis':totals['proxy_npv_basis'],
-        'financial_kpi_blockers':[],
+        'financial_kpi_blockers':([] if revenue_complete else ['Product revenue is incomplete: validated or explicitly assumed prices are required before investment KPIs can be reported.']),
     })
     tea['financial_kpis']=financial
     tea['cash_flow']=[{'year':year,'cash_flow_eur':cash,'basis':'user-assumption screening proxy'} for year,cash in enumerate(cashflows)]
@@ -234,8 +274,12 @@ def _apply_candidate_economics(tea: dict, economics: dict, annual=None, units=()
         'capex_grant_fraction_applied':grant_fraction_applied, 'opex_premium_eur_per_year':operating_support_annual+additional_annual,
         'operating_profit_before_support_eur_per_year':operating_profit,
         'operating_profit_during_support_eur_per_year':profit_during_support,
-        'biomethane_bonus_eur_per_year':gas_bonus_annual, 'additional_benefit_eur_per_year':additional_annual,
-        'opex_support_years':max(support_years,gas_bonus_years,additional_years),
+        'biomethane_bonus_eur_per_year':gas_bonus_annual,
+        'grass_utilization_bonus_eur_per_year':grass_bonus_annual,
+        'grass_utilization_bonus_eur_per_t_feed':grass_bonus_rate,
+        'grass_utilization_bonus_years':grass_bonus_years,
+        'additional_benefit_eur_per_year':additional_annual,
+        'opex_support_years':max(support_years,effective_gas_bonus_years,effective_grass_bonus_years,effective_additional_years),
         'total_public_support_undiscounted_eur':support_undiscounted,'total_public_support_pv_eur':total_support_pv,
         'proxy_npv_eur':proxy_npv,'proxy_irr':proxy_irr,'proxy_simple_payback_years':proxy_payback,
         'proxy_npv_basis':totals['proxy_npv_basis'],'tax_eur_per_year':tax_annual,
@@ -256,7 +300,7 @@ def default_configuration():
                       'export_formats':['json','csv'],'strict_validation':True},
         'project_basis':{'currency':'EUR','price_year':2026,'location':'Netherlands'},
         'tea':{},'financial_assumptions':{'product_prices':{},'use_screening_price_benchmarks':False},
-        'candidate_economics':{'biomethane_bonus_enabled':False,'biomethane_bonus_eur_per_m3':DEFAULT_BIOMETHANE_BONUS_EUR_PER_M3,'biomethane_bonus_years':DEFAULT_BIOMETHANE_BONUS_YEARS,'logistics_cost_eur_per_t_km':0.0,'logistics_distance_km':0.0},
+        'candidate_economics':{'biomethane_bonus_enabled':False,'biomethane_bonus_eur_per_m3':DEFAULT_BIOMETHANE_BONUS_EUR_PER_M3,'biomethane_bonus_years':DEFAULT_BIOMETHANE_BONUS_YEARS,'grass_utilization_bonus_eur_per_t_feed':DEFAULT_GRASS_UTILIZATION_BONUS_EUR_PER_T,'grass_utilization_bonus_years':DEFAULT_GRASS_UTILIZATION_BONUS_YEARS,'logistics_cost_eur_per_t_km':0.0,'logistics_distance_km':0.0},
         'use_screening_process_assumptions':False,'use_screening_lca_factors':False,'lca':{},'climate_factors':{},'additional_inventory':[],
         # Optional precomputed logistics evidence; post-route only.
         'logistics_result':None}
@@ -265,7 +309,7 @@ def default_configuration():
 def options():
     from Greenhub.storage_reactions import reaction_catalog
     from Greenhub.tea_finance import TEAFinancialAssumptions
-    from Greenhub.product_price_benchmarks import screening_tea_product_price_ranges, screening_tea_product_prices
+    from Greenhub.product_price_benchmarks import product_price_source_references, screening_tea_product_price_ranges, screening_tea_product_prices
     from Greenhub.process_assumption_profile import screening_process_assumption_profile
     return {'defaults':default_configuration(),'biomethane_bonus_default':{'rate_eur_per_m3':DEFAULT_BIOMETHANE_BONUS_EUR_PER_M3,'duration_years':DEFAULT_BIOMETHANE_BONUS_YEARS,'basis':'Midpoint of the supplied €1.28–€2.46/m³ biomethane screening range.','enabled_by_default':False},'tea_basis':asdict(TEAProjectBasis()),
             'product_price_requirements':json.loads((Path(__file__).parents[1]/'data/tea/product_price_requirements.json').read_text())['products'],
@@ -273,6 +317,7 @@ def options():
             'storage_reactions':reaction_catalog(),
             'screening_tea_product_prices':screening_tea_product_prices(),
             'screening_tea_product_price_ranges':screening_tea_product_price_ranges(),
+            'product_price_source_references': {'biomethane_market': product_price_source_references()},
             'screening_price_activation': 'Set financial_assumptions.use_screening_price_benchmarks=true to opt in; optional screening_product_ids limits activated benchmarks to listed products; explicit product_prices override benchmark values.',
             'screening_process_assumptions': screening_process_assumption_profile(),
             'readiness':{'validated_simulation_ready':False,'validated_tea_ready':False,'validated_lca_ready':False},

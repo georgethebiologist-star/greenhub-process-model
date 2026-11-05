@@ -1,0 +1,10 @@
+stream,component,flow_kg_hr,role
+struvite_base_solution,Water,0.01997924135349894,process water
+struvite_base_solution,SodiumHydroxide,0.019979241353498944,chemical reagent
+ammonia_stripper_base_solution,Water,0.09988948486426386,process water
+ammonia_stripper_base_solution,SodiumHydroxide,0.09988948486426386,chemical reagent
+ammonia_stripping_carrier,Oxygen,29.976992561500143,carrier gas
+ammonia_stripping_carrier,Nitrogen,98.72519206131528,carrier gas
+ammonia_absorber_acid_solution,Water,1.5957878149280655,process water
+ammonia_absorber_acid_solution,SulfuricAcid,1.063858543285377,chemical reagent
+ammonia_absorber_makeup_water,Water,1.759335915152309,process water

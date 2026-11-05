@@ -1,0 +1,5 @@
+scenario,unit_id,unit_operation,electricity_kw,purchase_cost_available,cost_comment
+F1,U101,Feed preparation,0.8467741935483872,False,No approved Phase 3 purchase-cost correlation
+F1,S201,Screw press,2.8132661290322587,False,No approved Phase 3 purchase-cost correlation
+F1,C301,Primary centrifuge,0.22506129032258074,False,No approved Phase 3 purchase-cost correlation
+F1,TOTAL,Front-end total,3.8851016129032265,False,Pumping is zero because no pressure-rise basis is available.

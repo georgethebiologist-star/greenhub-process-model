@@ -12,9 +12,10 @@ from Greenhub.scenario_exploration import pareto_front, pareto_front_3d, sample_
 
 
 class DecisionBatchJobs:
-    def __init__(self, root: Path, evaluator):
+    def __init__(self, root: Path, evaluator, *, read_roots=()):
         self.root = Path(root) / "decision_batches"
         self.root.mkdir(parents=True, exist_ok=True)
+        self.read_roots = tuple(Path(path) / "decision_batches" for path in read_roots)
         self.evaluator = evaluator
         self._lock = RLock()
         self._workers: dict[str, Thread] = {}
@@ -165,6 +166,9 @@ class DecisionBatchJobs:
 
     def _load(self, job_id):
         path = self._path(job_id)
+        if not path.exists():
+            path = next((root / path.name for root in self.read_roots
+                         if (root / path.name).is_file()), path)
         if not path.exists(): raise KeyError(f"Unknown decision batch job '{job_id}'.")
         return json.loads(path.read_text(encoding="utf-8"))
 

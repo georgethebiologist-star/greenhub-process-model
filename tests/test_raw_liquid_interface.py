@@ -3,7 +3,7 @@ from Greenhub.systems import create_phase3_scenario
 
 def test_modes_share_standard_raw_liquid_interface():
     measured = create_phase3_scenario("F0").simulate()
-    grass = create_phase3_scenario("F2").simulate()
+    grass = create_phase3_scenario("F1").simulate()
     for model in (measured, grass):
         interface = model.raw_liquid_interface
         assert interface.stream_id == "raw_liquid_fraction"

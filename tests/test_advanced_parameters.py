@@ -25,7 +25,7 @@ def _digest(path):
 def _context(mode, protein="PR1"):
     return SelectionContext(
         calculation_mode=mode,
-        selected_scenarios=("F2", protein, "AD1", "BG2", "NR4"),
+        selected_scenarios=("F1", protein, "AD1", "BG2", "NR4"),
         month="July",
     )
 
@@ -49,6 +49,8 @@ def test_resolution_preserves_structural_mode_and_activates_only_pr1_literature(
     assert structural[parameter_id].selected_candidate.source_dataset.endswith("greenhub_feed_inputs.xlsx")
     assert literature[parameter_id].active_value == pytest.approx(0.34)
     assert literature[parameter_id].selected_candidate.source_row_id == "REC-001"
+    assert literature[parameter_id].selected_candidate.quality_class == "B"
+    assert literature[parameter_id].selected_candidate.transferability_class == "proxy_high"
     assert combined[parameter_id].selected_candidate.source_dataset.endswith("greenhub_feed_inputs.xlsx")
 
 

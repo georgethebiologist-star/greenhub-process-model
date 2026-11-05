@@ -15,6 +15,29 @@ export interface DecisionReport {
 }
 export interface Sample {sample_id:string; status:string; error?:string; configuration:Configuration; outputs?:DecisionReport}
 export interface Batch {mode:string; seed:number; evaluated_count:number; samples:Sample[]; pareto_fronts:any[]; warning:string}
+export function candidateSupportDurations(economics:Record<string,any>, current:{grassUtilizationBonusYears:number;biomethaneBonusYears:number}) {
+  return {
+    grassUtilizationBonusYears:Number(economics.grass_utilization_bonus_years??current.grassUtilizationBonusYears),
+    biomethaneBonusYears:Number(economics.biomethane_bonus_years??economics.opex_support_years??current.biomethaneBonusYears),
+  };
+}
+export function candidateEconomicSettings(economics:Record<string,any>, current:Record<string,any>) {
+  const legacyBiomethaneRate=economics.opex_premium_eur_per_nm3_biomethane;
+  return {
+    totalCapexOverride:economics.total_capex_override_eur??'',
+    projectLifetimeYears:Number(economics.project_lifetime_years??current.projectLifetimeYears),
+    discountRate:Number(economics.discount_rate??current.discountRate),
+    taxRate:Number(economics.tax_rate??current.taxRate),
+    capexGrantFraction:Number(economics.capex_grant_fraction??0),
+    grassUtilizationBonusEurPerT:Number(economics.grass_utilization_bonus_eur_per_t_feed??0),
+    ...candidateSupportDurations(economics,current as {grassUtilizationBonusYears:number;biomethaneBonusYears:number}),
+    biomethaneBonusEnabled:economics.biomethane_bonus_enabled==null
+      ? Number(legacyBiomethaneRate??0)>0 : Boolean(economics.biomethane_bonus_enabled),
+    biomethaneBonusEurM3:Number(economics.biomethane_bonus_eur_per_m3??legacyBiomethaneRate??current.biomethaneBonusEurM3),
+    additionalBenefitEurYear:Number(economics.additional_benefit_eur_per_year??0),
+    additionalBenefitYears:Number(economics.additional_benefit_years??0),
+  };
+}
 export async function decisionApi<T>(path:string, body?:unknown, method:'GET'|'POST'='POST'):Promise<T> {
   if(method==='GET'||path.replace(/^\/+/, '').split('/')[0]==='options')return apiJson<T>(`/decision-support/${path}`,{method:'GET'});
   return apiJson<T>(`/decision-support/${path}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body??{})});

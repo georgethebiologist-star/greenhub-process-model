@@ -230,6 +230,9 @@ h3, h4, strong, b { font-family: "Suisse Intl", "Segoe UI", sans-serif; }
 .economic-input-panel .panel-title { margin-bottom:0; }
 .economic-input-panel .panel-title p { display:none; }
 .economic-field { display:grid; gap:6px; align-content:start; }
+.price-quality-note, .price-market-reference { display:flex; align-items:center; flex-wrap:wrap; gap:5px; color:var(--muted); font-size:9px; line-height:1.35; }
+.price-quality-note .quality, .price-market-reference .quality { flex:none; width:17px; height:17px; font-size:8px; }
+.price-quality-note a, .price-market-reference a { color:var(--green); font-weight:700; }
 .economic-input-row { display:grid; grid-template-columns:50px minmax(0,1fr); align-items:center; gap:6px; }
 .economic-input-row > span { display:flex; align-items:center; min-width:0; }
 .economic-input-row > span { border:1px solid var(--line-strong); border-radius:8px; background:#fffdf9; overflow:hidden; }
@@ -285,6 +288,7 @@ h3, h4, strong, b { font-family: "Suisse Intl", "Segoe UI", sans-serif; }
 .feed-compound-list { display:grid; padding:0 12px 9px; }
 .feed-compound-row { display:grid; grid-template-columns:minmax(150px,1fr) minmax(190px,250px) 26px; align-items:center; gap:12px; padding:7px 0; border-top:1px solid var(--line); }
 .feed-compound-name { font-size:10px; }
+.feed-source-link { display:inline-block; margin-left:6px; color:var(--muted); font-size:9px; text-decoration:underline; text-underline-offset:2px; }
 .feed-compound-editor { display:grid; grid-template-columns:38px minmax(0,1fr); align-items:center; gap:6px; min-width:0; }
 .compound-reset { display:grid; place-items:center; min-width:36px; height:23px; padding:0 4px; border:1px solid var(--line); border-radius:6px; background:transparent; color:var(--muted); font-size:8px; line-height:1; cursor:pointer; }
 .compound-reset:hover { border-color:var(--green); color:var(--green); background:rgba(64,143,77,.07); }
@@ -538,6 +542,7 @@ h3, h4, strong, b { font-family: "Suisse Intl", "Segoe UI", sans-serif; }
 .parameter-row strong { font-size: 10px; }
 .parameter-row small { color: var(--muted); font-size: 8px; margin-top: 4px; }
 .parameter-row p { font-size: 8px; margin-top: 5px; }
+.parameter-row .parameter-source { display: inline-block; margin-top: 4px; color: var(--accent); font-size: 8px; }
 .parameter-row label { display: flex; border: 1px solid var(--line); border-radius: 8px; background: var(--panel-soft); }
 .parameter-row input { width: 90px; border: 0; background: transparent; padding: 7px; outline: 0; }
 .parameter-row em { font-style: normal; color: var(--muted); font-size: 8px; padding: 8px; }

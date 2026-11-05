@@ -1,5 +1,18 @@
 # GreenHub PT0 Feed and Baseline dataset suite
 
+## Dutch availability and mowing evidence
+
+`roadside_grass_availability_evidence.csv` indexes the Dutch roadside-grass
+field study by Bakker et al. (2026; DOI `10.1111/1365-2664.70289`). It records
+the reported 1.1–6.5 t DM/ha range for June/late-August standing biomass across
+10 roadside grasslands in 2023 and six tested mowing schedules. The biomass
+range is standing biomass in plots not yet mown; it is not an annual harvest
+yield, accessible-area estimate, or delivered-feed quantity. All rows are
+staged literature evidence and are not connected to model defaults or the
+availability calculation. The study documents one- and two-cut schedule
+options, but does not establish that they are permitted or used for every
+Dutch road operator. Source sections: Methods 2.2 and Figure 1.
+
 Target path: `Greenhub/data/Pre-treatment/Feed_and_Baseline/`
 
 This suite contains source-traceable observations for untreated green biomass and the PT0 no-pretreatment case.

@@ -1,0 +1,4820 @@
+[
+  {
+    "aliases": [
+      "acid_solution"
+    ],
+    "components": {},
+    "phase": "l",
+    "pressure": {
+      "basis": "absolute pressure",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "Pa",
+      "value": 101325.0,
+      "warning": null
+    },
+    "sink_unit": null,
+    "source_unit": null,
+    "stream_id": "acid_solution",
+    "temperature": {
+      "basis": "absolute temperature",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "K",
+      "value": 298.15,
+      "warning": null
+    },
+    "total_mass": {
+      "basis": "stream total",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    }
+  },
+  {
+    "aliases": [
+      "ammonia_polished_biogas"
+    ],
+    "components": {},
+    "phase": "g",
+    "pressure": {
+      "basis": "absolute pressure",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "Pa",
+      "value": 101325.0,
+      "warning": null
+    },
+    "sink_unit": "F601",
+    "source_unit": "R602",
+    "stream_id": "ammonia_polished_biogas",
+    "temperature": {
+      "basis": "absolute temperature",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "K",
+      "value": 308.15,
+      "warning": null
+    },
+    "total_mass": {
+      "basis": "stream total",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    }
+  },
+  {
+    "aliases": [
+      "ammonia_scrubber_acid_solution"
+    ],
+    "components": {},
+    "phase": "l",
+    "pressure": {
+      "basis": "absolute pressure",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "Pa",
+      "value": 101325.0,
+      "warning": null
+    },
+    "sink_unit": "R602",
+    "source_unit": null,
+    "stream_id": "ammonia_scrubber_acid_solution",
+    "temperature": {
+      "basis": "absolute temperature",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "K",
+      "value": 308.15,
+      "warning": null
+    },
+    "total_mass": {
+      "basis": "stream total",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    }
+  },
+  {
+    "aliases": [
+      "ammonia_scrubber_liquor"
+    ],
+    "components": {},
+    "phase": "l",
+    "pressure": {
+      "basis": "absolute pressure",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "Pa",
+      "value": 101325.0,
+      "warning": null
+    },
+    "sink_unit": "M606",
+    "source_unit": "R602",
+    "stream_id": "ammonia_scrubber_liquor",
+    "temperature": {
+      "basis": "absolute temperature",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "K",
+      "value": 308.15,
+      "warning": null
+    },
+    "total_mass": {
+      "basis": "stream total",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    }
+  },
+  {
+    "aliases": [
+      "ammonia_scrubber_water"
+    ],
+    "components": {},
+    "phase": "l",
+    "pressure": {
+      "basis": "absolute pressure",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "Pa",
+      "value": 101325.0,
+      "warning": null
+    },
+    "sink_unit": "R602",
+    "source_unit": null,
+    "stream_id": "ammonia_scrubber_water",
+    "temperature": {
+      "basis": "absolute temperature",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "K",
+      "value": 308.15,
+      "warning": null
+    },
+    "total_mass": {
+      "basis": "stream total",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    }
+  },
+  {
+    "aliases": [
+      "base_solution"
+    ],
+    "components": {},
+    "phase": "l",
+    "pressure": {
+      "basis": "absolute pressure",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "Pa",
+      "value": 101325.0,
+      "warning": null
+    },
+    "sink_unit": null,
+    "source_unit": null,
+    "stream_id": "base_solution",
+    "temperature": {
+      "basis": "absolute temperature",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "K",
+      "value": 298.15,
+      "warning": null
+    },
+    "total_mass": {
+      "basis": "stream total",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    }
+  },
+  {
+    "aliases": [
+      "technology_spent_material"
+    ],
+    "components": {},
+    "phase": "l",
+    "pressure": {
+      "basis": "absolute pressure",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "Pa",
+      "value": 101325.0,
+      "warning": null
+    },
+    "sink_unit": "M699",
+    "source_unit": null,
+    "stream_id": "bg0_technology_spent_material",
+    "temperature": {
+      "basis": "absolute temperature",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "K",
+      "value": 298.15,
+      "warning": null
+    },
+    "total_mass": {
+      "basis": "stream total",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    }
+  },
+  {
+    "aliases": [
+      "technology_wastewater"
+    ],
+    "components": {},
+    "phase": "l",
+    "pressure": {
+      "basis": "absolute pressure",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "Pa",
+      "value": 101325.0,
+      "warning": null
+    },
+    "sink_unit": "M698",
+    "source_unit": null,
+    "stream_id": "bg0_technology_wastewater",
+    "temperature": {
+      "basis": "absolute temperature",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "K",
+      "value": 298.15,
+      "warning": null
+    },
+    "total_mass": {
+      "basis": "stream total",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    }
+  },
+  {
+    "aliases": [
+      "centrifuge_flocculant"
+    ],
+    "components": {},
+    "phase": "l",
+    "pressure": {
+      "basis": "absolute pressure",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "Pa",
+      "value": 101325.0,
+      "warning": null
+    },
+    "sink_unit": "C301",
+    "source_unit": null,
+    "stream_id": "centrifuge_flocculant",
+    "temperature": {
+      "basis": "absolute temperature",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "K",
+      "value": 293.15,
+      "warning": null
+    },
+    "total_mass": {
+      "basis": "stream total",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    }
+  },
+  {
+    "aliases": [
+      "centrifuge_wash_water"
+    ],
+    "components": {},
+    "phase": "l",
+    "pressure": {
+      "basis": "absolute pressure",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "Pa",
+      "value": 101325.0,
+      "warning": null
+    },
+    "sink_unit": "C301",
+    "source_unit": null,
+    "stream_id": "centrifuge_wash_water",
+    "temperature": {
+      "basis": "absolute temperature",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "K",
+      "value": 293.15,
+      "warning": null
+    },
+    "total_mass": {
+      "basis": "stream total",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    }
+  },
+  {
+    "aliases": [
+      "clarified_liquid",
+      "clarified_protein_rich_liquid",
+      "protein_depleted_liquid"
+    ],
+    "components": {
+      "AminoAcids": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.018810564633537044,
+        "warning": null
+      },
+      "Ammonium": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.01396684424040125,
+        "warning": null
+      },
+      "Ash": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.014285960803603356,
+        "warning": null
+      },
+      "Cellulose": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.02882731308525997,
+        "warning": null
+      },
+      "DissolvedPhosphorus": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.006144784446955431,
+        "warning": null
+      },
+      "EntrappedSugars": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.028731541280989974,
+        "warning": null
+      },
+      "HeavyMetals": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 1.5675470527947525e-05,
+        "warning": null
+      },
+      "Hemicellulose": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.029868831456695864,
+        "warning": null
+      },
+      "InertSolids": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.00042323770425458366,
+        "warning": null
+      },
+      "Lignin": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.003288165279935524,
+        "warning": null
+      },
+      "Lipids": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0846475408509167,
+        "warning": null
+      },
+      "Litter": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.00023513205791921292,
+        "warning": null
+      },
+      "Microplastics": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 3.135094105589505e-05,
+        "warning": null
+      },
+      "NonBiodegradableOrganics": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.052904713031822925,
+        "warning": null
+      },
+      "OrganicNitrogen": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.03491711060100313,
+        "warning": null
+      },
+      "ParticulateBiodegradableOrganics": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.017634904343940973,
+        "warning": null
+      },
+      "ParticulateNitrogen": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.00039188676319868815,
+        "warning": null
+      },
+      "ParticulatePhosphorus": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.00031350941055895045,
+        "warning": null
+      },
+      "ParticulatePotassium": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0005486414684781634,
+        "warning": null
+      },
+      "PathogenIndicators": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 3.918867631986881e-05,
+        "warning": null
+      },
+      "Pectin": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.01763490434394097,
+        "warning": null
+      },
+      "Peptides": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.018810564633537044,
+        "warning": null
+      },
+      "PersistentOrganics": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 3.879678955667013e-05,
+        "warning": null
+      },
+      "Pesticides": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 3.879678955667013e-05,
+        "warning": null
+      },
+      "PotassiumIon": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.03491711060100313,
+        "warning": null
+      },
+      "Sand": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 7.524225853414831e-05,
+        "warning": null
+      },
+      "SolubleProtein": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.3254556470844485,
+        "warning": null
+      },
+      "Starch": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.007502124667814049,
+        "warning": null
+      },
+      "SuspendedProtein": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.05337282842128347,
+        "warning": null
+      },
+      "SuspendedSolids": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.009405282316768519,
+        "warning": null
+      },
+      "Water": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 80.77321430010245,
+        "warning": null
+      }
+    },
+    "phase": "l",
+    "pressure": {
+      "basis": "absolute pressure",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "Pa",
+      "value": 101325.0,
+      "warning": null
+    },
+    "sink_unit": "M403",
+    "source_unit": "C301",
+    "stream_id": "clarified_protein_rich_liquid",
+    "temperature": {
+      "basis": "absolute temperature",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "K",
+      "value": 293.15,
+      "warning": null
+    },
+    "total_mass": {
+      "basis": "stream total",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 81.57649249455626,
+      "warning": null
+    }
+  },
+  {
+    "aliases": [
+      "conditioned_biogas"
+    ],
+    "components": {},
+    "phase": "g",
+    "pressure": {
+      "basis": "absolute pressure",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "Pa",
+      "value": 101325.0,
+      "warning": null
+    },
+    "sink_unit": "S609",
+    "source_unit": "F601",
+    "stream_id": "conditioned_biogas",
+    "temperature": {
+      "basis": "absolute temperature",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "K",
+      "value": 308.15,
+      "warning": null
+    },
+    "total_mass": {
+      "basis": "stream total",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    }
+  },
+  {
+    "aliases": [
+      "conditioned_digester_feed"
+    ],
+    "components": {
+      "AminoAcids": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.018810564633537044,
+        "warning": null
+      },
+      "Ammonium": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.01396684424040125,
+        "warning": null
+      },
+      "Ash": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.014285960803603356,
+        "warning": null
+      },
+      "Cellulose": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.02882731308525997,
+        "warning": null
+      },
+      "DissolvedPhosphorus": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.006144784446955431,
+        "warning": null
+      },
+      "EntrappedSugars": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.028731541280989974,
+        "warning": null
+      },
+      "HeavyMetals": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 1.5675470527947525e-05,
+        "warning": null
+      },
+      "Hemicellulose": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.029868831456695864,
+        "warning": null
+      },
+      "InertSolids": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.00042323770425458366,
+        "warning": null
+      },
+      "Lignin": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.003288165279935524,
+        "warning": null
+      },
+      "Lipids": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0846475408509167,
+        "warning": null
+      },
+      "Litter": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.00023513205791921292,
+        "warning": null
+      },
+      "Microplastics": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 3.135094105589505e-05,
+        "warning": null
+      },
+      "NonBiodegradableOrganics": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.052904713031822925,
+        "warning": null
+      },
+      "OrganicNitrogen": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.03491711060100313,
+        "warning": null
+      },
+      "ParticulateBiodegradableOrganics": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.017634904343940973,
+        "warning": null
+      },
+      "ParticulateNitrogen": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.00039188676319868815,
+        "warning": null
+      },
+      "ParticulatePhosphorus": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.00031350941055895045,
+        "warning": null
+      },
+      "ParticulatePotassium": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0005486414684781634,
+        "warning": null
+      },
+      "PathogenIndicators": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 3.918867631986881e-05,
+        "warning": null
+      },
+      "Pectin": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.01763490434394097,
+        "warning": null
+      },
+      "Peptides": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.018810564633537044,
+        "warning": null
+      },
+      "PersistentOrganics": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 3.879678955667013e-05,
+        "warning": null
+      },
+      "Pesticides": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 3.879678955667013e-05,
+        "warning": null
+      },
+      "PotassiumIon": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.03491711060100313,
+        "warning": null
+      },
+      "Sand": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 7.524225853414831e-05,
+        "warning": null
+      },
+      "SolubleProtein": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.3254556470844485,
+        "warning": null
+      },
+      "Starch": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.007502124667814049,
+        "warning": null
+      },
+      "SuspendedProtein": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.05337282842128347,
+        "warning": null
+      },
+      "SuspendedSolids": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.009405282316768519,
+        "warning": null
+      },
+      "Water": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 80.77321430010245,
+        "warning": null
+      }
+    },
+    "phase": "l",
+    "pressure": {
+      "basis": "absolute pressure",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "Pa",
+      "value": 101325.0,
+      "warning": null
+    },
+    "sink_unit": "H501",
+    "source_unit": "M501",
+    "stream_id": "conditioned_digester_feed",
+    "temperature": {
+      "basis": "absolute temperature",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "K",
+      "value": 293.15,
+      "warning": null
+    },
+    "total_mass": {
+      "basis": "stream total",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 81.57649249455626,
+      "warning": null
+    }
+  },
+  {
+    "aliases": [
+      "conditioned_protein_depleted_liquid",
+      "digester_feed"
+    ],
+    "components": {
+      "AminoAcids": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.018810564633537044,
+        "warning": null
+      },
+      "Ammonium": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.01396684424040125,
+        "warning": null
+      },
+      "Ash": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.014285960803603356,
+        "warning": null
+      },
+      "Cellulose": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.02882731308525997,
+        "warning": null
+      },
+      "DissolvedPhosphorus": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.006144784446955431,
+        "warning": null
+      },
+      "EntrappedSugars": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.028731541280989974,
+        "warning": null
+      },
+      "HeavyMetals": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 1.5675470527947525e-05,
+        "warning": null
+      },
+      "Hemicellulose": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.029868831456695864,
+        "warning": null
+      },
+      "InertSolids": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.00042323770425458366,
+        "warning": null
+      },
+      "Lignin": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.003288165279935524,
+        "warning": null
+      },
+      "Lipids": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0846475408509167,
+        "warning": null
+      },
+      "Litter": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.00023513205791921292,
+        "warning": null
+      },
+      "Microplastics": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 3.135094105589505e-05,
+        "warning": null
+      },
+      "NonBiodegradableOrganics": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.052904713031822925,
+        "warning": null
+      },
+      "OrganicNitrogen": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.03491711060100313,
+        "warning": null
+      },
+      "ParticulateBiodegradableOrganics": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.017634904343940973,
+        "warning": null
+      },
+      "ParticulateNitrogen": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.00039188676319868815,
+        "warning": null
+      },
+      "ParticulatePhosphorus": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.00031350941055895045,
+        "warning": null
+      },
+      "ParticulatePotassium": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0005486414684781634,
+        "warning": null
+      },
+      "PathogenIndicators": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 3.918867631986881e-05,
+        "warning": null
+      },
+      "Pectin": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.01763490434394097,
+        "warning": null
+      },
+      "Peptides": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.018810564633537044,
+        "warning": null
+      },
+      "PersistentOrganics": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 3.879678955667013e-05,
+        "warning": null
+      },
+      "Pesticides": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 3.879678955667013e-05,
+        "warning": null
+      },
+      "PotassiumIon": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.03491711060100313,
+        "warning": null
+      },
+      "Sand": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 7.524225853414831e-05,
+        "warning": null
+      },
+      "SolubleProtein": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.3254556470844485,
+        "warning": null
+      },
+      "Starch": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.007502124667814049,
+        "warning": null
+      },
+      "SuspendedProtein": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.05337282842128347,
+        "warning": null
+      },
+      "SuspendedSolids": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.009405282316768519,
+        "warning": null
+      },
+      "Water": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 80.77321430010245,
+        "warning": null
+      }
+    },
+    "phase": "l",
+    "pressure": {
+      "basis": "absolute pressure",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "Pa",
+      "value": 101325.0,
+      "warning": null
+    },
+    "sink_unit": "M501",
+    "source_unit": "M403",
+    "stream_id": "conditioned_protein_depleted_liquid",
+    "temperature": {
+      "basis": "absolute temperature",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "K",
+      "value": 293.15,
+      "warning": null
+    },
+    "total_mass": {
+      "basis": "stream total",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 81.57649249455626,
+      "warning": null
+    }
+  },
+  {
+    "aliases": [
+      "conditioning_spent_material"
+    ],
+    "components": {},
+    "phase": "l",
+    "pressure": {
+      "basis": "absolute pressure",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "Pa",
+      "value": 101325.0,
+      "warning": null
+    },
+    "sink_unit": "M699",
+    "source_unit": "M607",
+    "stream_id": "conditioning_spent_material",
+    "temperature": {
+      "basis": "absolute temperature",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "K",
+      "value": 298.15,
+      "warning": null
+    },
+    "total_mass": {
+      "basis": "stream total",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    }
+  },
+  {
+    "aliases": [
+      "conditioning_wastewater"
+    ],
+    "components": {},
+    "phase": "l",
+    "pressure": {
+      "basis": "absolute pressure",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "Pa",
+      "value": 101325.0,
+      "warning": null
+    },
+    "sink_unit": "M698",
+    "source_unit": "M606",
+    "stream_id": "conditioning_wastewater",
+    "temperature": {
+      "basis": "absolute temperature",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "K",
+      "value": 298.15,
+      "warning": null
+    },
+    "total_mass": {
+      "basis": "stream total",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    }
+  },
+  {
+    "aliases": [
+      "cooled_raw_biogas"
+    ],
+    "components": {},
+    "phase": "g",
+    "pressure": {
+      "basis": "absolute pressure",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "Pa",
+      "value": 101325.0,
+      "warning": null
+    },
+    "sink_unit": "S601",
+    "source_unit": "G601",
+    "stream_id": "cooled_raw_biogas",
+    "temperature": {
+      "basis": "absolute temperature",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "K",
+      "value": 308.15,
+      "warning": null
+    },
+    "total_mass": {
+      "basis": "stream total",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    }
+  },
+  {
+    "aliases": [
+      "desulfurization_air"
+    ],
+    "components": {},
+    "phase": "g",
+    "pressure": {
+      "basis": "absolute pressure",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "Pa",
+      "value": 101325.0,
+      "warning": null
+    },
+    "sink_unit": "R601",
+    "source_unit": null,
+    "stream_id": "desulfurization_air",
+    "temperature": {
+      "basis": "absolute temperature",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "K",
+      "value": 308.15,
+      "warning": null
+    },
+    "total_mass": {
+      "basis": "stream total",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    }
+  },
+  {
+    "aliases": [
+      "desulfurized_biogas"
+    ],
+    "components": {},
+    "phase": "g",
+    "pressure": {
+      "basis": "absolute pressure",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "Pa",
+      "value": 101325.0,
+      "warning": null
+    },
+    "sink_unit": "R602",
+    "source_unit": "R601",
+    "stream_id": "desulfurized_biogas",
+    "temperature": {
+      "basis": "absolute temperature",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "K",
+      "value": 308.15,
+      "warning": null
+    },
+    "total_mass": {
+      "basis": "stream total",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    }
+  },
+  {
+    "aliases": [
+      "dewatered_raw_biogas"
+    ],
+    "components": {},
+    "phase": "g",
+    "pressure": {
+      "basis": "absolute pressure",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "Pa",
+      "value": 101325.0,
+      "warning": null
+    },
+    "sink_unit": "R601",
+    "source_unit": "S601",
+    "stream_id": "dewatered_raw_biogas",
+    "temperature": {
+      "basis": "absolute temperature",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "K",
+      "value": 308.15,
+      "warning": null
+    },
+    "total_mass": {
+      "basis": "stream total",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    }
+  },
+  {
+    "aliases": [
+      "digestate",
+      "digestate_feed",
+      "untreated_digestate"
+    ],
+    "components": {
+      "AminoAcids": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.018810564633537044,
+        "warning": null
+      },
+      "Ammonium": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.01396684424040125,
+        "warning": null
+      },
+      "Ash": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.014285960803603356,
+        "warning": null
+      },
+      "Cellulose": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.02882731308525997,
+        "warning": null
+      },
+      "DissolvedPhosphorus": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.006144784446955431,
+        "warning": null
+      },
+      "EntrappedSugars": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.028731541280989974,
+        "warning": null
+      },
+      "HeavyMetals": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 1.5675470527947525e-05,
+        "warning": null
+      },
+      "Hemicellulose": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.029868831456695864,
+        "warning": null
+      },
+      "InertSolids": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.00042323770425458366,
+        "warning": null
+      },
+      "Lignin": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.003288165279935524,
+        "warning": null
+      },
+      "Lipids": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0846475408509167,
+        "warning": null
+      },
+      "Litter": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.00023513205791921292,
+        "warning": null
+      },
+      "Microplastics": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 3.135094105589505e-05,
+        "warning": null
+      },
+      "NonBiodegradableOrganics": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.052904713031822925,
+        "warning": null
+      },
+      "OrganicNitrogen": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.03491711060100313,
+        "warning": null
+      },
+      "ParticulateBiodegradableOrganics": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.017634904343940973,
+        "warning": null
+      },
+      "ParticulateNitrogen": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.00039188676319868815,
+        "warning": null
+      },
+      "ParticulatePhosphorus": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.00031350941055895045,
+        "warning": null
+      },
+      "ParticulatePotassium": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0005486414684781634,
+        "warning": null
+      },
+      "PathogenIndicators": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 3.918867631986881e-05,
+        "warning": null
+      },
+      "Pectin": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.01763490434394097,
+        "warning": null
+      },
+      "Peptides": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.018810564633537044,
+        "warning": null
+      },
+      "PersistentOrganics": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 3.879678955667013e-05,
+        "warning": null
+      },
+      "Pesticides": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 3.879678955667013e-05,
+        "warning": null
+      },
+      "PotassiumIon": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.03491711060100313,
+        "warning": null
+      },
+      "Sand": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 7.524225853414831e-05,
+        "warning": null
+      },
+      "SolubleProtein": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.3254556470844485,
+        "warning": null
+      },
+      "Starch": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.007502124667814049,
+        "warning": null
+      },
+      "SuspendedProtein": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.05337282842128347,
+        "warning": null
+      },
+      "SuspendedSolids": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.009405282316768519,
+        "warning": null
+      },
+      "Water": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 80.77321430010245,
+        "warning": null
+      }
+    },
+    "phase": "l",
+    "pressure": {
+      "basis": "absolute pressure",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "Pa",
+      "value": 101325.0,
+      "warning": null
+    },
+    "sink_unit": null,
+    "source_unit": "V501",
+    "stream_id": "digestate",
+    "temperature": {
+      "basis": "absolute temperature",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "K",
+      "value": 308.15,
+      "warning": null
+    },
+    "total_mass": {
+      "basis": "stream total",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 81.57649249455626,
+      "warning": null
+    }
+  },
+  {
+    "aliases": [
+      "digester_base_solution"
+    ],
+    "components": {},
+    "phase": "l",
+    "pressure": {
+      "basis": "absolute pressure",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "Pa",
+      "value": 101325.0,
+      "warning": null
+    },
+    "sink_unit": "M501",
+    "source_unit": null,
+    "stream_id": "digester_base_solution",
+    "temperature": {
+      "basis": "absolute temperature",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "K",
+      "value": 298.15,
+      "warning": null
+    },
+    "total_mass": {
+      "basis": "stream total",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    }
+  },
+  {
+    "aliases": [
+      "digester_broth"
+    ],
+    "components": {
+      "AminoAcids": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.018810564633537044,
+        "warning": null
+      },
+      "Ammonium": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.01396684424040125,
+        "warning": null
+      },
+      "Ash": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.014285960803603356,
+        "warning": null
+      },
+      "Cellulose": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.02882731308525997,
+        "warning": null
+      },
+      "DissolvedPhosphorus": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.006144784446955431,
+        "warning": null
+      },
+      "EntrappedSugars": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.028731541280989974,
+        "warning": null
+      },
+      "HeavyMetals": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 1.5675470527947525e-05,
+        "warning": null
+      },
+      "Hemicellulose": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.029868831456695864,
+        "warning": null
+      },
+      "InertSolids": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.00042323770425458366,
+        "warning": null
+      },
+      "Lignin": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.003288165279935524,
+        "warning": null
+      },
+      "Lipids": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0846475408509167,
+        "warning": null
+      },
+      "Litter": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.00023513205791921292,
+        "warning": null
+      },
+      "Microplastics": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 3.135094105589505e-05,
+        "warning": null
+      },
+      "NonBiodegradableOrganics": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.052904713031822925,
+        "warning": null
+      },
+      "OrganicNitrogen": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.03491711060100313,
+        "warning": null
+      },
+      "ParticulateBiodegradableOrganics": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.017634904343940973,
+        "warning": null
+      },
+      "ParticulateNitrogen": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.00039188676319868815,
+        "warning": null
+      },
+      "ParticulatePhosphorus": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.00031350941055895045,
+        "warning": null
+      },
+      "ParticulatePotassium": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0005486414684781634,
+        "warning": null
+      },
+      "PathogenIndicators": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 3.918867631986881e-05,
+        "warning": null
+      },
+      "Pectin": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.01763490434394097,
+        "warning": null
+      },
+      "Peptides": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.018810564633537044,
+        "warning": null
+      },
+      "PersistentOrganics": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 3.879678955667013e-05,
+        "warning": null
+      },
+      "Pesticides": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 3.879678955667013e-05,
+        "warning": null
+      },
+      "PotassiumIon": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.03491711060100313,
+        "warning": null
+      },
+      "Sand": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 7.524225853414831e-05,
+        "warning": null
+      },
+      "SolubleProtein": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.3254556470844485,
+        "warning": null
+      },
+      "Starch": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.007502124667814049,
+        "warning": null
+      },
+      "SuspendedProtein": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.05337282842128347,
+        "warning": null
+      },
+      "SuspendedSolids": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.009405282316768519,
+        "warning": null
+      },
+      "Water": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 80.77321430010245,
+        "warning": null
+      }
+    },
+    "phase": "l",
+    "pressure": {
+      "basis": "absolute pressure",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "Pa",
+      "value": 105000.0,
+      "warning": null
+    },
+    "sink_unit": "V501",
+    "source_unit": "R501",
+    "stream_id": "digester_broth",
+    "temperature": {
+      "basis": "absolute temperature",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "K",
+      "value": 308.15,
+      "warning": null
+    },
+    "total_mass": {
+      "basis": "stream total",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 81.57649249455626,
+      "warning": null
+    }
+  },
+  {
+    "aliases": [
+      "digester_dilution_water"
+    ],
+    "components": {},
+    "phase": "l",
+    "pressure": {
+      "basis": "absolute pressure",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "Pa",
+      "value": 101325.0,
+      "warning": null
+    },
+    "sink_unit": "M501",
+    "source_unit": null,
+    "stream_id": "digester_dilution_water",
+    "temperature": {
+      "basis": "absolute temperature",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "K",
+      "value": 293.15,
+      "warning": null
+    },
+    "total_mass": {
+      "basis": "stream total",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    }
+  },
+  {
+    "aliases": [
+      "dry_protein_product"
+    ],
+    "components": {},
+    "phase": "l",
+    "pressure": {
+      "basis": "absolute pressure",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "Pa",
+      "value": 101325.0,
+      "warning": null
+    },
+    "sink_unit": null,
+    "source_unit": null,
+    "stream_id": "dry_protein_product",
+    "temperature": {
+      "basis": "absolute temperature",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "K",
+      "value": 298.15,
+      "warning": null
+    },
+    "total_mass": {
+      "basis": "stream total",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    }
+  },
+  {
+    "aliases": [
+      "dryer_exhaust"
+    ],
+    "components": {},
+    "phase": "l",
+    "pressure": {
+      "basis": "absolute pressure",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "Pa",
+      "value": 101325.0,
+      "warning": null
+    },
+    "sink_unit": null,
+    "source_unit": null,
+    "stream_id": "dryer_exhaust",
+    "temperature": {
+      "basis": "absolute temperature",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "K",
+      "value": 298.15,
+      "warning": null
+    },
+    "total_mass": {
+      "basis": "stream total",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    }
+  },
+  {
+    "aliases": [
+      "fresh_h2s_removal_media"
+    ],
+    "components": {},
+    "phase": "s",
+    "pressure": {
+      "basis": "absolute pressure",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "Pa",
+      "value": 101325.0,
+      "warning": null
+    },
+    "sink_unit": "R601",
+    "source_unit": null,
+    "stream_id": "fresh_h2s_removal_media",
+    "temperature": {
+      "basis": "absolute temperature",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "K",
+      "value": 308.15,
+      "warning": null
+    },
+    "total_mass": {
+      "basis": "stream total",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    }
+  },
+  {
+    "aliases": [
+      "fresh_particle_siloxane_filter_media"
+    ],
+    "components": {},
+    "phase": "s",
+    "pressure": {
+      "basis": "absolute pressure",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "Pa",
+      "value": 101325.0,
+      "warning": null
+    },
+    "sink_unit": "F601",
+    "source_unit": null,
+    "stream_id": "fresh_particle_siloxane_filter_media",
+    "temperature": {
+      "basis": "absolute temperature",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "K",
+      "value": 308.15,
+      "warning": null
+    },
+    "total_mass": {
+      "basis": "stream total",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    }
+  },
+  {
+    "aliases": [
+      "phase6_spent_material"
+    ],
+    "components": {},
+    "phase": "l",
+    "pressure": {
+      "basis": "absolute pressure",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "Pa",
+      "value": 101325.0,
+      "warning": null
+    },
+    "sink_unit": null,
+    "source_unit": "M699",
+    "stream_id": "phase6_spent_material",
+    "temperature": {
+      "basis": "absolute temperature",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "K",
+      "value": 298.15,
+      "warning": null
+    },
+    "total_mass": {
+      "basis": "stream total",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    }
+  },
+  {
+    "aliases": [
+      "phase6_wastewater"
+    ],
+    "components": {},
+    "phase": "l",
+    "pressure": {
+      "basis": "absolute pressure",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "Pa",
+      "value": 101325.0,
+      "warning": null
+    },
+    "sink_unit": null,
+    "source_unit": "M698",
+    "stream_id": "phase6_wastewater",
+    "temperature": {
+      "basis": "absolute temperature",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "K",
+      "value": 298.15,
+      "warning": null
+    },
+    "total_mass": {
+      "basis": "stream total",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    }
+  },
+  {
+    "aliases": [
+      "preparation_rejects"
+    ],
+    "components": {
+      "InertSolids": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.015675470527947533,
+        "warning": null
+      },
+      "Litter": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.05486414684781636,
+        "warning": null
+      },
+      "Sand": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.18810564633537039,
+        "warning": null
+      }
+    },
+    "phase": "l",
+    "pressure": {
+      "basis": "absolute pressure",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "Pa",
+      "value": 101325.0,
+      "warning": null
+    },
+    "sink_unit": null,
+    "source_unit": "U101",
+    "stream_id": "preparation_rejects",
+    "temperature": {
+      "basis": "absolute temperature",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "K",
+      "value": 293.15,
+      "warning": null
+    },
+    "total_mass": {
+      "basis": "stream total",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.2586452637111343,
+      "warning": null
+    }
+  },
+  {
+    "aliases": [
+      "prepared_grass"
+    ],
+    "components": {
+      "AminoAcids": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.15675470527947533,
+        "warning": null
+      },
+      "Ammonium": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.01567547052794753,
+        "warning": null
+      },
+      "Ash": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 4.761986934534449,
+        "warning": null
+      },
+      "Cellulose": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 6.40606957450221,
+        "warning": null
+      },
+      "DissolvedPhosphorus": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.007837735263973765,
+        "warning": null
+      },
+      "EntrappedSugars": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 1.9154360853993317,
+        "warning": null
+      },
+      "HeavyMetals": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0015675470527947532,
+        "warning": null
+      },
+      "Hemicellulose": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 3.9825108608927775,
+        "warning": null
+      },
+      "InertSolids": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.14107923475152778,
+        "warning": null
+      },
+      "Lignin": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 1.09605509331184,
+        "warning": null
+      },
+      "Lipids": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.6270188211179013,
+        "warning": null
+      },
+      "Litter": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0235132057919213,
+        "warning": null
+      },
+      "Microplastics": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0015675470527947532,
+        "warning": null
+      },
+      "NonBiodegradableOrganics": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.39188676319868826,
+        "warning": null
+      },
+      "OrganicNitrogen": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.03918867631986883,
+        "warning": null
+      },
+      "ParticulateBiodegradableOrganics": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 1.1756602895960648,
+        "warning": null
+      },
+      "ParticulateNitrogen": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.03918867631986883,
+        "warning": null
+      },
+      "ParticulatePhosphorus": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.03135094105589506,
+        "warning": null
+      },
+      "ParticulatePotassium": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.05486414684781636,
+        "warning": null
+      },
+      "PathogenIndicators": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0039188676319868825,
+        "warning": null
+      },
+      "Pectin": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 1.1756602895960648,
+        "warning": null
+      },
+      "Peptides": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.15675470527947533,
+        "warning": null
+      },
+      "PersistentOrganics": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0003918867631986883,
+        "warning": null
+      },
+      "Pesticides": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0003918867631986883,
+        "warning": null
+      },
+      "PotassiumIon": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.03918867631986884,
+        "warning": null
+      },
+      "Sand": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.12540376422358027,
+        "warning": null
+      },
+      "SolubleProtein": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.47442514152251974,
+        "warning": null
+      },
+      "Starch": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.5001416445209367,
+        "warning": null
+      },
+      "SuspendedProtein": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 2.3721257076125983,
+        "warning": null
+      },
+      "SuspendedSolids": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.6270188211179013,
+        "warning": null
+      },
+      "Water": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 159.43363686744635,
+        "warning": null
+      }
+    },
+    "phase": "l",
+    "pressure": {
+      "basis": "absolute pressure",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "Pa",
+      "value": 101325.0,
+      "warning": null
+    },
+    "sink_unit": "S201",
+    "source_unit": "U101",
+    "stream_id": "prepared_roadside_grass",
+    "temperature": {
+      "basis": "absolute temperature",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "K",
+      "value": 293.15,
+      "warning": null
+    },
+    "total_mass": {
+      "basis": "stream total",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 185.7782705676148,
+      "warning": null
+    }
+  },
+  {
+    "aliases": [
+      "fibre_cake"
+    ],
+    "components": {
+      "AminoAcids": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.03135094105589506,
+        "warning": null
+      },
+      "Ammonium": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.001567547052794752,
+        "warning": null
+      },
+      "Ash": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 4.619127326498416,
+        "warning": null
+      },
+      "Cellulose": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 6.213887487267144,
+        "warning": null
+      },
+      "DissolvedPhosphorus": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0015675470527947528,
+        "warning": null
+      },
+      "EntrappedSugars": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 1.7238924768593988,
+        "warning": null
+      },
+      "HeavyMetals": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.001410792347515278,
+        "warning": null
+      },
+      "Hemicellulose": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 3.7833853178481385,
+        "warning": null
+      },
+      "InertSolids": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.13684685770898194,
+        "warning": null
+      },
+      "Lignin": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 1.0741339914456032,
+        "warning": null
+      },
+      "Lipids": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.06270188211179006,
+        "warning": null
+      },
+      "Litter": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.021161885212729173,
+        "warning": null
+      },
+      "Microplastics": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.001410792347515278,
+        "warning": null
+      },
+      "NonBiodegradableOrganics": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.03918867631986883,
+        "warning": null
+      },
+      "OrganicNitrogen": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.003918867631986879,
+        "warning": null
+      },
+      "ParticulateBiodegradableOrganics": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 1.0580942606364583,
+        "warning": null
+      },
+      "ParticulateNitrogen": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.035269808687881946,
+        "warning": null
+      },
+      "ParticulatePhosphorus": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.028215846950305556,
+        "warning": null
+      },
+      "ParticulatePotassium": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.04937773216303473,
+        "warning": null
+      },
+      "PathogenIndicators": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0035269808687881945,
+        "warning": null
+      },
+      "Pectin": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 1.0580942606364583,
+        "warning": null
+      },
+      "Peptides": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.03135094105589506,
+        "warning": null
+      },
+      "PersistentOrganics": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0003526980868788195,
+        "warning": null
+      },
+      "Pesticides": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0003526980868788195,
+        "warning": null
+      },
+      "PotassiumIon": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.003918867631986886,
+        "warning": null
+      },
+      "Sand": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.12164165129687286,
+        "warning": null
+      },
+      "SolubleProtein": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.14232754245675594,
+        "warning": null
+      },
+      "Starch": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.450127480068843,
+        "warning": null
+      },
+      "SuspendedProtein": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 2.0163068514707088,
+        "warning": null
+      },
+      "SuspendedSolids": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.5643169390061111,
+        "warning": null
+      },
+      "Water": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 69.61030833594299,
+        "warning": null
+      }
+    },
+    "phase": "l",
+    "pressure": {
+      "basis": "absolute pressure",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "Pa",
+      "value": 101325.0,
+      "warning": null
+    },
+    "sink_unit": null,
+    "source_unit": "S201",
+    "stream_id": "pressed_fibre_cake",
+    "temperature": {
+      "basis": "absolute temperature",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "K",
+      "value": 293.15,
+      "warning": null
+    },
+    "total_mass": {
+      "basis": "stream total",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 92.88913528380742,
+      "warning": null
+    }
+  },
+  {
+    "aliases": [
+      "primary_sludge"
+    ],
+    "components": {
+      "AminoAcids": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.10659319959004322,
+        "warning": null
+      },
+      "Ammonium": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0001410792347515278,
+        "warning": null
+      },
+      "Ash": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.12857364723243023,
+        "warning": null
+      },
+      "Cellulose": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.1633547741498065,
+        "warning": null
+      },
+      "DissolvedPhosphorus": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.00012540376422358075,
+        "warning": null
+      },
+      "EntrappedSugars": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.16281206725894315,
+        "warning": null
+      },
+      "HeavyMetals": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.00014107923475152774,
+        "warning": null
+      },
+      "Hemicellulose": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.1692567115879432,
+        "warning": null
+      },
+      "InertSolids": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0038091393382912535,
+        "warning": null
+      },
+      "Lignin": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.018632936586301295,
+        "warning": null
+      },
+      "Lipids": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.47966939815519455,
+        "warning": null
+      },
+      "Litter": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.002116188521272917,
+        "warning": null
+      },
+      "Microplastics": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.00012540376422358023,
+        "warning": null
+      },
+      "NonBiodegradableOrganics": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.2997933738469965,
+        "warning": null
+      },
+      "OrganicNitrogen": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0003526980868788221,
+        "warning": null
+      },
+      "ParticulateBiodegradableOrganics": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0999311246156655,
+        "warning": null
+      },
+      "ParticulateNitrogen": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.003526980868788195,
+        "warning": null
+      },
+      "ParticulatePhosphorus": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0028215846950305546,
+        "warning": null
+      },
+      "ParticulatePotassium": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.004937773216303472,
+        "warning": null
+      },
+      "PathogenIndicators": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.00035269808687881933,
+        "warning": null
+      },
+      "Pectin": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.09993112461566546,
+        "warning": null
+      },
+      "Peptides": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.10659319959004322,
+        "warning": null
+      },
+      "PersistentOrganics": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 3.9188676319868847e-07,
+        "warning": null
+      },
+      "Pesticides": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 3.918867631986884e-07,
+        "warning": null
+      },
+      "PotassiumIon": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0003526980868788221,
+        "warning": null
+      },
+      "Sand": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0036868706681732638,
+        "warning": null
+      },
+      "SolubleProtein": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.006641951981315286,
+        "warning": null
+      },
+      "Starch": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0425120397842796,
+        "warning": null
+      },
+      "SuspendedProtein": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.30244602772060625,
+        "warning": null
+      },
+      "SuspendedSolids": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.053296599795021604,
+        "warning": null
+      },
+      "Water": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 9.050114231400912,
+        "warning": null
+      }
+    },
+    "phase": "l",
+    "pressure": {
+      "basis": "absolute pressure",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "Pa",
+      "value": 101325.0,
+      "warning": null
+    },
+    "sink_unit": null,
+    "source_unit": "C301",
+    "stream_id": "primary_sludge",
+    "temperature": {
+      "basis": "absolute temperature",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "K",
+      "value": 293.15,
+      "warning": null
+    },
+    "total_mass": {
+      "basis": "stream total",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 11.312642789251141,
+      "warning": null
+    }
+  },
+  {
+    "aliases": [
+      "protein_cake_wash_water"
+    ],
+    "components": {},
+    "phase": "l",
+    "pressure": {
+      "basis": "absolute pressure",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "Pa",
+      "value": 101325.0,
+      "warning": null
+    },
+    "sink_unit": null,
+    "source_unit": null,
+    "stream_id": "protein_cake_wash_water",
+    "temperature": {
+      "basis": "absolute temperature",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "K",
+      "value": 298.15,
+      "warning": null
+    },
+    "total_mass": {
+      "basis": "stream total",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    }
+  },
+  {
+    "aliases": [
+      "raw_biogas"
+    ],
+    "components": {},
+    "phase": "g",
+    "pressure": {
+      "basis": "absolute pressure",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "Pa",
+      "value": 101325.0,
+      "warning": null
+    },
+    "sink_unit": "G601",
+    "source_unit": "V501",
+    "stream_id": "raw_biogas",
+    "temperature": {
+      "basis": "absolute temperature",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "K",
+      "value": 308.15,
+      "warning": null
+    },
+    "total_mass": {
+      "basis": "stream total",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    }
+  },
+  {
+    "aliases": [
+      "raw_biogas_condensate"
+    ],
+    "components": {},
+    "phase": "l",
+    "pressure": {
+      "basis": "absolute pressure",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "Pa",
+      "value": 101325.0,
+      "warning": null
+    },
+    "sink_unit": "M606",
+    "source_unit": "S601",
+    "stream_id": "raw_biogas_condensate",
+    "temperature": {
+      "basis": "absolute temperature",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "K",
+      "value": 308.15,
+      "warning": null
+    },
+    "total_mass": {
+      "basis": "stream total",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    }
+  },
+  {
+    "aliases": [
+      "biomethane",
+      "gas_product",
+      "primary_gas_product"
+    ],
+    "components": {},
+    "phase": "g",
+    "pressure": {
+      "basis": "absolute pressure",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "Pa",
+      "value": 101325.0,
+      "warning": null
+    },
+    "sink_unit": null,
+    "source_unit": "S609",
+    "stream_id": "raw_biogas_export",
+    "temperature": {
+      "basis": "absolute temperature",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "K",
+      "value": 308.15,
+      "warning": null
+    },
+    "total_mass": {
+      "basis": "stream total",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    }
+  },
+  {
+    "aliases": [
+      "reject_gas"
+    ],
+    "components": {},
+    "phase": "g",
+    "pressure": {
+      "basis": "absolute pressure",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "Pa",
+      "value": 101325.0,
+      "warning": null
+    },
+    "sink_unit": null,
+    "source_unit": "S609",
+    "stream_id": "raw_biogas_reference_reject",
+    "temperature": {
+      "basis": "absolute temperature",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "K",
+      "value": 308.15,
+      "warning": null
+    },
+    "total_mass": {
+      "basis": "stream total",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    }
+  },
+  {
+    "aliases": [
+      "raw_liquid_fraction"
+    ],
+    "components": {
+      "AminoAcids": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.12540376422358027,
+        "warning": null
+      },
+      "Ammonium": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.014107923475152778,
+        "warning": null
+      },
+      "Ash": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.1428596080360336,
+        "warning": null
+      },
+      "Cellulose": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.19218208723506644,
+        "warning": null
+      },
+      "DissolvedPhosphorus": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.006270188211179012,
+        "warning": null
+      },
+      "EntrappedSugars": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.19154360853993313,
+        "warning": null
+      },
+      "HeavyMetals": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.00015675470527947528,
+        "warning": null
+      },
+      "Hemicellulose": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.19912554304463906,
+        "warning": null
+      },
+      "InertSolids": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.004232377042545837,
+        "warning": null
+      },
+      "Lignin": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.02192110186623682,
+        "warning": null
+      },
+      "Lipids": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.5643169390061112,
+        "warning": null
+      },
+      "Litter": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0023513205791921296,
+        "warning": null
+      },
+      "Microplastics": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.00015675470527947528,
+        "warning": null
+      },
+      "NonBiodegradableOrganics": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.35269808687881943,
+        "warning": null
+      },
+      "OrganicNitrogen": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.03526980868788195,
+        "warning": null
+      },
+      "ParticulateBiodegradableOrganics": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.11756602895960647,
+        "warning": null
+      },
+      "ParticulateNitrogen": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0039188676319868825,
+        "warning": null
+      },
+      "ParticulatePhosphorus": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.003135094105589505,
+        "warning": null
+      },
+      "ParticulatePotassium": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.005486414684781635,
+        "warning": null
+      },
+      "PathogenIndicators": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.00039188676319868815,
+        "warning": null
+      },
+      "Pectin": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.11756602895960644,
+        "warning": null
+      },
+      "Peptides": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.12540376422358027,
+        "warning": null
+      },
+      "PersistentOrganics": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 3.918867631986882e-05,
+        "warning": null
+      },
+      "Pesticides": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 3.918867631986882e-05,
+        "warning": null
+      },
+      "PotassiumIon": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.03526980868788195,
+        "warning": null
+      },
+      "Sand": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.003762112926707412,
+        "warning": null
+      },
+      "SolubleProtein": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.3320975990657638,
+        "warning": null
+      },
+      "Starch": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.050014164452093654,
+        "warning": null
+      },
+      "SuspendedProtein": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.35581885614188974,
+        "warning": null
+      },
+      "SuspendedSolids": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.06270188211179012,
+        "warning": null
+      },
+      "Water": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 89.82332853150336,
+        "warning": null
+      }
+    },
+    "phase": "l",
+    "pressure": {
+      "basis": "absolute pressure",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "Pa",
+      "value": 101325.0,
+      "warning": null
+    },
+    "sink_unit": "C301",
+    "source_unit": "S201",
+    "stream_id": "raw_liquid_fraction",
+    "temperature": {
+      "basis": "absolute temperature",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "K",
+      "value": 293.15,
+      "warning": null
+    },
+    "total_mass": {
+      "basis": "stream total",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 92.88913528380742,
+      "warning": null
+    }
+  },
+  {
+    "aliases": [
+      "feed",
+      "roadside_grass"
+    ],
+    "components": {
+      "AminoAcids": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.15675470527947533,
+        "warning": null
+      },
+      "Ammonium": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.01567547052794753,
+        "warning": null
+      },
+      "Ash": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 4.761986934534449,
+        "warning": null
+      },
+      "Cellulose": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 6.40606957450221,
+        "warning": null
+      },
+      "DissolvedPhosphorus": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.007837735263973765,
+        "warning": null
+      },
+      "EntrappedSugars": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 1.9154360853993317,
+        "warning": null
+      },
+      "HeavyMetals": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0015675470527947532,
+        "warning": null
+      },
+      "Hemicellulose": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 3.9825108608927775,
+        "warning": null
+      },
+      "InertSolids": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.15675470527947533,
+        "warning": null
+      },
+      "Lignin": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 1.09605509331184,
+        "warning": null
+      },
+      "Lipids": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.6270188211179013,
+        "warning": null
+      },
+      "Litter": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.07837735263973766,
+        "warning": null
+      },
+      "Microplastics": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0015675470527947532,
+        "warning": null
+      },
+      "NonBiodegradableOrganics": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.39188676319868826,
+        "warning": null
+      },
+      "OrganicNitrogen": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.03918867631986883,
+        "warning": null
+      },
+      "ParticulateBiodegradableOrganics": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 1.1756602895960648,
+        "warning": null
+      },
+      "ParticulateNitrogen": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.03918867631986883,
+        "warning": null
+      },
+      "ParticulatePhosphorus": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.03135094105589506,
+        "warning": null
+      },
+      "ParticulatePotassium": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.05486414684781636,
+        "warning": null
+      },
+      "PathogenIndicators": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0039188676319868825,
+        "warning": null
+      },
+      "Pectin": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 1.1756602895960648,
+        "warning": null
+      },
+      "Peptides": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.15675470527947533,
+        "warning": null
+      },
+      "PersistentOrganics": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0003918867631986883,
+        "warning": null
+      },
+      "Pesticides": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0003918867631986883,
+        "warning": null
+      },
+      "PotassiumIon": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.03918867631986884,
+        "warning": null
+      },
+      "Sand": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.31350941055895065,
+        "warning": null
+      },
+      "SolubleProtein": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.47442514152251974,
+        "warning": null
+      },
+      "Starch": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.5001416445209367,
+        "warning": null
+      },
+      "SuspendedProtein": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 2.3721257076125983,
+        "warning": null
+      },
+      "SuspendedSolids": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.6270188211179013,
+        "warning": null
+      },
+      "Water": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 159.43363686744635,
+        "warning": null
+      }
+    },
+    "phase": "l",
+    "pressure": {
+      "basis": "absolute pressure",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "Pa",
+      "value": 101325.0,
+      "warning": null
+    },
+    "sink_unit": "U101",
+    "source_unit": null,
+    "stream_id": "roadside_grass",
+    "temperature": {
+      "basis": "absolute temperature",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "K",
+      "value": 293.15,
+      "warning": null
+    },
+    "total_mass": {
+      "basis": "stream total",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 186.03691583132596,
+      "warning": null
+    }
+  },
+  {
+    "aliases": [
+      "spent_h2s_removal_media"
+    ],
+    "components": {},
+    "phase": "s",
+    "pressure": {
+      "basis": "absolute pressure",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "Pa",
+      "value": 101325.0,
+      "warning": null
+    },
+    "sink_unit": "M607",
+    "source_unit": "R601",
+    "stream_id": "spent_h2s_removal_media",
+    "temperature": {
+      "basis": "absolute temperature",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "K",
+      "value": 308.15,
+      "warning": null
+    },
+    "total_mass": {
+      "basis": "stream total",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    }
+  },
+  {
+    "aliases": [
+      "spent_particle_siloxane_filter_media"
+    ],
+    "components": {},
+    "phase": "s",
+    "pressure": {
+      "basis": "absolute pressure",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "Pa",
+      "value": 101325.0,
+      "warning": null
+    },
+    "sink_unit": "M607",
+    "source_unit": "F601",
+    "stream_id": "spent_particle_siloxane_filter_media",
+    "temperature": {
+      "basis": "absolute temperature",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "K",
+      "value": 308.15,
+      "warning": null
+    },
+    "total_mass": {
+      "basis": "stream total",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    }
+  },
+  {
+    "aliases": [
+      "temperature_conditioned_digester_feed"
+    ],
+    "components": {
+      "AminoAcids": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.018810564633537044,
+        "warning": null
+      },
+      "Ammonium": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.01396684424040125,
+        "warning": null
+      },
+      "Ash": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.014285960803603356,
+        "warning": null
+      },
+      "Cellulose": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.02882731308525997,
+        "warning": null
+      },
+      "DissolvedPhosphorus": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.006144784446955431,
+        "warning": null
+      },
+      "EntrappedSugars": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.028731541280989974,
+        "warning": null
+      },
+      "HeavyMetals": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 1.5675470527947525e-05,
+        "warning": null
+      },
+      "Hemicellulose": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.029868831456695864,
+        "warning": null
+      },
+      "InertSolids": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.00042323770425458366,
+        "warning": null
+      },
+      "Lignin": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.003288165279935524,
+        "warning": null
+      },
+      "Lipids": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0846475408509167,
+        "warning": null
+      },
+      "Litter": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.00023513205791921292,
+        "warning": null
+      },
+      "Microplastics": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 3.135094105589505e-05,
+        "warning": null
+      },
+      "NonBiodegradableOrganics": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.052904713031822925,
+        "warning": null
+      },
+      "OrganicNitrogen": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.03491711060100313,
+        "warning": null
+      },
+      "ParticulateBiodegradableOrganics": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.017634904343940973,
+        "warning": null
+      },
+      "ParticulateNitrogen": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.00039188676319868815,
+        "warning": null
+      },
+      "ParticulatePhosphorus": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.00031350941055895045,
+        "warning": null
+      },
+      "ParticulatePotassium": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.0005486414684781634,
+        "warning": null
+      },
+      "PathogenIndicators": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 3.918867631986881e-05,
+        "warning": null
+      },
+      "Pectin": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.01763490434394097,
+        "warning": null
+      },
+      "Peptides": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.018810564633537044,
+        "warning": null
+      },
+      "PersistentOrganics": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 3.879678955667013e-05,
+        "warning": null
+      },
+      "Pesticides": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 3.879678955667013e-05,
+        "warning": null
+      },
+      "PotassiumIon": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.03491711060100313,
+        "warning": null
+      },
+      "Sand": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 7.524225853414831e-05,
+        "warning": null
+      },
+      "SolubleProtein": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.3254556470844485,
+        "warning": null
+      },
+      "Starch": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.007502124667814049,
+        "warning": null
+      },
+      "SuspendedProtein": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.05337282842128347,
+        "warning": null
+      },
+      "SuspendedSolids": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 0.009405282316768519,
+        "warning": null
+      },
+      "Water": {
+        "basis": "component mass flow",
+        "origin": "BioSTEAM stream",
+        "status": "calculated",
+        "uncertainty": null,
+        "unit": "kg/hr",
+        "value": 80.77321430010245,
+        "warning": null
+      }
+    },
+    "phase": "l",
+    "pressure": {
+      "basis": "absolute pressure",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "Pa",
+      "value": 101325.0,
+      "warning": null
+    },
+    "sink_unit": "R501",
+    "source_unit": "H501",
+    "stream_id": "temperature_conditioned_digester_feed",
+    "temperature": {
+      "basis": "absolute temperature",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "K",
+      "value": 298.15,
+      "warning": null
+    },
+    "total_mass": {
+      "basis": "stream total",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 81.57649249455626,
+      "warning": null
+    }
+  },
+  {
+    "aliases": [
+      "trace_nutrient_solution"
+    ],
+    "components": {},
+    "phase": "l",
+    "pressure": {
+      "basis": "absolute pressure",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "Pa",
+      "value": 101325.0,
+      "warning": null
+    },
+    "sink_unit": "M501",
+    "source_unit": null,
+    "stream_id": "trace_nutrient_solution",
+    "temperature": {
+      "basis": "absolute temperature",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "K",
+      "value": 293.15,
+      "warning": null
+    },
+    "total_mass": {
+      "basis": "stream total",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    }
+  },
+  {
+    "aliases": [
+      "uncaptured_biogas"
+    ],
+    "components": {},
+    "phase": "g",
+    "pressure": {
+      "basis": "absolute pressure",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "Pa",
+      "value": 101325.0,
+      "warning": null
+    },
+    "sink_unit": null,
+    "source_unit": "V501",
+    "stream_id": "uncaptured_biogas",
+    "temperature": {
+      "basis": "absolute temperature",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "K",
+      "value": 308.15,
+      "warning": null
+    },
+    "total_mass": {
+      "basis": "stream total",
+      "origin": "BioSTEAM stream",
+      "status": "calculated",
+      "uncertainty": null,
+      "unit": "kg/hr",
+      "value": 0.0,
+      "warning": null
+    }
+  }
+]

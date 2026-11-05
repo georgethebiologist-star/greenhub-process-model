@@ -1,0 +1,57 @@
+[
+  {
+    "dry_gas_products_kmol": {
+      "biomethane": 9.96549171623663
+    },
+    "intermediate_streams_kg": {
+      "digestate": 327304.14805288095,
+      "pressed_fibre_cake": 371482.81211999996
+    },
+    "pr7_feed_volume_m3": 0.0,
+    "pr7_membrane_area_m2": 0.0,
+    "pr7_membrane_area_max_m2": 0.0,
+    "pr7_membrane_area_min_m2": 0.0,
+    "pr7_unresolved_component_ids": [],
+    "pr7_unresolved_mass_kg": 0.0,
+    "products_kg": {
+      "ammonium_product": 2763.9870619983803,
+      "biomethane": 172.63573182055208,
+      "dry_protein_product": 1655.7778380825039,
+      "nutrient_rich_solids": 1400.1765286278298,
+      "phosphorus_product": 28.06180872541117
+    },
+    "sale_components_kg": {
+      "ammonium_product": {
+        "AmmoniumSulfate": 783.4384148772937
+      },
+      "phosphorus_product": {
+        "Struvite": 0.0
+      }
+    },
+    "terminal_gases_kg": {
+      "phase7_offgas": {
+        "Ammonia": 2.0398341000124267,
+        "CarbonDioxide": 28.12194178610078,
+        "Nitrogen": 161070.9916319261,
+        "Oxygen": 48907.71866034872,
+        "Water": 1620.4949564990648
+      },
+      "reject_gas": {
+        "Ammonia": 0.0029685001191381427,
+        "CarbonDioxide": 202.32824442060317,
+        "HydrogenSulfide": 0.003156398325859854,
+        "Methane": 1.0895013314349684
+      },
+      "uncaptured_biogas": {
+        "Ammonia": 0.0014463280437868524,
+        "CarbonDioxide": 4.5607763579854765,
+        "HydrogenSulfide": 0.007179398968502556,
+        "Methane": 3.137519609390281
+      }
+    },
+    "time": "2026-07",
+    "volumetric_products_m3": {
+      "biomethane": 24.10586758311795
+    }
+  }
+]

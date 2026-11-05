@@ -4,7 +4,7 @@ from Greenhub.systems import create_phase3_scenario
 
 
 def test_phase3_reports_are_generated(tmp_path):
-    model = create_phase3_scenario("F2").simulate()
+    model = create_phase3_scenario("F1").simulate()
     seasonal = aggregate_monthly_metrics([model])
     outputs = save_phase3_reports(
         model,

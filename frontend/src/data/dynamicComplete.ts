@@ -26,6 +26,7 @@ export interface DynamicScenario {
 export interface Evidence {
   name: string; value: unknown; unit: string; policy_id: string; source_status: string;
   certainty_class: string; source_file: string; source_id: string; warning: string;
+  quality_class?: 'A' | 'B' | 'C' | 'E'; source_title?: string; source_url?: string; source_location?: string; record_id?: string;
   time_labels?: string[]; usage?: string; provenance?: unknown;
 }
 export interface DynamicOptions {

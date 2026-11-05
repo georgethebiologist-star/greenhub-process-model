@@ -10,12 +10,13 @@ import numpy as np
 from mpl_toolkits.mplot3d import Axes3D  # noqa: F401
 
 ROOT=Path(__file__).resolve().parents[1]
-SOURCE=ROOT/'Greenhub'/'results'/'pareto_rvo_2026'/'rvo_pareto_manifest.json'
+SOURCE=ROOT/'Greenhub'/'results'/'pareto_rvo_2026'/'latest.json'
 FIGROOT=ROOT/'results'/'report_figures'/'10_rvo_2026_support_adjusted'
 OUT=FIGROOT/'07_optimization'
 OUT.mkdir(parents=True,exist_ok=True)
 BG='#efebe6'; INK='#0c3338'; GREEN='#408f4d'; BLUE='#729ad2'; YELLOW='#d1a520'; ROSE='#d277a3'; GREY='#8d9996'
 CASE_COLORS={'C30':BLUE,'C45':GREEN,'C60':YELLOW,'C0':ROSE}
+GRASS_COLORS={0:ROSE,10:'#d48a49',20:YELLOW,30:GREEN,40:BLUE,50:'#765ca8'}
 plt.rcParams.update({'figure.facecolor':BG,'axes.facecolor':BG,'savefig.facecolor':BG,'text.color':INK,'axes.labelcolor':INK,'xtick.color':INK,'ytick.color':INK,'axes.edgecolor':INK,'font.family':'DejaVu Sans','font.size':11,'axes.titlesize':15,'axes.labelsize':12,'legend.fontsize':9,'figure.dpi':300,'savefig.dpi':300})
 INDEX=[]
 
@@ -24,7 +25,9 @@ def save(fig,path,description,source,scenario,units):
     # conflicts when the report-figure directory is being indexed or previewed.
     image=io.BytesIO()
     fig.savefig(image,format='png',dpi=300,bbox_inches='tight',facecolor=BG)
-    path.write_bytes(image.getvalue())
+    temporary=path.with_suffix(path.suffix+'.tmp')
+    temporary.write_bytes(image.getvalue())
+    temporary.replace(path)
     plt.close(fig)
     INDEX.append({'figure_name':path.stem,'description':description,'source_dataset':source,'scenario':scenario,'units':units,'file_location':str(path.relative_to(ROOT))})
 
@@ -37,24 +40,29 @@ def pairplot(group,rows,front,key,xlabel,xunit,title,case=None):
     fig,ax=plt.subplots(figsize=(8,6))
     cloud=[r for r in rows if r.get('status')=='evaluated' and r.get('objectives',{}).get(key,{}).get('eligible') and r.get('objectives',{}).get('npv',{}).get('eligible')]
     if cloud:
-        ax.scatter([r['objectives'][key]['value'] for r in cloud],[r['objectives']['npv']['value'] for r in cloud],s=18,c=GREY,alpha=.25,label='Evaluated designs',linewidths=0)
+        ax.scatter([r['objectives'][key]['value'] for r in cloud],[r['objectives']['npv']['value']/1e6 for r in cloud],s=18,c=GREY,alpha=.25,label='Evaluated designs',linewidths=0)
+    seen_grants=set()
     for point in front['points']:
         row=next((r for r in rows if r['sample_id']==point['sample_id']),None)
-        color=CASE_COLORS.get(point['support_case'],INK)
-        ax.scatter(point[key],point['npv'],s=50,c=color,edgecolor=INK,linewidth=.35,alpha=.9)
+        grant=point.get('grant_case') or point['support_case'].split('-GB')[0]
+        color=CASE_COLORS.get(grant,INK)
+        label=f'{grant} CAPEX grant' if grant not in seen_grants else '_nolegend_'
+        seen_grants.add(grant)
+        ax.scatter(point[key],point['npv']/1e6,s=50,c=color,edgecolor=INK,linewidth=.35,alpha=.9,label=label)
     if key=='net_carbon' and case is None:
         selected_rows={r['sample_id']:r for r in rows}
         offsets={0:(9,13),10:(-20,-16)}
         for c in _select_for_plot:
             row=selected_rows.get(c['sample_id'])
             if not row: continue
-            p={key:row['objectives'][key]['value'],'npv':row['objectives']['npv']['value']}
+            p={key:row['objectives'][key]['value'],'npv':row['objectives']['npv']['value']/1e6}
             color=ROSE if c['rank']==0 else GREEN if c['rank']==10 else YELLOW
             ax.scatter(p[key],p['npv'],s=95,c=color,edgecolor='white',linewidth=1.1,zorder=4)
             if c['rank'] in offsets:
                 ax.annotate(str(c['rank']),(p[key],p['npv']),xytext=offsets[c['rank']],textcoords='offset points',fontsize=8,fontweight='bold',color=INK,arrowprops={'arrowstyle':'-','lw':.45,'color':INK,'alpha':.6})
         ax.text(.01,.015,'Ranks 1–9 are indexed in candidate KPI figures. Selected ranks are from the 3-objective front; the 2D projection may include dominated points.',transform=ax.transAxes,fontsize=7,color=INK,ha='left',va='bottom')
-    ax.set_xlabel(f'{xlabel} ({xunit}) · minimize');ax.set_ylabel('NPV (€) · maximize')
+    ax.set_xlabel(f'{xlabel} ({xunit}) · minimize');ax.set_ylabel('NPV (€ million) · maximize')
+    ax.axhline(0,color=INK,linewidth=.8,alpha=.7,zorder=0)
     ax.set_title(title,loc='left',fontweight='bold');ax.grid(axis='both',color='#aebbb6',alpha=.22,linewidth=.55)
     ax.spines[['top','right']].set_visible(False)
     if case is None: ax.legend(frameon=False,loc='best')
@@ -77,17 +85,17 @@ for group in ('protein_enabled','protein_bypass'):
     if front3['points']:
         fig=plt.figure(figsize=(10.5,8));ax=fig.add_subplot(111,projection='3d')
         for cid,color in CASE_COLORS.items():
-            pts=[p for p in front3['points'] if p['support_case']==cid]
-            if pts: ax.scatter([p['net_carbon'] for p in pts],[p['npv'] for p in pts],[p['subsidy_granted'] for p in pts],s=28,c=color,edgecolor=INK,linewidth=.3,label=f'Case {cid}')
+            pts=[p for p in front3['points'] if (p.get('grant_case') or p['support_case'].split('-GB')[0])==cid]
+            if pts: ax.scatter([p['net_carbon'] for p in pts],[p['npv']/1e6 for p in pts],[p['subsidy_granted']/1e6 for p in pts],s=28,c=color,edgecolor=INK,linewidth=.3,label=f'CAPEX grant {cid[1:]}%')
         selected_rank={c['sample_id']:c['rank'] for c in selected}
         for p in front3['points']:
             rank=selected_rank.get(p['sample_id'])
             if rank is not None:
                 color=ROSE if rank==0 else GREEN if rank==10 else YELLOW
-                ax.scatter([p['net_carbon']],[p['npv']],[p['subsidy_granted']],s=92,c=color,edgecolor='white',linewidth=1.0,zorder=8)
+                ax.scatter([p['net_carbon']],[p['npv']/1e6],[p['subsidy_granted']/1e6],s=92,c=color,edgecolor='white',linewidth=1.0,zorder=8)
         ax.scatter([],[],[],s=72,c=ROSE,edgecolor='white',label='Rank 0 · economic')
         ax.scatter([],[],[],s=72,c=GREEN,edgecolor='white',label='Rank 10 · environmental')
-        ax.set_xlabel('Net carbon (t C/year) · min',labelpad=10);ax.set_ylabel('NPV (€) · max',labelpad=10);ax.set_zlabel('Support PV (€) · min',labelpad=8)
+        ax.set_xlabel('Net carbon (t C/year) · minimize',labelpad=10);ax.set_ylabel('NPV (€ million) · maximize',labelpad=10);ax.set_zlabel('Support PV (€ million) · minimize',labelpad=8)
         ax.set_title(f'Carbon, NPV and support · {title_group}',loc='left',fontweight='bold',pad=16);ax.legend(frameon=False,loc='upper left',bbox_to_anchor=(0,1))
         save(fig,OUT/f'pareto_3d_carbon_npv_support_{group}.png','Three-objective Pareto front',Path('Greenhub/results/pareto_rvo_2026')/f'{group}_batch.json',title_group,'t C/year; €; € present value')
 
@@ -116,10 +124,10 @@ for group in ('protein_enabled','protein_bypass'):
         save(fig,OUT/f'candidate_economics_{group}.png','NPV and assumed public support PV for selected Pareto candidates',Path('Greenhub/results/pareto_rvo_2026')/f'{group}_batch.json',title_group,'€ million')
 
         fig,axs=plt.subplots(1,2,figsize=(10,5.5));axs[0].bar(x,[c['values']['net_carbon'] for c in selected],color=[ROSE if c['rank']==0 else GREEN if c['rank']==10 else BLUE for c in selected]);axs[0].set_ylabel('t C/year');axs[0].set_title('Net carbon · lower preferred')
-        axs[1].bar(x,[float(next(r for r in rows if r['sample_id']==c['sample_id'])['objectives']['climate']['value'])/1000 for c in selected],color=GREEN);axs[1].set_ylabel('t CO₂-eq/year');axs[1].set_title('Operational climate load')
+        axs[1].bar(x,[float(next(r for r in rows if r['sample_id']==c['sample_id'])['objectives']['climate']['value'])/1000 for c in selected],color=GREEN);axs[1].set_ylabel('t CO₂-eq/year');axs[1].set_title('Modeled climate load')
         for ax in axs: ax.set_xticks(x,labs);ax.set_xlabel('Candidate rank');ax.grid(axis='y',alpha=.18);ax.spines[['top','right']].set_visible(False)
         fig.suptitle(f'Environmental comparison · {title_group}',x=.08,ha='left',fontweight='bold',fontsize=15)
-        save(fig,OUT/f'candidate_environment_{group}.png','Net stored carbon objective and attributional operational climate load',Path('Greenhub/results/pareto_rvo_2026')/f'{group}_batch.json',title_group,'t C/year; t CO₂-eq/year')
+        save(fig,OUT/f'candidate_environment_{group}.png','Net carbon-stock screening objective and modeled climate load',Path('Greenhub/results/pareto_rvo_2026')/f'{group}_batch.json',title_group,'t C/year; t CO₂-eq/year')
 
         lcadir=FIGROOT/'04_lca';lcadir.mkdir(parents=True,exist_ok=True)
         selected_rows=[next(r for r in rows if r['sample_id']==c['sample_id']) for c in selected]
@@ -171,7 +179,7 @@ for group in ('protein_enabled','protein_bypass'):
     baseline_rows.extend([r for r in p['samples'] if r.get('baseline_reference') and r.get('status')=='evaluated'])
 if baseline_rows:
     dest=FIGROOT/'01_baseline';dest.mkdir(parents=True,exist_ok=True)
-    case_ids=['C30','C45','C60','C0'];x=np.arange(4);w=.36
+    case_ids=['C30-GB0','C45-GB0','C60-GB0','C0-GB0'];x=np.arange(4);w=.36
     fig,axs=plt.subplots(1,2,figsize=(10,5.5))
     for i,(group,label,color) in enumerate([('protein_enabled','Protein enabled',BLUE),('protein_bypass','Protein bypassed',GREEN)]):
         rows=[next((r for r in baseline_rows if r['group']==group and r['support_case']==c),None) for c in case_ids]
@@ -181,21 +189,22 @@ if baseline_rows:
         axs[1].bar(x+(i-.5)*w,cvals,w,color=color,label=label)
     axs[0].axhline(0,color=INK,lw=.8);axs[0].set_ylabel('€ million');axs[0].set_title('NPV by support case')
     axs[1].set_ylabel('t C/year');axs[1].set_title('Net carbon by support case')
-    for ax in axs: ax.set_xticks(x,case_ids);ax.set_xlabel('RVO what-if case');ax.legend(frameon=False);ax.grid(axis='y',alpha=.18);ax.spines[['top','right']].set_visible(False)
+    labels=['30% grant','45% grant','60% grant','No grant']
+    for ax in axs: ax.set_xticks(x,labels);ax.set_xlabel('Hypothetical CAPEX grant · grass bonus €0/t');ax.legend(frameon=False);ax.grid(axis='y',alpha=.18);ax.spines[['top','right']].set_visible(False)
     fig.suptitle('Baseline support comparison · F1, no PEF',x=.08,ha='left',fontweight='bold',fontsize=15)
-    save(fig,dest/'baseline_rvo_support_kpis.png','Baseline NPV and net carbon across paired RVO screening cases',Path('Greenhub/results/pareto_rvo_2026'),'No-PEF baseline; protein enabled and bypassed','€ million; t C/year')
+    save(fig,dest/'baseline_rvo_support_kpis.png','Baseline NPV and net carbon across hypothetical CAPEX-grant cases at zero grass bonus',Path('Greenhub/results/pareto_rvo_2026'),'No-PEF baseline; protein enabled and bypassed; grass bonus €0/wet t','€ million; t C/year')
     fig,ax=plt.subplots(figsize=(8,5.5))
     for i,(group,label,color) in enumerate([('protein_enabled','Protein enabled',BLUE),('protein_bypass','Protein bypassed',GREEN)]):
-        row=next((r for r in baseline_rows if r['group']==group and r['support_case']=='C0'),None)
+        row=next((r for r in baseline_rows if r['group']==group and r['support_case']=='C0-GB0'),None)
         if not row: continue
         vals=row['annual']['utilities'];v=[vals[k]['value']/1000 for k in ('electricity','heating','cooling')]
         ax.bar(np.arange(3)+(i-.5)*w,v,w,label=label,color=color)
-    ax.set_xticks(np.arange(3),['Electricity','Heat','Cooling']);ax.set_ylabel('MWh/year');ax.set_title('Baseline utility demand · C0',loc='left',fontweight='bold');ax.legend(frameon=False);ax.grid(axis='y',alpha=.18);ax.spines[['top','right']].set_visible(False)
-    save(fig,dest/'baseline_utilities_protein_comparison.png','Baseline utility comparison for protein route and bypass',Path('Greenhub/results/pareto_rvo_2026'),'No-PEF baseline; C0 (utilities unaffected by support case)','MWh/year')
+    ax.set_xticks(np.arange(3),['Electricity','Heat','Cooling']);ax.set_ylabel('MWh/year');ax.set_title('Baseline utility demand · no grant, €0/t bonus',loc='left',fontweight='bold');ax.legend(frameon=False);ax.grid(axis='y',alpha=.18);ax.spines[['top','right']].set_visible(False)
+    save(fig,dest/'baseline_utilities_protein_comparison.png','Baseline utility comparison for protein route and bypass',Path('Greenhub/results/pareto_rvo_2026'),'No-PEF baseline; no grant and zero grass bonus (utilities unaffected by support)','MWh/year')
 
 # Cross-configuration subsidy sensitivity for scenario comparison folder.
 compare_dir=FIGROOT/'06_scenario_comparison';compare_dir.mkdir(parents=True,exist_ok=True)
-case_ids=['C30','C45','C60','C0'];fig,axs=plt.subplots(1,2,figsize=(10,5.5));x=np.arange(4);w=.36
+case_ids=['C30-GB0','C45-GB0','C60-GB0','C0-GB0'];fig,axs=plt.subplots(1,2,figsize=(10,5.5));x=np.arange(4);w=.36
 for i,(group,label,color) in enumerate([('protein_enabled','Protein enabled',BLUE),('protein_bypass','Protein bypassed',GREEN)]):
     p=json.loads((ROOT/'Greenhub'/'results'/'pareto_rvo_2026'/f'{group}_batch.json').read_text(encoding='utf-8'));rows=p['samples']
     for j,cid in enumerate(case_ids):
@@ -208,11 +217,11 @@ for i,(group,label,color) in enumerate([('protein_enabled','Protein enabled',BLU
         support.append(float(np.median([r['objectives']['subsidy_granted']['value'] for r in vals]))/1e6 if vals else np.nan)
     axs[0].plot(x,med,color=color,marker='o',linewidth=1.5,label=f'{label} median NPV')
     axs[1].plot(x,support,color=color,marker='o',linewidth=1.8,label=f'{label} median support PV')
-axs[0].axhline(0,color=INK,lw=.8);axs[0].set_ylabel('NPV (€ million)');axs[0].set_title('NPV by RVO support case')
-axs[1].set_ylabel('Support present value (€ million)');axs[1].set_title('Assumed public support')
-for ax in axs: ax.set_xticks(x,case_ids);ax.set_xlabel('User-defined what-if case');ax.legend(frameon=False,fontsize=8);ax.grid(axis='y',alpha=.18);ax.spines[['top','right']].set_visible(False)
+axs[0].axhline(0,color=INK,lw=.8);axs[0].set_ylabel('NPV (€ million)');axs[0].set_title('NPV by hypothetical CAPEX grant')
+axs[1].set_ylabel('Support present value (€ million)');axs[1].set_title('Assumed support present value')
+for ax in axs: ax.set_xticks(x,['30% grant','45% grant','60% grant','No grant']);ax.set_xlabel('Hypothetical CAPEX grant · grass bonus €0/t');ax.legend(frameon=False,fontsize=8);ax.grid(axis='y',alpha=.18);ax.spines[['top','right']].set_visible(False)
 fig.suptitle('Support scenario comparison · sampled designs',x=.08,ha='left',fontweight='bold',fontsize=15)
-save(fig,compare_dir/'rvo_support_case_npv_comparison.png','NPV samples and median support present value by support case',Path('Greenhub/results/pareto_rvo_2026'),'Protein enabled and bypassed; paired support cases','€ million')
+save(fig,compare_dir/'rvo_support_case_npv_comparison.png','NPV samples and median support present value across hypothetical CAPEX grant cases at zero grass bonus',Path('Greenhub/results/pareto_rvo_2026'),'Protein enabled and bypassed; zero grass bonus','€ million')
 
 # Dense technical, TEA and hotspot figures from actual saved model results.
 technical_dir=FIGROOT/'02_technical';tea_dir=FIGROOT/'03_tea';hotspot_dir=FIGROOT/'05_hotspots'
@@ -253,23 +262,23 @@ ax.set_xticks(x,labels);ax.set_ylabel('MWh/t wet grass');ax.set_title('Energy in
 save(fig,technical_dir/'energy_intensity_by_candidate.png','Electricity, heat and cooling intensity at selected endpoint candidates',Path('Greenhub/results/pareto_rvo_2026'),'Rank 0 and 10 from the three-objective front; no PEF','MWh/t wet grass')
 
 # Scale-dependent screening finance: plot all evaluated cases; this is a design sweep, not a probability distribution.
-case_colors={'A':BLUE,'B':GREEN,'C':YELLOW,'D':ROSE};fig,axs=plt.subplots(2,2,figsize=(10,7.2),sharex='col')
+case_order=['C0-GB0','C0-GB10','C0-GB20','C0-GB30','C0-GB40','C0-GB50'];case_labels=['€0/t','€10/t','€20/t','€30/t','€40/t','€50/t'];fig,axs=plt.subplots(2,2,figsize=(10,7.2),sharex='col')
 for col,(group,label) in enumerate([('protein_enabled','Protein enabled'),('protein_bypass','Protein bypassed')]):
     rows=latest['groups_payload'][group]['samples']
-    for cid,color in case_colors.items():
+    for cid,rate,color in zip(case_order,(0,10,20,30,40,50),GRASS_COLORS.values()):
         selected=[r for r in rows if r.get('status')=='evaluated' and r.get('support_case')==cid]
         feed=np.asarray([float(r['annual']['feed_processed']['value'])/1000 for r in selected])
         npv=np.asarray([float(r['objectives']['npv']['value'])/1e6 for r in selected])
         profit=np.asarray([float(r['objectives']['operating_profit']['value'])/feed[i] for i,r in enumerate(selected)])
-        axs[0,col].scatter(feed,npv,s=13,alpha=.45,color=color,label=f'Case {cid}')
+        axs[0,col].scatter(feed,npv,s=13,alpha=.45,color=color,label=f'€{rate}/wet t')
         axs[1,col].scatter(feed,profit,s=13,alpha=.45,color=color)
     axs[0,col].set_title(label,loc='left',fontweight='bold');axs[0,col].axhline(0,color=INK,lw=.8);axs[1,col].axhline(0,color=INK,lw=.8);axs[1,col].set_xlabel('Wet grass (t/year)')
     for row in (0,1):axs[row,col].grid(alpha=.16);axs[row,col].spines[['top','right']].set_visible(False)
 axs[0,0].set_ylabel('NPV (€ million)');axs[1,0].set_ylabel('Adjusted profit (€/t feed)');axs[0,1].legend(frameon=False,ncol=2,fontsize=8)
 fig.suptitle('Financial scale effects',x=.08,ha='left',fontweight='bold',fontsize=15)
-save(fig,tea_dir/'npv_profit_by_feed_scale.png','Screening NPV and original annual operating profit across evaluated feed scales',Path('Greenhub/results/pareto_rvo_2026'),'All evaluated designs; cases A–D; design-space scatter, not probabilistic uncertainty','NPV: € million; profit intensity: €/t wet grass')
+save(fig,tea_dir/'npv_profit_by_feed_scale.png','Screening NPV and original annual operating profit across evaluated feed scales, colored by grass utilization bonus','Greenhub/results/pareto_rvo_2026','No CAPEX grant; grass utilization bonus €0–50/wet t; design-space scatter, not probabilistic uncertainty','NPV: € million; profit intensity: €/t wet grass')
 
-fig,axs=plt.subplots(1,2,figsize=(9,5.5),sharey=True);case_order=['A','B','C','D'];x=np.arange(4);w=.62
+fig,axs=plt.subplots(1,2,figsize=(9,5.5),sharey=True);case_order=['C30-GB0','C45-GB0','C60-GB0','C0-GB0'];case_labels=['30%','45%','60%','0%'];x=np.arange(4);w=.62
 for ax,(group,label) in zip(axs,[('protein_enabled','Protein enabled'),('protein_bypass','Protein bypassed')]):
     rows=latest['groups_payload'][group]['samples'];grant=[];operating=[]
     for cid in case_order:
@@ -277,10 +286,10 @@ for ax,(group,label) in zip(axs,[('protein_enabled','Protein enabled'),('protein
         grant.append(float(np.median([v.get('subsidy_eur',0) for v in values]))/1e6 if values else 0)
         operating.append(float(np.median([max(0,v.get('total_public_support_pv_eur',0)-v.get('subsidy_eur',0)) for v in values]))/1e6 if values else 0)
     ax.bar(x,grant,w,color=BLUE,label='Upfront CAPEX grant');ax.bar(x,operating,w,bottom=grant,color=GREEN,label='OPEX support PV')
-    ax.set_xticks(x,case_order);ax.set_title(label,loc='left',fontweight='bold');ax.set_xlabel('RVO what-if case');ax.grid(axis='y',alpha=.16);ax.spines[['top','right']].set_visible(False)
+    ax.set_xticks(x,case_labels);ax.set_title(label,loc='left',fontweight='bold');ax.set_xlabel('Hypothetical CAPEX grant · grass bonus €0/t');ax.grid(axis='y',alpha=.16);ax.spines[['top','right']].set_visible(False)
 axs[0].set_ylabel('Median public support (€ million PV)');axs[1].legend(frameon=False,fontsize=8)
 fig.suptitle('Support composition',x=.08,ha='left',fontweight='bold',fontsize=15)
-save(fig,tea_dir/'rvo_support_composition.png','Median upfront grant and discounted operating-support components across paired support cases',Path('Greenhub/results/pareto_rvo_2026'),'Median across evaluated designs by protein group','€ million present value')
+save(fig,tea_dir/'rvo_support_composition.png','Median upfront grant and discounted biomethane support components across grant scenarios at zero grass bonus',Path('Greenhub/results/pareto_rvo_2026'),'Median across evaluated designs by protein group; grass bonus €0/wet t','€ million present value')
 
 # Hotspots use stored reports for representative endpoints; shared costs stay at process/system level.
 def stored_report(candidate):
@@ -314,8 +323,8 @@ if have_endpoint_records:
     fig,ax=plt.subplots(figsize=(9,5.6));x=np.arange(len(climate_parts));bottom=np.zeros(len(climate_parts))
     for key,color in [('Electricity',BLUE),('Heat',ROSE),('Process methane',YELLOW)]:
         vals=np.asarray([p.get(key,0.0)/1000 for _,p in climate_parts]);ax.bar(x,vals,bottom=bottom,label=key,color=color);bottom+=vals
-    ax.set_xticks(x,[name for name,_ in climate_parts]);ax.set_ylabel('t CO₂-eq/year');ax.set_title('Operational climate hotspots',loc='left',fontweight='bold');ax.legend(frameon=False,ncol=3);ax.grid(axis='y',alpha=.16);ax.spines[['top','right']].set_visible(False)
-    save(fig,hotspot_dir/'operational_climate_by_stage.png','Electricity, heat and characterized process-methane burdens for representative Pareto endpoints',Path('Greenhub/results/pareto_rvo_2026')/'stored decision_support.json','Rank 0 and 10; protein enabled and bypassed; attributional gate-to-gate loads only','t CO2-eq/year')
+    ax.set_xticks(x,[name for name,_ in climate_parts]);ax.set_ylabel('t CO₂-eq/year');ax.set_title('Modeled climate load by source',loc='left',fontweight='bold');ax.legend(frameon=False,ncol=3);ax.grid(axis='y',alpha=.16);ax.spines[['top','right']].set_visible(False)
+    save(fig,hotspot_dir/'operational_climate_by_stage.png','Electricity, heat and characterized process-methane burdens for representative Pareto endpoints; electricity factor includes upstream supply',Path('Greenhub/results/pareto_rvo_2026')/'stored decision_support.json','Rank 0 and 10; protein enabled and bypassed; process sources plus JRC lifecycle electricity factor','t CO2-eq/year')
 
     cost_keys=['Labour','Feed logistics','Utilities','Maintenance','Other'];fig,ax=plt.subplots(figsize=(9,5.6));x=np.arange(len(opex_parts));bottom=np.zeros(len(opex_parts));cost_colors=[BLUE,GREEN,YELLOW,ROSE,GREY]
     for key,color in zip(cost_keys,cost_colors):
@@ -349,7 +358,7 @@ if have_endpoint_records:
 
 else:
     # Missing archived detail must not produce stale charts or invented zeroes.
-    for name, title in [('operational_climate_by_stage', 'Operational climate hotspots'),
+    for name, title in [('operational_climate_by_stage', 'Modeled climate load by source'),
                         ('opex_categories_by_endpoint', 'Recorded operating costs'),
                         ('equipment_energy_by_endpoint', 'Equipment energy hotspots')]:
         fig, ax = plt.subplots(figsize=(9, 5.6))
@@ -362,6 +371,8 @@ else:
     print('Endpoint hotspot breakdowns flagged unavailable: archived detail records are missing.')
 
 for index_path in (FIGROOT/'rvo_pareto_figure_index.csv', FIGROOT/'figure_index.csv'):
-    with index_path.open('w',newline='',encoding='utf-8-sig') as f:
+    temporary=index_path.with_suffix(index_path.suffix+'.tmp')
+    with temporary.open('w',newline='',encoding='utf-8-sig') as f:
         w=csv.DictWriter(f,fieldnames=['figure_name','description','source_dataset','scenario','units','file_location'],lineterminator='\n');w.writeheader();w.writerows(INDEX)
+    temporary.replace(index_path)
 print(f'Generated {len(INDEX)} PNGs; index: {FIGROOT/"rvo_pareto_figure_index.csv"}')

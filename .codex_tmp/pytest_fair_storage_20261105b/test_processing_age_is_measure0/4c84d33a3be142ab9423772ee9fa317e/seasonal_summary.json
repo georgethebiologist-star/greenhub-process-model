@@ -1,0 +1,70 @@
+{
+  "active_process_operating_hours": 24.0,
+  "average_inventory_kg": 76.0,
+  "average_throughput_kg_hr": 1.0,
+  "element_residuals_kg": {
+    "calcium": 0.0,
+    "carbon": 0.0,
+    "chloride": 0.0,
+    "hydrogen": 0.0,
+    "magnesium": 0.0,
+    "nitrogen": 0.0,
+    "oxygen": 0.0,
+    "phosphorus": 0.0,
+    "potassium": 1.3010426069826053e-18,
+    "sodium": 0.0,
+    "sulfur": 0.0
+  },
+  "equipment_capacity_scale_factor": 1.0,
+  "equipment_scale_design_peak_kg_hr": 0.0,
+  "final_inventory_kg": 76.0,
+  "incoming_residence_net_loss_kg": 0.0,
+  "initial_inventory_kg": 100,
+  "missing_data_warning_count": 2,
+  "peak_inventory_kg": 76.0,
+  "peak_throughput_kg_hr": 1.0,
+  "pr7_feed_volume_m3_year": 0.0,
+  "pr7_maximum_peak_membrane_area_m2": 0.0,
+  "pr7_minimum_peak_membrane_area_m2": 0.0,
+  "pr7_peak_membrane_area_m2": 0.0,
+  "pr7_unresolved_component_ids": [],
+  "pr7_unresolved_mass_kg_year": 0.0,
+  "process_mass_residual_kg": -1.3808953980287697e-10,
+  "processing_delay_days": 0,
+  "processing_end_date": null,
+  "processing_start_date": null,
+  "scheduled_operating_hours": 24.0,
+  "storage_mass_residual_kg": 0.0,
+  "total_biomass_available_kg": 0.0,
+  "total_biomass_collected_kg": 0.0,
+  "total_biomass_processed_kg": 24.0,
+  "total_biomass_uncollected_kg": 0.0,
+  "total_degradation_kg": 0.0,
+  "total_overflow_kg": 0.0,
+  "total_products_kg": {
+    "ammonium_product": 0.20269925991887644,
+    "biomethane": 0.012290250104484625,
+    "dry_protein_product": 0.11066032212966051,
+    "nutrient_rich_solids": 0.10854152016204502,
+    "phosphorus_product": 0.002270360211426556
+  },
+  "total_utilities": {
+    "cooling_kwh": 0.263051376582618,
+    "electricity_kwh": 0.2340467118694014,
+    "heating_kwh": 1.5769079755608193
+  },
+  "unit_utilization": {
+    "C301": {
+      "average": 4.836415621893283e-05,
+      "peak": 4.836415621893283e-05
+    },
+    "S201": {
+      "average": 0.0004983499999999999,
+      "peak": 0.0004983499999999999
+    },
+    "U101": {
+      "average": 0.0005,
+      "peak": 0.0005
+    }
+  }
+}

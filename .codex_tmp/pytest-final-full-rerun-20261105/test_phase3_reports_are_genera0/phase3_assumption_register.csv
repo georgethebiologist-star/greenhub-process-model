@@ -1,0 +1,53 @@
+input_parameter,value,unit,source,measurement_status,source_class,scenario,month,minimum,maximum,calculation_method,warning
+centrifuge_capacity_m3_per_h,10.0,m3/h,,assumed,E,F1,July,0.0,,ceil throughput/capacity,Structural-test placeholder; replace before interpretation.
+centrifuge_electricity_kwh_per_m3,0.8,kWh/m3,,assumed,E,F1,July,0.0,,m3/h x kWh/m3,Structural-test placeholder; replace before interpretation.
+dissolved_p_loss_fraction,0.02,fraction to sludge,,assumed,E,F1,July,0.0,1.0,group split,Structural-test placeholder; replace before interpretation.
+heavy_metal_particulate_removal_efficiency,0.9,fraction removed,,assumed,E,F1,July,0.0,1.0,component split,Structural-test placeholder; replace before interpretation.
+liquid_entrainment_fraction,0.05,fraction,,assumed,E,F1,July,0.0,1.0,water fallback,Structural-test placeholder; replace before interpretation.
+microplastic_removal_efficiency,0.8,fraction removed,,assumed,E,F1,July,0.0,1.0,component split,Structural-test placeholder; replace before interpretation.
+optional_polymer_kg_per_t_ds,0.0,kg/t DS,,assumed,E,F1,July,0.0,,dry solids x dose,Structural-test placeholder; replace before interpretation.
+particulate_cod_removal_efficiency,0.85,fraction removed,,assumed,E,F1,July,0.0,1.0,group split,Structural-test placeholder; replace before interpretation.
+particulate_p_removal_efficiency,0.9,fraction removed,,assumed,E,F1,July,0.0,1.0,component split,Structural-test placeholder; replace before interpretation.
+raw_liquid_density_kg_m3,1000.0,kg/m3,,assumed,E,F1,July,1.0,,mass/density,Structural-test placeholder; replace before interpretation.
+sand_removal_efficiency,0.98,fraction removed,,assumed,E,F1,July,0.0,1.0,component split,Structural-test placeholder; replace before interpretation.
+sludge_moisture_fraction,0.8,fraction wet basis,,assumed,E,F1,July,0.0,1.0,analytical water specification,Structural-test placeholder; replace before interpretation.
+sludge_solids_fraction,0.2,fraction wet basis,,assumed,E,F1,July,0.0,1.0,analytical water specification,Structural-test placeholder; replace before interpretation.
+soluble_protein_loss_fraction,0.02,fraction to sludge,,assumed,E,F1,July,0.0,1.0,component split,Structural-test placeholder; replace before interpretation.
+suspended_protein_removal_efficiency,0.85,fraction removed,,assumed,E,F1,July,0.0,1.0,component split,Structural-test placeholder; replace before interpretation.
+tss_removal_efficiency,0.9,fraction removed,,assumed,E,F1,July,0.0,1.0,physical class split,Structural-test placeholder; replace before interpretation.
+vss_removal_efficiency,0.85,fraction removed,,assumed,E,F1,July,0.0,1.0,physical class split,Structural-test placeholder; replace before interpretation.
+wash_water_kg_per_kg_feed,0.0,kg/kg feed,,assumed,E,F1,July,0.0,,external water input,Structural-test placeholder; replace before interpretation.
+cleaning_biomass_loss_fraction,0.0,fraction,,assumed,E,F1,July,0.0,1.0,fraction to preparation rejects,Structural-test placeholder; replace before interpretation.
+cleaning_capacity_t_per_h,2.0,t wet/h,,assumed,E,F1,July,0.0,,ceil throughput/capacity,Structural-test placeholder; replace before interpretation.
+cleaning_electricity_kwh_per_t_wet,1.5,kWh/t wet,,assumed,E,F1,July,0.0,,wet t/h x kWh/t,Structural-test placeholder; replace before interpretation.
+cleaning_enabled,True,boolean,,assumed,E,F1,July,,,component-specific removal,Structural-test placeholder; replace before interpretation.
+cleaning_inert_removal_fraction,0.1,fraction,,assumed,E,F1,July,0.0,1.0,fraction to preparation rejects,Structural-test placeholder; replace before interpretation.
+cleaning_litter_removal_fraction,0.7,fraction,,assumed,E,F1,July,0.0,1.0,fraction to preparation rejects,Structural-test placeholder; replace before interpretation.
+cleaning_sand_removal_fraction,0.6,fraction,,assumed,E,F1,July,0.0,1.0,fraction to preparation rejects,Structural-test placeholder; replace before interpretation.
+amino_acid_recovery_to_juice,0.8,fraction to juice,,assumed,E,F1,July,0.0,1.0,group recovery,Structural-test placeholder; replace before interpretation.
+ammonium_recovery_to_juice,0.9,fraction to juice,,assumed,E,F1,July,0.0,1.0,component recovery,Structural-test placeholder; replace before interpretation.
+cake_moisture_fraction,0.65,fraction wet basis,,assumed,E,F1,July,0.0,1.0,analytical water specification,Structural-test placeholder; replace before interpretation.
+cellulose_recovery_to_cake,0.97,fraction to cake,,assumed,E,F1,July,0.0,1.0,component recovery,Structural-test placeholder; replace before interpretation.
+contaminant_recovery_to_cake,0.9,fraction to cake,,assumed,E,F1,July,0.0,1.0,group recovery,Structural-test placeholder; replace before interpretation.
+dry_solids_recovery_to_cake,0.9,fraction to cake,,assumed,E,F1,July,0.0,1.0,split hierarchy,Structural-test placeholder; replace before interpretation.
+hemicellulose_recovery_to_cake,0.95,fraction to cake,,assumed,E,F1,July,0.0,1.0,component recovery,Structural-test placeholder; replace before interpretation.
+inert_solids_recovery_to_cake,0.97,fraction to cake,,assumed,E,F1,July,0.0,1.0,component recovery,Structural-test placeholder; replace before interpretation.
+juice_yield_kg_per_kg_wet_feed,0.5,kg/kg wet feed,,assumed,E,F1,July,0.0,1.0,checked against water allocation,Structural-test placeholder; replace before interpretation.
+lignin_recovery_to_cake,0.98,fraction to cake,,assumed,E,F1,July,0.0,1.0,component recovery,Structural-test placeholder; replace before interpretation.
+liquid_recovery_fraction,0.9,fraction to juice,,assumed,E,F1,July,0.0,1.0,split hierarchy,Structural-test placeholder; replace before interpretation.
+organic_acid_recovery_to_juice,0.85,fraction to juice,,assumed,E,F1,July,0.0,1.0,group recovery,Structural-test placeholder; replace before interpretation.
+phosphate_recovery_to_juice,0.8,fraction to juice,,assumed,E,F1,July,0.0,1.0,group recovery,Structural-test placeholder; replace before interpretation.
+potassium_recovery_to_juice,0.9,fraction to juice,,assumed,E,F1,July,0.0,1.0,component recovery,Structural-test placeholder; replace before interpretation.
+press_capacity_t_per_h,2.0,t wet/h,,assumed,E,F1,July,0.0,,ceil throughput/capacity,Structural-test placeholder; replace before interpretation.
+press_constraint_priority,juice_yield_priority,text,,assumed,E,F1,July,,,direct analytical specification,Structural-test placeholder; replace before interpretation.
+press_electricity_kwh_per_t_wet,5.0,kWh/t wet,,assumed,E,F1,July,0.0,,wet t/h x kWh/t,Structural-test placeholder; replace before interpretation.
+soluble_protein_recovery_to_juice,0.7,fraction to juice,,assumed,E,F1,July,0.0,1.0,group recovery,Structural-test placeholder; replace before interpretation.
+soluble_salt_recovery_to_juice,0.9,fraction to juice,,assumed,E,F1,July,0.0,1.0,group recovery,Structural-test placeholder; replace before interpretation.
+sugar_recovery_to_juice,0.7,fraction to juice,,assumed,E,F1,July,0.0,1.0,group recovery,Structural-test placeholder; replace before interpretation.
+suspended_protein_recovery_to_juice,0.15,fraction to juice,,assumed,E,F1,July,0.0,1.0,group recovery,Structural-test placeholder; replace before interpretation.
+water_recovery_to_juice,0.7,fraction to juice,,assumed,E,F1,July,0.0,1.0,water fallback,Structural-test placeholder; replace before interpretation.
+model_warning,47 selected Phase 3 parameters use quality class E; see the assumption register for individual records.,,,calculated,E,F1,July,,,model diagnostic,47 selected Phase 3 parameters use quality class E; see the assumption register for individual records.
+model_warning,No transfer pump is active because no pressure-rise requirement is available; pumping electricity is zero.,,,calculated,E,F1,July,,,model diagnostic,No transfer pump is active because no pressure-rise requirement is available; pumping electricity is zero.
+model_warning,"U101, S201, C301 have no purchase cost because no approved GreenHub cost correlation is available.",,,calculated,E,F1,July,,,model diagnostic,"U101, S201, C301 have no purchase cost because no approved GreenHub cost correlation is available."
+model_warning,Structural-test mode is active; quality-class E inputs are not final measured or literature assumptions.,,,calculated,E,F1,July,,,model diagnostic,Structural-test mode is active; quality-class E inputs are not final measured or literature assumptions.
+model_warning,Target solids moisture and liquid yield are inconsistent by 38.75%; 'juice_yield_priority' determined the water split.,,,calculated,E,F1,July,,,model diagnostic,Target solids moisture and liquid yield are inconsistent by 38.75%; 'juice_yield_priority' determined the water split.

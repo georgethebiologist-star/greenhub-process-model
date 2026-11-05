@@ -22,6 +22,15 @@ def test_decision_support_openapi_documents_additive_analysis_inputs():
     assert "0.90 to 1.10" in feed_composition["description"]
 
 
+def test_resolved_parameter_quality_metadata_is_optional_and_documented():
+    item = openapi_schema()["components"]["schemas"]["SimulationResult"]["properties"]["resolved_parameters"]["items"]
+    assert "quality_class" in item["properties"]
+    assert "stable_identifier" in item["properties"]
+    assert "source_url" in item["properties"]
+    assert "uncertainty" in item["properties"]
+    assert not {"quality_class", "stable_identifier", "uncertainty"} & set(item["required"])
+
+
 def test_backend_batch_endpoint_accepts_exact_candidate_overrides(tmp_path):
     app = create_app(tmp_path)
     captured = {}
@@ -69,6 +78,47 @@ def test_default_api_reads_saved_pareto_job_from_legacy_results_root(tmp_path, m
     status, candidate = invoke(api, "GET", f'/api/v1/decision-support/batch-jobs/{started["job_id"]}/candidates/{sample_id}')
     assert status == 200
     assert candidate["outputs"]["configuration_echo"] == {"value": 1}
+
+
+def test_latest_pareto_api_exposes_grass_bonus_metadata_and_selected_scenarios(tmp_path, monkeypatch):
+    from Greenhub import settings
+    monkeypatch.setattr(settings, "RESULTS_DIR", tmp_path / "results")
+    result_dir = settings.RESULTS_DIR / "pareto_rvo_2026"
+    result_dir.mkdir(parents=True)
+    metadata = {
+        "schema_version": "greenhub-rvo-pareto-1.0",
+        "grass_utilization_bonus": {"rates_eur_per_wet_tonne": [0, 10, 20, 30, 40, 50]},
+        "groups": {"protein_enabled": {"sample_count": 6}},
+        "groups_payload": {"protein_enabled": {
+            "group": "protein_enabled", "sample_count": 6,
+            "selected_candidates": {"grass_bonus_sensitivity": [{"sample_id": "P-GB20"}]},
+            "samples": [{"sample_id": "large row payload must stay filtered"}],
+        }},
+    }
+    (result_dir / "latest.json").write_text(json.dumps(metadata), encoding="utf-8")
+
+    status, response = invoke(create_app(tmp_path), "GET", "/api/v1/decision-support/pareto/latest")
+
+    assert status == 200
+    assert response["grass_utilization_bonus"]["rates_eur_per_wet_tonne"] == [0, 10, 20, 30, 40, 50]
+    assert response["groups_payload"]["protein_enabled"]["selected_candidates"]["grass_bonus_sensitivity"] == [{"sample_id": "P-GB20"}]
+    assert "samples" not in response["groups_payload"]["protein_enabled"]
+
+
+def test_latest_pareto_api_prefers_compact_generated_projection(tmp_path, monkeypatch):
+    from Greenhub import settings
+    monkeypatch.setattr(settings, "RESULTS_DIR", tmp_path / "results")
+    result_dir = settings.RESULTS_DIR / "pareto_rvo_2026"
+    result_dir.mkdir(parents=True)
+    full = {"schema_version": "full", "groups_payload": {"large": {"samples": [{"large": "ledger"}]}}}
+    compact = {"schema_version": "compact", "groups_payload": {"small": {"selected_candidates": {"x": [{"sample_id": "S-1"}]}}}}
+    (result_dir / "latest.json").write_text(json.dumps(full), encoding="utf-8")
+    (result_dir / "latest_ui.json").write_text(json.dumps(compact), encoding="utf-8")
+
+    status, response = invoke(create_app(tmp_path), "GET", "/api/v1/decision-support/pareto/latest")
+
+    assert status == 200
+    assert response == compact
 
 
 def test_stale_simulation_artifacts_are_not_served_after_restart(tmp_path):
@@ -179,7 +229,7 @@ def request_payload(**updates):
         "resolution_mode": "steady_state",
         "selected_month": "July",
         "scenarios": {
-            "feed_preparation": "F2",
+            "feed_preparation": "F1",
             "protein_recovery": "PR3",
             "anaerobic_digestion": "AD1",
             "biogas_upgrading": "BG2",
@@ -242,8 +292,8 @@ def test_simulation_and_result_endpoints_return_json_safe_service_results(tmp_pa
     assert status == 201
     assert result["status"] == "completed"
     assert result["validation"]["passed"] is True
-    assert result["summary_kpis"]["boundary_inlet_mass"]["value"] == pytest.approx(403.9938456027056)
-    assert result["summary_kpis"]["boundary_outlet_mass"]["value"] == pytest.approx(403.99384560661497)
+    assert result["summary_kpis"]["boundary_inlet_mass"]["value"] == pytest.approx(409.9083178971942)
+    assert result["summary_kpis"]["boundary_outlet_mass"]["value"] == pytest.approx(409.9083179012139)
     run_id = result["run_id"]
 
     for resource in (
@@ -329,11 +379,11 @@ def test_empirical_annual_reporting_exposes_shared_schedule_and_chart_contract(t
         "mass_balance", "annual_product_mix", "groups",
     } <= annual["chart_data"].keys()
     assert annual["chart_data"]["groups"]["large_mass"] == [
-        "feed_processed_tonnes", "press_cake_tonnes", "digestate_tonnes"
+        "feed_processed_tonnes", "press_cake_tonnes", "juice_tonnes", "digestate_tonnes"
     ]
     assert "protein_tonnes" in annual["chart_data"]["groups"]["small_products"]
-    assert annual["chart_contract"]["electricity"] == "MWh/month"
-    assert annual["chart_contract"]["heat"] == "GJ/month"
+    assert annual["chart_contract"]["electricity"] == "kWh per actual model timestep"
+    assert annual["chart_contract"]["heat"] == "kWh per actual model timestep"
     assert annual["display_utilities"]["electricity"]["unit"] == "MWh/year"
     assert annual["display_utilities"]["heating"]["unit"] == "GJ/year"
     assert [stage["stage_id"] for stage in annual["process_pathway"]] == [

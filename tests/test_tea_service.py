@@ -34,7 +34,7 @@ def empirical_result(tmp_path_factory):
         calculation_mode=CalculationMode.STRUCTURAL,
         resolution_mode=ResolutionMode.STEADY_STATE,
         scenarios=ScenarioSelection(
-            feed_preparation="F2",
+            feed_preparation="F1",
             protein_recovery="PR1",
             anaerobic_digestion="AD1",
             biogas_upgrading="BG2",
@@ -113,7 +113,7 @@ def _financial_records():
 
 def test_explicit_logistics_result_supplies_annual_logistics_cost(empirical_result):
     logistics = replace(
-        _record("TEST-LOGISTICS", ("F2",)),
+        _record("TEST-LOGISTICS", ("F1",)),
         process_area="logistics",
         process_step="Feedstock transport",
         equipment_or_cost_item="Feedstock transport result",

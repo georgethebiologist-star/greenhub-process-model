@@ -1,0 +1,36 @@
+{
+  "series": [
+    {
+      "label": "Electricity",
+      "series_id": "power",
+      "x": [
+        "C301",
+        "M501",
+        "S201",
+        "U101"
+      ],
+      "y": [
+        0.07431130822704594,
+        0.0003399020520606511,
+        0.928891352838074,
+        0.2790553737469889
+      ]
+    }
+  ],
+  "specification": {
+    "availability_status": "available",
+    "plot_id": "SYS-UNIT-POWER",
+    "process_area": "shared_utilities_and_supporting_operations",
+    "run_id": "8b7d4d8e2683458998b98d903d90716e",
+    "scenario": "F1/PR0/AD0/BG0/NR0",
+    "source_result_fields": [
+      "units.power"
+    ],
+    "title": "Unit electricity demand",
+    "warnings": [],
+    "x_axis_label": "Unit",
+    "x_unit": null,
+    "y_axis_label": "Electricity demand",
+    "y_unit": "kW"
+  }
+}

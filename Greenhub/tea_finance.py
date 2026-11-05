@@ -21,6 +21,8 @@ class TEAProductPrice:
     source_status: str = "user_input"
     source_title: str = ""
     source_url: str = ""
+    stable_identifier: str = ""
+    source_table_or_page: str = ""
     notes: str = ""
     basis: str = "as-sold product; no dry-matter conversion inferred"
     geography: str = "unspecified"
@@ -29,6 +31,9 @@ class TEAProductPrice:
     source_table_or_page: str = ""
     retrieval_date: str | None = None
     evidence_class: str = "explicit_user_assumption"
+    quality_class: str = "E"
+    source_quality_class: str = "E"
+    quality_rationale: str = ""
     applicability: str = "Unverified product quality; screening only."
     conversion_method: str = "none"
     uncertainty: str = "unquantified"
@@ -57,6 +62,10 @@ class TEAProductPrice:
             )
         if not self.source_status:
             raise ValueError("A product price requires source_status for traceability.")
+        if self.quality_class not in {"A", "B", "C", "D", "E"}:
+            raise ValueError("quality_class must be A, B, C, D, or E.")
+        if self.source_quality_class not in {"A", "B", "C", "D", "E"}:
+            raise ValueError("source_quality_class must be A, B, C, D, or E.")
         if self.quality_basis not in {"screening_assumption", "matched_specification"}:
             raise ValueError("quality_basis must be screening_assumption or matched_specification.")
         if self.quality_basis == "matched_specification" and not self.quality_requirements:

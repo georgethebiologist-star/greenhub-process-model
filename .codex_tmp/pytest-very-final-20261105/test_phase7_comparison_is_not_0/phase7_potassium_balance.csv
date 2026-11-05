@@ -1,0 +1,9 @@
+location,direction,element,flow_kg_hr
+complete Phase 7 boundary,input,potassium,0.2522834951238158
+nutrient_rich_digestate_solids,output,potassium,0.004244905133745838
+struvite_product,output,potassium,0.0001649531176462329
+ammonium_salt_product,output,potassium,0.0
+nitrogen_depleted_liquor,output,potassium,0.24787363687242378
+phase7_wastewater,output,potassium,0.0
+phase7_offgas,output,potassium,0.0
+balance residual,residual,potassium,0.0

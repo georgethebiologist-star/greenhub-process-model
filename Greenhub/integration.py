@@ -365,6 +365,7 @@ def create_integrated_greenhub_system(
     feed_preparation_scenario_id: str | None = None,
     selected_month: str | None = None,
     process_order: str | None = None,
+    feed_composition: Mapping[str, float] | None = None,
     workbook_path: Path = INPUT_WORKBOOK_PATH,
     parameter_overrides: Mapping[str, object] | None = None,
     biostimulant_route: Mapping[str, object] | None = None,
@@ -375,6 +376,11 @@ def create_integrated_greenhub_system(
     Historical workbook IDs remain unchanged. The longer argument names are
     intentional user-facing aliases for the old phase-numbered arguments.
     """
+
+    if feed_preparation_scenario_id is not None and feed_preparation_scenario_id not in {"F0", "F1"}:
+        raise ValueError(
+            "front-end scenario must be F0 or F1; PEF scenarios F2/F3 are retired."
+        )
 
     legacy_model = create_phase7_scenario(
         scenario_id,
@@ -389,4 +395,16 @@ def create_integrated_greenhub_system(
         biostimulant_route=biostimulant_route,
         input_bundle=input_bundle,
     )
+    if feed_composition is not None:
+        feed = legacy_model.streams["feed"]
+        total_fraction = sum(float(value) for value in feed_composition.values())
+        if total_fraction <= 0.0:
+            raise ValueError("feed_composition must contain a positive wet-mass total.")
+        feed_rate = float(feed.F_mass)
+        unknown = set(feed_composition) - set(feed.chemicals.IDs)
+        if unknown:
+            raise ValueError("feed_composition contains unknown compounds: " + ", ".join(sorted(unknown)))
+        feed.empty()
+        for component, fraction in feed_composition.items():
+            feed.imass[component] = feed_rate * float(fraction) / total_fraction
     return IntegratedGreenHubModel(legacy_model, source_workbook_path=workbook_path)

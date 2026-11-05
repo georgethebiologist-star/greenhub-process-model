@@ -1,0 +1,37 @@
+category,item,scenario,status,requirement_or_action
+dewatering,dewatering_capacity_kg_hr,All,missing_optional_value,Leave blank until vendor data are available.
+drying,dryer_capacity_kg_hr,All,missing_optional_value,Leave blank until vendor data are available.
+drying,specific_heat_demand_kj_per_kg_water,All,missing_optional_value,Blank because thermodynamic mode is selected; do not combine both methods.
+neutralization,base_dose_kg_per_m3,All,missing_optional_value,Blank in stoichiometric mode.
+precipitation_kinetics,heat_coagulation_rate_constant_per_min,All,missing_optional_value,Blank in direct-yield mode; required only for first-order mode.
+precipitation_kinetics,precipitation_activation_energy_kj_per_mol,All,missing_optional_value,Blank unless literature-supported or fitted.
+precipitation_kinetics,precipitation_rate_constant_per_min,All,missing_optional_value,Blank in direct-yield mode; required only for first-order mode.
+protein_feed,buffer_capacity_mol_H_per_L_pH,All,missing_optional_value,Leave blank unless measured or fitted.
+protein_feed,feed_alkalinity_mg_caco3_L,All,missing_optional_value,Leave blank unless measured; required only for acid-equivalent acid demand.
+protein_separation,protein_separator_capacity_m3_hr,All,missing_optional_value,Leave blank until vendor data are available.
+protein_separation,protein_separator_solids_capacity_kg_hr,All,missing_optional_value,Leave blank until vendor data are available.
+inactive_alternative,glucose conversion,PR4,required_before_activation,Architecture reserved; no fermentation performance is assumed in Phase 4.
+inactive_alternative,lactic-acid yield,PR4,required_before_activation,Architecture reserved; no fermentation performance is assumed in Phase 4.
+inactive_alternative,fermentation kinetics,PR4,required_before_activation,Architecture reserved; no fermentation performance is assumed in Phase 4.
+inactive_alternative,biomass yield,PR4,required_before_activation,Architecture reserved; no fermentation performance is assumed in Phase 4.
+inactive_alternative,CO2 dissolution efficiency,PR5,required_before_activation,Architecture reserved; gas-liquid transfer and pH data are not available.
+inactive_alternative,mass-transfer coefficient,PR5,required_before_activation,Architecture reserved; gas-liquid transfer and pH data are not available.
+inactive_alternative,pressure,PR5,required_before_activation,Architecture reserved; gas-liquid transfer and pH data are not available.
+inactive_alternative,CO2 titration curve,PR5,required_before_activation,Architecture reserved; gas-liquid transfer and pH data are not available.
+inactive_alternative,membrane flux,PR6,required_before_activation,Architecture reserved; membrane design and retention data are not available.
+inactive_alternative,retention matrix,PR6,required_before_activation,Architecture reserved; membrane design and retention data are not available.
+inactive_alternative,TMP,PR6,required_before_activation,Architecture reserved; membrane design and retention data are not available.
+inactive_alternative,fouling factor,PR6,required_before_activation,Architecture reserved; membrane design and retention data are not available.
+inactive_alternative,cleaning cycle,PR6,required_before_activation,Architecture reserved; membrane design and retention data are not available.
+inactive_alternative,"full-plant run: explicit TUF/LNF/MEUF selection, positive flux, and evidence notes for flux and retention matrix",PR7,required_before_activation,"Clarified-juice phytohormone-enriched product route with selectable tight UF, loose NF, or MEUF screening membranes; no fermentation unit is included."
+inactive_alternative,complete component retention for every nonzero component in the selected clarified-juice feed; source-noted per-component values where the class matrix does not apply,PR7,required_before_activation,"Clarified-juice phytohormone-enriched product route with selectable tight UF, loose NF, or MEUF screening membranes; no fermentation unit is included."
+inactive_alternative,monthly seasonal PR7 integration is implemented; verify full-year coverage and active-month throughput for each selected feed schedule,PR7,required_before_activation,"Clarified-juice phytohormone-enriched product route with selectable tight UF, loose NF, or MEUF screening membranes; no fermentation unit is included."
+inactive_alternative,AD2 bypasses Phase 4 and cannot follow PR7; use AD0 for no digestion or AD1/AD3 for post-membrane digestion,PR7,required_before_activation,"Clarified-juice phytohormone-enriched product route with selectable tight UF, loose NF, or MEUF screening membranes; no fermentation unit is included."
+inactive_alternative,measured hormone pools in feed composition before claiming full-plant hormone recovery (screening benchmarks do not populate the plant feed),PR7,required_before_activation,"Clarified-juice phytohormone-enriched product route with selectable tight UF, loose NF, or MEUF screening membranes; no fermentation unit is included."
+inactive_alternative,"validated membrane energy, CIP, replacement, and installation data before complete PR7 energy/CAPEX/OPEX reporting",PR7,required_before_activation,"Clarified-juice phytohormone-enriched product route with selectable tight UF, loose NF, or MEUF screening membranes; no fermentation unit is included."
+inactive_alternative,"validated product specification, retentate volume basis, and price before PR7 product revenue is reported",PR7,required_before_activation,"Clarified-juice phytohormone-enriched product route with selectable tight UF, loose NF, or MEUF screening membranes; no fermentation unit is included."
+inactive_alternative,"MEUF-specific surfactant inventory, recovery, and residual handling before MEUF utility/economic claims",PR7,required_before_activation,"Clarified-juice phytohormone-enriched product route with selectable tight UF, loose NF, or MEUF screening membranes; no fermentation unit is included."
+inactive_alternative,project validation of user-supplied screening sources and operating assumptions,PR7,required_before_activation,"Clarified-juice phytohormone-enriched product route with selectable tight UF, loose NF, or MEUF screening membranes; no fermentation unit is included."
+equipment_costing,Phase 4 custom-unit CAPEX,PR3,not_available,Obtain vendor quotes or approved project-specific correlations.
+drying,Air flow and humidity,PR3,not_modelled,Add psychrometric data before detailed dryer design.
+product_quality,External classification criteria,PR3,not_available,"Add legal, microbiological, contaminant, and compositional criteria before classification."

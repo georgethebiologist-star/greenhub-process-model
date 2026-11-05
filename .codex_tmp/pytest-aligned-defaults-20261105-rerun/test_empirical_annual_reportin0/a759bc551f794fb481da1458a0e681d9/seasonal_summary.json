@@ -1,0 +1,70 @@
+{
+  "active_process_operating_hours": 5160.0,
+  "average_inventory_kg": 2.699332877288774e-10,
+  "average_throughput_kg_hr": 5813.953488372093,
+  "element_residuals_kg": {
+    "calcium": 0.0,
+    "carbon": 1.652011860642233e-13,
+    "chloride": 1.652011860642233e-13,
+    "hydrogen": -3.035438567167148e-11,
+    "magnesium": 0.0,
+    "nitrogen": 0.0,
+    "oxygen": -1.5279510989785194e-10,
+    "phosphorus": -5.162537064506978e-14,
+    "potassium": -7.194245199571014e-14,
+    "sodium": 1.652011860642233e-13,
+    "sulfur": 3.3573144264664734e-13
+  },
+  "equipment_capacity_scale_factor": 4.7551635284779925,
+  "equipment_scale_design_peak_kg_hr": 9416.16540292672,
+  "final_inventory_kg": 7.109793257509336e-10,
+  "incoming_residence_net_loss_kg": 0.0,
+  "initial_inventory_kg": 0.0,
+  "missing_data_warning_count": 15,
+  "peak_inventory_kg": 7.777808463701996e-10,
+  "peak_throughput_kg_hr": 9416.16540292672,
+  "pr7_feed_volume_m3_year": 0.0,
+  "pr7_maximum_peak_membrane_area_m2": 0.0,
+  "pr7_minimum_peak_membrane_area_m2": 0.0,
+  "pr7_peak_membrane_area_m2": 0.0,
+  "pr7_unresolved_component_ids": [],
+  "pr7_unresolved_mass_kg_year": 0.0,
+  "process_mass_residual_kg": -0.00021361231119954027,
+  "processing_delay_days": 14,
+  "processing_end_date": "2026-11-29",
+  "processing_start_date": "2026-04-29",
+  "scheduled_operating_hours": 5160.0,
+  "storage_mass_residual_kg": 4.985782405047102e-10,
+  "total_biomass_available_kg": 30000000.0,
+  "total_biomass_collected_kg": 29999999.999999996,
+  "total_biomass_processed_kg": 29999999.999999996,
+  "total_biomass_uncollected_kg": 2.735760062932968e-09,
+  "total_degradation_kg": 0.0,
+  "total_overflow_kg": 0.0,
+  "total_products_kg": {
+    "ammonium_product": 111451.091209612,
+    "biomethane": 6961.1182185706475,
+    "dry_protein_product": 66765.23540655257,
+    "nutrient_rich_solids": 56458.73099305765,
+    "phosphorus_product": 1131.524545379482
+  },
+  "total_utilities": {
+    "cooling_kwh": 389069.01659820764,
+    "electricity_kwh": 281163.4625321137,
+    "heating_kwh": 1189742.8567760224
+  },
+  "unit_utilization": {
+    "C301": {
+      "average": 0.05492091148754065,
+      "peak": 0.09781699313783163
+    },
+    "S201": {
+      "average": 0.555134014557857,
+      "peak": 0.9887224851485152
+    },
+    "U101": {
+      "average": 0.5559068863428707,
+      "peak": 0.9900990099009901
+    }
+  }
+}

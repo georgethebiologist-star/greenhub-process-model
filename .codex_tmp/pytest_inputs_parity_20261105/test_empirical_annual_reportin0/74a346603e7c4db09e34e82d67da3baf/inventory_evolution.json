@@ -1,0 +1,85 @@
+[
+  {
+    "average_kg": 8345720.953481815,
+    "degradation_kg": 0.0,
+    "final_kg": 19704423.88679695,
+    "initial_kg": 0.0,
+    "inventory_id": "biomass_storage",
+    "peak_kg": 19704423.88679695,
+    "status": "calculated_from_seasonal_storage_inventory",
+    "timeline": [
+      {
+        "degradation_kg": 0.0,
+        "inventory_kg": 0.0,
+        "overflow_kg": 0.0,
+        "time": "2026-01"
+      },
+      {
+        "degradation_kg": 0.0,
+        "inventory_kg": 0.0,
+        "overflow_kg": 0.0,
+        "time": "2026-02"
+      },
+      {
+        "degradation_kg": 0.0,
+        "inventory_kg": 0.0,
+        "overflow_kg": 0.0,
+        "time": "2026-03"
+      },
+      {
+        "degradation_kg": 0.0,
+        "inventory_kg": 0.0,
+        "overflow_kg": 0.0,
+        "time": "2026-04"
+      },
+      {
+        "degradation_kg": 0.0,
+        "inventory_kg": 443231.58995147754,
+        "overflow_kg": 0.0,
+        "time": "2026-05"
+      },
+      {
+        "degradation_kg": 0.0,
+        "inventory_kg": 2877956.6193989534,
+        "overflow_kg": 0.0,
+        "time": "2026-06"
+      },
+      {
+        "degradation_kg": 0.0,
+        "inventory_kg": 7543190.782881102,
+        "overflow_kg": 0.0,
+        "time": "2026-07"
+      },
+      {
+        "degradation_kg": 0.0,
+        "inventory_kg": 13060817.842658581,
+        "overflow_kg": 0.0,
+        "time": "2026-08"
+      },
+      {
+        "degradation_kg": 0.0,
+        "inventory_kg": 17319166.05976082,
+        "overflow_kg": 0.0,
+        "time": "2026-09"
+      },
+      {
+        "degradation_kg": 0.0,
+        "inventory_kg": 19495440.773536935,
+        "overflow_kg": 0.0,
+        "time": "2026-10"
+      },
+      {
+        "degradation_kg": 0.0,
+        "inventory_kg": 19704423.88679695,
+        "overflow_kg": 0.0,
+        "time": "2026-11"
+      },
+      {
+        "degradation_kg": 0.0,
+        "inventory_kg": 19704423.88679695,
+        "overflow_kg": 0.0,
+        "time": "2026-12"
+      }
+    ]
+  }
+]

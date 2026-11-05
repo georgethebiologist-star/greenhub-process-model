@@ -76,7 +76,9 @@ def pareto_front(samples,x,y,*,require_technical_eligibility=True):
                    if isinstance(sample.get('outputs', {}).get('objectives', {}).get(x, {}), dict)), {})
     y_meta = next((sample.get('outputs', {}).get('objectives', {}).get(y, {}) for sample in samples
                    if isinstance(sample.get('outputs', {}).get('objectives', {}).get(y, {}), dict)), {})
-    return {'label':'Pareto among sampled scenarios','x_objective':x,'y_objective':y,
+    label = ('Pareto among sampled feasible scenarios' if require_technical_eligibility
+             else 'Pareto among sampled scenarios (technical eligibility not required)')
+    return {'label':label,'x_objective':x,'y_objective':y,
             'objective_metadata':{
                 'x': {'direction': x_meta.get('direction'), 'unit': x_meta.get('unit'), 'definition': x_meta.get('definition')},
                 'y': {'direction': y_meta.get('direction'), 'unit': y_meta.get('unit'), 'definition': y_meta.get('definition')},
@@ -119,7 +121,9 @@ def pareto_front_3d(samples, objectives, *, require_technical_eligibility=False)
         if not any(all(other[2][i] <= score[i] for i in range(3)) and any(other[2][i] < score[i] for i in range(3))
                    for other in candidates if other is not candidate):
             front.append(point)
-    return {'label':'Three-objective Pareto among sampled scenarios','objectives':list(objectives),
+    label = ('Three-objective Pareto among sampled feasible scenarios' if require_technical_eligibility
+             else 'Three-objective Pareto among sampled scenarios (technical eligibility not required)')
+    return {'label':label,'objectives':list(objectives),
             'objective_metadata':metadata,'points':front,'eligible_points':all_points,
             'excluded':excluded,'technical_gate_required':require_technical_eligibility,
             'note':'Point set is sample-bounded; rows retain unprofitable scenarios. Technical/evidence eligibility is reported per point.'}

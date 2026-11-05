@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import replace
 from datetime import datetime, timezone
 from pathlib import Path
+from threading import RLock
 
 from Greenhub.integration import create_integrated_greenhub_system
 from Greenhub.state_engine import build_state_outputs
@@ -35,6 +36,12 @@ from .run_repository import RunRepository
 from .scenario_service import ScenarioService
 from .seasonal_service import SeasonalSimulationService
 from Greenhub.time_grid import generate_time_grid
+
+
+# BioSTEAM maintains process-global settings and flowsheet registries. Protect
+# the complete model build/simulate/report section across service instances and
+# background batch workers, while leaving HTTP reads and post-route reports free.
+_BIOSTEAM_EXECUTION_LOCK = RLock()
 
 
 class SimulationService:
@@ -157,6 +164,10 @@ class SimulationService:
         return context.run_id
 
     def execute_run(self, run_id: str) -> SimulationResult:
+        with _BIOSTEAM_EXECUTION_LOCK:
+            return self._execute_run_with_biosteam_exclusive(run_id)
+
+    def _execute_run_with_biosteam_exclusive(self, run_id: str) -> SimulationResult:
         context = self.repository.get(run_id)
         if context.state not in {RunState.RESOLVING_PARAMETERS}:
             raise RunStateError(f"Run '{run_id}' cannot execute from state '{context.state.value}'.")

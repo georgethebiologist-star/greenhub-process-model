@@ -1,0 +1,52 @@
+{
+  "series": [
+    {
+      "label": "Inventory Remaining Kg",
+      "series_id": "inventory_remaining_kg",
+      "x": [
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09",
+        "2026-10",
+        "2026-11",
+        "2026-12"
+      ],
+      "y": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        7.777808463701996e-10,
+        6.326437392958618e-10,
+        4.0681621557859996e-10,
+        7.109793257509336e-10,
+        7.109793257509336e-10
+      ]
+    }
+  ],
+  "specification": {
+    "availability_status": "available",
+    "plot_id": "SEASONAL-INVENTORY",
+    "process_area": "feedstock_and_characterization",
+    "run_id": "d00ec50a16524bf793f1cf9e8e644638",
+    "scenario": "F1/PR3/AD1/BG2/NR4",
+    "source_result_fields": [
+      "storage_inventory_series.inventory_remaining_kg"
+    ],
+    "title": "Storage inventory",
+    "warnings": [],
+    "x_axis_label": "Time",
+    "x_unit": null,
+    "y_axis_label": "Wet inventory",
+    "y_unit": "kg"
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "dataset_id": "urn:greenhub:dataset:greenhub-economic-defaults-v1",
+  "title": "GreenHub UI economic and environmental screening defaults",
+  "version": "1.0.0",
+  "basis": {
+    "currency": "EUR",
+    "price_year": 2026,
+    "geography": "Netherlands",
+    "evidence_class": "E",
+    "evidence_class_definition": "Explicit screening assumption or user-supplied default; not an awarded subsidy or site-specific quote.",
+    "source_status": "user_screening_assumption",
+    "retrieval_date": "2026-11-05",
+    "uncertainty": "No probability distributions unless a separate range is supplied; values are editable in Configure.",
+    "runtime_policy": "UI defaults only. The UI sends explicit overrides to post-route TEA/LCA; these values do not change process chemistry or balances."
+  },
+  "economics": {
+    "staffingPeople": 5,
+    "paidHoursPerPerson": 1500,
+    "laborCostEurPerHour": 47.9,
+    "electricityCostEurMWh": 203.0,
+    "heatCostEurMWh": 79.3,
+    "coolingCostEurMWh": null,
+    "logisticsCostEurTkm": 0,
+    "logisticsDistanceKm": 0,
+    "projectLifetimeYears": 20,
+    "discountRate": 0.08,
+    "taxRate": 0.258,
+    "workingCapitalEur": 0,
+    "residualValueEur": 0,
+    "capexGrantFraction": 0,
+    "grassUtilizationBonusEurPerT": 0,
+    "grassUtilizationBonusYears": 20,
+    "biomethaneBonusEnabled": false,
+    "biomethaneBonusEurM3": 1.87,
+    "biomethaneBonusYears": 15,
+    "additionalBenefitEurYear": 0,
+    "additionalBenefitYears": 0
+  },
+  "input_evidence": {
+    "electricityCostEurMWh": {
+      "quality_class": "B",
+      "source_quality_class": "B",
+      "source_status": "official_statistic",
+      "source_title": "CBS end-user prices for natural gas and electricity",
+      "stable_identifier": "CBS-85666NED",
+      "source_url": "https://www.cbs.nl/nl-nl/cijfers/detail/85666NED",
+      "source_location": "2026 first half; electricity, non-household 500–2,000 MWh/year; total price excluding VAT and including taxes",
+      "geography": "Netherlands",
+      "reference_year": 2026,
+      "reference_period": "2026 first half",
+      "retrieval_date": "2026-11-05",
+      "basis": "CBS reports €0.203/kWh for the matching non-household consumption band. Converted to €203/MWh by multiplying by 1,000. Total price is the sum of supply and network prices.",
+      "applicability": "Dutch non-household national average, not a site-specific tariff or supplier contract. The 2026 first-half value is provisional and includes taxes other than VAT; the selected consumption band is 500–2,000 MWh/year.",
+      "uncertainty": "CBS provisional half-year average; no statistical interval supplied. Contract structure, load profile, exemptions, and actual plant consumption band may differ."
+    }
+  },
+  "product_prices": {
+    "dry_protein_product": {"value_eur_per_unit": 1.6, "unit": "EUR/kg", "source_file": "Greenhub/data/tea/netherlands_industrial_product_price_benchmarks.csv", "basis": "UI dry-protein screening value; only a benchmark analogue, not a grass-protein quote or sale contract."},
+    "biostimulant_product": {"value_eur_per_unit": 2.5, "unit": "EUR/L", "source_file": "Greenhub/data/tea/netherlands_industrial_product_price_benchmarks.csv", "basis": "UI screening assumption; product quality, registration and buyer grade are unverified."},
+    "biomethane": {"value_eur_per_unit": 0.88, "unit": "EUR/m3", "source_file": "Greenhub/data/tea/netherlands_industrial_product_price_benchmarks.csv", "basis": "UI screening value; upgrading specification, contract and volume basis require verification."},
+    "phosphorus_product": {"value_eur_per_unit": 0.552, "unit": "EUR/kg", "source_file": "Greenhub/data/tea/netherlands_industrial_product_price_benchmarks.csv", "basis": "UI screening value for phosphorus product; purity and saleable grade unverified."},
+    "ammonium_product": {"value_eur_per_unit": 0.30774, "unit": "EUR/kg", "source_file": "Greenhub/data/tea/netherlands_industrial_product_price_benchmarks.csv", "basis": "UI screening value for ammonium product; concentration/specification and market unverified."},
+    "potassium_concentrate": {"value_eur_per_unit": 0.45, "unit": "EUR/kg", "source_file": "Greenhub/data/tea/netherlands_industrial_product_price_benchmarks.csv", "basis": "UI screening value; concentration/specification and buyer grade unverified."},
+    "press_cake": {"value_eur_per_unit": 0.065, "unit": "EUR/kg", "source_file": "Greenhub/data/tea/netherlands_industrial_product_price_benchmarks.csv", "basis": "UI screening value for press cake; end use, moisture, contamination and gate fee status unverified."},
+    "nutrient_rich_solids": {"value_eur_per_unit": 0.04, "unit": "EUR/kg", "source_file": "Greenhub/data/tea/netherlands_industrial_product_price_benchmarks.csv", "basis": "UI screening value; nutrient specification and fertilizer-product status unverified."}
+  },
+  "environment": {
+    "electricityKgCo2eKwh": {"value": 0.406463, "unit": "kg CO2e/kWh", "evidence_class": "B", "geography": "Netherlands", "reference_year": 2021, "source_urls": ["https://doi.org/10.2905/JRC.4800KC0", "https://data.europa.eu/89h/919df040-0252-4e4e-ad82-c054896e1641"], "source_file": "Greenhub/data/lca/source_data/JRC_electricity_emission_factors_2024.xlsx", "source_table_page": "Table3_EU_LC, Netherlands row, 2021 column", "retrieval_date": "2026-11-05", "basis": "JRC life-cycle electricity factor 0.406463 t CO2e/MWh, converted numerically to 0.406463 kg CO2e/kWh; includes upstream electricity supply-chain emissions.", "applicability": "National Netherlands consumption mix; appropriate as a lifecycle grid factor, not a site-specific supplier factor. Published time series ends in 2021.", "conversion_method": "1 t/MWh = 1 kg/kWh", "uncertainty": "Dataset point estimate; no probability distribution imposed. Do not interpret year-to-year variation as a confidence interval."},
+    "heatKgCo2eKwh": {"value": 0.111456, "unit": "kg CO2e/kWh", "evidence_class": "B", "geography": "Netherlands", "reference_year": 2022, "source_urls": ["https://cedelft.eu/publications/chain-emissions-for-heat-grids-in-2022-and-2030/"], "source_table_page": "CE Delft publication summary, end-user total heat factor for 2022", "retrieval_date": "2026-11-05", "basis": "CE Delft reports 30.96 kg CO2e/GJ total end-user heat factor for Dutch heat grids in 2022 (direct emissions plus supply-chain emissions); converted using 1 GJ = 277.7778 kWh.", "applicability": "Dutch average heat-grid factor based on reported 2022 heat-source deployment; not a site- or supplier-specific network factor.", "conversion_method": "30.96 kg CO2e/GJ ÷ 277.7778 kWh/GJ = 0.111456 kg CO2e/kWh", "uncertainty": "Published national average; source page does not provide a probability distribution. Do not treat this point estimate as site-specific."}
+  },
+  "grass_utilization_bonus": {
+    "minimum_eur_per_wet_tonne": 0,
+    "maximum_eur_per_wet_tonne": 50,
+    "test_levels_eur_per_wet_tonne": [0, 10, 20, 30, 40, 50],
+    "default_eur_per_wet_tonne": 0,
+    "default_duration_years": 20,
+    "label": "Grass utilization / logistics bonus",
+    "status": "User-defined scenario assumption; not an awarded subsidy.",
+    "applicability": "Applied post-route to annual wet grass tonnes actually processed, with no changes to process state, balances, product yields or emissions.",
+    "source": "User-provided range in project instructions; no public programme eligibility or award is asserted."
+  }
+}

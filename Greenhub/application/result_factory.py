@@ -208,6 +208,18 @@ def build_parameter_results(resolved) -> tuple[ParameterResolutionResult, ...]:
                 item.source,
                 item.selection_reason,
                 item.warnings,
+                quality_class=selected.quality_class if selected else None,
+                evidence_class=selected.evidence_class if selected else None,
+                source_title=selected.source_title if selected else None,
+                stable_identifier=selected.stable_identifier if selected else None,
+                source_url=(
+                    f"https://doi.org/{selected.stable_identifier}"
+                    if selected and selected.stable_identifier and selected.stable_identifier.startswith("10.")
+                    else None
+                ),
+                exact_source_location=selected.exact_source_location if selected else None,
+                basis=selected.basis if selected else None,
+                uncertainty=selected.uncertainty if selected else None,
             )
         )
     return tuple(results)

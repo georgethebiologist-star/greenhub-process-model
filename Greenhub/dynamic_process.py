@@ -1306,6 +1306,7 @@ def _evidence_trace(row: DynamicUnitEvidence) -> dict[str, object]:
         "source_id": row.source_id,
         "source_title": row.source_title,
         "doi_or_url": row.doi_or_url,
+        "source_location": row.source_location,
         "original_material": row.original_material,
         "original_process_boundary": row.original_process_boundary,
         "warning": "Not a validated GreenHub measurement" if "proxy" in row.evidence_class else "",

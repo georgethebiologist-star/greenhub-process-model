@@ -1,0 +1,4 @@
+record_id,canonical_field,value,unit,time_label,start_date,end_date,sample_id,sample_location,feedstock,material_state,measurement_method,lab_reference,source_id,measured_date,data_status,notes
+EXAMPLE,ash_dry_basis,,kg/kg dry matter,YYYY-MM,,,,,,,,LAB,SOURCE,,example_do_not_use,template only
+ASH-06,ash_dry_basis,0.2,kg/kg dry matter,2026-06,,,S-06,intake,roadside grass,fresh,gravimetric,LAB-06,,2026-06-15,measured_project,validated result
+BAD-N,nitrogen_dry_basis,not-a-number,kg/kg dry matter,2026-06,,,,,,,,,,,measured_project,invalid result

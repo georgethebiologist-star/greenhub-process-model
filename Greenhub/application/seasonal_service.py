@@ -124,13 +124,37 @@ def _biomass_schedule_operating_hours(
     season_end = date.fromisoformat(config.season_end) + delay
     active_start = max(date.fromisoformat(step.start_date), season_start)
     active_end = min(date.fromisoformat(step.end_date), season_end)
-    active_days = max(0, (active_end-active_start).days+1)
-    if not active_days:
+    if active_end < active_start:
         return 0.0
-    if request.operating_schedule is None:
-        return active_days*24.0
-    active_step = TimeGridStep(step.index, active_start.isoformat(), active_end.isoformat(), step.label, active_days, active_days*24.0)
-    return calculate_operating_hours(active_step, request.operating_schedule, workbook_days)
+    active_months = set(config.active_months)
+    eligible_days = [
+        current for current in _dates(active_start, active_end)
+        if current.month in active_months
+    ]
+    if not eligible_days:
+        return 0.0
+    # Sum contiguous active-month windows separately, preserving shutdown-date,
+    # weekday, and workbook-proration behavior in the shared schedule resolver.
+    windows: list[tuple[date, date]] = []
+    window_start = window_end = eligible_days[0]
+    for current in eligible_days[1:]:
+        if (current - window_end).days == 1:
+            window_end = current
+        else:
+            windows.append((window_start, window_end))
+            window_start = window_end = current
+    windows.append((window_start, window_end))
+    total_hours = 0.0
+    for start, end in windows:
+        duration_days = (end - start).days + 1
+        active_step = TimeGridStep(
+            step.index, start.isoformat(), end.isoformat(), step.label,
+            duration_days, duration_days * 24.0,
+        )
+        total_hours += calculate_operating_hours(
+            active_step, request.operating_schedule, workbook_days,
+        )
+    return total_hours
 
 
 class SeasonalSimulationService:

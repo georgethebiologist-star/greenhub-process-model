@@ -25,17 +25,57 @@ Design choices and assumptions
 
 Limitations and remaining gaps
 
-- No literature-derived degradation rates are supplied. Users must provide
-  `degradation_rate_per_day` for their scenarios or connect an external dataset.
-- This module is deliberately independent but has now been integrated as an opt-in
-  feature of the seasonal controller. To preserve backwards compatibility, the
-  seasonal controller will not apply degradation unless a resolved parameter
-  `seasonal.storage_degradation_rate_per_day` is supplied (via parameter overrides
-  or the parameter-resolution process). If that parameter is absent or blocked,
-  no degradation is applied and a clear limitation is recorded in the per-step
-  provenance.
-- Evaporation, dry-matter loss, chemical transformation, temperature dependence,
-  and weather response are out of scope in this initial slice.
+- The generic `component_retention` path has no validated default degradation
+  rate. The separate `grass_reactions` package contains 23 explicit reaction
+  rows, but its rate constants are assumed or indirectly transferred, not
+  validated roadside-grass kinetics. They remain quality E and opt-in; their
+  low/high values are scenario bounds, not confidence intervals. The FAIR
+  `Master_Inputs` sheet/catalog indexes every reaction and provenance record,
+  but is a generated read-only snapshot, not a runtime input source.
+- The seasonal controller has two mutually exclusive opt-in paths. If a request
+  supplies `storage_conditions`, that selected storage model is applied to arrivals
+  and carried inventory. In that case the scalar registry parameter
+  `seasonal.storage_degradation_rate_per_day` is not also applied (avoiding double
+  counting). If no `storage_conditions` are supplied, the scalar parameter can
+  apply a first-order wet-inventory loss; if it is absent or blocked, no such loss
+  is applied and the per-step result reports the limitation. Storage capacity is
+  independently optional and must be explicitly supplied to calculate overflow.
+- The opt-in package includes stoichiometric chemical transformations and
+  explicit temperature/moisture assumptions, but not a validated evaporation,
+  weather, leaching, or protein-quality model. Its Q10, moisture activity,
+  reaction rates, and some transformations remain assumptions; output
+  completeness flags must not be read as validation or complete emissions
+  accounting.
+- Published grass-silage studies provide useful contextual bounds, but do not
+  directly identify the GreenHub wet-inventory rate or roadside-grass reaction
+  constants. Williams et al. (1997; DOI
+  [10.1111/j.1365-2494.1997.tb02348.x](https://doi.org/10.1111/j.1365-2494.1997.tb02348.x))
+  estimated only 0.3% and 0.9% aerobic dry-matter loss over 120–150 days in two
+  carefully sealed ryegrass bunker silos. Rees (1982; DOI
+  [10.1002/jsfa.2740330602](https://doi.org/10.1002/jsfa.2740330602)) reported
+  laboratory relationships between temperature rise, duration/depth, and
+  aerobic grass-silage dry-matter loss. Neither result is a transferable
+  first-order loss constant for fresh roadside grass, and neither is used as a
+  GreenHub default. Storage capacity is likewise a project/equipment input, not
+  a literature constant. These two seasonal registry fields therefore remain
+  explicitly missing until a project value or a validated, basis-matched model
+  is supplied.
+
+## Evidence reviewed (2026-11-05)
+
+- Williams, A.G., Hoxey, R.P. & Lowe, J.F. (1997), “Changes in temperature and
+  silo gas composition during ensiling, storage and feeding-out grass silage,”
+  *Grass and Forage Science* 52(2), 176–189. DOI above. Evidence describes two
+  approximately 12 t ryegrass bunkers and explicitly notes that loss may be
+  lower than farm-silo losses because sealing was unusually thorough.
+- Rees, D.V.H. (1982), “The aerobic deterioration of grass silage and its effect
+  on the water-soluble carbohydrate and the associated heat production,”
+  *Journal of the Science of Food and Agriculture* 33(6). DOI above. The
+  reported lab equations depend on exposure/temperature geometry and are not
+  copied into the current storage model.
+- Evidence class for those publications is literature (B) as source records;
+  applicability to the present roadside-grass process is low. This distinction
+  does not upgrade the model's kinetic assumptions, which remain E.
 
 Provenance and traceability
 
@@ -56,7 +96,10 @@ print(step['inventory_kg'], step['provenance'])
 
 Next steps for v1.0
 
-- Add validated degradation-rate datasets with provenance (literature or pilot data).
+- Obtain roadside-grass storage time series (mass, DM, WSC, acids, protein-N,
+  methane/CO2/N losses) under defined moisture, temperature, packing, and oxygen
+  conditions; fit and validate pool-specific rates before replacing E-class
+  package values.
 - Decide whether the opt-in seasonal degradation hook should become part of the
   public seasonal workflow, API, or reporting surface.
 - Expand to include temperature- and moisture-dependence, and multi-pool

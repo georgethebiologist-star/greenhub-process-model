@@ -84,6 +84,15 @@ class ParameterResolutionResult:
     source: str | None
     selection_reason: str
     warnings: tuple[str, ...]
+    # Optional additive provenance fields; existing clients can ignore them.
+    quality_class: str | None = None
+    evidence_class: str | None = None
+    source_title: str | None = None
+    stable_identifier: str | None = None
+    source_url: str | None = None
+    exact_source_location: str | None = None
+    basis: str | None = None
+    uncertainty: object | None = None
 
 
 @dataclass(frozen=True)

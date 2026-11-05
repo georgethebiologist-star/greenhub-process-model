@@ -1,0 +1,32 @@
+[
+  {
+    "actual_load": 1.0,
+    "basis": "mass_t_h",
+    "maximum_load": 2000.0,
+    "parameter_id": "phase3.cleaning_capacity_t_per_h",
+    "time": "2026-07-01",
+    "unit": "kg/hr",
+    "unit_id": "U101",
+    "utilization": 0.0005
+  },
+  {
+    "actual_load": 0.9966999999999999,
+    "basis": "mass_t_h",
+    "maximum_load": 2000.0,
+    "parameter_id": "phase3.press_capacity_t_per_h",
+    "time": "2026-07-01",
+    "unit": "kg/hr",
+    "unit_id": "S201",
+    "utilization": 0.0004983499999999999
+  },
+  {
+    "actual_load": 0.0004836415621893283,
+    "basis": "volume_m3_h",
+    "maximum_load": 10.0,
+    "parameter_id": "phase3.centrifuge_capacity_m3_per_h",
+    "time": "2026-07-01",
+    "unit": "m3/hr",
+    "unit_id": "C301",
+    "utilization": 4.836415621893283e-05
+  }
+]

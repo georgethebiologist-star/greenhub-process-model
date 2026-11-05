@@ -1,0 +1,52 @@
+{
+  "series": [
+    {
+      "label": "Dry Protein Product",
+      "series_id": "dry_protein_product",
+      "x": [
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09",
+        "2026-10",
+        "2026-11",
+        "2026-12"
+      ],
+      "y": [
+        0.0,
+        0.0,
+        0.0,
+        159.29320158290952,
+        4297.971057589374,
+        8623.230957557404,
+        13694.070914550906,
+        15591.077993885274,
+        12681.718671444678,
+        8154.872128651348,
+        3563.0004812906777,
+        0.0
+      ]
+    }
+  ],
+  "specification": {
+    "availability_status": "available",
+    "plot_id": "SEASONAL-PROTEIN",
+    "process_area": "protein_recovery",
+    "run_id": "6e42a2f8e342458fab7b783ee39341e8",
+    "scenario": "F1/PR3/AD1/BG2/NR4",
+    "source_result_fields": [
+      "product_series.dry_protein_product"
+    ],
+    "title": "Protein production",
+    "warnings": [],
+    "x_axis_label": "Time",
+    "x_unit": null,
+    "y_axis_label": "Dry protein product",
+    "y_unit": "kg"
+  }
+}

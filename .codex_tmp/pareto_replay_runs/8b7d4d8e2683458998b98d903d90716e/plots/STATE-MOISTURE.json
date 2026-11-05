@@ -1,0 +1,69 @@
+{
+  "series": [
+    {
+      "label": "Inlet moisture",
+      "series_id": "inlet_moisture",
+      "x": [
+        "C301",
+        "H501",
+        "M403",
+        "M501",
+        "R501",
+        "S201",
+        "U101",
+        "V501"
+      ],
+      "y": [
+        0.9669949909326102,
+        0.9901530677540786,
+        0.9901530677540786,
+        0.9901530677540786,
+        0.9901530677540786,
+        0.8581931373369083,
+        0.8570000000000001,
+        0.9901530677540786
+      ]
+    },
+    {
+      "label": "Outlet moisture",
+      "series_id": "outlet_moisture",
+      "x": [
+        "C301",
+        "H501",
+        "M403",
+        "M501",
+        "R501",
+        "S201",
+        "U101",
+        "V501"
+      ],
+      "y": [
+        0.9901530677540786,
+        0.9901530677540786,
+        0.9901530677540786,
+        0.9901530677540786,
+        0.9901530677540786,
+        0.7493912837412059,
+        0.8581931373369083,
+        0.9901530677540786
+      ]
+    }
+  ],
+  "specification": {
+    "availability_status": "available",
+    "plot_id": "STATE-MOISTURE",
+    "process_area": "integrated_system",
+    "run_id": "8b7d4d8e2683458998b98d903d90716e",
+    "scenario": "F1/PR0/AD0/BG0/NR0",
+    "source_result_fields": [
+      "process_state_snapshots.moisture_fraction",
+      "process_state_snapshots.outlet_state.moisture_fraction"
+    ],
+    "title": "Process-state moisture transition",
+    "warnings": [],
+    "x_axis_label": "Unit",
+    "x_unit": null,
+    "y_axis_label": "Moisture fraction",
+    "y_unit": "fraction"
+  }
+}

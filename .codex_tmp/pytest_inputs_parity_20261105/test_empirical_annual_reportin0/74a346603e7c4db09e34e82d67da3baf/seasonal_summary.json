@@ -1,0 +1,70 @@
+{
+  "active_process_operating_hours": 5160.0,
+  "average_inventory_kg": 8345720.953481815,
+  "average_throughput_kg_hr": 1995.266688605241,
+  "element_residuals_kg": {
+    "calcium": 0.0,
+    "carbon": 0.0,
+    "chloride": 0.0,
+    "hydrogen": 4.229150363244116e-11,
+    "magnesium": 0.0,
+    "nitrogen": 0.0,
+    "oxygen": 3.383320290595293e-10,
+    "phosphorus": 0.0,
+    "potassium": 8.260059303211165e-14,
+    "sodium": -3.197442310920451e-13,
+    "sulfur": -4.076738946423575e-13
+  },
+  "equipment_capacity_scale_factor": 1.0,
+  "equipment_scale_design_peak_kg_hr": 799.7291164129543,
+  "final_inventory_kg": 19704423.88679695,
+  "incoming_residence_net_loss_kg": 0.0,
+  "initial_inventory_kg": 0.0,
+  "missing_data_warning_count": 15,
+  "peak_inventory_kg": 19704423.88679695,
+  "peak_throughput_kg_hr": 2000.0000000000002,
+  "pr7_feed_volume_m3_year": 0.0,
+  "pr7_maximum_peak_membrane_area_m2": 0.0,
+  "pr7_minimum_peak_membrane_area_m2": 0.0,
+  "pr7_peak_membrane_area_m2": 0.0,
+  "pr7_unresolved_component_ids": [],
+  "pr7_unresolved_mass_kg_year": 0.0,
+  "process_mass_residual_kg": -7.330813059525099e-05,
+  "processing_delay_days": 14,
+  "processing_end_date": "2026-11-29",
+  "processing_start_date": "2026-04-29",
+  "scheduled_operating_hours": 5160.0,
+  "storage_mass_residual_kg": -5.820766091346741e-11,
+  "total_biomass_available_kg": 30000000.0,
+  "total_biomass_collected_kg": 29999999.999999996,
+  "total_biomass_processed_kg": 10295576.113203043,
+  "total_biomass_uncollected_kg": 2.735760062932968e-09,
+  "total_degradation_kg": 0.0,
+  "total_overflow_kg": 0.0,
+  "total_products_kg": {
+    "ammonium_product": 38248.43974826987,
+    "biomethane": 2388.957415076616,
+    "dry_protein_product": 22912.88542813603,
+    "nutrient_rich_solids": 19375.83873979603,
+    "phosphorus_product": 388.32323603039777
+  },
+  "total_utilities": {
+    "cooling_kwh": 133522.98912253068,
+    "electricity_kwh": 96491.32762503634,
+    "heating_kwh": 413021.635635563
+  },
+  "unit_utilization": {
+    "C301": {
+      "average": 0.0956532856227396,
+      "peak": 0.09879516306920993
+    },
+    "S201": {
+      "average": 0.9668519879799726,
+      "peak": 0.9986097100000003
+    },
+    "U101": {
+      "average": 0.9681980640664635,
+      "peak": 1.0000000000000004
+    }
+  }
+}

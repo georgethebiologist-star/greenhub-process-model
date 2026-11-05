@@ -1,0 +1,398 @@
+[
+  {
+    "biomass_received_kg": 0.0,
+    "biomass_withdrawn_kg": 0.0,
+    "carried_inventory_reactions": null,
+    "degradation_loss_basis": "net decrease in carried wet inventory; exported mass minus external oxygen uptake",
+    "degradation_loss_kg": 0.0,
+    "degradation_provenance": {
+      "limitations": [
+        "degradation_not_implemented"
+      ],
+      "methods": [
+        {
+          "degradation": "not_implemented"
+        }
+      ],
+      "sources": []
+    },
+    "degradation_status": "not_implemented_no_eligible_data",
+    "dry_matter_loss_kg": null,
+    "exported_mass_kg": 0.0,
+    "external_oxygen_kg": 0.0,
+    "incoming_residence": null,
+    "inventory_entering_kg": 0.0,
+    "inventory_remaining_kg": 0.0,
+    "overflow_kg": 0.0,
+    "processed_feed_storage_age_h": null,
+    "raw_biomass_received_kg": 0.0,
+    "storage_age_h": 0.0,
+    "storage_mass_residual_kg": 0.0,
+    "time": "2026-01",
+    "unmet_process_demand_kg": 0.0,
+    "water_loss_kg": null
+  },
+  {
+    "biomass_received_kg": 0.0,
+    "biomass_withdrawn_kg": 0.0,
+    "carried_inventory_reactions": null,
+    "degradation_loss_basis": "net decrease in carried wet inventory; exported mass minus external oxygen uptake",
+    "degradation_loss_kg": 0.0,
+    "degradation_provenance": {
+      "limitations": [
+        "degradation_not_implemented"
+      ],
+      "methods": [
+        {
+          "degradation": "not_implemented"
+        }
+      ],
+      "sources": []
+    },
+    "degradation_status": "not_implemented_no_eligible_data",
+    "dry_matter_loss_kg": null,
+    "exported_mass_kg": 0.0,
+    "external_oxygen_kg": 0.0,
+    "incoming_residence": null,
+    "inventory_entering_kg": 0.0,
+    "inventory_remaining_kg": 0.0,
+    "overflow_kg": 0.0,
+    "processed_feed_storage_age_h": null,
+    "raw_biomass_received_kg": 0.0,
+    "storage_age_h": 0.0,
+    "storage_mass_residual_kg": 0.0,
+    "time": "2026-02",
+    "unmet_process_demand_kg": 0.0,
+    "water_loss_kg": null
+  },
+  {
+    "biomass_received_kg": 0.0,
+    "biomass_withdrawn_kg": 0.0,
+    "carried_inventory_reactions": null,
+    "degradation_loss_basis": "net decrease in carried wet inventory; exported mass minus external oxygen uptake",
+    "degradation_loss_kg": 0.0,
+    "degradation_provenance": {
+      "limitations": [
+        "degradation_not_implemented"
+      ],
+      "methods": [
+        {
+          "degradation": "not_implemented"
+        }
+      ],
+      "sources": []
+    },
+    "degradation_status": "not_implemented_no_eligible_data",
+    "dry_matter_loss_kg": null,
+    "exported_mass_kg": 0.0,
+    "external_oxygen_kg": 0.0,
+    "incoming_residence": null,
+    "inventory_entering_kg": 0.0,
+    "inventory_remaining_kg": 0.0,
+    "overflow_kg": 0.0,
+    "processed_feed_storage_age_h": null,
+    "raw_biomass_received_kg": 0.0,
+    "storage_age_h": 0.0,
+    "storage_mass_residual_kg": 0.0,
+    "time": "2026-03",
+    "unmet_process_demand_kg": 0.0,
+    "water_loss_kg": null
+  },
+  {
+    "biomass_received_kg": 71576.11320304393,
+    "biomass_withdrawn_kg": 71576.11320304393,
+    "carried_inventory_reactions": null,
+    "degradation_loss_basis": "net decrease in carried wet inventory; exported mass minus external oxygen uptake",
+    "degradation_loss_kg": 0.0,
+    "degradation_provenance": {
+      "limitations": [
+        "degradation_not_implemented"
+      ],
+      "methods": [
+        {
+          "degradation": "not_implemented"
+        }
+      ],
+      "sources": []
+    },
+    "degradation_status": "not_implemented_no_eligible_data",
+    "dry_matter_loss_kg": null,
+    "exported_mass_kg": 0.0,
+    "external_oxygen_kg": 0.0,
+    "incoming_residence": null,
+    "inventory_entering_kg": 0.0,
+    "inventory_remaining_kg": 0.0,
+    "overflow_kg": 0.0,
+    "processed_feed_storage_age_h": 0.0,
+    "raw_biomass_received_kg": 71576.11320304393,
+    "storage_age_h": 0.0,
+    "storage_mass_residual_kg": 0.0,
+    "time": "2026-04",
+    "unmet_process_demand_kg": 0.0,
+    "water_loss_kg": null
+  },
+  {
+    "biomass_received_kg": 1931231.5899514775,
+    "biomass_withdrawn_kg": 1488000.0,
+    "carried_inventory_reactions": null,
+    "degradation_loss_basis": "net decrease in carried wet inventory; exported mass minus external oxygen uptake",
+    "degradation_loss_kg": 0.0,
+    "degradation_provenance": {
+      "limitations": [
+        "degradation_not_implemented"
+      ],
+      "methods": [
+        {
+          "degradation": "not_implemented"
+        }
+      ],
+      "sources": []
+    },
+    "degradation_status": "not_implemented_no_eligible_data",
+    "dry_matter_loss_kg": null,
+    "exported_mass_kg": 0.0,
+    "external_oxygen_kg": 0.0,
+    "incoming_residence": null,
+    "inventory_entering_kg": 0.0,
+    "inventory_remaining_kg": 443231.58995147754,
+    "overflow_kg": 0.0,
+    "processed_feed_storage_age_h": 0.0,
+    "raw_biomass_received_kg": 1931231.5899514775,
+    "storage_age_h": 744.0,
+    "storage_mass_residual_kg": -5.820766091346741e-11,
+    "time": "2026-05",
+    "unmet_process_demand_kg": 443231.5899514775,
+    "water_loss_kg": null
+  },
+  {
+    "biomass_received_kg": 3874725.029447476,
+    "biomass_withdrawn_kg": 1440000.0,
+    "carried_inventory_reactions": null,
+    "degradation_loss_basis": "net decrease in carried wet inventory; exported mass minus external oxygen uptake",
+    "degradation_loss_kg": 0.0,
+    "degradation_provenance": {
+      "limitations": [
+        "degradation_not_implemented"
+      ],
+      "methods": [
+        {
+          "degradation": "not_implemented"
+        }
+      ],
+      "sources": []
+    },
+    "degradation_status": "not_implemented_no_eligible_data",
+    "dry_matter_loss_kg": null,
+    "exported_mass_kg": 0.0,
+    "external_oxygen_kg": 0.0,
+    "incoming_residence": null,
+    "inventory_entering_kg": 443231.58995147754,
+    "inventory_remaining_kg": 2877956.6193989534,
+    "overflow_kg": 0.0,
+    "processed_feed_storage_age_h": 76.370452968979,
+    "raw_biomass_received_kg": 3874725.029447476,
+    "storage_age_h": 796.3704529689791,
+    "storage_mass_residual_kg": 0.0,
+    "time": "2026-06",
+    "unmet_process_demand_kg": 2434725.029447476,
+    "water_loss_kg": null
+  },
+  {
+    "biomass_received_kg": 6153234.163482148,
+    "biomass_withdrawn_kg": 1487999.9999999998,
+    "carried_inventory_reactions": null,
+    "degradation_loss_basis": "net decrease in carried wet inventory; exported mass minus external oxygen uptake",
+    "degradation_loss_kg": 0.0,
+    "degradation_provenance": {
+      "limitations": [
+        "degradation_not_implemented"
+      ],
+      "methods": [
+        {
+          "degradation": "not_implemented"
+        }
+      ],
+      "sources": []
+    },
+    "degradation_status": "not_implemented_no_eligible_data",
+    "dry_matter_loss_kg": null,
+    "exported_mass_kg": 0.0,
+    "external_oxygen_kg": 0.0,
+    "incoming_residence": null,
+    "inventory_entering_kg": 2877956.6193989534,
+    "inventory_remaining_kg": 7543190.782881102,
+    "overflow_kg": 0.0,
+    "processed_feed_storage_age_h": 253.77823054742902,
+    "raw_biomass_received_kg": 6153234.163482148,
+    "storage_age_h": 997.778230547429,
+    "storage_mass_residual_kg": 0.0,
+    "time": "2026-07",
+    "unmet_process_demand_kg": 4665234.163482148,
+    "water_loss_kg": null
+  },
+  {
+    "biomass_received_kg": 7005627.05977748,
+    "biomass_withdrawn_kg": 1488000.0000000002,
+    "carried_inventory_reactions": null,
+    "degradation_loss_basis": "net decrease in carried wet inventory; exported mass minus external oxygen uptake",
+    "degradation_loss_kg": 0.0,
+    "degradation_provenance": {
+      "limitations": [
+        "degradation_not_implemented"
+      ],
+      "methods": [
+        {
+          "degradation": "not_implemented"
+        }
+      ],
+      "sources": []
+    },
+    "degradation_status": "not_implemented_no_eligible_data",
+    "dry_matter_loss_kg": null,
+    "exported_mass_kg": 0.0,
+    "external_oxygen_kg": 0.0,
+    "incoming_residence": null,
+    "inventory_entering_kg": 7543190.782881102,
+    "inventory_remaining_kg": 13060817.842658581,
+    "overflow_kg": 0.0,
+    "processed_feed_storage_age_h": 517.3225504244431,
+    "raw_biomass_received_kg": 7005627.05977748,
+    "storage_age_h": 1261.322550424443,
+    "storage_mass_residual_kg": 0.0,
+    "time": "2026-08",
+    "unmet_process_demand_kg": 5517627.059777479,
+    "water_loss_kg": null
+  },
+  {
+    "biomass_received_kg": 5698348.21710224,
+    "biomass_withdrawn_kg": 1440000.0,
+    "carried_inventory_reactions": null,
+    "degradation_loss_basis": "net decrease in carried wet inventory; exported mass minus external oxygen uptake",
+    "degradation_loss_kg": 0.0,
+    "degradation_provenance": {
+      "limitations": [
+        "degradation_not_implemented"
+      ],
+      "methods": [
+        {
+          "degradation": "not_implemented"
+        }
+      ],
+      "sources": []
+    },
+    "degradation_status": "not_implemented_no_eligible_data",
+    "dry_matter_loss_kg": null,
+    "exported_mass_kg": 0.0,
+    "external_oxygen_kg": 0.0,
+    "incoming_residence": null,
+    "inventory_entering_kg": 13060817.842658581,
+    "inventory_remaining_kg": 17319166.05976082,
+    "overflow_kg": 0.0,
+    "processed_feed_storage_age_h": 878.1789136814772,
+    "raw_biomass_received_kg": 5698348.21710224,
+    "storage_age_h": 1598.1789136814773,
+    "storage_mass_residual_kg": 0.0,
+    "time": "2026-09",
+    "unmet_process_demand_kg": 4258348.21710224,
+    "water_loss_kg": null
+  },
+  {
+    "biomass_received_kg": 3664274.713776116,
+    "biomass_withdrawn_kg": 1487999.9999999998,
+    "carried_inventory_reactions": null,
+    "degradation_loss_basis": "net decrease in carried wet inventory; exported mass minus external oxygen uptake",
+    "degradation_loss_kg": 0.0,
+    "degradation_provenance": {
+      "limitations": [
+        "degradation_not_implemented"
+      ],
+      "methods": [
+        {
+          "degradation": "not_implemented"
+        }
+      ],
+      "sources": []
+    },
+    "degradation_status": "not_implemented_no_eligible_data",
+    "dry_matter_loss_kg": null,
+    "exported_mass_kg": 0.0,
+    "external_oxygen_kg": 0.0,
+    "incoming_residence": null,
+    "inventory_entering_kg": 17319166.05976082,
+    "inventory_remaining_kg": 19495440.773536935,
+    "overflow_kg": 0.0,
+    "processed_feed_storage_age_h": 1319.0937700820223,
+    "raw_biomass_received_kg": 3664274.713776116,
+    "storage_age_h": 2063.0937700820223,
+    "storage_mass_residual_kg": 0.0,
+    "time": "2026-10",
+    "unmet_process_demand_kg": 2176274.7137761163,
+    "water_loss_kg": null
+  },
+  {
+    "biomass_received_kg": 1600983.1132600151,
+    "biomass_withdrawn_kg": 1392000.0000000002,
+    "carried_inventory_reactions": null,
+    "degradation_loss_basis": "net decrease in carried wet inventory; exported mass minus external oxygen uptake",
+    "degradation_loss_kg": 0.0,
+    "degradation_provenance": {
+      "limitations": [
+        "degradation_not_implemented"
+      ],
+      "methods": [
+        {
+          "degradation": "not_implemented"
+        }
+      ],
+      "sources": []
+    },
+    "degradation_status": "not_implemented_no_eligible_data",
+    "dry_matter_loss_kg": null,
+    "exported_mass_kg": 0.0,
+    "external_oxygen_kg": 0.0,
+    "incoming_residence": null,
+    "inventory_entering_kg": 19495440.773536935,
+    "inventory_remaining_kg": 19704423.88679695,
+    "overflow_kg": 0.0,
+    "processed_feed_storage_age_h": 1906.5279793728014,
+    "raw_biomass_received_kg": 1600983.1132600151,
+    "storage_age_h": 2626.5279793728014,
+    "storage_mass_residual_kg": 0.0,
+    "time": "2026-11",
+    "unmet_process_demand_kg": 208983.11326001468,
+    "water_loss_kg": null
+  },
+  {
+    "biomass_received_kg": 0.0,
+    "biomass_withdrawn_kg": 0.0,
+    "carried_inventory_reactions": null,
+    "degradation_loss_basis": "net decrease in carried wet inventory; exported mass minus external oxygen uptake",
+    "degradation_loss_kg": 0.0,
+    "degradation_provenance": {
+      "limitations": [
+        "degradation_not_implemented"
+      ],
+      "methods": [
+        {
+          "degradation": "not_implemented"
+        }
+      ],
+      "sources": []
+    },
+    "degradation_status": "not_implemented_no_eligible_data",
+    "dry_matter_loss_kg": null,
+    "exported_mass_kg": 0.0,
+    "external_oxygen_kg": 0.0,
+    "incoming_residence": null,
+    "inventory_entering_kg": 19704423.88679695,
+    "inventory_remaining_kg": 19704423.88679695,
+    "overflow_kg": 0.0,
+    "processed_feed_storage_age_h": null,
+    "raw_biomass_received_kg": 0.0,
+    "storage_age_h": 3370.5279793728014,
+    "storage_mass_residual_kg": 0.0,
+    "time": "2026-12",
+    "unmet_process_demand_kg": 0.0,
+    "water_loss_kg": null
+  }
+]

@@ -14,6 +14,7 @@ import {
   ProcessStream,
   ScenarioComparisonItem
 } from '../types';
+import previewParameterProfile from '../../../Greenhub/data/frontend/preview_parameter_defaults.json';
 
 export const PROCESS_AREAS: Record<string, ProcessAreaInfo> = {
   front_end: {
@@ -98,221 +99,7 @@ export const PROCESS_AREAS: Record<string, ProcessAreaInfo> = {
   }
 };
 
-export const DEFAULT_PARAMETERS: ParameterDefinition[] = [
-  // Basic Parameters
-  {
-    parameter_id: 'AD_organic_loading_rate',
-    name: 'AD Organic Loading Rate (OLR)',
-    category: 'basic',
-    process_area: 'anaerobic_digestion',
-    description: 'Volumetric organic load entering digester R301 (kg COD/m³/day). Higher OLR increases biogas production but requires careful HRT management.',
-    current_value: 3.5,
-    unit: 'kg COD/m³/d',
-    default_value: 3.5,
-    quality_class: 'A',
-    min_value: 1.0,
-    max_value: 8.0,
-    is_editable: true,
-    notes: 'Class A: Validated across 24 mesophilic digester trial runs.'
-  },
-  {
-    parameter_id: 'PR1_precipitation_recovery',
-    name: 'Protein Isoelectric Recovery Fraction',
-    category: 'basic',
-    process_area: 'protein_recovery',
-    description: 'Fraction of soluble protein precipitated at isoelectric point (pH 4.0 - 4.5). Directly controls protein product yield vs AD feed organics.',
-    current_value: 0.34,
-    unit: 'fraction',
-    default_value: 0.34,
-    quality_class: 'B',
-    min_value: 0.1,
-    max_value: 0.85,
-    is_editable: true,
-    notes: 'Class B: Empirical value from grass press juice literature (REC-001).'
-  },
-  {
-    parameter_id: 'S701_solid_capture_efficiency',
-    name: 'Digestate Solid Capture Efficiency',
-    category: 'basic',
-    process_area: 'nutrient_recovery',
-    description: 'Solid phase particulate capture efficiency across screw press / decanter centrifuge S701.',
-    current_value: 0.65,
-    unit: 'fraction',
-    default_value: 0.65,
-    quality_class: 'C',
-    min_value: 0.4,
-    max_value: 0.95,
-    is_editable: true,
-    notes: 'Class C: Estimated from pilot decanter trial with polymer flocculant.'
-  },
-  {
-    parameter_id: 'R711_struvite_conversion_P',
-    name: 'Struvite Conversion Efficiency (P basis)',
-    category: 'basic',
-    process_area: 'nutrient_recovery',
-    description: 'Stoichiometric conversion of dissolved orthophosphate to struvite crystal precipitate (MgNH4PO4·6H2O).',
-    current_value: 0.88,
-    unit: 'fraction',
-    default_value: 0.88,
-    quality_class: 'B',
-    min_value: 0.5,
-    max_value: 0.99,
-    is_editable: true,
-    notes: 'Class B: Fluidized bed crystallization efficiency.'
-  },
-  {
-    parameter_id: 'A721_ammonia_stripping_efficiency',
-    name: 'Ammonia Stripping Efficiency',
-    category: 'basic',
-    process_area: 'nutrient_recovery',
-    description: 'Volatilization efficiency of un-ionized NH3 in packed stripping column A721 at pH 10.0 and 50°C.',
-    current_value: 0.82,
-    unit: 'fraction',
-    default_value: 0.82,
-    quality_class: 'C',
-    min_value: 0.3,
-    max_value: 0.98,
-    is_editable: true,
-    notes: 'Class C: Packed column pilot data.'
-  },
-  {
-    parameter_id: 'M401_membrane_ch4_recovery',
-    name: 'Membrane Methane Recovery Factor',
-    category: 'basic',
-    process_area: 'biogas_upgrading',
-    description: '3-stage polyimide gas membrane selectivity methane recovery factor.',
-    current_value: 0.985,
-    unit: 'fraction',
-    default_value: 0.985,
-    quality_class: 'A',
-    min_value: 0.90,
-    max_value: 0.999,
-    is_editable: true,
-    notes: 'Class A: Manufacturer performance curve at 8.0 bar.'
-  },
-  {
-    parameter_id: 'feed_moisture_content',
-    name: 'Grass Silage Moisture Content',
-    category: 'basic',
-    process_area: 'front_end',
-    description: 'Baseline moisture content of incoming grass feedstock (wet basis).',
-    current_value: 0.78,
-    unit: 'fraction',
-    default_value: 0.78,
-    quality_class: 'A',
-    min_value: 0.50,
-    max_value: 0.90,
-    is_editable: true,
-    notes: 'Class A: Lab NIR feedstock sample average.'
-  },
-  {
-    parameter_id: 'digester_operating_temp',
-    name: 'Digester Operating Temperature',
-    category: 'basic',
-    process_area: 'anaerobic_digestion',
-    description: 'Thermophilic/mesophilic CSTR reactor operating temperature (°C).',
-    current_value: 38.0,
-    unit: '°C',
-    default_value: 38.0,
-    quality_class: 'A',
-    min_value: 30.0,
-    max_value: 55.0,
-    is_editable: true,
-    notes: 'Class A: CSTR active PID heating loop setpoint.'
-  },
-
-  // Advanced Parameters
-  {
-    parameter_id: 'ADM1_k_dis_disintegration_rate',
-    name: 'ADM1 Particulate Disintegration Rate (k_dis)',
-    category: 'advanced',
-    process_area: 'anaerobic_digestion',
-    description: 'First-order kinetic disintegration constant for composite particulate substrate in ADM1 model engine.',
-    current_value: 0.50,
-    unit: 'd⁻¹',
-    default_value: 0.50,
-    quality_class: 'B',
-    min_value: 0.1,
-    max_value: 1.5,
-    is_editable: true,
-    notes: 'Class B: ADM1 literature benchmark for grass silage.'
-  },
-  {
-    parameter_id: 'REC001_isoelectric_ph_setpoint',
-    name: 'Isoelectric Precipitation Target pH',
-    category: 'advanced',
-    process_area: 'protein_recovery',
-    description: 'Target pH maintained in precipitation vessel R201 via 1M H2SO4 dosing for minimal protein solubility.',
-    current_value: 4.2,
-    unit: 'pH',
-    default_value: 4.2,
-    quality_class: 'A',
-    min_value: 3.5,
-    max_value: 5.5,
-    is_editable: true,
-    notes: 'Class A: Automated pH controller setpoint.'
-  },
-  {
-    parameter_id: 'STRUV_k_sp_solubility_product',
-    name: 'Struvite Apparent Solubility Product (pK_sp)',
-    category: 'advanced',
-    process_area: 'nutrient_recovery',
-    description: 'Apparent thermodynamic solubility product constant pK_sp for MgNH4PO4 precipitation at 25°C.',
-    current_value: 13.26,
-    unit: '-log(K_sp)',
-    default_value: 13.26,
-    quality_class: 'A',
-    min_value: 12.0,
-    max_value: 14.5,
-    is_editable: true,
-    notes: 'Class A: Thermodynamic literature constant.'
-  },
-  {
-    parameter_id: 'A721_stripping_air_liquid_ratio',
-    name: 'Ammonia Stripping Air-to-Liquid Ratio (G/L)',
-    category: 'advanced',
-    process_area: 'nutrient_recovery',
-    description: 'Volumetric air-to-liquid flow ratio in packed stripping tower A721.',
-    current_value: 2800,
-    unit: 'm³/m³',
-    default_value: 2800,
-    quality_class: 'C',
-    min_value: 1000,
-    max_value: 5000,
-    is_editable: true,
-    notes: 'Class C: Blower sizing design calculation.'
-  },
-  {
-    parameter_id: 'MEMB_polyimide_co2_ch4_selectivity',
-    name: 'Membrane CO2/CH4 Ideal Selectivity',
-    category: 'advanced',
-    process_area: 'biogas_upgrading',
-    description: 'Intrinsic ideal permselectivity ratio (alpha_CO2/CH4) of hollow-fiber polyimide membrane module M401.',
-    current_value: 38.5,
-    unit: 'ratio',
-    default_value: 38.5,
-    quality_class: 'B',
-    min_value: 20.0,
-    max_value: 60.0,
-    is_editable: true,
-    notes: 'Class B: Polymer membrane manufacturer sheet.'
-  },
-  {
-    parameter_id: 'E741_evaporator_steam_economy',
-    name: 'Vacuum Evaporator Steam Economy Ratio',
-    category: 'advanced',
-    process_area: 'nutrient_recovery',
-    description: 'Ratio of evaporated water mass to motive steam mass in multi-effect evaporator E741.',
-    current_value: 2.8,
-    unit: 'kg water/kg steam',
-    default_value: 2.8,
-    quality_class: 'C',
-    min_value: 1.0,
-    max_value: 4.5,
-    is_editable: true,
-    notes: 'Class C: Triple-effect vacuum evaporator thermal model.'
-  }
-];
+export const DEFAULT_PARAMETERS: ParameterDefinition[] = previewParameterProfile.parameters as ParameterDefinition[];
 
 export function runSimulation(request: SimulationRequest): SimulationResult {
   const mode = request.calculation_mode || 'literature_default';
@@ -358,7 +145,7 @@ export function runSimulation(request: SimulationRequest): SimulationResult {
   const r711StruviteConv = getParamVal('R711_struvite_conversion_P', 0.88);
   const a721StripEff = getParamVal('A721_ammonia_stripping_efficiency', 0.82);
   const m401Ch4Rec = getParamVal('M401_membrane_ch4_recovery', 0.985);
-  const feedMoisture = getParamVal('feed_moisture_content', 0.78);
+  const feedMoisture = getParamVal('feed_moisture_content', 0.857);
   const digesterTemp = getParamVal('digester_operating_temp', 38.0);
 
   // Feed type multiplier

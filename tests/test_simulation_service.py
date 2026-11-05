@@ -10,7 +10,7 @@ from Greenhub.parameters import CalculationMode, ResolutionMode
 
 
 SCENARIOS = ScenarioSelection(
-    feed_preparation="F2",
+    feed_preparation="F1",
     protein_recovery="PR1",
     anaerobic_digestion="AD1",
     biogas_upgrading="BG2",
@@ -50,6 +50,14 @@ def test_isolated_structural_and_literature_runs_and_exports(tmp_path):
     literature_r401 = literature_context.model.units["R401"].acid_recovery_fraction
     assert literature_r401 == pytest.approx(0.34)
     assert structural_r401 != literature_r401
+    structural_precipitation = next(item for item in structural.resolved_parameters if item.parameter_id == "phase4.precipitation_efficiency")
+    literature_precipitation = next(item for item in literature.resolved_parameters if item.parameter_id == "phase4.precipitation_efficiency")
+    assert structural_precipitation.quality_class == "E"
+    assert literature_precipitation.quality_class == "B"
+    assert literature_precipitation.stable_identifier == "10.3389/fsufs.2019.00112"
+    assert literature_precipitation.source_url == "https://doi.org/10.3389/fsufs.2019.00112"
+    assert literature_precipitation.source_title
+    assert literature_precipitation.exact_source_location
     assert structural.validation.passed and literature.validation.passed
     assert structural.summary_kpis["overall_mass_residual"].value == pytest.approx(0.0, abs=1e-6)
     assert literature.summary_kpis["overall_mass_residual"].value == pytest.approx(0.0, abs=1e-6)
@@ -82,6 +90,7 @@ def test_service_structural_result_matches_direct_factory(tmp_path):
         feed_preparation_scenario_id=SCENARIOS.feed_preparation,
         selected_month="July",
         process_order=SCENARIOS.process_order,
+        feed_composition=_request("direct-equivalent").feed_composition,
     ).simulate()
     assert service_result.summary_kpis["boundary_inlet_mass"].value == pytest.approx(
         direct.validation_report.boundary_in_kg_hr, rel=0.0, abs=1e-9

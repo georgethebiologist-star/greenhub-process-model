@@ -1,0 +1,399 @@
+[
+  {
+    "analytical_properties": {
+      "non_water_kg_hr": 3.0658067523040557,
+      "water_kg_hr": 89.82332853150336
+    },
+    "carbohydrates_kg_hr": 0.3913076302797055,
+    "changed_properties": [
+      "flow_kg_hr",
+      "moisture_fraction",
+      "solids_kg_hr",
+      "density_kg_m3",
+      "viscosity_pa_s",
+      "soluble_protein_kg_hr",
+      "carbohydrates_kg_hr",
+      "cod_kg_hr"
+    ],
+    "cod_kg_hr": 1.2877221683515805,
+    "density_kg_m3": 1010.7880578125413,
+    "flow_kg_hr": 92.88913528380742,
+    "insoluble_protein_kg_hr": 0,
+    "moisture_fraction": 0.9669949909326102,
+    "outlet_state": {
+      "analytical_properties": {
+        "non_water_kg_hr": 0.8032781944538101,
+        "water_kg_hr": 80.77321430010245
+      },
+      "carbohydrates_kg_hr": 0.05869614454195583,
+      "cod_kg_hr": 0.4687993324773211,
+      "density_kg_m3": 1003.4064321665256,
+      "flow_kg_hr": 81.57649249455626,
+      "insoluble_protein_kg_hr": 0,
+      "moisture_fraction": 0.9901530677540786,
+      "pH": null,
+      "particle_size_um": null,
+      "pressure_pa": 101325.0,
+      "solids_kg_hr": 0.8032781944538101,
+      "soluble_protein_kg_hr": 0.3254556470844485,
+      "storage_age_h": null,
+      "stream_id": "clarified_protein_rich_liquid",
+      "temperature_k": 293.15,
+      "unit_id": "C301",
+      "viscosity_pa_s": 0.0010018521047418106
+    },
+    "pH": null,
+    "particle_size_um": null,
+    "pressure_pa": 101325.0,
+    "solids_kg_hr": 3.0658067523040557,
+    "soluble_protein_kg_hr": 0.3320975990657638,
+    "storage_age_h": null,
+    "stream_id": "raw_liquid_fraction",
+    "temperature_k": 293.15,
+    "unit_id": "C301",
+    "viscosity_pa_s": 0.0010015453272970453
+  },
+  {
+    "analytical_properties": {
+      "non_water_kg_hr": 0.8032781944538101,
+      "water_kg_hr": 80.77321430010245
+    },
+    "carbohydrates_kg_hr": 0.05869614454195583,
+    "changed_properties": [
+      "temperature_k",
+      "density_kg_m3",
+      "viscosity_pa_s"
+    ],
+    "cod_kg_hr": 0.4687993324773211,
+    "density_kg_m3": 1003.4064321665256,
+    "flow_kg_hr": 81.57649249455626,
+    "insoluble_protein_kg_hr": 0,
+    "moisture_fraction": 0.9901530677540786,
+    "outlet_state": {
+      "analytical_properties": {
+        "non_water_kg_hr": 0.8032781944538101,
+        "water_kg_hr": 80.77321430010245
+      },
+      "carbohydrates_kg_hr": 0.05869614454195583,
+      "cod_kg_hr": 0.4687993324773211,
+      "density_kg_m3": 1002.2443654920363,
+      "flow_kg_hr": 81.57649249455626,
+      "insoluble_protein_kg_hr": 0,
+      "moisture_fraction": 0.9901530677540786,
+      "pH": null,
+      "particle_size_um": null,
+      "pressure_pa": 101325.0,
+      "solids_kg_hr": 0.8032781944538101,
+      "soluble_protein_kg_hr": 0.3254556470844485,
+      "storage_age_h": null,
+      "stream_id": "temperature_conditioned_digester_feed",
+      "temperature_k": 298.15,
+      "unit_id": "H501",
+      "viscosity_pa_s": 0.0008902531601455095
+    },
+    "pH": null,
+    "particle_size_um": null,
+    "pressure_pa": 101325.0,
+    "solids_kg_hr": 0.8032781944538101,
+    "soluble_protein_kg_hr": 0.3254556470844485,
+    "storage_age_h": null,
+    "stream_id": "conditioned_digester_feed",
+    "temperature_k": 293.15,
+    "unit_id": "H501",
+    "viscosity_pa_s": 0.0010018521047418106
+  },
+  {
+    "analytical_properties": {
+      "non_water_kg_hr": 0.8032781944538101,
+      "water_kg_hr": 80.77321430010245
+    },
+    "carbohydrates_kg_hr": 0.05869614454195583,
+    "changed_properties": [],
+    "cod_kg_hr": 0.4687993324773211,
+    "density_kg_m3": 1003.4064321665256,
+    "flow_kg_hr": 81.57649249455626,
+    "insoluble_protein_kg_hr": 0,
+    "moisture_fraction": 0.9901530677540786,
+    "outlet_state": {
+      "analytical_properties": {
+        "non_water_kg_hr": 0.8032781944538101,
+        "water_kg_hr": 80.77321430010245
+      },
+      "carbohydrates_kg_hr": 0.05869614454195583,
+      "cod_kg_hr": 0.4687993324773211,
+      "density_kg_m3": 1003.4064321665256,
+      "flow_kg_hr": 81.57649249455626,
+      "insoluble_protein_kg_hr": 0,
+      "moisture_fraction": 0.9901530677540786,
+      "pH": null,
+      "particle_size_um": null,
+      "pressure_pa": 101325.0,
+      "solids_kg_hr": 0.8032781944538101,
+      "soluble_protein_kg_hr": 0.3254556470844485,
+      "storage_age_h": null,
+      "stream_id": "conditioned_protein_depleted_liquid",
+      "temperature_k": 293.15,
+      "unit_id": "M403",
+      "viscosity_pa_s": 0.0010018521047418106
+    },
+    "pH": null,
+    "particle_size_um": null,
+    "pressure_pa": 101325.0,
+    "solids_kg_hr": 0.8032781944538101,
+    "soluble_protein_kg_hr": 0.3254556470844485,
+    "storage_age_h": null,
+    "stream_id": "clarified_protein_rich_liquid",
+    "temperature_k": 293.15,
+    "unit_id": "M403",
+    "viscosity_pa_s": 0.0010018521047418106
+  },
+  {
+    "analytical_properties": {
+      "non_water_kg_hr": 0.8032781944538101,
+      "water_kg_hr": 80.77321430010245
+    },
+    "carbohydrates_kg_hr": 0.05869614454195583,
+    "changed_properties": [],
+    "cod_kg_hr": 0.4687993324773211,
+    "density_kg_m3": 1003.4064321665256,
+    "flow_kg_hr": 81.57649249455626,
+    "insoluble_protein_kg_hr": 0,
+    "moisture_fraction": 0.9901530677540786,
+    "outlet_state": {
+      "analytical_properties": {
+        "non_water_kg_hr": 0.8032781944538101,
+        "water_kg_hr": 80.77321430010245
+      },
+      "carbohydrates_kg_hr": 0.05869614454195583,
+      "cod_kg_hr": 0.4687993324773211,
+      "density_kg_m3": 1003.4064321665256,
+      "flow_kg_hr": 81.57649249455626,
+      "insoluble_protein_kg_hr": 0,
+      "moisture_fraction": 0.9901530677540786,
+      "pH": null,
+      "particle_size_um": null,
+      "pressure_pa": 101325.0,
+      "solids_kg_hr": 0.8032781944538101,
+      "soluble_protein_kg_hr": 0.3254556470844485,
+      "storage_age_h": null,
+      "stream_id": "conditioned_digester_feed",
+      "temperature_k": 293.15,
+      "unit_id": "M501",
+      "viscosity_pa_s": 0.0010018521047418106
+    },
+    "pH": null,
+    "particle_size_um": null,
+    "pressure_pa": 101325.0,
+    "solids_kg_hr": 0.8032781944538101,
+    "soluble_protein_kg_hr": 0.3254556470844485,
+    "storage_age_h": null,
+    "stream_id": "conditioned_protein_depleted_liquid",
+    "temperature_k": 293.15,
+    "unit_id": "M501",
+    "viscosity_pa_s": 0.0010018521047418106
+  },
+  {
+    "analytical_properties": {
+      "non_water_kg_hr": 0.8032781944538101,
+      "water_kg_hr": 80.77321430010245
+    },
+    "carbohydrates_kg_hr": 0.05869614454195583,
+    "changed_properties": [
+      "temperature_k",
+      "pressure_pa",
+      "density_kg_m3",
+      "viscosity_pa_s"
+    ],
+    "cod_kg_hr": 0.4687993324773211,
+    "density_kg_m3": 1002.2443654920363,
+    "flow_kg_hr": 81.57649249455626,
+    "insoluble_protein_kg_hr": 0,
+    "moisture_fraction": 0.9901530677540786,
+    "outlet_state": {
+      "analytical_properties": {
+        "non_water_kg_hr": 0.8032781944538101,
+        "water_kg_hr": 80.77321430010245
+      },
+      "carbohydrates_kg_hr": 0.05869614454195583,
+      "cod_kg_hr": 0.4687993324773211,
+      "density_kg_m3": 999.2245014387082,
+      "flow_kg_hr": 81.57649249455626,
+      "insoluble_protein_kg_hr": 0,
+      "moisture_fraction": 0.9901530677540786,
+      "pH": null,
+      "particle_size_um": null,
+      "pressure_pa": 105000.0,
+      "solids_kg_hr": 0.8032781944538101,
+      "soluble_protein_kg_hr": 0.3254556470844485,
+      "storage_age_h": null,
+      "stream_id": "digester_broth",
+      "temperature_k": 308.15,
+      "unit_id": "R501",
+      "viscosity_pa_s": 0.0007196519910254468
+    },
+    "pH": null,
+    "particle_size_um": null,
+    "pressure_pa": 101325.0,
+    "solids_kg_hr": 0.8032781944538101,
+    "soluble_protein_kg_hr": 0.3254556470844485,
+    "storage_age_h": null,
+    "stream_id": "temperature_conditioned_digester_feed",
+    "temperature_k": 298.15,
+    "unit_id": "R501",
+    "viscosity_pa_s": 0.0008902531601455095
+  },
+  {
+    "analytical_properties": {
+      "non_water_kg_hr": 26.34463370016846,
+      "water_kg_hr": 159.43363686744635
+    },
+    "carbohydrates_kg_hr": 10.388580435394987,
+    "changed_properties": [
+      "flow_kg_hr",
+      "moisture_fraction",
+      "solids_kg_hr",
+      "density_kg_m3",
+      "viscosity_pa_s",
+      "soluble_protein_kg_hr",
+      "carbohydrates_kg_hr",
+      "cod_kg_hr"
+    ],
+    "cod_kg_hr": 11.490024398035409,
+    "density_kg_m3": 991.8628550839842,
+    "flow_kg_hr": 185.7782705676148,
+    "insoluble_protein_kg_hr": 0,
+    "moisture_fraction": 0.8581931373369083,
+    "outlet_state": {
+      "analytical_properties": {
+        "non_water_kg_hr": 23.27882694786443,
+        "water_kg_hr": 69.61030833594299
+      },
+      "carbohydrates_kg_hr": 9.997272805115282,
+      "cod_kg_hr": 10.202302229683829,
+      "density_kg_m3": 973.6333087328712,
+      "flow_kg_hr": 92.88913528380742,
+      "insoluble_protein_kg_hr": 0,
+      "moisture_fraction": 0.7493912837412059,
+      "pH": null,
+      "particle_size_um": null,
+      "pressure_pa": 101325.0,
+      "solids_kg_hr": 23.27882694786443,
+      "soluble_protein_kg_hr": 0.14232754245675594,
+      "storage_age_h": null,
+      "stream_id": "pressed_fibre_cake",
+      "temperature_k": 293.15,
+      "unit_id": "S201",
+      "viscosity_pa_s": 0.0009969859285603735
+    },
+    "pH": null,
+    "particle_size_um": null,
+    "pressure_pa": 101325.0,
+    "solids_kg_hr": 26.34463370016846,
+    "soluble_protein_kg_hr": 0.47442514152251974,
+    "storage_age_h": null,
+    "stream_id": "prepared_roadside_grass",
+    "temperature_k": 293.15,
+    "unit_id": "S201",
+    "viscosity_pa_s": 0.0009994953661816223
+  },
+  {
+    "analytical_properties": {
+      "non_water_kg_hr": 26.603278963879603,
+      "water_kg_hr": 159.43363686744635
+    },
+    "carbohydrates_kg_hr": 10.388580435394987,
+    "changed_properties": [
+      "flow_kg_hr",
+      "moisture_fraction",
+      "solids_kg_hr",
+      "density_kg_m3",
+      "viscosity_pa_s"
+    ],
+    "cod_kg_hr": 11.490024398035409,
+    "density_kg_m3": 992.4424581071851,
+    "flow_kg_hr": 186.03691583132596,
+    "insoluble_protein_kg_hr": 0,
+    "moisture_fraction": 0.8570000000000001,
+    "outlet_state": {
+      "analytical_properties": {
+        "non_water_kg_hr": 26.34463370016846,
+        "water_kg_hr": 159.43363686744635
+      },
+      "carbohydrates_kg_hr": 10.388580435394987,
+      "cod_kg_hr": 11.490024398035409,
+      "density_kg_m3": 991.8628550839842,
+      "flow_kg_hr": 185.7782705676148,
+      "insoluble_protein_kg_hr": 0,
+      "moisture_fraction": 0.8581931373369083,
+      "pH": null,
+      "particle_size_um": null,
+      "pressure_pa": 101325.0,
+      "solids_kg_hr": 26.34463370016846,
+      "soluble_protein_kg_hr": 0.47442514152251974,
+      "storage_age_h": null,
+      "stream_id": "prepared_roadside_grass",
+      "temperature_k": 293.15,
+      "unit_id": "U101",
+      "viscosity_pa_s": 0.0009994953661816223
+    },
+    "pH": null,
+    "particle_size_um": null,
+    "pressure_pa": 101325.0,
+    "solids_kg_hr": 26.603278963879603,
+    "soluble_protein_kg_hr": 0.47442514152251974,
+    "storage_age_h": null,
+    "stream_id": "roadside_grass",
+    "temperature_k": 293.15,
+    "unit_id": "U101",
+    "viscosity_pa_s": 0.0009994625491534846
+  },
+  {
+    "analytical_properties": {
+      "non_water_kg_hr": 0.8032781944538101,
+      "water_kg_hr": 80.77321430010245
+    },
+    "carbohydrates_kg_hr": 0.05869614454195583,
+    "changed_properties": [
+      "pressure_pa",
+      "density_kg_m3",
+      "viscosity_pa_s"
+    ],
+    "cod_kg_hr": 0.4687993324773211,
+    "density_kg_m3": 999.2245014387082,
+    "flow_kg_hr": 81.57649249455626,
+    "insoluble_protein_kg_hr": 0,
+    "moisture_fraction": 0.9901530677540786,
+    "outlet_state": {
+      "analytical_properties": {
+        "non_water_kg_hr": 0.8032781944538101,
+        "water_kg_hr": 80.77321430010245
+      },
+      "carbohydrates_kg_hr": 0.05869614454195583,
+      "cod_kg_hr": 0.4687993324773211,
+      "density_kg_m3": 999.2238577329763,
+      "flow_kg_hr": 81.57649249455626,
+      "insoluble_protein_kg_hr": 0,
+      "moisture_fraction": 0.9901530677540786,
+      "pH": null,
+      "particle_size_um": null,
+      "pressure_pa": 101325.0,
+      "solids_kg_hr": 0.8032781944538101,
+      "soluble_protein_kg_hr": 0.3254556470844485,
+      "storage_age_h": null,
+      "stream_id": "digestate",
+      "temperature_k": 308.15,
+      "unit_id": "V501",
+      "viscosity_pa_s": 0.0007196464384407701
+    },
+    "pH": null,
+    "particle_size_um": null,
+    "pressure_pa": 105000.0,
+    "solids_kg_hr": 0.8032781944538101,
+    "soluble_protein_kg_hr": 0.3254556470844485,
+    "storage_age_h": null,
+    "stream_id": "digester_broth",
+    "temperature_k": 308.15,
+    "unit_id": "V501",
+    "viscosity_pa_s": 0.0007196519910254468
+  }
+]

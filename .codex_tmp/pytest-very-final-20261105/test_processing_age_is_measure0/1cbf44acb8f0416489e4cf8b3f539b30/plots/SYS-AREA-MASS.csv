@@ -1,0 +1,8 @@
+series_id,label,x,y
+outlet_mass,Outlet mass,Feedstock and Characterization,1.0
+outlet_mass,Outlet mass,Feed Preparation and Primary Separation,1.0
+outlet_mass,Outlet mass,Protein Recovery,0.3717641447672744
+outlet_mass,Outlet mass,Anaerobic Digestion,0.3596010976152101
+outlet_mass,Outlet mass,Biogas Conditioning and Upgrading,0.0012677669101421496
+outlet_mass,Outlet mass,Digestate Treatment and Nutrient Recovery,0.5946798693110837
+outlet_mass,Outlet mass,Shared Utilities and Supporting Operations,0

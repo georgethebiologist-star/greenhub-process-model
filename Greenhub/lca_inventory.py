@@ -154,7 +154,11 @@ class LCAProjectBasis:
 def load_climate_factors(overrides=None):
     path = Path(__file__).parent / "data" / "lca" / "climate_factors.json"
     data = json.loads(path.read_text(encoding="utf-8"))
-    factors = {item["factor_id"]: ClimateFactor(**item) for item in data["factors"]}
+    allowed = {f.name for f in fields(ClimateFactor)}
+    factors = {
+        item["factor_id"]: ClimateFactor(**{key: value for key, value in item.items() if key in allowed})
+        for item in data["factors"]
+    }
     if overrides is not None:
         if not isinstance(overrides, Mapping):
             raise ValueError("Climate factor overrides must be a mapping of IDs to metadata records.")
@@ -163,7 +167,6 @@ def load_climate_factors(overrides=None):
                 factor = value
             elif isinstance(value, Mapping):
                 # Metadata cannot be inherited from a published default while changing its value.
-                allowed = {f.name for f in fields(ClimateFactor)}
                 record = dict(value)
                 record.pop("unit", None)
                 record.setdefault("factor_id", key)

@@ -1,0 +1,69 @@
+{
+  "dataset_id": "urn:greenhub:dataset:isoelectric-recovery-v1",
+  "source_file": "recovery.csv",
+  "title": "Isoelectric and acid protein-recovery evidence for green biomass extracts",
+  "schema_version": "1.0.0",
+  "retrieval_date": "2026-11-05",
+  "records": {
+    "REC-001": {
+      "quality_class": "B",
+      "evidence_class": "measured_peer_reviewed",
+      "geography": "Denmark",
+      "reference_year": 2019,
+      "source_doi": "10.3389/fsufs.2019.00112",
+      "source_url": "https://doi.org/10.3389/fsufs.2019.00112",
+      "source_location": "Figure 4 discussion; article lines 382–393",
+      "license": "Creative Commons Attribution (CC BY); see publisher article license statement",
+      "applicability": "Grass-clover cleared juice; reports precipitated total N relative to incoming cleared-juice total N, not a pure soluble-protein recovery fraction.",
+      "conversion_method": "Identity as reported (0.34 fraction of N). Conversion to protein recovery requires measured N speciation; no conversion applied.",
+      "uncertainty": "No SD or uncertainty interval reported for this comparison.",
+      "runtime_mapping": "Optional PR1 literature-default candidate only. GreenHub applies this N-basis value to its soluble-protein pool; this denominator mismatch remains an explicit proxy limitation and requires project-specific N-speciation validation.",
+      "transferability_class": "proxy_high"
+    },
+    "REC-002": {
+      "quality_class": "B",
+      "evidence_class": "measured_peer_reviewed",
+      "geography": "Denmark",
+      "reference_year": 2019,
+      "source_doi": "10.3389/fsufs.2019.00112",
+      "source_url": "https://doi.org/10.3389/fsufs.2019.00112",
+      "source_location": "Table 2, isoelectric row; article lines 431–448",
+      "license": "Creative Commons Attribution (CC BY); see publisher article license statement",
+      "applicability": "Ryegrass juice; total N recovery includes both retained fibre fraction and protein concentrate.",
+      "conversion_method": "Identity as reported (0.70 fraction of juice N); not a precipitation-only or protein-product recovery fraction.",
+      "uncertainty": "No uncertainty interval reported for this table value.",
+      "runtime_mapping": "Evidence record only; blocked from direct precipitation-efficiency mapping because the boundary includes N in the fibre fraction.",
+      "transferability_class": "proxy_high"
+    },
+    "REC-003": {
+      "quality_class": "B",
+      "evidence_class": "measured_peer_reviewed",
+      "geography": "Denmark",
+      "reference_year": 2019,
+      "source_doi": "10.3389/fsufs.2019.00112",
+      "source_url": "https://doi.org/10.3389/fsufs.2019.00112",
+      "source_location": "Table 2, isoelectric row; article lines 431–448",
+      "license": "Creative Commons Attribution (CC BY); see publisher article license statement",
+      "applicability": "Red-clover juice; total N recovery includes both retained fibre fraction and protein concentrate; not roadside grass.",
+      "conversion_method": "Identity as reported (0.77 fraction of juice N); not a precipitation-only or protein-product recovery fraction.",
+      "uncertainty": "No uncertainty interval reported for this table value.",
+      "runtime_mapping": "Evidence record only; blocked from direct precipitation-efficiency mapping because material and route boundary differ.",
+      "transferability_class": "proxy_high"
+    },
+    "REC-004": {
+      "quality_class": "B",
+      "evidence_class": "literature_reported_peer_reviewed",
+      "geography": "Denmark",
+      "reference_year": 2022,
+      "source_doi": "10.1016/j.biteb.2022.101190",
+      "source_url": "https://doi.org/10.1016/j.biteb.2022.101190",
+      "source_location": "Abstract; publisher record, article 101190",
+      "license": "Publisher terms; reuse license not independently verified",
+      "applicability": "Alfalfa extract; reported 30% protein recovery for acid precipitation. Not roadside grass and not equivalent to a fraction of GreenHub's soluble-protein pool without basis reconciliation.",
+      "conversion_method": "Identity as reported (0.30); no cross-feedstock conversion applied.",
+      "uncertainty": "No uncertainty interval reported in the abstract.",
+      "runtime_mapping": "Dynamic screening proxy only; retain alfalfa transferability warning.",
+      "transferability_class": "proxy_high"
+    }
+  }
+}

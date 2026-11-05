@@ -1,0 +1,50 @@
+[
+  {
+    "cod_kg_hr": 1.2877221683515805,
+    "soluble_protein_kg_hr": 0.3320975990657638,
+    "stream_id": "raw_liquid_fraction",
+    "unit_id": "C301"
+  },
+  {
+    "cod_kg_hr": 0.4687993324773211,
+    "soluble_protein_kg_hr": 0.3254556470844485,
+    "stream_id": "conditioned_digester_feed",
+    "unit_id": "H501"
+  },
+  {
+    "cod_kg_hr": 0.4687993324773211,
+    "soluble_protein_kg_hr": 0.3254556470844485,
+    "stream_id": "clarified_protein_rich_liquid",
+    "unit_id": "M403"
+  },
+  {
+    "cod_kg_hr": 0.4687993324773211,
+    "soluble_protein_kg_hr": 0.3254556470844485,
+    "stream_id": "conditioned_protein_depleted_liquid",
+    "unit_id": "M501"
+  },
+  {
+    "cod_kg_hr": 0.4687993324773211,
+    "soluble_protein_kg_hr": 0.3254556470844485,
+    "stream_id": "temperature_conditioned_digester_feed",
+    "unit_id": "R501"
+  },
+  {
+    "cod_kg_hr": 11.490024398035409,
+    "soluble_protein_kg_hr": 0.47442514152251974,
+    "stream_id": "prepared_roadside_grass",
+    "unit_id": "S201"
+  },
+  {
+    "cod_kg_hr": 11.490024398035409,
+    "soluble_protein_kg_hr": 0.47442514152251974,
+    "stream_id": "roadside_grass",
+    "unit_id": "U101"
+  },
+  {
+    "cod_kg_hr": 0.4687993324773211,
+    "soluble_protein_kg_hr": 0.3254556470844485,
+    "stream_id": "digester_broth",
+    "unit_id": "V501"
+  }
+]

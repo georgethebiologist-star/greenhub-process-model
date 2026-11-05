@@ -85,7 +85,7 @@ def test_static_heat_kj_per_hour_to_kwh_no_generation_credit():
     quantities={row["flow_id"]: row["quantity"] for row in report["inventory"]}
     assert quantities == {"electricity": 500, "heat": 100}
     assert result == before
-    assert report["totals"]["climate_kg_co2e_per_year"] is None
+    assert report["totals"]["climate_kg_co2e_per_year"] == pytest.approx(214.3771)
     result.utilities[0].demand.unit="MW"
     with pytest.raises(ValueError, match="electricity demand"):
         calculate_empirical_lca(result, basis("electricity", operating_hours_per_year=100))
@@ -147,10 +147,19 @@ def test_supplied_utility_factor_is_separate_and_traceable():
 
 def test_screening_electricity_factor_is_explicitly_traceable_and_opt_in():
     factor = screening_lca_factors()["electricity"]
-    assert factor.value == pytest.approx(0.264)
-    assert factor.source_status == "proxy_factor"
-    assert factor.reference_year == 2025
-    assert factor.source_url
+    assert factor.value == pytest.approx(0.406463)
+    assert factor.source_status == "official_dataset"
+    assert factor.reference_year == 2021
+    assert "JRC.4800KC0" in factor.source_url
+    assert "Table3_EU_LC" in factor.source_table_page
+
+
+def test_lca_factor_loader_tolerates_additive_source_provenance_metadata():
+    factors = load_climate_factors()
+    assert factors['fossil_co2'].value == 1
+    assert factors['biogenic_methane'].value == 27
+    assert factors['nitrous_oxide'].value == 273
+    assert 'source_title' not in factors['biogenic_methane'].to_dict()
 
 
 def test_screening_factor_is_available_from_application_package():

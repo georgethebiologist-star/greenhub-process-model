@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import hashlib
+import json
 from dataclasses import replace
 from functools import lru_cache
 from pathlib import Path
@@ -31,6 +32,7 @@ from .registry import ParameterRegistry
 
 DATA_DIR = Path(__file__).resolve().parents[1] / "data"
 LITERATURE_RECOVERY_PATH = DATA_DIR / "Protein recovery" / "Isoelectric" / "recovery.csv"
+LITERATURE_RECOVERY_METADATA_PATH = DATA_DIR / "Protein recovery" / "Isoelectric" / "recovery_metadata.json"
 QUARANTINE_PATH = DATA_DIR / "global_audit_package" / "global_quarantine_register.csv"
 RELATIVE_WORKBOOK_PATH = "Greenhub/data/greenhub_feed_inputs.xlsx"
 RELATIVE_RECOVERY_PATH = "Protein recovery/Isoelectric/recovery.csv"
@@ -193,6 +195,8 @@ def _load_workbook_records(
                     model_parameter_name=record.python_name,
                 )
             kind, value_status = _source_kind(record)
+            scenario_ids = _tuple_context(record.scenario)
+            retired_pef = bool(set(scenario_ids) & {"F2", "F3"})
             candidates.append(
                 ParameterCandidate(
                     candidate_id=f"workbook:{prefix}:{record.python_name}:{record.scenario}:{record.month}:{row_number}",
@@ -208,12 +212,18 @@ def _load_workbook_records(
                     evidence_class=str(record.measurement_status),
                     quality_class=str(record.source_class),
                     applicability=Applicability(
-                        scenario_ids=_tuple_context(record.scenario),
+                        scenario_ids=scenario_ids,
                         months=_tuple_context(record.month),
                     ),
-                    activation_state=ActivationState.ACTIVE,
+                    activation_state=(
+                        ActivationState.BLOCKED if retired_pef else ActivationState.ACTIVE
+                    ),
                     readiness_state=ReadinessState.D5,
-                    warnings=tuple(filter(None, (getattr(record, "comment", None),))),
+                    warnings=tuple(filter(None, (
+                        getattr(record, "comment", None),
+                        "F2/F3 PEF routes are retired; retained as blocked historical candidates."
+                        if retired_pef else None,
+                    ))),
                     provenance_chain=(f"sha256:{checksum}", f"{sheet}:{row_number}"),
                     selection_priority=int(getattr(record, "priority", 100)),
                 )
@@ -344,6 +354,7 @@ def _literature_precipitation_candidate() -> ParameterCandidate:
     if len(rows) != 1:
         raise ValueError("Expected exactly one REC-001 literature row.")
     row = rows.iloc[0]
+    metadata = json.loads(LITERATURE_RECOVERY_METADATA_PATH.read_text(encoding="utf-8"))["records"]["REC-001"]
     value = float(row["normalized_si_value"])
     return ParameterCandidate(
         candidate_id="literature:protein-isoelectric:REC-001",
@@ -355,11 +366,11 @@ def _literature_precipitation_candidate() -> ParameterCandidate:
         source_dataset=RELATIVE_RECOVERY_PATH,
         source_row_id="REC-001",
         source_title=str(row["source_title"]),
-        stable_identifier=str(row["doi_or_stable_id"]),
-        exact_source_location=str(row["source_location"]),
+        stable_identifier=str(metadata["source_doi"]),
+        exact_source_location=str(metadata["source_location"]),
         evidence_class=str(row["data_status"]),
-        transferability_class=str(row["transferability_to_grass"]),
-        quality_class="peer_reviewed_direct_grass_clover",
+        transferability_class=str(metadata["transferability_class"]),
+        quality_class=str(metadata["quality_class"]),
         basis=str(row["basis"]),
         applicability=Applicability(
             scenario_ids=("PR1",),
@@ -368,7 +379,7 @@ def _literature_precipitation_candidate() -> ParameterCandidate:
         activation_state=ActivationState.ACTIVE,
         readiness_state=ReadinessState.D4,
         warnings=(
-            "REC-001 is reported on incoming total-N basis; GreenHub applies the fraction only to its lumped soluble-protein pool.",
+            str(metadata["runtime_mapping"]),
             "The source material is grass-clover cleared juice, so project-specific grass-juice validation remains required.",
         ),
         provenance_chain=(

@@ -1,0 +1,74 @@
+[
+  {
+    "cooling_kwh": 0.0,
+    "electricity_kwh": 0.0,
+    "heating_kwh": 0.0,
+    "time": "2026-01"
+  },
+  {
+    "cooling_kwh": 0.0,
+    "electricity_kwh": 0.0,
+    "heating_kwh": 0.0,
+    "time": "2026-02"
+  },
+  {
+    "cooling_kwh": 0.0,
+    "electricity_kwh": 0.0,
+    "heating_kwh": 0.0,
+    "time": "2026-03"
+  },
+  {
+    "cooling_kwh": 928.2682658610087,
+    "electricity_kwh": 670.8195940919456,
+    "heating_kwh": 2885.0675160795918,
+    "time": "2026-04"
+  },
+  {
+    "cooling_kwh": 25046.07918419362,
+    "electricity_kwh": 18099.72535940523,
+    "heating_kwh": 77172.4630289645,
+    "time": "2026-05"
+  },
+  {
+    "cooling_kwh": 50251.18189318632,
+    "electricity_kwh": 36314.37018797662,
+    "heating_kwh": 153424.40165594692,
+    "time": "2026-06"
+  },
+  {
+    "cooling_kwh": 79801.09216281616,
+    "electricity_kwh": 57668.82077251785,
+    "heating_kwh": 244388.21405729075,
+    "time": "2026-07"
+  },
+  {
+    "cooling_kwh": 90855.74769337969,
+    "electricity_kwh": 65657.54537785694,
+    "heating_kwh": 277816.02136403194,
+    "time": "2026-08"
+  },
+  {
+    "cooling_kwh": 73901.69123540437,
+    "electricity_kwh": 53405.57718113876,
+    "heating_kwh": 224733.22402681265,
+    "time": "2026-09"
+  },
+  {
+    "cooling_kwh": 47521.85864781924,
+    "electricity_kwh": 34342.00553980544,
+    "heating_kwh": 145235.77029292416,
+    "time": "2026-10"
+  },
+  {
+    "cooling_kwh": 20763.097515547186,
+    "electricity_kwh": 15004.598519320969,
+    "heating_kwh": 64087.69483397173,
+    "time": "2026-11"
+  },
+  {
+    "cooling_kwh": 0.0,
+    "electricity_kwh": 0.0,
+    "heating_kwh": 0.0,
+    "time": "2026-12"
+  }
+]

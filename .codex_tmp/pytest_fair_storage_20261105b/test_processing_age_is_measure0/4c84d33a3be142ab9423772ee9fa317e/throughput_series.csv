@@ -1,0 +1,2 @@
+time,available_operating_hours,maximum_throughput_kg,actual_throughput_kg,actual_throughput_kg_hr,idle_capacity_kg,backlog_kg,rejected_or_overflow_kg
+2026-07-01,24.0,48000.0,24.0,1.0,47976.0,76.0,0.0

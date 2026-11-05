@@ -12,6 +12,7 @@ from Greenhub.settings import DATA_DIR
 
 
 DEFAULT_PRICE_BENCHMARK_PATH = DATA_DIR / "tea" / "netherlands_industrial_product_price_benchmarks.csv"
+PRICE_QUALITY_REVIEW_PATH = DATA_DIR / "tea" / "product_price_quality_review.json"
 
 
 @dataclass(frozen=True)
@@ -29,6 +30,11 @@ class ProductPriceBenchmark:
     source_url: str
     traceability: str
     limitations: str
+    quality_class: str
+    source_quality_class: str
+    source_id: str
+    source_location: str
+    quality_rationale: str
 
     @property
     def evidence_class(self) -> str:
@@ -56,6 +62,8 @@ def load_product_price_benchmarks(
     missing = required - set(rows[0] if rows else ())
     if missing:
         raise ValueError(f"Price benchmark file is missing columns: {sorted(missing)}")
+    review = json.loads(PRICE_QUALITY_REVIEW_PATH.read_text(encoding="utf-8"))
+    reviewed = review["benchmarks"]
     result = []
     for row in rows:
         low = float(row["industrial_price_low"])
@@ -63,14 +71,23 @@ def load_product_price_benchmarks(
         base = float(row["screening_base"])
         if not low <= base <= high:
             raise ValueError(f"Screening price is outside range for {row['product']}")
+        quality = reviewed.get(row["product"])
+        if quality is None:
+            raise ValueError(f"Product-price benchmark '{row['product']}' has no quality review.")
         result.append(ProductPriceBenchmark(
             product=row["product"].strip(), low=low, high=high, screening_base=base,
             unit=row["unit"].strip(), basis=row["price_basis_or_grade"].strip(),
             market_status=row.get("market_status", "").strip(),
             price_date=row.get("price_date", "").strip(), geography=row.get("geography", "").strip(),
-            source_type=row.get("source_type", "").strip(), source_url=row.get("source_url", "").strip(),
+            source_type=str(quality.get("source_title") or row.get("source_type", "")).strip(),
+            source_url=str(quality.get("source_url") or row.get("source_url", "")).strip(),
             traceability=(row.get("traceability_and_applicability") or "").strip(),
             limitations=(row.get("uncertainty_or_limitations") or "").strip(),
+            quality_class=str(quality["quality_class"]),
+            source_quality_class=str(quality["source_quality_class"]),
+            source_id=str(quality["source_id"]),
+            source_location=str(quality["source_location"]),
+            quality_rationale=str(quality["basis"]),
         ))
     return tuple(result)
 
@@ -130,15 +147,28 @@ def screening_tea_product_prices(
             "conversion_method": f"{benchmark.unit} to {unit}; divide by 1000 for EUR/t to EUR/kg" if divisor != 1.0 else "none",
             "uncertainty": f"{benchmark.low:g}-{benchmark.high:g} {benchmark.unit}",
             "quality_basis": "screening_assumption",
+            "quality_class": benchmark.quality_class,
+            "source_quality_class": benchmark.source_quality_class,
+            "stable_identifier": benchmark.source_id,
+            "source_table_or_page": benchmark.source_location,
+            "quality_rationale": benchmark.quality_rationale,
         }
     sales = json.loads((DATA_DIR / 'tea' / 'product_sales_basis.json').read_text())
     gas = output.get('biomethane')
     if gas is not None:
+        user_price = sales['gas']
         gas.update(value_eur_per_unit=sales['gas']['price_eur_m3'],
                    gas_reference_temperature_k=sales['gas']['temperature_k'],
                    gas_reference_pressure_pa=sales['gas']['pressure_pa'],
                    basis='dry gas at 20 C and 101325 Pa',
-                   notes=sales['gas']['warning'], conversion_method='component kmol × R × 293.15 K / 101325 Pa')
+                   notes=sales['gas']['warning'], conversion_method='component kmol × R × 293.15 K / 101325 Pa',
+                   source_status='user_provided_screening_assumption',
+                   source_title=user_price['source_title'], source_url=user_price['source_url'],
+                   reference_year=2026, reference_period='2026',
+                   source_table_or_page=user_price['source_location'],
+                   evidence_class='explicit_user_assumption', quality_class='E', source_quality_class='E',
+                   stable_identifier=user_price['source_id'],
+                   quality_rationale='User-supplied price range and midpoint; not the separate ACER market observation.')
     for key, product, label in (('ammonium_sulfate', 'ammonium_product', 'Ammonium sulfate (dry equivalent)'), ('struvite', 'phosphorus_product', 'Solid struvite')):
         data = sales[key]
         output[product] = {
@@ -150,8 +180,17 @@ def screening_tea_product_prices(
             'notes': data['warning'] + ' FX: 0.92 EUR/USD is an explicit assumption, not a market quote.',
             'conversion_method': 'USD/t × 0.92 EUR/USD / 1000 kg/t',
             'uncertainty': f"{data['low_usd_t']}-{data['high_usd_t']} USD/t; FX unverified",
+            'quality_class': 'E', 'source_quality_class': 'E',
+            'stable_identifier': 'USER-SCREENING-ASSUMPTION',
+            'quality_rationale': 'User-provided price range with an explicit, unverified currency conversion assumption.',
         }
     return output
+
+
+def product_price_source_references() -> dict[str, dict[str, object]]:
+    """Return verified market references that are not automatically active prices."""
+    review = json.loads(PRICE_QUALITY_REVIEW_PATH.read_text(encoding="utf-8"))
+    return dict(review.get("ui_default_prices", {}).get("biomethane", {}).get("market_reference", {}))
 
 
 def screening_tea_product_price_ranges(
@@ -179,5 +218,9 @@ def screening_tea_product_price_ranges(
             "basis": benchmark.basis,
             "source_status": "screening_sensitivity_endpoints_not_probability_bounds",
             "source_url": benchmark.source_url,
+            "quality_class": benchmark.quality_class,
+            "source_quality_class": benchmark.source_quality_class,
+            "stable_identifier": benchmark.source_id,
+            "source_table_or_page": benchmark.source_location,
         }
     return output

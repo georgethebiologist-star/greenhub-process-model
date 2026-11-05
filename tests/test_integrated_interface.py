@@ -17,7 +17,7 @@ def test_integrated_interface_and_reports(tmp_path):
 
     assert model.legacy_model.system is model.system
     assert model.legacy_model.flowsheet is model.flowsheet
-    assert model.scenario_configuration.scenario_chain == "F2/PR3/AD1/BG2/NR4"
+    assert model.scenario_configuration.scenario_chain == "F1/PR3/AD1/BG2/NR4"
     assert model.validation_report is not None
     assert abs(model.validation_report.overall_error_kg_hr) < 1e-6
 

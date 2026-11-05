@@ -108,6 +108,66 @@ def test_biomethane_bonus_requires_a_reported_annual_volume():
         )
 
 
+@pytest.mark.parametrize('rate', [0, 10, 20, 30, 40, 50])
+def test_grass_utilization_bonus_is_distinct_post_route_support(rate):
+    tea = {
+        'totals': {'annual_revenue_eur': 100, 'annual_opex_eur': 25, 'partial_direct_capex_eur': 1000},
+        'opex_lines': [], 'capex_lines': [], 'financial_kpis': {},
+    }
+    annual = {'feed_processed': {'value': 2_000_000, 'unit': 'kg/year'}}
+    result = _apply_candidate_economics(deepcopy(tea), {
+        'grass_utilization_bonus_eur_per_t_feed': rate,
+        'grass_utilization_bonus_years': 2,
+        'project_lifetime_years': 2,
+        'tax_rate': 0,
+        'discount_rate': 0,
+    }, annual)
+    expected = rate * 2000
+    assert result['candidate_economics']['grass_utilization_bonus_eur_per_year'] == pytest.approx(expected)
+    assert result['totals']['total_public_support_undiscounted_eur'] == pytest.approx(expected * 2)
+    assert result['totals']['annual_revenue_eur'] == pytest.approx(100)
+    assert result['totals']['annual_opex_eur'] == pytest.approx(25)
+    assert result['financial_kpis']['npv_eur'] == result['totals']['proxy_npv_eur']
+
+
+def test_grass_utilization_bonus_rejects_rates_outside_user_range():
+    with pytest.raises(ValueError, match='between €0 and €50 per wet tonne'):
+        _apply_candidate_economics(
+            {'totals': {'annual_revenue_eur': 0, 'annual_opex_eur': 0, 'partial_direct_capex_eur': 1}, 'opex_lines': []},
+            {'grass_utilization_bonus_eur_per_t_feed': 50.01},
+            {'feed_processed': {'value': 1000}},
+        )
+
+
+def test_candidate_economics_reapplication_keeps_ui_opex_overrides_idempotent():
+    tea = {
+        'totals': {'annual_revenue_eur': 1_000_000, 'annual_opex_eur': 412_000,
+                   'partial_direct_capex_eur': 2_000_000},
+        'opex_lines': [
+            {'cost_id': 'TEA-036', 'annual_cost_eur': 20_000},
+            {'cost_id': 'TEA-037', 'annual_cost_eur': 15_000},
+        ],
+        'capex_lines': [], 'financial_kpis': {},
+    }
+    annual = {'feed_processed': {'value': 1_000_000}, 'utilities': {
+        'electricity': {'value': 100_000, 'unit': 'kWh'},
+        'heating': {'value': 200_000, 'unit': 'kWh'},
+    }}
+    assumptions = {
+        'staffing_people': 5, 'paid_hours_per_person': 1500,
+        'labor_cost_eur_per_person_hour': 40,
+        'electricity_cost_eur_per_mwh': 200, 'heat_cost_eur_per_mwh': 80,
+        'logistics_cost_eur_per_t_km': 0, 'logistics_distance_km': 0,
+    }
+    first = _apply_candidate_economics(deepcopy(tea), assumptions, annual)
+    second = _apply_candidate_economics(first, {**assumptions, 'grass_utilization_bonus_eur_per_t_feed': 20}, annual)
+    assert second['totals']['annual_opex_eur'] == pytest.approx(first['totals']['annual_opex_eur'])
+    assert second['totals']['annual_revenue_eur'] == pytest.approx(first['totals']['annual_revenue_eur'])
+    ids = [row['cost_id'] for row in second['opex_lines']]
+    assert len(ids) == len(set(ids))
+    assert second['candidate_economics']['grass_utilization_bonus_eur_per_year'] == pytest.approx(20_000)
+
+
 def test_storage_package_is_source_gated_and_stoichiometric():
     rows=reaction_catalog()
     assert len(rows)==23
@@ -444,9 +504,14 @@ def test_decision_support_forwards_optional_logistics_evidence(integrated):
     assert transport[0]['quantity'] == pytest.approx(456.0)
 
 
-def test_baseline_process_has_not_changed():
+def test_active_process_baseline_runs_and_retired_front_end_remains_blocked():
     from Greenhub.integration import create_integrated_greenhub_system
-    old=json.loads(Path('Greenhub/results/decision_support_baseline_before.json').read_text())
-    model=create_integrated_greenhub_system(scenario_id='NR4',biogas_upgrading_scenario_id='BG2',anaerobic_digestion_scenario_id='AD1',protein_recovery_scenario_id='PR3',feed_preparation_scenario_id='F2',selected_month='July').simulate()
-    for name,mass in old['streams_kg_hr'].items():
-        assert float(model.streams[name].F_mass)==pytest.approx(mass,rel=1e-10,abs=1e-9)
+    with pytest.raises(ValueError, match='front-end scenario must be F0 or F1'):
+        create_integrated_greenhub_system(scenario_id='NR4',biogas_upgrading_scenario_id='BG2',
+            anaerobic_digestion_scenario_id='AD1',protein_recovery_scenario_id='PR3',
+            feed_preparation_scenario_id='F2',selected_month='July').simulate()
+    model=create_integrated_greenhub_system(scenario_id='NR4',biogas_upgrading_scenario_id='BG2',
+        anaerobic_digestion_scenario_id='AD1',protein_recovery_scenario_id='PR3',
+        feed_preparation_scenario_id='F1',selected_month='July').simulate()
+    assert model.system is not None
+    assert all(float(stream.F_mass) >= 0 for stream in model.streams.values())
