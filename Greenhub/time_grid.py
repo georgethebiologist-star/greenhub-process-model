@@ -1,4 +1,4 @@
-"""Deterministic monthly and daily grids for quasi-dynamic runs."""
+"""Deterministic monthly, weekly and daily grids for quasi-dynamic runs."""
 
 from __future__ import annotations
 
@@ -41,14 +41,17 @@ def generate_time_grid(
     end = _parse(end_date or DEFAULT_SEASON_END, "end_date")
     if end < start:
         raise ValueError("end_date must not precede start_date.")
-    if time_step not in {"monthly", "daily"}:
-        raise ValueError("time_step must be 'monthly' or 'daily'.")
+    if time_step not in {"monthly", "weekly", "daily"}:
+        raise ValueError("time_step must be 'monthly', 'weekly', or 'daily'.")
     steps = []
     cursor = start
     while cursor <= end:
         if time_step == "daily":
             step_end = cursor
             label = cursor.isoformat()
+        elif time_step == "weekly":
+            step_end = min(cursor + timedelta(days=6), end)
+            label = step_end.isoformat()
         else:
             last_day = monthrange(cursor.year, cursor.month)[1]
             step_end = min(date(cursor.year, cursor.month, last_day), end)

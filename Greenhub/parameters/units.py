@@ -6,6 +6,17 @@ from math import isfinite
 
 
 _LINEAR_CONVERSIONS: dict[tuple[str, str], tuple[float, float]] = {
+    # Configure UI shorthand for the pure-acid dose: both values describe kg
+    # pure acid per cubic metre of liquid, so this is a unit alias (1:1).
+    ("kg/m³ liquid", "kg pure acid/m3 liquid"): (1.0, 0.0),
+    ("kg pure acid/m3 liquid", "kg/m³ liquid"): (1.0, 0.0),
+    # Process-tab labels are user-friendly spellings of canonical registry units.
+    ("°c", "degc"): (1.0, 0.0),
+    ("degc", "°c"): (1.0, 0.0),
+    ("kg cod/m³/day", "kg cod/m3/d"): (1.0, 0.0),
+    ("kg cod/m3/d", "kg cod/m³/day"): (1.0, 0.0),
+    ("mol fraction", "mol fraction dry"): (1.0, 0.0),
+    ("mol fraction dry", "mol fraction"): (1.0, 0.0),
     ("%", "fraction"): (0.01, 0.0),
     ("vol %", "fraction"): (0.01, 0.0),
     ("fraction", "%"): (100.0, 0.0),

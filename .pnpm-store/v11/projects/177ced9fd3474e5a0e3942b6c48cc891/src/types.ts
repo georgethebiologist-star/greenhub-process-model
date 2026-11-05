@@ -1,6 +1,6 @@
 export type CalculationMode = 'structural' | 'literature_default' | 'calibrated';
 export type ResolutionMode = 'steady_state' | 'quasi_dynamic' | 'dynamic';
-export type ResultSourceStatus = 'live_python' | 'live_api' | 'preview_baseline' | 'backend_unavailable' | 'stale_previous_result';
+export type ResultSourceStatus = 'live_python' | 'live_api' | 'preview_baseline' | 'backend_unavailable' | 'stale_previous_result' | 'request_failed';
 
 export interface ResultSourceState {
   status: ResultSourceStatus;
@@ -113,6 +113,7 @@ export interface SimulationRequest {
 export interface EmpiricalBiomassSchedule {
   annual_available_biomass_tonnes: number;
   annual_processed_biomass_tonnes: number;
+  processing_delay_days: number;
   collection_refinery_fraction: number;
   feed_basis: 'tonnes_per_year' | 'kg_per_hr';
   feed_kg_per_hr: number;
@@ -140,6 +141,8 @@ export interface UnitOperation {
   area: ProcessAreaId;
   type: string;
   duty_kw: number;
+  heating_kw?: number;
+  cooling_kw?: number;
   power_kw: number;
   temperature_c: number;
   pressure_bar: number;
@@ -312,6 +315,15 @@ export interface AnnualSummary {
     annual_available_tonnes: number;
     annual_processed_tonnes: number;
     annual_unused_tonnes: number;
+    user_requested_target_tonnes?: number;
+    effective_target_tonnes?: number;
+    equipment_capacity_shortfall_tonnes?: number;
+    throughput_capacity_limited?: boolean;
+    throughput_bottleneck_unit_id?: string | null;
+    throughput_bottleneck_unit_name?: string | null;
+    equipment_capacity_scale_factor?: number;
+    equipment_scale_design_peak_kg_hr?: number;
+    equipment_capacity_costing_status?: string;
     utilization_fraction: number;
     peak_month_processed_tonnes: number;
     peak_throughput_kg_per_hr: number;
@@ -320,6 +332,7 @@ export interface AnnualSummary {
   };
   chart_data: {
     schedule: Array<Record<string, number | string>>;
+    schedule_timeseries?: Array<Record<string, number | string>>;
     bulk_streams: Array<Record<string, number | string>>;
     small_products: Array<Record<string, number | string>>;
     biomethane: Array<Record<string, number | string>>;
@@ -329,6 +342,7 @@ export interface AnnualSummary {
     annual_volumetric_product_mix?: Array<Record<string, number | string>>;
     groups: Record<string, string[]>;
   };
+  chart_contract?: Record<string, string>;
   display_utilities: Record<string, AnnualValue>;
   process_pathway: Array<{
     stage_id: string;

@@ -4,7 +4,10 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from datetime import date
+import json
+from functools import lru_cache
 from math import isfinite
+from pathlib import Path
 from typing import Any, Mapping
 
 from Greenhub.parameters.enums import CalculationMode, ResolutionMode
@@ -12,6 +15,35 @@ from Greenhub.parameters.overrides import ParameterOverride
 from Greenhub.parameters.serialization import to_json_compatible
 
 SCHEMA_VERSION = "1.0.0"
+
+
+@lru_cache(maxsize=1)
+def _feed_composition_profile() -> dict[str, object]:
+    """Load the canonical feed profile shared with the frontend reset form."""
+    profile_path = (
+        Path(__file__).resolve().parents[2]
+        / "data"
+        / "Pre-treatment"
+        / "Feedstock"
+        / "greenhub_feed_composition_defaults.json"
+    )
+    with profile_path.open(encoding="utf-8") as source:
+        return json.load(source)
+
+
+_FEED_PROFILE = _feed_composition_profile()
+_FEED_COMPOSITION_LIMITS = _FEED_PROFILE["composition_limits"]
+FEED_COMPOSITION_MIN_TOTAL = float(_FEED_COMPOSITION_LIMITS["minimum_total_fraction"])
+FEED_COMPOSITION_MAX_TOTAL = float(_FEED_COMPOSITION_LIMITS["maximum_total_fraction"])
+FEED_COMPOSITION_NORMALIZED_TOTAL = float(_FEED_COMPOSITION_LIMITS["normalized_total_fraction"])
+
+
+def _default_feed_composition() -> dict[str, float]:
+    """Return fresh wet-basis fractions from the canonical feed profile."""
+    return {
+        component_id: float(record["wet_mass_fraction"])
+        for component_id, record in _FEED_PROFILE["compounds"].items()
+    }
 
 
 @dataclass(frozen=True)
@@ -93,6 +125,7 @@ class BiomassSchedule:
 
     annual_available_biomass_tonnes: float = 30000.0
     annual_processed_biomass_tonnes: float = 30000.0
+    processing_delay_days: int = 14
     collection_refinery_fraction: float = 1.0
     feed_basis: str = "tonnes_per_year"
     feed_kg_per_hr: float = 1000.0
@@ -119,6 +152,8 @@ class BiomassSchedule:
             raise ValueError("Biomass-schedule values must be finite non-negative numbers.")
         if self.collection_refinery_fraction > 1.0:
             raise ValueError("collection_refinery_fraction must be within [0, 1].")
+        if type(self.processing_delay_days) is not int or not 0 <= self.processing_delay_days <= 365:
+            raise ValueError("processing_delay_days must be an integer from 0 to 365.")
         if self.feed_basis not in {"tonnes_per_year", "kg_per_hr"}:
             raise ValueError("feed_basis must be 'tonnes_per_year' or 'kg_per_hr'.")
         if not 1.0 <= self.spread_days <= 366.0:
@@ -325,17 +360,48 @@ class SimulationRequest:
     feed_supply_profile_id: str | None = None
     wet_feed_rate_kg_hr: float | None = None
     plant_capacity_kg_hr: float | None = None
-    feed_composition: dict[str, float] = field(default_factory=dict)
+    feed_composition: dict[str, float] = field(default_factory=_default_feed_composition)
     storage_conditions: dict[str, object] | None = None
     biostimulant_route: BiostimulantRouteOptions | None = None
 
     def __post_init__(self) -> None:
+        if not self.feed_composition:
+            object.__setattr__(self, "feed_composition", _default_feed_composition())
         for name in ("wet_feed_rate_kg_hr", "plant_capacity_kg_hr"):
             value = getattr(self, name)
             if value is not None and (isinstance(value, bool) or not isfinite(float(value)) or value <= 0):
                 raise ValueError(f"{name} must be finite and greater than zero.")
-        if self.feed_composition and (any(not isfinite(float(v)) or v < 0 for v in self.feed_composition.values()) or abs(sum(self.feed_composition.values())-1)>1e-8):
-            raise ValueError("feed_composition must contain nonnegative wet mass fractions summing to one; overlapping fractions are not allowed.")
+        canonical_composition = _default_feed_composition()
+        unknown_components = set(self.feed_composition) - set(canonical_composition)
+        if unknown_components:
+            names = ", ".join(sorted(map(str, unknown_components)))
+            raise ValueError(f"feed_composition contains unknown compounds: {names}.")
+        numeric_composition = {}
+        for component_id, value in self.feed_composition.items():
+            if isinstance(value, bool) or not isinstance(value, (int, float)):
+                raise ValueError("feed_composition values must be numeric wet-mass fractions.")
+            numeric_value = float(value)
+            if not isfinite(numeric_value) or numeric_value < 0:
+                raise ValueError("feed_composition values must be finite, non-negative wet-mass fractions.")
+            numeric_composition[component_id] = numeric_value
+        object.__setattr__(self, "feed_composition", numeric_composition)
+        total = sum(numeric_composition.values())
+        if not FEED_COMPOSITION_MIN_TOTAL <= total <= FEED_COMPOSITION_MAX_TOTAL:
+            raise ValueError(
+                "feed_composition total must be between "
+                f"{FEED_COMPOSITION_MIN_TOTAL:.2f} and {FEED_COMPOSITION_MAX_TOTAL:.2f} "
+                "on a wet-mass basis; "
+                f"received {total:.6g}."
+            )
+        if abs(total - FEED_COMPOSITION_NORMALIZED_TOTAL) > 1e-12:
+            object.__setattr__(
+                self,
+                "feed_composition",
+                {
+                    key: value * FEED_COMPOSITION_NORMALIZED_TOTAL / total
+                    for key, value in numeric_composition.items()
+                },
+            )
         if self.storage_conditions is not None:
             from Greenhub.storage import apply_storage_conditions
             apply_storage_conditions({}, self.storage_conditions)
@@ -349,8 +415,8 @@ class SimulationRequest:
             raise ValueError("time_horizon must contain exactly two values.")
         if not isinstance(self.strict_validation, bool):
             raise TypeError("strict_validation must be a boolean.")
-        if self.time_step not in {None, "monthly", "daily"}:
-            raise ValueError("time_step must be 'monthly', 'daily', or null.")
+        if self.time_step not in {None, "monthly", "weekly", "daily"}:
+            raise ValueError("time_step must be 'monthly', 'weekly', 'daily', or null.")
         if self.annual_biomass_target is not None:
             if not isfinite(float(self.annual_biomass_target)) or self.annual_biomass_target <= 0.0:
                 raise ValueError("annual_biomass_target must be finite and greater than zero when supplied.")
@@ -415,6 +481,7 @@ class SimulationRequest:
             else BiomassSchedule(
                 annual_available_biomass_tonnes=float(biomass_payload.get("annual_available_biomass_tonnes", 30000.0)),
                 annual_processed_biomass_tonnes=float(biomass_payload.get("annual_processed_biomass_tonnes", 30000.0)),
+                processing_delay_days=biomass_payload.get("processing_delay_days", 14),
                 collection_refinery_fraction=float(biomass_payload.get("collection_refinery_fraction", 1.0)),
                 feed_basis=str(biomass_payload.get("feed_basis", "tonnes_per_year")),
                 feed_kg_per_hr=float(biomass_payload.get("feed_kg_per_hr", 1000.0)),
@@ -516,7 +583,7 @@ class SimulationRequest:
             feed_supply_profile_id=payload.get("feed_supply_profile_id"),
             wet_feed_rate_kg_hr=payload.get("wet_feed_rate_kg_hr"),
             plant_capacity_kg_hr=payload.get("plant_capacity_kg_hr"),
-            feed_composition=dict(payload.get("feed_composition") or {}),
+            feed_composition=dict(payload.get("feed_composition") or _default_feed_composition()),
             storage_conditions=payload.get("storage_conditions"),
             biostimulant_route=biostimulant_route,
         )

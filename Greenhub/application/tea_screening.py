@@ -35,7 +35,6 @@ def prepare_screening_basis(basis, records, measures, result):
             capacities[record.cost_id] = {'value': value, 'unit': record.capacity_unit, 'notes': note}
     quantities = dict(basis.annual_quantities)
     quantities.setdefault('TEA-029', {'value': basis.staffing_people * basis.paid_hours_per_person, 'unit': 'paid hour', 'notes': 'User staffing basis: people × 1500 paid hours/person/year.'})
-    quantities.setdefault('TEA-032', {'value': float(measures.get('annual_throughput_kg') or 0) / 1000, 'unit': 't/year', 'notes': 'Processed wet feed used as haulage quantity proxy; delivery losses and inbound water require review.'})
     # Price actual modeled magnesium reagent from R711. A zero design result is
     # meaningful (no modeled MgCl2 demand); do not infer a dose from recovered P.
     annual_hours = measures.get('operating_hours_per_year')
@@ -48,8 +47,11 @@ def prepare_screening_basis(basis, records, measures, result):
                     'notes': 'BioSTEAM R711 Magnesium reagent design result × modeled annual operating hours; no stoichiometric dose inferred where the model reports zero.',
                 }
                 break
-    includes = set(basis.include_cost_ids) | {'TEA-029', 'TEA-032'}
-    excludes = set(basis.exclude_cost_ids)
+    includes = set(basis.include_cost_ids) | {'TEA-029'}
+    # Logistics benchmarks remain in the evidence register for later sensitivity
+    # work, but the current GreenHub base case assigns no transport or storage cost.
+    excludes = set(basis.exclude_cost_ids) | {'TEA-032', 'TEA-033'}
+    includes.difference_update(excludes)
     # Normalize gas by component moles at 273.15 K, 101325 Pa, dry basis.
     molecular_weights = {'Methane': 16.04246, 'CarbonDioxide': 44.0095,
                          'HydrogenSulfide': 34.0809, 'Ammonia': 17.03052,

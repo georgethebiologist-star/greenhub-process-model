@@ -420,8 +420,7 @@ def test_dashboard_staffing_and_installation_screening(empirical_result):
     }).to_dict()
     labor = next(row for row in report['opex_lines'] if row['cost_id'] == 'TEA-029')
     assert labor['annual_cost_eur'] == pytest.approx(5 * 1500 * 47.9)
-    logistics = next(row for row in report['opex_lines'] if row['cost_id'] == 'TEA-032')
-    assert logistics['annual_cost_eur'] > 0
+    assert not any(row['cost_id'] in {'TEA-032', 'TEA-033'} for row in report['opex_lines'])
     assert report['totals']['screening_capital_basis_eur'] > 50000
     assert any('Installation' in row.get('warning', '') or 'installation' in row.get('warning', '') for row in report['capex_lines'])
     assert any(row['cost_id'] == 'TEA-030' and row['annual_cost_eur'] > 0 for row in report['opex_lines'])

@@ -1,0 +1,158 @@
+[
+  {
+    "element_residuals_kg": {},
+    "overall_mass_residual_kg": 0.0,
+    "time": "2026-01"
+  },
+  {
+    "element_residuals_kg": {},
+    "overall_mass_residual_kg": 0.0,
+    "time": "2026-02"
+  },
+  {
+    "element_residuals_kg": {},
+    "overall_mass_residual_kg": 0.0,
+    "time": "2026-03"
+  },
+  {
+    "element_residuals_kg": {
+      "calcium": 0.0,
+      "carbon": 0.0,
+      "chloride": 0.0,
+      "hydrogen": 0.0,
+      "magnesium": 0.0,
+      "nitrogen": 0.0,
+      "oxygen": 0.0,
+      "phosphorus": 0.0,
+      "potassium": 5.329070518200751e-15,
+      "sodium": 0.0,
+      "sulfur": 0.0
+    },
+    "overall_mass_residual_kg": -4.1183193388860673e-07,
+    "time": "2026-04"
+  },
+  {
+    "element_residuals_kg": {
+      "calcium": 0.0,
+      "carbon": 0.0,
+      "chloride": 0.0,
+      "hydrogen": -1.057287590811029e-11,
+      "magnesium": 0.0,
+      "nitrogen": 0.0,
+      "oxygen": -8.458300726488233e-11,
+      "phosphorus": 2.0650148258027912e-14,
+      "potassium": 0.0,
+      "sodium": -1.652011860642233e-13,
+      "sulfur": 0.0
+    },
+    "overall_mass_residual_kg": -1.1111838830402121e-05,
+    "time": "2026-05"
+  },
+  {
+    "element_residuals_kg": {
+      "calcium": 0.0,
+      "carbon": 0.0,
+      "chloride": 0.0,
+      "hydrogen": 2.0463630789890885e-11,
+      "magnesium": 0.0,
+      "nitrogen": 0.0,
+      "oxygen": 1.6370904631912708e-10,
+      "phosphorus": 0.0,
+      "potassium": 0.0,
+      "sodium": -3.197442310920451e-13,
+      "sulfur": 6.394884621840902e-13
+    },
+    "overall_mass_residual_kg": -2.2294225345831364e-05,
+    "time": "2026-06"
+  },
+  {
+    "element_residuals_kg": {
+      "calcium": 0.0,
+      "carbon": 0.0,
+      "chloride": 6.608047442568932e-13,
+      "hydrogen": -4.229150363244116e-11,
+      "magnesium": 0.0,
+      "nitrogen": 0.0,
+      "oxygen": -3.383320290595293e-10,
+      "phosphorus": 8.260059303211165e-14,
+      "potassium": 0.0,
+      "sodium": 3.304023721284466e-13,
+      "sulfur": 0.0
+    },
+    "overall_mass_residual_kg": -3.5404416848905385e-05,
+    "time": "2026-07"
+  },
+  {
+    "element_residuals_kg": {
+      "calcium": 0.0,
+      "carbon": 0.0,
+      "chloride": 0.0,
+      "hydrogen": 0.0,
+      "magnesium": 0.0,
+      "nitrogen": 0.0,
+      "oxygen": 0.0,
+      "phosphorus": 0.0,
+      "potassium": 6.608047442568932e-13,
+      "sodium": 0.0,
+      "sulfur": 6.608047442568932e-13
+    },
+    "overall_mass_residual_kg": -4.030887794215232e-05,
+    "time": "2026-08"
+  },
+  {
+    "element_residuals_kg": {
+      "calcium": 0.0,
+      "carbon": 0.0,
+      "chloride": 0.0,
+      "hydrogen": -4.092726157978177e-11,
+      "magnesium": 0.0,
+      "nitrogen": 0.0,
+      "oxygen": -3.2741809263825417e-10,
+      "phosphorus": -7.993605777301127e-14,
+      "potassium": 3.197442310920451e-13,
+      "sodium": 0.0,
+      "sulfur": 6.394884621840902e-13
+    },
+    "overall_mass_residual_kg": -3.2786992960609496e-05,
+    "time": "2026-09"
+  },
+  {
+    "element_residuals_kg": {
+      "calcium": 0.0,
+      "carbon": 0.0,
+      "chloride": 0.0,
+      "hydrogen": 0.0,
+      "magnesium": 0.0,
+      "nitrogen": 0.0,
+      "oxygen": 0.0,
+      "phosphorus": 0.0,
+      "potassium": 0.0,
+      "sodium": 0.0,
+      "sulfur": 0.0
+    },
+    "overall_mass_residual_kg": -2.108316039084457e-05,
+    "time": "2026-10"
+  },
+  {
+    "element_residuals_kg": {
+      "calcium": 0.0,
+      "carbon": 0.0,
+      "chloride": 0.0,
+      "hydrogen": 0.0,
+      "magnesium": 0.0,
+      "nitrogen": 0.0,
+      "oxygen": 0.0,
+      "phosphorus": -1.9317880628477724e-14,
+      "potassium": 0.0,
+      "sodium": 1.545430450278218e-13,
+      "sulfur": 0.0
+    },
+    "overall_mass_residual_kg": -9.211695214617066e-06,
+    "time": "2026-11"
+  },
+  {
+    "element_residuals_kg": {},
+    "overall_mass_residual_kg": 0.0,
+    "time": "2026-12"
+  }
+]

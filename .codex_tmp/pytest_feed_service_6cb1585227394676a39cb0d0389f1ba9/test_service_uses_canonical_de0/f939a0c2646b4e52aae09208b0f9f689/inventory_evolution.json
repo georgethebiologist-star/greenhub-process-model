@@ -1,0 +1,8 @@
+[
+  {
+    "final_kg": 0.0,
+    "initial_kg": 0.0,
+    "inventory_id": "biomass_storage",
+    "status": "structural_fallback"
+  }
+]

@@ -1836,6 +1836,7 @@ class NutrientProductDryer(bst.Unit):
         product.copy_like(wet)
         exhaust.empty()
         if self.parameters.drying_enabled:
+            drying_temperature_k = self.parameters.drying_temperature_c + 273.15
             if self.parameters.drying_temperature_c > self.parameters.stability_limit_c:
                 raise ValueError(
                     "Selected Phase 7 product-drying temperature exceeds the configured stability limit."
@@ -1848,7 +1849,7 @@ class NutrientProductDryer(bst.Unit):
             evaporated = max(0.0, float(wet.imass["Water"]) - target_water)
             product.imass["Water"] -= evaporated
             exhaust.imass["Water"] = evaporated
-            product.T = exhaust.T = self.parameters.drying_temperature_c + 273.15
+            product.T = exhaust.T = drying_temperature_k
         else:
             product.T = wet.T
             exhaust.T = wet.T
@@ -1859,13 +1860,14 @@ class NutrientProductDryer(bst.Unit):
     def _design(self):
         wet = self.ins[0]
         evaporated = float(self.outs[1].imass["Water"])
-        temperature_lift = max(0.0, self.outs[0].T - wet.T)
-        sensible = wet.F_mass * self.parameters.heat_capacity_kj_kg_k * temperature_lift
+        # Recover sensible heat when a warm digestate stream is cooled to the
+        # configured low-temperature drying condition. This keeps the dryer
+        # feasible for hot upstream streams and avoids an invalid zero or
+        # negative heating temperature interval in BioSTEAM.
+        sensible = wet.F_mass * self.parameters.heat_capacity_kj_kg_k * (self.outs[0].T - wet.T)
         latent = evaporated * self.parameters.latent_heat_kj_kg
-        self.gross_heat_kw = (
-            (sensible + latent) / self.parameters.thermal_efficiency / 3600.0
-            if self.parameters.drying_enabled else 0.0
-        )
+        net_heat_kj_hr = sensible + latent if self.parameters.drying_enabled else 0.0
+        self.gross_heat_kw = net_heat_kj_hr / self.parameters.thermal_efficiency / 3600.0
         power = evaporated * self.parameters.fan_electricity_kwh_kg_water
         product = self.outs[0]
         final_moisture = (
@@ -1882,11 +1884,19 @@ class NutrientProductDryer(bst.Unit):
             }
         )
         self.power_utility.consumption = power
-        if self.gross_heat_kw:
+        if self.gross_heat_kw > 0.0:
+            drying_temperature = self.outs[0].T
             self.add_heat_utility(
                 self.gross_heat_kw * 3600.0,
-                wet.T,
-                self.outs[0].T,
+                max(1.0, drying_temperature - 1.0),
+                drying_temperature,
+            )
+        elif self.gross_heat_kw < 0.0:
+            drying_temperature = self.outs[0].T
+            self.add_heat_utility(
+                self.gross_heat_kw * 3600.0,
+                drying_temperature + 1.0,
+                drying_temperature,
             )
 
 

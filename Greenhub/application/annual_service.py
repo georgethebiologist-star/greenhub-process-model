@@ -2,9 +2,15 @@
 
 from __future__ import annotations
 
+from collections import Counter
 from datetime import date
 
-from .biomass_schedule import build_empirical_biomass_schedule
+from .biomass_schedule import (
+    build_empirical_biomass_schedule,
+    extend_grid_for_processing_delay,
+    schedule_feed_rows,
+)
+from Greenhub.time_grid import generate_time_grid
 
 
 PRODUCT_KEYS = (
@@ -209,15 +215,18 @@ def _with_empirical_reporting(summary: dict[str, object], result, request) -> di
     monthly = list(summary["monthly"])
     schedule = _schedule_report(result, request, monthly)
     summary["biomass_schedule"] = schedule
-    summary["chart_data"] = _chart_data(monthly, schedule, summary)
+    chart_rows = _interval_chart_rows(result) if request.time_step in {"weekly", "daily"} else monthly
+    summary["chart_data"] = _chart_data(monthly, schedule, summary, chart_rows)
     summary["chart_contract"] = {
         "schedule": "tonnes/month",
-        "bulk_streams": "tonnes/month",
-        "small_products": "tonnes/month",
-        "biomethane": "m3/month",
+        "schedule_timeseries": "tonnes/week" if request.time_step == "weekly" else "tonnes/day" if request.time_step == "daily" else "tonnes/month",
+        "process_timestep": request.time_step or "monthly",
+        "bulk_streams": "tonnes per actual model timestep; monthly charts split weekly amounts by interval days",
+        "small_products": "tonnes per actual model timestep; monthly charts split weekly amounts by interval days",
+        "biomethane": "m3 per actual model timestep; monthly charts split weekly amounts by interval days",
         "volumetric_products": "m3/year or m3/reported period",
-        "electricity": "MWh/month",
-        "heat": "GJ/month",
+        "electricity": "kWh per actual model timestep",
+        "heat": "kWh per actual model timestep",
         "annual_electricity": "MWh/year",
         "annual_heat": "GJ/year",
     }
@@ -246,26 +255,93 @@ def _schedule_report(result, request, monthly: list[dict[str, object]]) -> dict[
         actual[month]=actual.get(month,0.0)+float(row["feed_processed_kg"])/1000.0
     if request.biomass_schedule is not None:
         planned = build_empirical_biomass_schedule(request.biomass_schedule)
+        grid = generate_time_grid(request.start_date, request.end_date, request.time_step or "monthly")
+        grid = extend_grid_for_processing_delay(
+            grid, request.biomass_schedule, request.time_step or "monthly",
+            request.biomass_schedule.processing_delay_days,
+        )
+        delayed_supply: dict[str, dict[str, float]] = {}
+        delayed_supply_intervals: dict[str, dict[str, float]] = {}
+        for supply_row in schedule_feed_rows(
+            request.biomass_schedule,
+            grid,
+            processing_delay_days=request.biomass_schedule.processing_delay_days,
+        ):
+            key = str(supply_row["time"])[:7]
+            target = delayed_supply.setdefault(key, {
+                "available_wet_biomass_kg": 0.0,
+                "collected_biomass_kg": 0.0,
+                "uncollected_biomass_kg": 0.0,
+            })
+            for field in target:
+                target[field] += float(supply_row.get(field, 0.0))
+            interval_target = delayed_supply_intervals.setdefault(str(supply_row["time"]), {
+                "available_wet_biomass_kg": 0.0,
+                "collected_biomass_kg": 0.0,
+            })
+            for field in interval_target:
+                interval_target[field] += float(supply_row.get(field, 0.0))
+        actual_intervals = {
+            str(row.get("time")): float(row.get("actual_throughput_kg", 0.0)) / 1000.0
+            for row in result.throughput_series
+        }
+        interval_rows = [{
+            "period": period,
+            "available_biomass_tonnes": float(values["available_wet_biomass_kg"]) / 1000.0,
+            "processed_biomass_tonnes": actual_intervals.get(period, 0.0),
+        } for period, values in sorted(delayed_supply_intervals.items())]
         rows = []
-        for row in planned["monthly"]:
-            actual_processed = actual.get(str(row["time_label"]), 0.0)
-            processed = float(row["processed_biomass_tonnes"])
-            available = float(row["available_biomass_tonnes"])
+        planned_by_month = {str(row["time_label"]): row for row in planned["monthly"]}
+        periods = sorted(set(planned_by_month) | set(delayed_supply) | set(actual))
+        for period in periods:
+            row = planned_by_month.get(period, {"time_label": period, "available_biomass_tonnes": 0.0, "processed_biomass_tonnes": 0.0})
+            schedule_row = delayed_supply.get(period, {})
+            actual_processed = actual.get(period, 0.0)
+            processed = float(schedule_row.get("collected_biomass_kg", 0.0)) / 1000.0
+            available = float(schedule_row.get("available_wet_biomass_kg", 0.0)) / 1000.0
             rows.append({
                 **row,
+                "available_biomass_tonnes": available,
                 "planned_processed_biomass_tonnes": processed,
                 "processed_biomass_tonnes": actual_processed,
                 "actual_processed_biomass_tonnes": actual_processed,
                 "unprocessed_available_biomass_tonnes": max(available-actual_processed,0.0),
                 "unused_biomass_tonnes": max(available - processed, 0.0),
+                "uncollected_biomass_tonnes": float(schedule_row.get("uncollected_biomass_kg", 0.0)) / 1000.0,
                 "utilization_fraction": actual_processed / available if available else 0.0,
                 "utilization_percent": 100.0 * actual_processed / available if available else 0.0,
             })
         available_total = sum(float(row["available_biomass_tonnes"]) for row in rows)
         processed_total = sum(float(row["processed_biomass_tonnes"]) for row in rows)
+        user_target = float(request.biomass_schedule.annual_processed_biomass_tonnes)
+        effective_target = float(planned["requested_processed_tonnes"])
+        capacity_shortfall = max(effective_target - processed_total, 0.0)
+        bottlenecks = Counter(
+            str(row.get("bottleneck_unit"))
+            for row in getattr(result, "bottleneck_series", ())
+            if row.get("bottleneck_unit")
+        )
+        bottleneck_unit_id = bottlenecks.most_common(1)[0][0] if bottlenecks else None
+        bottleneck_unit_name = next(
+            (unit.display_name for unit in getattr(result, "units", ()) if unit.unit_id == bottleneck_unit_id),
+            bottleneck_unit_id,
+        )
         return {
             **{key: value for key, value in planned.items() if key != "monthly"},
             "monthly": rows,
+            "timeseries": interval_rows,
+            "user_requested_target_tonnes": user_target,
+            "effective_target_tonnes": effective_target,
+            "equipment_capacity_shortfall_tonnes": capacity_shortfall,
+            "throughput_capacity_limited": capacity_shortfall > max(1.0, effective_target * 1e-6),
+            "throughput_bottleneck_unit_id": bottleneck_unit_id if capacity_shortfall > 0.0 else None,
+            "throughput_bottleneck_unit_name": bottleneck_unit_name if capacity_shortfall > 0.0 else None,
+            "equipment_capacity_scale_factor": float(result.seasonal_summary.get("equipment_capacity_scale_factor", 1.0)),
+            "equipment_scale_design_peak_kg_hr": float(result.seasonal_summary.get("equipment_scale_design_peak_kg_hr", 0.0)),
+            "equipment_capacity_costing_status": "structural_capacity_scaled_no_capex_repricing",
+            "processing_delay_days": request.biomass_schedule.processing_delay_days,
+            "processing_start_date": result.seasonal_summary.get("processing_start_date"),
+            "processing_end_date": result.seasonal_summary.get("processing_end_date"),
             "annual_available_tonnes": available_total,
             "annual_processed_tonnes": processed_total,
             "annual_unused_tonnes": max(available_total - processed_total, 0.0),
@@ -289,6 +365,12 @@ def _schedule_report(result, request, monthly: list[dict[str, object]]) -> dict[
     processed = sum(float(row["processed_biomass_tonnes"]) for row in rows)
     return {
         "monthly": rows,
+        "timeseries": [
+            {"period": str(row["period"]),
+             "available_biomass_tonnes": float(row["feed_processed_kg"]) / 1000.0,
+             "processed_biomass_tonnes": float(row["feed_processed_kg"]) / 1000.0}
+            for row in monthly
+        ],
         "annual_available_tonnes": processed,
         "annual_processed_tonnes": processed,
         "annual_unused_tonnes": 0.0,
@@ -301,14 +383,40 @@ def _schedule_report(result, request, monthly: list[dict[str, object]]) -> dict[
     }
 
 
+def _interval_chart_rows(result) -> list[dict[str, object]]:
+    products_by_time = {str(row.get("time")): row for row in result.product_series}
+    utilities_by_time = {str(row.get("time")): row for row in result.utility_series}
+    balances_by_time = {str(row.get("time")): row for row in result.balance_residual_series}
+    rows = []
+    for throughput in result.throughput_series:
+        period = str(throughput.get("time"))
+        product_row = products_by_time.get(period, {})
+        utility_row = utilities_by_time.get(period, {})
+        balance_row = balances_by_time.get(period, {})
+        rows.append({
+            "period": period,
+            "feed_processed_kg": float(throughput.get("actual_throughput_kg", 0.0)),
+            "products_kg": dict(product_row.get("products_kg", {})),
+            "intermediate_streams_kg": dict(product_row.get("intermediate_streams_kg", {})),
+            "volumetric_products_m3": dict(product_row.get("volumetric_products_m3", {})),
+            "utilities_kwh": {
+                key: float(utility_row.get(key, 0.0))
+                for key in ("electricity_kwh", "heating_kwh", "cooling_kwh")
+            },
+            "mass_residual_kg": float(balance_row.get("overall_mass_residual_kg", 0.0)),
+        })
+    return rows
+
+
 def _chart_data(
     monthly: list[dict[str, object]],
     schedule: dict[str, object],
     summary: dict[str, object],
+    chart_rows: list[dict[str, object]] | None = None,
 ) -> dict[str, object]:
     schedule_rows = {str(row["time_label"]): row for row in schedule["monthly"]}
     bulk, products, gas, energy, balance = [], [], [], [], []
-    for row in monthly:
+    for row in chart_rows if chart_rows is not None else monthly:
         period = str(row["period"])
         product = row["products_kg"]
         intermediate = row.get("intermediate_streams_kg", {})
@@ -317,6 +425,7 @@ def _chart_data(
             "period": period,
             "feed_processed_tonnes": float(row["feed_processed_kg"]) / 1000.0,
             "press_cake_tonnes": float(intermediate.get("pressed_fibre_cake", 0.0)) / 1000.0,
+            "juice_tonnes": float(intermediate.get("raw_liquid_fraction", 0.0)) / 1000.0,
             "digestate_tonnes": float(intermediate.get("digestate", 0.0)) / 1000.0,
         })
         products.append({
@@ -359,6 +468,7 @@ def _chart_data(
     ]
     return {
         "schedule": [dict(row) for row in schedule_rows.values()],
+        "schedule_timeseries": [dict(row) for row in schedule.get("timeseries", [])],
         "bulk_streams": bulk,
         "small_products": products,
         "biomethane": gas,
@@ -367,7 +477,7 @@ def _chart_data(
         "annual_product_mix": product_mix,
         "annual_volumetric_product_mix": volumetric_product_mix,
         "groups": {
-            "large_mass": ("feed_processed_tonnes", "press_cake_tonnes", "digestate_tonnes"),
+            "large_mass": ("feed_processed_tonnes", "press_cake_tonnes", "juice_tonnes", "digestate_tonnes"),
             "small_products": (
                 "protein_tonnes", "biostimulant_product_tonnes", "phosphorus_product_tonnes", "ammonium_product_tonnes",
                 "potassium_concentrate_tonnes", "nutrient_rich_solids_tonnes",

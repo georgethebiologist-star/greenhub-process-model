@@ -17,6 +17,9 @@ def test_decision_support_openapi_documents_additive_analysis_inputs():
     properties = openapi_schema()["paths"]["/api/v1/decision-support/evaluate"]["post"]["requestBody"]["content"]["application/json"]["schema"]["properties"]["configuration"]["properties"]
     assert properties["use_screening_lca_factors"]["default"] is False
     assert properties["logistics_result"]["type"] == ["object", "null"]
+    feed_composition=openapi_schema()["components"]["schemas"]["SimulationRequest"]["properties"]["feed_composition"]
+    assert feed_composition["additionalProperties"]["maximum"]==1.1
+    assert "0.90 to 1.10" in feed_composition["description"]
 
 
 def test_backend_batch_endpoint_accepts_exact_candidate_overrides(tmp_path):
@@ -66,6 +69,46 @@ def test_default_api_reads_saved_pareto_job_from_legacy_results_root(tmp_path, m
     status, candidate = invoke(api, "GET", f'/api/v1/decision-support/batch-jobs/{started["job_id"]}/candidates/{sample_id}')
     assert status == 200
     assert candidate["outputs"]["configuration_echo"] == {"value": 1}
+
+
+def test_stale_simulation_artifacts_are_not_served_after_restart(tmp_path):
+    app=create_app(tmp_path)
+    old_run_id='a'*32
+    old_run=tmp_path/old_run_id
+    old_run.mkdir()
+    (old_run/'units.json').write_text('[{"unit_id":"stale"}]',encoding='utf-8')
+    (old_run/'utilities.json').write_text('{"electricity_kwh":999}',encoding='utf-8')
+    (old_run/'decision_support.json').write_text('{"npv":999999}',encoding='utf-8')
+    (old_run/'graph.json').write_text('{"nodes":[{"unit_id":"stale"}]}',encoding='utf-8')
+    (old_run/'annual_summary.json').write_text('{"feed_processed":{"value":999999}}',encoding='utf-8')
+    stale_plots=old_run/'plots'
+    stale_plots.mkdir()
+    (stale_plots/'SEASONAL-STALE.json').write_text('{"series":[{"y":[999999]}]}',encoding='utf-8')
+
+    status,units=invoke(app,'GET',f'/api/v1/simulations/{old_run_id}/units')
+    assert status==404
+    assert units['error']['code']=='run_not_found'
+
+    status,utilities=invoke(app,'GET',f'/api/v1/simulations/{old_run_id}/utilities')
+    assert status==404
+    assert utilities['error']['code']=='run_not_found'
+
+    for resource in ('graph','annual-summary','validation'):
+        status,response=invoke(app,'GET',f'/api/v1/simulations/{old_run_id}/{resource}')
+        assert status==404
+        assert response['error']['code']=='run_not_found'
+
+    status,plot=invoke(app,'GET',f'/api/v1/simulations/{old_run_id}/plots/SEASONAL-STALE')
+    assert status==404
+    assert plot['error']['code']=='run_not_found'
+
+    status,artifact=invoke(app,'GET',f'/api/v1/simulations/{old_run_id}/artifacts/units.json')
+    assert status==404
+    assert artifact['error']['code']=='run_not_found'
+
+    status,analysis=invoke(app,'GET',f'/api/v1/decision-support/runs/{old_run_id}')
+    assert status==404
+    assert analysis['error']['code']=='run_not_found'
 
 
 def test_dynamic_complete_endpoints_are_opt_in_json_safe(tmp_path):

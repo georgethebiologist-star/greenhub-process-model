@@ -16,7 +16,11 @@ from Greenhub.time_grid import TimeGridStep, generate_time_grid
 
 from .sale_quantities import seasonal_sale_quantities
 from .contracts import InitialStorageInventory, OperatingSchedule, SimulationRequest
-from .biomass_schedule import build_empirical_biomass_schedule, schedule_feed_rows
+from .biomass_schedule import (
+    build_empirical_biomass_schedule,
+    extend_grid_for_processing_delay,
+    schedule_feed_rows,
+)
 from .feed_profile_service import FeedProfileService
 from .result_factory import build_balances, build_products, build_unit_results, build_utilities
 
@@ -111,13 +115,15 @@ def capacity_limited_throughput(
 
 def _biomass_schedule_operating_hours(
     step: TimeGridStep, request: SimulationRequest, workbook_days: float,
+    processing_delay_days: int = 0,
 ) -> float:
     """Apply collection-season bounds, active months and explicit shutdowns."""
     config = request.biomass_schedule
-    if date.fromisoformat(step.start_date).month not in config.active_months:
-        return 0.0
-    active_start = max(date.fromisoformat(step.start_date), date.fromisoformat(config.season_start))
-    active_end = min(date.fromisoformat(step.end_date), date.fromisoformat(config.season_end))
+    delay = timedelta(days=processing_delay_days)
+    season_start = date.fromisoformat(config.season_start) + delay
+    season_end = date.fromisoformat(config.season_end) + delay
+    active_start = max(date.fromisoformat(step.start_date), season_start)
+    active_end = min(date.fromisoformat(step.end_date), season_end)
     active_days = max(0, (active_end-active_start).days+1)
     if not active_days:
         return 0.0
@@ -138,11 +144,19 @@ class SeasonalSimulationService:
         model_overrides: dict[str, object],
     ) -> SeasonalComputation:
         grid = generate_time_grid(request.start_date, request.end_date, request.time_step or "monthly")
+        if request.biomass_schedule is not None:
+            grid = extend_grid_for_processing_delay(
+                grid, request.biomass_schedule, request.time_step or "monthly",
+                request.biomass_schedule.processing_delay_days,
+            )
         schedule_plan = None
         if request.biomass_schedule is not None:
             schedule_plan = build_empirical_biomass_schedule(request.biomass_schedule)
-            scheduled = {row["time"]: row for row in schedule_feed_rows(request.biomass_schedule, grid)}
-            supply = [dict(scheduled.get(step.label, _zero_schedule_feed_row(step.label))) for step in grid]
+            supply = list(schedule_feed_rows(
+                request.biomass_schedule,
+                grid,
+                processing_delay_days=request.biomass_schedule.processing_delay_days,
+            ))
             profile_warnings = (
                 "Empirical monthly intake follows the shared normal-supply/monthly-cap schedule.",
             )
@@ -153,6 +167,12 @@ class SeasonalSimulationService:
             supply = list(resolve_feed_profile(profile, grid, request.annual_biomass_target))
             profile_warnings = profile.warnings
         resolved = {item.parameter_id: item for item in resolved_parameters}
+        equipment_scale_factor = 1.0
+        equipment_scale_peak_kg_hr = 0.0
+        if schedule_plan is not None:
+            equipment_scale_factor, equipment_scale_peak_kg_hr, model_overrides = self._scale_equipment_for_schedule(
+                request, schedule_plan, resolved, model_overrides, supply, grid
+            )
         storage_capacity = _resolved_number(resolved.get("seasonal.storage_capacity_kg"))
         warnings = list(profile_warnings)
         if storage_capacity is None:
@@ -215,11 +235,19 @@ class SeasonalSimulationService:
             )
             workbook_days = float(template.feed_specification.operating_days)
             if schedule_plan is not None:
-                schedule_row = next(row for row in schedule_plan["monthly"] if row["time_label"] == step.start_date[:7])
-                operating_hours = _biomass_schedule_operating_hours(step, request, workbook_days)
+                schedule_row = next(
+                    (row for row in schedule_plan["monthly"] if row["time_label"] == step.start_date[:7]),
+                    {"basis_feed_kg_per_hr": equipment_scale_peak_kg_hr},
+                )
+                operating_hours = _biomass_schedule_operating_hours(
+                    step, request, workbook_days, request.biomass_schedule.processing_delay_days
+                )
                 target_rate = request.operating_schedule.target_throughput_kg_hr if request.operating_schedule else None
                 if target_rate is None:
-                    target_rate=float(schedule_row["basis_feed_kg_per_hr"])
+                    scheduled_mass = float(feed_row.get("collected_biomass_kg", 0.0))
+                    target_rate = scheduled_mass / operating_hours if operating_hours > 0.0 else 0.0
+                    if target_rate == 0.0 and inventory.total_mass_kg > 0.0 and operating_hours > 0.0:
+                        target_rate = float(schedule_row["basis_feed_kg_per_hr"])
             else:
                 operating_hours = calculate_operating_hours(step, request.operating_schedule, workbook_days)
                 target_rate = request.operating_schedule.target_throughput_kg_hr if request.operating_schedule else None
@@ -238,7 +266,7 @@ class SeasonalSimulationService:
             if desired_rate > 0.0:
                 model = template
                 self._simulate_at_rate(model, desired_rate, fractions, temperature)
-                capacity_records = self._capacity_records(model, resolved)
+                capacity_records = self._capacity_records(model, resolved, equipment_scale_factor)
                 raw_capacity = _raw_capacity_from_records(desired_rate, capacity_records)
                 decision = capacity_limited_throughput(
                     inventory.total_mass_kg, operating_hours, target_rate, raw_capacity
@@ -248,7 +276,7 @@ class SeasonalSimulationService:
                 if actual_rate + 1e-9 < desired_rate:
                     model = self._build_model(request, month, model_overrides)
                     self._simulate_at_rate(model, actual_rate, fractions, temperature)
-                    capacity_records = self._capacity_records(model, resolved)
+                    capacity_records = self._capacity_records(model, resolved, equipment_scale_factor)
             else:
                 decision = capacity_limited_throughput(
                     inventory.total_mass_kg, operating_hours, target_rate, raw_capacity
@@ -353,10 +381,12 @@ class SeasonalSimulationService:
             }
             for name, value in products.items():
                 total_products[name] = total_products.get(name, 0.0) + value
+            press_cake_stream = model.streams.get("pressed_fibre_cake")
+            if press_cake_stream is None:
+                press_cake_stream = model.streams.get("fibre_cake")
             intermediate_streams = {
-                name: float(model.streams[name].F_mass) * operating_hours
-                for name in ("pressed_fibre_cake", "digestate")
-                if name in model.streams
+                **({"pressed_fibre_cake": float(press_cake_stream.F_mass) * operating_hours} if press_cake_stream is not None else {}),
+                **({"digestate": float(model.streams["digestate"].F_mass) * operating_hours} if "digestate" in model.streams else {}),
             }
             volumetric_products = {
                 "biomethane": float(model.streams["biomethane"].F_vol) * operating_hours
@@ -457,6 +487,19 @@ class SeasonalSimulationService:
                 float(item["available_operating_hours"]) for item in throughput_rows
             ) if any(float(item["available_operating_hours"]) > 0.0 for item in throughput_rows) else 0.0,
             "peak_throughput_kg_hr": max(float(item["actual_throughput_kg_hr"]) for item in throughput_rows),
+            "equipment_capacity_scale_factor": equipment_scale_factor,
+            "equipment_scale_design_peak_kg_hr": equipment_scale_peak_kg_hr,
+            "processing_delay_days": request.biomass_schedule.processing_delay_days if schedule_plan is not None else 0,
+            "processing_start_date": (
+                (date.fromisoformat(request.biomass_schedule.season_start)
+                 + timedelta(days=request.biomass_schedule.processing_delay_days)).isoformat()
+                if schedule_plan is not None else None
+            ),
+            "processing_end_date": (
+                (date.fromisoformat(request.biomass_schedule.season_end)
+                 + timedelta(days=request.biomass_schedule.processing_delay_days)).isoformat()
+                if schedule_plan is not None else None
+            ),
             "unit_utilization": {
                 unit: {"average": sum(values) / len(values), "peak": max(values)}
                 for unit, values in sorted(utilization_totals.items())
@@ -537,12 +580,15 @@ class SeasonalSimulationService:
         model.simulate()
 
     @staticmethod
-    def _capacity_records(model, resolved: dict[str, object]) -> tuple[dict[str, object], ...]:
+    def _capacity_records(
+        model, resolved: dict[str, object], capacity_scale_factor: float = 1.0,
+    ) -> tuple[dict[str, object], ...]:
         records = []
         for parameter_id, (unit_id, basis) in _CAPACITY_PARAMETERS.items():
             capacity = _resolved_number(resolved.get(parameter_id))
             if capacity is None or unit_id not in model.units:
                 continue
+            capacity *= capacity_scale_factor
             unit = model.units[unit_id]
             inlet = unit.ins[0]
             if basis == "mass_t_h":
@@ -561,6 +607,61 @@ class SeasonalSimulationService:
                 "utilization": utilization,
             })
         return tuple(records)
+
+    def _scale_equipment_for_schedule(
+        self, request: SimulationRequest, schedule_plan: dict[str, object],
+        resolved: dict[str, object], model_overrides: dict[str, object],
+        supply: list[dict[str, object]], grid: tuple[TimeGridStep, ...],
+    ) -> tuple[float, float, dict[str, object]]:
+        """Size structural equipment to the scheduled peak feed rate.
+
+        Capacity parameters are explicitly structural in the parameter registry and
+        carry no CAPEX estimate. This scales process throughput while preserving the
+        current TEA cost basis; it does not invent equipment purchase costs.
+        """
+        if not supply:
+            return 1.0, 0.0, model_overrides
+        rates = []
+        for step, row in zip(grid, supply):
+            hours = _biomass_schedule_operating_hours(
+                step, request, 365.0, request.biomass_schedule.processing_delay_days
+            )
+            mass = float(row.get("collected_biomass_kg", 0.0))
+            if hours > 0.0 and mass > 0.0:
+                rates.append((mass / hours, step, row))
+        if not rates:
+            return 1.0, 0.0, model_overrides
+        peak_rate, peak_step, peak = max(rates, key=lambda item: item[0])
+        if request.plant_capacity_kg_hr is not None:
+            peak_rate = min(peak_rate, float(request.plant_capacity_kg_hr))
+        if request.wet_feed_rate_kg_hr is not None:
+            peak_rate = min(peak_rate, float(request.wet_feed_rate_kg_hr))
+        if peak_rate <= 0.0:
+            return 1.0, 0.0, model_overrides
+
+        month = date.fromisoformat(peak_step.start_date).strftime("%B")
+        prototype = self._build_model(request, month, model_overrides)
+        feed = prototype.streams["feed"]
+        fractions = request.feed_composition or _complete_fractions(
+            _stream_fractions(feed),
+            peak.get("component_mass_fractions", {}),
+            peak.get("moisture_fraction"),
+        )
+        self._simulate_at_rate(prototype, peak_rate, fractions, float(feed.T))
+        capacity_records = self._capacity_records(prototype, resolved)
+        current_limit = _raw_capacity_from_records(peak_rate, capacity_records)
+        if current_limit is None or current_limit <= 0.0 or current_limit >= peak_rate:
+            return 1.0, peak_rate, model_overrides
+
+        # A small design margin prevents floating point or rounded capacity values
+        # from leaving the peak schedule just above an equipment limit.
+        scale_factor = peak_rate / current_limit * 1.01
+        scaled_overrides = dict(model_overrides)
+        for parameter_id in _CAPACITY_PARAMETERS:
+            capacity = _resolved_number(resolved.get(parameter_id))
+            if capacity is not None:
+                scaled_overrides[parameter_id.rsplit(".", 1)[-1]] = capacity * scale_factor
+        return scale_factor, peak_rate, scaled_overrides
 
     @staticmethod
     def _initialize_inventory(

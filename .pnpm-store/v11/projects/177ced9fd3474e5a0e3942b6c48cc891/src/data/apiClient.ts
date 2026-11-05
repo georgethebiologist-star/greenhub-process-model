@@ -47,11 +47,14 @@ export interface BackendResources {
 }
 
 export type ProcessResolution = 'quasi_dynamic' | 'steady_state';
-export function buildPythonRequest(mode: CalculationMode, month: string, scenario: ScenarioSelection, feed: FeedInputs, biomassSchedule: EmpiricalBiomassSchedule, resolution: ProcessResolution = 'quasi_dynamic', storageConditions:Record<string,unknown>|null = null) {
+export function buildPythonRequest(mode: CalculationMode, month: string, scenario: ScenarioSelection, feed: FeedInputs, biomassSchedule: EmpiricalBiomassSchedule, resolution: ProcessResolution = 'quasi_dynamic', storageConditions:Record<string,unknown>|null = null, feedComposition:Record<string,number> = {}, designOverrides:Array<{parameter_id:string;value:number|string|boolean;unit?:string;reason?:string}> = []) {
   const year = biomassSchedule.season_start.slice(0, 4);
+  const requestId = globalThis.crypto?.randomUUID
+    ? `greenhub-ui-${globalThis.crypto.randomUUID()}`
+    : `greenhub-ui-${Date.now()}-${Math.random().toString(16).slice(2)}`;
   const request:Record<string,any> = {
     schema_version: '1.0.0',
-    request_id: `greenhub-ui-${Date.now()}`,
+    request_id: requestId,
     project_id: 'greenhub-engineering',
     calculation_mode: mode,
     resolution_mode: resolution,
@@ -64,11 +67,13 @@ export function buildPythonRequest(mode: CalculationMode, month: string, scenari
       nutrient_recovery: scenario.nutrient_recovery,
       process_order: scenario.process_order,
     },
+    ...(designOverrides.length ? {design_overrides:designOverrides} : {}),
     operating_schedule: {
       operating_days_per_week: feed.operatingDaysPerWeek,
       operating_hours_per_day: feed.operatingHoursPerDay,
       ...(biomassSchedule.feed_basis === 'kg_per_hr' ? {target_throughput_kg_hr: biomassSchedule.feed_kg_per_hr} : {}),
     },
+    ...(Object.keys(feedComposition).length ? {feed_composition:feedComposition} : {}),
     requested_plots: [],
     export_formats: ['json', 'csv'],
     strict_validation: true,
@@ -76,7 +81,9 @@ export function buildPythonRequest(mode: CalculationMode, month: string, scenari
   if (resolution === 'quasi_dynamic') {
     request.start_date = `${year}-01-01`;
     request.end_date = `${year}-12-31`;
-    request.time_step = 'monthly';
+    // Weekly timesteps make the configured storage delay visible on the
+    // biomass/throughput curve. Products and utilities remain monthly totals.
+    request.time_step = 'weekly';
     request.annual_biomass_target = biomassSchedule.annual_processed_biomass_tonnes * 1000;
     request.biomass_schedule = biomassSchedule;
     if(storageConditions)request.storage_conditions=storageConditions;

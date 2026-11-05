@@ -756,16 +756,7 @@ class GreenHubAPI:
         }
 
     def _run_resource(self, run_id: str, resource: str) -> object:
-        try:
-            context = self.repository.get(run_id)
-        except RunNotFoundError:
-            stored = {"units": "units.json", "utilities": "utilities.json"}.get(resource)
-            if stored is None:
-                raise
-            artifact = self._stored_run_directory(run_id) / stored
-            if not artifact.is_file():
-                raise RunNotFoundError(f"Stored run '{run_id}' has no '{resource}' resource.")
-            return json.loads(artifact.read_text(encoding="utf-8"))
+        self.repository.get(run_id)
         resources = {
             "status": lambda: self.simulations.get_run_status(run_id),
             "summary": lambda: self.results.get_summary(run_id),
@@ -793,8 +784,10 @@ class GreenHubAPI:
     def _stored_run_directory(self, run_id: str) -> Path:
         from Greenhub.settings import RESULTS_DIR
         root = Path(self.simulations.run_root or RESULTS_DIR / "runs").resolve()
-        candidate = (root / run_id).resolve()
-        if root not in candidate.parents or not candidate.is_dir():
+        context = self.repository.get(run_id)
+        candidate = Path(context.run_directory).resolve()
+        expected = (root / run_id).resolve()
+        if candidate != expected or root not in candidate.parents or not candidate.is_dir():
             raise APIError(404, "run_not_found", f"Stored run '{run_id}' was not found.")
         return candidate
 

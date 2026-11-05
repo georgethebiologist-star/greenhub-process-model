@@ -7,6 +7,11 @@ from copy import deepcopy
 from pathlib import Path
 
 from Greenhub.parameters.serialization import write_json
+from .contracts.requests import (
+    FEED_COMPOSITION_MAX_TOTAL,
+    FEED_COMPOSITION_MIN_TOTAL,
+    FEED_COMPOSITION_NORMALIZED_TOTAL,
+)
 
 
 ADVANCED_MODEL_DIR = Path(__file__).resolve().parents[1] / "data" / "advanced_model"
@@ -59,6 +64,7 @@ BIOMASS_SCHEDULE_SCHEMA = {
     "properties": {
         "annual_available_biomass_tonnes": {"type": "number", "minimum": 0, "default": 30000},
         "annual_processed_biomass_tonnes": {"type": "number", "minimum": 0, "default": 30000},
+        "processing_delay_days": {"type": "integer", "minimum": 0, "maximum": 365, "default": 14},
         "collection_refinery_fraction": {"type": "number", "minimum": 0, "maximum": 1, "default": 1},
         "feed_basis": {"type": "string", "enum": ["tonnes_per_year", "kg_per_hr"]},
         "feed_kg_per_hr": {"type": "number", "minimum": 0},
@@ -183,7 +189,7 @@ SIMULATION_REQUEST_SCHEMA = {
         "user_notes": {"type": ["string", "null"]},
         "start_date": {"type": ["string", "null"], "format": "date"},
         "end_date": {"type": ["string", "null"], "format": "date"},
-        "time_step": {"type": ["string", "null"], "enum": ["monthly", "daily", None]},
+        "time_step": {"type": ["string", "null"], "enum": ["monthly", "weekly", "daily", None]},
         "annual_biomass_target": {"type": ["number", "null"], "exclusiveMinimum": 0},
         "operating_schedule": {"$ref": "#/$defs/operating_schedule"},
         "biomass_schedule": {"$ref": "#/$defs/biomass_schedule"},
@@ -191,7 +197,19 @@ SIMULATION_REQUEST_SCHEMA = {
         "feed_supply_profile_id": {"type": ["string", "null"]},
         "wet_feed_rate_kg_hr": {"type": ["number", "null"], "exclusiveMinimum": 0},
         "plant_capacity_kg_hr": {"type": ["number", "null"], "exclusiveMinimum": 0},
-        "feed_composition": {"type": "object", "additionalProperties": {"type":"number","minimum":0,"maximum":1}},
+        "feed_composition": {
+            "type": "object",
+            "description": (
+                "Wet-mass fractions for canonical GreenHub compound IDs only. If omitted or empty, "
+                "the canonical GreenHub feed profile is applied. Supplied totals from "
+                f"{FEED_COMPOSITION_MIN_TOTAL:.2f} to {FEED_COMPOSITION_MAX_TOTAL:.2f} are normalized "
+                f"to {FEED_COMPOSITION_NORMALIZED_TOTAL:.2f} by the request contract."
+            ),
+            "x-total-minimum": FEED_COMPOSITION_MIN_TOTAL,
+            "x-total-maximum": FEED_COMPOSITION_MAX_TOTAL,
+            "x-normalized-total": FEED_COMPOSITION_NORMALIZED_TOTAL,
+            "additionalProperties": {"type":"number","minimum":0,"maximum":FEED_COMPOSITION_MAX_TOTAL},
+        },
         "storage_conditions": {"type": ["object", "null"], "description":"Opt-in component retention or source-gated grass reaction package; see decision-support options."},
         "biostimulant_route": BIOSTIMULANT_ROUTE_SCHEMA,
     },

@@ -438,6 +438,8 @@ def _attach_potassium_route(
     offgas_sources: list[bst.Stream],
 ) -> tuple[bst.Stream, bst.Stream | None, dict[str, object]]:
     parameters = potassium_parameters_from_mapping(values)
+    finishing_values = {**values, "phase7_product_drying_enabled": True}
+    finishing = finishing_parameters_from_mapping(finishing_values)
     if parameters.method == "evaporation":
         concentrator = PotassiumEvaporator(
             ID="E741",
@@ -470,20 +472,29 @@ def _attach_potassium_route(
         )
     else:
         raise ValueError("Potassium concentration method must be evaporation or membrane.")
+    dryer = NutrientProductDryer(
+        ID="D741",
+        ins=concentrator - 0,
+        outs=("dried_potassium_concentrate", "potassium_dryer_exhaust"),
+        parameters=finishing,
+    )
+    offgas_sources.append(dryer - 1)
     storage = ProductStorage(
         ID="V741",
-        ins=concentrator - 0,
+        ins=dryer - 0,
         outs="potassium_rich_concentrate",
         residence_time_h=_required_float(values, "potassium_product_storage_time_h"),
     )
-    for unit in (concentrator, storage):
+    for unit in (concentrator, dryer, storage):
         _add_unit(units, unit)
     streams.update(
         potassium_recovery_feed=feed,
         raw_potassium_concentrate=concentrator - 0,
+        dried_potassium_concentrate=dryer - 0,
+        potassium_dryer_exhaust=dryer - 1,
         potassium_concentrate=storage - 0,
     )
-    return storage - 0, treated_water, {"potassium": parameters}
+    return storage - 0, treated_water, {"potassium": parameters, "potassium_finishing": finishing}
 
 
 def _validate_order(scenario: NutrientRecoveryScenario, order: str) -> None:

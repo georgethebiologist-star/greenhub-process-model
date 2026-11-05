@@ -476,6 +476,12 @@
                 "format": "date",
                 "type": "string"
               },
+              "processing_delay_days": {
+                "default": 14,
+                "maximum": 365,
+                "minimum": 0,
+                "type": "integer"
+              },
               "season_end": {
                 "format": "date",
                 "type": "string"
@@ -1109,11 +1115,15 @@
           },
           "feed_composition": {
             "additionalProperties": {
-              "maximum": 1,
+              "maximum": 1.1,
               "minimum": 0,
               "type": "number"
             },
-            "type": "object"
+            "description": "Wet-mass fractions for canonical GreenHub compound IDs only. If omitted or empty, the canonical GreenHub feed profile is applied. Supplied totals from 0.90 to 1.10 are normalized to 1.00 by the request contract.",
+            "type": "object",
+            "x-normalized-total": 1.0,
+            "x-total-maximum": 1.1,
+            "x-total-minimum": 0.9
           },
           "feed_overrides": {
             "$ref": "#/components/schemas/SimulationRequest/$defs/parameter_overrides"
@@ -1254,6 +1264,7 @@
           "time_step": {
             "enum": [
               "monthly",
+              "weekly",
               "daily",
               null
             ],

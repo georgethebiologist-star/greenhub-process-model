@@ -9,13 +9,15 @@ export interface DecisionReport {
     utility_consumption?: any[]; inventory_evolution?: any[];
   };
   tea: any; lca: any; objectives: Record<string, {value: number|null; eligible:boolean; unit:string; direction:string}>;
+  carbon_assessment?: any;
   maturity_summary?: any;
   feasibility: any; readiness: any; warnings: string[]; limitations: string[];
 }
 export interface Sample {sample_id:string; status:string; error?:string; configuration:Configuration; outputs?:DecisionReport}
 export interface Batch {mode:string; seed:number; evaluated_count:number; samples:Sample[]; pareto_fronts:any[]; warning:string}
-export async function decisionApi<T>(path:string, body?:unknown):Promise<T> {
-  return apiJson<T>(`/decision-support/${path}`,body===undefined?{}:{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+export async function decisionApi<T>(path:string, body?:unknown, method:'GET'|'POST'='POST'):Promise<T> {
+  if(method==='GET'||path.replace(/^\/+/, '').split('/')[0]==='options')return apiJson<T>(`/decision-support/${path}`,{method:'GET'});
+  return apiJson<T>(`/decision-support/${path}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body??{})});
 }
 export function buildDecisionConfiguration(base:Configuration, controls:Record<string,any>):Configuration {
   const config=structuredClone(base); const sim=config.simulation;

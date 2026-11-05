@@ -11,7 +11,7 @@ from Greenhub.application.dynamic_complete_scenario import (
     DynamicCompleteScenario,
     build_biomass_schedule,
 )
-from Greenhub.time_grid import TimeGridStep
+from Greenhub.time_grid import TimeGridStep, generate_time_grid
 
 
 def build_empirical_biomass_schedule(config: BiomassSchedule) -> dict[str, object]:
@@ -52,13 +52,77 @@ def build_empirical_biomass_schedule(config: BiomassSchedule) -> dict[str, objec
     return schedule
 
 
-def schedule_feed_rows(config: BiomassSchedule, grid: tuple[TimeGridStep, ...] | None = None) -> tuple[dict[str, object], ...]:
+def extend_grid_for_processing_delay(
+    grid: tuple[TimeGridStep, ...], config: BiomassSchedule, time_step: str,
+    processing_delay_days: int,
+) -> tuple[TimeGridStep, ...]:
+    """Keep the full delayed processing tail inside the simulation horizon."""
+    if not grid or processing_delay_days <= 0:
+        return grid
+    delayed_end = date.fromisoformat(config.season_end) + timedelta(days=processing_delay_days)
+    if date.fromisoformat(grid[-1].end_date) >= delayed_end:
+        return grid
+    return generate_time_grid(grid[0].start_date, delayed_end.isoformat(), time_step)
+
+
+def schedule_feed_rows(
+    config: BiomassSchedule,
+    grid: tuple[TimeGridStep, ...] | None = None,
+    *,
+    processing_delay_days: int = 0,
+) -> tuple[dict[str, object], ...]:
     """Resolve the declared normal availability profile on actual timestep bounds.
 
     Monthly collection fractions preserve the existing capped monthly intake.
     Daily allocation integrates the same assumed normal input curve; it does not
     interpolate process outputs or claim measured within-month collection timing.
     """
+
+    if processing_delay_days < 0:
+        raise ValueError("processing_delay_days must be non-negative.")
+    if processing_delay_days and not grid:
+        delayed_end = date.fromisoformat(config.season_end) + timedelta(days=processing_delay_days)
+        grid = generate_time_grid(config.season_start, delayed_end.isoformat(), "monthly")
+    if processing_delay_days and grid:
+        timestep = "daily" if grid[0].duration_days == 1 else "weekly" if grid[0].duration_days <= 7 else "monthly"
+        delayed_grid = extend_grid_for_processing_delay(grid, config, timestep, processing_delay_days)
+        source_grid = generate_time_grid(delayed_grid[0].start_date, delayed_grid[-1].end_date, "daily")
+        raw = schedule_feed_rows(config, source_grid)
+        totals = {
+            step.label: {
+                "available_wet_biomass_kg": 0.0,
+                "collected_biomass_kg": 0.0,
+                "uncollected_biomass_kg": 0.0,
+            }
+            for step in delayed_grid
+        }
+        for row in raw:
+            collected_on = date.fromisoformat(str(row["start_date"]))
+            availability_step = next((item for item in delayed_grid if date.fromisoformat(item.start_date) <= collected_on <= date.fromisoformat(item.end_date)), None)
+            release_date = collected_on + timedelta(days=processing_delay_days)
+            processing_step = next((item for item in delayed_grid if date.fromisoformat(item.start_date) <= release_date <= date.fromisoformat(item.end_date)), None)
+            if availability_step is not None:
+                totals[availability_step.label]["available_wet_biomass_kg"] += float(row.get("available_wet_biomass_kg", 0.0))
+                totals[availability_step.label]["uncollected_biomass_kg"] += float(row.get("uncollected_biomass_kg", 0.0))
+            if processing_step is not None:
+                totals[processing_step.label]["collected_biomass_kg"] += float(row.get("collected_biomass_kg", 0.0))
+        return tuple({
+            "time": step.label,
+            "start_date": step.start_date,
+            **totals[step.label],
+            "moisture_fraction": None,
+            "dry_matter_kg": None,
+            "component_mass_fractions": {},
+            "temperature_k": None,
+            "source": "shared empirical annual biomass schedule",
+            "feedstock_source_id": config.source_id,
+            "feedstock_location": config.location,
+            "provenance": f"shared_normal_supply_monthly_cap_v1_with_{processing_delay_days}_day_processing_delay",
+            "processing_delay_days": processing_delay_days,
+            "warnings": (
+                "Biomass availability remains on the collection date; collected feed is released to processing after the declared storage delay. No fermentation or degradation is applied by this delay.",
+            ),
+        } for step in delayed_grid)
 
     schedule = build_empirical_biomass_schedule(config)
     start, end, peak = map(date.fromisoformat, (config.season_start, config.season_end, config.peak_date))

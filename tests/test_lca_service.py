@@ -147,9 +147,9 @@ def test_supplied_utility_factor_is_separate_and_traceable():
 
 def test_screening_electricity_factor_is_explicitly_traceable_and_opt_in():
     factor = screening_lca_factors()["electricity"]
-    assert factor.value == pytest.approx(0.20)
+    assert factor.value == pytest.approx(0.264)
     assert factor.source_status == "proxy_factor"
-    assert factor.reference_year == 2024
+    assert factor.reference_year == 2025
     assert factor.source_url
 
 

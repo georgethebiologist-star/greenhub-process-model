@@ -5,7 +5,12 @@ from pathlib import Path
 
 import pytest
 
-from Greenhub.application.decision_support_service import _apply_candidate_economics
+from Greenhub.application.decision_support_service import (
+    DEFAULT_BIOMETHANE_BONUS_EUR_PER_M3,
+    DEFAULT_BIOMETHANE_BONUS_YEARS,
+    _apply_candidate_economics,
+    default_configuration,
+)
 
 
 @pytest.mark.parametrize('grant_fraction', [0, .3, .45, .6])
@@ -38,6 +43,36 @@ def test_retired_generic_subsidy_cannot_generate_a_grant():
                      'screening_capital_basis_eur': 1000}}
     result = _apply_candidate_economics(tea, {'subsidy_rate': .2, 'eligible_capex_fraction': 1})
     assert result['totals']['subsidy_eur'] == 0
+
+
+def test_biomethane_bonus_has_backend_default_and_uses_simulated_volume():
+    defaults = default_configuration()['candidate_economics']
+    assert defaults['biomethane_bonus_eur_per_m3'] == DEFAULT_BIOMETHANE_BONUS_EUR_PER_M3
+    assert defaults['biomethane_bonus_years'] == DEFAULT_BIOMETHANE_BONUS_YEARS
+    assert defaults['biomethane_bonus_enabled'] is False
+
+    tea = {'totals': {'annual_revenue_eur': 100, 'annual_opex_eur': 50,
+                     'screening_capital_basis_eur': 100}}
+    result = _apply_candidate_economics(
+        tea,
+        {'biomethane_bonus_enabled': True, 'annual_biomethane_m3': 100},
+        {'feed_processed': {'value': 0}},
+    )
+    economics = result['candidate_economics']
+    assert economics['biomethane_bonus_eur_per_year'] == pytest.approx(187)
+    assert economics['assumptions']['biomethane_bonus_eur_per_m3'] == DEFAULT_BIOMETHANE_BONUS_EUR_PER_M3
+    assert economics['opex_support_years'] == 15
+
+    override_tea = {'totals': {'annual_revenue_eur': 100, 'annual_opex_eur': 50,
+                              'screening_capital_basis_eur': 100}}
+    override = _apply_candidate_economics(
+        override_tea,
+        {'biomethane_bonus_enabled': True, 'annual_biomethane_m3': 100,
+         'biomethane_bonus_eur_per_m3': 2.25, 'biomethane_bonus_years': 4},
+        {'feed_processed': {'value': 0}},
+    )['candidate_economics']
+    assert override['biomethane_bonus_eur_per_year'] == pytest.approx(225)
+    assert override['opex_support_years'] == 4
 
 
 def test_all_published_scenarios_reconcile_to_original_operating_margin():

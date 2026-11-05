@@ -90,3 +90,55 @@ def test_service_structural_result_matches_direct_factory(tmp_path):
         direct.validation_report.boundary_out_kg_hr, rel=0.0, abs=1e-9
     )
     assert service.repository.get(run_id).model.flowsheet is not direct.flowsheet
+
+
+def test_service_uses_canonical_default_and_applies_feed_composition_override(tmp_path):
+    from pathlib import Path
+
+    profile_path = (
+        Path(__file__).parents[1]
+        / "Greenhub/data/Pre-treatment/Feedstock/greenhub_feed_composition_defaults.json"
+    )
+    profile = json.loads(profile_path.read_text(encoding="utf-8"))["compounds"]
+    expected = {key: row["wet_mass_fraction"] for key, row in profile.items()}
+    changed = dict(expected)
+    changed["Water"] -= 0.05  # 95% wet-mass total; contract normalizes it to 100%.
+
+    service = SimulationService(run_root=tmp_path)
+    scenarios = ScenarioSelection(
+        feed_preparation="F1",
+        protein_recovery="PR3",
+        anaerobic_digestion="AD1",
+        biogas_upgrading="BG2",
+        nutrient_recovery="NR4",
+        process_order="A",
+    )
+
+    def execute(request_id, composition=None):
+        request = SimulationRequest(
+            SCHEMA_VERSION,
+            request_id,
+            "greenhub-composition-test",
+            calculation_mode=CalculationMode.STRUCTURAL,
+            resolution_mode=ResolutionMode.STEADY_STATE,
+            scenarios=scenarios,
+            wet_feed_rate_kg_hr=1000.0,
+            feed_composition={} if composition is None else composition,
+            strict_validation=False,
+        )
+        run_id = service.create_run(request)
+        result = service.execute_run(run_id)
+        model = service.repository.get(run_id).model
+        feed = model.streams["feed"]
+        return result, float(feed.imass["Water"]), float(feed.imass["SolubleProtein"])
+
+    baseline, baseline_water, baseline_soluble_protein = execute("composition-default")
+    modified, modified_water, modified_soluble_protein = execute("composition-modified", changed)
+
+    assert baseline_water == pytest.approx(857.0)
+    assert baseline_soluble_protein == pytest.approx(expected["SolubleProtein"] * 1000.0)
+    assert modified_water == pytest.approx((expected["Water"] - 0.05) / 0.95 * 1000.0)
+    assert modified_soluble_protein == pytest.approx(expected["SolubleProtein"] / 0.95 * 1000.0)
+    assert baseline.summary_kpis["dry_protein_product_mass"].value != pytest.approx(
+        modified.summary_kpis["dry_protein_product_mass"].value
+    )

@@ -161,13 +161,22 @@ def build_products(model) -> tuple[ProductResult, ...]:
         "dry_protein_product", "biostimulant_product", "biomethane", "phosphorus_product",
         "ammonium_product", "potassium_concentrate", "nutrient_rich_solids",
     )
+    volumetric_products = {"biostimulant_product", "biomethane"}
     return tuple(
         ProductResult(
             name,
             str(model.streams[name].ID),
             numerical(model.streams[name].F_mass, "kg/hr", "wet stream", "BioSTEAM stream"),
             "candidate_product_not_regulatory_qualified",
-            numerical(model.streams[name].F_vol, "m3/hr", "stream volume at model conditions", "BioSTEAM stream"),
+            (
+                numerical(
+                    model.streams[name].F_vol,
+                    "m3/hr",
+                    "stream volume at model conditions",
+                    "BioSTEAM stream",
+                )
+                if name in volumetric_products else None
+            ),
         )
         for name in names
         if name in model.streams

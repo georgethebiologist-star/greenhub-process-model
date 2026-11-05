@@ -1,0 +1,510 @@
+{
+  "profile_id": "greenhub_varta_literature_wet_basis_v1",
+  "basis": "wet mass fraction; mass fractions sum to 1",
+  "composition_limits": {
+    "minimum_total_fraction": 0.9,
+    "maximum_total_fraction": 1.1,
+    "normalized_total_fraction": 1.0
+  },
+  "dry_matter_fraction": 0.143,
+  "mass_balance_method": "VARTA measured dry matter plus published dry-basis component estimates converted to wet basis; residual compounds preserve the prior model split proportionally to close mass. This is not a measured component speciation.",
+  "compounds": {
+    "Water": {
+      "label": "Moisture",
+      "model_baseline_percent": 85.7,
+      "data_class": "A",
+      "wet_mass_fraction": 0.857,
+      "source": {
+        "data_class": "A",
+        "source": "VARTA_2026_10_27/Nutriënten Vezel, Greenhub whole grass row 7",
+        "basis": "Measured whole-grass dry matter 14.3%; water by difference 85.7%."
+      }
+    },
+    "SolubleProtein": {
+      "label": "Soluble protein",
+      "model_baseline_percent": 0.2550166666666666,
+      "data_class": "B",
+      "wet_mass_fraction": 0.0025501666666666663,
+      "source": {
+        "data_class": "B",
+        "source": "Smit et al. 2022",
+        "doi": "10.1021/acssuschemeng.2c00838",
+        "basis": "Total protein 10.7 g/100 g dry feedstock converted with VARTA dry matter; soluble share follows existing model split."
+      }
+    },
+    "SuspendedProtein": {
+      "label": "Suspended protein",
+      "model_baseline_percent": 1.2750833333333331,
+      "data_class": "B",
+      "wet_mass_fraction": 0.012750833333333331,
+      "source": {
+        "data_class": "B",
+        "source": "Smit et al. 2022",
+        "doi": "10.1021/acssuschemeng.2c00838",
+        "basis": "Total protein 10.7 g/100 g dry feedstock converted with VARTA dry matter; suspended share follows existing model split."
+      }
+    },
+    "PrecipitatedProtein": {
+      "label": "Precipitated protein",
+      "model_baseline_percent": 0.0,
+      "data_class": "D",
+      "wet_mass_fraction": 0.0
+    },
+    "HeatCoagulatedProtein": {
+      "label": "Heat-coagulated protein",
+      "model_baseline_percent": 0.0,
+      "data_class": "D",
+      "wet_mass_fraction": 0.0
+    },
+    "DegradedProtein": {
+      "label": "Degraded protein",
+      "model_baseline_percent": 0.0,
+      "data_class": "D",
+      "wet_mass_fraction": 0.0
+    },
+    "Peptides": {
+      "label": "Peptides",
+      "model_baseline_percent": 0.08426000000000004,
+      "data_class": "E",
+      "wet_mass_fraction": 0.0008426000000000004
+    },
+    "AminoAcids": {
+      "label": "Amino acids",
+      "model_baseline_percent": 0.08426000000000004,
+      "data_class": "E",
+      "wet_mass_fraction": 0.0008426000000000004
+    },
+    "MicrobialBiomass": {
+      "label": "Microbial biomass",
+      "model_baseline_percent": 0.0,
+      "data_class": "D",
+      "wet_mass_fraction": 0.0
+    },
+    "EntrappedSugars": {
+      "label": "Sugars",
+      "model_baseline_percent": 1.0295999999999998,
+      "data_class": "B",
+      "wet_mass_fraction": 0.010295999999999998,
+      "source": {
+        "data_class": "B",
+        "source": "Smit et al. 2022",
+        "doi": "10.1021/acssuschemeng.2c00838",
+        "basis": "Extractive sugars 7.2% dry feedstock converted with VARTA dry matter; represented by aggregate model sugar pool."
+      }
+    },
+    "Starch": {
+      "label": "Starch",
+      "model_baseline_percent": 0.26883999999999997,
+      "data_class": "E",
+      "wet_mass_fraction": 0.0026883999999999996,
+      "source": {
+        "data_class": "E",
+        "source": "Guțu et al. 2025",
+        "url": "https://agronomyjournal.usamv.ro/pdf/2025/issue_2/Art116.pdf",
+        "basis": "Timothy proxy: 18.8 g/kg dry matter converted with VARTA dry matter; no DOI and species-transfer uncertainty."
+      }
+    },
+    "Cellulose": {
+      "label": "Cellulose",
+      "model_baseline_percent": 3.44344,
+      "data_class": "B",
+      "wet_mass_fraction": 0.0344344,
+      "source": {
+        "data_class": "B",
+        "source": "Truba et al. 2017",
+        "doi": "10.12911/22998993/66249",
+        "basis": "240.8 g/kg dry matter; perennial ryegrass proxy converted with VARTA dry matter."
+      }
+    },
+    "Hemicellulose": {
+      "label": "Hemicellulose",
+      "model_baseline_percent": 2.14071,
+      "data_class": "B",
+      "wet_mass_fraction": 0.0214071,
+      "source": {
+        "data_class": "B",
+        "source": "Truba et al. 2017",
+        "doi": "10.12911/22998993/66249",
+        "basis": "149.7 g/kg dry matter; perennial ryegrass proxy converted with VARTA dry matter."
+      }
+    },
+    "Lignin": {
+      "label": "Lignin",
+      "model_baseline_percent": 0.58916,
+      "data_class": "B",
+      "wet_mass_fraction": 0.0058916,
+      "source": {
+        "data_class": "B",
+        "source": "Truba et al. 2017",
+        "doi": "10.12911/22998993/66249",
+        "basis": "ADL 41.2 g/kg dry matter; perennial ryegrass proxy converted with VARTA dry matter."
+      }
+    },
+    "Pectin": {
+      "label": "Pectin",
+      "model_baseline_percent": 0.6319500000000002,
+      "data_class": "E",
+      "wet_mass_fraction": 0.006319500000000002
+    },
+    "Glucose": {
+      "label": "Glucose",
+      "model_baseline_percent": 0.0,
+      "data_class": "D",
+      "wet_mass_fraction": 0.0
+    },
+    "Fructose": {
+      "label": "Fructose",
+      "model_baseline_percent": 0.0,
+      "data_class": "D",
+      "wet_mass_fraction": 0.0
+    },
+    "Sucrose": {
+      "label": "Sucrose",
+      "model_baseline_percent": 0.0,
+      "data_class": "D",
+      "wet_mass_fraction": 0.0
+    },
+    "Xylose": {
+      "label": "Xylose",
+      "model_baseline_percent": 0.0,
+      "data_class": "D",
+      "wet_mass_fraction": 0.0
+    },
+    "Arabinose": {
+      "label": "Arabinose",
+      "model_baseline_percent": 0.0,
+      "data_class": "D",
+      "wet_mass_fraction": 0.0
+    },
+    "Galactose": {
+      "label": "Galactose",
+      "model_baseline_percent": 0.0,
+      "data_class": "D",
+      "wet_mass_fraction": 0.0
+    },
+    "Mannose": {
+      "label": "Mannose",
+      "model_baseline_percent": 0.0,
+      "data_class": "D",
+      "wet_mass_fraction": 0.0
+    },
+    "Maltose": {
+      "label": "Maltose",
+      "model_baseline_percent": 0.0,
+      "data_class": "D",
+      "wet_mass_fraction": 0.0
+    },
+    "AceticAcid": {
+      "label": "Acetic acid",
+      "model_baseline_percent": 0.0,
+      "data_class": "D",
+      "wet_mass_fraction": 0.0
+    },
+    "LacticAcid": {
+      "label": "Lactic acid",
+      "model_baseline_percent": 0.0,
+      "data_class": "D",
+      "wet_mass_fraction": 0.0
+    },
+    "PropionicAcid": {
+      "label": "Propionic acid",
+      "model_baseline_percent": 0.0,
+      "data_class": "D",
+      "wet_mass_fraction": 0.0
+    },
+    "ButyricAcid": {
+      "label": "Butyric acid",
+      "model_baseline_percent": 0.0,
+      "data_class": "D",
+      "wet_mass_fraction": 0.0
+    },
+    "FormicAcid": {
+      "label": "Formic acid",
+      "model_baseline_percent": 0.0,
+      "data_class": "D",
+      "wet_mass_fraction": 0.0
+    },
+    "SuccinicAcid": {
+      "label": "Succinic acid",
+      "model_baseline_percent": 0.0,
+      "data_class": "D",
+      "wet_mass_fraction": 0.0
+    },
+    "CitricAcid": {
+      "label": "Citric acid",
+      "model_baseline_percent": 0.0,
+      "data_class": "D",
+      "wet_mass_fraction": 0.0
+    },
+    "MalicAcid": {
+      "label": "Malic acid",
+      "model_baseline_percent": 0.0,
+      "data_class": "D",
+      "wet_mass_fraction": 0.0
+    },
+    "OxalicAcid": {
+      "label": "Oxalic acid",
+      "model_baseline_percent": 0.0,
+      "data_class": "D",
+      "wet_mass_fraction": 0.0
+    },
+    "Lipids": {
+      "label": "Lipids",
+      "model_baseline_percent": 0.3370400000000002,
+      "data_class": "E",
+      "wet_mass_fraction": 0.0033704000000000017
+    },
+    "OtherBiodegradableOrganics": {
+      "label": "Other biodegradable organics",
+      "model_baseline_percent": 0.0,
+      "data_class": "D",
+      "wet_mass_fraction": 0.0
+    },
+    "ParticulateBiodegradableOrganics": {
+      "label": "Particulate biodegradable organics",
+      "model_baseline_percent": 0.6319500000000002,
+      "data_class": "E",
+      "wet_mass_fraction": 0.006319500000000002
+    },
+    "NonBiodegradableOrganics": {
+      "label": "Non-biodegradable organics",
+      "model_baseline_percent": 0.21065000000000006,
+      "data_class": "E",
+      "wet_mass_fraction": 0.0021065000000000007
+    },
+    "PersistentOrganics": {
+      "label": "Persistent organics",
+      "model_baseline_percent": 0.0002106500000000001,
+      "data_class": "D",
+      "wet_mass_fraction": 2.106500000000001e-06
+    },
+    "Pesticides": {
+      "label": "Pesticides",
+      "model_baseline_percent": 0.0002106500000000001,
+      "data_class": "D",
+      "wet_mass_fraction": 2.106500000000001e-06
+    },
+    "Ammonium": {
+      "label": "Ammonium",
+      "model_baseline_percent": 0.008426000000000003,
+      "data_class": "E",
+      "wet_mass_fraction": 8.426000000000002e-05
+    },
+    "OrganicNitrogen": {
+      "label": "Organic nitrogen",
+      "model_baseline_percent": 0.02106500000000001,
+      "data_class": "E",
+      "wet_mass_fraction": 0.0002106500000000001
+    },
+    "ParticulateNitrogen": {
+      "label": "Particulate nitrogen",
+      "model_baseline_percent": 0.02106500000000001,
+      "data_class": "E",
+      "wet_mass_fraction": 0.0002106500000000001
+    },
+    "OrganicPhosphorus": {
+      "label": "Organic phosphorus",
+      "model_baseline_percent": 0.0,
+      "data_class": "D",
+      "wet_mass_fraction": 0.0
+    },
+    "DissolvedPhosphorus": {
+      "label": "Dissolved phosphorus",
+      "model_baseline_percent": 0.0042130000000000015,
+      "data_class": "E",
+      "wet_mass_fraction": 4.213000000000001e-05
+    },
+    "ParticulatePhosphorus": {
+      "label": "Particulate phosphorus",
+      "model_baseline_percent": 0.016852000000000006,
+      "data_class": "E",
+      "wet_mass_fraction": 0.00016852000000000005
+    },
+    "ParticulatePotassium": {
+      "label": "Particulate potassium",
+      "model_baseline_percent": 0.02949100000000001,
+      "data_class": "E",
+      "wet_mass_fraction": 0.0002949100000000001
+    },
+    "PotassiumIon": {
+      "label": "Potassium ion",
+      "model_baseline_percent": 0.02106500000000001,
+      "data_class": "E",
+      "wet_mass_fraction": 0.0002106500000000001
+    },
+    "HydrogenIon": {
+      "label": "Hydrogen ion",
+      "model_baseline_percent": 0.0,
+      "data_class": "D",
+      "wet_mass_fraction": 0.0
+    },
+    "HydroxideIon": {
+      "label": "Hydroxide ion",
+      "model_baseline_percent": 0.0,
+      "data_class": "D",
+      "wet_mass_fraction": 0.0
+    },
+    "NitrateIon": {
+      "label": "Nitrate ion",
+      "model_baseline_percent": 0.0,
+      "data_class": "D",
+      "wet_mass_fraction": 0.0
+    },
+    "NitriteIon": {
+      "label": "Nitrite ion",
+      "model_baseline_percent": 0.0,
+      "data_class": "D",
+      "wet_mass_fraction": 0.0
+    },
+    "Orthophosphate": {
+      "label": "Orthophosphate",
+      "model_baseline_percent": 0.0,
+      "data_class": "D",
+      "wet_mass_fraction": 0.0
+    },
+    "SodiumIon": {
+      "label": "Sodium ion",
+      "model_baseline_percent": 0.0,
+      "data_class": "D",
+      "wet_mass_fraction": 0.0
+    },
+    "MagnesiumIon": {
+      "label": "Magnesium ion",
+      "model_baseline_percent": 0.0,
+      "data_class": "D",
+      "wet_mass_fraction": 0.0
+    },
+    "CalciumIon": {
+      "label": "Calcium ion",
+      "model_baseline_percent": 0.0,
+      "data_class": "D",
+      "wet_mass_fraction": 0.0
+    },
+    "ChlorideIon": {
+      "label": "Chloride ion",
+      "model_baseline_percent": 0.0,
+      "data_class": "D",
+      "wet_mass_fraction": 0.0
+    },
+    "SulfateIon": {
+      "label": "Sulfate ion",
+      "model_baseline_percent": 0.0,
+      "data_class": "D",
+      "wet_mass_fraction": 0.0
+    },
+    "BicarbonateIon": {
+      "label": "Bicarbonate ion",
+      "model_baseline_percent": 0.0,
+      "data_class": "D",
+      "wet_mass_fraction": 0.0
+    },
+    "CarbonateIon": {
+      "label": "Carbonate ion",
+      "model_baseline_percent": 0.0,
+      "data_class": "D",
+      "wet_mass_fraction": 0.0
+    },
+    "Ash": {
+      "label": "Ash",
+      "model_baseline_percent": 2.5596999999999994,
+      "data_class": "B",
+      "wet_mass_fraction": 0.025596999999999995,
+      "source": {
+        "data_class": "B",
+        "source": "Brown et al. 2020",
+        "doi": "10.1016/j.biombioe.2020.105570",
+        "basis": "Fresh road-verge grass ash 17.9% dry matter converted with VARTA dry matter."
+      }
+    },
+    "SuspendedSolids": {
+      "label": "Suspended solids",
+      "model_baseline_percent": 0.3370400000000002,
+      "data_class": "E",
+      "wet_mass_fraction": 0.0033704000000000017
+    },
+    "SolubleInertSolids": {
+      "label": "Soluble inert solids",
+      "model_baseline_percent": 0.0,
+      "data_class": "D",
+      "wet_mass_fraction": 0.0
+    },
+    "SuspendedInertSolids": {
+      "label": "Suspended inert solids",
+      "model_baseline_percent": 0.0,
+      "data_class": "D",
+      "wet_mass_fraction": 0.0
+    },
+    "InertSolids": {
+      "label": "Inert solids",
+      "model_baseline_percent": 0.08426000000000004,
+      "data_class": "E",
+      "wet_mass_fraction": 0.0008426000000000004
+    },
+    "Sand": {
+      "label": "Sand",
+      "model_baseline_percent": 0.1685200000000001,
+      "data_class": "E",
+      "wet_mass_fraction": 0.0016852000000000008
+    },
+    "Litter": {
+      "label": "Litter",
+      "model_baseline_percent": 0.04213000000000002,
+      "data_class": "E",
+      "wet_mass_fraction": 0.0004213000000000002
+    },
+    "HeavyMetals": {
+      "label": "Heavy metals",
+      "model_baseline_percent": 0.0008426000000000004,
+      "data_class": "D",
+      "wet_mass_fraction": 8.426000000000004e-06
+    },
+    "Microplastics": {
+      "label": "Microplastics",
+      "model_baseline_percent": 0.0008426000000000004,
+      "data_class": "D",
+      "wet_mass_fraction": 8.426000000000004e-06
+    },
+    "PathogenIndicators": {
+      "label": "Pathogen indicators",
+      "model_baseline_percent": 0.0021065000000000007,
+      "data_class": "D",
+      "wet_mass_fraction": 2.1065000000000006e-05
+    },
+    "Indole3AceticAcid": {
+      "label": "Free auxin (IAA)",
+      "model_baseline_percent": 0.0,
+      "data_class": "D",
+      "wet_mass_fraction": 0.0
+    },
+    "ProteinBoundIAA": {
+      "label": "Protein-bound IAA",
+      "model_baseline_percent": 0.0,
+      "data_class": "D",
+      "wet_mass_fraction": 0.0
+    },
+    "Zeatin": {
+      "label": "Free zeatin",
+      "model_baseline_percent": 0.0,
+      "data_class": "D",
+      "wet_mass_fraction": 0.0
+    },
+    "PeptideBoundZeatin": {
+      "label": "Peptide-bound zeatin",
+      "model_baseline_percent": 0.0,
+      "data_class": "D",
+      "wet_mass_fraction": 0.0
+    },
+    "ZeatinRiboside": {
+      "label": "Zeatin riboside",
+      "model_baseline_percent": 0.0,
+      "data_class": "D",
+      "wet_mass_fraction": 0.0
+    },
+    "BoundZeatinRiboside": {
+      "label": "Bound zeatin riboside",
+      "model_baseline_percent": 0.0,
+      "data_class": "D",
+      "wet_mass_fraction": 0.0
+    }
+  }
+}

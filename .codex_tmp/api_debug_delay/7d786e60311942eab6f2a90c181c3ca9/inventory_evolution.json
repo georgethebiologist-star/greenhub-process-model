@@ -1,0 +1,85 @@
+[
+  {
+    "average_kg": 2.699332877288774e-10,
+    "degradation_kg": 0.0,
+    "final_kg": 7.109793257509336e-10,
+    "initial_kg": 0.0,
+    "inventory_id": "biomass_storage",
+    "peak_kg": 7.777808463701996e-10,
+    "status": "calculated_from_seasonal_storage_inventory",
+    "timeline": [
+      {
+        "degradation_kg": 0.0,
+        "inventory_kg": 0.0,
+        "overflow_kg": 0.0,
+        "time": "2026-01"
+      },
+      {
+        "degradation_kg": 0.0,
+        "inventory_kg": 0.0,
+        "overflow_kg": 0.0,
+        "time": "2026-02"
+      },
+      {
+        "degradation_kg": 0.0,
+        "inventory_kg": 0.0,
+        "overflow_kg": 0.0,
+        "time": "2026-03"
+      },
+      {
+        "degradation_kg": 0.0,
+        "inventory_kg": 0.0,
+        "overflow_kg": 0.0,
+        "time": "2026-04"
+      },
+      {
+        "degradation_kg": 0.0,
+        "inventory_kg": 0.0,
+        "overflow_kg": 0.0,
+        "time": "2026-05"
+      },
+      {
+        "degradation_kg": 0.0,
+        "inventory_kg": 0.0,
+        "overflow_kg": 0.0,
+        "time": "2026-06"
+      },
+      {
+        "degradation_kg": 0.0,
+        "inventory_kg": 0.0,
+        "overflow_kg": 0.0,
+        "time": "2026-07"
+      },
+      {
+        "degradation_kg": 0.0,
+        "inventory_kg": 7.777808463701996e-10,
+        "overflow_kg": 0.0,
+        "time": "2026-08"
+      },
+      {
+        "degradation_kg": 0.0,
+        "inventory_kg": 6.326437392958618e-10,
+        "overflow_kg": 0.0,
+        "time": "2026-09"
+      },
+      {
+        "degradation_kg": 0.0,
+        "inventory_kg": 4.0681621557859996e-10,
+        "overflow_kg": 0.0,
+        "time": "2026-10"
+      },
+      {
+        "degradation_kg": 0.0,
+        "inventory_kg": 7.109793257509336e-10,
+        "overflow_kg": 0.0,
+        "time": "2026-11"
+      },
+      {
+        "degradation_kg": 0.0,
+        "inventory_kg": 7.109793257509336e-10,
+        "overflow_kg": 0.0,
+        "time": "2026-12"
+      }
+    ]
+  }
+]
