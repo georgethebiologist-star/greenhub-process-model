@@ -515,7 +515,20 @@ export default function App() {
   async function loadRunFromAddress(runId:string) {
     setRunning(true);
     try {
-      const [raw,resources]=await Promise.all([fetchRunResult(runId),fetchRunResources(runId)]);
+      let raw:any;
+      let resources:any;
+      let bundledReport:DecisionReport|null=null;
+      try {
+        [raw,resources]=await Promise.all([fetchRunResult(runId),fetchRunResources(runId)]);
+      } catch(error) {
+        if(runId!==DEFAULT_PREVIEW_RUN_ID)throw error;
+        const response=await fetch('/data/greenhub-default-preview.json');
+        if(!response.ok)throw error;
+        const snapshot=await response.json();
+        raw=snapshot.run;
+        resources=snapshot.resources;
+        bundledReport=snapshot.decisionReport||null;
+      }
       const encodedScenario=new URLSearchParams(window.location.search).get('scenario');
       if(encodedScenario){const [feed_preparation,protein_recovery,anaerobic_digestion,biogas_upgrading,nutrient_recovery,process_order]=encodedScenario.split(',');raw.selected_scenarios={feed_preparation,protein_recovery,anaerobic_digestion,biogas_upgrading,nutrient_recovery,process_order};}
       const envelope=normalizeResult(raw,result);
@@ -525,8 +538,11 @@ export default function App() {
       const isDefaultPreview=runId===DEFAULT_PREVIEW_RUN_ID;
       setSourceState({status:'live_python',label:isDefaultPreview?'Preview':'Success',detail:'Reopened completed simulation',is_live:!isDefaultPreview});
       setTab('explore');setExploreView('performance');
-      try { setAnalysisReport(await decisionApi<DecisionReport>(`runs/${encodeURIComponent(runId)}`,undefined,'GET')); }
-      catch { setAnalysisReport(null); }
+      if(bundledReport)setAnalysisReport(bundledReport);
+      else {
+        try { setAnalysisReport(await decisionApi<DecisionReport>(`runs/${encodeURIComponent(runId)}`,undefined,'GET')); }
+        catch { setAnalysisReport(null); }
+      }
     } catch(error) {
       const detail=error instanceof Error?error.message:'The requested completed simulation could not be loaded.';
       setLimitations([detail]);setSourceState({status:'request_failed',label:'Run unavailable',detail,is_live:false});
