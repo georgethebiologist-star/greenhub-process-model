@@ -20,6 +20,7 @@ from Greenhub.phase6_specifications import (
     DRY_GAS_COMPONENTS,
     empirical_absorption_fraction,
     gas_vessel_volume_m3,
+    h2s_solubility_temperature_ratio,
     liquid_vessel_volume_m3,
     module_count,
     normal_volume_nm3_hr,
@@ -159,6 +160,15 @@ class WaterScrubbingParameters:
     product_flash_water_removal_fraction: float
     product_dryer_water_removal_fraction: float
     dryer_pressure_drop_pa: float
+    h2s_solubility_fit_low_a: float | None = None
+    h2s_solubility_fit_low_b_k: float | None = None
+    h2s_solubility_fit_high_a: float | None = None
+    h2s_solubility_fit_high_b_k: float | None = None
+    h2s_solubility_fit_high_c: float | None = None
+    h2s_solubility_fit_high_d_per_k: float | None = None
+    h2s_solubility_fit_transition_temperature_k: float | None = None
+    h2s_solubility_fit_minimum_temperature_k: float | None = None
+    h2s_solubility_fit_maximum_temperature_k: float | None = None
 
     def validate(self) -> None:
         if self.calculation_level not in {"empirical_level_1", "henry_stage_interface"}:
@@ -206,6 +216,31 @@ class WaterScrubbingParameters:
         nonnegative(self.flash_residence_time_min, "V612 residence time")
         positive(self.water_density_kg_m3, "Scrubbing-water density")
         nonnegative(self.dryer_pressure_drop_pa, "D611 pressure drop")
+        h2s_fit_values = (
+            self.h2s_solubility_fit_low_a,
+            self.h2s_solubility_fit_low_b_k,
+            self.h2s_solubility_fit_high_a,
+            self.h2s_solubility_fit_high_b_k,
+            self.h2s_solubility_fit_high_c,
+            self.h2s_solubility_fit_high_d_per_k,
+            self.h2s_solubility_fit_transition_temperature_k,
+            self.h2s_solubility_fit_minimum_temperature_k,
+            self.h2s_solubility_fit_maximum_temperature_k,
+        )
+        if any(value is not None for value in h2s_fit_values) and any(value is None for value in h2s_fit_values):
+            raise ValueError("All source-reported H2S solubility fit values must be supplied together.")
+        if self.h2s_solubility_fit_low_b_k is not None:
+            for value, label in (
+                (self.h2s_solubility_fit_low_b_k, "H2S low-range B coefficient"),
+                (self.h2s_solubility_fit_high_b_k, "H2S high-range B coefficient"),
+                (self.h2s_solubility_fit_high_d_per_k, "H2S high-range D coefficient"),
+                (self.h2s_solubility_fit_transition_temperature_k, "H2S fit transition temperature"),
+                (self.h2s_solubility_fit_minimum_temperature_k, "H2S fit minimum temperature"),
+                (self.h2s_solubility_fit_maximum_temperature_k, "H2S fit maximum temperature"),
+            ):
+                positive(value, label)
+            if not self.h2s_solubility_fit_minimum_temperature_k < self.h2s_solubility_fit_transition_temperature_k < self.h2s_solubility_fit_maximum_temperature_k:
+                raise ValueError("H2S fit temperature bounds and transition are inconsistent.")
 
 
 def water_scrubbing_parameters_from_mapping(values: Mapping[str, object]) -> WaterScrubbingParameters:
@@ -245,6 +280,15 @@ def water_scrubbing_parameters_from_mapping(values: Mapping[str, object]) -> Wat
         _required_float(values, "water_scrubber_product_flash_water_removal_fraction"),
         _required_float(values, "water_scrubber_product_dryer_water_removal_fraction"),
         _required_float(values, "water_scrubber_dryer_pressure_drop_pa"),
+        _optional_float(values, "water_scrubber_h2s_solubility_fit_low_a"),
+        _optional_float(values, "water_scrubber_h2s_solubility_fit_low_b_k"),
+        _optional_float(values, "water_scrubber_h2s_solubility_fit_high_a"),
+        _optional_float(values, "water_scrubber_h2s_solubility_fit_high_b_k"),
+        _optional_float(values, "water_scrubber_h2s_solubility_fit_high_c"),
+        _optional_float(values, "water_scrubber_h2s_solubility_fit_high_d_per_k"),
+        _optional_float(values, "water_scrubber_h2s_solubility_fit_transition_temperature_k"),
+        _optional_float(values, "water_scrubber_h2s_solubility_fit_minimum_temperature_k"),
+        _optional_float(values, "water_scrubber_h2s_solubility_fit_maximum_temperature_k"),
     )
     parameters.validate()
     return parameters
@@ -260,6 +304,9 @@ class WaterAbsorber(bst.Unit):
         "Gas feed": "Nm3/hr",
         "Gross circulating water": "kg/hr",
         "Fresh-water makeup": "kg/hr",
+        "Fresh-water makeup per raw gas": "m3/Nm3",
+        "Literature fresh-water lower bound": "m3/Nm3",
+        "Literature fresh-water upper bound": "m3/Nm3",
         "Water-to-gas ratio": "kg/Nm3",
         "CO2 absorbed": "kg/hr",
         "Methane co-absorbed": "kg/hr",
@@ -273,6 +320,7 @@ class WaterAbsorber(bst.Unit):
         parameters.validate()
         self.parameters = parameters
         self.absorbed_kg_hr: dict[str, float] = {}
+        self.h2s_temperature_response_factor = 1.0
         self.warnings = (
             "A611 is a calibrated Level-1 apparent-partition model; no electrolyte speciation or Henry stages are active.",
         )
@@ -301,6 +349,27 @@ class WaterAbsorber(bst.Unit):
         }
         self.absorbed_kg_hr = {}
         for ID, reference in references.items():
+            temperature_response_ratio = None
+            if ID == "HydrogenSulfide" and self.parameters.h2s_solubility_fit_low_a is not None:
+                try:
+                    temperature_response_ratio = h2s_solubility_temperature_ratio(
+                        gas_feed.T - 273.15,
+                        self.parameters.reference_temperature_c,
+                        self.parameters.h2s_solubility_fit_low_a,
+                        self.parameters.h2s_solubility_fit_low_b_k,
+                        self.parameters.h2s_solubility_fit_high_a,
+                        self.parameters.h2s_solubility_fit_high_b_k,
+                        self.parameters.h2s_solubility_fit_high_c,
+                        self.parameters.h2s_solubility_fit_high_d_per_k,
+                        self.parameters.h2s_solubility_fit_transition_temperature_k,
+                        self.parameters.h2s_solubility_fit_minimum_temperature_k,
+                        self.parameters.h2s_solubility_fit_maximum_temperature_k,
+                    )
+                    self.h2s_temperature_response_factor = temperature_response_ratio
+                except ValueError:
+                    self.warnings += (
+                        "H2S solubility temperature fit is outside its published range; the legacy empirical temperature response was retained.",
+                    )
             fraction = empirical_absorption_fraction(
                 reference,
                 pressure_bar=gas_feed.P / 1e5,
@@ -310,6 +379,7 @@ class WaterAbsorber(bst.Unit):
                 temperature_c=gas_feed.T - 273.15,
                 reference_temperature_c=self.parameters.reference_temperature_c,
                 temperature_coefficient_per_c=self.parameters.temperature_coefficient_per_c,
+                temperature_response_ratio=temperature_response_ratio,
             )
             transferred = float(product_gas.imass[ID]) * fraction
             product_gas.imass[ID] -= transferred
@@ -337,11 +407,28 @@ class WaterAbsorber(bst.Unit):
         self.design_results["Gas feed"] = gas_nm3
         self.design_results["Gross circulating water"] = float(rich_water.imass["Water"])
         self.design_results["Fresh-water makeup"] = fresh_water.F_mass
+        # Report-only comparison against the industrial specific-consumption
+        # range in Bauer et al. (2013), SGC Rapport 2013:270, §3.2 p.51.
+        # It must not calibrate the absorber or imply scale validation.
+        fresh_water_specific = (
+            fresh_water.F_mass / self.parameters.water_density_kg_m3 / gas_nm3
+            if gas_nm3 else 0.0
+        )
+        self.design_results["Fresh-water makeup per raw gas"] = fresh_water_specific
+        self.design_results["Literature fresh-water lower bound"] = 4.0e-5
+        self.design_results["Literature fresh-water upper bound"] = 4.0e-4
+        if gas_nm3 > 0.0 and not 4.0e-5 <= fresh_water_specific <= 4.0e-4:
+            self.warnings += (
+                "Specific absorber fresh-water makeup is outside the industrial screening range "
+                "reported by Bauer et al. (2013), SGC Rapport 2013:270, §3.2 p.51; "
+                "this scale-dependent comparison is not a model calibration.",
+            )
         self.design_results["Water-to-gas ratio"] = (
             float(rich_water.imass["Water"]) / gas_nm3 if gas_nm3 else 0.0
         )
         self.design_results["CO2 absorbed"] = self.absorbed_kg_hr.get("CarbonDioxide", 0.0)
         self.design_results["Methane co-absorbed"] = self.absorbed_kg_hr.get("Methane", 0.0)
+        self.design_results["H2S temperature response factor"] = self.h2s_temperature_response_factor
         self.design_results["Column diameter"] = geometry.diameter_m
         self.design_results["Packing height"] = geometry.packing_height_m
         self.design_results["Working volume"] = geometry.total_volume_m3
@@ -407,6 +494,70 @@ class WaterFlashTank(bst.Unit):
         self.design_results["CO2 released"] = self.released_kg_hr.get("CarbonDioxide", 0.0)
         self.design_results["Working volume"] = volume
         self.design_results["Flash pressure"] = flashed_water.P / 1e5
+        self.power_utility.consumption = 0.0
+
+
+class RawGasRatioFlashSplitter(bst.Unit):
+    """Recycle flash gas to a target ratio of the incoming raw dry gas flow.
+
+    The literature basis for water-scrubber flash-gas recycle is reported as a
+    fraction of incoming raw gas, not as a fraction of the available flash gas.
+    The requested recycle is therefore capped by the flash-gas flow available.
+    """
+
+    _N_ins = 1
+    _N_outs = 2
+    line = "Flash-gas recycle (raw-gas-flow basis)"
+    _units = {
+        "Target recycle": "Nm3/hr",
+        "Available flash gas": "Nm3/hr",
+        "Actual recycle": "Nm3/hr",
+        "Actual recycle / raw gas": "fraction",
+        "Flash gas recycled": "fraction",
+    }
+
+    def _init(self, parameters: WaterScrubbingParameters, raw_gas_reference):
+        parameters.validate()
+        self.parameters = parameters
+        self.raw_gas_reference = raw_gas_reference
+        self.target_recycle_nm3_hr = 0.0
+        self.available_flash_nm3_hr = 0.0
+        self.actual_recycle_nm3_hr = 0.0
+        self.actual_raw_gas_ratio = 0.0
+        self.flash_split_fraction = 0.0
+
+    def _run(self):
+        flash_gas = self.ins[0]
+        recycle, reject = self.outs
+        raw_gas_nm3_hr = normal_volume_nm3_hr(self.raw_gas_reference, dry=True)
+        self.target_recycle_nm3_hr = (
+            raw_gas_nm3_hr * self.parameters.flash_gas_recycle_fraction
+        )
+        self.available_flash_nm3_hr = normal_volume_nm3_hr(flash_gas, dry=True)
+        self.actual_recycle_nm3_hr = min(
+            self.target_recycle_nm3_hr, self.available_flash_nm3_hr
+        )
+        self.flash_split_fraction = (
+            self.actual_recycle_nm3_hr / self.available_flash_nm3_hr
+            if self.available_flash_nm3_hr > 0.0 else 0.0
+        )
+        self.actual_raw_gas_ratio = (
+            self.actual_recycle_nm3_hr / raw_gas_nm3_hr
+            if raw_gas_nm3_hr > 0.0 else 0.0
+        )
+        recycle.copy_like(flash_gas)
+        reject.copy_like(flash_gas)
+        for ID in chemicals.IDs:
+            available = float(flash_gas.imass[ID])
+            recycle.imass[ID] = available * self.flash_split_fraction
+            reject.imass[ID] = available - float(recycle.imass[ID])
+
+    def _design(self):
+        self.design_results["Target recycle"] = self.target_recycle_nm3_hr
+        self.design_results["Available flash gas"] = self.available_flash_nm3_hr
+        self.design_results["Actual recycle"] = self.actual_recycle_nm3_hr
+        self.design_results["Actual recycle / raw gas"] = self.actual_raw_gas_ratio
+        self.design_results["Flash gas recycled"] = self.flash_split_fraction
         self.power_utility.consumption = 0.0
 
 

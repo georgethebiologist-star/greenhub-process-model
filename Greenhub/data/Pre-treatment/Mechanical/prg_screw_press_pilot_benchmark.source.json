@@ -1,0 +1,23 @@
+{
+  "dataset_id": "https://doi.org/10.1038/s41538-026-00831-6",
+  "source_file": "greenhub_mechanical_pretreatment_pressing_data.csv",
+  "source_id": "S13_SANDOVAL_2026",
+  "source_title": "Transforming the odor profile of perennial ryegrass protein and surplus bread crusts through solid-state fermentation",
+  "authors": [
+    "Juan F. Sandoval",
+    "Jane K. Parker",
+    "Joe Gallagher",
+    "Julia Rodriguez-Garcia",
+    "Kerry Whiteside",
+    "David N. Bryant"
+  ],
+  "year": 2026,
+  "source_url": "https://doi.org/10.1038/s41538-026-00831-6",
+  "source_location": "Methods: Perennial ryegrass harvesting and pilot-scale processing; Table 1",
+  "geography": "Aberystwyth, United Kingdom",
+  "license": "CC BY 4.0",
+  "evidence_class": "B",
+  "evidence_scope": "Single pilot campaign; PRG screw-pressed with a Vincent CP-10. Reports 610 L raw juice per 1.5 t fresh feed, raw-juice pH 6.00, 5.13% dry matter and 16.0 ± 0.7% crude protein on DM.",
+  "limitations": "No raw-juice density, press-cake mass, feed composition, or unrecovered mass is reported. Volume yield cannot be treated as mass yield or used to close the press balance. Values are report-only, not runtime defaults.",
+  "retrieval_date": "2026-11-06"
+}

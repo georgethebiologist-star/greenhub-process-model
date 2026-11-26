@@ -1,0 +1,72 @@
+{
+  "source_id": "SRC-ELSHANI-2025-FIELD-DATA",
+  "dataset_title": "Background data for: Climate impact and land use of processing grass-clover biomass cultivated under different nitrogen fertilization rates in green biorefinery",
+  "dataset_doi": "10.18710/F5Z8BR",
+  "dataset_version": "1.0",
+  "related_publication_doi": "10.1016/j.scitotenv.2025.180373",
+  "authors": [
+    "Narta Elshani",
+    "Håvard Steinshamn",
+    "Steffen Adler",
+    "Johan Nilsson",
+    "Pernilla Tidåker"
+  ],
+  "publisher": "DataverseNO",
+  "publication_date": "2026-10-30",
+  "retrieval_date": "2026-11-08",
+  "license": "CC0 1.0 Universal Public Domain Dedication",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "source_api": "https://dataverse.no/api/datasets/:persistentId/?persistentId=doi:10.18710/F5Z8BR",
+  "source_file_md5": {
+    "00_README_EnvImpactBiorefine.txt": "f9cb6d002ad1e2ee2879b62f9b19f073",
+    "EnvImpactBiorefine_Data.csv": "cf0fcea3eaa2bac973e4548795fa9bdc",
+    "EnvImpactBiorefine_Exp.csv": "03e967afa0c584bd7f877adcadcd9d68"
+  },
+  "file_bytes": {
+    "00_README_EnvImpactBiorefine.txt": 8212,
+    "EnvImpactBiorefine_Data.csv": 15396,
+    "EnvImpactBiorefine_Exp.csv": 663
+  },
+  "observations": {
+    "main_file": "EnvImpactBiorefine_Data.csv",
+    "observation_rows": 192,
+    "location_file": "EnvImpactBiorefine_Exp.csv",
+    "location_rows": 8,
+    "join_key": "Exp_no",
+    "delimiter": ";",
+    "yield_columns_unit_as_defined_by_source_readme": "g/m2 dry matter",
+    "n_rate_codes_kg_n_ha": {
+      "0": 0,
+      "8": 80,
+      "16": 160,
+      "24": 240
+    },
+    "clover_mix_source_codes_percent_of_seed_mix": [
+      10,
+      20
+    ],
+    "cp_and_clover_observation_column_units": "Not defined in the source README; values retained without unit assignment or conversion.",
+    "missing_value_code": ".",
+    "replicate_treatment": "Source README states chemical-analysis samples were pooled and DM yields averaged across three replicates by treatment, cut, location and year."
+  },
+  "experimental_context": {
+    "crop": "Cultivated grass-clover ley: timothy, meadow fescue, red clover",
+    "geography": "Eight Norwegian sites in Southern and Central Norway",
+    "field_experiment_period": "2009-2013",
+    "production_years": "1-3",
+    "cuts": "Three cuts per season in the released dataset",
+    "status": "Measured field-trial summaries in a CC0 secondary data publication; not raw replicate data."
+  },
+  "evidence_class": "direct literature; published field-experiment dataset",
+  "quality_class": "B",
+  "activation_state": "reference_only",
+  "readiness": "D3",
+  "runtime_policy": "Do not map to roadside-grass defaults, process parameters, route, UI overrides or Pareto calculations.",
+  "applicability_limit": "Cultivated timothy/meadow-fescue/red-clover field experiments in Norway, not roadside grass or GreenHub supply. The 192 rows are treatment summaries; measurements were pooled or averaged across three replicates, not replicate-level raw data. Source README defines yield columns as g/m2 and N_rate codes as 0/8/16/24 = 0/80/160/240 kg N/ha, but does not define units for CP_* or clover_* columns; preserve those source values without conversion. Dot is the missing-data code. No runtime/default use.",
+  "fair": {
+    "findable": "Dataset DOI, related article DOI, local source ID and checksummed asset paths are recorded.",
+    "accessible": "Public DataverseNO API and CC0 license.",
+    "interoperable": "UTF-8 semicolon CSVs; source Exp_no joins experiment records to a separate location crosswalk.",
+    "reusable": "Raw source files are preserved byte-for-byte; source README, file checksums, mapping limits and missingness codes are recorded."
+  }
+}

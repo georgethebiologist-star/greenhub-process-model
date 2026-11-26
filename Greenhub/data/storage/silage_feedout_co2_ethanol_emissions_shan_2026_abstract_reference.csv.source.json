@@ -1,0 +1,45 @@
+{
+  "dataset_id": "urn:greenhub:dataset:storage:shan-silage-feedout-emissions-2026:v1",
+  "dataset_version": "1.0.0",
+  "dataset_file": "silage_feedout_co2_ethanol_emissions_shan_2026_abstract_reference.csv",
+  "record_count": 6,
+  "sha256": "119104d1b3d6682bcb4a2ff31cff62b97116bc1d15c1e07d42e0ba889a66aac4",
+  "source_id": "SRC-SHAN-SILAGE-FEEDOUT-EMISSIONS-2026",
+  "citation": "Shan, G., Sun, Y., Buescher, W., Maack, C., Berchtold, W., & Grantz, D. A. (2026). Determining characteristics of CO2 and ethanol emissions from microbial respiration in silage by partitioning of aerobic/anaerobic metabolites. Journal of Environmental Chemical Engineering, 14(2), 121987. https://doi.org/10.1016/j.jece.2026.121987",
+  "publication_year": 2026,
+  "doi": "10.1016/j.jece.2026.121987",
+  "source_url": "https://www.sciencedirect.com/science/article/pii/S2213343726009619",
+  "retrieval_date": "2026-11-08",
+  "source_locations": [
+    "Publisher abstract, results (ii) and (iv)."
+  ],
+  "applicable_phases": [
+    2
+  ],
+  "geography": "Not stated in accessible abstract; authors include German and US affiliations.",
+  "material_scope": "Cultivated ryegrass and maize mini-silo silages during post-opening feed-out exposure.",
+  "experimental_context": "1.5-L glass jars with and without a commercial bio-additive; samples exposed to air immediately at start of the feed-out test. Abstract reports 320 h total maize test and 600 h total ryegrass test. Initial emission summaries apply to the 0–10 h aerobic-stable period.",
+  "data_scope": "Four abstract-reported initial area-normalized emission summaries (two materials by two gases) and two approximate CO2/ethanol emission lags. No time-series points or raw data.",
+  "evidence_class": "B_measured_literature_abstract_extract",
+  "quality_class": "B",
+  "license": "Publisher record marks the article open access under a Creative Commons license, but the exact license text was not accessible during this extraction. Only attributed abstract-level factual values are stored; confirm license terms before external redistribution.",
+  "data_availability": "The article abstract states that data will be made available on request; no underlying time series was accessed.",
+  "conversion_or_processing": "Direct transcription of abstract values. The reported 10^-2 scale is retained in the unit; the ± term is retained separately without assigning SD/SE or another statistic. No mass normalization, interpolation, kinetic fit, or emission-factor calculation.",
+  "uncertainty": "Abstract reports a ± term for four emission summaries but does not identify its statistical meaning, replicate count, treatment aggregation, or area definition. Approximate lags have no interval reported.",
+  "limitations": [
+    "Cultivated crop silages in mini-jars are not Dutch roadside grass or GreenHub storage.",
+    "The reported emission basis is mol m^-2; no feed mass or dry matter denominator is given.",
+    "The ± statistic and aggregation across additive treatments are unspecified in the abstract.",
+    "The data statement says underlying data are available on request; no time series or replicate data were obtained.",
+    "The study concerns feed-out exposure after opening, not sealed-storage degradation kinetics.",
+    "No values are connected to storage equations, LCA factors, defaults, runtime, TEA or Pareto calculations."
+  ],
+  "runtime_policy": "Reference-only; not mapped to storage model or LCA because feed-mass scaling and variability definition are unresolved.",
+  "access_protocol": "Publisher article/abstract available via HTTPS DOI; underlying dataset stated available on request.",
+  "fair_metadata": {
+    "findable": "Local URN, source ID, DOI, publisher URL, and SHA-256 recorded.",
+    "accessible": "UTF-8 CSV and JSON sidecar stored locally; source abstract is retrievable over HTTPS.",
+    "interoperable": "Long-form observations preserve phase, material, condition, response, source unit and unknown basis/statistic fields.",
+    "reusable": "Provenance, source-access limitation, uncertainty ambiguity, applicability and no-runtime-use policy are explicit."
+  }
+}

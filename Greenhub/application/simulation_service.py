@@ -7,7 +7,6 @@ from datetime import datetime, timezone
 from pathlib import Path
 from threading import RLock
 
-from Greenhub.integration import create_integrated_greenhub_system
 from Greenhub.state_engine import build_state_outputs
 from Greenhub.parameters.enums import CalculationMode, ResolutionMode, ResultStatus
 from Greenhub.parameters.serialization import write_json
@@ -35,6 +34,7 @@ from .run_context import RunContext, RunState
 from .run_repository import RunRepository
 from .scenario_service import ScenarioService
 from .seasonal_service import SeasonalSimulationService
+from .project_adapter import default_project_registry
 from Greenhub.time_grid import generate_time_grid
 
 
@@ -49,6 +49,9 @@ class SimulationService:
         self,
         repository: RunRepository | None = None,
         run_root: Path | None = None,
+        *,
+        project_registry=None,
+        selected_project_id: str = "greenhub",
     ) -> None:
         self.repository = repository or RunRepository()
         self.run_root = run_root
@@ -58,7 +61,14 @@ class SimulationService:
         self.plots = PlotService(self.repository)
         self.exports = ExportService()
         self.feed_profiles = FeedProfileService()
-        self.seasonal = SeasonalSimulationService(self.feed_profiles)
+        # Project selection is configured at service composition time. The
+        # historical request.project_id remains a provenance label and is not
+        # repurposed as a model selector.
+        self.project_registry = project_registry or default_project_registry()
+        self.project_adapter = self.project_registry.get(selected_project_id)
+        self.seasonal = SeasonalSimulationService(
+            self.feed_profiles, project_adapter=self.project_adapter
+        )
 
     def validate_request(self, request: SimulationRequest) -> tuple[ValidationIssue, ...]:
         issues = list(self.scenarios.validate_scenario_chain(
@@ -186,19 +196,8 @@ class SimulationService:
                 )
                 model = seasonal.representative_model
             else:
-                model = create_integrated_greenhub_system(
-                    scenario_id=selection.nutrient_recovery,
-                    biogas_upgrading_scenario_id=selection.biogas_upgrading,
-                    anaerobic_digestion_scenario_id=selection.anaerobic_digestion,
-                    protein_recovery_scenario_id=selection.protein_recovery,
-                    feed_preparation_scenario_id=selection.feed_preparation,
-                    selected_month=request.selected_month,
-                    process_order=selection.process_order,
-                    parameter_overrides=model_overrides or None,
-                    biostimulant_route=(
-                        None if request.biostimulant_route is None
-                        else request.biostimulant_route.to_dict()
-                    ),
+                model = self.project_adapter.build_model(
+                    request, request.selected_month, model_overrides
                 )
                 context.transition(RunState.SIMULATING)
                 if request.wet_feed_rate_kg_hr is not None or request.feed_composition or request.storage_conditions is not None or request.plant_capacity_kg_hr is not None:

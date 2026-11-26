@@ -2,6 +2,10 @@
 
 Audit date: 2026-07-29
 
+> Historical traceability snapshot: statuses reflect the July 2026 audit and predate
+> later integration, governance, launcher, and documentation work. See the [current
+> architecture](../architecture.md) and [pre-release status](../PRE_RELEASE_STATUS.md).
+
 Status vocabulary: preserved; preserved but renamed; superseded with equivalent
 implementation; partially preserved; disconnected; missing; intentionally deprecated;
 cannot verify.

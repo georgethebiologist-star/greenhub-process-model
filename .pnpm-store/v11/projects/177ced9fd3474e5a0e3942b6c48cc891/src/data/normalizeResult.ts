@@ -1,12 +1,38 @@
 import type { ProcessAreaId, SimulationResult } from '../types';
+import { displayQualityClass } from './qualityClass';
 
 export type ResultAvailability = 'available' | 'unavailable' | 'provisional' | 'inactive' | 'planned';
 export interface ResultEnvelope { result: SimulationResult; source: 'typescript-shim' | 'python-api' | 'unknown'; availability: ResultAvailability; warnings: string[]; limitations: string[]; raw?: any; }
 
+const unitLabels: Record<string, string> = {
+  M401: 'Protein acidification mixer', H401: 'Protein-liquor heater',
+  R401: 'Protein precipitation reactor', C401: 'Protein separator',
+  W401: 'Protein-cake washer', D401: 'Protein-cake dewatering unit',
+  DR401: 'Protein dryer', M402: 'Protein side-stream mixer',
+  M403: 'Protein-liquor neutralization mixer',
+};
+
+function unitDisplayName(unitId: string, reportedName: string, technology?: string) {
+  if (unitLabels[unitId]) return unitLabels[unitId];
+  const name = reportedName && reportedName !== 'Mixer' ? reportedName : technology || reportedName || unitId;
+  return name.replace(/([a-z0-9])([A-Z])/g, '$1 $2');
+}
+
+function withDisplayQuality(result: SimulationResult): SimulationResult {
+  return {
+    ...result,
+    units: (result.units || []).map(unit => ({ ...unit, name: unitDisplayName(unit.id, unit.name, unit.type) })),
+    parameters: (result.parameters || []).map(parameter => ({
+      ...parameter,
+      quality_class: displayQualityClass(parameter.quality_class, parameter.stable_identifier, parameter.source_url, parameter.notes),
+    })),
+  };
+}
+
 export function normalizeResult(payload: unknown, fallback: SimulationResult): ResultEnvelope {
   if (!payload || typeof payload !== 'object') return unavailable(fallback, 'The simulation response was empty.');
   const value = payload as any;
-  if (value.metrics && Array.isArray(value.units) && Array.isArray(value.streams)) return { result: value, source: 'typescript-shim', availability: 'available', warnings: warningMessages(value.validation?.issues), limitations: [], raw: value };
+  if (value.metrics && Array.isArray(value.units) && Array.isArray(value.streams)) return { result: withDisplayQuality(value), source: 'typescript-shim', availability: 'available', warnings: warningMessages(value.validation?.issues), limitations: [], raw: value };
   if (!value.summary_kpis && !value.graph && !value.export_references) return unavailable(fallback, 'The response contract is not recognized by the frontend.');
 
   const product = (id: string) => numberValue((value.products || []).find((item: any) => item.product_id === id)?.mass_flow);
@@ -37,11 +63,11 @@ export function normalizeResult(payload: unknown, fallback: SimulationResult): R
     calculation_mode: value.calculation_mode || fallback.calculation_mode, resolution_mode: value.resolution_mode || fallback.resolution_mode, selected_month: fallback.selected_month,
     scenarios: { feed_front_end: selected.feed_preparation || 'F1', protein_recovery: selected.protein_recovery || 'PR3', anaerobic_digestion: selected.anaerobic_digestion || 'AD1', biogas_upgrading: selected.biogas_upgrading || 'BG2', nutrient_recovery: selected.nutrient_recovery || 'NR4', process_order: selected.process_order || 'A' },
     process_areas: areas,
-    units: (value.units || []).map((unit: any) => { const node: any = graphNodes.get(unit.unit_id); const heatDuties=unit.heat_duties||[]; const toKw=(duty:any)=>{const raw=numberValue(duty),unitName=String(duty?.unit||'kJ/hr').toLowerCase();return unitName==='kw'?raw:unitName.includes('kj')?raw/3600:raw;}; return { id: unit.unit_id, name: unit.display_name, area: unit.process_area as ProcessAreaId, type: node?.technology || 'BioSTEAM unit', duty_kw: heatDuties.reduce((sum: number, duty: any) => sum + Math.abs(toKw(duty)), 0), heating_kw: heatDuties.reduce((sum:number,duty:any)=>sum+Math.max(toKw(duty),0),0), cooling_kw: heatDuties.reduce((sum:number,duty:any)=>sum+Math.max(-toKw(duty),0),0), power_kw: numberValue(unit.power), temperature_c: 0, pressure_bar: 0, status: node?.active === false ? 'disabled' : 'active', status_reason: (unit.warnings || []).join(' ') || undefined }; }),
+    units: (value.units || []).map((unit: any) => { const node: any = graphNodes.get(unit.unit_id); const heatDuties=unit.heat_duties||[]; const toKw=(duty:any)=>{const raw=numberValue(duty),unitName=String(duty?.unit||'kJ/hr').toLowerCase();return unitName==='kw'?raw:unitName.includes('kj')?raw/3600:raw;}; return { id: unit.unit_id, name: unitDisplayName(unit.unit_id, unit.display_name, node?.technology), area: unit.process_area as ProcessAreaId, type: node?.technology || 'BioSTEAM unit', duty_kw: heatDuties.reduce((sum: number, duty: any) => sum + Math.abs(toKw(duty)), 0), heating_kw: heatDuties.reduce((sum:number,duty:any)=>sum+Math.max(toKw(duty),0),0), cooling_kw: heatDuties.reduce((sum:number,duty:any)=>sum+Math.max(-toKw(duty),0),0), power_kw: numberValue(unit.power), temperature_c: 0, pressure_bar: 0, status: node?.active === false ? 'disabled' : 'active', status_reason: (unit.warnings || []).join(' ') || undefined }; }),
     streams: (value.streams || []).map((stream: any) => ({ id: stream.stream_id, name: stream.aliases?.[0] || stream.stream_id, origin: stream.source_unit || 'boundary', destination: stream.sink_unit || 'boundary', mass_flow_kgh: numberValue(stream.total_mass), dry_solids_pct: 0, cod_kgh: componentSum(stream.components, ['COD']), nitrogen_kgh: componentSum(stream.components, ['N', 'NH3', 'NH4']), phosphorus_kgh: componentSum(stream.components, ['P', 'PO4']), potassium_kgh: componentSum(stream.components, ['K']), components_kg_hr: Object.fromEntries(Object.entries(stream.components || {}).map(([name, value]) => [name, numberValue(value)])) })),
     balances: { mass_in_kgh: numberValue(overall?.inlet), mass_out_kgh: numberValue(overall?.outlet), mass_closure_pct: closure(overall), cod_in_kgh: 0, cod_out_kgh: 0, cod_closure_pct: 0, elemental: { carbon: balanceItem('carbon'), nitrogen: balanceItem('nitrogen'), phosphorus: balanceItem('phosphorus'), potassium: balanceItem('potassium'), sulfur: balanceItem('sulfur') } },
     metrics: { biogas_m3h: 0, methane_purity_pct: 0, biomethane_flow_m3h: productVolume('biomethane'), protein_recovered_kgh: product('dry_protein_product'), protein_purity_pct: 0, struvite_yield_kgh: product('phosphorus_product'), ammonia_sulfate_kgh: product('ammonium_product'), calcium_phosphate_kgh: 0, potassium_concentrate_kgh: product('potassium_concentrate'), data_readiness_score: readinessTotal ? readinessGood / readinessTotal * 100 : 0, net_heat_kw: -totalHeat, net_power_kw: -totalPower, total_power_kw: totalPower, total_heat_kw: totalHeat, p_recovery_pct: 0, n_recovery_pct: 0, k_recovery_pct: 0, cod_conversion_pct: 0 },
-    parameters: (value.resolved_parameters || []).map((parameter: any) => ({ parameter_id: parameter.parameter_id, name: humanize(parameter.parameter_id), category: 'advanced', process_area: areaFromParameter(parameter.parameter_id), description: parameter.selection_reason || 'Resolved by the Python parameter service.', current_value: parameter.value ?? '', unit: parameter.unit || '', default_value: parameter.value ?? '', quality_class: parameter.quality_class || qualityFromStatus(parameter.status), source_title: parameter.source_title, stable_identifier: parameter.stable_identifier, source_url: parameter.source_url, source_location: parameter.exact_source_location, evidence_class: parameter.evidence_class, basis: parameter.basis, uncertainty: parameter.uncertainty, is_editable: false, notes: [parameter.source, parameter.source_title, parameter.stable_identifier, parameter.source_url, parameter.exact_source_location, parameter.basis, parameter.uncertainty ? JSON.stringify(parameter.uncertainty) : '', ...(parameter.warnings || [])].filter(Boolean).join(' · ') })),
+    parameters: (value.resolved_parameters || []).map((parameter: any) => ({ parameter_id: parameter.parameter_id, name: humanize(parameter.parameter_id), category: 'advanced', process_area: areaFromParameter(parameter.parameter_id), description: parameter.selection_reason || 'Resolved by the Python parameter service.', current_value: parameter.value ?? '', unit: parameter.unit || '', default_value: parameter.value ?? '', quality_class: displayQualityClass(parameter.quality_class || qualityFromStatus(parameter.status), parameter.stable_identifier, parameter.source_url, parameter.source), source_title: parameter.source_title, stable_identifier: parameter.stable_identifier, source_url: parameter.source_url, source_location: parameter.exact_source_location, evidence_class: parameter.evidence_class, basis: parameter.basis, uncertainty: parameter.uncertainty, is_editable: false, notes: [parameter.source, parameter.source_title, parameter.stable_identifier, parameter.source_url, parameter.exact_source_location, parameter.basis, parameter.uncertainty ? JSON.stringify(parameter.uncertainty) : '', ...(parameter.warnings || [])].filter(Boolean).join(' · ') })),
     plots: [], scenario_comparisons: fallback.scenario_comparisons,
     validation: { status: value.validation?.passed ? (value.validation?.warning_count ? 'warning' : 'pass') : 'fail', residual_error_kgh: Math.abs(numberValue(overall?.residual)), issues },
   };
@@ -54,5 +80,5 @@ function componentSum(components: any, keys: string[]): number { return Object.e
 function warningMessages(issues: any[] = []) { return issues.filter(item => item.severity === 'warning').map(item => item.message); }
 function humanize(value: string) { return value.replace(/[._-]+/g, ' ').replace(/\b\w/g, letter => letter.toUpperCase()); }
 function areaFromParameter(id: string): ProcessAreaId { if (id.includes('phase4') || id.includes('protein')) return 'protein_recovery'; if (id.includes('phase5') || id.includes('digestion')) return 'anaerobic_digestion'; if (id.includes('phase6') || id.includes('biogas')) return 'biogas_upgrading'; if (id.includes('phase7') || id.includes('nutrient')) return 'nutrient_recovery'; return 'front_end'; }
-export function qualityFromStatus(status: string): 'A'|'B'|'C'|'D'|'E' { if (status === 'measured') return 'A'; if (status === 'literature_default') return 'B'; if (status === 'calibrated') return 'B'; if (status === 'blocked' || status === 'missing') return 'D'; if (status === 'placeholder' || status === 'overridden') return 'E'; return 'C'; }
-function unavailable(fallback: SimulationResult, warning: string): ResultEnvelope { return { result: fallback, source: 'unknown', availability: 'unavailable', warnings: [warning], limitations: ['Displayed values are from the development fallback.'] }; }
+export function qualityFromStatus(status: string): 'A'|'B'|'C'|'E' { if (status === 'measured') return 'A'; if (status === 'literature_default' || status === 'calibrated') return 'B'; if (status === 'literature_linked_assumption') return 'C'; return 'E'; }
+function unavailable(fallback: SimulationResult, warning: string): ResultEnvelope { return { result: withDisplayQuality(fallback), source: 'unknown', availability: 'unavailable', warnings: [warning], limitations: ['Displayed values are from the development fallback.'] }; }

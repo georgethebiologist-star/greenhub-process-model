@@ -122,6 +122,14 @@ export interface EmpiricalBiomassSchedule {
   peak_date: string;
   spread_days: number;
   active_months: number[];
+  monthly_availability_tonnes?: number[] | null;
+  availability_evidence_class?: 'A' | 'B' | 'C' | 'D' | null;
+  availability_status?: string | null;
+  availability_note?: string | null;
+  availability_temporal_profile_quality_class?: 'A' | 'B' | 'C' | 'D' | null;
+  availability_source_id?: string | null;
+  availability_source_url?: string | null;
+  harvest_events?: Array<{date: string; available_biomass_tonnes: number}> | null;
 }
 
 export interface ProcessAreaInfo {
@@ -287,6 +295,12 @@ export interface AnnualSummary {
   };
   feed_processed: AnnualValue;
   products: Record<string, AnnualValue>;
+  material_fate?: {
+    basis: string;
+    grass_juice: MaterialFateStream;
+    products: MaterialFateStream[];
+    residual_water: MaterialFateStream & { streams?: MaterialFateStream[] };
+  };
   volumetric_products?: Record<string, AnnualValue>;
   named_products?: Record<string, AnnualValue>;
   utilities: Record<string, AnnualValue>;
@@ -304,6 +318,7 @@ export interface AnnualSummary {
     intermediate_streams_kg: Record<string, number>;
     volumetric_products_m3: Record<string, number>;
     utilities_kwh: Record<string, number>;
+    fresh_water_m3?: number;
     mass_residual_kg: number;
   }>;
   biomass_schedule: {
@@ -318,7 +333,18 @@ export interface AnnualSummary {
       utilization_percent?: number;
       operating_hours?: number;
       basis_feed_kg_per_hr?: number;
+      harvest_event_dates?: string[];
+      processing_release_dates?: string[];
     }>;
+    harvest_events?: Array<{
+      date: string;
+      available_biomass_tonnes: number;
+      evidence_class?: string | null;
+      temporal_profile_quality_class?: string | null;
+      source_id?: string | null;
+      source_url?: string | null;
+      status?: string | null;
+    }> | null;
     annual_available_tonnes: number;
     annual_processed_tonnes: number;
     annual_unused_tonnes: number;
@@ -364,4 +390,12 @@ export interface AnnualSummary {
   }>;
   reporting_status: {model: string; schedule_policy: string; validated_simulation_ready: boolean; note: string};
   warnings: string[];
+}
+
+export interface MaterialFateStream {
+  stream_id: string;
+  label: string;
+  mass_kg: number;
+  components_kg: Record<string, number>;
+  elements_kg: Record<string, number>;
 }

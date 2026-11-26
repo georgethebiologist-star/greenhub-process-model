@@ -1,0 +1,43 @@
+{
+  "dataset_title": "Ferti-Dig French agricultural digestate published summary statistics",
+  "dataset_identifier": "https://doi.org/10.57745/M1JSU5",
+  "publication_doi": "10.1016/j.dib.2025.111550",
+  "source_id": "SRC_CARADEC2025_FERTIDIG",
+  "authors": [
+    "Lucille Caradec",
+    "Aurélia Michaud",
+    "Mariana Moreira",
+    "Ivan Desneulin",
+    "Sylvaine Berger",
+    "Dominique Patureau",
+    "Sabine Houot",
+    "Florent Levavasseur",
+    "Antoine Savoie",
+    "Julie Jimenez"
+  ],
+  "reference_year": 2025,
+  "data_collection_period": "2006-2022",
+  "source_url": "https://doi.org/10.57745/M1JSU5",
+  "publication_url": "https://doi.org/10.1016/j.dib.2025.111550",
+  "source_article_full_text": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12175230/",
+  "license": "CC BY 4.0 for the source article and transcribed aggregate Table 1 statistics. The underlying data.gouv dataset has separate custom terms: non-commercial use, notification on download, and required citation; no raw dataset files were downloaded or redistributed.",
+  "retrieval_date": "2026-11-07",
+  "source_file": "ferti_dig_french_digestate_summary_caradec_2025_reference.csv",
+  "source_location": "Caradec et al. (2025), Table 1, French digestates collection summary (n=608)",
+  "evidence_class": "B_literature_measurement_summary",
+  "geography": "165 French agricultural anaerobic-digestion plants; the article reports digestates sampled/compiled across 2006-2022.",
+  "data_handling": "Transcribed only published aggregate median, first/third quartile where available, and missingness values from Table 1. collection_size_n=608 denotes the French collection size, not the valid observation count for every parameter; parameter-specific valid counts are not reconstructed from rounded missingness percentages. No raw participant/site rows were accessed, imputed, or redistributed; no conversion, reweighting, or synthetic grass-only subset was created.",
+  "dataset_context": "The companion repository describes 608 French agricultural digestates and 198 literature observations. Feedstocks and operating conditions are heterogeneous; livestock effluents are common. This summary file covers the French collection only.",
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "limitations": [
+    "Not roadside grass or GreenHub post-protein digestion evidence; no grass-only cohort can be isolated from the aggregate table.",
+    "Aggregate concentration statistics do not supply digestate flow, mass balance, nutrient capture, reagent demand, or fertilizer compliance data.",
+    "The data.gouv repository dataset has custom non-commercial terms and a download notification/citation requirement; raw files are intentionally not copied into this repository.",
+    "The paper reports variable missingness and heterogeneous analytical methods; pH and some other parameters have substantial missing data.",
+    "Median nutrient concentrations are not runtime defaults and must not be interpreted as this project's stream composition or product specification."
+  ],
+  "related_dataset_doi": "10.57745/M1JSU5",
+  "repository_terms_url": "https://entrepot.recherche.data.gouv.fr/dataset.xhtml?persistentId=doi%3A10.57745%2FM1JSU5",
+  "dataset_file": "ferti_dig_french_digestate_summary_caradec_2025_reference.csv"
+}

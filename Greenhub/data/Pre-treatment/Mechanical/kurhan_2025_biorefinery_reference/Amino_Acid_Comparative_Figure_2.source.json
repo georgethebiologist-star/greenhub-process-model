@@ -1,0 +1,81 @@
+{
+  "source_file": "Amino_Acid_Comparative_Figure_2.xlsx",
+  "source_id": "SRC-KURHAN-2025-BATH-01534",
+  "dataset_id": "urn:greenhub:source:kurhan-2025-bath-01534:amino_acid_comparative_figure_2:v1",
+  "dataset_title": "Amino-acid profiles of silage before/after extraction and comparative protein sources shown in Figure 2.",
+  "source_dataset_path": "Greenhub/data/Pre-treatment/Mechanical/kurhan_2025_biorefinery_reference/Amino_Acid_Comparative_Figure_2.xlsx",
+  "source_data_sha256": "39bbb237d9d906cce80b5f8c2c56d2145e0f4d790fda3326e62054ad64fc7318",
+  "persistent_identifier": "10.15125/BATH-01534",
+  "source_url": "https://researchdata.bath.ac.uk/1534/6/Amino%20acid%20comparative%20data%20for%20figure%202.xlsx",
+  "source_record_url": "https://researchdata.bath.ac.uk/1534/",
+  "article_doi": "10.1098/rstb.2024.0161",
+  "article_url": "https://doi.org/10.1098/rstb.2024.0161",
+  "source_title": "Dataset for Kurhan et al. (2025), The development of a silage-based biorefinery to deliver the maximum nutritional benefit for human consumption from UK grasslands",
+  "data_creators": [
+    "Chris Chuck",
+    "Yubin Ding"
+  ],
+  "article_authors": [
+    "Sebnem Kurhan",
+    "Yubin Ding",
+    "Fatma Guler",
+    "Olusegun Abayomi Olalere",
+    "Samuel Eze",
+    "Anne Wambui Mumbi",
+    "Frank Vriesekoop",
+    "Helen Pittson",
+    "Bernardo Castro-Dominguez",
+    "Hannah Leese",
+    "Karl Behrendt",
+    "Richard Green",
+    "Christopher Chuck"
+  ],
+  "publisher": "University of Bath Research Data Archive",
+  "publication_year": 2025,
+  "dataset_publication_date": "2025-09-05",
+  "retrieval_date": "2026-11-08",
+  "version": 1,
+  "geography": "UK grasslands; the archived material is grass silage. Exact sampling location and feed history should be taken from the associated article/methods, not inferred from the archive title.",
+  "material_scope": "Grass-silage-derived soluble fraction and non-grass comparison proteins.",
+  "phase_relevance": "4",
+  "evidence_class": "B_measured_primary_literature_dataset",
+  "quality_class": "B",
+  "license_or_rights": "CC BY 4.0, stated for this individual file on the University of Bath archive record.",
+  "source_location": "Amino-acid profiles of silage before/after extraction and comparative protein sources shown in Figure 2.",
+  "methods_summary": "The archive states data were collected using standard technical methods described in the associated article and processed in Microsoft Excel. This sidecar inventories the source workbook; it does not independently reproduce the laboratory measurements.",
+  "workbook_sheets": [
+    {
+      "sheet_name": "Sheet1",
+      "phase_relevance": "4",
+      "source_description": "Amino-acid profile comparisons used in Figure 2.",
+      "max_row": 22,
+      "max_column": 23,
+      "nonempty_rows": 22,
+      "nonempty_cells": 400,
+      "formula_cells": 153,
+      "cached_formula_values": 153,
+      "formula_cells_without_cached_value": 0
+    }
+  ],
+  "source_sha256": "39bbb237d9d906cce80b5f8c2c56d2145e0f4d790fda3326e62054ad64fc7318",
+  "source_byte_size": 16805,
+  "activation_state": "reference_only",
+  "maturity_class": "D3",
+  "calculation_connected": false,
+  "parameter_registry_mapping": null,
+  "runtime_usage": "No runtime use. Evidence is discoverable for comparison and future gated extraction only.",
+  "applicability": "UK pasture silage and mechanochemical extrusion comparator; not Dutch roadside/VARTA feed or calibration for the existing GreenHub screw-press/isoelectric route.",
+  "conversion_policy": "No workbook values were averaged, re-based, or promoted to model parameters. All populated cells are also transcribed to the companion cell-level CSV with formula expressions and source-cached outputs kept in separate columns; the original XLSX files remain unchanged.",
+  "cell_level_extract": "kurhan_2025_bath_source_workbook_cells_reference.csv",
+  "uncertainty": "The archive workbook and associated article must be consulted for individual replicate counts, analytical methods, and statistical uncertainty. The inventory does not infer these from cell formatting or formula presence.",
+  "known_caveats": [
+    "Reference-only. Comparative nutritional profiles do not establish GreenHub product purity, food-grade status, recovery, or saleable specification."
+  ],
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "fair_metadata": {
+    "findable": "DOI, source record, article DOI, source ID, local dataset URN and checksums are recorded.",
+    "accessible": "Original open XLSX and sheet inventory are stored locally; source download URLs are recorded.",
+    "interoperable": "Sheet inventory is UTF-8 CSV with explicit sheet, dimensions, formula/cache counts, phase mapping and status fields.",
+    "reusable": "Per-file CC BY 4.0, citation, provenance, scope, extraction policy, transferability and activation limitations are recorded."
+  }
+}

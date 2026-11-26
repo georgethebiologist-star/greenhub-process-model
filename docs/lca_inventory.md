@@ -103,12 +103,26 @@ The logistics adapter receives fuel-combustion emissions already calculated by
 to that characterized mass. Missing vehicle inputs or logistics limitations
 still produce missing quantities and do not become zero.
 
-Electricity and heat factors intentionally have `value=null` and
-`source_status="missing"`. A supplier/year/location and boundary-matched factor
-is required. Electricity generation-only emissions are not silently represented
-as cradle-to-gate supply emissions. Heat factors must describe delivered heat
-with explicit efficiency/upstream scope. Reagents, vehicles, materials,
-equipment and waste require their own traceable factors and annual quantities.
+Electricity and heat factors are retained in the factor registry as
+`activation="screening"`; the default loader excludes them. They are applied
+only when the existing `use_screening_lca_factors=true` option is selected or a
+complete explicit factor override is supplied. Electricity uses the JRC 2021
+Netherlands national-consumption life-cycle factor (0.406463 kg CO2e/kWh),
+including upstream supply-chain emissions. It is not supplier-specific. The
+source is the [JRC GHG Emission Factors for Electricity Consumption dataset](https://doi.org/10.2905/JRC.4800KC0). The
+source workbook and DOI/PID metadata are recorded in
+`Greenhub/data/lca/source_data/JRC_electricity_factor_record.json` and the LCA
+source register.
+
+The heat screening factor is the CE Delft 2022 average Dutch heat-grid total
+end-user factor (0.111456 kg CO2e/kWh), reported by [CE Delft](https://cedelft.eu/publications/chain-emissions-for-heat-grids-in-2022-and-2030/). GreenHub reports generic thermal demand
+and does not identify whether heat comes from a district network, boiler,
+electric heater, or another carrier. Therefore this factor is not applied by
+default. Selecting screening factors makes the explicit screening assumption
+that generic process heat is supplied by an average Dutch heat network; use a
+complete override if the actual carrier and factor differ. Reagents, vehicles,
+materials, equipment and waste still require their own traceable factors and
+annual quantities.
 
 Every factor record contains `value`, `quantity_unit`, `basis`, `geography`,
 `reference_year`, `source_url`, `source_table_page`, `retrieval_date`,
@@ -176,6 +190,24 @@ Substitution is off by default. Credit rows require `counterfactual`,
 exceed that eligible quantity. The caller must substantiate grade, purity,
 moisture, nutrient availability, destination market and substitution service.
 No candidate-product wet mass is treated as equivalent to a saleable fertilizer.
+
+### Whole-facility comparison evidence (not activated)
+
+`Greenhub/data/lca/source_data/green_biorefinery_energy_benchmarks.csv` records
+an independent Norwegian grass-clover pilot benchmark from Elshani et al.
+(2026; DOI `10.1038/s44264-026-00189-y`). The study reports 375 kWh electricity
+and 138 MJ propane heat per Mg dry-matter feed, with a reported total of 1489
+MJ/Mg DM. The component sum is 1488 MJ/Mg DM after unit conversion, consistent
+with rounding. The article describes measurements by processing unit but
+publishes the cited quantities as a whole-facility aggregate.
+
+These B-class literature measurements are comparison evidence only. The pilot
+processed Norwegian grass-clover under a different facility boundary, so the
+values are not roadside-grass-specific and must not be used as screw-press
+energy, a GreenHub default, or an additional LCA inventory flow. The separate
+total row must never be added to the electricity and heat rows. A valid model
+comparison first requires the same dry-feed basis and a matched process
+boundary; no active utility factor or model result is changed by this dataset.
 
 ## Running and verification
 

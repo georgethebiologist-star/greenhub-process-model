@@ -213,6 +213,24 @@ def test_unselected_route_alternatives_are_excluded(empirical_result):
     assert any(item["cost_id"] == "TEST-MEMBRANE" and item["reason"] == "unselected_route_alternative" for item in report.excluded_alternatives)
 
 
+def test_bg2_fresh_water_is_costed_once_as_supply_and_water_tax(empirical_result):
+    from Greenhub.application.water_reporting import fresh_water_kg_per_hour_from_result, kg_to_m3
+
+    hours = 8760.0
+    expected_m3 = kg_to_m3(fresh_water_kg_per_hour_from_result(empirical_result.streams) * hours)
+    report = calculate_empirical_tea(
+        empirical_result,
+        project_basis={"operating_hours_per_year": hours},
+    ).to_dict()
+    lines = {row["cost_id"]: row for row in report["opex_lines"]}
+    assert "TEA-039" in lines, [row["cost_id"] for row in report["selected_cost_lines"] if "water" in row["cost_id"].lower() or row["cost_id"] == "TEA-040"]
+    assert lines["TEA-039"]["quantity"] == pytest.approx(expected_m3)
+    assert lines["TEA-039"]["annual_cost_eur"] == pytest.approx(expected_m3 * 1.23)
+    assert lines["TEA-040"]["quantity"] == pytest.approx(expected_m3)
+    assert lines["TEA-040"]["annual_cost_eur"] == pytest.approx(expected_m3 * 0.44)
+    assert "TEA-042" not in lines
+
+
 def test_package_and_included_subcomponent_are_not_double_counted(empirical_result):
     package = _record(
         "TEST-PACKAGE", ("BG2",), package_group="test_package", package_role="package"

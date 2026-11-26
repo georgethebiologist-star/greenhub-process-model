@@ -19,6 +19,7 @@ from .contracts.results import (
     UtilityResult,
     ValidationSummary,
 )
+from .unit_naming import unit_display_name
 
 
 def numerical(value, unit, basis, origin, status=ResultStatus.CALCULATED, warning=None):
@@ -82,7 +83,7 @@ def build_unit_results(model) -> tuple[UnitResult, ...]:
         results.append(
             UnitResult(
                 unit_id=unit_id,
-                display_name=str(getattr(unit, "line", None) or type(unit).__name__),
+                display_name=unit_display_name(unit_id, unit),
                 process_area=area_by_unit.get(unit_id, "unassigned"),
                 design_results=design,
                 power=numerical(
@@ -162,6 +163,11 @@ def build_products(model) -> tuple[ProductResult, ...]:
         "ammonium_product", "potassium_concentrate", "nutrient_rich_solids",
     )
     volumetric_products = {"biostimulant_product", "biomethane"}
+    # BG0 retains a legacy stream alias named ``biomethane`` for flowsheet
+    # compatibility, but its actual outlet is unupgraded raw-biogas export.
+    # Do not report or price that stream as a biomethane product.
+    if model.scenario_configuration.biogas_upgrading == "BG0":
+        names = tuple(name for name in names if name != "biomethane")
     return tuple(
         ProductResult(
             name,

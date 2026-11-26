@@ -1,0 +1,51 @@
+{
+  "dataset_id": "urn:greenhub:dataset:feed-bmp:rvo-2014-grass-supply-storage-cost-reference:v1",
+  "dataset_version": "1.0.0",
+  "dataset_file": "rvo_2014_grass_supply_storage_chain_cost_reference.csv",
+  "source_file": "rvo_2014_grass_supply_storage_chain_cost_reference.csv",
+  "record_count": 45,
+  "sha256": "351c94068668fc03ec445896c3659785ea044ec7b8d5cc12e51fcf6cfeb52caa",
+  "source_id": "SRC-RVO-BRINKMANN-GRASS-2014",
+  "citation": "Brinkmann Consultancy (A. Brinkmann). (2014). Biogas uit gras – een onderbenut potentieel: Een studie naar kansen voor grasvergisting. Final report commissioned by Rijksdienst voor Ondernemend Nederland; definitive version, March 2014.",
+  "publication_year": 2014,
+  "doi": null,
+  "source_url": "https://www.rvo.nl/sites/default/files/2014/04/Definitief_Een%20studie%20naar%20kansen%20voor%20grasvergisting.pdf",
+  "retrieval_date": "2026-11-08",
+  "source_location": "Sections 2.2–2.4, 5.2.1–5.2.3 and 6.2–6.3; per-row section/page locations are retained.",
+  "geography": "Netherlands; selected supply-chain and single-facility examples in the Netherlands",
+  "material_scope": "Roadside verge grass, nature grass, ditch clippings and grass feed for anaerobic digestion; secondary national quantity estimates, preservation practices and historical cost/yield comparators.",
+  "evidence_class": "B-tier official literature evidence; individual records distinguish secondary estimate, stakeholder interview, laboratory comparator and case-specific output.",
+  "quality_class": "B",
+  "license_or_rights": "No explicit reuse license identified on the cited source pages/PDF during retrieval. The source report is not redistributed; factual observations are attributed and remain subject to source-specific rights.",
+  "access_protocol": "HTTPS PDF hosted by the source institution/official report host.",
+  "data_structure": "Long-form UTF-8 CSV. Source-reported text, numeric values and range bounds are separate. Blank numeric fields indicate that a numeric value was not reported or not safely separable; they are not zero.",
+  "conversion_or_processing": "Direct transcription of report statements and ranges. No inflation adjustment, cross-study averaging, conversion of potential loss to mass loss, or runtime mapping. Apparent source inconsistencies are preserved and flagged.",
+  "uncertainty": "The report states exact national grass quantities are unavailable. Underlying studies differ in dry-matter assumptions and supply boundaries; interview samples, quotes, assay conditions and uncertainty intervals are not reported consistently.",
+  "limitations": [
+    "The study is from 2014 and is not current Dutch supply, a GreenHub project measurement, or a delivered-feed contract.",
+    "National availability numbers combine older studies, waste reporting, industry estimates and stakeholder interviews; boundaries and moisture bases vary.",
+    "Reported ensiling losses are biogas-potential losses, not dry-matter or fresh-mass inventory losses, and are not time-resolved kinetics.",
+    "Storage-density values are a laboratory comparison with incomplete test-method detail, not a plant-specific storage design value.",
+    "Historical costs and substrate-price scenarios are nominal and not inflation-adjusted; subsidy, plant boundary and itemization are incomplete.",
+    "The JansenWijhe yield examples repeat 30% DM for both 90 and 120 m3/t; both are retained without correction.",
+    "No upgrading performance, GreenHub-specific protein route, lifecycle inventory or fertilizer substitution is established by this source.",
+    "No explicit reuse license was identified; only short factual transcriptions are stored, not the source PDF."
+  ],
+  "phase_coverage": {
+    "1": "Historical national biomass quantities, collected/off-site versus total mown distinctions, season/harvest context and supply constraints; not accessible current delivered supply.",
+    "2": "Field-period and ensiling practices, reported biogas-potential preservation losses and storage-density comparator; no roadside-specific loss kinetics.",
+    "3": "Cut length, chopping/extrusion, contamination screening and historical pretreatment-cost observations; no GreenHub press or extraction balance.",
+    "4": "No protein extraction, precipitation, reagent demand or product quality data.",
+    "5": "Broad literature biogas yield range and historical grass substrate scenarios; not residual-specific continuous AD.",
+    "6": "No gas upgrading recovery, impurity removal, energy, water or product-specification dataset.",
+    "7": "No defensible LCA method, boundary or fertilizer substitution factor; this report does not close the LCA inventory."
+  },
+  "runtime_policy": "reference_only; no parameter registry, default, process equation, TEA/LCA factor, scenario or Pareto mapping is created",
+  "calculation_connected": false,
+  "fair_metadata": {
+    "findable": "Repository-local URN, source ID, content hash and catalog-indexed path; no DOI is fabricated.",
+    "accessible": "Source URL is recorded using HTTPS; the source report itself is not copied into the repository.",
+    "interoperable": "UTF-8 long-form CSV with explicit source, phase, value, unit, basis, time context, source location and missingness fields.",
+    "reusable": "Citation, retrieval date, rights warning, evidence class, applicability, uncertainty, validation flags and limitations are recorded."
+  }
+}

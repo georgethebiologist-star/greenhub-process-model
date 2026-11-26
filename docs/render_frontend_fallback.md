@@ -9,7 +9,7 @@ VITE_GREENHUB_API_URL=https://<python-service>.onrender.com/api/v1
 VITE_GREENHUB_API_TIMEOUT_MS=15000
 ```
 
-`VITE_GREENHUB_API_URL` is compiled into the Vite bundle, so set it before `npm run build` and redeploy after changing it. The Python service must allow the frontend origin through CORS. Do not set a production value to `127.0.0.1`; in a browser that address means the visitor's computer.
+`VITE_GREENHUB_API_URL` is compiled into the Vite bundle, so set it before `corepack pnpm build` and redeploy after changing it. The Python service must allow the frontend origin through CORS. Do not set a production value to `127.0.0.1`; in a browser that address means the visitor's computer.
 
 The bundled Express server serves a lightweight JavaScript simulation endpoint, but it does not expose the Python dynamic-complete service or its full annual reporting resources. A separate Python URL or an external same-origin reverse proxy is required for live scientific results.
 
@@ -31,9 +31,9 @@ Changing controls while offline does not recalculate the fixture. The UI explici
 
 ```powershell
 cd frontend
-npm run lint
-npm run check:fallback
-npm run build
+corepack pnpm lint
+corepack pnpm check:fallback
+corepack pnpm build
 ```
 
 To test the failure path, temporarily point `VITE_GREENHUB_API_URL` to an unavailable host, build the frontend, and confirm that both dashboards show the yellow backend-unavailable banner while retaining all charts and report exports.

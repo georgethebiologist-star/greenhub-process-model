@@ -1,0 +1,40 @@
+{
+  "dataset_id": "urn:greenhub:dataset:municipal-verge-management-reference:v1",
+  "source_file": "municipal_verge_management_reference.csv",
+  "title": "Municipal roadside-verge area and mowing-calendar evidence from Nuenen and Lansingerland",
+  "retrieval_date": "2026-11-07",
+  "sources": [
+    {
+      "source_id": "SRC-NUENEN-GREENPLAN-2022",
+      "title": "Groenbeheerplan 2020–2026",
+      "publisher": "Gemeente Nuenen",
+      "publication_year": 2022,
+      "stable_url": "https://repository.officiele-overheidspublicaties.nl/cvdr/CVDR676197/1/html/CVDR676197_1.html",
+      "source_location": "Section 4.5.2, table on roadside verges and watercourses",
+      "reported_data": "Municipal verge area categories in m2 and mowing frequencies; categories include 20% left-standing and sinusbeheer.",
+      "license": "No explicit reuse license identified on the publication page; only limited factual values transcribed with attribution."
+    },
+    {
+      "source_id": "SRC-LANSINGERLAND-MOWING-2026",
+      "title": "Maaibeheer",
+      "publisher": "Gemeente Lansingerland",
+      "publication_year": null,
+      "stable_url": "https://www.lansingerland.nl/direct-regelen/wonen-verhuizen-verbouwen/groen/maaibeheer/32779/",
+      "source_location": "Sections Reguliere maairondes and Uitzonderingen",
+      "reported_data": "Ecological verges are generally mown once or twice yearly; first and second calendar windows are weeks 24–26 and 37–40; safety strips receive three to four cuts with separate week ranges.",
+      "license": "No explicit reuse license identified on the web page; only factual schedule statements transcribed with attribution."
+    }
+  ],
+  "data_handling": "Transcribed reported areas in m2 and calendar windows in ISO week labels; no area conversions, biomass estimates, date interpolation, sum across municipalities, or inference of collected mass was performed.",
+  "evidence_class": "B_official_municipal_records",
+  "quality_class": "B",
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "limitations": [
+    "Municipalities are contextual comparators and are not the GreenHub contracted catchment.",
+    "Area records do not establish harvestable area, biomass yield, collected mass, moisture, accessibility, or collection rights.",
+    "Cut-window records are management guidance; they are not observed daily or monthly biomass availability.",
+    "Nuenen source years are 2020–2026; Lansingerland schedule is accessed as current web guidance and no explicit publication year is stated.",
+    "No explicit reuse license was identified for either source; values are restricted to short factual transcriptions with links."
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "dataset_id": "urn:greenhub:dataset:thermal-enzymatic:dotsenko-lange-2017-pulp-response:v1",
+  "dataset_version": "1.1.0",
+  "dataset_file": "enzymatic_treatment_response.csv",
+  "record_count": 151,
+  "source_record_count": 134,
+  "sha256": "051e3a485321f679ead112e2b9448866d813c33a16ceb83395090390de9384b2",
+  "source_id": "SRC-ENZ-002",
+  "citation": "Dotsenko, G., & Lange, L. (2017). Enzyme Enhanced Protein Recovery from Green Biomass Pulp. Waste and Biomass Valorization, 8, 1257–1264. https://doi.org/10.1007/s12649-016-9718-7",
+  "doi": "10.1007/s12649-016-9718-7",
+  "source_url": "https://link.springer.com/article/10.1007/s12649-016-9718-7",
+  "full_text_pdf": "https://link.springer.com/content/pdf/10.1007/s12649-016-9718-7.pdf",
+  "retrieval_date": "2026-11-08",
+  "license": "Creative Commons Attribution 4.0 International (CC BY 4.0), as stated in the published article.",
+  "geography": "Cultivated perennial ryegrass and white clover pulp supplied by Aarhus University, Denmark; not roadside grass.",
+  "material_scope": "Screw-press pulps from fresh ryegrass and white clover. Laboratory aqueous extraction and enzyme-assisted protein solubilization.",
+  "quality_class": "B_measured_literature_observations",
+  "data_structure": "Long-form transcriptions from Tables 1–5: each row is one response metric at one assay time/condition. Mean ± SD is preserved for concentration data; triplicate count is stated for Tables 2–5, but Table 1 replicate count and the statistic behind pulp-composition ± values are not specified. Protein-yield SD is not printed. Qualitative non-detects have blank numeric values.",
+  "phase_coverage": {
+    "3": "Direct screw-press pulp characterization and cell-wall/protein extraction response comparator; no pressing mass balance or GreenHub feed calibration.",
+    "4": "Condition-resolved aqueous pulp protein recovery, assay-method comparison, Savinase dose/time response, and sequential carbohydrase/protease recovery.",
+    "5": "No digestion or residual biodegradability data.",
+    "7": "No nutrient recovery or fertilizer-product results."
+  },
+  "limitations": [
+    "Feed is cultivated ryegrass and white clover, not GreenHub roadside/VARTA biomass.",
+    "Pulp is from fresh-plant screw pressing and was stored at -20 °C before laboratory experiments.",
+    "Experiments are 20 mL lab reactions, 20 mg DM/mL, 50 °C, 200 rpm, with triplicate reactions; no scale-up, water/reagent/energy balance, equipment productivity, or continuous operation is reported.",
+    "Protein yield is the solubilized fraction of crude Kjeldahl protein already in pulp, not total-feed protein recovery or precipitated saleable protein.",
+    "Carbohydrase-only protein non-detection has no numeric detection limit; blanks are not treated as zero.",
+    "Table 5 reports cellulase/hemicellulase doses for modest/exhaustive hydrolysis but does not allocate dose between CTec2 and HTec2 individually; do not interpret the reported dose as a verified total blend mass.",
+    "The reported proteolysis products are low-molecular-weight peptides; nutritional/feed product quality and downstream separation are not established by recovery yield alone.",
+    "No GreenHub model parameter, default, route, TEA/LCA factor, scenario, or Pareto setting is activated."
+  ],
+  "conversion_or_processing": "Direct table transcription only; no unit conversion, interpolation, regression, optimum selection, or mass-balance inference.",
+  "uncertainty": "Concentration columns report mean ± SD (n=3); yield columns have no SD shown. No new uncertainty distribution is fitted.",
+  "runtime_policy": "Evidence-only. Enzyme scenarios remain disabled and structurally blocked for predictive use without GreenHub-specific response, dose normalization, economics, and scale-up evidence.",
+  "fair_metadata": {
+    "findable": "Local URN, DOI, source ID and FAIR catalog entry.",
+    "accessible": "Publisher full text is available at HTTPS; the published article states CC BY 4.0.",
+    "interoperable": "Existing UTF-8 long-form response schema; units, basis, table location, species and conditions are explicit.",
+    "reusable": "Citation, retrieval date, license, row-level source location, uncertainty and transfer limits recorded."
+  }
+}

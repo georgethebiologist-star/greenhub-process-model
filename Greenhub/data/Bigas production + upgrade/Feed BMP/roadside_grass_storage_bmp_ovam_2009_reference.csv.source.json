@@ -1,0 +1,42 @@
+{
+  "dataset_id": "greenhub:feed-bmp:roadside-grass-storage-ovam:2009:v1",
+  "dataset_version": "1.0.0",
+  "source_file": "roadside_grass_storage_bmp_ovam_2009_reference.csv",
+  "source_id": "SRC-OVAM-BDB-2009-ROADGRASS",
+  "source_title": "Integrated disposal and processing technologies for mowed roadside grass (including energetic valorisation)",
+  "authors": ["Frank Elsen", "Pieter Janssens", "Jan Bries", "Willem Moens", "Erik Bomans"],
+  "publication_year": 2009,
+  "sponsor": "OVAM; report executed by Bodemkundige Dienst van Belgie vzw",
+  "persistent_identifier": null,
+  "doi": null,
+  "source_url": "https://www.bdb.be/files/rap200901.pdf",
+  "source_table_pages": "Tables 13-14, printed p. 87; Figure 22, printed p. 158 and section 14.3.3.2",
+  "retrieval_date": "2026-11-07",
+  "license": "No explicit open reuse license identified in the public report. No CC license is claimed; retain attribution and verify reuse terms before redistribution.",
+  "language_of_source": "Dutch",
+  "dataset_language": "English",
+  "geography": "Belgium; original locations for the secondary-cited Leenknegt (2004) comparisons are not specified in Tables 13-14; the separate silo BMP is from the Ravels roadside-grass campaign.",
+  "evidence_class": "B literature-reported experimental results; Table 22 BMP is a primary experiment described in the report; Tables 13-14 are secondary reproductions of Leenknegt (2004)",
+  "quality_class": "B",
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "runtime_parameter_mapping": null,
+  "applicable_phases": [2, 5],
+  "rows": 9,
+  "transcription_and_handling": "Eight Table 13-14 values are taken from the third biogas-yield column, reported per tonne volatile solids; methane percentage is retained only where reported. Fresh versus temporarily stored samples are not treated as matched pairs. The separate 83.3 Nm3/t sample-added observation is kept on its source basis and is not normalized to VS or interpreted as methane. Its 70-day storage-age field is a transparent unit conversion from the source-reported ten weeks (7 days/week), not a source-reported unit or a modeled time value.",
+  "column_metadata": {
+    "storage_age_days": "Reported approximate unmanaged interim field-storage duration for the Table 13-14 samples; 0 denotes the source-reported fresh comparator. For the silo BMP record, 70 days is converted from the reported 10 weeks using 7 days per week.",
+    "source_reported_assay_days": "The source calls this HRT, but the test is described as laboratory batch digestion; this column preserves assay duration and must not be interpreted as a continuous reactor HRT.",
+    "biogas_yield_value": "Biogas (not methane) yield as reported; unit and substrate denominator are explicit per row.",
+    "methane_fraction_pct": "Blank when the source says methane was not reported; blank is not zero."
+  },
+  "major_limitations": [
+    "The original Leenknegt (2004) study was not independently retrieved; Tables 13-14 are transcribed from a 2009 secondary report.",
+    "Interim storage was described as uncontrolled; oxygen, moisture, pile geometry and temperature were not reported, so it must not be labelled as a defined aerobic-storage experiment.",
+    "The report cautions that fresh and stored samples came from different roadside lots and that location/vegetation confound apparent storage effects; no degradation rate or causal loss fraction is inferred.",
+    "Table 13 is wet mesophilic batch and Table 14 is dry thermophilic batch; the yields are not directly comparable across those assay regimes.",
+    "The separate ten-week silo BMP has no mass-retention balance, and its source-reported sample-added denominator is not a VS basis."
+  ],
+  "access_protocol": "Public HTTPS PDF at the source URL; local file contains a limited table-level factual transcription.",
+  "content_rights_note": "The source report PDF is not copied into the repository."
+}

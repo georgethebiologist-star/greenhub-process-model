@@ -169,12 +169,20 @@ def load_drying_policy_evidence() -> DynamicUnitEvidenceLoadResult:
 
 
 def load_ad_bmp_evidence() -> DynamicUnitEvidenceLoadResult:
-    """Load BMP observations for residual-stream metadata only."""
+    """Load BMP observations and green-biorefinery residual comparators.
+
+    All records remain evidence or report-only proxies; adding a source here
+    does not activate it as a continuous-digester yield or change the default
+    residual-stream policy.
+    """
 
     return _load_package(
         "ad_bmp",
         DATA_ROOT / "Bigas production + upgrade" / "Feed BMP",
-        ("ad_bmp_observations.csv",),
+        (
+            "ad_bmp_observations.csv",
+            "green_biorefinery_residual_bmp_reference_2022.csv",
+        ),
     )
 
 
@@ -203,6 +211,7 @@ def _load_package(
     filenames: tuple[str, ...],
 ) -> DynamicUnitEvidenceLoadResult:
     source_ids = _source_id_map(root)
+    source_metadata = _source_metadata_map(root)
     records: list[DynamicUnitEvidence] = []
     source_files: list[str] = []
     warnings: list[str] = []
@@ -219,7 +228,7 @@ def _load_package(
                 continue
             for raw in reader:
                 row = {str(key): str(value or "").strip() for key, value in raw.items() if key}
-                records.append(_normalize_row(dataset, filename, row, source_ids))
+                records.append(_normalize_row(dataset, filename, row, source_ids, source_metadata))
     return DynamicUnitEvidenceLoadResult(
         dataset=dataset,
         records=tuple(records),
@@ -233,6 +242,7 @@ def _normalize_row(
     filename: str,
     row: dict[str, str],
     source_ids: dict[str, str],
+    source_metadata: dict[str, dict[str, str]] | None = None,
 ) -> DynamicUnitEvidence:
     parameter_id = _first(row, "parameter_id", "record_id", "observation_id")
     record_id = _first(row, "record_id", "observation_id", "parameter_id")
@@ -240,6 +250,16 @@ def _normalize_row(
     normalized_raw = _first(row, "normalized_si_value", "normalized_value")
     normalized_value = _scalar(normalized_raw) if normalized_raw else _scalar(raw_value)
     source_title = _first(row, "source_title", "title")
+    source_id = _first(row, "source_id") or source_ids.get(source_title.casefold(), "")
+    registered_source = (source_metadata or {}).get(source_id, {})
+    source_title = source_title or registered_source.get("source_title", "")
+    doi = _first(row, "doi_or_stable_identifier", "doi_or_stable_id") or registered_source.get("doi_or_stable_id", "")
+    url = _first(row, "source_url", "source_url_or_doi", "url") or registered_source.get("url", "")
+    if dataset == "ad_bmp" and record_id == "RAV22-WHEY-METHANE-VS":
+        # Exact L-to-m3 conversion only; no standard-state conversion is
+        # implied because Table 3 does not declare a reference condition.
+        reported_l_per_kg_vs = _scalar(raw_value)
+        normalized_value = reported_l_per_kg_vs / 1000.0 if reported_l_per_kg_vs is not None else None
     evidence_class, blockers, proxy_class = _classify(
         dataset,
         filename,
@@ -247,10 +267,9 @@ def _normalize_row(
         row,
         normalized_value,
     )
-    source_id = _first(row, "source_id") or source_ids.get(source_title.casefold(), "")
-    doi = _first(row, "doi_or_stable_identifier", "doi_or_stable_id")
-    url = _first(row, "source_url", "source_url_or_doi", "url")
     process = _first(row, "process", "drying_method", "process_step")
+    if not process and record_id == "RAV22-WHEY-METHANE-VS":
+        process = "Batch biomethane-potential assay of green-biorefinery grass whey"
     material = _first(
         row,
         "material_feed_type",
@@ -266,8 +285,17 @@ def _normalize_row(
         "transferability",
         "transferability_class",
     )
+    if not transferability and record_id == "RAV22-WHEY-METHANE-VS":
+        transferability = (
+            "Cultivated perennial ryegrass grass-whey comparator; two-fold wash-water dilution; "
+            "not roadside grass or GreenHub isoelectric supernatant."
+        )
     notes = " ".join(
-        part for part in (_first(row, "notes"), _first(row, "transferability_explanation")) if part
+        part for part in (
+            _first(row, "notes"),
+            _first(row, "limitations"),
+            _first(row, "transferability_explanation"),
+        ) if part
     )
     return DynamicUnitEvidence(
         dataset=dataset,
@@ -278,11 +306,15 @@ def _normalize_row(
         raw_value=raw_value,
         normalized_value=normalized_value,
         unit=_first(row, "unit", "reported_unit"),
-        normalized_unit=_first(row, "normalized_si_unit", "normalized_unit"),
+        normalized_unit=(
+            "m3 CH4/kg VS"
+            if dataset == "ad_bmp" and record_id == "RAV22-WHEY-METHANE-VS"
+            else _first(row, "normalized_si_unit", "normalized_unit")
+        ),
         basis=_first(row, "basis"),
         process=process,
         material_feed_type=material,
-        data_status=_first(row, "data_status"),
+        data_status=_first(row, "data_status", "evidence_class"),
         evidence_class=evidence_class,
         blocker_reasons=blockers,
         proxy_class=proxy_class,
@@ -354,6 +386,12 @@ def _classify(
     if dataset == "isoelectric":
         if parameter_id == "REC-001":
             return "proxy_usable", ("nitrogen_basis_requires_explicit_protein_proxy",), "n_to_soluble_protein_proxy"
+        if parameter_id == "REC-005":
+            return "proxy_scenario_bound", (
+                "ryegrass_not_roadside_grass",
+                "total_n_precipitation_not_isolated_protein_recovery",
+                "double_press_and_dilution_boundary_differs_from_greenhub",
+            ), "ryegrass_total_n_precipitation_proxy"
         if parameter_id == "REC-004":
             return "proxy_usable", ("alfalfa_extract_proxy",), "alfalfa_acid_precipitation_proxy"
         if parameter_id.startswith("REC-"):
@@ -382,9 +420,25 @@ def _classify(
         return "metadata_only", (), proxy or "drying_metadata"
 
     if dataset == "ad_bmp":
+        if parameter_id == "RAV22-WHEY-METHANE-VS" and normalized_value is not None:
+            return "proxy_scenario_bound", (
+                "cultivated_ryegrass_not_Dutch_roadside",
+                "grass_whey_two_fold_wash_water_dilution",
+                "grass_whey_not_GreenHub_isoelectric_supernatant",
+                "batch_BMP_not_continuous_digester_performance",
+                "standard_volume_reference_conditions_not_reported_in_Table_3",
+            ), "green_biorefinery_grass_whey_proxy"
         if parameter_id.startswith("BMP_DFOS"):
             return "proxy_usable", ("de_fos_whey_proxy_for_supernatant_like_residual",), "de_fos_whey_residual_proxy"
+        if parameter_id.startswith("BMP_PE_BJ_"):
+            return "proxy_scenario_bound", (
+                "other_green_crop_species_than_roadside_grass",
+                "brown_juice_after_lactic_fermentation_not_isoelectric_supernatant",
+                "reported_cross_crop_range_not_greenhub_point_measurement",
+            ), "green_biorefinery_brown_juice_range_proxy"
         if parameter_id.startswith("BMP_PC"):
+            return "metadata_only", ("press_cake_outside_project_ad_boundary",), "external_press_cake_metadata"
+        if parameter_id.startswith("BMP_PE_PC"):
             return "metadata_only", ("press_cake_outside_project_ad_boundary",), "external_press_cake_metadata"
         return "metadata_only", (), proxy or "ad_metadata"
 
@@ -403,6 +457,26 @@ def _source_id_map(root: Path) -> dict[str, str]:
                 source_id = str(row.get("source_id") or "").strip()
                 if title and source_id:
                     mapping[title.casefold()] = source_id
+    return mapping
+
+
+def _source_metadata_map(root: Path) -> dict[str, dict[str, str]]:
+    """Resolve source IDs to their registered title, persistent ID, and URL."""
+
+    mapping: dict[str, dict[str, str]] = {}
+    for path in sorted(root.glob("*source_register.csv")):
+        with path.open("r", encoding="utf-8-sig", newline="") as file:
+            for row in csv.DictReader(file):
+                source_id = str(row.get("source_id") or "").strip()
+                if not source_id:
+                    continue
+                mapping[source_id] = {
+                    "source_title": str(row.get("source_title") or row.get("title") or "").strip(),
+                    "doi_or_stable_id": str(
+                        row.get("doi_or_stable_id") or row.get("doi_or_stable_identifier") or ""
+                    ).strip(),
+                    "url": str(row.get("url") or row.get("source_url") or "").strip(),
+                }
     return mapping
 
 

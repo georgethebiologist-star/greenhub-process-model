@@ -17,3 +17,7 @@ Cost figures are old-source euros and must retain their original cost year until
 
 ## Validation
 All CSVs are comma-separated, UTF-8 encoded, contain unique IDs, and use one parameter or observation per row.
+
+`variable_methane_feed_membrane_upgrading_energy_slip_buivydas_2024_reference.csv` preserves Table 1–2 measured means and reported deviations from four 35 Nm³/h membrane-upgrader inlet cases (50–80% methane). It is reference-only. The inlet is blended using upgraded-gas recycle, so this flow is not net raw digester gas. Methane slip was actively controlled at the reported 0.5% of inlet methane; the table's `% vol` label is preserved and the denominator ambiguity flagged. The deviation statistic and normal-volume reference conditions are not specified in the tables. This evidence is not a generic scale-up curve or a GreenHub runtime value.
+
+Source: Buivydas, Navickas and Venslauskas (2024), DOI [10.3390/su16083323](https://doi.org/10.3390/su16083323); [open article](https://www.mdpi.com/2071-1050/16/8/3323).

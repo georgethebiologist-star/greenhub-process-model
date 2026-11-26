@@ -1,0 +1,41 @@
+{
+  "dataset_title": "Hypothetical roadside-grass collection-point tonnage case, East Flanders (2010 values reported in 2023 article)",
+  "dataset_identifier": "greenhub:feedstock:east-flanders-roadside-clippings-collection-points:v1",
+  "source_file": "east_flanders_roadside_grass_collection_points_de_wieuw_2023_reference.csv",
+  "source_id": "SRC-DEWIEUW-2023",
+  "rows": 43,
+  "source_dataset_file": "Collection and Processing of Roadside Grass Clippings: A Supply Chain Optimization Case Study for East Flanders",
+  "publication_year": 2023,
+  "reference_year": 2010,
+  "doi": "10.3390/su151814006",
+  "source_url": "https://doi.org/10.3390/su151814006",
+  "retrieval_date": "2026-11-07",
+  "authors": [
+    "Frederik De Wieuw",
+    "Tom Pauwels",
+    "Christa Sys",
+    "Eddy Van de Voorde",
+    "Edwin van Hassel",
+    "Thierry Vanelslander",
+    "Jeffrey Willems"
+  ],
+  "source_table": "Table 2; Scenario 1 narrative in Section 3.1 and Table 9",
+  "license": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "derivation": "Transcribed the 41 Table 2 location values as printed, without conversion. Preserved the separately reported Table 2 total (9,931 t wet matter) and Scenario 1 narrative input (9,841 t wet matter) as separate records because they disagree.",
+  "evidence_class": "B_literature_modelled_hypothetical_estimate",
+  "units": "t wet matter per collection/storage point per mowing, as described by source; aggregate records are source-reported t wet matter",
+  "geography": "East Flanders, Belgium",
+  "applicability": "Phase 1 supply-chain planning analogue for point-level spatial heterogeneity and collection/logistics scenario structure. Not a GreenHub supply estimate or runtime input.",
+  "uncertainty": "No statistical uncertainty is reported for the location values. The source describes the allocation as hypothetical and the article has an internal 90 t discrepancy between the Table 2 total and Scenario 1 total.",
+  "limitations": [
+    "The authors state that Table 2 represents a hypothetical case built from earlier Grenzeloze Logistiek estimates, not measured weighbridge observations.",
+    "Reported quantities combine roadside clippings from regional and municipal roads and may include material not collected at the named point or transported directly to a digester or composter.",
+    "The 41 location IDs are not geographic coordinates in the extracted table; the extract cannot support geospatial distance calculations.",
+    "The source table total is 9,931 t while its Scenario 1 narrative reports 9,841 t; both values are preserved without choosing one.",
+    "The values have no reported dry-matter basis, composition, seasonal split, accessibility, delivery contract, or harvest loss.",
+    "This dataset is reference-only and must not override user inputs, project measurements, feedstock defaults, or scenario configuration."
+  ],
+  "activation_state": "reference_only",
+  "runtime_parameter_mapping": null
+}

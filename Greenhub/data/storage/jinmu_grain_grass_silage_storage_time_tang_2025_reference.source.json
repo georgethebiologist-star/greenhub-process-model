@@ -1,0 +1,45 @@
+{
+  "dataset_id": "urn:greenhub:dataset:storage:jinmu-grass-silage-tang-2025:v1",
+  "persistent_identifier_status": "Repository-local identifier for this transcription; DOI identifies the article, not this derived table extract.",
+  "dataset_version": "1.0.0",
+  "title": "Jinmu grain grass silage storage-time composition and fermentation observations",
+  "source_ids": [
+    "SRC-TANG-JINMU-GRASS-ENSILING-2025"
+  ],
+  "citation": "Tang, Y. et al. (2025). Effect of Storage Time on the Fermentation Quality, Bacterial Community Structure, and Metabolic Profiles of Jinmu Grain Grass Silage. Microorganisms, 13(9), 1973. https://doi.org/10.3390/microorganisms13091973",
+  "doi": "10.3390/microorganisms13091973",
+  "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12471645/",
+  "retrieval_date": "2026-11-08",
+  "source_locations": [
+    "Table 1 (nutritional composition)",
+    "Table 2 (fermentation quality)",
+    "Sections 2.1–2.3 (sample preparation and assays)"
+  ],
+  "reference_year": 2025,
+  "experiment_year": null,
+  "geography": "Eighth Regiment, First Division, Xinjiang Production and Construction Corps, China",
+  "material_scope": "Jinmu grain grass, a Pennisetum genus forage; cultivated, chopped, mixed and vacuum-bag ensiled; not roadside grass.",
+  "experimental_conditions": "Grass chopped to 1–2 cm, mixed, placed into 30 × 50 cm vacuum bags, and stored shaded/light-proof. Five bags were opened at each of 0, 3, 7, 15, 30 and 60 days. Storage temperature is not reported.",
+  "license": "Creative Commons Attribution 4.0 International (CC BY 4.0), stated on the article page.",
+  "evidence_class": "B_measured",
+  "quality_class": "B",
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "row_count": 72,
+  "sha256_csv": "5d31c81430d1cd79a47664de7da03b967b5d9ec0f453e60215881374b2805778",
+  "transcription_policy": "Tables 1 and 2 means, SEM, p-values and significance letters are transcribed without conversion. Non-detects remain ND. Table 1 units and bases are not supplied in its table and are not inferred.",
+  "fair_metadata": {
+    "findable": "Local URN, title, authors, publication year, DOI, source URL and exact tables are indexed.",
+    "accessible": "UTF-8 CSV and JSON sidecar are stored in the repository; the article is open access.",
+    "interoperable": "Long-form records expose storage time, metric, value, unit, basis, statistic, significance group and source location.",
+    "reusable": "CC BY 4.0, methods, replicate design, unknown table units, non-detect handling, scope and transferability are recorded."
+  },
+  "limitations": [
+    "This is cultivated Jinmu/Pennisetum forage from Xinjiang, China, not Dutch roadside grass or GreenHub feed.",
+    "Storage temperature and source experiment year are not stated; no temperature-dependent effect is inferred.",
+    "Table 1 omits units/bases for the reported composition values; those values are preserved but are not canonical input candidates.",
+    "The table reports means and SEM, not replicate-level measurements; five bags were sampled at each time point.",
+    "Concentration/fermentation changes are not mass retention, fresh-matter loss, leachate, or emissions measurements.",
+    "No kinetic rates were fit; the extract is reference-only and not mapped to a GreenHub runtime parameter."
+  ]
+}

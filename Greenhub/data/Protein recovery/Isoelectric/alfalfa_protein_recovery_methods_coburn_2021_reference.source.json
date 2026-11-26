@@ -1,0 +1,26 @@
+{
+  "source_id": "COBURN2021",
+  "title": "Comparison of plant feedstocks and methods to recover leaf proteins from wet fractionation of alfalfa for potential use in aquaculture, poultry, and livestock feeds",
+  "authors": ["Jessica Coburn", "M. Scott Wells", "Craig C. Sheaffer", "Roger Ruan", "Deborah A. Samac"],
+  "publication_year": 2021,
+  "doi": "10.1002/agg2.20184",
+  "url": "https://acsess.onlinelibrary.wiley.com/doi/10.1002/agg2.20184",
+  "source_type": "peer-reviewed open-access experimental article",
+  "geography": "Waseca, Minnesota, United States; plots at the University of Minnesota Southern Research and Outreach Center",
+  "material_scope": "UMN4624 biomass-type alfalfa herbage and press filtrate; values here are from the recovery-method comparison",
+  "source_location": "Table 5 and Section 2.3, APC recovery methods",
+  "retrieval_date": "2026-11-07",
+  "license": "Article is labelled Open Access on publisher page; specific reuse license subtype not identified in the accessible article text.",
+  "evidence_class": "B_measured",
+  "data_handling": "Transcribed Table 5 means and Fisher protected LSD significance letters. APC recovery is g APC per kg herbage on a dry-matter basis. Product composition is g constituent per kg APC. Limiting amino acids is the combined methionine, lysine and threonine concentration. The methods comparison used three replications. Treatment conditions are from Table 5 footnotes; the herbage was harvested at about 50% flowering on 13 September 2016 and sample handling is described in Section 2.3.",
+  "uncertainty": "n=3; table presents significance groups but no numeric SEM, SD, or confidence intervals for the Table 5 outcomes.",
+  "limitations": [
+    "Alfalfa is not roadside grass; the data are not transferable as a GreenHub default or direct roadside-grass performance estimate.",
+    "The experimental preparation and press-filtrate composition differ from the GreenHub route; processing used homogenization with deionized water and hand pressing through cheesecloth.",
+    "Acid and base solution concentrations and pH endpoints are reported, but reagent volume or mass dose is not; pH endpoint alone does not determine titration demand.",
+    "APC mass recovery is not equivalent to true-protein recovery from incoming feed protein; the reported APC also contains fat, sugars, fiber, and other constituents.",
+    "No continuous process energy, equipment scale, separator performance, or economic data are inferred from this table."
+  ],
+  "activation": "reference_only",
+  "no_runtime_mapping": true
+}

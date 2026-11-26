@@ -1,0 +1,51 @@
+{
+  "dataset_id": "urn:greenhub:dataset:psa:kohlheb-2020-brandis-fullscale-psa-lca-reference:v1",
+  "dataset_version": "1.0.0",
+  "dataset_file": "kohlheb_2020_brandis_fullscale_psa_lca_reference.csv",
+  "record_count": 49,
+  "sha256": "bc0c79ed94c14cbddee8d8fa42b43ee07ccd5ec975cb00c84a5477b723bbfa36",
+  "source_id": "SRC-KOHLHEB-2020-BRANDIS-PSA",
+  "citation": "Kohlheb, N.; Wluka, M.; Bezama, A.; Thrän, D.; Aurich, A.; Müller, R.A. (2021 online / 2020 accepted). Environmental-Economic Assessment of the Pressure Swing Adsorption Biogas Upgrading Technology. BioEnergy Research. https://doi.org/10.1007/s12155-020-10205-9.",
+  "publication_year": 2021,
+  "doi": "10.1007/s12155-020-10205-9",
+  "source_url": "https://doi.org/10.1007/s12155-020-10205-9",
+  "full_text_pdf": "https://d-nb.info/1223080811/34",
+  "retrieval_date": "2026-11-08",
+  "source_location": "Exact table/figure/section and printed page are captured per record.",
+  "geography": "Brandis, Saxony, Germany; full-scale CarboTech PSA plant commissioned 2013.",
+  "material_scope": "Full-scale PSA upgrader handling energy-crop biogas with 10–15% grass silage in the upstream digester feed; includes pretreatment, utilities, plant infrastructure, LCA and LCCA.",
+  "evidence_class": "B-class full-scale operator-informed/plant-data study for technical/energy observations; C-class author-calculated LCA/LCCA and study-specific financial assumptions.",
+  "quality_class": "B for directly reported plant characteristics/utility; C for modeled impact/cost outcomes and assumptions.",
+  "license": "CC BY 4.0 stated in the article; third-party material remains subject to its credit-line-specific terms.",
+  "access_protocol": "DOI landing page and open full text hosted by the German National Library (d-nb.info).",
+  "processing": "Direct transcription. Numeric ranges stay as bounds without averages. Source-calculated lifetime quantities are marked as calculated, not measured. Ambiguous loss/emission concepts and Table 2 impact category units are quarantined rather than normalized.",
+  "uncertainty": "Single plant, 2013 commissioning and German energy-crop digester feed. Not all measurements are independently metered; methane-to-air value comes from the operator. Unit-level electricity is unavailable. LCA results depend on EU-28 electricity mix, GaBi/ecoinvent data, CML 2001 Jan-2016 and substitutions for missing inventory data. Cost year is unspecified.",
+  "limitations": [
+    "This is PSA, whereas GreenHub may choose water scrubbing or other routes; applicability is technology-specific.",
+    "The upstream gas is from an energy-crop digester with only 10–15% grass silage, not roadside-grass protein-extraction residual.",
+    "Figure 1's 1.5%/95,265 Nm3/year methane-loss labels are not reconciled with the separate 0.2%/12,194 Nm3/year operator-reported methane-to-air emissions; these are stored as distinct concepts.",
+    "Specific electricity is full-train average, not component-detailed. No unit-level power split is reported.",
+    "Raw and product gas basis conditions and some ppm bases are not specified.",
+    "Table 2 category-specific units are unavailable in extracted table text; those values remain literal/quarantined. GWP is separately reported in the abstract with kg CO2-equivalent/Nm3 raw biogas.",
+    "LCA is cradle-to-gate for the upgrader, not a complete feedstock-to-product GreenHub LCA; upstream biogas generation and biomethane use are outside FU boundary.",
+    "Financial cost year and current-market transferability are not established; no inflation/repricing applied.",
+    "No GreenHub default, parameter registry, unit equation, TEA, LCA, scenario or Pareto mapping is changed."
+  ],
+  "phase_coverage": {
+    "1": "No GreenHub grass supply; upstream plant uses energy crops and includes a 10–15% grass-silage share.",
+    "2": "No feed storage data.",
+    "3": "No feed pretreatment/fractionation data; gas pretreatment is part of the upgrader boundary.",
+    "4": "No protein data.",
+    "5": "No digestion data for GreenHub residual; only upstream plant feed context.",
+    "6": "Full-scale PSA gas composition, capacity, pressure, methane-to-air input and plant-wide electricity.",
+    "7": "Study-specific cradle-to-gate upgrader LCA method, GWP, impact hotspots, and LCCA results/assumptions."
+  },
+  "runtime_policy": "reference_only; do not apply PSA observations to water scrubbing, GreenHub route defaults or process/LCA calculations without a route-specific evidence gate.",
+  "calculation_connected": false,
+  "fair_metadata": {
+    "findable": "Local URN, DOI, source ID, SHA-256 and FAIR catalog path.",
+    "accessible": "DOI and open PDF over HTTPS; no source PDF copied into repository.",
+    "interoperable": "Long-form UTF-8 CSV with explicit metric, value/range, unit, basis, method, boundary, source location and validation state.",
+    "reusable": "CC BY 4.0 citation, retrieval date, uncertainty, applicability, process boundary and data-quality caveats are recorded."
+  }
+}

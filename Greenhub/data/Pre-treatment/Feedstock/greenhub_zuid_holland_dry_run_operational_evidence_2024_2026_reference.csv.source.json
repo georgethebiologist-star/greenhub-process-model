@@ -1,0 +1,56 @@
+{
+  "dataset_id": "urn:greenhub:dataset:greenhub-zuid-holland-dry-run-operational-evidence:v1",
+  "source_file": "greenhub_zuid_holland_dry_run_operational_evidence_2024_2026_reference.csv",
+  "title": "Project-reported roadside-cuttings collection and process-chain observations from Greenhub Zuid-Holland dry-runs",
+  "authors": ["Greenhub Zuid-Holland"],
+  "publication_years": [2024, 2025, 2026],
+  "source_ids": ["SRC-GHZH-DRYRUN-2024", "SRC-GHZH-PROCESS-2024", "SRC-GHZH-DRYRUN-2025-AMBIGUOUS", "SRC-GHZH-RESULTS-UNDATED", "SRC-GHZH-SECONDARY-150T-2025", "SRC-GHZH-AQUAMINERALS-INTENT-2026"],
+  "source_urls": [
+    "https://greenhub-zuidholland.nl/deel-twee-in-de-blogserie-over-de-dry-run-maaien/",
+    "https://greenhub-zuidholland.nl/blogserie-dry-run-verwerking-en-toepassing-van-het-maaisel/",
+    "https://greenhub-zuidholland.nl/blogserie-dry-run-2025-lessen-uit-de-korte-keten/",
+    "https://greenhub-zuidholland.nl/",
+    "https://www.ktgo.nl/artikel/20250620-zuid-holland-maakt-van-bermgras-bouwmateriaal",
+    "https://greenhub-zuidholland.nl/aquaminerals-en-greenhub-zuid-holland-zetten-samen-stap-naar-circulaire-grasketen/"
+  ],
+  "doi": null,
+  "license": "No explicit dataset or article reuse license identified; citations and factual transcription only. Redistribution rights are not inferred.",
+  "retrieval_date": "2026-11-08",
+  "rows": 25,
+  "geography": "Greenhub Zuid-Holland operational dry-run; South Holland, Netherlands",
+  "source_locations": {
+    "SRC-GHZH-DRYRUN-2024": "Article dated 2024-10-23; paragraphs on summer collection, contractors, cut/rest rules, safety strip, weather, aggregate collected quantity, and chopping incident.",
+    "SRC-GHZH-PROCESS-2024": "Article dated 2024-11-11; paragraphs on ensiling, screening, pressing, fibre and grass-juice routes, flocculation, and partner digestate.",
+    "SRC-GHZH-DRYRUN-2025-AMBIGUOUS": "Article dated 2025-11-28; section titled 'De praktijk: de korte keten van 2026', listing destinations and quantities, contractor counts, and a three-day collection window. The publication date and campaign heading conflict.",
+    "SRC-GHZH-RESULTS-UNDATED": "Current project results page, section 'Resultaten'; reports 120 tonnes collected with five partners without dates or a stated reporting period.",
+    "SRC-GHZH-SECONDARY-150T-2025": "Duurzaam Gebouwd article dated 2025-06-20, paragraph 2; secondary report says more than 150 t/year was collected over 'the past years', without identifying years or mass basis.",
+    "SRC-GHZH-AQUAMINERALS-INTENT-2026": "Greenhub Zuid-Holland announcement dated 2026-09-23; 'Samen leren en ontwikkelen', paragraph 2, describes a planned mapping of grass availability and quality; no results are reported."
+  },
+  "evidence_class": "First-party project-reported observations and plans plus one secondary industry/trade-press collection claim; no underlying weighbridge or lab dataset is supplied",
+  "units_and_basis": {
+    "t": "Source-reported tonnes; fresh/dry basis and weighing protocol are not stated unless specified in the row.",
+    "m": "Source-reported spatial definition.",
+    "days": "Source-reported contract or operational planning interval; not a fitted kinetic parameter.",
+    "t/year": "Secondary article's lower-bound annual collection claim; exact years and wet/dry basis are not stated.",
+    "qualitative": "Descriptive project scope/plan; not a measured parameter.",
+    "cm": "Source-reported cut length limit in one contractor incident.",
+    "contractors": "Count as stated by project article; not a supply capacity."
+  },
+  "data_handling": "Factual observations transcribed from first-party project pages/articles and one secondary trade article. The >150 t/year claim is stored as a threshold lower bound, not a point estimate. The AquaMinerals item records a planned data inventory with no reported results. Ambiguous, unreported, and qualitative fields remain blank or explicitly labeled; no quantities were summed, converted, reconciled, or activated as model parameters.",
+  "limitations": [
+    "This is a first-party narrative summary, not access to weigh tickets, contractor logs, laboratory certificates, or process mass balances.",
+    "The 2024 aggregate 117 t has no stated wet/dry basis, geographic source split, exact campaign date, contractor split, moisture, composition, or uncertainty.",
+    "The project results page separately reports 120 t collected with five partners but gives no reporting period, measurement basis, site split, or weighing protocol; it must not be annualized, added to, or treated as confirmation of the separate 117 t dry-run figure.",
+    "A 2025 secondary trade article says more than 150 t/year was collected over 'the past years'; it names no exact years, weighing records, wet/dry basis, or collection scope. This is not a measurement series and must not be reconciled with the 117 t campaign or undated 120 t statement.",
+    "The current project page reports 100 t Bokashi used at a tree nursery but supplies no time basis, feedstock fraction, moisture basis, recipe, nutrient assay, or process yield. It is not evidence of digestate-derived fertilizer recovery.",
+    "The 2026 AquaMinerals announcement describes a planned availability/quality mapping; no results or underlying dataset are linked from the announcement.",
+    "The November 2025 article has a temporal inconsistency: it is published in 2025 but labels a section as the short-chain dry-run of 2026. Its campaign-specific quantities are retained with the discrepancy and must not be used in year-specific supply calculations.",
+    "The 600 t Bokashi amount is explicitly described as GKB's own grass and is not identified as roadside material; it is excluded from roadside-feed availability.",
+    "Qualitative chain descriptions do not provide recoveries, energy, reagent demand, emissions, costs, product grades, or validated mass/energy balances.",
+    "The articles relate to Greenhub Zuid-Holland, not directly to the East Netherlands project supply area; these are operational analogues and not default feedstock data.",
+    "No DOI or explicit reuse license was found for these web sources."
+  ],
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "runtime_parameter_mapping": null
+}

@@ -1,0 +1,34 @@
+{
+  "source_file": "kurhan_2025_bath_source_workbook_cells_reference.csv",
+  "source_id": "SRC-KURHAN-2025-BATH-01534",
+  "dataset_id": "urn:greenhub:source:kurhan-2025-bath-01534:cell-extract:v1",
+  "dataset_title": "Cell-addressed transcription of four Kurhan et al. (2025) source workbooks",
+  "source_dataset_path": "Greenhub/data/Pre-treatment/Mechanical/kurhan_2025_biorefinery_reference/kurhan_2025_bath_source_workbook_cells_reference.csv",
+  "source_data_sha256": "f6cea694eff33fb91a732c1c84163d413fad4b3b700cbbe59926830c0b7e08f2",
+  "persistent_identifier": "10.15125/BATH-01534",
+  "source_url": "https://researchdata.bath.ac.uk/1534/",
+  "article_doi": "10.1098/rstb.2024.0161",
+  "retrieval_date": "2026-11-08",
+  "license_or_rights": "Source files are individually marked CC BY 4.0 by the University of Bath Research Data Archive; attribution and DOI are retained.",
+  "evidence_class": "lossless_cell_addressed_source_transcription; includes labels, measurements, formulas and cached formula outputs",
+  "quality_class": "B_source_transcription",
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "parameter_registry_mapping": null,
+  "row_count": 5804,
+  "source_workbooks": [
+    "Extruder_RSM_Figure_3.xlsx",
+    "Extrusion_Single_Factor_Figure_3.xlsx",
+    "Silage_Analysis_Table_1.xlsx",
+    "Amino_Acid_Comparative_Figure_2.xlsx"
+  ],
+  "source_locations": "Each row points to workbook filename, worksheet and original Excel cell address.",
+  "transcription_policy": "All nonempty cells are exported in workbook/sheet/row/column order. Literal cell values remain text as represented; formulas are retained in formula_expression and their workbook-cached results in cached_formula_value. No semantic labels, units, measurement classifications, or process parameters are inferred.",
+  "validation": "Cell-extract row count equals the total nonempty-cell count in the companion sheet inventory; formula and cached-result counts reconcile sheet by sheet.",
+  "known_limitations": [
+    "This is a lossless cell-oriented transcription, not a normalized experimental-observation table. Consult the original workbook and paper for units, basis, replicate structure, and interpretation.",
+    "Formula cached values are those stored in the source workbook at retrieval; they have not been independently recalculated.",
+    "The RSM workbook factor/setting ambiguity remains unresolved and is flagged in the relevant rows and workbook sidecar.",
+    "All data remain UK grass-silage/mechanochemical comparators, not roadside/VARTA measurements or current GreenHub route calibration."
+  ]
+}

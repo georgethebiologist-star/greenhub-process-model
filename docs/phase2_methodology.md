@@ -32,11 +32,13 @@ Missing values stay null. The following states are distinct: not measured, below
 
 Quality classes are:
 
-- A: project measurement
-- B: supplier or industry data
-- C: peer-reviewed literature
-- D: engineering estimate
-- E: placeholder or unknown
+- A: measured project data
+- B: directly reported literature, official, or supplier/industry evidence
+- C: source-linked assumption or proxy, with transferability and selection limits recorded
+- D: assumption or estimate without directly supporting evidence, or materially uncertain
+- E: legacy structural placeholder/unknown; in the normalized A–D catalog it maps to C only when a supporting source is linked, otherwise D
+
+Evidence class and applicability are separate: a B source can still be only a C-class GreenHub proxy when material, route, scale, or operating conditions differ. A DOI alone does not validate the numerical transfer.
 
 ## Seasonal flow basis
 

@@ -73,6 +73,32 @@ BIOMASS_SCHEDULE_SCHEMA = {
         "peak_date": {"type": "string", "format": "date"},
         "spread_days": {"type": "number", "minimum": 1, "maximum": 366},
         "active_months": {"type": "array", "items": {"type": "integer", "minimum": 1, "maximum": 12}, "uniqueItems": True},
+        "source_id": {"type": "string", "minLength": 1},
+        "location": {"type": "string", "minLength": 1},
+        "accessible_area_ha": {"type": ["number", "null"], "minimum": 0},
+        "harvest_yield_tonnes_per_ha": {"type": ["number", "null"], "minimum": 0},
+        "collection_efficiency": {"type": "number", "minimum": 0, "maximum": 1},
+        "monthly_availability_tonnes": {"type": ["array", "null"], "items": {"type": "number", "minimum": 0}, "minItems": 12, "maxItems": 12, "description": "Optional measured or source-derived wet-biomass supply by calendar month; must sum to annual_available_biomass_tonnes."},
+        "availability_evidence_class": {"type": ["string", "null"], "enum": ["A", "B", "C", "D", None]},
+        "availability_status": {"type": ["string", "null"]},
+        "availability_note": {"type": ["string", "null"]},
+        "availability_temporal_profile_quality_class": {"type": ["string", "null"], "enum": ["A", "B", "C", "D", None]},
+        "availability_source_id": {"type": ["string", "null"]},
+        "availability_source_url": {"type": ["string", "null"], "format": "uri"},
+        "harvest_events": {
+            "type": ["array", "null"],
+            "minItems": 1,
+            "items": {
+                "type": "object",
+                "additionalProperties": False,
+                "required": ["date", "available_biomass_tonnes"],
+                "properties": {
+                    "date": {"type": "string", "format": "date"},
+                    "available_biomass_tonnes": {"type": "number", "minimum": 0},
+                },
+            },
+            "description": "Optional dated wet-biomass harvest events. Event masses must sum to annual availability; dates are explicit scenario inputs, not measured timing unless provenance says so.",
+        },
     },
 }
 

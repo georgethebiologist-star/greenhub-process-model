@@ -1,0 +1,33 @@
+{
+  "dataset_title": "Full-text roadside-grass digestion digestate, fiber recovery and nutrient observations",
+  "dataset_identifier": "greenhub:feed-bmp:roadside-grass-ad-2024-fulltext-digestate:v1",
+  "source_file": "roadside_grass_AD_2024_fulltext_digestate_reference.csv",
+  "source_id": "SOUZA2024",
+  "source_title": "From grass to gas and beyond: Anaerobic digestion as a key enabling technology for a residual grass biorefinery",
+  "authors": ["Marcella Fernandes de Souza", "Çağrı Akyol", "Bernard Willems", "Alex Huizinga", "Sander van Calker", "Miet Van Dael", "Annelies De Meyer", "Ruben Guisson", "Evi Michels", "Erik Meers"],
+  "reference_year": 2024,
+  "doi": "10.1016/j.wasman.2024.04.018",
+  "source_url": "https://doi.org/10.1016/j.wasman.2024.04.018",
+  "repository_record_url": "https://biblio.ugent.be/publication/01J3Z7596RHF1WVC93MQ8DG8J8",
+  "retrieval_date": "2026-11-07",
+  "source_locations": ["Results: mass balance for fiber and liquid fraction of digestate", "Results: producing fibers and fertilizing products from grass digestate", "Supplementary Table S1 as described in the manuscript", "Discussion: potential of roadside grass to feed a residual grass biorefinery"],
+  "rows": 12,
+  "evidence_class": "B_literature_reported_primary_experimental_article",
+  "data_basis": "Exact transcription of reported digestate liquid/fiber recovery ranges, nutrient concentrations, leachate results and qualitative statements. Wet-mass, dry-mass, concentration and scenario bases remain distinct.",
+  "license": "No explicit reuse license identified for the accepted manuscript. This file contains factual observations transcribed with attribution; no figures, table images or manuscript text are reproduced.",
+  "applicability": "Reference-only digestate evidence from the roadside-grass pilot and large landfill-cell configurations. It does not establish GreenHub residual digestate flows, product grade, fertilizer compliance or nutrient substitution.",
+  "limitations": [
+    "All rows remain reference-only and are not runtime defaults or calculation inputs.",
+    "Text-reported liquid (47–57%), fiber fresh-mass (52–66%) and fiber dry-mass (5–8%) fractions lack paired run-level flows and fully specified compatible denominators; do not sum them as a closed balance.",
+    "The article prints potassium as 1,808 kg K/t DM, exceeding total sample mass. The literal value and reported N:P:K ratio are retained but quarantined; no unit correction is guessed.",
+    "Reported N and P concentrations lack variance/sample-count detail in the cited passage and are not flow-weighted nutrient recovery quantities.",
+    "Landfill leachate N and chloride are separate from pilot digestate concentrations. Sampling uncertainty is unavailable; qualitative low pollutant wording does not establish regulatory compliance.",
+    "The approximately 2% dry-fiber share is an author-synthesized regional scenario statement, not a measured reactor recovery coefficient.",
+    "Supporting chart workbooks/raw time-series values were unavailable with the accepted manuscript; only values explicitly stated in text are transcribed.",
+    "No explicit reuse license was identified. The institutional repository record and article DOI are linked for provenance."
+  ],
+  "activation_state": "reference_only",
+  "parameter_registry_mapping": "none",
+  "runtime_mapping": "none",
+  "curation_note": "The DOI identifies the article. The local dataset URN identifies this GreenHub transcription version; it is not an externally registered DOI or persistent identifier."
+}

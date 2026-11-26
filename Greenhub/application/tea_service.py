@@ -23,6 +23,7 @@ from Greenhub.tea_finance import (
     normalize_product_prices,
 )
 from Greenhub.time_grid import generate_time_grid
+from .water_reporting import fresh_water_kg_per_hour_from_result, kg_to_m3
 
 
 @dataclass(frozen=True)
@@ -886,7 +887,7 @@ def _empirical_route(result: object, selected_routes: Sequence[str] | None, basi
     selection = result.selected_scenarios
     ids = tuple(selection.scenario_ids)
     explicit = tuple(str(item) for item in (selected_routes or ())) + tuple(basis.explicit_route_tags)
-    tags = set(ids) | set(explicit) | {"electricity"}
+    tags = set(ids) | set(explicit) | {"electricity", "process_water"}
     aliases = {
         "F0": ("measured_liquid",), "F1": ("raw_press",), "F2": ("raw_press", "pef"), "F3": ("raw_press", "pef"),
         "PR0": ("no_protein_recovery",), "PR1": ("isoelectric",), "PR2": ("heat",),
@@ -922,7 +923,7 @@ def _dynamic_route(dynamic_result: object, selected_routes: Sequence[str] | None
     ad = str(config.get("ad_method", ""))
     resources = tuple(str(item) for item in config.get("resource_recovery_methods", ()) or ())
     explicit = tuple(str(item) for item in (selected_routes or ())) + tuple(basis.explicit_route_tags)
-    tags = {drying, ad, "electricity", *resources, *explicit}
+    tags = {drying, ad, "electricity", "process_water", *resources, *explicit}
     tags.add("membrane_protein" if protein == "membrane" else protein)
     tags.add("membrane_upgrading" if upgrading == "membrane" else upgrading)
     aliases = {
@@ -1127,6 +1128,8 @@ def _empirical_measures(result: object, basis: TEAProjectBasis, *, logistics_res
         measures["annual_electricity_kwh"] = _number(utilities.get("electricity_kwh"))
         measures["annual_heat_kwh"] = _number(utilities.get("heating_kwh"))
         measures["annual_cooling_kwh"] = _number(utilities.get("cooling_kwh"))
+        water_kg = _number(utilities.get("fresh_water_kg"))
+        measures["annual_fresh_water_m3"] = None if water_kg is None else kg_to_m3(water_kg)
         measures["annual_products_kg"] = {
             str(key): float(value) for key, value in result.seasonal_summary.get("total_products_kg", {}).items()
         }
@@ -1144,6 +1147,7 @@ def _empirical_measures(result: object, basis: TEAProjectBasis, *, logistics_res
             annual_electricity_kwh=None if electricity_kw is None else electricity_kw * hours,
             annual_heat_kwh=None if heat_kj_hr is None else heat_kj_hr / 3600.0 * hours,
             annual_cooling_kwh=None if cooling_kj_hr is None else cooling_kj_hr / 3600.0 * hours,
+            annual_fresh_water_m3=kg_to_m3(fresh_water_kg_per_hour_from_result(result.streams) * float(hours)),
             annual_products_kg={
                 str(item.product_id): None if item.mass_flow.value is None else float(item.mass_flow.value) * hours for item in result.products
             },
@@ -1395,6 +1399,9 @@ def _annual_quantity_for(
     if record.cost_type == "utility" and any(token in step + item for token in ("heat", "natural_gas")):
         value = _number(measures.get("annual_heat_kwh"))
         return None if value is None else (value, "kWh/year", "simulation_heat_output")
+    if record.cost_type == "utility" and any(token in step + item for token in ("water", "tap_water")):
+        value = _number(measures.get("annual_fresh_water_m3"))
+        return None if value is None else (value, "m3/year", "simulation_external_fresh_water_input")
     if record.cost_type == "revenue" or revenue:
         products = measures.get("annual_products_kg", {})
         if isinstance(products, Mapping):

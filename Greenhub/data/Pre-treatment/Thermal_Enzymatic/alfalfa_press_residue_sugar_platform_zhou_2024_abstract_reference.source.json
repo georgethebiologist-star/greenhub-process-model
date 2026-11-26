@@ -1,0 +1,30 @@
+{
+  "dataset_id": "urn:greenhub:dataset:pre-treatment:zhou-2024-alfalfa-residual-sugar-platform:v1",
+  "dataset_version": "1.0.0",
+  "persistent_identifier_status": "Local URN identifies this extract; DOI identifies the source article.",
+  "title": "Alfalfa press-residue pretreatment, sugar hydrolysis and brown-juice fermentation observations",
+  "source_id": "SRC-ZHOU-2024-ALFALFA-RESIDUAL-SUGAR",
+  "citation": "Zhou, F., Hansen, M., Jensen, P. R., & Hobley, T. J. (2024). Development of a sugar platform and fermentation media from residues from alfalfa biorefining. Industrial Crops and Products, 209, 117927. https://doi.org/10.1016/j.indcrop.2023.117927",
+  "doi": "10.1016/j.indcrop.2023.117927",
+  "source_url": "https://doi.org/10.1016/j.indcrop.2023.117927",
+  "repository_record": "https://orbit.dtu.dk/en/publications/development-of-a-sugar-platform-and-fermentation-media-from-resid/",
+  "retrieval_date": "2026-11-08",
+  "source_location": "Article abstract; DTU Orbit record lines 19–22",
+  "geography": "Technical University of Denmark research; exact alfalfa field site/cultivar not specified in the abstract.",
+  "material_scope": "Alfalfa-derived pulp and brown juice from a green-biorefinery route.",
+  "license_or_rights": "No explicit reuse license identified on the DTU record checked; retain citation and factual abstract-level extract, and verify publisher terms before external redistribution.",
+  "evidence_class": "B_peer_reviewed_primary_article_abstract_only",
+  "quality_class": "B",
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "row_count": 16,
+  "sha256_csv": "3f32d3fc0882e1f62fe940891bd6a495c730f797da7dbde3cee15bb075dbe9c8",
+  "transcription_policy": "Only explicit abstract values and their stated condition links are transcribed; absent uncertainties, methods and process balances are not inferred.",
+  "limitations": [
+    "The dataset is abstract-level, not a transcription of full article tables or raw data; the publication page directs access through DTU Findit.",
+    "Alfalfa residual pulp and fermented brown juice are not GreenHub roadside-grass streams.",
+    "This hydrolysis/lactic-fermentation value pathway is not a configured GreenHub route; values are not transferable yields or operating defaults.",
+    "The 6% sodium-chlorite percentage basis, replicate count, uncertainties, detailed water/reagent demand, utilities, and full mass balance are not stated in the abstract.",
+    "No explicit reuse license was found on the institutional record; check publisher terms before redistributing beyond citation and factual metadata."
+  ]
+}

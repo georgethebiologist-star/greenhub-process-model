@@ -26,6 +26,11 @@ DEFAULT_GRASS_UTILIZATION_BONUS_EUR_PER_T = float(GRASS_BONUS_DEFAULTS['default_
 DEFAULT_GRASS_UTILIZATION_BONUS_YEARS = int(GRASS_BONUS_DEFAULTS['default_duration_years'])
 
 
+def _same_simulation_request(submitted: SimulationRequest, executed: SimulationRequest) -> bool:
+    """Only reuse a UI run when its complete canonical input matches."""
+    return submitted.to_dict() == executed.to_dict()
+
+
 def _high_direct_capex_basis(tea: dict, units=()) -> float:
     """Build the existing GreenHub high screening CAPEX basis (direct, uninstalled)."""
     lines = tea.get('capex_lines') or []
@@ -180,32 +185,96 @@ def _apply_candidate_economics(tea: dict, economics: dict, annual=None, units=()
         raise ValueError('Grass utilization bonus must be between €0 and €50 per wet tonne processed.')
     grass_bonus_years = max(0, min(lifetime, int(economics.get('grass_utilization_bonus_years', 0) or 0)))
     grass_bonus_annual = annual_feed_t * grass_bonus_rate
-    operating_support_annual = legacy_support + gas_bonus_annual + grass_bonus_annual
-    annual_support_in_effect = operating_support_annual + additional_annual
-    profit_during_support = operating_profit + annual_support_in_effect
     effective_gas_bonus_years = gas_bonus_years if gas_bonus_annual > 0 else 0
     effective_grass_bonus_years = grass_bonus_years if grass_bonus_annual > 0 else 0
     effective_additional_years = additional_years if additional_annual > 0 else 0
-    support_undiscounted = capex_grant + legacy_support*support_years + gas_bonus_annual*effective_gas_bonus_years + grass_bonus_annual*effective_grass_bonus_years + additional_annual*effective_additional_years
+    # The grass-use bonus is operating logistics income, not product sales or
+    # public support. Include it in operating profit and cash flow, while
+    # keeping it as a separate line and excluding it from public-support KPIs.
+    grass_bonus_in_effect = grass_bonus_annual if effective_grass_bonus_years > 0 else 0.0
+    active_legacy_support = legacy_support if support_years > 0 else 0.0
+    active_gas_support = gas_bonus_annual if effective_gas_bonus_years > 0 else 0.0
+    active_additional_support = additional_annual if effective_additional_years > 0 else 0.0
+    operating_support_annual = active_legacy_support + active_gas_support
+    public_support_annual = operating_support_annual + active_additional_support
+    annual_operating_income = base_revenue + grass_bonus_in_effect
+    operating_profit_including_grass_bonus = operating_profit + grass_bonus_in_effect
+    profit_during_support = operating_profit_including_grass_bonus + public_support_annual
+    support_undiscounted = capex_grant + legacy_support*support_years + gas_bonus_annual*effective_gas_bonus_years + additional_annual*effective_additional_years
     working_capital = max(0.0, float(economics.get('working_capital_eur', 0.0) or 0.0))
     residual_value = max(0.0, float(economics.get('residual_value_eur', 0.0) or 0.0))
     cashflows = [-(high_capex-capex_grant)-working_capital]
+    cashflows_without_public_support = [-high_capex-working_capital]
+    cashflows_without_public_support_or_grass_bonus = [-high_capex-working_capital]
+    cash_flow_rows = [{
+        'year': 0, 'phase': 'construction', 'sales_revenue_eur': 0.0,
+        'opex_eur': 0.0, 'operating_profit_before_support_eur': 0.0,
+        'legacy_operating_support_eur': 0.0, 'biomethane_bonus_eur': 0.0,
+        'grass_utilization_bonus_eur': 0.0, 'additional_operating_support_eur': 0.0,
+        'total_operating_support_eur': 0.0, 'capex_grant_eur': capex_grant,
+        'tax_eur': 0.0, 'initial_capex_eur': high_capex,
+        'working_capital_change_eur': -working_capital,
+        'cash_flow_without_public_support_eur': -high_capex-working_capital,
+        'cash_flow_without_public_support_or_grass_bonus_eur': -high_capex-working_capital,
+        'cash_flow_eur': cashflows[0],
+    }]
     for year in range(1, lifetime+1):
-        support = (legacy_support if year<=support_years else 0.0) + (gas_bonus_annual if year<=effective_gas_bonus_years else 0.0) + (grass_bonus_annual if year<=effective_grass_bonus_years else 0.0) + (additional_annual if year<=effective_additional_years else 0.0)
-        pre_tax = operating_profit + support
-        cash = pre_tax - max(0.0, pre_tax)*tax_rate
+        legacy_for_year = legacy_support if year <= support_years else 0.0
+        gas_for_year = gas_bonus_annual if year <= effective_gas_bonus_years else 0.0
+        grass_for_year = grass_bonus_annual if year <= effective_grass_bonus_years else 0.0
+        additional_for_year = additional_annual if year <= effective_additional_years else 0.0
+        public_support = legacy_for_year + gas_for_year + additional_for_year
+        pre_tax = operating_profit + grass_for_year + public_support
+        tax = max(0.0, pre_tax)*tax_rate
+        cash = pre_tax - tax
+        unsupported_operating_profit = operating_profit + grass_for_year
+        unsupported_tax = max(0.0, unsupported_operating_profit)*tax_rate
+        cash_without_support = unsupported_operating_profit - unsupported_tax
+        unsupported_base_tax = max(0.0, operating_profit)*tax_rate
+        cash_without_support_or_grass_bonus = operating_profit - unsupported_base_tax
         if year == lifetime:
             cash += residual_value + working_capital
+            cash_without_support += residual_value + working_capital
+            cash_without_support_or_grass_bonus += residual_value + working_capital
         cashflows.append(cash)
+        cashflows_without_public_support.append(cash_without_support)
+        cashflows_without_public_support_or_grass_bonus.append(cash_without_support_or_grass_bonus)
+        cash_flow_rows.append({
+            'year': year, 'phase': 'operation', 'sales_revenue_eur': base_revenue,
+            'opex_eur': adjusted_opex,
+            'operating_profit_before_support_eur': operating_profit,
+            'operating_profit_including_grass_bonus_eur': operating_profit + grass_for_year,
+            'legacy_operating_support_eur': legacy_for_year,
+            'biomethane_bonus_eur': gas_for_year,
+            'grass_utilization_bonus_eur': grass_for_year,
+            'additional_operating_support_eur': additional_for_year,
+            'total_operating_support_eur': public_support, 'public_support_eur': public_support,
+            'capex_grant_eur': 0.0,
+            'tax_eur': tax, 'initial_capex_eur': 0.0,
+            'working_capital_change_eur': working_capital if year == lifetime else 0.0,
+            'residual_value_eur': residual_value if year == lifetime else 0.0,
+            'cash_flow_without_public_support_eur': cash_without_support,
+            'cash_flow_without_public_support_or_grass_bonus_eur': cash_without_support_or_grass_bonus,
+            'cash_flow_eur': cash,
+        })
     revenue_complete = totals.get('revenue_status') in (None, 'complete')
     computed_npv = sum(cash/(1.0+discount)**year for year,cash in enumerate(cashflows))
+    computed_npv_without_support = sum(
+        cash/(1.0+discount)**year
+        for year,cash in enumerate(cashflows_without_public_support)
+    )
+    computed_npv_without_public_support_or_grass_bonus = sum(
+        cash/(1.0+discount)**year
+        for year,cash in enumerate(cashflows_without_public_support_or_grass_bonus)
+    )
     proxy_npv = computed_npv if revenue_complete else None
     proxy_irr = _irr(cashflows) if revenue_complete else None
     proxy_payback = _payback(cashflows, 0.0) if revenue_complete else None
     capex_grant_pv = capex_grant
-    support_pv = legacy_support*_annuity_factor(discount,support_years) + gas_bonus_annual*_annuity_factor(discount,effective_gas_bonus_years) + grass_bonus_annual*_annuity_factor(discount,effective_grass_bonus_years) + additional_annual*_annuity_factor(discount,effective_additional_years)
+    support_pv = legacy_support*_annuity_factor(discount,support_years) + gas_bonus_annual*_annuity_factor(discount,effective_gas_bonus_years) + additional_annual*_annuity_factor(discount,effective_additional_years)
+    grass_bonus_pv = grass_bonus_annual*_annuity_factor(discount,effective_grass_bonus_years)
     total_support_pv = capex_grant_pv + support_pv
-    tax_annual = max(0.0, operating_profit+operating_support_annual+additional_annual)*tax_rate
+    tax_annual = max(0.0, operating_profit_including_grass_bonus+public_support_annual)*tax_rate
     grant_fraction_applied = capex_grant/high_capex if high_capex else 0.0
     annual_capital_recovery = (high_capex-capex_grant) * (1/lifetime if discount==0 else discount/(1-(1+discount)**(-lifetime)))
     optimized_profit = profit_during_support - tax_annual - annual_capital_recovery
@@ -220,8 +289,12 @@ def _apply_candidate_economics(tea: dict, economics: dict, annual=None, units=()
         'ebitda_like_operating_cash_flow_eur_per_year':operating_profit,
         'partial_operating_margin_eur_per_year':operating_profit,
         'operating_profit_before_support_eur_per_year':operating_profit,
+        'operating_profit_including_grass_bonus_excluding_public_support_eur_per_year':operating_profit_including_grass_bonus,
+        'operating_profit_including_public_support_eur_per_year':profit_during_support,
         'operating_profit_during_support_eur_per_year':profit_during_support,
-        'annual_operating_support_eur_per_year':annual_support_in_effect,
+        'operating_profit_including_operating_support_eur_per_year':profit_during_support,
+        'annual_operating_income_eur_per_year':annual_operating_income,
+        'annual_operating_support_eur_per_year':public_support_annual,
         'optimization_savings_eur_per_year':0.0, 'optimization_revenue_uplift_eur_per_year':0.0,
         'optimized_annual_revenue_eur':base_revenue, 'optimized_annual_opex_eur':adjusted_opex,
         'high_direct_capex_eur':high_capex, 'screening_capital_basis_eur':high_capex,
@@ -233,17 +306,21 @@ def _apply_candidate_economics(tea: dict, economics: dict, annual=None, units=()
         'screening_operating_balance_eur_per_year':operating_profit,
         'subsidy_eur':capex_grant, 'subsidy_adjusted_capex_eur':high_capex-capex_grant,
         'capex_grant_fraction_applied':grant_fraction_applied,
-        'opex_premium_eur_per_year':operating_support_annual+additional_annual,
+        'opex_premium_eur_per_year':public_support_annual,
         'opex_premium_eur_per_t_feed':legacy_premium_per_t,
         'grass_utilization_bonus_eur_per_year':grass_bonus_annual,
         'grass_utilization_bonus_eur_per_t_feed':grass_bonus_rate,
         'grass_utilization_bonus_years':grass_bonus_years,
-        'grass_utilization_bonus_basis':'User-defined logistics grass bonus per wet tonne processed; distinct from CAPEX grants and biomethane support; not an awarded subsidy.',
-        'opex_support_years':max(support_years,effective_gas_bonus_years,effective_grass_bonus_years,effective_additional_years),
+        'grass_utilization_bonus_basis':'User-defined logistics operating income per wet tonne processed; separate from product sales and excluded from public-support totals.',
+        'grass_utilization_bonus_present_value_eur':grass_bonus_pv,
+        'opex_support_years':max(support_years,effective_gas_bonus_years,effective_additional_years),
         'total_public_support_undiscounted_eur':support_undiscounted,
         'total_public_support_pv_eur':total_support_pv,
         'proxy_npv_eur':proxy_npv, 'proxy_irr':proxy_irr, 'proxy_simple_payback_years':proxy_payback,
-        'proxy_npv_basis':'After-tax constant-account screening cash flows; explicit CAPEX override where provided, upfront grant, user-rated labor/utilities/logistics, product sales, and time-limited operating support; working capital recovered at end of project.',
+        'proxy_npv_without_public_support_eur':computed_npv_without_support if revenue_complete else None,
+        'proxy_npv_without_public_support_or_grass_bonus_eur':computed_npv_without_public_support_or_grass_bonus if revenue_complete else None,
+        'public_support_effect_on_npv_eur':(proxy_npv-computed_npv_without_support) if proxy_npv is not None else None,
+        'proxy_npv_basis':'After-tax constant-account screening cash flows; product sales plus the separately reported grass logistics bonus as operating income, explicit CAPEX override where provided, public grant/biomethane support and user-rated labor/utilities/logistics; working capital recovered at end of project.',
         'tax_rate_applied':tax_rate, 'tax_eur_per_year':tax_annual,
         'optimized_after_tax_profit_eur_per_year':optimized_profit,
         'optimization_status':'user_assumption_overlay_no_process_performance_uplifts',
@@ -256,35 +333,54 @@ def _apply_candidate_economics(tea: dict, economics: dict, annual=None, units=()
         'ebitda_like_operating_cash_flow_eur_per_year':operating_profit,
         'partial_operating_margin_eur_per_year':operating_profit,
         'operating_profit_before_support_eur_per_year':operating_profit,
+        'operating_profit_including_grass_bonus_excluding_public_support_eur_per_year':operating_profit_including_grass_bonus,
+        'operating_profit_including_public_support_eur_per_year':profit_during_support,
         'operating_profit_during_support_eur_per_year':profit_during_support,
-        'annual_operating_support_eur_per_year':annual_support_in_effect,
+        'operating_profit_including_operating_support_eur_per_year':profit_during_support,
+        'annual_operating_income_eur_per_year':annual_operating_income,
+        'annual_operating_support_eur_per_year':public_support_annual,
         'npv_eur':proxy_npv,'irr':proxy_irr,'simple_payback_years':proxy_payback,
+        'npv_without_public_support_eur':computed_npv_without_support if revenue_complete else None,
+        'npv_without_public_support_or_grass_bonus_eur':computed_npv_without_public_support_or_grass_bonus if revenue_complete else None,
+        'public_support_effect_on_npv_eur':(proxy_npv-computed_npv_without_support) if proxy_npv is not None else None,
         'financial_kpi_status':'user_assumption_screening_proxy' if revenue_complete else 'incomplete',
         'financial_kpi_basis':totals['proxy_npv_basis'],
         'financial_kpi_blockers':([] if revenue_complete else ['Product revenue is incomplete: validated or explicitly assumed prices are required before investment KPIs can be reported.']),
     })
     tea['financial_kpis']=financial
-    tea['cash_flow']=[{'year':year,'cash_flow_eur':cash,'basis':'user-assumption screening proxy'} for year,cash in enumerate(cashflows)]
+    tea['cash_flow']=[{**row,'basis':'user-assumption screening proxy'} for row in cash_flow_rows]
     tea['candidate_economics']={
         'assumptions':economics, 'optimization_savings_eur_per_year':0.0, 'revenue_uplift_eur_per_year':0.0,
         'subsidy_eur':capex_grant, 'grant_awarding_organization':economics.get('grant_awarding_organization'),
         'operating_support_awarding_organization':economics.get('operating_support_awarding_organization'),
         'grant_scenario_name':economics.get('grant_scenario_name'), 'opex_support_scenario_name':economics.get('opex_support_scenario_name'),
         'high_direct_capex_eur':high_capex, 'capex_estimate_before_override_eur':capex_estimate,
-        'capex_grant_fraction_applied':grant_fraction_applied, 'opex_premium_eur_per_year':operating_support_annual+additional_annual,
+        'capex_grant_fraction_applied':grant_fraction_applied, 'opex_premium_eur_per_year':public_support_annual,
         'operating_profit_before_support_eur_per_year':operating_profit,
+        'operating_profit_including_grass_bonus_excluding_public_support_eur_per_year':operating_profit_including_grass_bonus,
+        'operating_profit_including_public_support_eur_per_year':profit_during_support,
         'operating_profit_during_support_eur_per_year':profit_during_support,
+        'operating_profit_including_operating_support_eur_per_year':profit_during_support,
         'biomethane_bonus_eur_per_year':gas_bonus_annual,
+        'biomethane_bonus_years':effective_gas_bonus_years,
         'grass_utilization_bonus_eur_per_year':grass_bonus_annual,
         'grass_utilization_bonus_eur_per_t_feed':grass_bonus_rate,
         'grass_utilization_bonus_years':grass_bonus_years,
         'additional_benefit_eur_per_year':additional_annual,
-        'opex_support_years':max(support_years,effective_gas_bonus_years,effective_grass_bonus_years,effective_additional_years),
+        'opex_support_years':max(support_years,effective_gas_bonus_years,effective_additional_years),
         'total_public_support_undiscounted_eur':support_undiscounted,'total_public_support_pv_eur':total_support_pv,
+        'grass_utilization_bonus_present_value_eur':grass_bonus_pv,
         'proxy_npv_eur':proxy_npv,'proxy_irr':proxy_irr,'proxy_simple_payback_years':proxy_payback,
+        'proxy_npv_without_public_support_eur':computed_npv_without_support if revenue_complete else None,
+        'proxy_npv_without_public_support_or_grass_bonus_eur':computed_npv_without_public_support_or_grass_bonus if revenue_complete else None,
+        'public_support_effect_on_npv_eur':(proxy_npv-computed_npv_without_support) if proxy_npv is not None else None,
+        'npv_includes_public_support':True,
         'proxy_npv_basis':totals['proxy_npv_basis'],'tax_eur_per_year':tax_annual,
         'annual_capital_recovery_after_subsidy_eur':annual_capital_recovery,
         'optimized_after_tax_profit_eur_per_year':optimized_profit,'annual_cash_flows_eur':cashflows,
+        'annual_cash_flows_without_public_support_eur':cashflows_without_public_support,
+        'annual_cash_flows_without_public_support_or_grass_bonus_eur':cashflows_without_public_support_or_grass_bonus,
+        'annual_cash_flow_details':cash_flow_rows,
         'opex_user_cost_lines':user_cost_lines,
     }
     return tea
@@ -360,7 +456,7 @@ class DecisionSupportService:
             if context.result is None:
                 raise ValueError(f"Completed simulation '{existing_run_id}' has no result to analyze.")
             submitted_request = SimulationRequest.from_dict(config['simulation'])
-            if submitted_request.request_id != context.request.request_id:
+            if not _same_simulation_request(submitted_request, context.request):
                 raise ValueError('The supplied simulation request does not match existing_run_id.')
             request = context.request
             run_id = context.run_id
@@ -424,7 +520,17 @@ class DecisionSupportService:
             ).strip()
         logistics_result = config.get('logistics_result')
         tea=calculate_empirical_tea(result,project_basis=tea_basis,financial_assumptions=finance_config,logistics_result=logistics_result).to_dict()
-        tea = _apply_candidate_economics(tea, config.get('candidate_economics') or {}, annual, result.units)
+        candidate_economics = deepcopy(config.get('candidate_economics') or {})
+        raw_biogas_export = (config['simulation'].get('scenarios') or {}).get('biogas_upgrading') == 'BG0'
+        if raw_biogas_export:
+            # A caller-supplied volume cannot turn raw BG0 gas into qualified
+            # biomethane. Keep the requested rate/duration visible but remove
+            # the ineligible product volume from the post-route cash flow.
+            candidate_economics['annual_biomethane_m3'] = 0.0
+        tea = _apply_candidate_economics(tea, candidate_economics, annual, result.units)
+        if raw_biogas_export:
+            tea['candidate_economics']['biomethane_bonus_eligibility'] = 'ineligible_raw_biogas_export_BG0'
+            tea['totals']['biomethane_bonus_eligibility'] = 'ineligible_raw_biogas_export_BG0'
         config['candidate_economics'] = deepcopy(tea['candidate_economics']['assumptions'])
         lca_factors = dict(config.get('climate_factors') or {})
         if use_screening_lca_factors:
@@ -493,11 +599,11 @@ class DecisionSupportService:
                             'Operational climate inventory covers only included gate-to-gate groups and declared emission factors.'],
         }
         objectives={
-            'operating_profit':{'value':t['annual_revenue_eur']-t['annual_opex_eur'],'direction':'maximize','unit':'EUR/year','eligible':numerical_ok,'definition':'Original modeled annual sales minus partial OPEX, before support, tax and capital recovery; no assumed performance improvements.'},
+            'operating_profit':{'value':economics_result.get('operating_profit_including_grass_bonus_excluding_public_support_eur_per_year'),'direction':'maximize','unit':'EUR/year','eligible':numerical_ok,'definition':'Product sales plus the separate user-defined grass logistics bonus, less partial OPEX; excludes public grants/biomethane support, tax and capital recovery.'},
             'climate':{'value':climate_value,'direction':'minimize','unit':'kg CO2e/year','eligible':numerical_ok and climate_value is not None,'definition':'Attributional plant climate estimate; partial inventory may be used for screening and must be completed before investment decisions'},
             'net_carbon':{'value':net_carbon_t_c_y,'direction':'minimize','unit':'t C/year','eligible':numerical_ok and net_carbon_t_c_y is not None,'definition':'Operational climate load converted from t CO2e to t C, less assumed carbon stored in furniture and soil-retained nutrient-rich solids; screening proxy.'},
             'npv':{'value':economics_result.get('proxy_npv_eur'),'direction':'maximize','unit':'EUR','eligible':numerical_ok and economics_result.get('proxy_npv_eur') is not None,'definition':economics_result.get('proxy_npv_basis','Proxy NPV unavailable; missing financial inputs.')},
-            'subsidy_granted':{'value':economics_result.get('total_public_support_pv_eur'),'direction':'minimize','unit':'EUR present value','eligible':numerical_ok and economics_result.get('total_public_support_pv_eur') is not None,'definition':'Present value of the assumed upfront CAPEX grant plus discounted operating-support overlay; the Pareto analysis computes the overlay dynamically from candidate biomethane volume, not as a fixed €/t-feed rate. This is not an eligibility or award estimate.'},
+            'subsidy_granted':{'value':economics_result.get('total_public_support_pv_eur'),'direction':'minimize','unit':'EUR present value','eligible':numerical_ok and economics_result.get('total_public_support_pv_eur') is not None,'definition':'Present value of hypothetical CAPEX grants and biomethane/other public operating support. The grass logistics bonus is classified separately as operating income and excluded. No eligibility or award is implied.'},
             'installed_capex':{'value':t.get('total_installed_capex_eur'),'direction':'minimize','unit':'EUR','eligible':t.get('capex_status')=='complete_screening'},
             'route_trl':{'value':None,'direction':'maximize','unit':'TRL','eligible':False,'definition':'No evidence-backed route-level TRL aggregation exists; never inferred from component maturity'}}
         root=Path(__file__).resolve().parents[2]

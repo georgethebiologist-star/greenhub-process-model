@@ -1,0 +1,39 @@
+{
+  "dataset_id": "urn:greenhub:dataset:stefanski-2024-formic-acid-table1-raw-response-reference:v1",
+  "title": "Raw table transcription of formic-acid treatment responses in timothy-grass liquid fraction",
+  "source_file": "grass_liquid_formic_acid_table1_response_stefanski_2024_reference.csv",
+  "source_id": "SRC-STEFANSKI-EGF-2024",
+  "authors": ["T. Stefański", "N. Ayanfe", "M. Rinne"],
+  "publication_year": 2024,
+  "publication": "Grassland Science in Europe, Volume 29, Why grasslands?, pp. 128-130",
+  "persistent_identifier": null,
+  "source_url": "https://www.europeangrassland.org/fileadmin/documents/Infos/Printed_Matter/Proceedings/EGF2024.pdf",
+  "alternative_source_url": "https://pure.ilvo.be/ws/portalfiles/portal/43316050/EGF2024-Final.pdf",
+  "license_status": "No explicit reuse license identified in the proceedings; review redistribution rights.",
+  "retrieval_date": "2026-11-07",
+  "rows": 20,
+  "source_location": "Table 1, p. 130",
+  "evidence_class": "B_measured_source_reported",
+  "treatments": {
+    "reported_formic_acid_labels_L_per_Mg": [0, 4, 6, 8, 10],
+    "pure_acid_added_ml_per_500g_liquid": [0, 0.2, 0.3, 0.4, 0.5],
+    "replicates_per_treatment": 3
+  },
+  "table_basis_as_printed": "Extraction rates (g kg fresh liquid)^-1",
+  "basis_quality_gate": {
+    "status": "unresolved_source_unit_physical_consistency_check_failed",
+    "reason": "The printed unit implies dry-matter, ash and protein quantities that cannot be reconciled with the article's reported protein-rich sediment mass per kg starting liquid; crude-protein and true-protein rows also exceed physically plausible component masses if interpreted literally on the stated fresh-liquid denominator. The table values are preserved exactly as printed, but no alternative denominator is inferred.",
+    "rule": "Do not interpret the values as component masses, concentrations, dimensionless recovery fractions, or model parameters until the authors or a corrected source clarify the denominator."
+  },
+  "dose_basis_warning": "The proceedings label the acid treatments 4-10 L/Mg, while the method states 0.2-0.5 ml pure acid per 500 g liquid, a tenfold discrepancy. Both are preserved in the companion dose/pH file; no acid demand is calculated here.",
+  "data_handling": "Direct transcription of the four Table 1 response rows, five treatment means, SEM and linear/quadratic p-values. No unit conversion or derivation was performed.",
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "runtime_parameter_mapping": null,
+  "limitations": [
+    "Pure Finnish second-cut timothy-grass liquid is not GreenHub roadside-grass juice.",
+    "The experiment uses bottle-scale natural sedimentation rather than the GreenHub precipitation and centrifugation train.",
+    "Both the acid-dose basis and response-table denominator require source clarification; these data are quarantined and must not enter process calculations or TEA.",
+    "No explicit reuse license was identified in the proceedings PDF."
+  ]
+}

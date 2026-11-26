@@ -82,9 +82,16 @@ Aarhus University DCA report 093 states that after fresh grass/grass-clover pres
 
 These are technology-dependent ranges and are marked confidence **B**. They can support a broad optional sensitivity envelope but should not override the perennial-ryegrass direct measurements.
 
-## 5. Broader wet-leafy proxy
+## 5. Broader wet-leafy reference
 
-Cassava leaf twin-gear pressing is included solely as class **D_low_transferability_reference_only**. It provides a useful methodological comparison with paired feed/cake/juice TS and CP and a 62% green-juice wet-weight recovery, but cassava anatomy and composition differ too strongly from temperate grass for calibration.
+Cassava leaf twin-gear pressing is included solely as **class B source evidence** with
+`low_transferability_reference_only` applicability. The source is Gundersen et al.
+(2022), DOI `10.1016/j.jclepro.2022.134730`, Table 1 and Section 3.2. It provides a
+methodological comparison with paired feed/cake/juice TS and CP and a 62% green-juice
+wet-weight recovery, but cassava anatomy and composition differ too strongly from
+temperate grass for calibration. The earlier DOI/identity mismatch and combined
+`D_low_transferability_reference_only` label are corrected; no cassava value is a
+GreenHub default or runtime calibration.
 
 ## 6. What can be activated as an opt-in policy
 

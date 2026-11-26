@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "MATERIAL-RETERRA-ROAD-VERGE-GRASS-N36-VARTA-2026",
+  "project_id": "greenhub",
+  "data_scope_class": "material_or_site_specific",
+  "context_independent": false,
+  "material": {
+    "material_id": "reterra_road_verge_grass_n36_varta_2026_09_04",
+    "display_name": "Reterra road-verge grass N36 (VARTA, 4 September 2026)",
+    "material_type": "fresh roadside grass sample",
+    "geography": "Reterra-labelled sample; exact collection site not reported",
+    "collection_stage": "Road-verge grass sample as submitted to the VARTA laboratory",
+    "sampling_time": "2026-09-04",
+    "treatment_history": "Workbook sample label is Reterra road-verge grass N36; preceding handling and preservation are not reported."
+  },
+  "mass_composition": [],
+  "analytical_properties": [
+    {"property_id":"dry_matter_content","value":37.8,"unit":"% as received","sample_basis":"Reterra road-verge grass N36","method":null,"status":"measured","quality_class":"A","source_ids":["SRC-VARTA-2026-10-27"]},
+    {"property_id":"crude_protein","value":149,"unit":"g/kg DM","sample_basis":"Reterra road-verge grass N36","method":null,"status":"measured","quality_class":"A","source_ids":["SRC-VARTA-2026-10-27"],"accounting_note":"Crude-protein assay overlaps total nitrogen and is not a separate mass-composition component."},
+    {"property_id":"crude_protein_as_received","value":58,"unit":"g/kg as received","sample_basis":"Reterra road-verge grass N36","method":null,"status":"measured","quality_class":"A","source_ids":["SRC-VARTA-2026-10-27"],"accounting_note":"Preserved as reported; it does not exactly reconcile with the rounded DM-basis value and dry matter percentage."},
+    {"property_id":"total_nitrogen","value":22.3,"unit":"g/kg DM","sample_basis":"Reterra road-verge grass N36","method":null,"status":"measured","quality_class":"A","source_ids":["SRC-VARTA-2026-10-27"],"accounting_note":"Total-element result; not a nitrogen-species allocation."},
+    {"property_id":"total_sulfur","value":2.2,"unit":"g/kg DM","sample_basis":"Reterra road-verge grass N36","method":null,"status":"measured","quality_class":"A","source_ids":["SRC-VARTA-2026-10-27"]},
+    {"property_id":"total_phosphorus","value":2.6,"unit":"g/kg DM","sample_basis":"Reterra road-verge grass N36","method":null,"status":"measured","quality_class":"A","source_ids":["SRC-VARTA-2026-10-27"]},
+    {"property_id":"total_potassium","value":14.2,"unit":"g/kg DM","sample_basis":"Reterra road-verge grass N36","method":null,"status":"measured","quality_class":"A","source_ids":["SRC-VARTA-2026-10-27"]},
+    {"property_id":"total_calcium","value":7.4,"unit":"g/kg DM","sample_basis":"Reterra road-verge grass N36","method":null,"status":"measured","quality_class":"A","source_ids":["SRC-VARTA-2026-10-27"]},
+    {"property_id":"total_magnesium","value":1.9,"unit":"g/kg DM","sample_basis":"Reterra road-verge grass N36","method":null,"status":"measured","quality_class":"A","source_ids":["SRC-VARTA-2026-10-27"]},
+    {"property_id":"total_sodium","value":3.6,"unit":"g/kg DM","sample_basis":"Reterra road-verge grass N36","method":null,"status":"measured","quality_class":"A","source_ids":["SRC-VARTA-2026-10-27"]},
+    {"property_id":"chloride","value":7.3,"unit":"g/kg DM","sample_basis":"Reterra road-verge grass N36","method":null,"status":"measured","quality_class":"A","source_ids":["SRC-VARTA-2026-10-27"]},
+    {"property_id":"iron","value":1600,"unit":"mg/kg DM","sample_basis":"Reterra road-verge grass N36","method":null,"status":"measured","quality_class":"A","source_ids":["SRC-VARTA-2026-10-27"]},
+    {"property_id":"zinc","value":132,"unit":"mg/kg DM","sample_basis":"Reterra road-verge grass N36","method":null,"status":"measured","quality_class":"A","source_ids":["SRC-VARTA-2026-10-27"]},
+    {"property_id":"manganese","value":132,"unit":"mg/kg DM","sample_basis":"Reterra road-verge grass N36","method":null,"status":"measured","quality_class":"A","source_ids":["SRC-VARTA-2026-10-27"]},
+    {"property_id":"copper","value":20.1,"unit":"mg/kg DM","sample_basis":"Reterra road-verge grass N36","method":null,"status":"measured","quality_class":"A","source_ids":["SRC-VARTA-2026-10-27"]},
+    {"property_id":"boron","value":15.2,"unit":"mg/kg DM","sample_basis":"Reterra road-verge grass N36","method":null,"status":"measured","quality_class":"A","source_ids":["SRC-VARTA-2026-10-27"]},
+    {"property_id":"molybdenum","value":2.6,"unit":"mg/kg DM","sample_basis":"Reterra road-verge grass N36","method":null,"status":"measured","quality_class":"A","source_ids":["SRC-VARTA-2026-10-27"]}
+  ],
+  "closure": {"status":"not_checked","accounting_group":null,"target_total":null,"residual_component_id":null,"method":"Proximate, crude-protein, and total-element measurements overlap and do not form mutually exclusive mass fractions."},
+  "activation_state": "reference_only",
+  "provenance": [
+    {
+      "source_id":"SRC-VARTA-2026-10-27",
+      "source_title":"VARTA 2026 grass fiber and whole-grass nutrient laboratory measurements",
+      "authors":"VARTA laboratory report issuer (as recorded in the workbook metadata)",
+      "reference_year":2026,
+      "doi_or_stable_id":"VARTA_2026_10_27 (project-local identifier; not a DOI)",
+      "related_identifiers":["Greenhub/data/Pre-treatment/Feedstock/varta_2026_grass_fiber_measurements.csv"],
+      "source_url":null,
+      "source_location":"Workbook sheet Nutriënten Vezel, source row 5, sample 1",
+      "retrieval_date":"2026-11-07",
+      "license":"No external reuse license identified; project-supplied laboratory data"
+    }
+  ],
+  "metadata_gaps": [
+    "Laboratory methods, replicate count, uncertainty, and exact collection site are not reported.",
+    "The source also contains a 390 g/kg product column labelled 'Droge stof eiwit'; its meaning is ambiguous and it is excluded pending clarification.",
+    "The reported crude-protein values on wet and dry bases do not exactly reconcile from the rounded moisture value; both source values are retained without forced conversion.",
+    "No complete proximate/fiber composition, carbohydrate speciation, contamination panel, or exclusive mass closure is reported.",
+    "This is a separate Reterra-labelled sample, not the GreenHub whole-grass sample or a valid replacement for its UI defaults."
+  ]
+}

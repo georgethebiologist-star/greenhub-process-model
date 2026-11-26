@@ -2,6 +2,10 @@
 
 Audit date: 2026-07-29
 
+> Historical scientific audit snapshot. Current known limitations and validation gates
+> are maintained in [model limitations](../model_limitations.md) and [pre-release
+> status](../PRE_RELEASE_STATUS.md).
+
 Engineering maturity levels follow the alpha specification: E0 topology, E1 empirical
 mass transformation, E2 stoichiometric material model, E3 kinetic/equilibrium or
 mass-transfer model, E4 material/energy model with sizing, and E5 sufficiently validated

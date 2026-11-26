@@ -1,0 +1,43 @@
+{
+  "dataset_title": "Filtered perennial ryegrass press-juice composition for fermentation-medium characterization",
+  "dataset_identifier": "greenhub:reference:varriale-2024-ryegrass-press-juice:v1",
+  "source_file": "ryegrass_press_juice_varriale_2024_reference.csv",
+  "source_id": "S14_VARRIALE_2024_JUICE",
+  "source_title": "Short-term adaptation as a tool to improve bioethanol production using grass press-juice as fermentation medium",
+  "authors": "Ludovica Varriale; Doris Geib; Roland Ulber",
+  "reference_year": 2024,
+  "dataset_creators": ["Ludovica Varriale", "Doris Geib", "Roland Ulber"],
+  "related_article_doi": "10.1007/s00253-024-13224-0",
+  "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11199226/",
+  "retrieval_date": "2026-11-10",
+  "rows": 18,
+  "source_table": "Table 1",
+  "license": "CC BY 4.0",
+  "source_table_caption": "Press-juice composition from the perennial ryegrass Lolium perenne",
+  "study_context": {
+    "geography": "Julius Kuehn-Institute, Braunschweig, Germany",
+    "feedstocks": ["Perennial ryegrass (Lolium perenne) press-juice"],
+    "processing_scale": "Laboratory characterization of press-juice used as a fermentation medium",
+    "material_state": "Press-juice centrifuged twice at 4500 rpm for 20 min, paper-filtered, then sterile-filtered at 0.2 micrometre and frozen at -20 C before use"
+  },
+  "evidence_class": "B_measured_literature",
+  "activation_state": "reference_only",
+  "data_scope_class": "technology_and_material_specific",
+  "context_independent": false,
+  "license_status": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+  "applicability": "Reference measurements for the filtered press-juice material state and its use as a fermentation medium. Supports literature comparison and future technology-specific substrate characterization only; it is not a raw-grass profile, not a GreenHub batch, and not an active process default.",
+  "limitations": [
+    "The source material is cultivated perennial ryegrass press-juice, not Dutch roadside grass or the VARTA whole-grass sample.",
+    "The composition table does not provide a matched raw-feed sample, juice yield, density, dry matter, or paired press-cake composition, so concentrations cannot be converted to raw-feed mass fractions or a press recovery.",
+    "Table 1 does not state replicate count or uncertainty for composition values; do not assign an invented standard deviation.",
+    "Reported totals overlap named sugars and ions and must not be added to their constituent rows.",
+    "Nitrite is left-censored at less than 0.01 g/L; the numeric value is missing and is not zero.",
+    "The reported total protein assay and free-amino-acid assay have different methods and sample preparation; they are analytical properties, not mutually exclusive mass-closure components."
+  ],
+  "metadata_gaps": [
+    "Cultivar and harvest date are not specified in this article's material description.",
+    "No raw-grass/juice/cake matched mass balance or juice yield is reported here.",
+    "No juice density, dry matter, or composition uncertainty for Table 1 is reported.",
+    "No mapping to GreenHub's UI feed-component masses is valid without material-state and basis data."
+  ]
+}

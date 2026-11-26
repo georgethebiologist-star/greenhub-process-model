@@ -1,0 +1,39 @@
+{
+  "dataset_id": "urn:greenhub:dataset:storage:yeo-grass-clippings-silage-bmp-2023-abstract:v1",
+  "persistent_identifier_status": "Repository-local stable dataset identifier; the cited journal article has no DOI identified in the KCI record.",
+  "dataset_version": "1.0.0",
+  "source_file": "grass_clippings_silage_storage_bmp_yeo_2023_abstract_reference.csv",
+  "title": "Grass-clippings silage storage duration and biochemical methane-potential abstract endpoints",
+  "citation": "Yeo, J., Kim, T.-H., Kim, C.-G., Lee, S.-Y., & Yoon, Y.-M. (2023). Effects of silage storage period of grass clippings on methane production by anaerobic digestion. Journal of Korea Organic Resource Recycling Association, 31(4), 13–28.",
+  "persistent_identifier": null,
+  "source_url": "https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003031098",
+  "full_text_url": null,
+  "source_locations": ["English abstract: species BMP values and Poa pratensis storage-day 0/180 endpoints"],
+  "retrieval_date": "2026-11-07",
+  "reference_year": 2023,
+  "experiment_year": null,
+  "geography": "Republic of Korea; exact experimental site not stated in the accessible English abstract.",
+  "evidence_class": "B_measured_literature_abstract_only",
+  "license": "No dataset license or explicit article reuse license identified from the accessible KCI metadata. Factual abstract values are transcribed with attribution; external redistribution rights require confirmation.",
+  "material_scope": "Grass clippings; species-specific BMP values for Poa pratensis, Zoysia japonica, and Agrostis stolonifera. Storage-duration endpoints are for ensiled Poa pratensis only.",
+  "experimental_conditions": "The abstract reports storage durations of 0, 30, 60, 90, 120, and 180 days for Poa pratensis, but gives numerical BMP and composition values only for day 0 and day 180. Methods, replication, storage temperature, ensiling moisture, analytical basis for fiber/protein percentages, and BMP reference conditions were not available in the accessible abstract.",
+  "data_scope": "Eleven records: three species-comparison BMP values, two Poa pratensis BMP endpoints, four fiber endpoints, two crude-protein endpoints, and one explicit record for intermediate BMP values tested but not reported in the abstract.",
+  "limitations": [
+    "Reference-only; not GreenHub roadside grass and not a runtime default or parameter-registry value.",
+    "Only English-abstract values were accessible; the underlying article tables and raw observations were not verified.",
+    "No intermediate storage-day values are reconstructed, interpolated, or used to fit a kinetic equation.",
+    "Storage mode is described as silage/ensiling; this does not establish an aerobic-storage comparison.",
+    "Percentage bases for NDF, ADF, and crude protein are not specified in the accessible abstract and must not be assumed to be dry-matter basis.",
+    "BMP volume reference conditions are not specified in the accessible abstract; retain source unit wording and do not normalize to a different standard volume basis.",
+    "Species comparison values should not be interpreted as roadside-grass values without a transferability assessment."
+  ],
+  "conversion_or_processing": "Direct transcription of English-abstract values; no conversion, imputation, interpolation, uncertainty reconstruction, or kinetic fitting.",
+  "uncertainty": "Not reported in the accessible abstract. Replicates and statistical intervals are unknown.",
+  "activation_state": "reference_only",
+  "fair_metadata": {
+    "findable": "Local URN and linked article record; no DOI identified.",
+    "accessible": "Article metadata/abstract available from KCI; full-text data access unresolved.",
+    "interoperable": "UTF-8 CSV with explicit value, unit, basis, material, species, time, source location and missing-value text fields.",
+    "reusable": "Citation and extraction limits recorded; usage rights are not asserted because no dataset license was found."
+  }
+}

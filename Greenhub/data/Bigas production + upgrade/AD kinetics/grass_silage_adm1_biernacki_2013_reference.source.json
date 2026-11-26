@@ -1,0 +1,45 @@
+{
+  "dataset_title": "Fitted ADM1 disintegration and hydrolysis rates for grass silage",
+  "dataset_identifier": "urn:greenhub:dataset:ad-kinetics:grass-silage-biernacki-2013-reference:v1",
+  "source_id": "SRC007",
+  "evidence_class": "B_literature_fitted_estimate",
+  "activation_state": "reference_only",
+  "publisher": "Carl von Ossietzky University of Oldenburg repository (dissertation); Bioresource Technology (article)",
+  "authors": ["Piotr Biernacki", "Sven Steinigeweg", "Axel Borchert", "Frank Uhlenhut"],
+  "publication_year_article": 2013,
+  "article_title": "Application of Anaerobic Digestion Model No. 1 for describing anaerobic digestion of grass, maize, green weed silage, and industrial glycerine",
+  "article_doi": "10.1016/j.biortech.2012.09.128",
+  "article_url": "https://doi.org/10.1016/j.biortech.2012.09.128",
+  "numeric_table_source": {
+    "title": "Model based sustainable production of biomethane",
+    "author": "Piotr Biernacki",
+    "document_type": "doctoral dissertation",
+    "year": 2014,
+    "stable_url": "https://oops.uni-oldenburg.de/2038/1/biemod14.pdf",
+    "table": "Table 17",
+    "page": 102,
+    "repository_record": "https://oops.uni-oldenburg.de/2038/"
+  },
+  "retrieval_date": "2026-11-06",
+  "geography": "Germany; grass silage associated with the EWE Wittmund biogas power plant study",
+  "material_scope": "Grass silage, not fresh roadside grass, screw-pressed cake, protein-extraction residual, or GreenHub-specific substrate.",
+  "methods": {
+    "model": "ADM1 with Wett et al. modification",
+    "parameter_estimation": "Downhill simplex (Nelder-Mead) optimization against cumulative batch biogas production",
+    "batch_temperature_c": 38,
+    "batch_duration_days": 15,
+    "substrate_loading": "1 mass% fresh substrate in inoculum",
+    "replicates": "Three parallel bottles per substrate; experiment repeated",
+    "rate_constant_unit": "d^-1"
+  },
+  "uncertainty": "The table gives no confidence intervals or parameter covariance. The dissertation notes that multiple kinetic-constant sets can fit the data; this does not establish transferability to a different substrate.",
+  "processing": "Transcribed the four grass-silage fitted constants from Table 17, p.102. Converted d^-1 to s^-1 by dividing by 86,400; original reported values are retained. No curves were digitized and no refit was performed.",
+  "license": "No explicit reuse license identified for the dissertation or article; only four factual numeric parameter estimates are transcribed with attribution.",
+  "limitations": [
+    "These are model-fitted estimates, not direct measurements of rate constants.",
+    "The calibration substrate is grass silage and differs from GreenHub fresh roadside grass, press cake and isoelectric-process residuals.",
+    "Do not use as a GreenHub default or parameter-registry value without route-specific validation against time-series BMP and reactor data.",
+    "The fitted values are conditional on the modified ADM1 structure, substrate characterization, 38 C batch protocol and estimation method.",
+    "No uncertainty interval or parameter covariance was reported in the table; do not invent one."
+  ]
+}

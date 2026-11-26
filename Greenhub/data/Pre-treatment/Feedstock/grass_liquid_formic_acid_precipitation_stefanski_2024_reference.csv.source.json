@@ -1,0 +1,38 @@
+{
+  "dataset_id": "urn:greenhub:dataset:stefanski-2024-formic-acid-precipitation-reference:v1",
+  "title": "Formic-acid treatment of timothy-grass liquid fraction: dose and precipitation pH reference",
+  "source_file": "grass_liquid_formic_acid_precipitation_stefanski_2024_reference.csv",
+  "source_id": "SRC-STEFANSKI-EGF-2024",
+  "authors": ["T. Stefánski", "N. Ayanfe", "M. Rinne"],
+  "publication_year": 2024,
+  "publication": "Grassland Science in Europe, Volume 29, Why grasslands?, pp. 128–130",
+  "persistent_identifier": null,
+  "source_url": "https://www.europeangrassland.org/fileadmin/documents/Infos/Printed_Matter/Proceedings/EGF2024.pdf",
+  "license_status": "No explicit reuse license identified in the proceedings PDF; assess permission before commercial redistribution.",
+  "retrieval_date": "2026-11-07",
+  "rows": 5,
+  "source_location": "Article: Table 1 and Materials and methods, pp. 128–130",
+  "evidence_class": "B_measured_literature_results",
+  "experimental_context": {
+    "feedstock": "Pure timothy grass (Phleum pratense), second cut harvested 31 July 2023, Jokioinen, Finland",
+    "press": "Pilot-scale single-screw press; liquid yield reported as 27.5% of fresh matter",
+    "precipitation": "Formic acid addition followed by natural sedimentation in 500 ml bottles for up to 21 days; three replicates per treatment",
+    "reported_doses": [0, 4, 6, 8, 10],
+    "reported_dose_unit": "L/Mg",
+    "bottle_doses_ml": [0, 0.2, 0.3, 0.4, 0.5],
+    "bottle_liquid_mass_g": 500
+  },
+  "dose_basis_check": "The proceedings report 4–10 L/Mg, while its methods report 0.2–0.5 ml pure formic acid added to 500 g liquid. Using 1 Mg = 1000 kg, these bottle amounts calculate to 0.4–1.0 L/t, tenfold lower than the stated treatment labels. Both source representations are preserved; the discrepancy is unresolved and the dose is not suitable for reagent-demand activation.",
+  "calculation_method": "bottle dose (ml) / liquid mass (kg) gives ml/kg; numerically this equals L/t because 1 ml/kg = 1 L/t. Arithmetic normalization only; not a measured or corrected dose.",
+  "reported_pH": "Brown-liquid pH means by treatment are transcribed from Table 1; SEM 0.01, p-values as printed.",
+  "response_table_data": "The four Table 1 treatment-response rows (dry matter, ash, crude protein and true protein) are transcribed verbatim in the companion grass_liquid_formic_acid_table1_response_stefanski_2024_reference.csv. The printed 'g kg fresh liquid^-1' denominator conflicts with the article's sediment mass/component hierarchy, so these values are quarantined and not interpreted or used in calculations until the source basis is clarified.",
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "runtime_parameter_mapping": null,
+  "limitations": [
+    "Timothy grass and Finnish pilot-scale liquid fraction are not GreenHub roadside-grass juice.",
+    "An apparent tenfold discrepancy exists between the reported L/Mg labels and per-bottle acid amount; do not use these doses as a model parameter or TEA consumption rate until verified against authors or a corrected source.",
+    "The experiment used natural sedimentation, not GreenHub's isoelectric precipitation and centrifugation route.",
+    "The conference proceeding has no DOI or explicit license identified in the accessed PDF; redistribution rights require review."
+  ]
+}

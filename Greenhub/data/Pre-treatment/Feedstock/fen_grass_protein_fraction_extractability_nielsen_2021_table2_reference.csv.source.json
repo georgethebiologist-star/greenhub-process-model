@@ -1,0 +1,31 @@
+{
+  "source_file": "fen_grass_protein_fraction_extractability_nielsen_2021_table2_reference.csv",
+  "dataset_id": "NIELSEN-2021-FEN-GRASS-CNCPS-TABLE-2",
+  "source_id": "SRC-NIELSEN-2021",
+  "title": "Effects of Harvest and Fertilization Frequency on Protein Yield and Extractability from Flood-Tolerant Perennial Grasses Cultivated on a Fen Peatland",
+  "authors": ["Claudia Kalla Nielsen", "Lene Stødkilde", "Uffe Jørgensen", "Poul Erik Lærke"],
+  "publication_year": 2021,
+  "doi": "10.3389/fenvs.2021.619258",
+  "source_url": "https://doi.org/10.3389/fenvs.2021.619258",
+  "source_location": "Table 2 annual average rows",
+  "retrieval_date": "2026-11-07",
+  "license": "Creative Commons Attribution (CC BY), as stated in the article",
+  "geography": "Vejrumbro, Central Jutland, Denmark",
+  "measurement_year": 2019,
+  "record_count": 10,
+  "units": "CNCPS fraction concentrations in g/kg dry matter; fraction share as percent of total crude protein. SD is provided for concentration only; the article's table does not give SD for share percentages.",
+  "transformation": "Annual-average concentration means and parenthetical SDs transcribed into numeric columns. Published share percentages transcribed as integer percent. No conversion, interpolation, or recalculation.",
+  "definitions": {
+    "B1+B2": "Neutral-detergent soluble crude-protein fractions as defined by the CNCPS method in the article.",
+    "B1+B2+B3": "Potentially extractable protein fraction including acid-detergent soluble B3; a theoretical fraction, not measured recovered product."
+  },
+  "activation_state": "reference_only",
+  "quality_class": "B, peer-reviewed experimental literature",
+  "applicability": "Harvest-regime-dependent protein fraction reference for cultivated reed canary grass and tall fescue; not a GreenHub roadside-grass measurement or extraction efficiency.",
+  "limitations": [
+    "CNCPS fraction concentrations are not equivalent to screw-press release, acid-precipitation recovery, or product yield.",
+    "The two species were cultivated on Danish fen peatland; they are not mixed roadside grass.",
+    "Fertilizer N/K regime differed between one-cut and 2–5-cut treatments, confounding treatment comparisons.",
+    "The study states raw data can be requested from authors; this extract contains only published table values."
+  ]
+}

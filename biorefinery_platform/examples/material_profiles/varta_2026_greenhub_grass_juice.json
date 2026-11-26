@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "MATERIAL-GREENHUB-GRASS-JUICE-VARTA-2026",
+  "project_id": "greenhub",
+  "data_scope_class": "material_or_site_specific",
+  "context_independent": false,
+  "material": {
+    "material_id": "greenhub_grass_juice_varta_2026",
+    "display_name": "GreenHub grass-juice sample (VARTA; date not reported)",
+    "material_type": "grass-derived liquid sample (workbook label: grass juice)",
+    "geography": "Project-supplied GreenHub sample; collection site not specified",
+    "collection_stage": "As submitted for the Nutriënten Sap laboratory sheet",
+    "sampling_time": null,
+    "treatment_history": "Parent raw-grass lot, separation technology, and sample preparation are not reported."
+  },
+  "mass_composition": [],
+  "analytical_properties": [
+    {"property_id":"ammonium","value":231,"unit":"mg/L","sample_basis":"GreenHub grass-juice sample","method":null,"status":"measured","quality_class":"A","source_ids":["SRC-VARTA-2026-10-27"]},
+    {"property_id":"nitrite","value":0,"unit":"mg/L","sample_basis":"GreenHub grass-juice sample","method":null,"status":"measured","quality_class":"A","source_ids":["SRC-VARTA-2026-10-27"],"accounting_note":"Reported as 0; no detection limit is supplied, so this is not interpreted as confirmed absence."},
+    {"property_id":"nitrate","value":20,"unit":"mg/L","sample_basis":"GreenHub grass-juice sample","method":null,"status":"measured","quality_class":"A","source_ids":["SRC-VARTA-2026-10-27"]},
+    {"property_id":"potassium","value":9600,"unit":"mg/L","sample_basis":"GreenHub grass-juice sample","method":null,"status":"measured","quality_class":"A","source_ids":["SRC-VARTA-2026-10-27"]},
+    {"property_id":"phosphate","value":205,"unit":"mg/L","sample_basis":"GreenHub grass-juice sample","method":null,"status":"measured","quality_class":"A","source_ids":["SRC-VARTA-2026-10-27"]},
+    {"property_id":"chloride","value":3826,"unit":"mg/L","sample_basis":"GreenHub grass-juice sample","method":null,"status":"measured","quality_class":"A","source_ids":["SRC-VARTA-2026-10-27"]},
+    {"property_id":"sulfate","value":2849,"unit":"mg/L","sample_basis":"GreenHub grass-juice sample","method":null,"status":"measured","quality_class":"A","source_ids":["SRC-VARTA-2026-10-27"]},
+    {"property_id":"calcium","value":3508,"unit":"mg/L","sample_basis":"GreenHub grass-juice sample","method":null,"status":"measured","quality_class":"A","source_ids":["SRC-VARTA-2026-10-27"]},
+    {"property_id":"magnesium","value":1000,"unit":"mg/L","sample_basis":"GreenHub grass-juice sample","method":null,"status":"measured","quality_class":"A","source_ids":["SRC-VARTA-2026-10-27"]},
+    {"property_id":"silicon_dioxide","value":1054,"unit":"mg/L","sample_basis":"GreenHub grass-juice sample","method":null,"status":"measured","quality_class":"A","source_ids":["SRC-VARTA-2026-10-27"]},
+    {"property_id":"iron","value":289,"unit":"mg/L","sample_basis":"GreenHub grass-juice sample","method":null,"status":"measured","quality_class":"A","source_ids":["SRC-VARTA-2026-10-27"]}
+  ],
+  "closure": {"status":"not_checked","accounting_group":null,"target_total":null,"residual_component_id":null,"method":"Concentrations are analytical properties; no liquid volume, density, solids, or complete material balance is reported."},
+  "activation_state": "reference_only",
+  "provenance": [
+    {
+      "source_id":"SRC-VARTA-2026-10-27",
+      "source_title":"VARTA 2026 grass-juice nutrient laboratory measurements",
+      "authors":"VARTA laboratory report issuer (as recorded in the workbook metadata)",
+      "reference_year":2026,
+      "doi_or_stable_id":"VARTA_2026_10_27 (project-local identifier; not a DOI)",
+      "related_identifiers":["Greenhub/data/Pre-treatment/Feedstock/varta_2026_grass_juice_measurements.csv"],
+      "source_url":null,
+      "source_location":"Workbook sheet Nutriënten Sap, source row 5, sample 1",
+      "retrieval_date":"2026-11-07",
+      "license":"No external reuse license identified; project-supplied laboratory data"
+    }
+  ],
+  "metadata_gaps": [
+    "The workbook does not report collection date, laboratory methods, replicate count, uncertainty, or detection limits.",
+    "The juice sample is not proven to originate from the GreenHub whole-grass sample in the separate sheet.",
+    "No sample volume, density, dry matter, or mass of juice per tonne of grass is supplied; concentrations cannot be converted into process component flows.",
+    "The profile is not a mass-closure dataset and does not validate separation yields or a route's product specification."
+  ]
+}

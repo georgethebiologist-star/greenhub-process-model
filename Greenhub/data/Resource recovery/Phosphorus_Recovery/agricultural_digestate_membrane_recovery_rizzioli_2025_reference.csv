@@ -1,0 +1,30 @@
+record_id,source_table,configuration,stream,total_solids_pct_w_w,COD_g_per_kg,TKN_g_per_kg,ammonium_N_g_per_kg,total_phosphorus_g_per_kg,potassium_as_K2O_g_per_kg,electrical_conductivity_mS_per_cm,reported_value_status
+RIZ25-T3-AGRD,Table 3,Line 1 MF+UF+RO,raw agricultural digestate,7.76,718.39,4.08,3.52,1.05,4.10,15.30,reported
+RIZ25-T3-PSLS-LF,Table 3,Line 1 MF+UF+RO,PSLS liquid fraction,5.01,621.34,4.19,3.78,0.38,4.00,15.28,reported
+RIZ25-T3-PSLS-SF,Table 3,Line 1 MF+UF+RO,PSLS solid fraction,11.80,919.28,3.44,2.92,2.45,4.20,,EC not determined
+RIZ25-T3-CENTR-SUR,Table 3,Line 1 MF+UF+RO,centrifuge supernatant,2.92,512.33,4.05,3.97,0.35,4.10,15.04,reported
+RIZ25-T3-CENTR-SED,Table 3,Line 1 MF+UF+RO,centrifuge sediment,14.43,1127.12,3.82,2.67,0.50,3.50,,EC not determined
+RIZ25-T3-MF-PER,Table 3,Line 1 MF+UF+RO,microfiltration permeate,1.30,422.90,4.29,3.99,0.33,4.40,14.99,reported
+RIZ25-T3-MF-RET,Table 3,Line 1 MF+UF+RO,microfiltration retentate,4.97,612.56,3.81,3.78,0.30,3.40,,EC not determined
+RIZ25-T3-UF-PER,Table 3,Line 1 MF+UF+RO,ultrafiltration permeate,1.16,337.11,3.87,3.79,0.32,3.60,14.61,reported
+RIZ25-T3-UF-RET,Table 3,Line 1 MF+UF+RO,ultrafiltration retentate,1.53,638.45,3.60,4.80,0.29,5.50,,EC not determined
+RIZ25-T3-RO-PER,Table 3,Line 1 MF+UF+RO,reverse-osmosis permeate,0.07,6.27,0.87,0.57,0.08,0.65,3.10,reported
+RIZ25-T3-RO-RET,Table 3,Line 1 MF+UF+RO,reverse-osmosis retentate,5.60,1507.07,17.10,16.80,1.30,15.00,41.83,reported
+RIZ25-T4-AGRD,Table 4,Line 2 UF+RO,raw agricultural digestate,7.76,718.39,4.08,3.52,1.05,4.10,15.36,reported
+RIZ25-T4-PSLS-LF,Table 4,Line 2 UF+RO,PSLS liquid fraction,5.01,621.34,4.19,3.78,0.38,4.00,15.21,reported
+RIZ25-T4-PSLS-SF,Table 4,Line 2 UF+RO,PSLS solid fraction,11.80,919.28,3.44,2.92,2.45,4.20,,EC not determined
+RIZ25-T4-CENTR-SUR,Table 4,Line 2 UF+RO,centrifuge supernatant,2.92,512.33,4.05,3.97,0.35,4.10,14.98,reported
+RIZ25-T4-CENTR-SED,Table 4,Line 2 UF+RO,centrifuge sediment,14.43,1127.12,3.82,2.67,0.50,3.50,,EC not determined
+RIZ25-T4-UF-PER,Table 4,Line 2 UF+RO,ultrafiltration permeate,1.40,337.11,3.87,3.79,0.38,3.80,14.44,reported
+RIZ25-T4-UF-RET,Table 4,Line 2 UF+RO,ultrafiltration retentate,6.73,1175.32,3.60,4.80,0.20,5.50,,EC not determined
+RIZ25-T4-RO-PER,Table 4,Line 2 UF+RO,reverse-osmosis permeate,0.07,5.27,0.50,0.27,0.07,0.01,3.23,reported
+RIZ25-T4-RO-RET,Table 4,Line 2 UF+RO,reverse-osmosis retentate,5.60,1053.07,11.70,11.20,1.10,12.50,40.10,reported
+RIZ25-T5-AGRD,Table 5,Line 3 NF+RO,raw agricultural digestate,7.76,718.39,4.08,3.52,1.05,4.10,15.32,reported
+RIZ25-T5-PSLS-LF,Table 5,Line 3 NF+RO,PSLS liquid fraction,5.01,621.34,4.19,3.78,0.38,4.00,15.18,reported
+RIZ25-T5-PSLS-SF,Table 5,Line 3 NF+RO,PSLS solid fraction,11.80,919.28,3.44,2.92,2.45,4.20,,EC not determined
+RIZ25-T5-CENTR-SUR,Table 5,Line 3 NF+RO,centrifuge supernatant,2.92,512.33,4.05,3.97,0.35,4.10,14.91,reported
+RIZ25-T5-CENTR-SED,Table 5,Line 3 NF+RO,centrifuge sediment,14.43,1127.12,3.82,2.67,0.50,3.50,,EC not determined
+RIZ25-T5-NF-PER,Table 5,Line 3 NF+RO,nanofiltration permeate,2.10,201.00,3.90,3.85,0.20,3.40,14.27,reported
+RIZ25-T5-NF-RET,Table 5,Line 3 NF+RO,nanofiltration retentate,3.01,554.21,4.05,4.00,0.35,4.20,,EC not determined
+RIZ25-T5-RO-PER,Table 5,Line 3 NF+RO,reverse-osmosis permeate,0.09,25.00,0.70,0.55,0.16,0.65,3.15,reported
+RIZ25-T5-RO-RET,Table 5,Line 3 NF+RO,reverse-osmosis retentate,7.45,665.00,13.12,12.90,0.60,10.75,41.01,reported

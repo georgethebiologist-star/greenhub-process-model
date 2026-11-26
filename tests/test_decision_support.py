@@ -1,6 +1,7 @@
 """Scientific, accounting and frontend-visible decision support contracts."""
 from copy import deepcopy
 from dataclasses import asdict, replace
+from types import SimpleNamespace
 import json
 import math
 from pathlib import Path
@@ -11,11 +12,65 @@ from Greenhub.storage_reactions import reaction_catalog, simulate_reactions
 from Greenhub.lca_inventory import LCAProjectBasis, load_climate_factors
 from Greenhub.application.lca_service import calculate_lca_inventory
 from Greenhub.application.decision_support_service import DecisionSupportService, default_configuration, _apply_candidate_economics
+from Greenhub.application.decision_support_service import _same_simulation_request
 from Greenhub.application.simulation_service import SimulationService
 from Greenhub.application.contracts import BiomassSchedule, SimulationRequest
 from Greenhub.application.biomass_schedule import schedule_feed_rows
+from Greenhub.application.seasonal_service import _biomass_schedule_operating_hours
+from Greenhub.application.annual_service import _schedule_report
 from Greenhub.time_grid import generate_time_grid
 from Greenhub.scenario_exploration import sample_configurations, pareto_front, run_batch, sensitivity
+
+
+def test_bg0_raw_export_cannot_be_sold_or_supported_as_biomethane(tmp_path):
+    configuration = default_configuration()
+    configuration['simulation']['scenarios']['biogas_upgrading'] = 'BG0'
+    configuration['candidate_economics'].update(
+        biomethane_bonus_enabled=True,
+        annual_biomethane_m3=1000.0,
+        biomethane_bonus_eur_per_m3=1.87,
+    )
+    report = DecisionSupportService(SimulationService(run_root=tmp_path)).evaluate(configuration)
+    assert (report['annual']['products'].get('biomethane') or {}).get('value', 0) == 0
+    assert report['tea']['candidate_economics']['biomethane_bonus_eur_per_year'] == 0
+    assert report['tea']['totals']['biomethane_bonus_eligibility'] == 'ineligible_raw_biogas_export_BG0'
+    assert all(
+        line.get('annual_revenue_eur') in (None, 0)
+        for line in report['tea']['revenue_lines']
+        if line.get('product_id') in {'biomethane', 'biomethane_product'}
+    )
+
+
+def test_bg2_upgraded_gas_retains_biomethane_product_and_bonus(tmp_path):
+    configuration = default_configuration()
+    configuration['simulation']['scenarios']['biogas_upgrading'] = 'BG2'
+    configuration['candidate_economics'].update(
+        biomethane_bonus_enabled=True,
+        annual_biomethane_m3=1000.0,
+        biomethane_bonus_eur_per_m3=1.87,
+    )
+    report = DecisionSupportService(SimulationService(run_root=tmp_path)).evaluate(configuration)
+    assert report['annual']['products']['biomethane']['value'] > 0
+    assert report['tea']['candidate_economics']['biomethane_bonus_eur_per_year'] == pytest.approx(1870)
+
+
+def test_grass_and_biomethane_bonus_duration_defaults_match_project_lifetime():
+    configuration = default_configuration()
+    economics = {
+        **configuration['candidate_economics'], 'grass_utilization_bonus_eur_per_t_feed': 10,
+        'biomethane_bonus_enabled': True, 'annual_biomethane_m3': 5, 'tax_rate': 0,
+    }
+    report = _apply_candidate_economics(
+        {'totals': {'annual_revenue_eur': 100, 'annual_opex_eur': 10, 'partial_direct_capex_eur': 1_000},
+         'opex_lines': [], 'capex_lines': [], 'financial_kpis': {}},
+        economics, {'feed_processed': {'value': 1_000, 'unit': 'kg/year'}},
+    )
+    details = report['candidate_economics']['annual_cash_flow_details']
+    assert report['candidate_economics']['grass_utilization_bonus_years'] == 20
+    assert report['candidate_economics']['biomethane_bonus_years'] == 20
+    assert len(details) == 21
+    assert all(row['grass_utilization_bonus_eur'] == pytest.approx(10) for row in details[1:])
+    assert all(row['biomethane_bonus_eur'] == pytest.approx(5 * 1.87) for row in details[1:])
 
 
 def test_economic_overrides_reconcile_costs_support_and_ui_financial_kpis():
@@ -61,8 +116,12 @@ def test_economic_overrides_reconcile_costs_support_and_ui_financial_kpis():
     assert report['financial_kpis']['irr']==report['candidate_economics']['proxy_irr']
     assert report['candidate_economics']['biomethane_bonus_eur_per_year']==pytest.approx(1_870)
     assert report['totals']['operating_profit_during_support_eur_per_year']==pytest.approx(676_770)
+    assert report['candidate_economics']['operating_profit_including_operating_support_eur_per_year']==pytest.approx(676_770)
+    assert report['candidate_economics']['proxy_npv_without_public_support_eur'] is not None
+    assert report['cash_flow'][0]['capex_grant_eur']==pytest.approx(300_000)
+    assert report['cash_flow'][1]['grass_utilization_bonus_eur']==pytest.approx(0)
+    assert report['cash_flow'][1]['biomethane_bonus_eur']==pytest.approx(1_870)
     assert next(row for row in report['opex_lines'] if row['cost_id']=='USER-LOGISTICS')['annual_cost_eur']==pytest.approx(2_000)
-
     no_support={**economics,'capex_grant_fraction':0,'additional_benefit_eur_per_year':0,'additional_benefit_years':0,'biomethane_bonus_enabled':False}
     baseline=_apply_candidate_economics(deepcopy(source_tea),no_support,annual)
     grant=report['candidate_economics']['subsidy_eur']
@@ -72,8 +131,78 @@ def test_economic_overrides_reconcile_costs_support_and_ui_financial_kpis():
                         +economics['annual_biomethane_m3']*economics['biomethane_bonus_eur_per_m3']*(1-economics['tax_rate'])*gas_annuity)
     assert report['cash_flow'][0]['cash_flow_eur']-baseline['cash_flow'][0]['cash_flow_eur']==pytest.approx(grant)
     assert report['candidate_economics']['proxy_npv_eur']-baseline['candidate_economics']['proxy_npv_eur']==pytest.approx(expected_npv_delta)
+    assert report['candidate_economics']['proxy_npv_without_public_support_eur']==pytest.approx(baseline['candidate_economics']['proxy_npv_eur'])
+    assert report['candidate_economics']['public_support_effect_on_npv_eur']==pytest.approx(expected_npv_delta)
     assert report['totals']['partial_operating_margin_eur_per_year']==baseline['totals']['partial_operating_margin_eur_per_year']
     assert report['totals']['operating_profit_during_support_eur_per_year']>baseline['totals']['operating_profit_during_support_eur_per_year']
+
+
+def test_expired_support_does_not_leak_into_annual_profit_or_tax():
+    tea = {
+        'totals': {'annual_revenue_eur': 100.0, 'annual_opex_eur': 200.0,
+                   'partial_direct_capex_eur': 1_000.0},
+        'opex_lines': [], 'capex_lines': [], 'financial_kpis': {},
+    }
+    annual = {'feed_processed': {'value': 10_000.0, 'unit': 'kg/year'}}
+    economics = {
+        'total_capex_override_eur': 1_000.0,
+        'opex_premium_eur_per_t_feed': 20.0,
+        'opex_support_years': 0,
+        'biomethane_bonus_enabled': True,
+        'annual_biomethane_m3': 5.0,
+        'biomethane_bonus_eur_per_m3': 2.0,
+        'biomethane_bonus_years': 0,
+        'additional_benefit_eur_per_year': 100.0,
+        'additional_benefit_years': 0,
+        'grass_utilization_bonus_eur_per_t_feed': 10.0,
+        'grass_utilization_bonus_years': 0,
+        'project_lifetime_years': 10,
+        'discount_rate': 0.08,
+        'tax_rate': 0.25,
+    }
+
+    report = _apply_candidate_economics(tea, economics, annual)
+    totals = report['totals']
+    assert totals['partial_operating_margin_eur_per_year'] == pytest.approx(-100.0)
+    assert totals['annual_operating_support_eur_per_year'] == pytest.approx(0.0)
+    assert totals['operating_profit_including_public_support_eur_per_year'] == pytest.approx(-100.0)
+    assert totals['tax_eur_per_year'] == pytest.approx(0.0)
+    assert totals['total_public_support_pv_eur'] == pytest.approx(0.0)
+    assert totals['public_support_effect_on_npv_eur'] == pytest.approx(0.0)
+
+
+def test_reused_simulation_requires_exact_full_configuration_match():
+    base = {"schema_version": "1.0.0", "request_id": "same-id", "project_id": "greenhub",
+            "biomass_schedule": {"annual_available_biomass_tonnes": 100, "annual_processed_biomass_tonnes": 100}}
+    changed = deepcopy(base)
+    changed["biomass_schedule"]["annual_processed_biomass_tonnes"] = 90
+    assert _same_simulation_request(SimulationRequest.from_dict(base), SimulationRequest.from_dict(deepcopy(base)))
+    assert not _same_simulation_request(SimulationRequest.from_dict(base), SimulationRequest.from_dict(changed))
+
+
+def test_storage_delay_shifts_processing_window_without_losing_season_capacity():
+    configuration = default_configuration()['simulation']
+    configuration.update({
+        'start_date': '2026-06-01', 'end_date': '2026-09-14', 'time_step': 'daily',
+        'biomass_schedule': {
+            'annual_available_biomass_tonnes': 1000,
+            'annual_processed_biomass_tonnes': 1000,
+            'processing_delay_days': 14,
+            'collection_refinery_fraction': 1.0,
+            'feed_basis': 'tonnes_per_year', 'feed_kg_per_hr': 1000,
+            'season_start': '2026-06-01', 'season_end': '2026-08-31',
+            'peak_date': '2026-07-15', 'spread_days': 45,
+            'active_months': [6, 7, 8],
+        },
+    })
+    request = SimulationRequest.from_dict(configuration)
+    grid = generate_time_grid('2026-06-01', '2026-09-14', 'daily')
+    hours = sum(
+        _biomass_schedule_operating_hours(step, request, 365.0, 14)
+        for step in grid
+    )
+    assert hours == pytest.approx(92 * 24)
+
 
 
 def test_logistics_cost_override_requires_both_rate_and_distance():
@@ -109,7 +238,7 @@ def test_biomethane_bonus_requires_a_reported_annual_volume():
 
 
 @pytest.mark.parametrize('rate', [0, 10, 20, 30, 40, 50])
-def test_grass_utilization_bonus_is_distinct_post_route_support(rate):
+def test_grass_utilization_bonus_is_operating_income_not_public_support(rate):
     tea = {
         'totals': {'annual_revenue_eur': 100, 'annual_opex_eur': 25, 'partial_direct_capex_eur': 1000},
         'opex_lines': [], 'capex_lines': [], 'financial_kpis': {},
@@ -124,10 +253,39 @@ def test_grass_utilization_bonus_is_distinct_post_route_support(rate):
     }, annual)
     expected = rate * 2000
     assert result['candidate_economics']['grass_utilization_bonus_eur_per_year'] == pytest.approx(expected)
-    assert result['totals']['total_public_support_undiscounted_eur'] == pytest.approx(expected * 2)
+    assert result['totals']['operating_profit_including_grass_bonus_excluding_public_support_eur_per_year'] == pytest.approx(75 + expected)
+    assert result['totals']['annual_operating_support_eur_per_year'] == pytest.approx(0)
+    assert result['totals']['total_public_support_undiscounted_eur'] == pytest.approx(0)
+    assert result['totals']['grass_utilization_bonus_present_value_eur'] == pytest.approx(expected * 2)
     assert result['totals']['annual_revenue_eur'] == pytest.approx(100)
     assert result['totals']['annual_opex_eur'] == pytest.approx(25)
+    assert result['totals']['proxy_npv_without_public_support_eur'] == pytest.approx(-1000 + 2 * (75 + expected))
+    assert result['totals']['proxy_npv_without_public_support_or_grass_bonus_eur'] == pytest.approx(-1000 + 2 * 75)
     assert result['financial_kpis']['npv_eur'] == result['totals']['proxy_npv_eur']
+    assert [row['grass_utilization_bonus_eur'] for row in result['candidate_economics']['annual_cash_flow_details'][1:]] == pytest.approx([expected, expected])
+
+
+def test_lifetime_bonus_cashflows_include_grass_gas_and_public_support_each_eligible_year():
+    tea = {
+        'totals': {'annual_revenue_eur': 10_000, 'annual_opex_eur': 2_000, 'partial_direct_capex_eur': 5_000},
+        'opex_lines': [], 'capex_lines': [], 'financial_kpis': {},
+    }
+    annual = {'feed_processed': {'value': 1_000_000, 'unit': 'kg/year'}}
+    report = _apply_candidate_economics(tea, {
+        'project_lifetime_years': 3, 'discount_rate': 0, 'tax_rate': 0,
+        'grass_utilization_bonus_eur_per_t_feed': 5, 'grass_utilization_bonus_years': 3,
+        'biomethane_bonus_enabled': True, 'annual_biomethane_m3': 100,
+        'biomethane_bonus_eur_per_m3': 1, 'biomethane_bonus_years': 3,
+        'opex_premium_eur_per_t_feed': 2, 'opex_support_years': 2,
+        'additional_benefit_eur_per_year': 300, 'additional_benefit_years': 3,
+    }, annual)
+    flows = report['candidate_economics']['annual_cash_flow_details'][1:]
+    assert [row['year'] for row in flows] == [1, 2, 3]
+    assert [row['grass_utilization_bonus_eur'] for row in flows] == pytest.approx([5_000] * 3)
+    assert [row['biomethane_bonus_eur'] for row in flows] == pytest.approx([100] * 3)
+    assert [row['legacy_operating_support_eur'] for row in flows] == pytest.approx([2_000, 2_000, 0])
+    assert [row['additional_operating_support_eur'] for row in flows] == pytest.approx([300] * 3)
+    assert [row['cash_flow_eur'] for row in flows] == pytest.approx([15_400, 15_400, 13_400])
 
 
 def test_grass_utilization_bonus_rejects_rates_outside_user_range():
@@ -266,6 +424,106 @@ def test_weekly_processing_series_shows_storage_shift_without_daily_run_cost():
     assert len(rows)<60
     assert sum(row['available_wet_biomass_kg'] for row in rows)==pytest.approx(30e6)
     assert sum(row['collected_biomass_kg'] for row in rows)==pytest.approx(30e6)
+
+
+def test_delayed_seasonal_annual_report_separates_harvest_from_processing():
+    schedule = BiomassSchedule(
+        annual_available_biomass_tonnes=1200,
+        annual_processed_biomass_tonnes=600,
+        collection_refinery_fraction=0.5,
+        feed_basis='tonnes_per_year',
+        season_start='2026-06-01', season_end='2026-06-30',
+        peak_date='2026-06-15', active_months=(6,), processing_delay_days=14,
+        monthly_availability_tonnes=(0, 0, 0, 0, 0, 1200, 0, 0, 0, 0, 0, 0),
+    )
+    request = SimpleNamespace(
+        biomass_schedule=schedule,
+        start_date='2026-01-01', end_date='2026-12-31', time_step='monthly',
+    )
+    result = SimpleNamespace(
+        time_grid=({'label': '2026-07', 'start_date': '2026-07-01'},),
+        throughput_series=({'time': '2026-07', 'available_operating_hours': 336, 'actual_throughput_kg': 500_000},),
+        storage_inventory_series=({
+            'time': '2026-07', 'inventory_entering_kg': 0, 'biomass_received_kg': 600_000,
+            'biomass_withdrawn_kg': 500_000, 'overflow_kg': 0,
+            'degradation_loss_kg': 0, 'inventory_remaining_kg': 100_000,
+            'storage_mass_residual_kg': 0,
+        },),
+        seasonal_summary={'final_inventory_kg': 100_000},
+        bottleneck_series=(), units=(),
+    )
+    report = _schedule_report(result, request, [
+        {'period': '2026-07', 'feed_processed_kg': 500_000},
+    ])
+    assert report['annual_available_tonnes'] == pytest.approx(1200)
+    assert report['annual_collected_tonnes'] == pytest.approx(600)
+    assert report['annual_collected_for_processing_tonnes'] == pytest.approx(600)
+    assert report['annual_processed_tonnes'] == pytest.approx(500)
+    assert report['annual_uncollected_tonnes'] == pytest.approx(600)
+    june = next(row for row in report['monthly'] if row['time_label'] == '2026-06')
+    july = next(row for row in report['monthly'] if row['time_label'] == '2026-07')
+    assert june['collected_at_harvest_tonnes'] == pytest.approx(600)
+    assert june['utilization_fraction'] == pytest.approx(0.5)
+    assert june['utilization_basis'] == 'collected_at_harvest / available_biomass'
+    assert june['processed_biomass_tonnes'] == pytest.approx(0)
+    assert june['collected_for_processing_tonnes'] == pytest.approx(320)
+    assert july['collected_for_processing_tonnes'] == pytest.approx(280)
+    assert july['processed_biomass_tonnes'] == pytest.approx(500)
+    assert july['operating_hours'] == pytest.approx(336)
+    assert july['basis_feed_kg_per_hr'] == pytest.approx(500_000 / 336)
+    assert july['storage_inventory_entering_tonnes'] == pytest.approx(0)
+    assert july['biomass_received_after_storage_conditions_tonnes'] == pytest.approx(600)
+    assert july['storage_withdrawn_tonnes'] == pytest.approx(500)
+    assert july['ending_inventory_tonnes'] == pytest.approx(100)
+    assert july['storage_mass_residual_tonnes'] == pytest.approx(0)
+    assert report['annual_operating_hours'] == pytest.approx(336)
+    assert report['ending_inventory_tonnes'] == pytest.approx(100)
+
+
+def test_dated_harvest_event_is_reported_separately_from_cross_month_processing_release():
+    from Greenhub.application.contracts.requests import SimulationRequest
+
+    request = SimulationRequest.from_dict({
+        'schema_version': '1.0.0', 'request_id': 'dated-harvest-annual-report', 'project_id': 'greenhub',
+        'start_date': '2026-01-01', 'end_date': '2026-12-31', 'time_step': 'monthly',
+        'biomass_schedule': {
+            'annual_available_biomass_tonnes': 1200,
+            'annual_processed_biomass_tonnes': 600,
+            'processing_delay_days': 14,
+            'collection_refinery_fraction': 0.5,
+            'feed_basis': 'tonnes_per_year', 'feed_kg_per_hr': 1000,
+            'season_start': '2026-06-01', 'season_end': '2026-06-30',
+            'peak_date': '2026-06-30', 'active_months': [6, 7],
+            'harvest_events': [{'date': '2026-06-30', 'available_biomass_tonnes': 1200}],
+        },
+    })
+    result = SimpleNamespace(
+        time_grid=({'label': '2026-07', 'start_date': '2026-07-01'},),
+        throughput_series=({'time': '2026-07', 'available_operating_hours': 336, 'actual_throughput_kg': 600_000},),
+        storage_inventory_series=({
+            'time': '2026-07', 'inventory_entering_kg': 600_000, 'biomass_received_kg': 0,
+            'biomass_withdrawn_kg': 600_000, 'overflow_kg': 0,
+            'degradation_loss_kg': 0, 'inventory_remaining_kg': 0,
+            'storage_mass_residual_kg': 0, 'processed_feed_storage_age_h': 336,
+        },),
+        seasonal_summary={'final_inventory_kg': 0},
+        bottleneck_series=(), units=(),
+    )
+    report = _schedule_report(result, request, [
+        {'period': '2026-07', 'feed_processed_kg': 600_000},
+    ])
+
+    june = next(row for row in report['monthly'] if row['time_label'] == '2026-06')
+    july = next(row for row in report['monthly'] if row['time_label'] == '2026-07')
+    assert june['available_biomass_tonnes'] == pytest.approx(1200)
+    assert june['collected_at_harvest_tonnes'] == pytest.approx(600)
+    assert june['harvest_event_dates'] == ('2026-06-30',)
+    assert june['collected_for_processing_tonnes'] == pytest.approx(0)
+    assert july['processing_release_dates'] == ('2026-07-14',)
+    assert july['collected_for_processing_tonnes'] == pytest.approx(600)
+    assert july['processed_biomass_tonnes'] == pytest.approx(600)
+    assert report['harvest_events'][0]['date'] == '2026-06-30'
+    assert report['collection_delay_inventory_final_tonnes'] == pytest.approx(0)
 
 
 @pytest.mark.parametrize('values,total', [

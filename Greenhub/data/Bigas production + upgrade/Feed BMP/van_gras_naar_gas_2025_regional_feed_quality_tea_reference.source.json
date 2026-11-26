@@ -1,0 +1,50 @@
+{
+  "dataset_id": "urn:greenhub:dataset:feed-bmp:van-gras-naar-gas-2025-regional-feed-quality-tea-reference:v1",
+  "dataset_version": "1.0.0",
+  "dataset_file": "van_gras_naar_gas_2025_regional_feed_quality_tea_reference.csv",
+  "source_file": "van_gras_naar_gas_2025_regional_feed_quality_tea_reference.csv",
+  "record_count": 76,
+  "sha256": "fcfece708b17372afa09a97789f5f08180133c5e5ad31b414ddf4f704d44aa23",
+  "source_id": "SRC-VGNG-INTERREG-2025",
+  "citation": "Krooneman, J. (2025). Van Gras Naar Gas Eindrapport: Haalbaarheid, technologieën en economische kansen voor biogasproductie uit grasreststromen in Nederland en Duitsland. Interreg Deutschland-Nederland project report.",
+  "publication_year": 2025,
+  "doi": null,
+  "source_url": "https://www.hanze.nl/binaries/_cb_1758882594458/content/assets/hanze/nl/onderzoeken/kenniscentra-en-centres-of-expertise/kenniscentrum-biobased-economy/eindrapport-van-gras-naar-gas.pdf",
+  "retrieval_date": "2026-11-08",
+  "source_location": "Chapter 1 Tables 2–4 and North Germany availability text; Chapter 4 TEA summary; per-row section/table/page locations are retained.",
+  "geography": "Netherlands and Germany border region; individual records retain their specific region.",
+  "material_scope": "Regional roadside, nature/ditch and agricultural grass availability; compiled feed-quality comparison; theoretical gas potential and grass-plus-manure TEA comparator.",
+  "evidence_class": "B-tier directly reported project-report statements; underlying availability/quality sources, measurements and KTBL case details are incomplete.",
+  "quality_class": "B",
+  "license_or_rights": "No explicit reuse license identified on the cited source pages/PDF during retrieval. The source report is not redistributed; factual observations are attributed and remain subject to source-specific rights.",
+  "access_protocol": "HTTPS PDF hosted by the source institution/official report host.",
+  "data_structure": "Long-form UTF-8 CSV. Source-reported text, numeric values and range bounds are separate. Blank numeric fields indicate that a numeric value was not reported or not safely separable; they are not zero.",
+  "conversion_or_processing": "Table values and narrative figures transcribed as reported. No annualization, mass-balance closure, estimate correction, yield recomputation or GreenHub parameter mapping.",
+  "uncertainty": "Underlying years, source studies, region-allocation calculations, feedstock moisture bases, uncertainty, detailed KTBL assumptions, cost year and boundaries are mostly absent.",
+  "limitations": [
+    "Table 2 national and North Netherlands values are secondary estimates; the North values are translated by provincial area distribution and do not represent collected/delivered supply.",
+    "Table 3 does not identify source studies or analytical methods for each feedstock; the emission-factor boundary and method are unspecified.",
+    "Table 4's green-gas potential values do not reconcile with the adjacent stated 580 Nm3 CH4/t organic-DM factor. No upgrading recovery explanation is given; raw values remain separate and uncorrected.",
+    "The Idafehn scenario omits moisture basis, parcel eligibility and collection share; its 19,500 t/y figure cannot be reproduced from the stated area/yield/cut range without extra assumptions.",
+    "The KTBL Probiogas TEA summary lacks cost year, project life, financial assumptions, itemization and explicit profit definition; not comparable with GreenHub TEA outputs.",
+    "The repository record identifies rights as unknown/all rights reserved for some copies; no open reuse license was identified. The report PDF is not redistributed.",
+    "No values are activated in GreenHub defaults, process calculations, TEA/LCA factors or Pareto scenarios."
+  ],
+  "phase_coverage": {
+    "1": "Regional availability estimates and one planning scenario; not current accessible or delivered supply.",
+    "2": "No storage time-course or loss inventory.",
+    "3": "No GreenHub mechanical fractionation performance or stream balance.",
+    "4": "No protein extraction or precipitation data.",
+    "5": "Cross-feedstock biogas/methane comparator and theoretical regional potential; not GreenHub residual BMP or continuous digestion.",
+    "6": "No methane recovery, upgrading energy or impurity data.",
+    "7": "Table 3 includes unbounded emission-factor comparators only; no usable LCA method/factor, digestate or substitution data."
+  },
+  "runtime_policy": "reference_only; no parameter registry, default, process equation, TEA/LCA factor, scenario or Pareto mapping is created",
+  "calculation_connected": false,
+  "fair_metadata": {
+    "findable": "Repository-local URN, source ID, content hash and catalog-indexed path; no DOI is fabricated.",
+    "accessible": "Source URL is recorded using HTTPS; the source report itself is not copied into the repository.",
+    "interoperable": "UTF-8 long-form CSV with explicit source, phase, value, unit, basis, time context, source location and missingness fields.",
+    "reusable": "Citation, retrieval date, rights warning, evidence class, applicability, uncertainty, validation flags and limitations are recorded."
+  }
+}

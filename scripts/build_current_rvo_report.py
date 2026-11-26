@@ -10,6 +10,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from PIL import Image as PILImage
+from Greenhub.pareto_reporting import load_pareto_results
 from reportlab.lib import colors
 from reportlab.lib.enums import TA_CENTER, TA_LEFT
 from reportlab.lib.pagesizes import A4
@@ -73,7 +74,7 @@ def read_index() -> list[dict[str, str]]:
 
 
 def load_results() -> dict:
-    return json.loads((RESULTS / "latest.json").read_text(encoding="utf-8"))
+    return load_pareto_results(RESULTS)
 
 
 def candidate_switches(row: dict) -> str:
@@ -92,7 +93,10 @@ def candidate_switches(row: dict) -> str:
 def candidate_row(pack: dict, selected: dict) -> dict:
     row = next(r for r in pack["samples"] if r["sample_id"] == selected["sample_id"])
     values = selected["values"]
-    feed_t_y = float(row["configuration"]["simulation"]["wet_feed_rate_kg_hr"]) * 8760 / 1000
+    simulation = row["configuration"]["simulation"]
+    schedule = simulation.get("biomass_schedule") or {}
+    feed_t_y = float(schedule.get("annual_processed_biomass_tonnes")
+                      or simulation.get("wet_feed_rate_kg_hr") or 0) * (1 if schedule else 8760 / 1000)
     return {
         "rank": selected["rank"], "switches": candidate_switches(row),
         "route": "/".join(row["configuration"]["simulation"]["scenarios"][k] for k in (

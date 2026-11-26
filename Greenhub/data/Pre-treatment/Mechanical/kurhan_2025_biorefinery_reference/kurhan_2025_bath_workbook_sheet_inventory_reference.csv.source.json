@@ -1,0 +1,29 @@
+{
+  "source_file": "kurhan_2025_bath_workbook_sheet_inventory_reference.csv",
+  "source_id": "SRC-KURHAN-2025-BATH-01534",
+  "dataset_id": "urn:greenhub:source:kurhan-2025-bath-01534:sheet-inventory:v1",
+  "dataset_title": "Sheet-level inventory of four Kurhan et al. (2025) University of Bath source workbooks",
+  "source_dataset_path": "Greenhub/data/Pre-treatment/Mechanical/kurhan_2025_biorefinery_reference/kurhan_2025_bath_workbook_sheet_inventory_reference.csv",
+  "source_data_sha256": "df11027de16791e2d863db22fb63298baffbfca780b87f95761f2afe2a3cdda7",
+  "persistent_identifier": "10.15125/BATH-01534",
+  "source_url": "https://researchdata.bath.ac.uk/1534/",
+  "article_doi": "10.1098/rstb.2024.0161",
+  "retrieval_date": "2026-11-08",
+  "license_or_rights": "Inventory is a factual description generated from CC BY 4.0 source assets; source workbook attribution is required.",
+  "evidence_class": "source_asset_metadata_inventory; not experimental observations",
+  "quality_class": "B_source_metadata",
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "row_count": 10,
+  "source_workbooks": [
+    "Extruder_RSM_Figure_3.xlsx",
+    "Extrusion_Single_Factor_Figure_3.xlsx",
+    "Silage_Analysis_Table_1.xlsx",
+    "Amino_Acid_Comparative_Figure_2.xlsx"
+  ],
+  "generation_method": "Deterministic read-only inspection of source XLSX sheet dimensions, nonempty cells, formula cells, and cached formula values with openpyxl. No cell values were transcribed into this inventory.",
+  "known_limitations": [
+    "Inventory row counts describe workbook structure, not replicate counts or independent measurements.",
+    "See original CC BY 4.0 workbooks and associated article before scientific interpretation."
+  ]
+}

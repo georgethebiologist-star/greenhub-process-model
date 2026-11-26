@@ -1,0 +1,51 @@
+{
+  "dataset_title": "Site-level standing-biomass observations from ten Dutch roadside grasslands, 2023",
+  "dataset_identifier": "greenhub:feedstock:bakker-road-verge-biomass-2023:v1",
+  "source_file": "Biomass.csv",
+  "source_id": "SRC-BAKKER-AVSC-DATA-2025",
+  "source_title": "Grassland management in a changing climate: Insights from a Dutch road verge study — data and scripts",
+  "dataset_creators": ["Wiene Bakker", "Jeroen Scheper", "Wim Ozinga", "Philippine Vergeer"],
+  "related_article_doi": "10.1111/avsc.70085",
+  "dataset_doi": "10.5281/zenodo.15349657",
+  "concept_doi": "10.5281/zenodo.15349656",
+  "dataset_doi_candidates": [
+    {
+      "doi": "10.5281/zenodo.15349657",
+      "evidence": "Zenodo record metadata identifies this as the version DOI; the article's data-availability statement cites this identifier."
+    },
+    {
+      "doi": "10.5281/zenodo.15349656",
+      "evidence": "Zenodo record metadata identifies this as the concept DOI; the Wageningen University & Research portal's linked dataset entry cites this identifier."
+    }
+  ],
+  "doi_resolution_status": "resolved_by_zenodo_record_metadata; dataset_doi_is_version_doi; concept_doi_is_concept_doi",
+  "source_urls": [
+    "https://doi.org/10.5281/zenodo.15349657",
+    "https://doi.org/10.5281/zenodo.15349656",
+    "https://research.wur.nl/en/publications/grassland-management-in-a-changing-climate-insights-from-a-dutch-/"
+  ],
+  "retrieval_date": "2026-11-07",
+  "observation_year": 2023,
+  "dataset_record_date": "2025-05-06 per Wageningen research portal",
+  "rows": 120,
+  "schema": ["Roadverge", "Month", "Mow", "Soiltype", "Biomass", "Productivity"],
+  "encoding": "UTF-8",
+  "delimiter": ";",
+  "verbatim_source_asset": "road_verge_standing_biomass_bakker_2026_source/Biomass.csv",
+  "source_analysis_script_asset": "road_verge_standing_biomass_bakker_2026_source/Analysis.R",
+  "byte_fidelity_note": "This legacy root copy has LF line endings; the exact Zenodo file, including original CRLF line endings and matching MD5, is preserved at verbatim_source_asset. Parsed rows and values were checked equal.",
+  "measurement_basis": "Published 2023 roadside-plot standing biomass values in source units (g dry matter/m²); Productivity is a site-level standing-biomass productivity field. One blank Biomass measurement remains missing, not zero.",
+  "evidence_class": "A_measured_source_dataset",
+  "license": "Creative Commons Attribution 4.0 International (CC BY 4.0), as stated on Zenodo version record 15349657",
+  "license_status": "verified_from_zenodo_version_record_metadata",
+  "applicability": "Direct Dutch road-verge field observations for standing biomass and mowing-regime context. They are not harvested mass, annual regrowth, collection efficiency, contracted availability, or GreenHub process feed.",
+  "limitations": [
+    "The article's data-availability statement and WUR portal cite different DOI roles; Zenodo record metadata resolves 15349657 as the version DOI and 15349656 as the concept DOI.",
+    "The Zenodo record license applies to the deposited dataset, not necessarily to the related article or other repository copies.",
+    "Biomass values are standing biomass measurements, not measured mass captured by collection equipment or deliverable supply.",
+    "The authors' R analysis script is now preserved unchanged with the exact Zenodo CSV in the adjacent source package; the unit conversion it documents is dimensional only.",
+    "One missing Biomass value remains blank; the plot design and site sample are not a randomized estimate of regional Dutch supply."
+  ],
+  "activation_state": "staged_evidence",
+  "runtime_parameter_mapping": null
+}

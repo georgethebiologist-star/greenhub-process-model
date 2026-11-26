@@ -2,6 +2,9 @@
 
 Audit date: 2026-07-29
 
+> Historical restoration plan. Track current completion and remaining gates in the
+> [pre-release status](../PRE_RELEASE_STATUS.md) and [changelog](../../CHANGELOG.md).
+
 ## Priority 0: Data-Loss Or Broken-Integration Risks
 
 1. Obtain the pre-snapshot Git history or Phase 6-to-7 patch. Current Git cannot verify

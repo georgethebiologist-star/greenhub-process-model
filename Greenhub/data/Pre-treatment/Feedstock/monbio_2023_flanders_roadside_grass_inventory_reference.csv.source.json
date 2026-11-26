@@ -1,0 +1,28 @@
+{
+  "dataset_id": "urn:greenhub:dataset:monbio-2023-flanders-roadside-grass-reference:v1",
+  "dataset_title": "MONBIO 2.0 Flemish roadside grass area and annual dry-matter inventory (Table 27 extract)",
+  "source_dataset_path": "Greenhub/data/Pre-treatment/Feedstock/monbio_2023_flanders_roadside_grass_inventory_reference.csv",
+  "source_data_sha256": "16ee7afc2edc9c1c75d06a74b8daad7d570e66f9d3eb9c5bc5a7e69a6e3fe587",
+  "rows": 5,
+  "persistent_identifier": "",
+  "source_url": "https://ilvo.vlaanderen.be/uploads/images/MONBIO2.0_rapport_FINAAL_2023-10-26-093333_wndy.pdf",
+  "source_id": "SRC-MONBIO2-FLANDERS-ROADSIDECUTTINGS-2023",
+  "source_title": "Monitor van de Vlaamse bio-economie: update 2019-2020 (MONBIO 2.0), Eindrapport",
+  "publisher": "ILVO; VITO contributions",
+  "publication_year": 2023,
+  "source_location": "Table 27, printed p. 91 / PDF p. 92; discussion printed pp. 89-90",
+  "retrieval_date": "2026-11-08",
+  "geography": "Flanders, Belgium",
+  "material_scope": "Reported roadside-grass inventory only; excludes the table's nature-grass and other-grass subtotals.",
+  "data_type": "reported regional area and annual dry-matter estimates; mixed underlying source years and estimation methods",
+  "license_or_rights": "No explicit open reuse license identified in the report or hosting page. Only a short, factual table extract is stored with attribution; do not redistribute the source PDF.",
+  "evidence_class": "C_official_secondary_inventory_mixed_measurement_extrapolation_estimate",
+  "activation_state": "reference_only",
+  "readiness": "D3",
+  "conversion_policy": "No conversions or recalculation. Reported areas and dry-matter tonnes are preserved as printed. The total row area is intentionally blank because Table 27 does not print a roadside-area subtotal.",
+  "limitations": [
+    "Historical Flemish regional inventory, not a GreenHub contracted catchment. The table combines different source years and methods (including wet-to-DM conversion, extrapolation, and a modeled railway estimate); its total is not a single-year measured delivery total. Area is not necessarily accessible or harvestable. No wet-mass basis, moisture by cut, parcel-level geometry, monthly supply, collection losses, or current contract records are reported. Reference-only; do not map to a Dutch default, seasonal schedule, or runtime parameter.",
+    "Underlying cited source years are 2008 or 2010, except the Infrabel modeled estimate. Report publication year 2023 is not the observation year."
+  ],
+  "citation": "Van Kerckhove et al. (2023). Monitor van de Vlaamse bio-economie: update 2019-2020 (MONBIO 2.0), Eindrapport. Table 27. https://ilvo.vlaanderen.be/uploads/images/MONBIO2.0_rapport_FINAAL_2023-10-26-093333_wndy.pdf"
+}

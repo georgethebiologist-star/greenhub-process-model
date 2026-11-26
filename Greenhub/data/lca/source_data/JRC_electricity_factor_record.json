@@ -9,8 +9,8 @@
   "retrieval_date": "2026-11-05",
   "source_url": "https://jeodpp.jrc.ec.europa.eu/ftp/public/JRC-OpenData/CoM/EmissionsFactorElectricity/CoM-Emission-factors-for-national-electricity-2024.xlsx",
   "source_file": "JRC_electricity_emission_factors_2024.xlsx",
-  "source_table_page": "Table3_EU_LC; Netherlands row; 2021 column",
-  "raw_value": 0.406463,
+  "source_table_page": "Table3_EU_LC!AH21; Netherlands row (NL); 2021 column",
+  "raw_value": 0.406463499759293,
   "raw_unit": "t CO2e/MWh",
   "model_value": 0.406463,
   "model_unit": "kg CO2e/kWh",
@@ -25,5 +25,5 @@
   "access_conditions": "Public and anonymous download; no registration required.",
   "method_publication": "Bastos, J., Monforti-Ferrario, F. and Melica, G. (2024), JRC136340.",
   "source_citation": "Bastos, Joana; Monforti-Ferrario, Fabio; Melica, Giulia (2026): GHG Emission Factors for Electricity Consumption. European Commission, Joint Research Centre [Dataset]. DOI 10.2905/JRC.4800KC0.",
-  "provenance_note": "The dataset landing page was retrieved and the XLSX table cell independently read; no interpolation or time extrapolation was applied."
+  "provenance_note": "The dataset landing page was retrieved and the XLSX Table3_EU_LC Netherlands row, 2021 column cell independently read as 0.406463499759293. The calculation registry stores this as 0.406463 kg CO2e/kWh at six decimal places; no interpolation or time extrapolation was applied."
 }

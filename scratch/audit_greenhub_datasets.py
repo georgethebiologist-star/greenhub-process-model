@@ -4,6 +4,7 @@ import csv
 import json
 import math
 import re
+from datetime import datetime, timezone
 from collections import Counter, defaultdict
 from dataclasses import dataclass
 from pathlib import Path
@@ -20,6 +21,8 @@ TARGET_TOP_LEVELS = {
     "Protein recovery",
     "Bigas production + upgrade",
     "Resource recovery",
+    "storage",
+    "lca",
 }
 
 STATUS_MAP = {
@@ -56,6 +59,20 @@ STATUS_ORDER = {
 
 NUMERIC_CANDIDATE_COLUMNS = (
     "value",
+    "numeric_value",
+    "value_numeric",
+    "reported_value",
+    "reported_uncertainty",
+    "reported_mean",
+    "reported_sd",
+    "annual_dry_matter_tonnes",
+    "annual_fresh_matter_tonnes",
+    "managed_area_ha",
+    "reported_dm_yield_tonnes_per_ha",
+    "lower_value",
+    "upper_value",
+    "lower_bound",
+    "upper_bound",
     "normalized_si_value",
     "numerical_value",
     "required_value",
@@ -93,7 +110,9 @@ ID_COLUMNS = (
     "missing_id",
 )
 
-ROW_IDENTIFIER_COLUMNS = ID_COLUMNS + (
+ROW_IDENTIFIER_COLUMNS = (
+    "candidate_id",
+    *ID_COLUMNS,
     "source_id",
     "dataset_id",
 )
@@ -109,11 +128,13 @@ SOURCE_COLUMNS = (
 
 LOCATION_COLUMNS = (
     "exact_location",
+    "exact_source_location",
     "source_location",
 )
 
 UNIT_COLUMNS = (
     "unit",
+    "unit_as_reported",
     "normalized_si_unit",
     "capacity_unit",
     "input_capacity_unit",
@@ -151,9 +172,18 @@ def is_number(value: str | None) -> bool:
     text = str(value).strip()
     if not text:
         return False
+    # Preserve qualifiers in the source field while recognizing source-reported
+    # estimates, inequalities, and numeric ranges as quantified observations.
+    text = re.sub(r"^(?:approximately|approx\.?|about|circa|ca\.?|~|<=|>=|≤|≥|<|>)\s*", "", text, flags=re.IGNORECASE)
+    text = re.sub(r"\s*%\s*$", "", text)
+    if re.fullmatch(r"[+-]?\d{1,3}(?:,\d{3})+(?:\.\d+)?", text):
+        text = text.replace(",", "")
     try:
         number = float(text)
     except ValueError:
+        number_pattern = r"[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?"
+        if re.fullmatch(rf"\s*{number_pattern}\s*(?:–|—|−|\bto\b)\s*{number_pattern}\s*", text, re.IGNORECASE):
+            return True
         return False
     return not math.isnan(number)
 
@@ -176,12 +206,21 @@ def row_identifier(row: dict[str, str], fallback: str) -> str:
     return fallback
 
 
+def identifier_columns_for_dataset(headers: Iterable[str]) -> tuple[str, ...]:
+    """Use a candidate's canonical key instead of non-unique scenario labels."""
+
+    available = {clean(header) for header in headers}
+    if "candidate_id" in available:
+        return ("candidate_id",)
+    return ID_COLUMNS
+
+
 def source_location_present(row: dict[str, str]) -> bool:
     if any(clean(row.get(column)) for column in LOCATION_COLUMNS):
         return True
     for key, value in row.items():
         key_l = key.lower()
-        if "page" in key_l or "table" in key_l or "section" in key_l:
+        if any(token in key_l for token in ("page", "table", "section", "legal_location", "regulatory_location", "annex", "article_number")):
             if clean(value):
                 return True
     return False
@@ -205,6 +244,11 @@ def extract_symbols(symbol_field: str) -> set[str]:
         elif re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", chunk):
             symbols.add(chunk)
     return symbols
+
+
+def normalized_symbol(value: str) -> str:
+    value = re.sub(r"_(?:mol_percent|percent|bar|kelvin|k)$", "", value.strip().lower())
+    return re.sub(r"[^a-z0-9]", "", value)
 
 
 def extract_python_variables(expression: str) -> set[str]:
@@ -271,10 +315,82 @@ def collect_csv_files() -> list[Path]:
 
 
 def read_csv(path: Path) -> tuple[list[str], list[dict[str, str]]]:
-    with path.open("r", encoding="utf-8-sig", newline="") as handle:
-        reader = csv.DictReader(handle)
-        rows = [{key: clean(value) for key, value in row.items()} for row in reader]
+    encoding = "utf-8-sig"
+    sidecar = path.with_suffix(path.suffix + ".source.json")
+    if sidecar.is_file():
+        metadata = json.loads(sidecar.read_text(encoding="utf-8-sig"))
+        declared_encoding = str(metadata.get("encoding") or "").strip().lower().replace("_", "-")
+        if declared_encoding.startswith("windows-1252") or declared_encoding.startswith("cp1252"):
+            encoding = "cp1252"
+    with path.open("r", encoding=encoding, newline="") as handle:
+        sample = handle.read(8192)
+        handle.seek(0)
+        try:
+            dialect = csv.Sniffer().sniff(sample, delimiters=",;\t")
+        except csv.Error:
+            dialect = csv.excel
+        reader = csv.DictReader(handle, dialect=dialect)
+        rows: list[dict[str, str]] = []
+        for row in reader:
+            missing_columns = [
+                str(key) for key, value in row.items()
+                if key is not None and value is None
+            ]
+            extra_values = row.pop(None, None)
+            normalized = {
+                str(key): clean(value)
+                for key, value in row.items()
+                if key is not None
+            }
+            shape_issues = []
+            if missing_columns:
+                shape_issues.append("missing values for columns: " + ", ".join(missing_columns))
+            if extra_values:
+                shape_issues.append(
+                    "extra unquoted fields: " + json.dumps(extra_values, ensure_ascii=False)
+                )
+            if shape_issues:
+                normalized["__csv_row_shape_issues__"] = "; ".join(shape_issues)
+            rows.append(normalized)
         return list(reader.fieldnames or []), rows
+
+
+def source_sidecar_for(path: Path) -> Path | None:
+    adjacent = path.with_suffix(path.suffix + ".source.json")
+    if adjacent.is_file():
+        return adjacent
+
+    package_sidecar = path.parent / "dataset.source.json"
+    if not package_sidecar.is_file():
+        return None
+    metadata = json.loads(package_sidecar.read_text(encoding="utf-8-sig"))
+    declared_files = set(metadata.get("source_file_md5", {})) | set(metadata.get("file_bytes", {}))
+    return package_sidecar if path.name in declared_files else None
+
+
+def source_ids_from(values: Iterable[object]) -> set[str]:
+    identifiers: set[str] = set()
+    for value in values:
+        if isinstance(value, (list, tuple, set)):
+            identifiers.update(source_ids_from(value))
+        else:
+            identifiers.update(
+                part.strip()
+                for part in re.split(r"[;,]", clean(value))
+                if part.strip()
+            )
+    return identifiers
+
+
+def doi_tokens_from(values: Iterable[object]) -> set[str]:
+    tokens: set[str] = set()
+    for value in values:
+        if isinstance(value, (list, tuple, set)):
+            tokens.update(doi_tokens_from(value))
+        else:
+            for token in re.findall(r"10\.\d{4,9}/[^\s,;]+", clean(value).lower()):
+                tokens.add(token.rstrip(".,;:)]}"))
+    return tokens
 
 
 def write_csv(path: Path, fieldnames: list[str], rows: Iterable[dict[str, object]]) -> None:
@@ -291,6 +407,7 @@ def main() -> None:
     csv_files = collect_csv_files()
 
     source_register_entries: list[dict[str, object]] = []
+    seen_source_register_entries: set[tuple[str, ...]] = set()
     variable_rows: list[dict[str, object]] = []
     unit_rows: list[dict[str, object]] = []
     equation_rows: list[dict[str, object]] = []
@@ -300,6 +417,33 @@ def main() -> None:
     validation_issues: list[dict[str, object]] = []
     dataset_summaries: list[DatasetSummary] = []
     file_lookup = {path.relative_to(DATA_ROOT).as_posix().lower(): path for path in csv_files}
+
+    source_records_by_directory: dict[tuple[str, str], list[dict[str, str]]] = defaultdict(list)
+    source_records_by_id: dict[str, list[dict[str, str]]] = defaultdict(list)
+    source_records_by_doi: dict[str, list[dict[str, str]]] = defaultdict(list)
+    for register_path in csv_files:
+        if register_path.name.lower() != "source_register.csv":
+            continue
+        register_rel = register_path.relative_to(DATA_ROOT)
+        _, register_rows = read_csv(register_path)
+        for source_row in register_rows:
+            source_id = clean(source_row.get("source_id"))
+            source_record = {
+                "source_id": source_id,
+                "source_title": clean(source_row.get("source_title") or source_row.get("title")),
+                "authors": clean(source_row.get("authors") or source_row.get("authors_or_organization")),
+                "year": clean(source_row.get("year")),
+                "doi_or_stable_id": clean(source_row.get("doi_or_stable_id") or source_row.get("doi_or_stable_identifier") or source_row.get("doi")),
+                "url": clean(source_row.get("url") or source_row.get("source_url")),
+                "source_type": clean(source_row.get("source_type")),
+                "notes": clean(source_row.get("notes") or source_row.get("quality_notes") or source_row.get("quality_and_transferability")),
+            }
+            directory = register_rel.parent.as_posix().lower()
+            source_records_by_directory[(directory, source_id)].append(source_record)
+            if source_id:
+                source_records_by_id[source_id].append(source_record)
+            for doi in doi_tokens_from((source_record["doi_or_stable_id"], source_record["url"])):
+                source_records_by_doi[doi].append(source_record)
 
     cost_entries_by_key: dict[tuple[str, str, str], list[tuple[Path, str, str]]] = defaultdict(list)
 
@@ -327,14 +471,27 @@ def main() -> None:
         basis_sets: dict[str, set[str]] = defaultdict(set)
         local_variables: set[str] = set()
         local_source_ids: set[str] = set()
+        unresolved_unit_rows: list[str] = []
 
         for index, row in enumerate(rows, start=2):
             rid = row_identifier(row, f"{rel.as_posix()}:{index}")
-            for id_column in ID_COLUMNS:
+            row_shape_issue = clean(row.get("__csv_row_shape_issues__"))
+            if row_shape_issue:
+                validation_issues.append(
+                    {
+                        "issue_type": "malformed_csv_row_width",
+                        "dataset_path": rel.as_posix(),
+                        "row_id": rid,
+                        "python_variable": "",
+                        "details": row_shape_issue,
+                        "severity": "high",
+                    }
+                )
+            for id_column in identifier_columns_for_dataset(headers):
                 value = clean(row.get(id_column))
                 if value:
                     id_counter[value] += 1
-            row_counter[tuple(sorted(row.items()))] += 1
+            row_counter[tuple(sorted(row.items(), key=lambda item: str(item[0])))] += 1
 
             if clean(row.get("source_id")):
                 local_source_ids.add(clean(row["source_id"]))
@@ -359,6 +516,8 @@ def main() -> None:
                             "status_standardized": canonicalize_status(status),
                         }
                     )
+                if unit_column == "unit" and re.search(r"unresolved|ambiguous|unknown", unit_value, re.IGNORECASE):
+                    unresolved_unit_rows.append(rid)
 
             if python_variable and clean(row.get("unit")):
                 unit_sets[python_variable].add(clean(row.get("unit")))
@@ -450,8 +609,18 @@ def main() -> None:
                 )
                 expression = clean(row.get("python_expression"))
                 symbols = extract_symbols(symbol_field)
+                symbols.update(re.findall(r"\b[A-Z][A-Z0-9_]*\b", symbol_field))
+                dependent_variable = clean(row.get("dependent_variable"))
+                if dependent_variable:
+                    symbols.add(dependent_variable)
+                normalized_symbols = {normalized_symbol(symbol) for symbol in symbols}
                 expression_vars = extract_python_variables(expression)
-                undefined = sorted(expression_vars - symbols - local_variables)
+                undefined = sorted(
+                    variable
+                    for variable in expression_vars
+                    if normalized_symbol(variable) not in normalized_symbols
+                    and variable not in local_variables
+                )
                 if undefined:
                     equation_symbol_mismatches += 1
                     validation_issues.append(
@@ -465,11 +634,29 @@ def main() -> None:
                         }
                     )
 
+                numeric_constants = {
+                    normalized_symbol(name)
+                    for name in re.findall(
+                        r"\b([A-Za-z_][A-Za-z0-9_]*)\s*=\s*[-+]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[-+]?\d+)?",
+                        symbol_field,
+                        re.IGNORECASE,
+                    )
+                }
+                dependent_key = normalized_symbol(dependent_variable)
                 missing_inputs = sorted(
                     variable
                     for variable in expression_vars
-                    if variable not in local_variables and variable not in symbols
+                    if variable not in local_variables
+                    and normalized_symbol(variable) not in numeric_constants
+                    and normalized_symbol(variable) != dependent_key
                 )
+                regulatory_context = " ".join(
+                    clean(row.get(column))
+                    for column in ("applicability", "limitations", "exact_source_equation")
+                ).lower()
+                if "connection" in regulatory_context and "exception" in regulatory_context:
+                    missing_inputs.append("connection category / applicable exception")
+                    missing_inputs = sorted(set(missing_inputs))
                 if missing_inputs:
                     equation_missing_inputs += 1
                     validation_issues.append(
@@ -502,8 +689,8 @@ def main() -> None:
 
             source_register_like = rel.name.lower() == "source_register.csv"
             if source_register_like:
-                source_register_entries.extend(
-                    {
+                for row in rows:
+                    source_entry = {
                         "dataset_path": rel.as_posix(),
                         "dataset_group": subgroup,
                         "source_id": clean(row.get("source_id")),
@@ -515,8 +702,13 @@ def main() -> None:
                         "source_type": clean(row.get("source_type")),
                         "notes": clean(row.get("notes") or row.get("quality_notes") or row.get("quality_and_transferability")),
                     }
-                    for row in rows
-                )
+                    # Some data registers repeat the full source metadata on every
+                    # observation row. Keep one global source record per distinct
+                    # metadata tuple while retaining genuinely different records.
+                    source_key = tuple(str(source_entry[column]) for column in source_entry)
+                    if source_key not in seen_source_register_entries:
+                        seen_source_register_entries.add(source_key)
+                        source_register_entries.append(source_entry)
 
             if "missing_id" in row or "register_id" in row:
                 missing_rows.append(
@@ -604,10 +796,73 @@ def main() -> None:
         else:
             readiness = "D3"
 
+        if unresolved_unit_rows:
+            notes.append(
+                "Source-reported unit interpretation is unresolved for "
+                f"{len(unresolved_unit_rows)} row(s); preserve the reported text and do not normalize."
+            )
+
         if rel.name.lower().endswith("equation_registry.csv") or "equation" in rel.name.lower():
             if equation_missing_inputs or equation_symbol_mismatches:
                 if readiness != "D1":
                     readiness = "D2"
+
+        if rel.name.lower() != "source_register.csv":
+            dataset_source_ids = set(local_source_ids)
+            dataset_dois = doi_tokens_from(
+                value
+                for row in rows
+                for key, value in row.items()
+                if key and "doi" in key.lower()
+            )
+            sidecar_path = source_sidecar_for(path)
+            if sidecar_path is not None:
+                sidecar = json.loads(sidecar_path.read_text(encoding="utf-8-sig"))
+                dataset_source_ids.update(
+                    source_ids_from(
+                        value
+                        for key, value in sidecar.items()
+                        if key.lower() in {"source_id", "source_ids", "source_record_id", "source_record_ids"}
+                    )
+                )
+                dataset_dois.update(
+                    doi_tokens_from(value for key, value in sidecar.items() if "doi" in key.lower())
+                )
+
+            linked_records: list[dict[str, str]] = []
+            for source_id in sorted(dataset_source_ids):
+                directory = rel.parent.as_posix().lower()
+                candidates: list[dict[str, str]] = []
+                while True:
+                    candidates = source_records_by_directory.get((directory, source_id), [])
+                    if candidates or directory in {".", ""}:
+                        break
+                    parent = Path(directory).parent.as_posix().lower()
+                    if parent == directory:
+                        break
+                    directory = parent
+                if not candidates:
+                    candidates = source_records_by_id.get(source_id, [])
+                    if len({tuple(sorted(item.items())) for item in candidates}) != 1:
+                        candidates = []
+                linked_records.extend(candidates)
+
+            for doi in sorted(dataset_dois):
+                candidates = source_records_by_doi.get(doi, [])
+                if len({tuple(sorted(item.items())) for item in candidates}) == 1:
+                    linked_records.extend(candidates)
+
+            unique_linked_records = {tuple(sorted(item.items())): item for item in linked_records}
+            for record in unique_linked_records.values():
+                source_entry = {
+                    "dataset_path": rel.as_posix(),
+                    "dataset_group": subgroup,
+                    **record,
+                }
+                source_key = tuple(str(source_entry[column]) for column in source_entry)
+                if source_key not in seen_source_register_entries:
+                    seen_source_register_entries.add(source_key)
+                    source_register_entries.append(source_entry)
 
         standardized_statuses = "; ".join(sorted(statuses))
         dataset_summaries.append(
@@ -660,6 +915,69 @@ def main() -> None:
                     }
                 )
 
+    # Preserve explicit provenance for non-CSV source assets (for example an
+    # author-supplied R Markdown file) without treating them as tabular datasets.
+    non_csv_asset_metadata: dict[Path, dict[str, object]] = {}
+    for sidecar_path in DATA_ROOT.rglob("*.source.json"):
+        asset_path = Path(str(sidecar_path)[: -len(".source.json")])
+        if not asset_path.is_file() or asset_path.suffix.lower() == ".csv":
+            continue
+        rel = asset_path.relative_to(DATA_ROOT)
+        if not rel.parts or rel.parts[0] not in TARGET_TOP_LEVELS or rel.parts[0] == "global_audit_package":
+            continue
+        non_csv_asset_metadata[rel] = json.loads(sidecar_path.read_text(encoding="utf-8-sig"))
+
+    for package_sidecar in DATA_ROOT.rglob("dataset.source.json"):
+        package_root = package_sidecar.parent
+        rel_root = package_root.relative_to(DATA_ROOT)
+        if not rel_root.parts or rel_root.parts[0] not in TARGET_TOP_LEVELS or rel_root.parts[0] == "global_audit_package":
+            continue
+        metadata = json.loads(package_sidecar.read_text(encoding="utf-8-sig"))
+        packaged_names = set(metadata.get("source_file_md5", {})) | set(metadata.get("file_bytes", {}))
+        for filename in packaged_names:
+            asset_path = package_root / filename
+            if not asset_path.is_file() or asset_path.suffix.lower() == ".csv":
+                continue
+            non_csv_asset_metadata[asset_path.relative_to(DATA_ROOT)] = metadata
+
+    for rel, sidecar in sorted(non_csv_asset_metadata.items()):
+        asset_source_ids = source_ids_from(
+            value
+            for key, value in sidecar.items()
+            if key.lower() in {"source_id", "source_ids", "source_record_id", "source_record_ids"}
+        )
+        asset_dois = doi_tokens_from(value for key, value in sidecar.items() if "doi" in key.lower())
+        linked_records: list[dict[str, str]] = []
+        for source_id in sorted(asset_source_ids):
+            directory = rel.parent.as_posix().lower()
+            candidates: list[dict[str, str]] = []
+            while True:
+                candidates = source_records_by_directory.get((directory, source_id), [])
+                if candidates or directory in {".", ""}:
+                    break
+                parent = Path(directory).parent.as_posix().lower()
+                if parent == directory:
+                    break
+                directory = parent
+            if not candidates:
+                candidates = source_records_by_id.get(source_id, [])
+                if len({tuple(sorted(item.items())) for item in candidates}) != 1:
+                    candidates = []
+            linked_records.extend(candidates)
+        for doi in sorted(asset_dois):
+            candidates = source_records_by_doi.get(doi, [])
+            if len({tuple(sorted(item.items())) for item in candidates}) == 1:
+                linked_records.extend(candidates)
+        _, subgroup = extract_dataset_group(rel)
+        unique_linked_records = {tuple(sorted(item.items())): item for item in linked_records}
+        for record in unique_linked_records.values():
+            source_entry = {"dataset_path": rel.as_posix(), "dataset_group": subgroup, **record}
+            source_key = tuple(str(source_entry[column]) for column in source_entry)
+            if source_key not in seen_source_register_entries:
+                seen_source_register_entries.add(source_key)
+                source_register_entries.append(source_entry)
+
+    non_csv_readiness_rows: list[dict[str, object]] = []
     manifest_rows = [
         {
             "dataset_path": summary.path.as_posix(),
@@ -675,6 +993,42 @@ def main() -> None:
         }
         for summary in dataset_summaries
     ]
+    non_csv_source_assets = set(non_csv_asset_metadata)
+    for rel in sorted(non_csv_source_assets):
+        category, subgroup = extract_dataset_group(rel)
+        manifest_rows.append(
+            {
+                "dataset_path": rel.as_posix(),
+                "category": category,
+                "subgroup": subgroup,
+                "filename": rel.name,
+                "row_count_observed": 0,
+                "header_count": 0,
+                "headers": "",
+                "standardized_status_values": "source-linked non-tabular asset",
+                "detected_readiness": "D3",
+                "notes": "Non-CSV source asset with explicit sidecar provenance; table-level audit is not applicable and no runtime activation is implied.",
+            }
+        )
+        non_csv_readiness_rows.append(
+            {
+                "dataset_path": rel.as_posix(),
+                "category": category,
+                "subgroup": subgroup,
+                "readiness": "D3",
+                "duplicate_ids": 0,
+                "duplicate_rows": 0,
+                "numeric_rows": 0,
+                "unsourced_numeric_rows": 0,
+                "numeric_rows_missing_exact_location": 0,
+                "unit_conflicts": 0,
+                "basis_conflicts": 0,
+                "cross_reference_issues": 0,
+                "equation_missing_inputs": 0,
+                "equation_symbol_mismatches": 0,
+                "notes": "Non-CSV source asset; explicit source metadata is linked, but no table audit or calculation activation is implied.",
+            }
+        )
 
     readiness_rows = [
         {
@@ -696,6 +1050,7 @@ def main() -> None:
         }
         for summary in dataset_summaries
     ]
+    readiness_rows.extend(non_csv_readiness_rows)
 
     variable_dictionary_rows = []
     seen_variable_keys = set()
@@ -851,8 +1206,10 @@ def main() -> None:
     )
 
     summary = {
-        "generated_at": "2026-07-29",
-        "dataset_count": len(dataset_summaries),
+        "generated_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
+        "dataset_count": len(manifest_rows),
+        "csv_dataset_count": len(dataset_summaries),
+        "non_csv_source_asset_count": len(non_csv_source_assets),
         "issue_count": len(validation_issues),
         "issue_counts_by_type": dict(Counter(issue["issue_type"] for issue in validation_issues)),
         "readiness_counts": dict(Counter(row["readiness"] for row in readiness_rows)),
@@ -865,6 +1222,8 @@ def main() -> None:
         "# GreenHub Literature Dataset Audit",
         "",
         f"- Audited CSV datasets: {len(dataset_summaries)}",
+        f"- Explicitly linked non-CSV source assets: {len(non_csv_source_assets)}",
+        f"- Total manifest assets: {len(manifest_rows)}",
         f"- Total flagged issues: {len(validation_issues)}",
         f"- Readiness counts: {summary['readiness_counts']}",
         f"- Issue counts by type: {summary['issue_counts_by_type']}",

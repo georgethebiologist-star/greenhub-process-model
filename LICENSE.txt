@@ -1,3 +1,7 @@
+THIRD-PARTY NOTICES ONLY — NOT A GREENHUB PROJECT LICENSE
+
+The license texts below are retained from the upstream BioSTEAM project as third-party notices. They do not grant a license to GreenHub-specific Python code, frontend code, datasets, or brand assets. GreenHub's code ownership and project license have not been established. See docs/THIRD_PARTY_NOTICES.md. Preserve the applicable upstream notice when redistributing the components it covers.
+
 ===================================================================================================
 The BioSTEAM project is under the University of Illinois/NCSA Open Source License
 ===================================================================================================

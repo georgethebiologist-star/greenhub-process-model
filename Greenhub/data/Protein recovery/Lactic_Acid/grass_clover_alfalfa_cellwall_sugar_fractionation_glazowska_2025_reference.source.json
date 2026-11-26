@@ -1,0 +1,46 @@
+{
+  "source_id": "SRC-GLAZOWSKA-2025-CELLWALL",
+  "dataset_title": "Cell-wall monosaccharide composition across alfalfa and grass-clover biorefinery fractions",
+  "dataset_doi": "10.1007/s13399-023-05125-5",
+  "source_url": "https://doi.org/10.1007/s13399-023-05125-5",
+  "full_text_url": "https://orbit.dtu.dk/files/389605334/s13399-023-05125-5_1_.pdf",
+  "authors": [
+    "Sylwia Głazowska",
+    "Emil Gundersen",
+    "Stefan Heiske",
+    "Mette Lübeck",
+    "Jozef Mravec",
+    "Bodil Jørgensen"
+  ],
+  "publication_year": 2025,
+  "doi_first_published_online": 2023,
+  "journal": "Biomass Conversion and Biorefinery 15, 2983–2995",
+  "retrieval_date": "2026-11-08",
+  "license": "CC BY 4.0 stated in article",
+  "source_file": "grass_clover_alfalfa_cellwall_sugar_fractionation_glazowska_2025_reference.csv",
+  "source_file_sha256": "8eccf78be9964f17ed6b2575b148593f4266c6a78dc8a5032b0761ccc4c68b8b",
+  "row_count": 132,
+  "source_location": "Table 2, p. 2991; methods §§2.1–2.5, pp. 2985–2987",
+  "geography": "Denmark",
+  "feedstocks": {
+    "alfalfa": "Organic Medicago sativa harvested in September 2019 at Aarhus University Foulum.",
+    "grass_clover": "Organically grown ForageMax45 harvested August 2019 near Skive; reported species ratio 40:42:9:9 for perennial ryegrass, hybrid ryegrass/festulolium, white clover, red clover."
+  },
+  "process_context": "Alfalfa was shredded to about 5 cm and processed in a Vincent CP4 single-screw press, filtered at 150 µm, fermented overnight at 38 °C with Lactobacillus salivarius BC1001, acidified to about pH 4.2, and dewatered in a horizontal decanter. Grass-clover was chopped to 1–3 cm, fractionated in a Cir-tech EFB 25 twin-screw press with 250/100 µm sieves and fiber recirculation, then fermented and dewatered in a decanter at 12 L/min. Table 2 reports AIR monosaccharides across FM, PC, GJ, FF, BJ, and LPC.",
+  "analytical_method": "TFA hydrolysis of AIR followed by HPLC-RI for neutral sugars and uronic acids.",
+  "source_unit_conflict": "The Table 2 footnote says measurements are µg mg−1 AIR, while its Total column is µg, the method uses 10 mg AIR, and Total (%) does not reconcile with the footnote unit. Source values are transcribed literally; no unit conversion or inferred correction is applied.",
+  "reported_unit_policy": "Transcribe Table 2 values literally. Analyte values use the footnote wording; total and percent use their own column headings. Do not normalize, convert, or derive wet-stream concentrations until the authors resolve the unit conflict.",
+  "uncertainty": "Table 2 does not print SD/SE or an HPLC replicate count; do not treat CoMPP technical replicate counts as Table 2 replicate counts.",
+  "evidence_class": "B_measured_primary_literature",
+  "quality_class": "B",
+  "activation_state": "reference_only",
+  "transferability": "Danish cultivated alfalfa or a cultivated grass-clover mixture; comparator for Phase 3–5 stream composition only. Not roadside/VARTA grass, not a component mass balance, and not a GreenHub runtime input.",
+  "limitations": [
+    "Cultivated Danish feedstocks, not roadside or VARTA grass.",
+    "AIR-normalized sugar measurements are not flow-weighted component mass balances or wet-feed concentrations.",
+    "The article's Table 2 unit note conflicts with its total columns and total percentages; no correction is assumed.",
+    "No table-level uncertainty or process-batch replication is given for the Table 2 HPLC values.",
+    "The data are not connected to runtime parameters, defaults, TEA/LCA, or Pareto outputs."
+  ],
+  "rights_note": "The article states CC BY 4.0; cite the article and identify this as a transcription with a source-unit caveat."
+}

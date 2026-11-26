@@ -2,7 +2,7 @@
 
 ## Scope
 
-The dataset contains **94 source-backed records** covering direct grass and grass-clover evidence, legume proxies, and explicitly low-transferability wet-fibrous proxies.
+The dataset contains **106 source-backed records** covering direct grass and grass-clover evidence, legume proxies, and explicitly low-transferability wet-fibrous proxies.
 
 ## Direct grass data
 
@@ -13,6 +13,23 @@ The strongest records are:
 - clover-grass product mass fractions of 39.5% cake, 56.8% brown juice and 3.7% protein concentrate;
 - PEF-associated relative increases of around 25% in juice yield and 31% in crude-protein yield;
 - festulolium and ryegrass integrated-process energy values, clearly marked as not press-only.
+- a separate 2026 Tuv pilot-derived fractionation benchmark with feed and product streams on fresh- and dry-matter bases (Table 2, DOI `10.1038/s44264-026-00189-y`). It is report-only and grass-clover-specific, not a roadside-grass default.
+
+### Tuv whole-pathway mass-balance benchmark
+
+Rows M095–M106 transcribe the published table's 5,263 kg fresh / 1,000 kg DM
+feed basis and the pulp, green-juice intermediate, protein-concentrate,
+brown-juice, and unrecovered-mass entries. For a final-output closure check,
+sum pulp + protein concentrate + brown juice + unrecovered loss; the fresh-mass
+sum is 5,264 kg per 1,000 kg DM feed versus the reported 5,263 kg input (1 kg
+rounding difference), and the dry-matter sum is 1,000 kg. Green juice (2,311 kg
+fresh, 208 kg DM) is an intermediate entering protein recovery; adding it to
+the final streams double-counts mass and is expressly prohibited. The article
+states the mass balance derives from Tuv pilot trials; it does not provide
+roadside-grass-specific conditions or uncertainty for these rounded entries.
+Use this only for whole-pathway plausibility and intermediate/final-stream
+accounting checks; do not transfer the split directly into active Phase 3 or
+Phase 4 parameters.
 
 ## Alfalfa, lucerne and clover proxies
 
@@ -72,3 +89,9 @@ No sufficiently transferable paired source was found for:
 - multi-pass ryegrass mass balances.
 
 These fields should remain inactive until full pilot data or a targeted laboratory campaign is available.
+
+## 9. Pilot-scale perennial ryegrass screw-press stream properties
+
+Sandoval et al. (2026), DOI `10.1038/s41538-026-00831-6`, reports a June 2023 pilot campaign in Aberystwyth using a Vincent CP-10 screw press. From 1.5 t fresh perennial ryegrass, 610 L raw grass juice was collected; raw juice had pH 6.00, 5.13% dry matter, and 16.0 ± 0.7% crude protein on a dry-matter basis. These observations are M123–M126 in the mechanical evidence file.
+
+This is a direct-ryegrass, pilot-scale stream-quality benchmark, but **not a closed press balance**: the paper does not report juice density, press-cake mass, feed composition, or unrecovered mass. Keep the volume/feed ratio as L per 1,500 kg fresh feed; do not convert it to mass yield or use it to close the press balance. Juice pH is not a precipitation setpoint, and total crude protein is not soluble-protein recovery. The DOI and source context are recorded in `prg_screw_press_pilot_benchmark.source.json`. The benchmark remains report-only and does not change route defaults.

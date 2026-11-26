@@ -1,0 +1,26 @@
+{
+  "source_id": "RAVINDRAN2022",
+  "title": "Biogas, Biomethane and Digestate Potential of By-Products from Green Biorefinery Systems",
+  "authors": ["Rajeev Ravindran", "Kwame Donkor", "Lalitha Gottumukkala", "Abhay Menon", "Amita Jacob Guneratnam", "Helena McMahon", "Sybrandus Koopmans", "Johan P. M. Sanders", "James Gaffey"],
+  "publication_year": 2022,
+  "doi": "10.3390/cleantechnol4010003",
+  "url": "https://doi.org/10.3390/cleantechnol4010003",
+  "full_text": "https://edepot.wur.nl/570594",
+  "source_type": "peer-reviewed primary experimental study",
+  "geography": "West Cork, Ireland; green-biorefinery co-products from cultivated perennial ryegrass",
+  "materials": ["grass press-cake digestate", "grass-whey digestate", "de-FOS-whey digestate"],
+  "license": "CC BY 4.0",
+  "evidence_class": "B_measured",
+  "exact_locations": ["Table 4; methods sections 2.1, 2.2 and 2.4"],
+  "retrieval_date": "2026-11-06",
+  "data_handling": "Transcribed numeric and ratio values reported in Table 4. Source footnote marks moisture, total solids, and ammonia as as-received; all other Table 4 values are dry-mass basis. No uncertainty was stated for these values. Blank cells in the source table are omitted, never represented as zero.",
+  "activation": "reference_only",
+  "limitations": [
+    "The digestates are from triplicate 1 L batch BMP tests on cultivated perennial ryegrass biorefinery by-products, not roadside grass and not a continuous GreenHub digester.",
+    "The article reports BMP tests at 37 °C for 21 days, with a 4:1 inoculum-to-substrate ratio; digestate composition is conditional on that laboratory test and its feedstreams.",
+    "Total phosphorus is not dissolved orthophosphate, nutrient availability, or an ion-speciation result; elemental potassium is not K2O fertilizer grade.",
+    "The article does not provide a closed digestate mass balance or fertilizer acceptance/contaminant assessment for GreenHub.",
+    "No uncertainty statistic is reported in Table 4; do not infer one from the measurement method.",
+    "Table 1 explicitly labels oxygen as by difference; Table 4 does not repeat the method. Its oxygen values are retained as source-reported with this ambiguity flagged, not recalculated."
+  ]
+}

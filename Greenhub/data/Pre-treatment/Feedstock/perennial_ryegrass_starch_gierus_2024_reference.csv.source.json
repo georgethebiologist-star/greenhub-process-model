@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "source_id": "SRC-GIERUS-2024-RYEGRASS-STARCH",
+  "source_title": "Protein and Carbohydrate Fractionation to Evaluate Perennial Ryegrass (Lolium perenne L.) Accessions",
+  "authors": "Martin Gierus; Heba Sabry Attia Salama; Marc Lösche; Antje Herrmann; Friedhelm Taube",
+  "reference_year": 2024,
+  "persistent_identifier": "https://doi.org/10.3390/agronomy14010168",
+  "source_url": "https://www.mdpi.com/2073-4395/14/1/168",
+  "source_location": "Table 2, starch row; NIRS calibration and validation summary",
+  "retrieval_date": "2026-11-11",
+  "geography": "Asendorf, Malchow, and Hohenschulen, northern Germany",
+  "evidence_class": "Peer-reviewed primary study; source-reported starch NIRS calibration/validation summary",
+  "license": "CC BY 4.0, per MDPI open-access publication policy; attribution required",
+  "measurement_basis": "Table 2 reports starch on a dry-matter basis: n=100, mean 34 g/kg DM, observed range 1–169 g/kg DM, R²=0.77, SEC=1.45 g/kg DM, and SEV=2.23 g/kg DM. The paper studies 20 diploid perennial ryegrass accessions with intermediate heading at three northern-German sites across two years; individual values are not provided in the article table.",
+  "conversion_and_scaling": "The source CSV preserves the published summary. The GreenHub profile uses the reported 34 g/kg DM mean × the separately measured GreenHub VARTA DM fraction 0.143 ÷ 1000 = 0.004862 kg/kg wet feed. This cross-material scaling is a GreenHub adapter assumption, not a source observation.",
+  "uncertainty": "The 1–169 g/kg DM range is an observed source range, not a confidence interval or probability distribution. Reported NIRS R² is 0.77; SEC and SEV are retained as published. No uncertainty distribution for transferring cultivated ryegrass values to a roadside species mixture or the VARTA batch is available.",
+  "related_technology_family_ids": ["pretreatment_fractionation"],
+  "applicability": "Provides a traceable temperate perennial-ryegrass comparator for the GreenHub starch input. The GreenHub use is class C because the paper does not measure Dutch roadside grass or the project VARTA batch.",
+  "limitations": [
+    "Cultivated perennial ryegrass accessions are not a roadside-verge species mixture or the GreenHub VARTA sample.",
+    "The table is a source-reported calibration/validation summary, not raw sample-level data; the NIRS fit explains limited variation (R²=0.77).",
+    "The broad observed range is not a confidence interval, transfer interval, or stochastic distribution.",
+    "No matched GreenHub starch assay is available; use the value only as an explicitly flagged low-transferability C-class profile proxy.",
+    "No model equation, route, or context-independent default is implied by this literature comparator."
+  ],
+  "activation_state": "reference_only",
+  "runtime_mapping": "GreenHub whole-grass profile component Starch uses the published mean as a separate class-C proxy; the source observation remains a literature comparator, not a GreenHub measurement."
+}

@@ -12,6 +12,12 @@ __pycache__/
 
 # VS Code local settings
 .vscode/
+.idea/
+
+# Codex workbench scratch and one-off test artifacts (kept locally, not release assets)
+.codex_artifact_edit_*/
+.codex_tmp*/
+.pytest_tmp/
 
 # Environment variables and secrets
 .env
@@ -37,6 +43,7 @@ figures/generated/
 build/
 dist/
 *.egg-info/
+frontend/.build_validation/
 
 # Jupyter
 .ipynb_checkpoints/

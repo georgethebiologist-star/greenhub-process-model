@@ -132,7 +132,7 @@ export default function BaselineTimeSeries({annual,result,nutrientRecovery,embed
   ],[nutrientLabel]);
   const feedChart=useMemo(()=>{
     const selected=feedSeries.filter(item=>feedSelected.includes(item.id as FeedId));
-    const rows=new Map<string,Record<string,any>>();
+    const rows=new Map<string,{period:string;[key:string]:any}>();
     for(const item of selected){for(const point of intervalRows(annual||undefined,item,result)){
       const target=rows.get(point.period)||{period:point.period};target[item.id]=point.value;rows.set(point.period,target);
     }}

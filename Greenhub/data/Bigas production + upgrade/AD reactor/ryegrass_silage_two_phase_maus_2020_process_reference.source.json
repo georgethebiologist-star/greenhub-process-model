@@ -1,0 +1,30 @@
+{
+  "dataset_id": "urn:greenhub:dataset:ad:ryegrass-silage-maus-2020-two-phase-reference:v1",
+  "title": "Two-stage anaerobic digestion performance and feed characterization for perennial ryegrass silage",
+  "source_id": "SRC-MAUS-2020-RYEGRASS-AD",
+  "authors": "Maus et al.",
+  "publication_year": 2020,
+  "doi": "10.1186/s40793-020-00354-x",
+  "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8067321/",
+  "retrieval_date": "2026-11-10",
+  "geography": "Study affiliations in Germany; feed harvest origin is not reported in the article",
+  "source_type": "Peer-reviewed primary experimental study",
+  "source_location": "Methods: reactor set-up and sampling; Results: biogas reactor performance and long-term microbial dynamics; Fig. 2",
+  "license_or_rights": "Creative Commons Attribution 4.0 International (CC BY 4.0), as stated in the article",
+  "license": "CC BY 4.0",
+  "evidence_class": "B_primary_peer_reviewed_measurement",
+  "quality_class": "B",
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "reuse_constraint": "Reference evidence only; not a GreenHub feed or reactor default",
+  "row_count": 33,
+  "data_handling": "Transcribed only values stated in the article text and figure description. The reported plus/minus spread was retained without labeling it as standard deviation or confidence interval because the article passage does not identify the statistic. L_N is retained as the authors' normal-volume notation; the methods define it at 0 °C and 1013 hPa.",
+  "limitations": [
+    "Feed is perennial ryegrass silage, not fresh roadside grass, GreenHub VARTA grass, press cake, or post-protein residual.",
+    "The experiment uses a two-stage two-phase system with batch downflow hydrolysis and an upflow anaerobic filter, not GreenHub's active single-stage empirical CSTR model.",
+    "The article does not report an unambiguous continuous OLR in kg VS/m3/d in the extracted passage; the 500 g and 1500 g conditions are not converted to OLR.",
+    "The reported 28-day value is retained as batch-fermentation retention time and is not relabeled as CSTR HRT.",
+    "Only selected system-level methane yields are stated in the article text; no missing replicate value is interpolated.",
+    "This source does not calibrate GreenHub hydrolysis fractions, methane conversion, ammonia inhibition, heating, mixing, or reactor scale-up."
+  ]
+}

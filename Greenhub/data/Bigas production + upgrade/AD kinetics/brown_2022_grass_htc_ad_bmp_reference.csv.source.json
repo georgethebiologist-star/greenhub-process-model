@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "source_id": "SRC-BROWN-GRASS-HTC-AD-2022",
+  "source_title": "Integration of Hydrothermal Carbonisation and Anaerobic Digestion for the Energy Valorisation of Grass",
+  "authors": "Aaron E. Brown; James M. Hammerton; Miller Alonso Camargo-Valero; Andrew B. Ross",
+  "reference_year": 2022,
+  "persistent_identifier": "https://doi.org/10.3390/en15103495",
+  "dataset_identifier": "https://doi.org/10.5518/1154",
+  "dataset_doi": "10.5518/1154",
+  "source_url": "https://eprints.whiterose.ac.uk/id/eprint/186703/1/energies-15-03495.pdf",
+  "dataset_url": "https://archive.researchdata.leeds.ac.uk/962/",
+  "source_location": "Table 6, article PDF p. 16; Methods §§2.1–2.3",
+  "retrieval_date": "2026-11-09",
+  "geography": "University of Leeds campus, United Kingdom; grass collected August 2018",
+  "evidence_class": "Primary experimental literature; BMP measurements and author-calculated theoretical/biodegradability values",
+  "license": "Creative Commons Attribution 4.0 International (CC BY 4.0), confirmed for article and University of Leeds supporting dataset",
+  "measurement_basis": "Grass clippings were oven-dried at 60 °C, milled below 1 mm, and hydrothermally treated using 20 g dry grass with 200 mL distilled water (10 wt% solids), 60 min at 150, 200 or 250 °C. Approximate pressure was 4, 14 or 43 bar, respectively. BMP assays were at 37 °C for 30 days; gas volumes normalized to STP (1 atm, 0 °C, dry). Process-water methane yields are per g COD; solid-grass control is per g VS.",
+  "uncertainty": "The article states EBMP analyses were performed in duplicate (n=2). Table 6 provides means but no numeric uncertainty; Figure 5 error bars show minimum and maximum values. No ranges are reconstructed here. The theoretical process-water reference is 350 NmL CH4/g COD at STP.",
+  "conversion_and_scaling": "No measurement conversion performed. Source-reported units and bases are retained. The BI values are source-calculated as EBMP/TBMP; theoretical BMP is kept separate from measured BMP.",
+  "related_technology_family_ids": ["pretreatment_fractionation", "anaerobic_digestion"],
+  "applicability": "A literature comparator for grass-derived HTC process water and untreated grass BMP in a separate biorefinery context; useful for contrasting upstream conditioning and batch-digestion outcomes.",
+  "limitations": [
+    "This source studies dried campus grass and HTC process water, not harvested roadside grass, press juice, brown juice, or post-protein residual.",
+    "Batch BMP is not continuous-reactor performance and does not provide a GreenHub kinetic coefficient.",
+    "The process is hydrothermal carbonization at high temperature and pressure; this technology is not an active GreenHub route.",
+    "Theoretical BMP and biodegradability index are source calculations, not independent measured observations.",
+    "No runtime input, default, TEA/LCA factor, or route is activated by this reference extract."
+  ],
+  "activation_state": "reference_only",
+  "runtime_mapping": "none"
+}

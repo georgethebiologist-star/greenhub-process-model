@@ -6,7 +6,7 @@ from pathlib import Path
 import sys
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from Greenhub.application.decision_support_service import DecisionSupportService
-from Greenhub.pareto_reporting import write_pareto_ui_projection
+from Greenhub.pareto_reporting import load_pareto_results, pareto_ui_projection, write_pareto_ui_projection
 import scripts.run_rvo_pareto_analysis as runner
 ROOT,SOURCE,OUT=runner.ROOT,runner.SOURCE,runner.OUT
 GRANT_AWARDER,SUPPORT_SCENARIOS=runner.GRANT_AWARDER,runner.SUPPORT_SCENARIOS
@@ -58,7 +58,7 @@ def main():
         for row in cases: row['baseline_reference']=True
         groups[group]=cases
         print(group,'paired baseline routes',base_row['status'],flush=True)
-    manifest_path=OUT/'rvo_pareto_manifest.json';manifest=json.loads(manifest_path.read_text(encoding='utf-8'))
+    manifest_path=OUT/'rvo_pareto_manifest.json';manifest=load_pareto_results(OUT)
     for group,cases in groups.items():
         batch=manifest['groups_payload'][group];rows=batch['samples']
         rows=[r for r in rows if not r.get('baseline_reference')]+cases
@@ -73,12 +73,14 @@ def main():
         batch['selected_candidates']['subsidy_vs_npv']=_select_ranked(subsidy,rows,UI_CANDIDATE_COUNT,True)
         batch['selected_candidates']['grass_bonus_sensitivity']=runner._grass_bonus_sensitivity(rows)
         for cid,front in batch['fronts']['by_support_case'].items():batch['selected_candidates'][f'net_carbon_vs_npv_{cid}']=_select_ranked(front,[r for r in rows if r.get('support_case')==cid],UI_CANDIDATE_COUNT,True)
+        batch['scenario_catalog']=runner._scenario_catalog(rows)
         manifest['groups'][group].update({'sample_count':batch['sample_count'],'evaluated_count':batch['evaluated_count'],'rejected_count':batch['rejected_count'],
             'front_counts':{name:len(front.get('points',[])) for name,front in batch['fronts'].items() if name!='by_support_case'},
             'support_front_counts':{case:len(front.get('points',[])) for case,front in batch['fronts']['by_support_case'].items()}})
-        _atomic_write_json(OUT/f'{group}_batch.json',batch)
+        runner._write_group_batch_shards(batch,OUT/f'{group}_batch.json')
+    compact=pareto_ui_projection(manifest)
     for target in (manifest_path, OUT/'latest.json'):
-        _atomic_write_json(target,manifest)
+        _atomic_write_json(target,compact)
     write_pareto_ui_projection(manifest, OUT/'latest_ui.json')
     print('Updated Pareto batches with explicit baseline references.')
 

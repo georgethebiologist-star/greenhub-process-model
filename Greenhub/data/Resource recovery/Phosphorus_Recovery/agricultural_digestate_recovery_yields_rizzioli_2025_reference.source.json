@@ -1,0 +1,22 @@
+{
+  "dataset_id": "GH-REF-PHASE7-RIZZIOLI-RECOVERY-2025",
+  "source_id": "RIZZIOLI2025",
+  "source_file": "agricultural_digestate_recovery_yields_rizzioli_2025_reference.csv",
+  "title": "Reported nutrient and water recovery yields across agricultural-digestate membrane configurations",
+  "authors": ["Fabio Rizzioli", "Marco Cirilli", "Nicola Frison", "David Bolzonella", "Federico Battista"],
+  "year": 2025,
+  "doi": "10.1016/j.jclepro.2025.144958",
+  "source_url": "https://doi.org/10.1016/j.jclepro.2025.144958",
+  "full_text_url": "https://iris.univr.it/retrieve/5571eb54-88c0-467c-92a1-5e58f6af0403/1-s2.0-S0959652625003087-main.pdf",
+  "source_location": "Table 2 and Equations 1-3, PDF p.4",
+  "license": "CC BY 4.0, as stated in the published article",
+  "evidence_class": "B",
+  "geography": "Isola della Scala, Italy",
+  "material_scope": "Agricultural digestate from a mesophilic cow-manure and lignocellulosic energy-crop digester; not grass-only and not GreenHub digestate",
+  "basis": "Source-reported mean ± SD; nutrient recovery is relative to initial nutrient mass, water recovery is relative to initial digestate mass; RO-retentate recovery is a separate stream-specific metric",
+  "retrieval_date": "2026-11-07",
+  "method": "Mass-based recovery definitions as reported in source Equations 1-3; values copied from Table 2 without recalculation",
+  "limitations": ["Reference-only comparator; not a GreenHub recovery factor or default.", "Initial lab filtration evidence; extended cyclic membrane and fouling testing was identified by the authors as future work.", "RO permeate recovery does not establish GreenHub water reuse quality or legal eligibility."],
+  "integration_status": "reference_only_not_runtime_eligible",
+  "sha256": "1BAF49BE388AFE71A765A99110090D30439170FA6907BE3FF9F1A0EA4D4A5A9D"
+}

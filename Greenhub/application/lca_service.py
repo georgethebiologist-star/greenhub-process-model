@@ -3,6 +3,7 @@ import csv
 from dataclasses import asdict, dataclass
 from pathlib import Path
 from Greenhub.lca_inventory import ClimateFactor, coerce_basis, coerce_flow, load_climate_factors, GROUPS, METHOD
+from .water_reporting import fresh_water_kg_per_hour_from_result, kg_to_m3
 
 
 @dataclass(frozen=True)
@@ -13,33 +14,9 @@ class LCAReport:
 
 def screening_lca_factors():
     """Return opt-in utility and PR7 chemical climate factors for screening."""
-    return {
-        "electricity": ClimateFactor(
-            factor_id="electricity", value=0.406463, quantity_unit="kWh",
-            source_status="official_dataset", basis="JRC life-cycle electricity factor 0.406463 t CO2e/MWh, including upstream electricity supply-chain emissions",
-            geography="Netherlands", reference_year=2021,
-            source_url="https://doi.org/10.2905/JRC.4800KC0; https://data.europa.eu/89h/919df040-0252-4e4e-ad82-c054896e1641",
-            source_table_page="Table3_EU_LC, Netherlands row, 2021 column",
-            retrieval_date="2026-11-05", evidence_class="official_dataset",
-            applicability="National Netherlands consumption mix; lifecycle grid factor, not a site-specific supplier factor. Published series ends in 2021.",
-            conversion_method="1 t CO2e/MWh = 1 kg CO2e/kWh",
-            uncertainty="Dataset point estimate; no probability distribution imposed.",
-            warning="Includes upstream electricity supply-chain emissions and uses 2021 grid data.",
-        ),
-        "heat": ClimateFactor(
-            factor_id="heat", value=30.96 / 277.7777777778, quantity_unit="kWh",
-            source_status="direct_literature", basis="CE Delft reports 30.96 kg CO2e/GJ total end-user heat factor for Dutch heat grids in 2022; converted using 1 GJ = 277.7778 kWh",
-            geography="Netherlands", reference_year=2022,
-            source_url="https://cedelft.eu/publications/chain-emissions-for-heat-grids-in-2022-and-2030/",
-            source_table_page="End-user heat-grid factor, 2022",
-            retrieval_date="2026-11-05", evidence_class="B",
-            applicability="Dutch average heat-grid factor based on reported 2022 heat-source deployment; not a site- or supplier-specific network factor.",
-            conversion_method="30.96 kg CO2e/GJ ÷ 277.7778 kWh/GJ",
-            uncertainty="Published national average; source page does not provide a probability distribution. Do not treat this point estimate as site-specific.",
-            warning="Average 2022 heat-grid factor; not a supplier-specific plant factor.",
-        ),
-        **_screening_chemical_climate_factors(),
-    }
+    registered = load_climate_factors(include_screening=True)
+    utility_factors = {key: registered[key] for key in ("electricity", "heat")}
+    return {**utility_factors, **_screening_chemical_climate_factors()}
 
 
 def _screening_chemical_climate_factors():
@@ -188,6 +165,7 @@ def calculate_empirical_lca(result, project_basis=None, *, factors=None, additio
             hours = seasonal.get("active_process_operating_hours")
         energy=seasonal.get('total_utilities',{})
         electricity=energy.get('electricity_kwh'); heat=energy.get('heating_kwh')
+        fresh_water_m3 = kg_to_m3(float(energy['fresh_water_kg'])) if 'fresh_water_kg' in energy and energy['fresh_water_kg'] is not None else None
     else:
         def annual_utility(kind):
             utilities=[u for u in result.utilities if u.kind==kind]
@@ -201,6 +179,8 @@ def calculate_empirical_lca(result, project_basis=None, *, factors=None, additio
                 raise ValueError('Empirical heat demand must be kJ/h.')
             return sum(max(0,float(u.demand.value)) for u in utilities)/3600*hours
         electricity=annual_utility('electricity'); heat=annual_utility('heat')
+        fresh_water_m3 = (kg_to_m3(fresh_water_kg_per_hour_from_result(result.streams) * float(hours))
+                          if hours is not None else None)
     def row(name,group,q,unit,factor,*,source_id=None,**kwargs):
         return dict(flow_id=name,group=group,quantity=q,unit=unit,factor_id=factor,accounting_key=name,source_id=source_id or 'simulation:'+result.run_id,**kwargs)
     inventory=[row('electricity','electricity',electricity,'kWh','electricity'),row('heat','heat',heat,'kWh','heat')]
@@ -323,8 +303,8 @@ def calculate_empirical_lca(result, project_basis=None, *, factors=None, additio
                 for chemical,mass in components.items(): terminal[(name,chemical)]=terminal.get((name,chemical),0)+mass
     else:
         for stream in result.streams:
-            if stream.sink_unit is not None: continue
-            names=set(stream.aliases)&{'uncaptured_biogas','reject_gas','phase7_offgas','chp_exhaust'}
+            if getattr(stream, 'sink_unit', None) is not None: continue
+            names=set(getattr(stream, 'aliases', ()))&{'uncaptured_biogas','reject_gas','phase7_offgas','chp_exhaust'}
             if not names: continue
             for chemical,mass in stream.components.items():
                 if mass.value is None or mass.value>0:
@@ -368,7 +348,14 @@ def calculate_empirical_lca(result, project_basis=None, *, factors=None, additio
         if any(r['accounting_key']==flow.accounting_key for r in inventory):
             raise ValueError('Additional inventory duplicates process accounting key: '+flow.accounting_key)
     inventory+=extra
-    return calculate_lca_inventory(inventory,basis,factors=factors)
+    report = calculate_lca_inventory(inventory,basis,factors=factors).to_dict()
+    report['resource_use'] = {
+        'fresh_process_water_m3_per_year': fresh_water_m3,
+        'status': 'calculated_activity_not_characterized_as_impact' if fresh_water_m3 is not None else 'missing_activity',
+        'basis': 'External makeup-water component mass converted using 1000 kg/m3 reference density; internal recycled water excluded.',
+        'warning': 'Water volume is reported as a resource-use KPI. No water-scarcity characterization factor is applied, so it does not alter climate impact totals.',
+    }
+    return LCAReport(report)
 
 
 def lca_options():

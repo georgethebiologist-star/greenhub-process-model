@@ -1,0 +1,31 @@
+{
+  "dataset_title": "Roadside-grass feed and digestate observations from Grassification D1.4.1",
+  "dataset_identifier": "greenhub:feed-bmp:grassification-d141-codigestion-2020:v1",
+  "source_file": "grassification_roadside_codigestion_pilot_2020_reference.csv",
+  "source_id": "SRC-GRASSIFICATION-D141-2020",
+  "source_title": "D 1.4.1. Co-digestion of roadside grass with VeDoWS manure and pig slurry",
+  "authors": ["Audrey Miserez", "Tim Bockstael", "Marcella Fernandes De Souza"],
+  "reference_year": 2021,
+  "doi": null,
+  "stable_identifier": "Grassification-D1.4.1",
+  "source_url": "https://www.biorefine.eu/wp-content/uploads/2021/03/d1.4.1_anaerobic_co-digestion_of_roadside_grass.pdf",
+  "retrieval_date": "2026-11-06",
+  "source_locations": ["Table 2, roadside grass column", "Table 3, digestate columns dated 09/04/2020, 15/04/2020, 23/04/2020 and ambiguously 05/05/2020 or 25/05/2020", "Figure 9 caption, report p. 12: batch BMP milestones at 3 and 8 days", "pilot description and operating conditions"],
+  "evidence_class": "B_measured_project_report",
+  "license": "No explicit reuse license identified in the report or accessible project metadata; factual observations transcribed with source attribution.",
+  "rows": 100,
+  "data_basis": "Roadside grass ensiled in a trench silo and co-digested with VeDoWS manure and pig slurry at the Inagro pilot. Feed characterization and co-digestate observations remain on the reported bases and units; no unit or basis conversion is applied.",
+  "applicability": "Reference-only evidence for roadside-grass feed characterization and mixed-feed anaerobic digestion/digestate composition. It is not a GreenHub measurement, not a grass-only digestate, and not the protein-depleted GreenHub residual stream.",
+  "limitations": [
+    "The digester feed included manure and pig slurry; digestate composition and residual BMP cannot be attributed to grass alone.",
+    "The pilot experienced an interruption after motor failure; the report describes non-steady operating periods, so no stable kinetic or continuous yield factor is inferred.",
+    "The final Table 3 sampling date is rendered as 05/05/2020 or 25/05/2020 and is preserved as ambiguous text.",
+    "The reported ammonium-N value 0.73 ± 13.13 is retained verbatim but flagged as a source anomaly and must not be used quantitatively without verification.",
+    "Figure 9 reports that roadside-grass batch BMP reached 60% of its maximum after 3 days and 90% after 8 days. Raw time-series values and uncertainty are unavailable; these milestones are not continuous-reactor HRT or GreenHub residual-stream kinetics, and no curve is fitted.",
+    "Several Table 3 bases and standard gas-volume conditions are incompletely specified; no normalization or derived methane yield is calculated.",
+    "The report's reuse license was not identified; the dataset is not redistributed as a full-text substitute."
+  ],
+  "activation_state": "reference_only",
+  "runtime_parameter_mapping": null,
+  "retrieval_and_transcription_note": "Source title, author, date and pilot context checked against the public report. Records are a structured transcription of reported values, not a reanalysis or model calibration dataset."
+}

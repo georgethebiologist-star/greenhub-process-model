@@ -1,0 +1,58 @@
+{
+  "dataset_id": "urn:greenhub:dataset:gaffey-2024-grass-biorefinery-lci-table3-reference:v1",
+  "title": "Green-biorefinery life-cycle inventory for four grass and fractionation scenarios",
+  "source_file": "gaffey_2024_grass_biorefinery_lci_table3_reference.csv",
+  "source_id": "SRC-GAFFEY-2024-GBR-LCA-TABLE3",
+  "authors": [
+    "James Gaffey",
+    "Andres Arce Matinez",
+    "Thalles Allan Andrade",
+    "Morten Ambye-Jensen",
+    "George Bishop",
+    "Maurice N. Collins",
+    "David Styles"
+  ],
+  "publication_year": 2024,
+  "publication": "Science of the Total Environment, Volume 949, Article 175035",
+  "persistent_identifier": "doi:10.1016/j.scitotenv.2024.175035",
+  "source_url": "https://doi.org/10.1016/j.scitotenv.2024.175035",
+  "open_manuscript_url": "https://researchrepository.ul.ie/bitstreams/526eb7bb-8019-4451-9bf3-aecf6617aa9a/download",
+  "institutional_record_url": "https://sword.mtu.ie/shanabc_kpub/6/",
+  "license": "CC BY 4.0, as stated on the institutional repository record for the article",
+  "retrieval_date": "2026-11-07",
+  "rows": 42,
+  "source_location": "Table 3, pp. 5-6 of the open author manuscript",
+  "evidence_class": "B_reference_mixed_primary_and_modelled_LCI",
+  "functional_unit": "1 t dry matter of crude protein delivered from leaf protein concentrate (LPC-CP), as defined in the article methods and Table 3 caption",
+  "scenarios": {
+    "F1TP1": "Perennial ryegrass feedstock; Technology Pathway 1, one-stage maceration",
+    "F1TP2": "Perennial ryegrass feedstock; Technology Pathway 2, multi-stage maceration",
+    "F2TP1": "Grass-clover feedstock; Technology Pathway 1, one-stage maceration",
+    "F2TP2": "Grass-clover feedstock; Technology Pathway 2, multi-stage maceration"
+  },
+  "data_origin_and_scope": {
+    "demonstration_plant": "The article states that primary mass and energy balances, three main co-product yields, and DM/CP concentrations were measured at the Aarhus University demonstration platform using an integrated PLC/data-collection system. The Table 3 scenario results are scaled to the functional unit; raw batch-level records are not included in this transcription.",
+    "feedstock_agriculture": "Cultivation inputs, yields, land use, transport, and related emissions are LCA scenario inventory values; feedstock production and fertilizer-related emissions were calculated using cited secondary methods and sources.",
+    "anaerobic_digestion": "Brown-juice anaerobic digestion, CHP co-products, digestate substitution, and AD/storage/application emissions were modelled using an adapted LCAD tool, not measured as a continuous GreenHub digestion campaign.",
+    "transport": "Study scenario distances are used; article methods state average 10 km for feedstock and digestate/press cake and 50 km for protein transport. These are not GreenHub distances."
+  },
+  "data_handling": "Direct transcription of the 42 Table 3 flow rows across four baseline scenarios. No recalculation, unit conversion, annualization, graph digitization, or replacement of source values was performed.",
+  "sign_convention": "Negative CHP energy and digestate nutrient entries are LCI coproduct/substitution credits. They are not negative physical generation, negative nutrient content, or GreenHub recovery yields.",
+  "unit_caveats": [
+    "The table lists biorefinery heat input in kW despite a mass-based functional unit; the time normalization is unclear. The value is retained exactly as published and must not be converted to kWh per tonne without the supplement or author clarification.",
+    "Nitrate rows are kg NO3, not kg nitrate-N.",
+    "Phosphorus and potassium coproduct rows use P2O5 and K2O bases; they are not elemental P and K.",
+    "The press-cake and LPC product moisture basis is not stated in Table 3."
+  ],
+  "supplementary_data_status": "The institutional record lists a 385 kB supplementary Excel workbook. Its public download endpoint returned HTTP 403 in this collection pass, so the workbook was not downloaded. This CSV contains only accessible Table 3 manuscript values, not the unavailable workbook or its additional tables.",
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "runtime_parameter_mapping": null,
+  "limitations": [
+    "Irish/Danish cultivated ryegrass and grass-clover biorefinery scenarios are not Dutch roadside-grass GreenHub measurements.",
+    "Primary pilot data are aggregated/scaled to a protein-based functional unit; treatment-level raw measurements and uncertainty are not included here.",
+    "AD, digestate, fertilizer substitution, field emissions and transport results are modelled LCI values with study-specific boundaries and assumptions.",
+    "The data do not provide a GreenHub route validation, product credit, emission factor, or parameter default.",
+    "The separate supplementary Excel may contain additional details; its inaccessible download remains an open collection task."
+  ]
+}

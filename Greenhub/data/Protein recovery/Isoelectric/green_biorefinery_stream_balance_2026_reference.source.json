@@ -1,0 +1,44 @@
+{
+  "dataset_title": "Green-biorefinery pilot stream mass, dry matter and nitrogen distribution",
+  "dataset_identifier": "greenhub:protein-recovery:gbr-stream-balance-2026:v1",
+  "source_file": "green_biorefinery_stream_balance_2026_reference.csv",
+  "source_id": "SRC-ELSHANI-2026",
+  "source_title": "Environmental impacts of a biorefinery integrated into dairy farming system",
+  "authors": ["Narta Elshani", "Steffen Adler", "Pernilla Tidåker", "Jon Kristian Sommerseth", "Matthias Koesling", "Håvard Steinshamn"],
+  "reference_year": 2026,
+  "doi": "10.1038/s44264-026-00189-y",
+  "source_url": "https://doi.org/10.1038/s44264-026-00189-y",
+  "article_url": "https://www.nature.com/articles/s44264-026-00189-y",
+  "retrieval_date": "2026-11-06",
+  "source_location": "Table 2, composition and distribution of GBR process product streams per 1000 kg DM grass-clover biomass; table note states that loss is material not recovered in measured fractions.",
+  "evidence_class": "B_reported_pilot_stream_data",
+  "license": "Creative Commons Attribution 4.0 International (CC BY 4.0) for the article, subject to third-party-material notices.",
+  "rows": 24,
+  "data_basis": "Reported fresh mass, dry mass, DM concentration, and nitrogen concentration for input biomass and five reported streams; one juice stream is an intermediate that is further fractionated.",
+  "flow_hierarchy": {
+    "input": "Forage biomass is the 1000 kg DM normalization basis.",
+    "intermediate": "Green juice is an intermediate stream and must not be added to its downstream protein-concentrate and brown-juice outputs in a final-output balance.",
+    "reported_final_streams": ["Pulp fraction", "Protein concentrate", "Brown juice", "Unrecovered material"],
+    "unrecovered_material": "The article defines loss as material not recovered in measured fractions; its destination and nitrogen concentration are not reported."
+  },
+  "balance_checks": {
+    "final_stream_fresh_mass_kg": 5264,
+    "input_fresh_mass_kg": 5263,
+    "fresh_mass_difference_kg": 1,
+    "fresh_mass_note": "One-kilogram difference is consistent with integer-rounded table entries.",
+    "final_stream_dry_mass_kg": 1000,
+    "input_dry_mass_kg": 1000,
+    "dry_mass_note": "Reported final stream dry masses sum exactly to the normalized input dry mass; this is a check of rounded table values, not an independent validation.",
+    "nitrogen_balance_status": "incomplete",
+    "nitrogen_note": "The loss stream nitrogen concentration is unreported, so the N balance cannot be closed from Table 2. The intermediate green-juice N value must not be added to its downstream products."
+  },
+  "applicability": "Cultivated grass-clover Tuv pilot; a useful Phase 2/4 fractionation and Phase 5/7 residual-stream analogue, not roadside grass or a GreenHub route measurement.",
+  "limitations": [
+    "Do not treat the intermediate green-juice row as an additional final output when summing its protein-concentrate and brown-juice downstream streams.",
+    "Do not treat the reported unrecovered loss as an emissions category; destination and composition are unspecified.",
+    "Nitrogen is reported as percent of dry matter, not protein; soluble, organic, and ammonium nitrogen are not separately speciated.",
+    "The input is cultivated Norwegian grass-clover, not roadside grass; no direct GreenHub transfer or runtime activation is justified.",
+    "All data remain reference-only."
+  ],
+  "activation_state": "reference_only"
+}

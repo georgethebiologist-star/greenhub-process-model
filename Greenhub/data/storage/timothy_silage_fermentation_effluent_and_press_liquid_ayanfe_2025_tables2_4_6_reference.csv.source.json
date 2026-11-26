@@ -1,0 +1,46 @@
+{
+  "dataset_id": "urn:greenhub:dataset:ayanfe-2025-timothy-tables2-4-6-reference",
+  "title": "Timothy silage fermentation, effluent, and post-ensiling press-liquid measurements",
+  "version": "1.0.0",
+  "dataset_file": "timothy_silage_fermentation_effluent_and_press_liquid_ayanfe_2025_tables2_4_6_reference.csv",
+  "source_id": "S14_AYANFE_2025_GFS12722",
+  "authors": [
+    "Nisola Ayanfe",
+    "Marcia Franco",
+    "Taina Jalava",
+    "Tomasz Stefański",
+    "Marketta Rinne"
+  ],
+  "publication_year": 2025,
+  "source_title": "Chemical Characterisation and Biorefinery Efficiency of Timothy Grass and Pulp Silages",
+  "journal": "Grass and Forage Science 80(2), e12722",
+  "doi": "10.1111/gfs.12722",
+  "source_url": "https://doi.org/10.1111/gfs.12722",
+  "full_text_url": "https://onlinelibrary.wiley.com/doi/10.1111/gfs.12722",
+  "license": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "retrieval_date": "2026-11-07",
+  "source_location": "Tables 2, 3, 4 and 6; methods §§2.1–2.5",
+  "geography": "Jokioinen, Finland; cultivated timothy grass",
+  "evidence_class": "peer-reviewed primary experimental measurements; treatment least-squares means and descriptive pooled effluent chemistry",
+  "quality_class": "B",
+  "coverage": {
+    "phase_2": "88-day ensiling endpoints, source-calculated fermentation losses, aerobic stability, and spontaneous first-regrowth effluent chemistry",
+    "phase_3": "Double-screw-pressed liquid yield and composition of first-regrowth silages after freezing and thawing"
+  },
+  "data_structure": "Long-form table means. SEM and p-values are table-level statistics repeated on each matching metric-condition row; they are not per-cell standard deviations.",
+  "limitations": [
+    "Cultivated Finnish timothy is a literature comparator, not Dutch roadside grass or GreenHub batch data.",
+    "Tables 2, 3, and 6 report least-squares means with SEM and factor p-values; these are not raw replicate observations.",
+    "Table 4 effluent chemistry was pooled by treatment from silo samples, limiting inferential replication; no SEM or p-values are reported.",
+    "Aerobic-stability observations lasted 172 h in Table 2 and 244 h in Table 3; means equal to the observation duration are preserved as printed and potential censoring is unresolved.",
+    "FA1 contains propionic acid; sodium in FA2 effluent/liquid partly reflects sodium formate added with the treatment.",
+    "The article reports measured storage and pressing results for experimental silage; no component mass balance, roadside transfer, GreenHub calibration, or default activation is inferred.",
+    "Underlying research data are available from the corresponding author on reasonable request; no row-level raw replicate data are included here."
+  ],
+  "runtime_policy": "Reference-only; not connected to runtime parameters, defaults, chemistry, UI inputs, TEA/LCA factors or Pareto scenarios.",
+  "access_protocol": "HTTPS publisher DOI landing page and open full text",
+  "reproducible_build_script": "scripts/build_ayanfe_2025_timothy_tables2_4_6_reference.py",
+  "record_count": 519,
+  "sha256": "496c814a0a176fa5739848322d0738e94addd332dd189cb520138d961c43be23"
+}

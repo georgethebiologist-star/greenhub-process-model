@@ -1,0 +1,20 @@
+{
+  "source_file": "261027 Nutriënten Grasmonsters VARTA.xlsx",
+  "source_id": "SRC-VARTA-2026-10-27",
+  "source_workbook_sha256": "F0449B8E18E66DEBF851B58FE6FDAF9678F92225A110BDB4D57EB226260A7DC8",
+  "dataset_id": "VARTA_2026_10_27",
+  "source_type": "User-supplied laboratory workbook",
+  "retrieval_date": "2026-11-07",
+  "persistent_identifier": "Project-local VARTA_2026_10_27; workbook SHA-256 recorded above; no DOI",
+  "sheets": {
+    "Nutriënten Vezel": "18 sample records in rows 5–22",
+    "Nutriënten Sap": "3 sample records in rows 5–7"
+  },
+  "translation": "Original Dutch workbook archived unchanged. English machine-readable extracts preserve Dutch sample labels, source worksheet and row.",
+  "license": "No external license identified; supplied for the GreenHub project.",
+  "limitations": [
+    "Sample-specific results; not a representative seasonal or regional sample distribution.",
+    "Blank laboratory results remain missing and must not be interpreted as zero.",
+    "No feedstock availability or operating-hours measurements are included."
+  ]
+}

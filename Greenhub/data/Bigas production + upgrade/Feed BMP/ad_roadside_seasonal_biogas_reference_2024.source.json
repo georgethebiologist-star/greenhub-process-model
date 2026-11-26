@@ -1,0 +1,20 @@
+{
+  "source_id": "SRC-CZUBASZEK-2024",
+  "title": "Possibilities of Utilising Biomass Collected from Road Verges to Produce Biogas and Biodiesel",
+  "authors": ["Robert Czubaszek", "Agnieszka Wysocka-Czubaszek", "Aneta Sienkiewicz", "Alicja Piotrowska-Niczyporuk", "Martin J. Wassen", "Andrzej Bajguz"],
+  "publication_year": 2024,
+  "sample_year": null,
+  "doi": "10.3390/en17071751",
+  "url": "https://doi.org/10.3390/en17071751",
+  "publisher_page": "https://www.mdpi.com/1996-1073/17/7/1751",
+  "source_type": "peer-reviewed primary experimental study",
+  "geography": "Białystok region, Poland",
+  "materials": ["fresh road-verge grass", "ensiled road-verge grass"],
+  "license": "CC BY 4.0",
+  "evidence_class": "B",
+  "exact_locations": ["Table 1", "Table 4", "Results section 3.1; Figure 1"],
+  "retrieval_date": "2026-11-06",
+  "data_handling": "Transcribed reported mean and standard deviation values. Censored n.d. sodium results retained as blank with below_detection status. Only the four exact biogas-yield means and SDs stated in Results 3.1 were included; plotted intermediate values were not digitized.",
+  "activation": "reference_only",
+  "limitations": ["Whole-grass data from Poland are not GreenHub post-protein-recovery residual data.", "Not a Dutch VARTA sample or universal seasonal feed profile.", "Cumulative specific biogas yield is not methane yield; methane fraction is recorded separately.", "Do not synthesize methane yield by multiplying evidence from separate or unpaired sources.", "Sampling year and detailed anaerobic-test operating conditions were not added where unverified."]
+}

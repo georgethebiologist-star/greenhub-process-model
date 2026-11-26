@@ -15,6 +15,17 @@ from Greenhub.scenarios import (
 from .contracts import ScenarioSelection, ValidationIssue
 
 
+_PROCESS_AREA_DISPLAY_NAMES = {
+    "feedstock_and_characterization": "Feedstock and characterization",
+    "feed_preparation_and_primary_separation": "Pretreatment and fractionation",
+    "protein_recovery": "Protein recovery",
+    "anaerobic_digestion": "Anaerobic digestion",
+    "biogas_conditioning_and_upgrading": "Biogas upgrading",
+    "digestate_treatment_and_nutrient_recovery": "NPK recovery",
+    "shared_utilities_and_supporting_operations": "Shared utilities",
+}
+
+
 class ScenarioService:
     _groups = {
         "feed_preparation": {key: value for key, value in FRONT_END_SCENARIOS.items() if key in {"F0", "F1"}},
@@ -32,15 +43,9 @@ class ScenarioService:
 
     def list_process_areas(self) -> tuple[dict[str, str], ...]:
         return tuple(
-            {"process_area_id": key, "display_name": key.replace("_", " ").title()}
+            {"process_area_id": key, "display_name": _PROCESS_AREA_DISPLAY_NAMES[key]}
             for key in (
-                "feedstock_and_characterization",
-                "feed_preparation_and_primary_separation",
-                "protein_recovery",
-                "anaerobic_digestion",
-                "biogas_conditioning_and_upgrading",
-                "digestate_treatment_and_nutrient_recovery",
-                "shared_utilities_and_supporting_operations",
+                *_PROCESS_AREA_DISPLAY_NAMES,
             )
         )
 

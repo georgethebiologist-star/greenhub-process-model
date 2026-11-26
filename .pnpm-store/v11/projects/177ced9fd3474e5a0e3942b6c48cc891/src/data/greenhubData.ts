@@ -24,7 +24,7 @@ export const PROCESS_AREAS: Record<string, ProcessAreaInfo> = {
     units: ['T101', 'S101', 'P101'],
     streams: ['FEED-001', 'FRONT-LIQ', 'FRONT-SOL'],
     key_assumptions: [
-      'Raw grass moisture content defaults to 78% wet basis',
+      'GreenHub whole-grass reference contains 14.3% dry matter (85.7% water); this sample-specific composition profile is not a universal grass default',
       'Maceration cell disruption increases soluble protein yield by 15-25%',
       'VS/TS ratio maintained at 0.88 for fresh silage feed'
     ],
@@ -707,13 +707,12 @@ export function runSimulation(request: SimulationRequest): SimulationResult {
       title: 'Global Parameter Dataset Quality Class Breakdown',
       category: 'Data Governance',
       type: 'bar',
-      description: 'Distribution of system parameters across Quality Classes (Class A: Verified/Experimental, Class B: Literature, Class C: Pilot/Estimated, Class D: Quarantined, Class E: Structural Assumption).',
+      description: 'Distribution of system parameters across the project quality classes: A measured, B direct literature/official evidence, C literature-linked assumption or proxy, E unverified assumption or placeholder.',
       data: [
         { class: 'Class A (Verified)', count: 8, description: 'Experimental / Measured' },
         { class: 'Class B (Literature)', count: 5, description: 'Peer-reviewed literature' },
         { class: 'Class C (Estimated)', count: 3, description: 'Pilot scale estimation' },
-        { class: 'Class D (Quarantined)', count: 0, description: 'Quarantined dataset' },
-        { class: 'Class E (Assumption)', count: 1, description: 'Structural assumption' }
+        { class: 'Class E (Unverified)', count: 1, description: 'Unverified assumption or placeholder' }
       ]
     }
   ];

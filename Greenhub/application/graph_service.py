@@ -6,6 +6,7 @@ from Greenhub.parameters.enums import ResultStatus
 
 from .contracts.results import GraphEdge, GraphNode, NumericalValue, ProcessGraph
 from .errors import RunStateError
+from .unit_naming import unit_display_name
 
 
 def _mass_value(value: float) -> NumericalValue:
@@ -30,7 +31,7 @@ class GraphService:
                 GraphNode(
                     node_id=f"unit:{unit_id}",
                     unit_id=unit_id,
-                    display_name=str(getattr(unit, "line", None) or type(unit).__name__),
+                    display_name=unit_display_name(unit_id, unit),
                     process_area=area,
                     technology=type(unit).__name__,
                     active=True,

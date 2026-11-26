@@ -1,0 +1,34 @@
+{
+  "dataset_id": "greenhub:reference:phase6:stern-1998-bench-pilot-long-run",
+  "dataset_title": "Bench-scale long-duration membrane pilot for wastewater biogas upgrading: abstract-level observations",
+  "dataset_file": "bench_scale_long_run_pilot_stern_1998_reference.csv",
+  "source_ids": ["STERN1998"],
+  "persistent_identifier": "doi:10.1016/S0376-7388(98)00238-5",
+  "authors": [
+    "S. A. Stern",
+    "B. Krishnakumar",
+    "S. G. Charati",
+    "W. S. Amato",
+    "A. A. Friedman",
+    "D. J. Fuess"
+  ],
+  "publication_year": 1998,
+  "geography": "Municipal wastewater treatment plant; exact location not stated in accessible abstract",
+  "material_scope": "Wastewater-treatment biogas containing methane, carbon dioxide, and organic impurities upgraded in a bench-scale hollow-fiber membrane pilot",
+  "evidence_class": "B_measured_literature",
+  "retrieval_date": "2026-11-07",
+  "source_location": "Publisher abstract",
+  "source_url": "https://doi.org/10.1016/S0376-7388(98)00238-5",
+  "data_handling": "Only discrete values and ranges stated in the publisher abstract are transcribed. Units and ranges are preserved; no recovery, energy, standard-flow conversion, curve reconstruction, or missing time-series data are inferred.",
+  "license_and_access": "Publisher search metadata marks the paper as open archive under a Creative Commons license, but the exact license subtype was not verified from the accessible record. No article text or figures are redistributed in this extract.",
+  "activation_state": "reference_only",
+  "readiness": "reference_only_abstract_level",
+  "transferability": "Technical comparator only. The feed is wastewater-treatment biogas with organic impurities and the source-specific hollow-fiber module polymer is not identified in the accessible abstract. It is not roadside-grass biogas or a GreenHub upgrader design point.",
+  "limitations": [
+    "No methane recovery, total upgrading energy, methane slip fraction, module area, membrane material, uptime fraction, or uncertainty is reported in the accessible abstract.",
+    "Feed-flow reference conditions are not detailed; the printed ft3/h values are retained without conversion to Nm3/h.",
+    "Long-run product composition ranges are not paired with individual pressures, stage cuts, and feed-flow observations.",
+    "The authors report that organic impurities could condense and dissolve hollow fibers; this is a qualitative pretreatment warning, not a quantified lifetime factor.",
+    "No GreenHub parameter, runtime default, process result, TEA, LCA, or Pareto calculation consumes these values."
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "dataset_title": "Fermentation chemistry of grass-clover and red-clover silage biorefinery fractions",
+  "dataset_identifier": "greenhub:reference:resch-2024-fermentation-chemistry:v1",
+  "source_file": "green_biorefinery_fermentation_chemistry_2024_reference.csv",
+  "source_id": "S06_RESCH_2024",
+  "source_title": "Nutrient composition, fermentation characteristics and mass balance of press juice and press cake obtained from biorefining of grass-clover and red clover silage",
+  "dataset_creators": ["Reinhard Resch", "Georg Terler", "Manuel Winter", "Michael Mandl", "Lisa Baldinger", "Joseph Sweeney", "Kevin McDonnell", "Andreas Steinwidder"],
+  "related_article_doi": "10.1111/gfs.12682",
+  "source_url": "https://www.farm4more.eu/wp-content/uploads/2024/06/Grass-and-Forage-Science-2024-Resch-Nutrient-composition-fermentation-characteristics-and-mass-balance-of-press.pdf",
+  "retrieval_date": "2026-11-06",
+  "rows": 28,
+  "source_table": "Table 3",
+  "source_table_caption": "Concentration of volatile organic acids, ethanol, ammonia as well as pH in silage, press juice, fresh press cake and re-ensiled press cake produced from grass clover mixture (GCM) or red clover (RC).",
+  "study_context": {"geography": "Austria", "feedstocks": ["grass-clover mixture silage", "red clover silage"], "campaign_dates": "2021-07-06 to 2021-07-20", "processing_scale": "farm-scale prototype biorefinery"},
+  "evidence_class": "B_measured_literature",
+  "activation_state": "reference_only",
+  "license_status": "Open-access article; exact Creative Commons subtype was not established from the accessible article copy. Do not assert a specific license for redistribution.",
+  "applicability": "Measured process-fraction chemistry relevant to silage storage, green-juice characterization, and press-cake residual evaluation. Cultivated forage is not roadside grass and is not a GreenHub default.",
+  "limitations": ["Cultivated Austrian forage is not fresh Dutch roadside grass.", "Table 3 reports concentrations, not stream mass flows or component recovery; do not derive emissions or reagent demand from these concentrations.", "Ammonia concentration is not an emission factor or emitted NH3 flux.", "pH does not determine titratable acidity or acid/base consumption.", "Residual SD is copied as reported; table significance superscripts were not included in this extract.", "No runtime equations or defaults are activated by this dataset."]
+}

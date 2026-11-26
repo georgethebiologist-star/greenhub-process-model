@@ -1,0 +1,31 @@
+{
+  "dataset_id": "urn:greenhub:dataset:2seas-verge-grass-seasonal-harvest-potential-2021:v1",
+  "source_file": "2seas_verge_grass_seasonal_harvest_potential_2021_reference.csv",
+  "source_id": "SRC-MOOV-VITO-2021",
+  "title": "Seasonal theoretical and technical harvest potential for verge grass in the 2 Seas project",
+  "authors": ["Annelies De Meyer", "Ruben Guisson", "Dieter Cuypers (annex)"],
+  "publication_year": 2021,
+  "doi": null,
+  "persistent_source_url": "https://moov.vito.be/sites/moov/files/downloads/20211208_D3.2.1-2-3.%20Mobilisation%20strategies%20for%20verge%20grass%20in%20the%202%20SEAS%20region.pdf",
+  "license": "No explicit reuse license identified in the report metadata; use limited to traceable numerical facts in this project record; do not redistribute the source report.",
+  "retrieval_date": "2026-11-07",
+  "rows": 30,
+  "geography": "DEMO 1: Flanders, Belgium; DEMO 2: Zeeland, Netherlands",
+  "source_location": "Table 1 and note 12, PDF page 19",
+  "evidence_class": "B_published_estimates_and_reported_scenario_outputs",
+  "units_and_basis": {
+    "value": "tonnes fresh/as-received biomass per hectare for a harvest period; annual_total is source-reported summer plus autumn total",
+    "technical_quantity": "Source-reported potential after a 70% multiplier to theoretical quantity; project attributes 30% reduction to obstacles/topography"
+  },
+  "data_handling": "Transcribed the five feedstock types and source-reported summer, autumn and total theoretical and technical quantities. No conversion to dry matter, annual yield, collected mass or GreenHub supply was performed. Technical values are kept distinct from theoretical estimates and quality-classed C because the reported 70% technical factor is an assumption, not a direct measurement.",
+  "limitations": [
+    "Values are project estimates from a 2021 regional mobilisation report, not replicated site harvest measurements.",
+    "Feedstock labels identify management contexts but do not provide plot area, moisture/DM basis, contaminant fraction, or independently measured accessible fraction.",
+    "The technical values embed a 70% theoretical-to-technical factor for obstacles/topography and are not measured accessibility for a GreenHub route.",
+    "Do not convert fresh mass to dry matter without a feedstock- and cut-specific moisture observation.",
+    "No explicit reuse license was identified in the retrieved report metadata."
+  ],
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "runtime_parameter_mapping": null
+}

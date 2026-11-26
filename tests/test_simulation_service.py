@@ -1,4 +1,5 @@
 import json
+from dataclasses import replace
 
 import pytest
 
@@ -48,16 +49,25 @@ def test_isolated_structural_and_literature_runs_and_exports(tmp_path):
     assert structural_context.model.flowsheet is not literature_context.model.flowsheet
     structural_r401 = structural_context.model.units["R401"].acid_recovery_fraction
     literature_r401 = literature_context.model.units["R401"].acid_recovery_fraction
-    assert literature_r401 == pytest.approx(0.34)
+    assert literature_r401 == pytest.approx(0.38)
     assert structural_r401 != literature_r401
     structural_precipitation = next(item for item in structural.resolved_parameters if item.parameter_id == "phase4.precipitation_efficiency")
     literature_precipitation = next(item for item in literature.resolved_parameters if item.parameter_id == "phase4.precipitation_efficiency")
     assert structural_precipitation.quality_class == "E"
-    assert literature_precipitation.quality_class == "B"
+    assert literature_precipitation.quality_class == "C"
     assert literature_precipitation.stable_identifier == "10.3389/fsufs.2019.00112"
     assert literature_precipitation.source_url == "https://doi.org/10.3389/fsufs.2019.00112"
     assert literature_precipitation.source_title
     assert literature_precipitation.exact_source_location
+    resolved_literature = {item.parameter_id: item for item in literature_context.resolved_parameters}
+    assert resolved_literature["phase4.precipitation_efficiency"].selected_candidate.source_row_id == "REC-005"
+    structural_pH = next(item for item in structural.resolved_parameters if item.parameter_id == "phase4.target_pH")
+    literature_pH = next(item for item in literature.resolved_parameters if item.parameter_id == "phase4.target_pH")
+    assert structural_pH.quality_class == "E"
+    assert literature_pH.value == pytest.approx(4.5)
+    assert literature_pH.quality_class == "C"
+    assert resolved_literature["phase4.target_pH"].selected_candidate.source_row_id == "REC-006"
+    assert resolved_literature["phase4.target_pH"].selected_candidate.readiness_state.value == "D4"
     assert structural.validation.passed and literature.validation.passed
     assert structural.summary_kpis["overall_mass_residual"].value == pytest.approx(0.0, abs=1e-6)
     assert literature.summary_kpis["overall_mass_residual"].value == pytest.approx(0.0, abs=1e-6)
@@ -76,6 +86,79 @@ def test_isolated_structural_and_literature_runs_and_exports(tmp_path):
     assert ":\\\\" not in payload
     assert literature.graph.nodes and literature.graph.edges
     assert any(item.availability_status == "available" for item in literature.plots)
+
+
+def test_pr3_guo_literature_conditions_reach_calculation_and_result_contract(tmp_path):
+    request = replace(
+        _request("guo-pr3-literature", CalculationMode.LITERATURE_DEFAULT),
+        scenarios=ScenarioSelection(
+            feed_preparation="F1",
+            protein_recovery="PR3",
+            anaerobic_digestion="AD1",
+            biogas_upgrading="BG2",
+            nutrient_recovery="NR2",
+            process_order="A",
+        ),
+    )
+    service = SimulationService(run_root=tmp_path)
+    run_id = service.create_run(request)
+    result = service.execute_run(run_id)
+    context = service.repository.get(run_id)
+    reported = {item.parameter_id: item for item in result.resolved_parameters}
+
+    assert reported["phase4.target_pH"].value == pytest.approx(5.0)
+    assert reported["phase4.target_pH"].quality_class == "B"
+    assert reported["phase4.target_pH"].stable_identifier == "10.1016/j.fufo.2022.100173"
+    assert reported["phase4.target_pH"].exact_source_location == "Article abstract"
+    assert reported["phase4.precipitation_temperature_C"].value == pytest.approx(60.0)
+    assert reported["phase4.precipitation_temperature_C"].quality_class == "B"
+
+    phase4 = context.model.legacy_model.upstream_model.upstream_model.upstream_model
+    assert phase4.parameters["values"]["target_pH"] == pytest.approx(5.0)
+    assert phase4.parameters["values"]["precipitation_temperature_C"] == pytest.approx(60.0)
+    assert result.validation.passed
+
+
+def test_pr3_default_precipitation_temperature_reports_linked_proxy_evidence(tmp_path):
+    request = replace(
+        _request("guo-pr3-default-evidence"),
+        scenarios=ScenarioSelection(
+            feed_preparation="F1",
+            protein_recovery="PR3",
+            anaerobic_digestion="AD1",
+            biogas_upgrading="BG2",
+            nutrient_recovery="NR2",
+            process_order="A",
+        ),
+    )
+    service = SimulationService(run_root=tmp_path)
+    run_id = service.create_run(request)
+    result = service.execute_run(run_id)
+    context = service.repository.get(run_id)
+    reported = {item.parameter_id: item for item in result.resolved_parameters}
+    selected = {item.parameter_id: item for item in context.resolved_parameters}
+    temperature = reported["phase4.precipitation_temperature_C"]
+    candidate = selected["phase4.precipitation_temperature_C"].selected_candidate
+    pH = reported["phase4.target_pH"]
+    pH_candidate = selected["phase4.target_pH"].selected_candidate
+
+    assert temperature.value == pytest.approx(60.0)
+    assert temperature.quality_class == "C"
+    assert temperature.stable_identifier == "10.1016/j.fufo.2022.100173"
+    assert temperature.source_url == "https://doi.org/10.1016/j.fufo.2022.100173"
+    assert candidate.readiness_state.value == "D4"
+    assert candidate.source_row_id == "Phase4Parameters:90"
+    assert candidate.evidence_class == "literature_linked_assumption"
+    assert pH.value == pytest.approx(5.0)
+    assert pH.quality_class == "C"
+    assert pH.stable_identifier == "10.1016/j.fufo.2022.100173"
+    assert pH_candidate.readiness_state.value == "D4"
+    assert pH_candidate.source_row_id == "Phase4Parameters:91"
+    assert pH_candidate.evidence_class == "literature_linked_assumption"
+    phase4 = context.model.legacy_model.upstream_model.upstream_model.upstream_model
+    assert phase4.parameters["values"]["precipitation_temperature_C"] == pytest.approx(60.0)
+    assert phase4.parameters["values"]["target_pH"] == pytest.approx(5.0)
+    assert result.validation.passed
 
 
 def test_service_structural_result_matches_direct_factory(tmp_path):
@@ -148,6 +231,23 @@ def test_service_uses_canonical_default_and_applies_feed_composition_override(tm
     assert baseline_soluble_protein == pytest.approx(expected["SolubleProtein"] * 1000.0)
     assert modified_water == pytest.approx((expected["Water"] - 0.05) / 0.95 * 1000.0)
     assert modified_soluble_protein == pytest.approx(expected["SolubleProtein"] / 0.95 * 1000.0)
+    baseline_feed_result = next(stream for stream in baseline.streams if "feed" in stream.aliases)
+    modified_feed_result = next(stream for stream in modified.streams if "feed" in stream.aliases)
+    assert baseline_feed_result.components["HeavyMetals"].value == pytest.approx(
+        expected["HeavyMetals"] * 1000.0
+    )
+    assert modified_feed_result.components["HeavyMetals"].value == pytest.approx(
+        expected["HeavyMetals"] / 0.95 * 1000.0
+    )
+    assert baseline_feed_result.components["ChlorideIon"].value == pytest.approx(
+        expected["ChlorideIon"] * 1000.0
+    )
+    assert baseline_feed_result.components["Starch"].value == pytest.approx(
+        expected["Starch"] * 1000.0
+    )
+    assert modified_feed_result.components["ChlorideIon"].value == pytest.approx(
+        expected["ChlorideIon"] / 0.95 * 1000.0
+    )
     assert baseline.summary_kpis["dry_protein_product_mass"].value != pytest.approx(
         modified.summary_kpis["dry_protein_product_mass"].value
     )

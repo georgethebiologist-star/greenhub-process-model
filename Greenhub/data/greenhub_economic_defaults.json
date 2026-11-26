@@ -13,6 +13,23 @@
     "uncertainty": "No probability distributions unless a separate range is supplied; values are editable in Configure.",
     "runtime_policy": "UI defaults only. The UI sends explicit overrides to post-route TEA/LCA; these values do not change process chemistry or balances."
   },
+  "physical_constants": {
+    "biomethane_density_kg_per_nm3": {
+      "value": 0.71751,
+      "unit": "kg/Nm3",
+      "basis": "Pure methane real-gas density at 273.15 K and 101.325 kPa (JIS/STP). Used to convert modeled biomethane mass to normal volume for the €/Nm3 support overlay.",
+      "geography": "Reference condition",
+      "reference_year": 1985,
+      "source_title": "LNG Measurement: A User's Guide to Custody Transfer — Fluid Properties",
+      "source_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/IR/nbsir85-3028.pdf",
+      "source_table_page": "Section 1.2, pp. 1.2-3–1.2-4, Eq. (2)–(3); reported density and uncertainty",
+      "retrieval_date": "2026-11-05",
+      "evidence_class": "B",
+      "applicability": "Pure methane reference density; actual biomethane composition, purity, and calorific value may differ. The volume conversion is a screening normalization, not a product-quality measurement.",
+      "conversion_method": "Nm3/year = modeled biomethane kg/year ÷ 0.71751 kg/Nm3.",
+      "uncertainty": "NIST report gives ±0.00006 kg/m3 for the pure-methane reference density; this does not include product-composition or model uncertainty."
+    }
+  },
   "economics": {
     "staffingPeople": 5,
     "paidHoursPerPerson": 1500,
@@ -32,7 +49,7 @@
     "grassUtilizationBonusYears": 20,
     "biomethaneBonusEnabled": false,
     "biomethaneBonusEurM3": 1.87,
-    "biomethaneBonusYears": 15,
+    "biomethaneBonusYears": 20,
     "additionalBenefitEurYear": 0,
     "additionalBenefitYears": 0
   },

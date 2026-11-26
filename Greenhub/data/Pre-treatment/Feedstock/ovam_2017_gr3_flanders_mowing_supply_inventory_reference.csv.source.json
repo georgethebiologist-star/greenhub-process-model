@@ -1,0 +1,39 @@
+{
+  "dataset_id": "urn:greenhub:dataset:ovam-gr3-2017-flanders-mowing-inventory:v1",
+  "dataset_version": "1.0.0",
+  "dataset_title": "GR3 Flemish grassland and verge mowing inventory and Natuurpunt update",
+  "dataset_file": "ovam_2017_gr3_flanders_mowing_supply_inventory_reference.csv",
+  "source_dataset_path": "Greenhub/data/Pre-treatment/Feedstock/ovam_2017_gr3_flanders_mowing_supply_inventory_reference.csv",
+  "source_data_sha256": "a80d68715cbb99978e9eb54e16b3244438d0006dbf26a8b494e53675802b09b0",
+  "rows": 17,
+  "source_id": "SRC-OVAM-GR3-2017-TABLE36",
+  "citation": "OVAM. (2017). Aanbod en bestemming biomassa(rest)stromen voor de circulaire economie in Vlaanderen. GR3 Table 36, p. 79. https://ovam.vlaanderen.be/documents/177281/310282/marktanalyse%2BBiomassa%28rest%29stromen-volledig_LR.pdf/0438936b-5dd3-1a12-c4e6-cb014c9b547b?download=true&t=1653497765000&version=1.0",
+  "source_url": "https://ovam.vlaanderen.be/documents/177281/310282/marktanalyse%2BBiomassa%28rest%29stromen-volledig_LR.pdf/0438936b-5dd3-1a12-c4e6-cb014c9b547b?download=true&t=1653497765000&version=1.0",
+  "dataset_doi": null,
+  "dataset_url": null,
+  "retrieval_date": "2026-11-08",
+  "publication_year": 2017,
+  "underlying_study": "GR3 (2015); exact period not further specified in the report table",
+  "geography": "Flanders, Belgium",
+  "source_location": "Table 36 printed p. 79 / PDF p. 80; notes printed pp. 78–79",
+  "permission_or_rights": "OVAM report document description, printed p. 6, states that data in the document may be reproduced provided a clear source citation is supplied. No standardized CC license is asserted.",
+  "evidence_class": "B_official_reported_inventory_estimate",
+  "quality_class": "B",
+  "data_type": "reported inventory and potential supply estimates; includes agency rows, subtotals, total and a separate Natuurpunt update",
+  "fresh_mass_method": "The report applies 27% dry matter to derive fresh-matter tonnage from dry matter; it is not a paired wet-weight measurement.",
+  "processing": "Direct transcription of Table 36 values and a separately identified Natuurpunt footnote update. No recalculation, interpolation, or merging between the two scopes.",
+  "activation_state": "reference_only",
+  "runtime_parameter_mapping": null,
+  "limitations": [
+    "Historical Flemish inventory/GR3 potential estimate, not GreenHub contracted or delivered supply. The report warns that estimated area may not all be mown and some cuttings may remain at the site. It combines managed grasslands/nature and roadside verges; these groups are kept separate. Fresh-matter tonnage is derived by the report using 27% dry matter, not an independently paired wet-mass measurement. No seasonal delivery schedule, source coordinates, collection losses, or current Dutch site data are provided. The printed grassland actor rows sum to 26,554 t DM/y while the reported grassland subtotal is 26,553 t DM/y; the report does not explain this 1 t difference. The actor rows across grassland and verge categories sum to the reported overall total of 61,438 t DM/y. Reference-only; do not use as a GreenHub default or as a measured harvest contract.",
+    "Table 36 totals include both managed grassland/nature and road-verge sources; the two groups are kept disaggregated in records.",
+    "The table's reported totals should not be added to actor rows. The separate Natuurpunt update is not part of the table totals.",
+    "Table 36 values are not numerically interchangeable with MONBIO 2.0: source years, definitions, data methods and dry-matter assumptions differ."
+  ],
+  "fair_metadata": {
+    "findable": "Versioned local URN, exact citation, source report URL, dataset DOI and table/page are recorded.",
+    "accessible": "CSV and JSON sidecar are stored locally; report and supporting GR3 dataset are linked over HTTPS.",
+    "interoperable": "UTF-8 CSV uses separate wet/dry mass, area, yield, actor, material group, destination and period fields.",
+    "reusable": "OVAM reuse permission with citation, source method, 27% DM derivation, caveats and no-runtime policy are recorded."
+  }
+}

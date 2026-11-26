@@ -1,0 +1,38 @@
+{
+  "dataset_id": "urn:greenhub:dataset:koehler-2013-grass-bunker-silo-storage-reference:v1",
+  "dataset_title": "Farm-scale grass bunker-silo loss and management summary extract",
+  "source_dataset_path": "Greenhub/data/storage/koehler_2013_farm_scale_grass_bunker_silo_storage_reference.csv",
+  "source_data_sha256": "e09a5db6f6cd5501fcb7eb459c8807788e72495edf70aca136c8e4514cfe6587",
+  "rows": 13,
+  "persistent_identifier": "10.23986/afsci.6715",
+  "source_url": "https://doi.org/10.23986/afsci.6715",
+  "full_text_url": "https://journal.fi/afs/article/download/6715/6056/19691",
+  "source_id": "SRC-KOEHLER-2013-GRASS-BUNKER-SILO",
+  "source_title": "Dry matter losses of grass, lucerne and maize silages in bunker silos",
+  "authors": [
+    "Brigitte Köhler",
+    "Michael Diepolder",
+    "Johannes Ostertag",
+    "Stefan Thurner",
+    "Hubert Spiekers"
+  ],
+  "journal": "Agricultural and Food Science",
+  "publication": "2013, 22, 145–150",
+  "source_location": "Table 2 p. 147; Table 3 and Results p. 148; Methods pp. 145–146",
+  "retrieval_date": "2026-11-08",
+  "geography": "Bavaria, Germany",
+  "material_scope": "26 grass silos on one organic and two conventional Bavarian farms; data collected 2008–2011; sealed for at least 6 weeks; feed-out averaged 3 months; grass sources included permanent grassland and some grass-clover/annual ryegrass.",
+  "data_type": "primary farm measurements reported as summary statistics; underlying silo-level rows not reported as an open data file",
+  "license_or_rights": "Publisher/article page identifies copyright; no explicit open reuse license was confirmed. Only a short factual summary with attribution is stored; do not redistribute the article PDF.",
+  "evidence_class": "B_measured_farm_scale_literature_summary",
+  "quality_class": "B",
+  "activation_state": "reference_only",
+  "readiness": "D3",
+  "measurement_scope": "Total-in vs total-out dry-matter accounting over silo ensiling/storage and feed-out. Not storage-only and not a temporal kinetic curve.",
+  "negative_loss_handling": "The source explicitly attributes negative loss estimates to measurement/accounting error. Preserve the reported minimum for audit only; never use it as a physical negative loss or model coefficient.",
+  "limitations": [
+    "German dairy-farm bunker silage, not roadside/VARTA biomass or GreenHub storage. Total-in versus total-out covers silo ensiling/storage and feed-out as a combined interval; it is not a duration-resolved degradation kinetic or an aerobic-versus-anaerobic comparison. Negative reported loss is measurement/accounting error, not physical mass gain and must not be used as a negative loss coefficient. No runtime mapping or default.",
+    "No raw observations per silo or time series are deposited in the article; summary sample counts vary by metric."
+  ],
+  "citation": "Köhler et al. (2013). Dry matter losses of grass, lucerne and maize silages in bunker silos. Agricultural and Food Science 22:145–150. https://doi.org/10.23986/afsci.6715"
+}

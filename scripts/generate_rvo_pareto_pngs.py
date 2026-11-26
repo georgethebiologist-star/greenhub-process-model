@@ -8,8 +8,11 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import numpy as np
 from mpl_toolkits.mplot3d import Axes3D  # noqa: F401
+import sys
 
 ROOT=Path(__file__).resolve().parents[1]
+sys.path.insert(0,str(ROOT))
+from Greenhub.pareto_reporting import load_pareto_results
 SOURCE=ROOT/'Greenhub'/'results'/'pareto_rvo_2026'/'latest.json'
 FIGROOT=ROOT/'results'/'report_figures'/'10_rvo_2026_support_adjusted'
 OUT=FIGROOT/'07_optimization'
@@ -70,7 +73,7 @@ def pairplot(group,rows,front,key,xlabel,xunit,title,case=None):
     name=f'pareto_{key}_vs_npv_{group}'+(f'_case_{case}' if case else '')+'.png'
     save(fig,OUT/name,title,Path('Greenhub/results/pareto_rvo_2026')/f'{group}_batch.json',group+(f' / case {case}' if case else ' / all support cases'),f'{xlabel}: {xunit}; NPV: €')
 
-doc=json.loads(SOURCE.read_text(encoding='utf-8'))
+doc=load_pareto_results(SOURCE.parent)
 _select_for_plot=[]
 for group in ('protein_enabled','protein_bypass'):
     pack=doc['groups_payload'][group]; rows=pack['samples']; fronts=pack['fronts']; selected=pack['selected_candidates']['net_carbon_vs_npv']; _select_for_plot=selected
@@ -226,7 +229,7 @@ save(fig,compare_dir/'rvo_support_case_npv_comparison.png','NPV samples and medi
 # Dense technical, TEA and hotspot figures from actual saved model results.
 technical_dir=FIGROOT/'02_technical';tea_dir=FIGROOT/'03_tea';hotspot_dir=FIGROOT/'05_hotspots'
 for folder in (technical_dir,tea_dir,hotspot_dir):folder.mkdir(parents=True,exist_ok=True)
-latest=json.loads((ROOT/'Greenhub'/'results'/'pareto_rvo_2026'/'latest.json').read_text(encoding='utf-8'))
+latest=load_pareto_results(SOURCE.parent)
 endpoint_rows=[]
 for group,label in [('protein_enabled','Protein enabled'),('protein_bypass','Protein bypassed')]:
     block=latest['groups_payload'][group]

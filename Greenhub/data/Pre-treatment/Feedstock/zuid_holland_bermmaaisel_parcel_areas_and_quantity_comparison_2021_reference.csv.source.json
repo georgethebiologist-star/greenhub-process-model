@@ -1,0 +1,45 @@
+{
+  "dataset_id": "urn:greenhub:dataset:zuid-holland-bermmaaisel-parcel-comparison-2021:v1",
+  "title": "South Holland roadside-grass maintenance parcel areas, reported quantities, and literature-yield comparison",
+  "source_file": "zuid_holland_bermmaaisel_parcel_areas_and_quantity_comparison_2021_reference.csv",
+  "source_id": "SRC-PZH-BERMMAAISEL-2021",
+  "record_count": 12,
+  "publication": "Verrips, K.; van Rengs, K.; Franken, N. (2021). Eindrapportage Bermmaaisel. Plennid Netherlands B.V., commissioned by Provincie Zuid-Holland; main report and Appendix 1 (LCA), March 2021.",
+  "source_url": "https://circulair.zuid-holland.nl/wp-content/uploads/2021/12/Eindrapportage-bermmaaisel_maart-2021_PZH-1.pdf",
+  "appendix_url": "https://circulair.zuid-holland.nl/wp-content/uploads/2021/12/Eindversie-Appendix-1.-LCA_maart-2021_compressed.pdf",
+  "persistent_identifier": null,
+  "retrieval_date": "2026-11-07",
+  "license": "No explicit reuse license identified in the accessed report. Factual values, source locations and brief contextual notes are retained for internal traceability; review reuse rights before redistribution of expressive report content.",
+  "source_locations": [
+    "Main report management summary p. 5: approximately 11,000 t/year from four provincial parcels.",
+    "Main report p. 24 and Appendix 1 pp. 11–12: parcel areas and East/West quantities; South is estimated in Appendix 1 p. 20 because primary data were unavailable.",
+    "Appendix 1 p. 12: source-calculated theoretical parcel potentials using a cited 4 t DM/ha, represented as 16 t fresh/ha."
+  ],
+  "record_semantics": {
+    "mowed_area": "Area as reported for provincial maintenance parcels; not necessarily grass-only, eligible or accessible area.",
+    "reported_collected_quantity": "Approximate report-level amount described as collected/removed; no underlying weigh tickets or mass basis published.",
+    "estimated_collected_quantity": "South parcel estimate; report says primary parcel data were unavailable and uses West contractor data and scaled assumptions.",
+    "reported_total_collected_quantity": "Approximate four-parcel provincial aggregate; not a GreenHub contract and not disaggregated to cut or parcel in the management summary.",
+    "source_calculated_fresh_biomass_potential": "The appendix's calculated theoretical fresh biomass yield by parcel; based on a cited literature yield factor rather than observed collection. It must not be conflated with the contractor-reported quantity."
+  },
+  "mass_basis": "The report does not state whether reported contractor tonnes are wet or dry matter. Potential-yield values are explicitly labelled fresh tonnes in the report's calculation, but the assumed conversion underpinning 4 t DM/ha to 16 t fresh/ha is not fully specified in the extracted passage.",
+  "geography": "Four Zuid-Holland provincial maintenance parcels (north, east, south, west), Netherlands.",
+  "evidence_class": "Published provincial project report; mix of report-level quantities, area records, one explicitly estimated parcel amount, and source-calculated literature-yield potentials.",
+  "quality_classes": {
+    "B": "Values explicitly reported in the provincial project report; this does not imply weighbridge verification.",
+    "C": "Parcel potential values calculated in that report using a literature-derived per-hectare yield factor."
+  },
+  "applicability": "Phase 1 regional comparator for parcel-scale feedstock area and the gap between reported handling quantities and theoretical yield. It is not a GreenHub feedstock supply dataset or runtime input.",
+  "limitations": [
+    "Underlying reference year for the annual quantities, measurement method and scale-ticket records are not given.",
+    "Wet/dry basis is not stated for reported contractor or provincial quantities; no conversion is made.",
+    "The South amount is explicitly estimated because primary data were unavailable; no North contractor amount is independently transcribed from the accessible narrative and no North value is inferred as a remainder.",
+    "The four-parcel reported total is approximate and should not be forced to equal the partial parcel quantities in this extract.",
+    "The report notes that contractor tonnages, especially South and West, may include ditch debris and can conflict with area-based expectations; it recommends centralized weighbridge receipts and machinery-hour records.",
+    "The source-calculated potential values are not observed harvests, are not access-screened, and must not be used as local GreenHub supply or as a dry-matter conversion factor.",
+    "No per-cut mass, moisture, contamination, accepted/rejected quantity, contracts, or GreenHub allocation is reported."
+  ],
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "runtime_parameter_mapping": null
+}

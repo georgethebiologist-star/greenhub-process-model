@@ -1,0 +1,59 @@
+{
+  "source_file": "roadside_biomass_municipality_scenarios_duczkowska_2026_reference.csv",
+  "source_id": "SRC-DUCZKOWSKA-2026-ROAD-BIOMASS",
+  "dataset_id": "urn:greenhub:dataset:duczkowska-2026:roadside_biomass_municipality_scenarios_duczkowska_2026_reference:v1",
+  "dataset_title": "Table 2 municipality-level roadside biomass, theoretical/technical energy, and useful-energy estimates from Duczkowska et al. (2026).",
+  "source_dataset_path": "Greenhub/data/Pre-treatment/Feedstock/roadside_biomass_municipality_scenarios_duczkowska_2026_reference.csv",
+  "source_data_sha256": "4ff962ba9dfae5ba263d6c66acd4f75cd7adc13f83a37e17d114fe794e5999fb",
+  "persistent_identifier": "10.3390/en19174185",
+  "doi": "10.3390/en19174185",
+  "source_url": "https://doi.org/10.3390/en19174185",
+  "article_url": "https://www.mdpi.com/1996-1073/19/17/4185",
+  "institutional_record_url": "https://repo.uni.opole.pl/info/article/UOf780cd356572489298c7fb32adf52f71",
+  "source_title": "Roadside Grass Biomass Assessment and Capacity-Constrained Allocation Using Aerial Geographic Information",
+  "authors": [
+    "Anna Duczkowska",
+    "Ryszard Beniak",
+    "Arkadiusz Gardecki",
+    "Joanna Rut",
+    "Michal Podpora",
+    "Bartlomiej Klin",
+    "David Kasperek"
+  ],
+  "publisher": "MDPI / Energies; Opole University of Technology institutional bibliography",
+  "publication_year": 2026,
+  "publication_date": "2026-09-04",
+  "retrieval_date": "2026-11-08",
+  "source_location": "Table 2; Sections 2.1–2.5 and 3.3–3.5; conclusions.",
+  "license_or_rights": "CC BY 4.0 as recorded in the Opole University institutional bibliography record for the publisher version.",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "geography": "Kołobrzeg County, West Pomeranian Voivodeship, Poland.",
+  "evidence_class": "B_primary_literature_published_scenario_estimates_not_direct_measurements",
+  "quality_class": "B",
+  "maturity_class": "D3",
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "parameter_registry_mapping": null,
+  "row_count": 35,
+  "data_origin": "Article reports derived estimates using county-road/mowing information and visually screened 2024 orthophotography; road data were obtained from the county LP-Portal. The study does not provide the underlying road-node/segment dataset in its data statement.",
+  "methods_and_assumptions": [
+    "Two mowing periods per year are discussed for Polish road-maintenance practice; this is not a measured Dutch seasonal profile.",
+    "For a volume-based pathway the paper assumes 1.5 m3/km, 0.3 recoverable fraction, bulk density 0.212 t/m3, calorific value 13 GJ/t and useful-energy efficiency 0.8.",
+    "Table 2 also presents municipality mowing mass values; the article states these are mass-based and are not converted using the volume-based density assumption.",
+    "No field validation of the estimated biomass quantities is reported; no operational collection costs or vehicle-routing optimization are included."
+  ],
+  "transcription_policy": "Table 2 values are transcribed as reported. For mowed-mass values only, Gg/a is additionally converted to t/a using 1 Gg = 1000 t. Table pairs are assigned positional labels A/B only; no scenario name or wet/dry basis is inferred.",
+  "uncertainty": "No replicate-level measurement uncertainty is reported for the scenario estimates. Their uncertainty is assumption- and spatial-screening-dependent; not represented as a statistical interval.",
+  "applicability": "Useful as an external Phase 1 spatial-supply and collection-capacity method/benchmark. Not an annual delivered supply estimate for the Netherlands, GreenHub, or any specific road authority.",
+  "known_limitations": [
+    "Polish Kołobrzeg County planning estimate, not Dutch roadside supply or GreenHub field data. The source describes scenario calculations based on road/mowing information, aerial screening, and assumptions; it is not a weighbridge measurement or field-validated biomass model. The table's paired values are kept as positions A/B; this extract does not infer one-cut/two-cut labels, month allocation, or a fresh/dry mass basis. Not a runtime parameter or default.",
+    "Source-table pair labels and mass basis are not resolved in this extract; preserve the paper and source citation for review."
+  ],
+  "records_sha256": "4ff962ba9dfae5ba263d6c66acd4f75cd7adc13f83a37e17d114fe794e5999fb",
+  "fair_metadata": {
+    "findable": "DOI, institutional record URL, article URL, dataset URN and checksum are recorded.",
+    "accessible": "The published article is linked; data are transcribed into local UTF-8 CSVs and indexed in the FAIR catalog.",
+    "interoperable": "Each metric has explicit reported and normalized units, geography, metric identity and source location.",
+    "reusable": "CC BY 4.0 attribution, estimate-vs-measurement distinction, assumptions, conversion, uncertainty and transfer limits are explicit."
+  }
+}

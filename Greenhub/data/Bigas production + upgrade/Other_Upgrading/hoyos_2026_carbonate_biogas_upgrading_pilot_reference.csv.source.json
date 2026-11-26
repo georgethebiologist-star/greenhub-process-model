@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "source_id": "SRC-HOYOS-CARBONATE-UPGRADING-2026",
+  "source_title": "Pilot-scale optimization of a physical-chemical biogas upgrading system based on a high alkalinity absorbent at ambient pressure and temperature",
+  "authors": "Edwin G. Hoyos; Saeed Rasekhi; Rogelio Mazaeda; Raúl Muñoz",
+  "reference_year": 2026,
+  "persistent_identifier": "https://doi.org/10.1016/j.fuel.2025.138010",
+  "source_url": "https://uvadoc.uva.es/bitstream/handle/10324/80943/Pilot-scale-optimization-physical%E2%80%93chemical-biogas.pdf?isAllowed=y&sequence=1",
+  "source_location": "Abstract p. 1; Methods §§2.2–2.3",
+  "retrieval_date": "2026-11-09",
+  "geography": "University of Valladolid, Spain",
+  "evidence_class": "Primary pilot-scale experimental literature; product-gas measurements",
+  "license": "Creative Commons Attribution 4.0 International (CC BY 4.0), article PDF license statement",
+  "measurement_basis": "Absorption/desorption system with 7.2 L working volume in each column, controlled at 20 °C. Synthetic inlet gas was 65% CH4, 34.5% CO2 and 0.5% H2S. Reported optimum: 90 L/d biogas, 1500 L/d air, L/G 0.7, initial pH 9.5, inorganic carbon 8000 mg C/L, EDTA-Fe 0 mM. Product-gas composition is reported as mean ± standard deviation for 3 weeks of continuous operation.",
+  "uncertainty": "The article reports composition ± values; methods state steady-state results as mean and standard deviation. The abstract does not state the number of gas-composition observations in the 3-week mean. H2S is reported as not detected without a detection limit.",
+  "conversion_and_scaling": "No value conversion or scale-up performed. Flow settings remain L/d for this 7.2 L pilot; no energy, chemical consumption per unit gas, capital or commercial-scale coefficient is inferred.",
+  "related_technology_family_ids": ["biogas_upgrading"],
+  "applicability": "Reference dataset for carbonate absorption/air stripping as an additional biogas-upgrading technology option in other project contexts; not representative of GreenHub's existing commercial routes.",
+  "limitations": [
+    "Early-stage pilot operated with synthetic gas at a small 7.2 L working volume per column.",
+    "No calculation-ready normalized energy or utility demand was transcribed.",
+    "The H2S non-detect has no reported analytical detection limit in the abstract.",
+    "Product-gas composition is not a methane recovery fraction or a guaranteed commercial specification.",
+    "No GreenHub runtime mapping, default, TEA factor or LCA factor is created."
+  ],
+  "license_note": "CC BY 4.0. Attribute the article and preserve its stated units, condition set and scale limitations.",
+  "activation_state": "reference_only",
+  "runtime_mapping": "none"
+}

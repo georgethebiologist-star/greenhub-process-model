@@ -1,0 +1,26 @@
+{
+  "source_file": "road_verge_supply_scenarios_lincolnshire_2020.csv",
+  "title": "Lincolnshire road-verge supply scenarios by harvest radius and cut width",
+  "source_id": "SRC-BROWN-2020",
+  "authors": "Aaron E. Brown; Judith S. Ford; Catherine S. E. Bale; Miller A. Camargo-Valero; Nick J. Cheffins; Patrick E. Mason; Andrew M. Price-Allison; Andrew B. Ross; Peter G. Taylor",
+  "publication_year": 2020,
+  "doi": "10.1016/j.biombioe.2020.105570",
+  "source_url": "https://doi.org/10.1016/j.biombioe.2020.105570",
+  "open_full_text_url": "https://eprints.whiterose.ac.uk/160532/1/39%20Brown%20et%20al.%2C%202020.pdf",
+  "license": "CC BY 4.0",
+  "source_location": "Table 5, p. 8",
+  "retrieval_date": "2026-11-06",
+  "evidence_class": "B_literature_scenario",
+  "geography": "Lincolnshire, England, United Kingdom",
+  "reference_year": 2016,
+  "scenario_basis": "Rural-road network within radii of operating AD plants; one annual cut; assumed fresh yield 12.5 tonnes per hectare; swath widths of 1.2, 2, and 3 metres.",
+  "method": "Authors combine road GIS lengths and width-derived area with the stated single-cut yield assumption. Table values are reported, not independently recalculated.",
+  "limitations": [
+    "Scenario estimates are not measured harvested tonnes, accessible tonnes, or supplier contracts.",
+    "The stated 12.5 t/ha yield is an assumed fresh-mass yield and cannot be interpreted as dry matter yield.",
+    "UK geography and 2016 road/AD-plant context do not transfer directly to Dutch project supply.",
+    "No seasonal split, ecological retention constraint, contamination adjustment, transport payload, or delivered-mass loss is represented."
+  ],
+  "activation_state": "scenario_only",
+  "redistribution_note": "Contains limited attributed numeric data and metadata; the publication is CC BY 4.0."
+}

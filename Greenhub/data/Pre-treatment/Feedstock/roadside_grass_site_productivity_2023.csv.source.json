@@ -1,0 +1,24 @@
+{
+  "dataset_title": "Site-level Dutch roadside-grassland standing-biomass productivity observations, 2023",
+  "dataset_identifier": "greenhub:feedstock:road-verge-site-productivity-2023:v1",
+  "source_file": "roadside_grass_site_productivity_2023.csv",
+  "source_id": "SRC-BAKKER-AVSC-DATA-2025",
+  "source_dataset_file": "Biomass.csv",
+  "rows": 10,
+  "source_dataset_version_doi": "10.5281/zenodo.15349657",
+  "source_dataset_concept_doi": "10.5281/zenodo.15349656",
+  "doi_resolution_status": "resolved_by_zenodo_record_metadata; see Biomass.csv.source.json",
+  "retrieval_date": "2026-11-07",
+  "derivation": "Take the source Productivity value (g DM/m²) for each Dutch roadside site and convert to t DM/ha using 0.01 t DM/ha per g DM/m². This source field represents mean standing biomass from not-yet-mown plots in June and late August, not a collected yield.",
+  "evidence_class": "A_measured_source_field_with_unit_conversion",
+  "license": "CC BY 4.0 applies to source Zenodo version record; this is a GreenHub-derived descriptive extract",
+  "license_status": "source_dataset_license_verified; derived-file provenance retained",
+  "applicability": "Site productivity context for Dutch roadside grasslands; not a mass-flow parameter or estimate of accessible, harvestable, collected, or contracted feed.",
+  "limitations": [
+    "The data contain ten selected sites and are not a spatially representative Dutch supply inventory.",
+    "The productivity field averages standing biomass at two sampling periods; it must not be summed or interpreted as annual harvest yield.",
+    "The output is sensitive to site productivity and does not encode harvest height, regrowth, contamination, collection efficiency, or storage losses."
+  ],
+  "activation_state": "staged_evidence",
+  "runtime_parameter_mapping": null
+}

@@ -10,6 +10,17 @@ Direct clover-grass anchors include 22 L/m²/h average flux at VCF 3, 52% crude-
 
 Load values only when feed, membrane, configuration, operating conditions, basis and transferability match the scenario.
 
+`clover_grass_membrane_stream_composition_and_conditions_echers_2026_reference.csv`
+adds a source-located 45-row extract of cultivated Danish clover-grass Table 1
+stream DM/CP values, selected screw-press and membrane conditions, and reported
+pigment concentrations. This is a single pilot-batch comparator for Phases 1,
+3 and 4. It has no paired stream flows, so concentrations and pigment depletion
+must not be interpreted as mass recovery. Explicitly unreported permeate
+composition remains missing. The final diafiltered concentrate is a liquid
+stream, not dried powder. The record is B-tier, D3/reference-only and has no
+runtime/default link. The publisher states CC BY-NC 3.0; commercial reuse
+requires a rights review.
+
 ## PR7 biostimulant membrane route
 
 The `biostimulant_*.csv` registers contain the separate user-supplied screening

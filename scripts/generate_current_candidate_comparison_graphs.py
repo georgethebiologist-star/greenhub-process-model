@@ -12,6 +12,9 @@ from scipy.stats import spearmanr
 from matplotlib.lines import Line2D
 
 ROOT = Path(__file__).resolve().parents[1]
+import sys
+sys.path.insert(0, str(ROOT))
+from Greenhub.pareto_reporting import load_pareto_results
 SOURCE = ROOT / "Greenhub" / "results" / "pareto_rvo_2026" / "latest.json"
 OUT = ROOT / "results" / "report_figures" / "11_kpi_candidate_correlations"
 OUT.mkdir(parents=True, exist_ok=True)
@@ -85,7 +88,7 @@ def save(fig, name):
 
 
 def main():
-    data = json.loads(SOURCE.read_text(encoding="utf-8"))
+    data = load_pareto_results(SOURCE.parent)
     all_rows = [row for group in data["groups_payload"].values() for row in group["samples"]
                 if row.get("status") == "evaluated" and not row.get("baseline_reference")]
     selected = select_candidates(data)

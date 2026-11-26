@@ -1,0 +1,39 @@
+{
+  "source_id": "SRC-OLSZEWSKA-2021-WSC-CP",
+  "source_title": "Effects of Cultivar, Nitrogen Rate and Harvest Time on the Content of Carbohydrates and Protein in the Biomass of Perennial Ryegrass",
+  "authors": ["Marzenna Olszewska"],
+  "reference_year": 2021,
+  "persistent_identifier": "doi:10.3390/agronomy11030468",
+  "source_url": "https://www.mdpi.com/2073-4395/11/3/468",
+  "doi_or_stable_id": "10.3390/agronomy11030468",
+  "source_type": "peer_reviewed_primary_field_experiment",
+  "source_license": "CC BY 4.0",
+  "retrieval_date": "2026-11-11",
+  "geography": "Agricultural Experiment Station, Tomaszkowo, north-eastern Poland (53°42′40.8″ N, 20°26′04.7″ E)",
+  "study_period": "2013-2015",
+  "material_scope": "Cultivated perennial ryegrass (Lolium perenne L.), cultivars Bajka and Baronka; not roadside grass.",
+  "experimental_conditions": "Split-plot field experiment with four replications; nitrogen rates 0, 120, and 240 kg N/ha; harvest-time groups 08:00-10:00, 12:00-14:00, and 16:00-18:00; four sequential cuts. Tables report marginal means by factor group, not all joint factor combinations.",
+  "source_location": "Tables 2 (WSC), 3 (crude protein), and 4 (WSC:CP ratio); Materials and Methods §§2.1-2.3. Publisher HTML tables.",
+  "measurement_methods": {
+    "water_soluble_carbohydrates": "Anthrone method",
+    "crude_protein": "Kjeldahl method",
+    "wsc_to_cp_ratio": "Source-reported ratio"
+  },
+  "measurement_basis": "WSC and crude protein: g/kg dry matter; WSC:CP ratio: kg WSC per kg CP.",
+  "uncertainty": "The cited tables report marginal means and significance groups but no SD or standard error; do not infer a probability distribution.",
+  "applicability": "Reference-only feed-characterization evidence for perennial ryegrass. It can inform cross-context comparisons of cultivar, nitrogen treatment, harvest time, and cut effects but cannot populate GreenHub roadside-grass defaults or protein-speciation pools.",
+  "conversion_and_scaling": "Values transcribed as printed; no conversion, scaling, or cross-study transfer applied.",
+  "activation_state": "reference_only",
+  "related_technology_family_ids": ["pretreatment_fractionation", "protein_recovery"],
+  "metadata_gaps": [
+    "No raw replicate data or uncertainty spread is reported in Tables 2-4.",
+    "The tables are marginal means; joint cultivar × nitrogen × harvest-time × cut combinations cannot be reconstructed.",
+    "The cultivated ryegrass field material is not a Dutch roadside-grass sample.",
+    "Crude protein does not identify true protein, soluble/insoluble partition, amino-acid profile, or extractable protein.",
+    "Water-soluble carbohydrates are aggregate measurements and are not resolved into individual sugars."
+  ],
+  "related_identifiers": [
+    "https://doi.org/10.3390/agronomy11030468",
+    "https://creativecommons.org/licenses/by/4.0/"
+  ]
+}

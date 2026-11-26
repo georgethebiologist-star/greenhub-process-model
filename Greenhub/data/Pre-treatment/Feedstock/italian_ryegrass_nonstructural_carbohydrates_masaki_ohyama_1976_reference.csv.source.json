@@ -1,0 +1,28 @@
+{
+  "dataset_id": "SRC-MASAKI-1976-NSC",
+  "source_file": "italian_ryegrass_nonstructural_carbohydrates_masaki_ohyama_1976_reference.csv",
+  "title": "Nonstructural Carbohydrates in Italian Ryegrass Determined by Liquid Chromatography",
+  "source_id": "SRC-MASAKI-1976",
+  "authors": ["Shigehiko Masaki", "Yoshinobu Ohyama"],
+  "year": 1976,
+  "journal": "Nihon Chikusan Gakkaiho",
+  "doi": "10.2508/chikusan.47.205",
+  "source_url": "https://doi.org/10.2508/chikusan.47.205",
+  "publisher_record_url": "https://www.jstage.jst.go.jp/article/chikusan1924/47/4/47_4_205/_article/-char/en",
+  "retrieval_date": "2026-11-10",
+  "source_location": "J-STAGE article abstract; methods and reported ranges",
+  "geography": "Experimental location is not stated in the accessible abstract",
+  "material": "Italian ryegrass herbage (Lolium multiflorum), sampled at varied growth stages including aftermaths",
+  "measurement_method": "Freeze-dried, milled grass was extracted with 80% ethanol; mono- and disaccharides were determined by liquid chromatography. Fructosan was determined from hot-water extract using anthrone colorimetry.",
+  "evidence_class": "Primary literature measurement ranges; class B for source observations",
+  "license": "No explicit open-reuse license identified on the publisher record. This repository extract contains limited numeric facts and provenance metadata, not the article text or figures; verify rights before redistribution beyond this project.",
+  "record_count": 5,
+  "activation_state": "Reference ranges remain class B source evidence. The glucose, fructose, sucrose, and fructosan ranges are used only as allocation weights in a separately classified class-C GreenHub proxy that partitions the Smit roadside-grass aggregate. No range midpoint is presented as a measured GreenHub value.",
+  "readiness_state": "D4_partial_calculation_connected",
+  "limitations": [
+    "The source material is cultivated Italian ryegrass, not the GreenHub Dutch roadside-grass sample.",
+    "The abstract gives ranges across growth stages and aftermaths, not per-stage means, SDs, replicate counts, or a probability distribution.",
+    "The resulting GreenHub species split is a literature-based cross-study allocation; it is not an assay of the July 2026 VARTA sample.",
+    "The original aggregate extractive-sugar pool and the literature species ratios come from different studies; sensitivity and matched monosaccharide analysis remain appropriate."
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "dataset_title": "Flemish roadside and nature grass quality survey: reported group-level findings",
+  "dataset_identifier": "greenhub:feedstock:flemish-roadside-quality-survey-2020-summary:v1",
+  "source_file": "flemish_roadside_grass_quality_survey_2020_summary_reference.csv",
+  "source_id": "SRC-EUROFINS-FLEMISH-2021",
+  "source_title": "Kwaliteitsanalyse van berm- en natuurmaaisel met het oog op raffinage en verdere valorisatie",
+  "authors": ["Ronald Hermans", "Eurofins Agro Testing Belgium NV"],
+  "commissioned_by": "Natuurinvest; project partners included Agentschap voor Natuur en Bos, Agentschap Wegen en Verkeer, De Vlaamse Waterweg, and OVAM",
+  "reference_year": 2021,
+  "sampling_period": "2020-09-24 to 2020-11-16",
+  "doi": null,
+  "source_url": "https://circulairterreinbeheer.nl/wp-content/uploads/2021/07/2021-rapport_kwaliteit_gras_eurofins_vwebsite_belgie.pdf",
+  "discovery_url": "https://www.vlaio.be/en/vlaio-network/innovative-government-procurement-program/projects/roadside-grass-raw-material-paper-production/implementation",
+  "retrieval_date": "2026-11-06",
+  "source_location": "Sampling design and conclusions sections; report states the survey covered approximately 25 ANB nature-grass lots, 25 DVW waterway-verge lots, 13 AWV motorway-verge lots, and 12 AWV regional-road verge lots. The cited accessible PDF references a separate Excel appendix, but that workbook was not available through the retrieved public copy.",
+  "evidence_class": "B_primary_laboratory_survey_reported_summary",
+  "license": "No explicit dataset or report reuse license was identified. Only brief aggregate factual findings are transcribed with attribution; the referenced Excel appendix and individual laboratory certificates are not redistributed.",
+  "rows": 11,
+  "data_basis": "Reported group-level counts and qualitative conclusions; no raw sample concentrations are included.",
+  "applicability": "Belgian roadside and nature clipping survey; useful to prioritize Dutch feedstock sampling and contaminant screening, not a substitute for Dutch or GreenHub feed measurements.",
+  "limitations": [
+    "Sample counts are approximate as reported by the source.",
+    "Samples were taken from recently deposited grass lots and are not a controlled harvest-yield study.",
+    "Individual sample measurements and numerical metal concentrations are not included in the accessible PDF text.",
+    "The heavy-metal comparison is against the cited Keurcompost guideline version 7.0, not a GreenHub feed, digestate, product, or regulatory acceptance specification.",
+    "The survey reports group-level findings; no site-level distribution, detection limits, replicate uncertainty, or feedstock mass weighting is available here.",
+    "Reference-only; no runtime mapping or process default activation."
+  ],
+  "activation_state": "reference_only"
+}

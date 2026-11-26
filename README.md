@@ -1,4 +1,66 @@
-# GreenHub Integrated BioSTEAM Model - Alpha
+# GreenHub
+
+GreenHub is a research-stage engineering model for integrated grass and biomass biorefineries. It links feedstock preparation, protein recovery, anaerobic digestion, biogas upgrading and nutrient recovery. Its process simulations produce inventories that can be evaluated with techno-economic analysis (TEA) and life-cycle assessment (LCA). An optimization and decision-support layer explores scenarios; it does not establish a commercially optimal plant.
+
+**Version:** `0.2.0-alpha.1` (handover candidate; not approved for public distribution). **Status:** alpha research software. Results are screening estimates, not experimentally or industrially validated design predictions. See [model limitations](docs/model_limitations.md) and [scientific assumptions](docs/scientific_assumptions.md).
+
+## Start GreenHub
+
+For a local interactive run, install CPython 3.12.x with the official [Python Install Manager](https://docs.python.org/3/using/windows.html) and Node.js 24.x with Corepack (official [Node.js 24 LTS downloads](https://nodejs.org/en/download/)), then follow the [beginner installation steps](docs/USER_GUIDE.md#install-and-launch-on-windows):
+
+1. Download the [GreenHub repository](https://github.com/georgethebiologist-star/greenhub-process-model) using **Code → Download ZIP**, then extract it. Git users can install Git from [git-scm.com](https://git-scm.com/downloads) and run `git clone https://github.com/georgethebiologist-star/greenhub-process-model.git`. In either case, open the extracted/cloned folder that contains `Start GreenHub.bat` and `README.md`.
+2. On Windows, double-click `Start GreenHub.bat`. Or open PowerShell in the extracted/cloned project root and run `powershell -ExecutionPolicy Bypass -File .\launch.ps1`.
+3. On first launch, GreenHub creates a local Python environment and installs Python and web dependencies from the Python requirements and pnpm lockfile. This requires an internet connection and can take several minutes.
+4. The launcher opens `http://127.0.0.1:3000` when the Python API and web interface are ready. Keep the terminal window open; press **Ctrl+C** in it to stop both services.
+
+The UI runs as a Node/React server and sends scientific requests to the Python API. A production frontend build can be served by the Node server (`cd frontend; corepack pnpm build; corepack pnpm start`), while the Python API remains a separate service. The local launcher starts both. The environment was validated with CPython 3.12.14, BioSTEAM 2.53.11, Node.js 24.18.1, and pnpm 11.16.0. Python runtime dependencies are pinned in [requirements.txt](requirements.txt), and development test tools are in [requirements-dev.txt](requirements-dev.txt). See [installation, user guide, and troubleshooting](docs/USER_GUIDE.md) and the [architecture guide](docs/architecture.md).
+
+For a Python-only model run or API development, see [Installation and Use](#installation-and-use) below. The repository also contains a large set of research datasets, evidence registers, historical checkpoints, scripts, and tests; these are retained as project assets and are not all required to launch the interface.
+
+## Documentation
+
+- [User guide and beginner installation](docs/USER_GUIDE.md)
+- [Architecture and data flow](docs/architecture.md)
+- [Data sources and traceability](docs/input_data_reference.md)
+- [Scientific assumptions and limitations](docs/scientific_assumptions.md), [model limitations](docs/model_limitations.md), and [engineering methods](docs/phase7_methodology.md)
+- [Troubleshooting](docs/TROUBLESHOOTING.md)
+- [Developer guide](docs/DEVELOPER_GUIDE.md)
+- [Third-party software and data notices](docs/THIRD_PARTY_NOTICES.md)
+- [Pre-release validation status](docs/PRE_RELEASE_STATUS.md)
+- [Release notes](CHANGELOG.md)
+
+## Repository map
+
+This tree shows the maintained application, model, documentation, data, and test paths. Historical research files and generated outputs may also exist in the checkout; use the [architecture guide](docs/architecture.md) for module relationships and [pre-release status](docs/PRE_RELEASE_STATUS.md) for current validation and cleanup limits.
+
+```text
+GreenHub/
+├── api/                         Python HTTP/API adapter
+├── biorefinery_platform/        Shared catalog and platform schemas
+├── docs/                        User, scientific, data, developer, and release guides
+├── frontend/
+│   ├── src/                     React interface, views, and visualizations
+│   ├── package.json             Frontend commands and version
+│   ├── pnpm-lock.yaml           Locked JavaScript dependencies
+│   └── server.ts                UI server and Python API proxy
+├── Greenhub/
+│   ├── application/             Simulation services and contracts
+│   ├── data/                    Input workbooks, evidence, and provenance records
+│   ├── parameters/              Defaults and parameter override resolution
+│   ├── results/                 Generated simulation and analysis outputs
+│   └── *.py                     Process model, equations, TEA, LCA, and reporting
+├── scripts/                     Data registration and research utilities
+├── tests/                       Scientific model, service, and API tests
+├── Start GreenHub.bat           Double-click Windows launcher
+├── launch.ps1                   Environment setup and local service startup
+├── requirements.txt             Pinned Python runtime dependencies
+├── requirements-dev.txt         Python test/development dependencies
+└── README.md                    Project start and documentation navigation
+```
+
+Information moves from registered inputs and parameters into the Python process model, then into separate TEA/LCA and optimization services. The API exposes those services to the React interface; generated reports and run artifacts are written under `Greenhub/results/`. The [architecture guide](docs/architecture.md) contains the detailed data-flow diagram and calculation boundaries.
+
+This alpha handover candidate does not imply production deployment or industrial validation. Public redistribution is not ready until GreenHub code ownership, Spaak brand-asset permissions, and source-data redistribution rights in [Third-party notices](docs/THIRD_PARTY_NOTICES.md) are resolved.
 
 This repository contains one connected GreenHub model covering feed characterization, preparation and primary separation, protein recovery, anaerobic digestion, biogas conditioning/upgrading, digestate processing, and nutrient recovery. It produces transparent engineering inventories for later TEA, LCA, uncertainty analysis, regulatory review, and MCDA. It does not rank configurations or claim a commercial design.
 
@@ -6,7 +68,7 @@ The current alpha restoration keeps historically named `phaseX_*` modules as tes
 
 Advanced-model Checkpoint 1 adds read-only governance for the 301-dataset global audit package. It quarantines defective rows and classifies datasets, equations, and cost overlaps without activating literature values or changing process calculations. See [advanced-model plans](docs/advanced_model/integration_plan.md).
 
-Alpha 0.2 Checkpoint 2 adds immutable canonical parameters, deterministic override precedence, versioned simulation/result contracts, isolated application services, structured process graphs, plot and run exports, and a `/api/v1` WSGI adapter. Checkpoint 3A activates one bounded literature pathway only: `REC-001` supplies a 0.34 precipitation-recovery fraction for `PR1` in `literature_default` mode. Structural runs remain unchanged. See [Checkpoint 2 release notes](docs/alpha_0_2_checkpoint_2/release_notes.md).
+The application uses immutable canonical parameters, deterministic override precedence, versioned simulation/result contracts, isolated services, structured process graphs, plot and run exports, and a `/api/v1` WSGI adapter. Current PR1 `literature_default` mode selects `REC-005` (0.38 total-N precipitation fraction from ryegrass juice) and `REC-006` (pH 4.5); both are proxy inputs mapped to GreenHub's soluble-protein process and are not experimentally validated for GreenHub feed. Structural runs remain unchanged. The earlier [Checkpoint 2 release notes](docs/alpha_0_2_checkpoint_2/release_notes.md) preserve the historical `REC-001` 0.34 case.
 
 Checkpoint 3C adds transport-neutral seasonal and quasi-dynamic simulation. Monthly runs default to May-November, while explicit monthly or daily grids can use direct, normalized, CSV, or workbook feed profiles. Each step conserves feed, storage inventory, overflow, processing, products, utilities, and tracked balance residuals; it rebuilds and simulates the existing integrated BioSTEAM model rather than creating a second process model. See [Checkpoint 3C release notes](docs/alpha_0_2_checkpoint_3c/release_notes.md).
 
@@ -59,10 +121,11 @@ Orders `A`, `B`, `C`, and `D` are selectable. Order A is separation-P-N-K; B is 
 
 ## Installation And Use
 
-From `Model` in PowerShell:
+From the project root (the folder containing this README) in PowerShell:
 
 ```powershell
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
 .\.venv\Scripts\python.exe -m Greenhub.data_governance
 .\.venv\Scripts\python.exe -m Greenhub.parameters
 .\.venv\Scripts\python.exe -m Greenhub.application.schema_export
@@ -72,15 +135,7 @@ From `Model` in PowerShell:
 
 If the virtual environment is active, use `python -m Greenhub.main` and `pytest -q`. BioSTEAM is imported from `.venv/Lib/site-packages`; no local source copy is used.
 
-Graphviz is expected at `C:\Program Files\Graphviz\bin`. Immediately before `system.diagram(...)`, `Greenhub.main` executes:
-
-```python
-import os
-graphviz_bin = r"C:\Program Files\Graphviz\bin"
-os.environ["PATH"] = graphviz_bin + os.pathsep + os.environ.get("PATH", "")
-```
-
-A Graphviz failure is reported without discarding a valid simulation or blocking tabular reports.
+Graphviz's `dot` executable is optional and should be available on `PATH` to export command-line flowsheet diagrams. Install it from [graphviz.org](https://graphviz.org/download/) if needed. A missing executable is reported without discarding a valid simulation or blocking tabular reports. The web UI uses the structured process graph from the API and does not require Graphviz.
 
 To start the local synchronous development API:
 

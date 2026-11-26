@@ -1,0 +1,49 @@
+{
+  "dataset_id": "urn:greenhub:dataset:ad:nyangau-brown-juice-ensiling-ad-digestate-nutrient-2023:v1",
+  "persistent_identifier_status": "Repository-local URN identifies this extract; DOI identifies the cited article, not this transcription.",
+  "dataset_version": "1.0.0",
+  "source_file": "nyangau_2023_brown_juice_ensiling_ad_digestate_nutrient_reference.csv",
+  "title": "Brown-juice ensiling, anaerobic digestion, digestate chemistry and soil inorganic nitrogen reference observations",
+  "citation": "Nyang’au, J. O., Møller, H. B., Larsen, S. U., & Sørensen, P. (2023). Brown juice assisted ensiling of straw and press cake for enhanced biogas production and nutrient availability in digestates. Environmental Technology & Innovation, 32, 103248. https://doi.org/10.1016/j.eti.2023.103248",
+  "persistent_identifier": "doi:10.1016/j.eti.2023.103248",
+  "source_url": "https://doi.org/10.1016/j.eti.2023.103248",
+  "open_full_text_url": "https://pure.au.dk/portal/files/328744571/Nyang_au_et_al_2023b_Brown_juice_assisted_ensiling_of_straw_and_press_cake_for_enhanced_biogas_production_and_nutrient_availability_in_digestates.pdf",
+  "retrieval_date": "2026-11-08",
+  "publication_year": 2023,
+  "geography": "Denmark; winter wheat straw harvested near Thisted and Hanstholm; grass-biorefinery press cake and brown juice produced at Aarhus University Foulum.",
+  "evidence_class": "B_measured_primary_literature",
+  "license": "CC BY 4.0, stated in the published article.",
+  "source_data_availability": "The article states that data are available on request; this extract transcribes values explicitly reported in Tables 1–4 of the open full text.",
+  "material_scope": "Wheat straw, grass-biorefinery press cake and brown juice co-ensiled or not ensiled, anaerobically co-digested with cattle manure; CSTR digestates tested in a Danish soil incubation.",
+  "row_count": 464,
+  "source_tables": {
+    "Table 1": "Feed/silage composition, fibre, acids, sugars and DM loss; means ± SD, n=3.",
+    "Table 2": "Raw manure and CSTR digestate composition and last-HRT methane yields; means and SD where shown, n=3.",
+    "Table 3": "Batch BMP and Gompertz/first-order model fit parameters; means ± SE, n=3.",
+    "Table 4": "Soil inorganic-N concentration on days 0, 2, 7, 14, 28, 50 and 80; means ± SD, n=3."
+  },
+  "processing": "Direct table transcription into a long-form CSV. No unit conversion, interpolation, digitization from figures, balance closure, averaging across materials, or fitting beyond models already reported in the source.",
+  "uncertainty": "Source table uncertainties and significance letters are preserved where printed. Cells marked below detection remain censored; dashes and unreported cells are blank and status-coded, never converted to zero.",
+  "activation_state": "reference_only",
+  "readiness": "D3",
+  "phase_tags": [
+    "Phase 2: ensiling",
+    "Phase 5: anaerobic digestion",
+    "Phase 7: digestate nutrient availability"
+  ],
+  "applicability_limit": "Not Dutch roadside grass and not a GreenHub operating dataset. Wheat straw and manure dominate several treatments; brown juice came from a grass-biorefinery route with heated protein precipitation and differs from GreenHub isoelectric supernatant. Use only as a comparability source, not as a runtime default or fertilizer-substitution credit.",
+  "limitations": [
+    "The experiment is Denmark-specific and includes wheat straw, cattle manure, cultivated forage-derived brown juice, and grass-biorefinery press cake; it does not test Dutch roadside grass as the principal feedstock.",
+    "Soil inorganic-N concentrations are not nutrient recovery from feed, crop uptake, regulatory fertilizer value, or a substitution credit.",
+    "CSTR methane yields and batch BMP values have different methods and boundaries; do not merge them.",
+    "Table 3 prints the first-order k unit as day while the paper's equation defines a rate per time; the table unit is kept and flagged rather than silently corrected.",
+    "The dataset omits supplementary tables/figures and any observations not explicitly present in Tables 1–4.",
+    "No GreenHub parameter, default, calculation, route, API/UI behavior, TEA/LCA factor, or Pareto scenario consumes these rows."
+  ],
+  "fair_metadata": {
+    "findable": "Repository-local dataset URN, descriptive title, DOI, full-text URL and source table references are recorded.",
+    "accessible": "CSV and JSON sidecar are stored in the repository; the cited full-text article is open access.",
+    "interoperable": "UTF-8 long-form CSV provides stable record/source IDs, table, metric, reported unit, basis, uncertainty, missingness and experiment context.",
+    "reusable": "Citation, CC BY 4.0, source scope, retrieval date, transcription method, uncertainty, limits and non-activation are documented."
+  }
+}

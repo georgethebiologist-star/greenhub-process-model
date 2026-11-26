@@ -1,0 +1,34 @@
+{
+  "dataset_title": "Green-biorefinery pilot energy, scale and storage-loss benchmarks",
+  "dataset_identifier": "greenhub:protein-recovery:gbr-energy-scale-storage-2026:v1",
+  "source_file": "green_biorefinery_energy_scale_and_storage_benchmarks_2026_reference.csv",
+  "source_id": "SRC-ELSHANI-2026",
+  "source_title": "Environmental impacts of a biorefinery integrated into dairy farming system",
+  "authors": ["Narta Elshani", "Steffen Adler", "Pernilla Tidåker", "Jon Kristian Sommerseth", "Matthias Koesling", "Håvard Steinshamn", "et al."],
+  "reference_year": 2026,
+  "doi": "10.1038/s44264-026-00189-y",
+  "source_url": "https://doi.org/10.1038/s44264-026-00189-y",
+  "article_url": "https://www.nature.com/articles/s44264-026-00189-y",
+  "retrieval_date": "2026-11-06",
+  "source_location": "Methods, sections Forage production and GBR process; article paragraphs reporting pilot energy, modeled facility design, and literature-applied stage losses.",
+  "evidence_class": "B_primary_open_access_pilot_and_model_report",
+  "license": "Creative Commons Attribution 4.0 International (CC BY 4.0) for the article, subject to third-party-material notices.",
+  "rows": 18,
+  "data_basis": "Three reported pilot energy values; modeled capacity/operating assumptions; stage-specific DM-loss factors the article attributes to Hedström (2015); and one transparent arithmetic check.",
+  "applicability": "Norwegian cultivated grass-clover green-biorefinery pilot and integrated dairy case. Useful for Phase 2/4 process-energy and scale benchmarking and Phase 3 loss-stage evidence review. Not roadside grass and not GreenHub-specific.",
+  "record_class_policy": {
+    "B_reported_pilot_measurement": "Aggregate electricity and propane heat reported from Tuv pilot facility measurements.",
+    "C_study_design_assumption": "Facility capacity, juice-line capacity, buffer tank and annual operating schedule are study design/model assumptions.",
+    "C_literature_based_factor": "Loss factors are values applied by the article and attributed to Hedström (2015), not independently measured within this study.",
+    "C_derived_from_reported_values": "Energy arithmetic check derived from rounded components; not a measurement."
+  },
+  "limitations": [
+    "Cultivated grass-clover is not roadside grass; the site, feed quality, and integrated dairy context differ from GreenHub.",
+    "The main article reports facility-aggregate energy, not the individual unit-operation electricity values, despite describing current measurement by unit.",
+    "The reported 1489 MJ/Mg DM total is 1 MJ/Mg DM above the sum reconstructed from rounded components (375 kWh/Mg DM × 3.6 + 138 MJ/Mg DM = 1488 MJ/Mg DM); retain the source total and show the rounding check separately.",
+    "Capacity, buffer, annual days and hours are modeled facility-design values, not observed sustained annual throughput.",
+    "Storage/harvest loss factors are secondarily reported literature factors attributed by the paper to Hedström (2015); do not treat them as roadside-grass or GreenHub measurements.",
+    "All records remain reference-only; no runtime parameter mapping or default activation."
+  ],
+  "activation_state": "reference_only"
+}

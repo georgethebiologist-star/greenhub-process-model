@@ -1,0 +1,21 @@
+{
+  "dataset_title": "Farm-scale grass-clover and red-clover biorefinery campaign mass-balance reference",
+  "dataset_identifier": "greenhub:reference:resch-2024-table5-mass-balance:v1",
+  "source_file": "green_biorefinery_mass_balance_resch_2024_table5_reference.csv",
+  "source_id": "S06_RESCH_2024",
+  "source_title": "Nutrient composition, fermentation characteristics and mass balance of press juice and press cake obtained from biorefining of grass-clover and red clover silage",
+  "dataset_creators": ["Reinhard Resch", "Georg Terler", "Manuel Winter", "Michael Mandl", "Lisa Baldinger", "Joseph Sweeney", "Kevin McDonnell", "Andreas Steinwidder"],
+  "related_article_doi": "10.1111/gfs.12682",
+  "source_url": "https://onlinelibrary.wiley.com/doi/10.1111/gfs.12682",
+  "retrieval_date": "2026-11-07",
+  "rows": 30,
+  "source_table": "Table 5",
+  "source_table_caption": "Mass balance of the biorefinery campaign using grass-clover mixture (GCM) or red clover (RC) as forage crop.",
+  "study_context": {"geography": "Austria", "feedstocks": ["grass-clover mixture silage", "red clover silage"], "campaign_dates": "2021-07-06 to 2021-07-20", "processing_scale": "farm-scale prototype biorefinery"},
+  "evidence_class": "B_measured_literature",
+  "activation_state": "reference_only",
+  "license_status": "Open-access article; exact Creative Commons subtype was not established from the accessible article copy. Do not assert a specific license for redistribution.",
+  "applicability": "Measured dry-matter, crude-protein, fibre, sugar, ash and volatile-organic-compound yields per hectare across the reported forage and biorefinery fraction stages. A useful fractionation/mass-balance comparator, not roadside grass and not GreenHub runtime calibration.",
+  "basis_and_transcription": "Table 5 values are reported as kg/ha; the source describes them as yields derived from measured bale dry matter and nutrient concentrations. Source-reported GCM and red-clover means and residual standard deviations are retained. Unreported/not-analysed fields remain blank and are distinguished by evidence_class.",
+  "limitations": ["Cultivated Austrian forage and one campaign; not Dutch roadside grass.", "Per-hectare yields depend on that study's harvested crop yield and are not transferable as GreenHub feedstock yield.", "Table 5 component yields are not a complete elemental mass balance; do not infer unreported water, carbon, nitrogen, process losses, or component closure.", "A source-reported yield above an input reference is retained as reported and must not be normalized or forced to close.", "No model equations, defaults, parameter values, or Pareto results are activated by this dataset."]
+}

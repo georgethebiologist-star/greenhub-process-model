@@ -1,0 +1,41 @@
+observation_id,source_id,table,year,geography,species,management_cuts,observation_type,cut_number,harvest_week,dm_yield_mean_t_dm_ha,dm_yield_sd_t_dm_ha,crude_protein_mean_g_kg_dm,crude_protein_sd_g_kg_dm,status,source_class,activation_state
+NGF21-T1-RCG-1C-C1,SRC-NIELSEN-2021,1,2019,Vejrumbro Central Jutland Denmark,reed canary grass,1,individual_cut,1,32,8.3,3.8,106,10,reported,B,reference_only
+NGF21-T1-TF-1C-C1,SRC-NIELSEN-2021,1,2019,Vejrumbro Central Jutland Denmark,tall fescue,1,individual_cut,1,32,6.1,1.9,117,18,reported,B,reference_only
+NGF21-T1-RCG-1C-ANN,SRC-NIELSEN-2021,1,2019,Vejrumbro Central Jutland Denmark,reed canary grass,1,annual_average,,,8.3,3.8,106,10,reported,B,reference_only
+NGF21-T1-TF-1C-ANN,SRC-NIELSEN-2021,1,2019,Vejrumbro Central Jutland Denmark,tall fescue,1,annual_average,,,6.1,1.9,117,18,reported,B,reference_only
+NGF21-T1-RCG-2C-C1,SRC-NIELSEN-2021,1,2019,Vejrumbro Central Jutland Denmark,reed canary grass,2,individual_cut,1,24,8.8,3.3,230,7,reported,B,reference_only
+NGF21-T1-TF-2C-C1,SRC-NIELSEN-2021,1,2019,Vejrumbro Central Jutland Denmark,tall fescue,2,individual_cut,1,24,7.9,1.9,231,45,reported,B,reference_only
+NGF21-T1-RCG-2C-C2,SRC-NIELSEN-2021,1,2019,Vejrumbro Central Jutland Denmark,reed canary grass,2,individual_cut,2,36,6.8,4.4,216,43,reported,B,reference_only
+NGF21-T1-TF-2C-C2,SRC-NIELSEN-2021,1,2019,Vejrumbro Central Jutland Denmark,tall fescue,2,individual_cut,2,36,5.5,2.9,210,48,reported,B,reference_only
+NGF21-T1-RCG-2C-ANN,SRC-NIELSEN-2021,1,2019,Vejrumbro Central Jutland Denmark,reed canary grass,2,annual_average,,,15.6,7.7,223,25,reported,B,reference_only
+NGF21-T1-TF-2C-ANN,SRC-NIELSEN-2021,1,2019,Vejrumbro Central Jutland Denmark,tall fescue,2,annual_average,,,13.4,4.8,220,46,reported,B,reference_only
+NGF21-T1-RCG-3C-C1,SRC-NIELSEN-2021,1,2019,Vejrumbro Central Jutland Denmark,reed canary grass,3,individual_cut,1,20,1.6,0.7,206,5,reported,B,reference_only
+NGF21-T1-TF-3C-C1,SRC-NIELSEN-2021,1,2019,Vejrumbro Central Jutland Denmark,tall fescue,3,individual_cut,1,20,1.3,0.8,200,12,reported,B,reference_only
+NGF21-T1-RCG-3C-C2,SRC-NIELSEN-2021,1,2019,Vejrumbro Central Jutland Denmark,reed canary grass,3,individual_cut,2,32,5.5,1.4,153,32,reported,B,reference_only
+NGF21-T1-TF-3C-C2,SRC-NIELSEN-2021,1,2019,Vejrumbro Central Jutland Denmark,tall fescue,3,individual_cut,2,32,5.1,2.7,163,25,reported,B,reference_only
+NGF21-T1-RCG-3C-C3,SRC-NIELSEN-2021,1,2019,Vejrumbro Central Jutland Denmark,reed canary grass,3,individual_cut,3,42,3.2,0.7,234,10,reported,B,reference_only
+NGF21-T1-TF-3C-C3,SRC-NIELSEN-2021,1,2019,Vejrumbro Central Jutland Denmark,tall fescue,3,individual_cut,3,42,2.6,1.2,271,28,reported,B,reference_only
+NGF21-T1-RCG-3C-ANN,SRC-NIELSEN-2021,1,2019,Vejrumbro Central Jutland Denmark,reed canary grass,3,annual_average,,,10.3,2.8,198,16,reported,B,reference_only
+NGF21-T1-TF-3C-ANN,SRC-NIELSEN-2021,1,2019,Vejrumbro Central Jutland Denmark,tall fescue,3,annual_average,,,9.0,4.7,212,22,reported,B,reference_only
+NGF21-T1-RCG-4C-C1,SRC-NIELSEN-2021,1,2019,Vejrumbro Central Jutland Denmark,reed canary grass,4,individual_cut,1,20,2.0,0.7,198,10,reported,B,reference_only
+NGF21-T1-TF-4C-C1,SRC-NIELSEN-2021,1,2019,Vejrumbro Central Jutland Denmark,tall fescue,4,individual_cut,1,20,1.0,0.7,200,18,reported,B,reference_only
+NGF21-T1-RCG-4C-C2,SRC-NIELSEN-2021,1,2019,Vejrumbro Central Jutland Denmark,reed canary grass,4,individual_cut,2,24,4.0,1.3,271,28,reported,B,reference_only
+NGF21-T1-TF-4C-C2,SRC-NIELSEN-2021,1,2019,Vejrumbro Central Jutland Denmark,tall fescue,4,individual_cut,2,24,2.7,1.6,276,35,reported,B,reference_only
+NGF21-T1-RCG-4C-C3,SRC-NIELSEN-2021,1,2019,Vejrumbro Central Jutland Denmark,reed canary grass,4,individual_cut,3,36,8.8,4.5,175,36,reported,B,reference_only
+NGF21-T1-TF-4C-C3,SRC-NIELSEN-2021,1,2019,Vejrumbro Central Jutland Denmark,tall fescue,4,individual_cut,3,36,4.7,0.3,228,26,reported,B,reference_only
+NGF21-T1-RCG-4C-C4,SRC-NIELSEN-2021,1,2019,Vejrumbro Central Jutland Denmark,reed canary grass,4,individual_cut,4,42,0.6,0.5,236,21,reported,B,reference_only
+NGF21-T1-TF-4C-C4,SRC-NIELSEN-2021,1,2019,Vejrumbro Central Jutland Denmark,tall fescue,4,individual_cut,4,42,1.9,3.4,241,68,reported,B,reference_only
+NGF21-T1-RCG-4C-ANN,SRC-NIELSEN-2021,1,2019,Vejrumbro Central Jutland Denmark,reed canary grass,4,annual_average,,,15.4,7.0,220,24,reported,B,reference_only
+NGF21-T1-TF-4C-ANN,SRC-NIELSEN-2021,1,2019,Vejrumbro Central Jutland Denmark,tall fescue,4,annual_average,,,10.3,6.0,236,37,reported,B,reference_only
+NGF21-T1-RCG-5C-C1,SRC-NIELSEN-2021,1,2019,Vejrumbro Central Jutland Denmark,reed canary grass,5,individual_cut,1,20,1.7,0.6,187,6,reported,B,reference_only
+NGF21-T1-TF-5C-C1,SRC-NIELSEN-2021,1,2019,Vejrumbro Central Jutland Denmark,tall fescue,5,individual_cut,1,20,0.9,0.5,184,7,reported,B,reference_only
+NGF21-T1-RCG-5C-C2,SRC-NIELSEN-2021,1,2019,Vejrumbro Central Jutland Denmark,reed canary grass,5,individual_cut,2,24,3.9,1.0,283,47,reported,B,reference_only
+NGF21-T1-TF-5C-C2,SRC-NIELSEN-2021,1,2019,Vejrumbro Central Jutland Denmark,tall fescue,5,individual_cut,2,24,2.4,1.8,264,31,reported,B,reference_only
+NGF21-T1-RCG-5C-C3,SRC-NIELSEN-2021,1,2019,Vejrumbro Central Jutland Denmark,reed canary grass,5,individual_cut,3,32,6.5,1.3,159,20,reported,B,reference_only
+NGF21-T1-TF-5C-C3,SRC-NIELSEN-2021,1,2019,Vejrumbro Central Jutland Denmark,tall fescue,5,individual_cut,3,32,4.7,1.2,168,39,reported,B,reference_only
+NGF21-T1-RCG-5C-C4,SRC-NIELSEN-2021,1,2019,Vejrumbro Central Jutland Denmark,reed canary grass,5,individual_cut,4,36,2.4,2.1,242,14,reported,B,reference_only
+NGF21-T1-TF-5C-C4,SRC-NIELSEN-2021,1,2019,Vejrumbro Central Jutland Denmark,tall fescue,5,individual_cut,4,36,1.1,0.1,283,17,reported,B,reference_only
+NGF21-T1-RCG-5C-C5,SRC-NIELSEN-2021,1,2019,Vejrumbro Central Jutland Denmark,reed canary grass,5,individual_cut,5,42,0.4,0.1,264,24,reported,B,reference_only
+NGF21-T1-TF-5C-C5,SRC-NIELSEN-2021,1,2019,Vejrumbro Central Jutland Denmark,tall fescue,5,individual_cut,5,42,0.7,0.5,281,17,reported,B,reference_only
+NGF21-T1-RCG-5C-ANN,SRC-NIELSEN-2021,1,2019,Vejrumbro Central Jutland Denmark,reed canary grass,5,annual_average,,,14.9,5.1,227,23,reported,B,reference_only
+NGF21-T1-TF-5C-ANN,SRC-NIELSEN-2021,1,2019,Vejrumbro Central Jutland Denmark,tall fescue,5,annual_average,,,9.8,4.1,236,24,reported,B,reference_only

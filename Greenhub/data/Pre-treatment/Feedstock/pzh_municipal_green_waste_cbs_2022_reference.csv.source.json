@@ -1,0 +1,46 @@
+{
+  "dataset_id": "urn:greenhub:dataset:feedstock:pzh-municipal-green-waste-cbs-2022:v1",
+  "dataset_version": "1.0.0",
+  "dataset_file": "pzh_municipal_green_waste_cbs_2022_reference.csv",
+  "record_count": 50,
+  "sha256": "9d9ec04e17c6a42f5c020c20eb65d7e26426cddb9fcc8ffe9794d2713bd8c73c",
+  "source_id": "SRC-ZH-GREEN-WASTE-WFS-2026",
+  "related_source_ids": [
+    "SRC-ZH-GREEN-WASTE-DATA-2026",
+    "SRC-ZH-BIOMASS-INVENTORY-2023"
+  ],
+  "title": "Zuid-Holland municipal mixed-green-waste estimates by municipality, reference year 2022",
+  "source_name": "Provincie Zuid-Holland GeoServer WFS",
+  "source_dataset_id": "data.overheid.nl:0f08e50f-6483-4d62-8a29-16a049e5c5ec",
+  "doi": null,
+  "source_url": "https://geodata.zuid-holland.nl/geoserver/energie/wfs?service=WFS&version=2.0.0&request=GetCapabilities",
+  "catalog_url": "https://data.overheid.nl/en/dataset/0f08e50f-6483-4d62-8a29-16a049e5c5ec",
+  "methodology_url": "https://circulair.zuid-holland.nl/wp-content/uploads/2021/12/Biomassa-reststromen-analyse-Zuid-Holland-eindverslag-V3-Robin-de-Roo.pdf",
+  "retrieval_date": "2026-11-08",
+  "source_location": "WFS layer energie:RESTSTROMEN_GROENAFVAL; property GEMEENTELIJK_GROENAFVAL_TON; reference year field JAAR.",
+  "secondary_method_location": "Provincial biomass inventory report, Appendix 5, Table 6; states the CBS-derived green-waste per-capita value was multiplied by population.",
+  "geography": "50 municipalities in Zuid-Holland, Netherlands",
+  "reference_year": 2022,
+  "reported_unit": "tonnes per year; wet/dry mass basis not specified",
+  "material_scope": "Municipal mixed green waste; may include verge mowings, parks/nature/waterway vegetation, pruning wood and branches.",
+  "evidence_class": "B_official_derived_secondary_data",
+  "quality_class": "B",
+  "license": "Data.overheid.nl metadata and provincial WFS identify the layer as public domain. The linked report has no separate explicit reuse license identified.",
+  "data_availability": "Public WFS feature layer; 50 features returned in read-only retrieval on 2026-11-08.",
+  "transcription_and_validation": "Direct transcription of the 50 WFS municipality properties. The retrieved feature values sum to 90,321 t/year. The data.overheid.nl catalog description reports 76,084 t/year. These totals conflict by source version/metadata and are not reconciled. The WFS values match the 50 values in the provincial report's 2022 municipal table; its extracted values also sum to the WFS total.",
+  "limitations": [
+    "These records are CBS-derived secondary estimates, not measured or weighed grass deliveries.",
+    "The material is mixed municipal green waste and no grass/verge fraction is identified.",
+    "Wet/dry basis, contamination, seasonal timing, contracted access and GreenHub allocation are not supplied.",
+    "The WFS feature sum is 90,321 t/year while the current data.overheid.nl description states 76,084 t/year; preserve both as an unresolved discrepancy, not an uncertainty interval.",
+    "No value is connected to feedstock defaults, seasonal availability, runtime, routes, TEA or Pareto calculations."
+  ],
+  "activation_state": "reference_only",
+  "runtime_policy": "Reference-only regional context; not a roadside-grass or GreenHub supply input.",
+  "fair_metadata": {
+    "findable": "Local URN, stable data.overheid.nl UUID, layer name, source ID and SHA-256 are recorded.",
+    "accessible": "Public HTTPS WFS, dataset catalog page and linked methodology report.",
+    "interoperable": "UTF-8 CSV with municipality, reference year, reported tonnes/year, source, method, evidence tier and activation state.",
+    "reusable": "Retrieval date, transformation method, catalog/WFS total conflict, mixed-stream scope and no-runtime policy are explicit."
+  }
+}

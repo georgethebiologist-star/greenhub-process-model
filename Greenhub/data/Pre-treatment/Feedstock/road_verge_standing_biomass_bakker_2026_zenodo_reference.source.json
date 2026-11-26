@@ -1,0 +1,72 @@
+{
+  "source_id": "SRC_BAKKER_ROADVERGE_BIOMASS_2026",
+  "dataset_title": "Grassland management in a changing climate: Dutch road-verge standing biomass measurements",
+  "dataset_doi": "10.5281/zenodo.15349657",
+  "concept_doi": "10.5281/zenodo.15349656",
+  "publication_doi": "10.1111/avsc.70085",
+  "source_url": "https://zenodo.org/records/15349657",
+  "publication_url": "https://doi.org/10.1111/avsc.70085",
+  "authors": [
+    "Wiene Bakker",
+    "Jeroen Scheper",
+    "Wim Ozinga",
+    "Philippine Vergeer"
+  ],
+  "publication_authors": [
+    "Wiene Bakker",
+    "Peter-Jan Keizer",
+    "Toine Morel",
+    "Wim Ozinga",
+    "Jeroen Scheper",
+    "Philippine Vergeer"
+  ],
+  "publication_year": 2026,
+  "dataset_publication_date": "2025-05-06",
+  "retrieval_date": "2026-11-07",
+  "license": "CC BY 4.0 (Zenodo version record metadata)",
+  "source_file": "road_verge_standing_biomass_bakker_2026_zenodo_reference.csv",
+  "source_package_file": "Biomass.csv",
+  "verbatim_source_asset_path": "Greenhub/data/Pre-treatment/Feedstock/road_verge_standing_biomass_bakker_2026_source/Biomass.csv",
+  "source_file_md5": "a6769824448e47dad1ff3b2ff882c53c",
+  "source_file_bytes": 4918,
+  "analysis_script": "Analysis.R",
+  "analysis_script_local_path": "Greenhub/data/Pre-treatment/Feedstock/road_verge_standing_biomass_bakker_2026_source/Analysis.R",
+  "analysis_script_url": "https://zenodo.org/api/records/15349657/files/Analysis.R/content",
+  "analysis_script_md5": "3a6e7bacc886ef5c1a5e9257a6aee684",
+  "rows": 120,
+  "data_geography": "Ten Dutch roadside grasslands across clay and sand soils; site names are retained as provided.",
+  "experimental_context": {
+    "field_year": 2023,
+    "management_history": "Sites had been mown once per year with hay removal for at least three years before the experiment.",
+    "treatments": {
+      "Aug": "single cut in late August; control",
+      "Nov": "single cut in late October/early November",
+      "JunhAug": "June cut at 15 cm followed by late-August cut",
+      "JunhNov": "June cut at 15 cm followed by late-October/early-November cut",
+      "JunAug": "June cut at 6 cm followed by late-August cut",
+      "JunNov": "June cut at 6 cm followed by late-October/early-November cut"
+    },
+    "sampling": "Standing vegetation biomass was measured just before mowing in mid-June and late-August 2023. Clippings from two 0.5 m × 0.5 m subplots were pooled. Biomass sampling was limited to the first experimental block at each road verge.",
+    "study_plot_context": "Treatments were applied to 10 m × 6 m plots; study plots were 11–25 m from traffic and did not include the ecologically managed road-edge zone 5–11 m from traffic."
+  },
+  "variable_units_and_bases": {
+    "standing_biomass_g_dm_m2": "g dry matter per m2, source analysis script converts values to t/ha by multiplying by 10/1000",
+    "site_productivity_g_dm_m2": "g dry matter per m2, source analysis script converts values to t/ha by multiplying by 10/1000; site productivity is based on average June/August standing biomass of not-yet-mown control plots",
+    "month_sampled": "June or August 2023 sampling round",
+    "mowing_treatment": "assigned experimental mowing regime; not equivalent to a commercial harvest record"
+  },
+  "data_handling": "The exact Zenodo source CSV and authors' Analysis.R are preserved byte-for-byte in the local source subfolder. The normalized 120-row derivative uses UTF-8 and comma delimiters, stable observation IDs, and explicit variable names/units; numeric values are unchanged, with no unit conversion, averaging, model fitting, or imputation. The single missing Biomass value remains blank and is labeled missing_in_source. The earlier root-level Biomass.csv copy has normalized LF line endings; parsed rows/values equal the exact source asset.",
+  "evidence_class": "B_measured_field_reference",
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "limitations": [
+    "These are standing-biomass snapshots before mowing, not measured collected/delivered quantities or annual harvested yield.",
+    "Measurements cover only two 2023 rounds and only the first block at each site; there are no replicate-level uncertainty values in Biomass.csv.",
+    "The plot positions and small experimental mowing method do not establish availability from the near-road safety/management strip or commercial harvesting constraints.",
+    "Do not sum June and August values into annual yield unless the treatment timing and post-cut regrowth interpretation are applied correctly; November harvest biomass was not directly sampled.",
+    "Site-level observations are Dutch roadside evidence but not measurements from GreenHub's contracted collection footprint, and no composition, contamination, access, moisture, or logistics data are included."
+  ],
+  "suggested_use": "Empirical Phase 1 reference for site productivity and pre-mowing standing-biomass comparison across June/August and treatment regimes. Do not use as a feed supply default, collected yield, or direct Pareto availability quantity without an explicit harvestability model.",
+  "doi_resolution_note": "Zenodo record 15349657 is the version DOI; 15349656 is the concept DOI. The paper's data-availability statement prints the concept DOI as 15349657, while the WUR research portal links 15349656 as the dataset; the Zenodo API record confirms these version/concept roles.",
+  "source_values_checksum_method": "MD5 reported by Zenodo for source file Biomass.csv; checksum independently verified after download."
+}

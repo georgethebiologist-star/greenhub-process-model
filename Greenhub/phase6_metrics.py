@@ -170,6 +170,22 @@ def calculate_phase6_metrics(model, validation=None) -> dict[str, float | str | 
             absorber_column_diameter_m=A611.design_results["Column diameter"],
             absorber_packing_height_m=A611.design_results["Packing height"],
             flash_gas_methane_kg_hr=V612.design_results["Methane recovered"],
+            flash_gas_recycle_target_nm3_hr=(
+                model.units["S610"].design_results["Target recycle"]
+                if "S610" in model.units else 0.0
+            ),
+            flash_gas_recycle_actual_nm3_hr=(
+                model.units["S610"].design_results["Actual recycle"]
+                if "S610" in model.units else 0.0
+            ),
+            flash_gas_recycle_raw_gas_ratio=(
+                model.units["S610"].design_results["Actual recycle / raw gas"]
+                if "S610" in model.units else 0.0
+            ),
+            flash_gas_fraction_recycled=(
+                model.units["S610"].design_results["Flash gas recycled"]
+                if "S610" in model.units else 0.0
+            ),
             specific_equipment_capacity=A611.design_results["Gross circulating water"],
             specific_equipment_capacity_unit="kg/hr gross water circulation",
         )

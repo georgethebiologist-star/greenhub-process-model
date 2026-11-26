@@ -1,9 +1,11 @@
 # GreenHub Literature Dataset Audit
 
-- Audited CSV datasets: 301
-- Total flagged issues: 443
-- Readiness counts: {'D3': 253, 'D2': 25, 'D1': 23}
-- Issue counts by type: {'equation_symbol_mismatch': 149, 'equation_required_inputs_unavailable': 149, 'conflicting_bases': 7, 'duplicate_identifier_within_dataset': 58, 'missing_direct_source': 15, 'missing_exact_source_location': 15, 'conflicting_units': 1, 'potential_cost_double_counting': 49}
+- Audited CSV datasets: 541
+- Explicitly linked non-CSV source assets: 4
+- Total manifest assets: 545
+- Total flagged issues: 811
+- Readiness counts: {'D3': 484, 'D2': 33, 'D1': 28}
+- Issue counts by type: {'equation_required_inputs_unavailable': 162, 'equation_symbol_mismatch': 142, 'malformed_csv_row_width': 16, 'missing_direct_source': 292, 'conflicting_bases': 9, 'duplicate_identifier_within_dataset': 75, 'missing_exact_source_location': 63, 'broken_file_reference': 2, 'conflicting_units': 1, 'potential_cost_double_counting': 49}
 
 ## Main findings
 

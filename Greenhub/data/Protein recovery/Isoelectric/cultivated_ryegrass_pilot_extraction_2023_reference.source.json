@@ -1,0 +1,30 @@
+{
+  "dataset_file": "cultivated_ryegrass_pilot_extraction_2023_reference.csv",
+  "title": "Pilot-scale perennial ryegrass protein extraction and finishing reference measurements",
+  "source_id": "SRC-SANDOVAL-2026",
+  "authors": "Juan F. Sandoval; Jane K. Parker; Joe Gallagher; Julia Rodriguez-Garcia; Kerry Whiteside; David N. Bryant",
+  "publication_year": 2026,
+  "doi": "10.1038/s41538-026-00831-6",
+  "source_url": "https://doi.org/10.1038/s41538-026-00831-6",
+  "open_full_text_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13282373/",
+  "license": "CC BY 4.0",
+  "source_locations": [
+    "Table 1, row Grass juice and row Dry grass solids",
+    "Methods: Perennial ryegrass harvesting and pilot-scale processing"
+  ],
+  "retrieval_date": "2026-11-06",
+  "sample_collection_year": 2023,
+  "geography": "Aberystwyth, Wales, United Kingdom",
+  "evidence_class": "B_measured",
+  "material_scope": "Cultivated perennial ryegrass; a single 1.5 tonne pilot extraction campaign. The protein-rich material was precipitated with phosphoric acid and freeze-dried.",
+  "statistics": "Table 1 values are mean ± standard error; method-section values are reported campaign values without uncertainty stated.",
+  "limitations": [
+    "The feed is cultivated perennial ryegrass, not roadside grass or the GreenHub VARTA material.",
+    "No density is reported for liquid streams; volumetric observations must not be converted to mass without an explicit density source.",
+    "No titration curve or phosphoric-acid demand is reported.",
+    "The paper does not supply a complete feed-to-product protein mass balance or separator recovery curve.",
+    "Freeze-drying is not evidence for spray-dryer energy or commercial product performance.",
+    "Centrifuge operation at 21000 g is not a transferable GreenHub centrifuge design correlation."
+  ],
+  "activation_state": "reference_only"
+}

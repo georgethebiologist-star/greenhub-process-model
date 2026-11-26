@@ -429,7 +429,12 @@ def test_feedstock_equation_implementation_queue_is_report_only(tmp_path):
     assert by_id["EQ-CALC-001"]["activation_status"] == "report_only"
     assert by_id["EQ003"]["activation_status"] == "reference_only"
     assert by_id["EQ003"]["implementation_status"] != "implemented_typed"
-    assert by_id["EQ_CP_MASS_WEIGHTED"]["implementation_status"] == "blocked_missing_inputs"
+    assert any(
+        item["equation_id"] == "EQ_CP_MASS_WEIGHTED"
+        and item["source_file"] == "roadside_grass_missing_proxy_candidates_extended.csv"
+        and item["implementation_status"] == "blocked_missing_inputs"
+        for item in queue
+    )
     assert any(item["implementation_status"] == "blocked_dynamic_model_scope" for item in queue)
 
 

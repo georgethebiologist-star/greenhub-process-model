@@ -1,0 +1,32 @@
+{
+  "dataset_id": "urn:greenhub:dataset:nielsen-2021-fen-grass-per-harvest-fraction-yields:v1",
+  "dataset_version": "1.0.0",
+  "title": "Per-harvest dry-matter and crude-protein yields in flood-tolerant grass screw-press fractions",
+  "source_file": "fen_grass_biorefinery_fractionation_per_harvest_nielsen_2021_tables_3_4_reference.csv",
+  "source_file_sha256": "ec1a8d789c4d8acb595cbf0eaef2baedc779b222388a485c8b245f24ebff5484",
+  "record_count": 224,
+  "source_id": "SRC-NIELSEN-2021",
+  "citation": "Nielsen, C. K., Stødkilde, L., Jørgensen, U. & Lærke, P. E. (2021). Effects of Harvest and Fertilization Frequency on Protein Yield and Extractability From Flood-Tolerant Perennial Grasses Cultivated on a fen Peatland. Frontiers in Environmental Science, 9, 619258.",
+  "doi": "10.3389/fenvs.2021.619258",
+  "source_url": "https://doi.org/10.3389/fenvs.2021.619258",
+  "full_text_url": "https://www.frontiersin.org/journals/environmental-science/articles/10.3389/fenvs.2021.619258/full",
+  "retrieval_date": "2026-11-08",
+  "geography": "Vejrumbro, Central Jutland, Denmark",
+  "measurement_year": 2019,
+  "source_tables": [
+    3,
+    4
+  ],
+  "license": "CC BY 4.0, as stated in the article copyright notice.",
+  "design": "Four-block field experiment; reed canary grass and tall fescue; one to five annual harvest treatments. Tables 3 and 4 report dry-matter and crude-protein yields in plant biomass, pulp, protein concentrate and brown juice.",
+  "method": "Published per-harvest rows in Tables 3 and 4 transcribed. The source table caption states all yields in t ha^-1 year^-1; per-harvest rows are indexed by cut number and harvest week. Unit text is retained and no per-cut or annual conversion is performed. Table 3/4 annual averages are already represented in a sibling reference dataset and are not duplicated here.",
+  "activation_state": "reference_only",
+  "runtime_parameter_mapping": null,
+  "limitations": [
+    "This is cultivated reed canary grass and tall fescue on a Danish fen peatland, not mixed Dutch roadside grass or GreenHub feed.",
+    "The field trial used a lab-scale twin-screw press; one-cut biomass could not be pressed because of advanced lignification.",
+    "Pressing and acid precipitation conditions are laboratory methods; reagent volume/equivalents and GreenHub-scale performance are not established.",
+    "NA values, one-replicate SD omissions, and >0.0 source thresholds remain explicitly represented; no values are imputed.",
+    "The same-source annual rows remain in fen_grass_biorefinery_fractionation_annual_nielsen_2021_tables_3_4_reference.csv; this file contains only per-harvest rows."
+  ]
+}

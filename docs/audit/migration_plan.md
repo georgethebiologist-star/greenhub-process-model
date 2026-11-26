@@ -2,6 +2,9 @@
 
 Audit date: 2026-07-29
 
+> Historical migration plan. Check the current [architecture guide](../architecture.md)
+> and [migration note](../migration_from_phase_architecture.md) before applying any item.
+
 ## Principles
 
 - Preserve existing public imports, workbook sheets, scenario IDs, unit IDs, and report

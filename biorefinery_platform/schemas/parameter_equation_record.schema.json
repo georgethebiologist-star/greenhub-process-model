@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Biorefinery parameter, equation, constant, or method record",
+  "description": "Normalized reusable scientific record. Context-independent equations and physical constants still require declared units, domain, applicability, and provenance; technology performance values do not become portable by relabeling.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "record_id",
+    "record_kind",
+    "project_id",
+    "technology_family_ids",
+    "data_scope_class",
+    "context_independent",
+    "activation_state",
+    "applicability",
+    "provenance",
+    "metadata_gaps"
+  ],
+  "properties": {
+    "schema_version": {"type": "string"},
+    "record_id": {"type": "string", "minLength": 1},
+    "record_kind": {"type": "string", "enum": ["parameter", "equation", "physical_constant", "method"]},
+    "project_id": {"type": ["string", "null"]},
+    "technology_family_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+    "data_scope_class": {
+      "type": "string",
+      "enum": ["context_independent", "technology_specific", "material_or_site_specific", "technology_and_material_specific", "context_specific_unclassified"]
+    },
+    "context_independent": {"type": "boolean"},
+    "quality_class": {"type": ["string", "null"], "enum": ["A", "B", "C", "D", "E", null], "description": "Evidence grade. E records an unverified value or compatibility placeholder, not literature evidence. D is retained for legacy read compatibility only and should not be assigned to new records."},
+    "value_status": {
+      "type": "string",
+      "enum": [
+        "measured",
+        "literature_value",
+        "literature_derived_assumption",
+        "fitted_by_source",
+        "unverified_assumption",
+        "unmeasured_numeric_fallback",
+        "derived_residual",
+        "structural_placeholder",
+        "structural_initial_state",
+        "missing",
+        "not_applicable"
+      ],
+      "description": "Describes what the stored value represents independently of evidence quality and runtime activation."
+    },
+    "activation_state": {"type": "string", "enum": ["active", "reference_only", "blocked", "not_measured", "retired"]},
+    "parameter_value": {
+      "type": "object",
+      "required": ["value", "unit", "basis"],
+      "properties": {
+        "value": {"type": ["number", "string", "null"]},
+        "unit": {"type": "string", "minLength": 1},
+        "basis": {"type": "string", "minLength": 1},
+        "uncertainty": {"type": ["number", "string", "null"]},
+        "physical_minimum": {"type": ["number", "null"]},
+        "physical_maximum": {"type": ["number", "null"]}
+      },
+      "additionalProperties": true
+    },
+    "equation": {
+      "type": "object",
+      "required": ["expression", "input_record_ids", "output_quantity", "output_unit", "validity_domain"],
+      "properties": {
+        "expression": {"type": "string", "minLength": 1},
+        "input_record_ids": {"type": "array", "items": {"type": "string"}},
+        "output_quantity": {"type": "string", "minLength": 1},
+        "output_unit": {"type": "string", "minLength": 1},
+        "validity_domain": {"type": "string", "minLength": 1},
+        "assumptions": {"type": "array", "items": {"type": "string"}},
+        "validation_tests": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": true
+    },
+    "applicability": {
+      "type": "object",
+      "required": ["material_scope", "technology_scope", "operating_domain"],
+      "properties": {
+        "material_scope": {"type": "string"},
+        "technology_scope": {"type": "string"},
+        "operating_domain": {"type": "string"},
+        "geography": {"type": ["string", "null"]},
+        "scale_range": {"type": ["string", "null"]},
+        "exclusions": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": true
+    },
+    "provenance": {"type": "array", "items": {"$ref": "dataset_reuse_record.schema.json#/$defs/provenance_record"}},
+    "metadata_gaps": {"type": "array", "uniqueItems": true, "items": {"type": "string"}}
+  },
+  "additionalProperties": true
+}

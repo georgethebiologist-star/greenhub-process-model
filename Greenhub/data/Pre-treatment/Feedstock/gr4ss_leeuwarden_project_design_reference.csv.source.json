@@ -1,0 +1,48 @@
+{
+  "dataset_id": "urn:greenhub:dataset:gr4ss-leeuwarden-project-design-reference:v1",
+  "source_file": "gr4ss_leeuwarden_project_design_reference.csv",
+  "source_ids": [
+    "SRC-GR4SS-PERMIT-2025",
+    "SRC-GR4SS-OPERATOR-2025",
+    "SRC-GR4SS-PROJECT-WEBSITE"
+  ],
+  "title": "GR4SS Leeuwarden permit scope, announced capacity and website product targets",
+  "authors": [
+    "Provincie Fryslân",
+    "Bermgras ECL BV / GR4SS project consortium"
+  ],
+  "source_urls": [
+    "https://zoek.officielebekendmakingen.nl/prb-2025-12664.html",
+    "https://gr4ss.nl/2026/01/08/bermgras-ecl-bv-receives-irrevocable-permit-for-gr4ss-digester/",
+    "https://gr4ss.nl/"
+  ],
+  "source_locations": [
+    "Provinciaal Blad 2025 nr. 12664, permit description for Bermgras ECL BV",
+    "GR4SS permit announcement, dated 7 January 2025",
+    "GR4SS homepage, section '36,000 tons verge grass and 24,000 tons vegetable residues' and listed product targets"
+  ],
+  "retrieval_date": "2026-11-07",
+  "license": "No explicit open-data reuse license identified for the project website. The permit notice is an official public government publication; preserve source attribution and publication terms.",
+  "geography": "Energiecampus Leeuwarden, Fryslân, Netherlands",
+  "evidence_class": "official_permit_scope_and_project_design_targets",
+  "quality_class": "B",
+  "rows": 7,
+  "units_and_basis": {
+    "permit_feed_quantities": "The gazette summary states tonnes but does not specify the reporting period or wet/dry basis.",
+    "announced_annual_capacity": "t/year plant-based raw-material capacity, as stated by the project operator; capacity, not realized throughput.",
+    "website_product_targets": "Source-listed quantities and units; the product-target section does not state a reporting period, product grade, measurement method, or verified operating basis."
+  },
+  "data_handling": "Values are transcribed as published. No annualization, yield, mass balance, purity, substitution credit, or operating performance is inferred. The separate permit input categories are retained as stated and are not silently reconciled to the operator's annual capacity announcement.",
+  "applicability": "Dutch external project comparator spanning feedstock, anaerobic digestion, biomethane upgrading and nutrient/substrate product development. It is not the GreenHub process route and is not a calibration dataset.",
+  "limitations": [
+    "The permit summary gives the 36,000 t and 24,000 t input quantities without explicitly stating a period or wet/dry mass basis.",
+    "The operator separately states a capacity up to 60,000 t/year; this is announced design capacity, not metered annual feed or a reconciliation of permit quantities.",
+    "The project homepage lists biomethane, liquid bio-CO2, green fertilizer and substrate target quantities but does not state their time basis or measurement/verification basis.",
+    "Product quality, composition, moisture, gas conditions/specification, recovery efficiencies, utilities, emissions, and operating data are absent from these pages.",
+    "A prior D4 project webpage has a separate 30,000 t grass statement and an apparent unit anomaly for green-gas output; it is not used to overwrite or numerically reconcile this current project-page extract.",
+    "All rows remain reference-only. No GreenHub runtime parameter, default, process calculation, TEA/LCA credit, scenario, or Pareto result consumes this dataset."
+  ],
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "runtime_parameter_mapping": null
+}

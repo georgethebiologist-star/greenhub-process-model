@@ -1,0 +1,25 @@
+{
+  "source_id": "SRC008",
+  "title": "Innovative high-pressure water scrubber for biogas upgrading at farm-scale using vacuum for water regeneration",
+  "authors": ["Eliot Wantz", "Mathis Lemonnier", "David Benizri", "Nicolas Dietrich", "Gilles Hébrard"],
+  "publication_year": 2023,
+  "doi": "10.1016/j.apenergy.2023.121781",
+  "url": "https://doi.org/10.1016/j.apenergy.2023.121781",
+  "publisher_page": "https://www.sciencedirect.com/science/article/pii/S0306261923011455",
+  "source_type": "peer-reviewed primary field/pilot study",
+  "geography": "Farm-scale anaerobic digestion site; exact location not included in accessible abstract metadata",
+  "material_scope": "Raw biogas treated by high-pressure water scrubbing with vacuum water regeneration and anisotropic packing",
+  "license": "Not verified from the accessible bibliographic/abstract record; no article text redistributed",
+  "evidence_class": "B_measured_or_source_reported",
+  "exact_locations": ["Abstract; author bibliographic record"],
+  "retrieval_date": "2026-11-06",
+  "data_handling": "Only discrete values stated in the abstract-level bibliographic record are transcribed. No graph digitization, inferred setpoints, or reconstructed mass balances.",
+  "activation": "reference_only",
+  "limitations": [
+    "The 20–40 Nm3/h farm-scale range is not GreenHub's predicted gas throughput.",
+    "Reported methane-purity threshold is not methane recovery.",
+    "The abstract reports energy consumption that can be reduced from 0.8 to 0.3 kWh/Nm3 raw biogas, but the exact reduced operating point and uncertainty are not available in the accessible record.",
+    "Abstract-reported +19% methane recovery and +14% CO2 elimination are preserved as changes; their relative-percent versus percentage-point interpretation must be verified in full text.",
+    "Do not use the values as calculation defaults or claim direct transfer to grass-derived biogas."
+  ]
+}

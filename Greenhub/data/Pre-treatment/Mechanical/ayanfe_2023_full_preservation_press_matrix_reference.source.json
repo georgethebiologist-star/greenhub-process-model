@@ -1,0 +1,34 @@
+{
+  "dataset_id": "urn:greenhub:dataset:ayanfe-biteb-2023-table2:v1",
+  "title": "Full preservation-by-press output matrix from Ayanfe et al. (2023), Table 2",
+  "source_id": "S12_AYANFE_2023",
+  "doi": "10.1016/j.biteb.2023.101356",
+  "source_url": "https://doi.org/10.1016/j.biteb.2023.101356",
+  "related_publication": "https://doi.org/10.1016/j.biteb.2023.101356",
+  "source_table": "Table 2; Methods §§2.1–2.3",
+  "retrieval_date": "2026-11-06",
+  "evidence_class": "B",
+  "data_class": "Measured literature data",
+  "license": "CC BY 4.0",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "scope": "Fresh forage dominated by timothy and meadow fescue; laboratory pneumatic press (LPP) and laboratory twin-screw press (LTS); seven preservation/additive conditions; seven measured output metrics per press.",
+  "column_codebook": {
+    "FR_control": "Fresh forage, untreated control",
+    "FR_FPA": "Fresh forage treated with formic-propionic acid at 5 L/t fresh matter",
+    "FZ_control": "Frozen-thawed forage, untreated control",
+    "FZ_FPA": "Frozen-thawed forage treated with formic-propionic acid at 5 L/t fresh matter",
+    "DR_control": "Dried and rehydrated forage, untreated control",
+    "EN_control": "Ensiled forage, untreated control",
+    "EN_FPA": "Ensiled forage treated with formic-propionic acid at 5 L/t fresh matter"
+  },
+  "basis_and_calculation": "Table values are transcribed as reported. Retained CP, DM, and ash are reported per original material, not as fractions of the initial component inventory. Methods §2.3 calculate the retained amount from liquid yield, liquid concentration, and original-feed composition.",
+  "limitations": [
+    "Not roadside-grass-specific; species composition, preservation, scale, press design, and operating conditions differ from GreenHub defaults.",
+    "The seven conditions are source-specific treatments, not recommended operating scenarios.",
+    "Table SEM and p-values are reported as source values and are not standard deviations or confidence intervals.",
+    "Reference-only; not runtime-calibrated or promoted to a default."
+  ],
+  "conversion_method": "No conversions applied; reported units and original material basis are retained.",
+  "uncertainty": "Table-wide SEM recorded for each response and press type; replicate-level data were not available in the table.",
+  "applicability": "Comparative literature evidence for preservation and press-type effects; insufficient alone for direct GreenHub prediction."
+}

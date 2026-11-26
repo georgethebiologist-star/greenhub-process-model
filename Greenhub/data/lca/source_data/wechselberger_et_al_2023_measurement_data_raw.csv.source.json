@@ -1,0 +1,53 @@
+{
+  "dataset_id": "urn:greenhub:dataset:wechselberger-2023:raw_measurement_data:v1",
+  "dataset_version": "1.0.0",
+  "title": "Verbatim 294-row, 32-field measurement and secondary-data file underlying Table 2 emission factors.",
+  "source_file": "wechselberger_et_al_2023_measurement_data_raw.csv",
+  "source_file_sha256": "1907d5a6c370e944a711477ebf27edfd95e3e226a52c17b36abbc4108674c2ee",
+  "source_file_md5": "d35a0df634b1000bb936eee46aa7a3cb",
+  "source_record_doi": "10.5281/zenodo.7474206",
+  "source_record_url": "https://doi.org/10.5281/zenodo.7474206",
+  "source_v1_doi": "10.5281/zenodo.7422108",
+  "source_v1_url": "https://doi.org/10.5281/zenodo.7422108",
+  "article_doi": "10.1016/j.wasman.2022.12.012",
+  "article_url": "https://doi.org/10.1016/j.wasman.2022.12.012",
+  "citation": "Wechselberger, V. et al. (2023). Methane losses from different biogas plant technologies. Waste Management, 157, 110–120.",
+  "source_filename": "Wechselberger_et_al_2023_data.csv",
+  "source_publisher": "Zenodo",
+  "source_version": "v2; Zenodo states the v2 data are the same as v1",
+  "retrieval_date": "2026-11-08",
+  "license": "CC BY 4.0, as displayed for the v1 record; v2 states the data are unchanged from v1 but does not display a separate rights statement",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "evidence_class": "B_primary_measurement_and_secondary_data",
+  "quality_class": "B",
+  "record_count_or_variables": 294,
+  "encoding": "Windows-1252 (verified against source-file checksum; bytes preserved)",
+  "delimiter": ",",
+  "geography": "Primary harmonized campaign in Austria, Germany, Sweden and Switzerland; the combined source file also includes secondary records from other countries listed in the raw rows.",
+  "primary_measurement_geography": "Austria, Germany, Sweden and Switzerland",
+  "source_description": "Underlying data for harmonized methane-emission measurements at 33 biogas plants; includes primary and secondary data and an author-supplied analysis script.",
+  "process_stage_counts": {
+    "Biogas production": 119,
+    "Biogas utilization": 136,
+    "Miscellaneous": 2,
+    "Not specified": 3,
+    "Substrate receiving & storage": 34
+  },
+  "countries_in_data": [
+    "Austria",
+    "Canada",
+    "Denmark",
+    "Germany",
+    "Sweden",
+    "Switzerland"
+  ],
+  "activation_state": "reference_only",
+  "readiness": "D3",
+  "runtime_parameter_mapping": null,
+  "transferability": "Technology and feedstock comparator only; mixed substrates and plant configurations, not GreenHub or roadside-grass specific.",
+  "limitations": [
+    "Contains primary and secondary observations across mixed feedstocks and technologies. Missing values are source-coded NA. Not grass-specific and not a GreenHub default.",
+    "The source summary factors are already transcribed separately in GreenHub; raw records are retained to support evidence review and potential future stratification, not to double-count observations.",
+    "No probability distribution, GreenHub leakage default, or technology-specific GreenHub factor is inferred."
+  ]
+}

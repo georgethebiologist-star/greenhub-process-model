@@ -1,0 +1,22 @@
+{
+  "dataset_id": "greenhub:storage:wet-grass-ensiling-dynamics:2025:v1",
+  "dataset_version": "1.0.0",
+  "source_file": "wet_grass_ensiling_dynamics_reference_2025.csv",
+  "source_title": "Dynamic Effects of Applied Homofermentative Lactobacilli on Wet Grass Silage with Regard to Fermentation Quality and Mass Losses",
+  "authors": "Reinhard Resch; Sonja Axmann; Elisabeth Weidenholzer; Ewald Kramer",
+  "experiment_year": 2024,
+  "publication_year": 2025,
+  "source_type": "Conference proceedings abstract reporting a primary experiment and Table 9",
+  "persistent_identifier": null,
+  "source_url": "https://conference.ifas.ufl.edu/silage/documents/Silage-2025-Abstract-Compilation.pdf",
+  "source_table_page": "Table 9; proceedings section titled with the source title",
+  "retrieval_date": "2026-11-06",
+  "evidence_class": "B_measured",
+  "license": "No explicit dataset or proceedings reuse license identified in the retrieved document; verify reuse terms before redistribution outside this repository.",
+  "material_scope": "First-growth permanent grassland (>95% grasses) at HBLFA Raumberg-Gumpenstein, Austria; harvested 2024-05-10; very slightly wilted grass at 238 g DM/kg fresh matter; untreated control versus a specific four-strain homofermentative LAB mixture.",
+  "experimental_conditions": "Small vacuum bags were used for observations at 7 and 30 days; 60 L wide-neck barrels were used at 87 and 192 days. Ambient storage temperature was 10–18 °C. Forage was cut to 5–10 cm and was above 30 °C in the unloaded pile. The source describes 0.1–0.2 kg DM vacuum-bag samples in three replications and larger barrel fills. Table means are transcribed; no SD/SE is included in this extracted dataset.",
+  "applicability": "Measured grass-silage evidence for storage duration, dry-matter concentration and loss, protein loss, ammonia-N, pH, metabolic energy, and fermentation products. It informs the possible direction and scale of anaerobic ensiling changes but is not roadside grass or the GreenHub loose-feed storage configuration.",
+  "limitations": "Reference-only. Do not apply as a runtime default, universal kinetic law, fitted rate constant, aerobic degradation curve, or direct emissions factor. Only four storage durations are observed; vessel type changes between 30 and 87 days; temperature is a range; and the wet grass experienced challenging fermentation. Protein loss is source-calculated from nitrogen accounting and does not distinguish soluble and insoluble protein. No matched Dutch roadside-grass or commercial-scale validation is supplied.",
+  "conversion_or_processing": "Transcribed treatment means from Table 9. Decimal comma 237,7 was normalized to 237.7. No interpolation, conversion, curve fitting, or missing-value imputation was performed. Blank cells remain unreported values.",
+  "rights_note": "The source PDF is publicly accessible at the proceedings URL, but no explicit open-data license was located. The CSV contains a limited factual extraction, not source prose or the table image."
+}

@@ -1,0 +1,77 @@
+{
+  "dataset_title": "European digestate compositional properties — Zenodo v1 row-level reference extract",
+  "dataset_identifier": "https://doi.org/10.5281/zenodo.5526416",
+  "publication_doi": "10.3390/agronomy11071374",
+  "source_id": "SRC_REULAND2021_EBA_V1",
+  "authors": [
+    "G. Reuland",
+    "M. Sigurnjak",
+    "A. Dekker",
+    "B. Sleutels",
+    "B. Meers",
+    "E. Vaneeckhaute"
+  ],
+  "reference_year": 2021,
+  "source_url": "https://zenodo.org/records/5526416",
+  "publication_url": "https://doi.org/10.3390/agronomy11071374",
+  "license": "CC BY 4.0 (license verified in Ghent University Biblio record for the publication/data package)",
+  "retrieval_date": "2026-11-07",
+  "source_file": "reuland_digestate_composition_zenodo_v1_reference.csv",
+  "source_package_file": "Digestate_database.xlsx",
+  "source_file_md5": "f743d5ebcc1c0de38709444e2dee1d17",
+  "source_file_bytes": 317767,
+  "source_sheet": "Untitled2",
+  "source_rows_exported": 1884,
+  "source_row_count_note": "1884 rows with numeric digestate category codes were retained from the v1 workbook. This is not asserted to equal the paper's screened Database A/C sample size; the workbook has code legends and incomplete rows, and v2 is a different Zenodo release.",
+  "evidence_class": "B_literature_dataset_mixed_digestate_composition",
+  "geography": "European Biogas Association registry data collected through national biogas associations in Austria, Germany, Finland, France, and the United Kingdom, as described by Reuland et al. (2021).",
+  "source_locations": [
+    "Workbook sheet Untitled2; row numbers retained in source_excel_row.",
+    "Reuland et al. (2021), Materials and Methods §§2.1.1–2.2.4; Table 1 and Table 2."
+  ],
+  "category_mappings": {
+    "digestate_category_code": {
+      "4": "raw digestate",
+      "5": "liquid fraction",
+      "6": "solid fraction",
+      "7": "composted solid fraction",
+      "8": "unknown"
+    },
+    "feedstock_group_code": {
+      "1": "manure & energy crops",
+      "2": "biowaste and manure and/or energy crops",
+      "3": "biowaste"
+    }
+  },
+  "variable_units_and_bases": {
+    "pH": "dimensionless; reported method may be pH-KCl for the paper's campaign measurements, not necessarily every registry row",
+    "DM": "g/kg fresh matter",
+    "OM": "g/kg dry matter",
+    "TOC": "g/kg dry matter; note that the paper derives some Database A TOC values using a 0.55 TOC/OM factor",
+    "TOC:TN": "dimensionless ratio",
+    "TN": "g/kg dry matter",
+    "NH4-N": "g/kg dry matter",
+    "NH4:TN": "%",
+    "K2O": "g/kg dry matter",
+    "P2O5": "g/kg dry matter",
+    "CaO": "g/kg dry matter; paper-wide unit harmonization applies, but this field is not summarized in Table 1",
+    "Mg": "g/kg dry matter; paper-wide unit harmonization applies, but this field is not summarized in Table 1",
+    "Cr, Cd, Pb, Zn, Cu, Hg, Ni, Sn, Fe, Mn": "mg/kg dry matter where reported; verify source-specific field conventions before use",
+    "E_Coli, Salmonella, Endoparasitis, Viable_weed_seeds": "unit and reporting basis not resolved in the workbook/article fields used for this extract; values are retained verbatim and must not be used quantitatively"
+  },
+  "data_handling": "A faithful row extract of numeric-coded observations from the licensed v1 workbook. Original columns and values are retained; four helper columns add an internal row ID, original Excel row, and explicit category labels. No imputation, unit conversion, aggregation, outlier removal, or recalculation was applied. Blank cells remain blank.",
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "limitations": [
+    "The dataset is mixed European digestate evidence and is not specific to roadside grass, grass-only digestion, or GreenHub's post-protein residual stream.",
+    "The paper states the EBA registry did not identify separation technology; digestate/liquid-fraction interpretation may depend on dry-matter ranges rather than verified process labels.",
+    "The sheet contains broad feedstock groups and cannot isolate a grass-only observation cohort.",
+    "The v1 workbook row count does not match the later v2 Zenodo record's stated n=1895; versions must not be merged or represented as equivalent.",
+    "Microbial/pathogen and weed-seed units are unresolved and retained for traceability only.",
+    "Not suitable for GreenHub runtime defaults, component balances, fertilizer substitution credits, product-grade decisions, or process recovery yields."
+  ],
+  "suggested_use": "Contextual Phase 7 comparator for broad digestate nutrient-composition ranges and validation of future grass-specific measurements; do not use as a GreenHub model input or to parameterize recovery performance.",
+  "normalization": "No value normalization. Published unit/basis notes are metadata only and are not applied as runtime conversions.",
+  "license_source": "https://biblio.ugent.be/publication/8721401",
+  "repository_v2_note": "Zenodo record 10.5281/zenodo.7104262 is a later, distinct version whose record did not expose a license field during this review; this extract is from the independently identified v1 file and is not attributed to v2."
+}

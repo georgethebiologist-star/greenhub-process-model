@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ParameterDefinition } from '../types';
 import { Sliders, Search, RotateCcw, Code, CheckCircle2, AlertCircle, Info, ShieldAlert } from 'lucide-react';
 import { TooltipInfo } from './TooltipInfo';
+import { displayQualityClass } from '../data/qualityClass';
 
 interface ParameterRegisterProps {
   parameters: ParameterDefinition[];
@@ -31,11 +32,10 @@ export const ParameterRegister: React.FC<ParameterRegisterProps> = ({
 
   const qualityClassExplanations = (
     <div className="space-y-1.5 text-[11px]">
-      <p><strong className="text-emerald-400">Class A (Experimental / Verified):</strong> Measured lab data or active PID loops with direct verification (&lt;5% uncertainty).</p>
-      <p><strong className="text-cyan-400">Class B (Literature Benchmark):</strong> Peer-reviewed published bioprocess literature constants (e.g. BioSTEAM/REC-001).</p>
-      <p><strong className="text-amber-400">Class C (Pilot Estimated):</strong> Estimated from pilot-scale equipment or engineering scaling curves.</p>
-      <p><strong className="text-purple-400">Class D (Quarantined):</strong> High uncertainty or unverified data requiring user review.</p>
-      <p><strong className="text-rose-400">Class E (Structural Assumption):</strong> Baseline physical assumption when experimental data is absent.</p>
+      <p><strong className="text-emerald-400">Class A (Measured):</strong> GreenHub project or laboratory measurements.</p>
+      <p><strong className="text-cyan-400">Class B (Direct evidence):</strong> Values directly reported by literature, official datasets, or suppliers.</p>
+      <p><strong className="text-amber-400">Class C (Literature-linked assumption):</strong> Proxy or derived estimate with a traceable literature source.</p>
+      <p><strong className="text-purple-400">Class E (Unresolved assumption):</strong> Placeholder or screening assumption without direct support for this material and process context. A DOI alone does not upgrade a value; class C requires source, basis, and applicability review.</p>
     </div>
   );
 
@@ -142,6 +142,7 @@ export const ParameterRegister: React.FC<ParameterRegisterProps> = ({
           <tbody className="divide-y divide-slate-800/60">
             {filteredParams.map((param) => {
               const isModified = param.current_value !== param.default_value;
+              const quality = displayQualityClass(param.quality_class, param.stable_identifier, param.source_url, param.notes);
               return (
                 <tr key={param.parameter_id} className="hover:bg-slate-950/40">
                   <td className="p-3 max-w-md">
@@ -175,18 +176,18 @@ export const ParameterRegister: React.FC<ParameterRegisterProps> = ({
                     <div className="flex items-center gap-1">
                       <span
                         className={`px-2 py-0.5 rounded-full text-[10px] font-bold font-mono ${
-                          param.quality_class === 'A'
+                          quality === 'A'
                             ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
-                            : param.quality_class === 'B'
+                            : quality === 'B'
                             ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30'
-                            : param.quality_class === 'C'
+                            : quality === 'C'
                             ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
-                            : param.quality_class === 'D'
+                            : quality === 'E'
                             ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30'
                             : 'bg-rose-500/20 text-rose-300 border border-rose-500/30'
                         }`}
                       >
-                        Class {param.quality_class}
+                        Class {quality}
                       </span>
                     </div>
                   </td>

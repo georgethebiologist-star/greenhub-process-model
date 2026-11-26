@@ -2,6 +2,10 @@
 
 Audit date: 2026-07-29
 
+> Historical Git snapshot. The branch and commit identifiers below describe the
+> repository at audit time, not the current checkout. Current readiness is in the
+> [pre-release status](../PRE_RELEASE_STATUS.md).
+
 ## Repository State
 
 | Field | Value |

@@ -7,8 +7,8 @@ This report is read-only. It does not activate calculations, enable dynamic reso
 - `blocked_missing`: 137
 - `blocked_no_equation_mapping`: 1
 - `blocked_wrong_basis`: 1
-- `requires_user_selection`: 200
-- `resolvable_now`: 12
+- `requires_user_selection`: 212
+- `resolvable_now`: 13
 
 ## Resolvable Fields
 
@@ -195,6 +195,8 @@ This report is read-only. It does not activate calculations, enable dynamic reso
 - `S9/H1.2_pb`
 - `S9/H1.2_zn`
 - `acid_detergent_fibre_dry_basis`
+- `acid_neutralizing_capacity`
+- `arabinan`
 - `ash_dry_basis`
 - `bmp_boyle`
 - `bmp_buswell`
@@ -224,6 +226,7 @@ This report is read-only. It does not activate calculations, enable dynamic reso
 - `feed_total_potassium_dm`
 - `feed_total_sodium_dm`
 - `fresh_fixed_carbon`
+- `galactan`
 - `glf_k2o`
 - `glf_n`
 - `glf_p2o5`
@@ -246,17 +249,23 @@ This report is read-only. It does not activate calculations, enable dynamic reso
 - `liquid_total_potassium`
 - `liquid_total_solids`
 - `liquid_volatile_solids`
+- `liquor_absorbing_capacity`
+- `mannan`
 - `mix_tn`
 - `mix_toc`
 - `moisture_wet_basis`
 - `neutral_detergent_fibre_dry_basis`
 - `nitrogen_dry_basis`
+- `rhamnan`
+- `solvent_soluble_extractives`
 - `spring_carbs`
 - `starch_dry_basis`
 - `sulfur_dry_basis`
 - `total_solids_wet_basis`
 - `volatile_solids_dry_basis`
 - `water_soluble_carbohydrates_dry_basis`
+- `water_soluble_extractives`
+- `xylan`
 
 ## Override Rule
 

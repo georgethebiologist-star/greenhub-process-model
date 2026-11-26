@@ -1,0 +1,31 @@
+{
+  "dataset_id": "urn:greenhub:dataset:hdsr-mowing-material-digestion-projection-2021:v1",
+  "source_file": "hdsr_mowing_material_digestion_projection_2021_reference.csv",
+  "source_id": "SRC-HDSR-BIOMASS-PROJECTION-2021",
+  "title": "HDSR mowing-material digestion planning scenario for RWZI Nieuwegein",
+  "authors": ["Hoogheemraadschap De Stichtse Rijnlanden"],
+  "publication_year": 2021,
+  "source_url": "https://www.hdsr.nl/publish/pages/115513/bestuursverslag_2021.pdf",
+  "source_location": "Bestuursverslag 2021, Section 11, printed p. 28",
+  "retrieval_date": "2026-11-07",
+  "license": "No explicit reuse license identified in the report.",
+  "geography": "HDSR service region, Netherlands; proposed digestion at RWZI Nieuwegein",
+  "evidence_class": "official_project_feasibility_projection",
+  "quality_class": "B",
+  "rows": 2,
+  "units_and_basis": {
+    "annual_feed_input": "t/year of mowing material; wet/dry basis unspecified; report does not separate verge grass from ditch cuttings",
+    "projected_annual_biogas_output": "m3 biogas/year; gas reference temperature and pressure and methane fraction unspecified"
+  },
+  "data_handling": "Only the two linked quantities stated in the annual report are transcribed. The proposal's feed and gas figures are not converted into a specific yield or methane output.",
+  "applicability": "Historical Dutch regional project-scenario comparator across feedstock availability and anaerobic digestion; not GreenHub process performance.",
+  "limitations": [
+    "The 30,000 t/year input is mixed verge and ditch mowing material with no source split, wet/dry basis, weighbridge evidence, feed characterization, or contracted fraction.",
+    "The 3.4 million m3/year gas quantity is forecast output, not measured production; reference conditions, methane fraction, uptime, process boundary, and uncertainty are absent.",
+    "The annual report says procurement prevented continuation in 2021 and that a restart was planned for 2022; this report does not verify later implementation or performance.",
+    "Keep the two values paired as a project projection; do not use them as a GreenHub default, methane yield, or saleable biomethane output."
+  ],
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "runtime_parameter_mapping": null
+}

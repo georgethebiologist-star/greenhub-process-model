@@ -1,0 +1,190 @@
+record_id,source_id,table_panel,biomass,measure,from_fraction,to_fraction,reported_mean,reported_sd,unit,replicate_count,significance_group,basis,reporting_status
+NY21-2A-BROCCOLI-GJ,SRC002,2a,Broccoli,nitrogen_yield,BM,GJ,28.2,2,percent,3,BC,relative to initial biomass nitrogen,reported
+NY21-2A-BROCCOLI-GJSP,SRC002,2a,Broccoli,nitrogen_yield,BM,GJsp,7.2,1.5,percent,3,BC,relative to initial biomass nitrogen,reported
+NY21-2A-BROCCOLI-S1,SRC002,2a,Broccoli,nitrogen_yield,BM,S1,14.8,1.4,percent,3,BC,relative to initial biomass nitrogen,reported
+NY21-2A-BROCCOLI-S2,SRC002,2a,Broccoli,nitrogen_yield,BM,S2,15.5,2.2,percent,3,B,relative to initial biomass nitrogen,reported
+NY21-2A-BROCCOLI-P3,SRC002,2a,Broccoli,nitrogen_yield,BM,P3,2.9,0.7,percent,3,CD,relative to initial biomass nitrogen,reported
+NY21-2A-BROCCOLI-S4,SRC002,2a,Broccoli,nitrogen_yield,BM,S4,0.4,0,percent,3,A,relative to initial biomass nitrogen,reported
+NY21-2A-CABBAGE-GJ,SRC002,2a,Cabbage,nitrogen_yield,BM,GJ,37.4,5.4,percent,3,C,relative to initial biomass nitrogen,reported
+NY21-2A-CABBAGE-GJSP,SRC002,2a,Cabbage,nitrogen_yield,BM,GJsp,7.9,2,percent,3,BC,relative to initial biomass nitrogen,reported
+NY21-2A-CABBAGE-S1,SRC002,2a,Cabbage,nitrogen_yield,BM,S1,9.3,2.4,percent,3,AB,relative to initial biomass nitrogen,reported
+NY21-2A-CABBAGE-S2,SRC002,2a,Cabbage,nitrogen_yield,BM,S2,14.4,3.1,percent,3,AB,relative to initial biomass nitrogen,reported
+NY21-2A-CABBAGE-P3,SRC002,2a,Cabbage,nitrogen_yield,BM,P3,0.2,0.1,percent,3,AB,relative to initial biomass nitrogen,reported
+NY21-2A-CABBAGE-S4,SRC002,2a,Cabbage,nitrogen_yield,BM,S4,0.2,0.1,percent,3,A,relative to initial biomass nitrogen,reported
+NY21-2A-KALE-GJ,SRC002,2a,Kale,nitrogen_yield,BM,GJ,30.3,3.3,percent,3,BC,relative to initial biomass nitrogen,reported
+NY21-2A-KALE-GJSP,SRC002,2a,Kale,nitrogen_yield,BM,GJsp,5,0.2,percent,3,AB,relative to initial biomass nitrogen,reported
+NY21-2A-KALE-S1,SRC002,2a,Kale,nitrogen_yield,BM,S1,19.3,0.7,percent,3,CD,relative to initial biomass nitrogen,reported
+NY21-2A-KALE-S2,SRC002,2a,Kale,nitrogen_yield,BM,S2,18.7,0.7,percent,3,BC,relative to initial biomass nitrogen,reported
+NY21-2A-KALE-P3,SRC002,2a,Kale,nitrogen_yield,BM,P3,2.1,0.2,percent,3,ABCD,relative to initial biomass nitrogen,reported
+NY21-2A-KALE-S4,SRC002,2a,Kale,nitrogen_yield,BM,S4,0.5,0.1,percent,3,AB,relative to initial biomass nitrogen,reported
+NY21-2A-MANGOLD-GJ,SRC002,2a,Mangold,nitrogen_yield,BM,GJ,53.1,1,percent,3,D,relative to initial biomass nitrogen,reported
+NY21-2A-MANGOLD-GJSP,SRC002,2a,Mangold,nitrogen_yield,BM,GJsp,8.4,0.6,percent,3,C,relative to initial biomass nitrogen,reported
+NY21-2A-MANGOLD-S1,SRC002,2a,Mangold,nitrogen_yield,BM,S1,36.9,1.3,percent,3,E,relative to initial biomass nitrogen,reported
+NY21-2A-MANGOLD-S2,SRC002,2a,Mangold,nitrogen_yield,BM,S2,24.6,4.6,percent,3,C,relative to initial biomass nitrogen,reported
+NY21-2A-MANGOLD-P3,SRC002,2a,Mangold,nitrogen_yield,BM,P3,3.7,1.6,percent,3,D,relative to initial biomass nitrogen,reported
+NY21-2A-MANGOLD-S4,SRC002,2a,Mangold,nitrogen_yield,BM,S4,1.9,1.1,percent,3,B,relative to initial biomass nitrogen,reported
+NY21-2A-BEETROOT-GJ,SRC002,2a,Beetroot,nitrogen_yield,BM,GJ,35.5,2.1,percent,3,C,relative to initial biomass nitrogen,reported
+NY21-2A-BEETROOT-GJSP,SRC002,2a,Beetroot,nitrogen_yield,BM,GJsp,6.3,0.4,percent,3,ABC,relative to initial biomass nitrogen,reported
+NY21-2A-BEETROOT-S1,SRC002,2a,Beetroot,nitrogen_yield,BM,S1,21.9,2.1,percent,3,D,relative to initial biomass nitrogen,reported
+NY21-2A-BEETROOT-S2,SRC002,2a,Beetroot,nitrogen_yield,BM,S2,17.5,0.3,percent,3,BC,relative to initial biomass nitrogen,reported
+NY21-2A-BEETROOT-P3,SRC002,2a,Beetroot,nitrogen_yield,BM,P3,3.8,0.1,percent,3,D,relative to initial biomass nitrogen,reported
+NY21-2A-BEETROOT-S4,SRC002,2a,Beetroot,nitrogen_yield,BM,S4,1,0.5,percent,3,AB,relative to initial biomass nitrogen,reported
+NY21-2A-SUGARBEET-GJ,SRC002,2a,Sugarbeet,nitrogen_yield,BM,GJ,14.6,4,percent,3,A,relative to initial biomass nitrogen,reported
+NY21-2A-SUGARBEET-GJSP,SRC002,2a,Sugarbeet,nitrogen_yield,BM,GJsp,3.7,0.6,percent,3,A,relative to initial biomass nitrogen,reported
+NY21-2A-SUGARBEET-S1,SRC002,2a,Sugarbeet,nitrogen_yield,BM,S1,12.1,1.5,percent,3,AB,relative to initial biomass nitrogen,reported
+NY21-2A-SUGARBEET-S2,SRC002,2a,Sugarbeet,nitrogen_yield,BM,S2,11.72,2.4,percent,3,AB,relative to initial biomass nitrogen,reported
+NY21-2A-SUGARBEET-P3,SRC002,2a,Sugarbeet,nitrogen_yield,BM,P3,1.2,0.3,percent,3,ABC,relative to initial biomass nitrogen,reported
+NY21-2A-SUGARBEET-S4,SRC002,2a,Sugarbeet,nitrogen_yield,BM,S4,0.9,0.2,percent,3,AB,relative to initial biomass nitrogen,reported
+NY21-2A-CARROT-GJ,SRC002,2a,Carrot,nitrogen_yield,BM,GJ,20.9,2.7,percent,3,AB,relative to initial biomass nitrogen,reported
+NY21-2A-CARROT-GJSP,SRC002,2a,Carrot,nitrogen_yield,BM,GJsp,5.3,0.4,percent,3,AB,relative to initial biomass nitrogen,reported
+NY21-2A-CARROT-S1,SRC002,2a,Carrot,nitrogen_yield,BM,S1,6,0.5,percent,3,A,relative to initial biomass nitrogen,reported
+NY21-2A-CARROT-S2,SRC002,2a,Carrot,nitrogen_yield,BM,S2,7.2,0.4,percent,3,A,relative to initial biomass nitrogen,reported
+NY21-2A-CARROT-P3,SRC002,2a,Carrot,nitrogen_yield,BM,P3,0.2,0.2,percent,3,A,relative to initial biomass nitrogen,reported
+NY21-2A-CARROT-S4,SRC002,2a,Carrot,nitrogen_yield,BM,S4,0.1,0.1,percent,3,A,relative to initial biomass nitrogen,reported
+NY21-2A-LUCERNE-GJ,SRC002,2a,Lucerne,nitrogen_yield,BM,GJ,52.1,5.4,percent,3,D,relative to initial biomass nitrogen,reported
+NY21-2A-LUCERNE-GJSP,SRC002,2a,Lucerne,nitrogen_yield,BM,GJsp,15.1,0.9,percent,3,D,relative to initial biomass nitrogen,reported
+NY21-2A-LUCERNE-S1,SRC002,2a,Lucerne,nitrogen_yield,BM,S1,42.9,4.4,percent,3,E,relative to initial biomass nitrogen,reported
+NY21-2A-LUCERNE-S2,SRC002,2a,Lucerne,nitrogen_yield,BM,S2,20,0.9,percent,3,BC,relative to initial biomass nitrogen,reported
+NY21-2A-LUCERNE-P3,SRC002,2a,Lucerne,nitrogen_yield,BM,P3,3.3,0.9,percent,1,BC,relative to initial biomass nitrogen,reported
+NY21-2A-LUCERNE-S4,SRC002,2a,Lucerne,nitrogen_yield,BM,S4,1.5,1,percent,1,AB,relative to initial biomass nitrogen,reported
+NY21-2A-SPINACH-GJ,SRC002,2a,Spinach,nitrogen_yield,BM,GJ,27.6,5,percent,3,BC,relative to initial biomass nitrogen,reported
+NY21-2A-SPINACH-GJSP,SRC002,2a,Spinach,nitrogen_yield,BM,GJsp,8.9,1.3,percent,3,C,relative to initial biomass nitrogen,reported
+NY21-2A-SPINACH-S1,SRC002,2a,Spinach,nitrogen_yield,BM,S1,25.1,0.4,percent,3,D,relative to initial biomass nitrogen,reported
+NY21-2A-SPINACH-S2,SRC002,2a,Spinach,nitrogen_yield,BM,S2,18,3.8,percent,3,BC,relative to initial biomass nitrogen,reported
+NY21-2A-SPINACH-P3,SRC002,2a,Spinach,nitrogen_yield,BM,P3,3,0.1,percent,2,CD,relative to initial biomass nitrogen,reported
+NY21-2A-SPINACH-S4,SRC002,2a,Spinach,nitrogen_yield,BM,S4,1,0.4,percent,2,AB,relative to initial biomass nitrogen,reported
+NY21-2B-BROCCOLI-GJ-S1,SRC002,2b,Broccoli,nitrogen_yield,GJ,S1,52.6,4.2,percent,3,AB,relative to incoming fraction nitrogen,reported
+NY21-2B-BROCCOLI-S1-PFP,SRC002,2b,Broccoli,nitrogen_yield,S1,Pfp,12.6,1.9,percent,3,A,relative to incoming fraction nitrogen,reported
+NY21-2B-BROCCOLI-S1-S2,SRC002,2b,Broccoli,nitrogen_yield,S1,S2,84.2,0.5,percent,3,CD,relative to incoming fraction nitrogen,reported
+NY21-2B-BROCCOLI-S2-P3,SRC002,2b,Broccoli,nitrogen_yield,S2,P3,18.8,1.7,percent,3,BC,relative to incoming fraction nitrogen,reported
+NY21-2B-CABBAGE-GJ-S1,SRC002,2b,Cabbage,nitrogen_yield,GJ,S1,24.9,5.9,percent,3,A,relative to incoming fraction nitrogen,reported
+NY21-2B-CABBAGE-S1-PFP,SRC002,2b,Cabbage,nitrogen_yield,S1,Pfp,42.2,14.1,percent,3,B,relative to incoming fraction nitrogen,reported
+NY21-2B-CABBAGE-S1-S2,SRC002,2b,Cabbage,nitrogen_yield,S1,S2,89.9,1.8,percent,3,DE,relative to incoming fraction nitrogen,reported
+NY21-2B-CABBAGE-S2-P3,SRC002,2b,Cabbage,nitrogen_yield,S2,P3,1.2,1.1,percent,3,A,relative to incoming fraction nitrogen,reported
+NY21-2B-KALE-GJ-S1,SRC002,2b,Kale,nitrogen_yield,GJ,S1,64.1,6.4,percent,3,BC,relative to incoming fraction nitrogen,reported
+NY21-2B-KALE-S1-PFP,SRC002,2b,Kale,nitrogen_yield,S1,Pfp,6.5,1.4,percent,3,A,relative to incoming fraction nitrogen,reported
+NY21-2B-KALE-S1-S2,SRC002,2b,Kale,nitrogen_yield,S1,S2,84.3,2.5,percent,3,CD,relative to incoming fraction nitrogen,reported
+NY21-2B-KALE-S2-P3,SRC002,2b,Kale,nitrogen_yield,S2,P3,11.4,1.2,percent,3,B,relative to incoming fraction nitrogen,reported
+NY21-2B-MANGOLD-GJ-S1,SRC002,2b,Mangold,nitrogen_yield,GJ,S1,69.6,3.6,percent,3,BC,relative to incoming fraction nitrogen,reported
+NY21-2B-MANGOLD-S1-PFP,SRC002,2b,Mangold,nitrogen_yield,S1,Pfp,4.6,3.9,percent,3,A,relative to incoming fraction nitrogen,reported
+NY21-2B-MANGOLD-S1-S2,SRC002,2b,Mangold,nitrogen_yield,S1,S2,52,6,percent,3,A,relative to incoming fraction nitrogen,reported
+NY21-2B-MANGOLD-S2-P3,SRC002,2b,Mangold,nitrogen_yield,S2,P3,15.2,5.4,percent,3,BC,relative to incoming fraction nitrogen,reported
+NY21-2B-BEETROOT-GJ-S1,SRC002,2b,Beetroot,nitrogen_yield,GJ,S1,61.6,3.5,percent,3,BC,relative to incoming fraction nitrogen,reported
+NY21-2B-BEETROOT-S1-PFP,SRC002,2b,Beetroot,nitrogen_yield,S1,Pfp,6,6,percent,3,A,relative to incoming fraction nitrogen,reported
+NY21-2B-BEETROOT-S1-S2,SRC002,2b,Beetroot,nitrogen_yield,S1,S2,84.9,16.1,percent,3,CD,relative to incoming fraction nitrogen,reported
+NY21-2B-BEETROOT-S2-P3,SRC002,2b,Beetroot,nitrogen_yield,S2,P3,21.6,0.3,percent,3,C,relative to incoming fraction nitrogen,reported
+NY21-2B-SUGARBEET-GJ-S1,SRC002,2b,Sugarbeet,nitrogen_yield,GJ,S1,79.7,31.4,percent,3,BC,relative to incoming fraction nitrogen,reported
+NY21-2B-SUGARBEET-S1-PFP,SRC002,2b,Sugarbeet,nitrogen_yield,S1,Pfp,1.2,0.2,percent,3,A,relative to incoming fraction nitrogen,reported
+NY21-2B-SUGARBEET-S1-S2,SRC002,2b,Sugarbeet,nitrogen_yield,S1,S2,61.4,13.2,percent,2,ABC,relative to incoming fraction nitrogen,reported
+NY21-2B-SUGARBEET-S2-P3,SRC002,2b,Sugarbeet,nitrogen_yield,S2,P3,10.5,0.5,percent,2,AB,relative to incoming fraction nitrogen,reported
+NY21-2B-CARROT-GJ-S1,SRC002,2b,Carrot,nitrogen_yield,GJ,S1,29.2,5.1,percent,3,AB,relative to incoming fraction nitrogen,reported
+NY21-2B-CARROT-S1-PFP,SRC002,2b,Carrot,nitrogen_yield,S1,Pfp,1.8,0.1,percent,3,A,relative to incoming fraction nitrogen,reported
+NY21-2B-CARROT-S1-S2,SRC002,2b,Carrot,nitrogen_yield,S1,S2,110.6,8,percent,3,E,relative to incoming fraction nitrogen,reported
+NY21-2B-CARROT-S2-P3,SRC002,2b,Carrot,nitrogen_yield,S2,P3,2.8,2.4,percent,3,A,relative to incoming fraction nitrogen,reported
+NY21-2B-LUCERNE-GJ-S1,SRC002,2b,Lucerne,nitrogen_yield,GJ,S1,82.5,8.5,percent,3,BC,relative to incoming fraction nitrogen,reported
+NY21-2B-LUCERNE-S1-PFP,SRC002,2b,Lucerne,nitrogen_yield,S1,Pfp,7.7,1.5,percent,3,A,relative to incoming fraction nitrogen,reported
+NY21-2B-LUCERNE-S1-S2,SRC002,2b,Lucerne,nitrogen_yield,S1,S2,52.2,4.4,percent,3,AB,relative to incoming fraction nitrogen,reported
+NY21-2B-LUCERNE-S2-P3,SRC002,2b,Lucerne,nitrogen_yield,S2,P3,16.1,1,percent,1,BC,relative to incoming fraction nitrogen,reported
+NY21-2B-SPINACH-GJ-S1,SRC002,2b,Spinach,nitrogen_yield,GJ,S1,93.3,17.9,percent,3,C,relative to incoming fraction nitrogen,reported
+NY21-2B-SPINACH-S1-PFP,SRC002,2b,Spinach,nitrogen_yield,S1,Pfp,7.1,0.7,percent,3,A,relative to incoming fraction nitrogen,reported
+NY21-2B-SPINACH-S1-S2,SRC002,2b,Spinach,nitrogen_yield,S1,S2,79.5,10.1,percent,3,BCD,relative to incoming fraction nitrogen,reported
+NY21-2B-SPINACH-S2-P3,SRC002,2b,Spinach,nitrogen_yield,S2,P3,16.9,4,percent,2,BC,relative to incoming fraction nitrogen,reported
+NY21-2C-BROCCOLI-BM,SRC002,2c,Broccoli,nitrogen_content,,BM,3.2,,percent,,,dry matter basis,reported
+NY21-2C-BROCCOLI-GJ,SRC002,2c,Broccoli,nitrogen_content,,GJ,2.1,0.1,percent,3,,dry matter basis,reported
+NY21-2C-BROCCOLI-PULP,SRC002,2c,Broccoli,nitrogen_content,,Pulp,1.9,0.2,percent,3,,dry matter basis,reported
+NY21-2C-BROCCOLI-GJSP,SRC002,2c,Broccoli,nitrogen_content,,GJsp,2.4,0.1,percent,3,,dry matter basis,reported
+NY21-2C-BROCCOLI-PULPSP,SRC002,2c,Broccoli,nitrogen_content,,Pulpsp,1.9,0.2,percent,3,,dry matter basis,reported
+NY21-2C-BROCCOLI-S1,SRC002,2c,Broccoli,nitrogen_content,,S1,1.7,0.1,percent,3,,dry matter basis,reported
+NY21-2C-BROCCOLI-PFP,SRC002,2c,Broccoli,nitrogen_content,,Pfp,5.8,0.2,percent,3,,dry matter basis,reported
+NY21-2C-BROCCOLI-S2,SRC002,2c,Broccoli,nitrogen_content,,S2,2,0.2,percent,3,,dry matter basis,reported
+NY21-2C-BROCCOLI-P3,SRC002,2c,Broccoli,nitrogen_content,,P3,7.9,0.2,percent,3,,dry matter basis,reported
+NY21-2C-BROCCOLI-S4,SRC002,2c,Broccoli,nitrogen_content,,S4,1.8,0.4,percent,3,,dry matter basis,reported
+NY21-2C-BROCCOLI-P4,SRC002,2c,Broccoli,nitrogen_content,,P4,13.6,0.2,percent,3,,dry matter basis,reported
+NY21-2C-CABBAGE-BM,SRC002,2c,Cabbage,nitrogen_content,,BM,2.1,,percent,,,dry matter basis,reported
+NY21-2C-CABBAGE-GJ,SRC002,2c,Cabbage,nitrogen_content,,GJ,1.7,0.2,percent,3,,dry matter basis,reported
+NY21-2C-CABBAGE-PULP,SRC002,2c,Cabbage,nitrogen_content,,Pulp,1.2,0.1,percent,3,,dry matter basis,reported
+NY21-2C-CABBAGE-GJSP,SRC002,2c,Cabbage,nitrogen_content,,GJsp,1.5,0.3,percent,3,,dry matter basis,reported
+NY21-2C-CABBAGE-PULPSP,SRC002,2c,Cabbage,nitrogen_content,,Pulpsp,1.3,0.2,percent,3,,dry matter basis,reported
+NY21-2C-CABBAGE-S1,SRC002,2c,Cabbage,nitrogen_content,,S1,0.5,0.1,percent,3,,dry matter basis,reported
+NY21-2C-CABBAGE-PFP,SRC002,2c,Cabbage,nitrogen_content,,Pfp,8.2,0.3,percent,3,,dry matter basis,reported
+NY21-2C-CABBAGE-S2,SRC002,2c,Cabbage,nitrogen_content,,S2,0.8,0.2,percent,3,,dry matter basis,reported
+NY21-2C-CABBAGE-P3,SRC002,2c,Cabbage,nitrogen_content,,P3,1.2,0,percent,3,,dry matter basis,reported
+NY21-2C-CABBAGE-S4,SRC002,2c,Cabbage,nitrogen_content,,S4,0.9,0.1,percent,3,,dry matter basis,reported
+NY21-2C-CABBAGE-P4,SRC002,2c,Cabbage,nitrogen_content,,P4,0.7,0.5,percent,3,,dry matter basis,reported
+NY21-2C-KALE-BM,SRC002,2c,Kale,nitrogen_content,,BM,3,,percent,,,dry matter basis,reported
+NY21-2C-KALE-GJ,SRC002,2c,Kale,nitrogen_content,,GJ,2.7,0.2,percent,3,,dry matter basis,reported
+NY21-2C-KALE-PULP,SRC002,2c,Kale,nitrogen_content,,Pulp,1.5,0.2,percent,3,,dry matter basis,reported
+NY21-2C-KALE-GJSP,SRC002,2c,Kale,nitrogen_content,,GJsp,2.9,0.1,percent,3,,dry matter basis,reported
+NY21-2C-KALE-PULPSP,SRC002,2c,Kale,nitrogen_content,,Pulpsp,2.2,0.2,percent,3,,dry matter basis,reported
+NY21-2C-KALE-S1,SRC002,2c,Kale,nitrogen_content,,S1,2.2,0,percent,3,,dry matter basis,reported
+NY21-2C-KALE-PFP,SRC002,2c,Kale,nitrogen_content,,Pfp,1.7,0.1,percent,3,,dry matter basis,reported
+NY21-2C-KALE-S2,SRC002,2c,Kale,nitrogen_content,,S2,2.3,0.1,percent,3,,dry matter basis,reported
+NY21-2C-KALE-P3,SRC002,2c,Kale,nitrogen_content,,P3,7.9,0.4,percent,3,,dry matter basis,reported
+NY21-2C-KALE-S4,SRC002,2c,Kale,nitrogen_content,,S4,2.6,0.4,percent,3,,dry matter basis,reported
+NY21-2C-KALE-P4,SRC002,2c,Kale,nitrogen_content,,P4,12.3,1.2,percent,3,,dry matter basis,reported
+NY21-2C-MANGOLD-BM,SRC002,2c,Mangold,nitrogen_content,,BM,2.1,,percent,,,dry matter basis,reported
+NY21-2C-MANGOLD-GJ,SRC002,2c,Mangold,nitrogen_content,,GJ,2.3,0.1,percent,3,,dry matter basis,reported
+NY21-2C-MANGOLD-PULP,SRC002,2c,Mangold,nitrogen_content,,Pulp,2.4,0.4,percent,3,,dry matter basis,reported
+NY21-2C-MANGOLD-GJSP,SRC002,2c,Mangold,nitrogen_content,,GJsp,2.6,0.2,percent,3,,dry matter basis,reported
+NY21-2C-MANGOLD-PULPSP,SRC002,2c,Mangold,nitrogen_content,,Pulpsp,1.4,0.1,percent,3,,dry matter basis,reported
+NY21-2C-MANGOLD-S1,SRC002,2c,Mangold,nitrogen_content,,S1,1.9,0.2,percent,3,,dry matter basis,reported
+NY21-2C-MANGOLD-PFP,SRC002,2c,Mangold,nitrogen_content,,Pfp,4.3,0.3,percent,3,,dry matter basis,reported
+NY21-2C-MANGOLD-S2,SRC002,2c,Mangold,nitrogen_content,,S2,1.6,0.3,percent,3,,dry matter basis,reported
+NY21-2C-MANGOLD-P3,SRC002,2c,Mangold,nitrogen_content,,P3,7.2,0.6,percent,3,,dry matter basis,reported
+NY21-2C-MANGOLD-S4,SRC002,2c,Mangold,nitrogen_content,,S4,3.6,0.9,percent,3,,dry matter basis,reported
+NY21-2C-MANGOLD-P4,SRC002,2c,Mangold,nitrogen_content,,P4,13.7,0.4,percent,3,,dry matter basis,reported
+NY21-2C-BEETROOT-BM,SRC002,2c,Beetroot,nitrogen_content,,BM,3.2,,percent,,,dry matter basis,reported
+NY21-2C-BEETROOT-GJ,SRC002,2c,Beetroot,nitrogen_content,,GJ,3,0,percent,3,,dry matter basis,reported
+NY21-2C-BEETROOT-PULP,SRC002,2c,Beetroot,nitrogen_content,,Pulp,3.3,0.2,percent,3,,dry matter basis,reported
+NY21-2C-BEETROOT-GJSP,SRC002,2c,Beetroot,nitrogen_content,,GJsp,3.6,0.1,percent,3,,dry matter basis,reported
+NY21-2C-BEETROOT-PULPSP,SRC002,2c,Beetroot,nitrogen_content,,Pulpsp,1.6,0.2,percent,3,,dry matter basis,reported
+NY21-2C-BEETROOT-S1,SRC002,2c,Beetroot,nitrogen_content,,S1,2.6,0.1,percent,3,,dry matter basis,reported
+NY21-2C-BEETROOT-PFP,SRC002,2c,Beetroot,nitrogen_content,,Pfp,5.5,0.3,percent,3,,dry matter basis,reported
+NY21-2C-BEETROOT-S2,SRC002,2c,Beetroot,nitrogen_content,,S2,2.2,0.1,percent,3,,dry matter basis,reported
+NY21-2C-BEETROOT-P3,SRC002,2c,Beetroot,nitrogen_content,,P3,9.2,0.7,percent,3,,dry matter basis,reported
+NY21-2C-BEETROOT-S4,SRC002,2c,Beetroot,nitrogen_content,,S4,3.3,0.7,percent,3,,dry matter basis,reported
+NY21-2C-BEETROOT-P4,SRC002,2c,Beetroot,nitrogen_content,,P4,14,0.3,percent,3,,dry matter basis,reported
+NY21-2C-SUGARBEET-BM,SRC002,2c,Sugarbeet,nitrogen_content,,BM,3,,percent,,,dry matter basis,reported
+NY21-2C-SUGARBEET-GJ,SRC002,2c,Sugarbeet,nitrogen_content,,GJ,1.1,0.2,percent,3,,dry matter basis,reported
+NY21-2C-SUGARBEET-PULP,SRC002,2c,Sugarbeet,nitrogen_content,,Pulp,1.3,0.3,percent,3,,dry matter basis,reported
+NY21-2C-SUGARBEET-GJSP,SRC002,2c,Sugarbeet,nitrogen_content,,GJsp,1.6,0.2,percent,3,,dry matter basis,reported
+NY21-2C-SUGARBEET-PULPSP,SRC002,2c,Sugarbeet,nitrogen_content,,Pulpsp,2.6,0.5,percent,3,,dry matter basis,reported
+NY21-2C-SUGARBEET-S1,SRC002,2c,Sugarbeet,nitrogen_content,,S1,1,0.1,percent,3,,dry matter basis,reported
+NY21-2C-SUGARBEET-PFP,SRC002,2c,Sugarbeet,nitrogen_content,,Pfp,5.7,0.4,percent,3,,dry matter basis,reported
+NY21-2C-SUGARBEET-S2,SRC002,2c,Sugarbeet,nitrogen_content,,S2,1.1,0.1,percent,3,,dry matter basis,reported
+NY21-2C-SUGARBEET-P3,SRC002,2c,Sugarbeet,nitrogen_content,,P3,2.6,1.5,percent,2,,dry matter basis,reported
+NY21-2C-SUGARBEET-S4,SRC002,2c,Sugarbeet,nitrogen_content,,S4,2.3,0.9,percent,2,,dry matter basis,reported
+NY21-2C-SUGARBEET-P4,SRC002,2c,Sugarbeet,nitrogen_content,,P4,0.5,0.1,percent,2,,dry matter basis,reported
+NY21-2C-CARROT-BM,SRC002,2c,Carrot,nitrogen_content,,BM,2.5,,percent,,,dry matter basis,reported
+NY21-2C-CARROT-GJ,SRC002,2c,Carrot,nitrogen_content,,GJ,1.5,0.1,percent,3,,dry matter basis,reported
+NY21-2C-CARROT-PULP,SRC002,2c,Carrot,nitrogen_content,,Pulp,2.1,0,percent,3,,dry matter basis,reported
+NY21-2C-CARROT-GJSP,SRC002,2c,Carrot,nitrogen_content,,GJsp,2.3,0.1,percent,3,,dry matter basis,reported
+NY21-2C-CARROT-PULPSP,SRC002,2c,Carrot,nitrogen_content,,Pulpsp,3.2,0.3,percent,3,,dry matter basis,reported
+NY21-2C-CARROT-S1,SRC002,2c,Carrot,nitrogen_content,,S1,0.6,0.1,percent,3,,dry matter basis,reported
+NY21-2C-CARROT-PFP,SRC002,2c,Carrot,nitrogen_content,,Pfp,8,0.2,percent,3,,dry matter basis,reported
+NY21-2C-CARROT-S2,SRC002,2c,Carrot,nitrogen_content,,S2,0.6,0,percent,3,,dry matter basis,reported
+NY21-2C-CARROT-P3,SRC002,2c,Carrot,nitrogen_content,,P3,1.1,0.4,percent,3,,dry matter basis,reported
+NY21-2C-CARROT-S4,SRC002,2c,Carrot,nitrogen_content,,S4,0.6,0.1,percent,3,,dry matter basis,reported
+NY21-2C-CARROT-P4,SRC002,2c,Carrot,nitrogen_content,,P4,,,percent,,,dry matter basis,not_reported
+NY21-2C-LUCERNE-BM,SRC002,2c,Lucerne,nitrogen_content,,BM,2.8,,percent,,,dry matter basis,reported
+NY21-2C-LUCERNE-GJ,SRC002,2c,Lucerne,nitrogen_content,,GJ,3.8,0.3,percent,3,,dry matter basis,reported
+NY21-2C-LUCERNE-PULP,SRC002,2c,Lucerne,nitrogen_content,,Pulp,2,0.1,percent,3,,dry matter basis,reported
+NY21-2C-LUCERNE-GJSP,SRC002,2c,Lucerne,nitrogen_content,,GJsp,4.1,0.1,percent,3,,dry matter basis,reported
+NY21-2C-LUCERNE-PULPSP,SRC002,2c,Lucerne,nitrogen_content,,Pulpsp,5.1,0.2,percent,3,,dry matter basis,reported
+NY21-2C-LUCERNE-S1,SRC002,2c,Lucerne,nitrogen_content,,S1,4.3,0.1,percent,3,,dry matter basis,reported
+NY21-2C-LUCERNE-PFP,SRC002,2c,Lucerne,nitrogen_content,,Pfp,8,0,percent,3,,dry matter basis,reported
+NY21-2C-LUCERNE-S2,SRC002,2c,Lucerne,nitrogen_content,,S2,3.2,0.1,percent,3,,dry matter basis,reported
+NY21-2C-LUCERNE-P3,SRC002,2c,Lucerne,nitrogen_content,,P3,7.2,,percent,1,,dry matter basis,reported
+NY21-2C-LUCERNE-S4,SRC002,2c,Lucerne,nitrogen_content,,S4,4,,percent,1,,dry matter basis,reported
+NY21-2C-LUCERNE-P4,SRC002,2c,Lucerne,nitrogen_content,,P4,12.9,,percent,1,,dry matter basis,reported
+NY21-2C-SPINACH-BM,SRC002,2c,Spinach,nitrogen_content,,BM,5.1,,percent,,,dry matter basis,reported
+NY21-2C-SPINACH-GJ,SRC002,2c,Spinach,nitrogen_content,,GJ,4.4,0.3,percent,3,,dry matter basis,reported
+NY21-2C-SPINACH-PULP,SRC002,2c,Spinach,nitrogen_content,,Pulp,4.9,0.2,percent,3,,dry matter basis,reported
+NY21-2C-SPINACH-GJSP,SRC002,2c,Spinach,nitrogen_content,,GJsp,4.1,0.1,percent,3,,dry matter basis,reported
+NY21-2C-SPINACH-PULPSP,SRC002,2c,Spinach,nitrogen_content,,Pulpsp,1.5,0.3,percent,3,,dry matter basis,reported
+NY21-2C-SPINACH-S1,SRC002,2c,Spinach,nitrogen_content,,S1,4.2,0.3,percent,3,,dry matter basis,reported
+NY21-2C-SPINACH-PFP,SRC002,2c,Spinach,nitrogen_content,,Pfp,2.9,0.5,percent,3,,dry matter basis,reported
+NY21-2C-SPINACH-S2,SRC002,2c,Spinach,nitrogen_content,,S2,4,0.2,percent,3,,dry matter basis,reported
+NY21-2C-SPINACH-P3,SRC002,2c,Spinach,nitrogen_content,,P3,8.1,1.8,percent,3,,dry matter basis,reported
+NY21-2C-SPINACH-S4,SRC002,2c,Spinach,nitrogen_content,,S4,3.3,0.5,percent,3,,dry matter basis,reported
+NY21-2C-SPINACH-P4,SRC002,2c,Spinach,nitrogen_content,,P4,14.1,0.5,percent,3,,dry matter basis,reported

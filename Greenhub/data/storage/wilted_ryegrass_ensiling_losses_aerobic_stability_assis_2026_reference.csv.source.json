@@ -1,0 +1,43 @@
+{
+  "dataset_id": "urn:greenhub:dataset:storage:assis-ryegrass-ensiling-2026-table3:v1",
+  "persistent_identifier_status": "Repository-local identifier for this transcription; the DOI identifies the source article, not this derived dataset.",
+  "dataset_version": "1.0.0",
+  "source_file": "wilted_ryegrass_ensiling_losses_aerobic_stability_assis_2026_reference.csv",
+  "title": "Italian ryegrass silage fermentative losses and aerobic exposure outcomes",
+  "citation": "Assis, J. A., Carbonare, M. S. D., & Schmidt, P. (2026). Different dry matter contents on the fermentation and preservation of wilted ryegrass silage with or without microbial inoculants. Revista Brasileira de Zootecnia, 55. https://doi.org/10.37496/rbz5520250112",
+  "authors": ["Juliana Aparecida de Assis", "Maryon Strack Dalle Carbonare", "Patrick Schmidt"],
+  "persistent_identifier": "doi:10.37496/rbz5520250112",
+  "source_url": "https://www.scielo.br/j/rbz/a/FjJbkQK3bR7T9FKXtYznJSq/?lang=en",
+  "doi_url": "https://doi.org/10.37496/rbz5520250112",
+  "source_locations": ["Table 3 and its footnotes", "Methods sections 2.1–2.3 for loss and aerobic stability protocols", "Results sections 3.1–3.2 for missing pH samples"],
+  "retrieval_date": "2026-11-07",
+  "reference_year": 2026,
+  "experiment_year": 2021,
+  "geography": "Forage grown at a commercial farm in Castro, Paraná, Brazil; aerobic exposure was conducted in a temperature-controlled room at the research facility in Paraná, Brazil.",
+  "evidence_class": "B_measured",
+  "license": "Creative Commons Attribution 4.0 International (CC BY 4.0), stated on the article page. Cite the article and retain the license attribution.",
+  "material_scope": "Wilted Italian ryegrass silage (Lolium multiflorum L., cultivar F ABC 1) after 62 days of ensiling, assessed by DM target and inoculant treatment; silo opening followed by a separate aerobic exposure test.",
+  "experimental_conditions": "Five replicate silos per treatment combination. Aerobic stability was defined as elapsed time until silage temperature reached 26 °C, approximately 2 °C above the room average of 24.5 ± 1.4 °C. Approximately 2 kg was loosely held in a 20-L bucket for 20 days; temperature was recorded every 30 minutes. DM loss during aerobic exposure was assessed after 10 days. pH was scheduled for days 0, 2, 4, 6, 8, 10, and 20; Table 3 additionally reports day 18, while the paper states no pH samples were collected between days 10 and 18 because of a technical failure.",
+  "data_scope": "Fourteen Table 3 properties are transcribed in the table's treatment-group layout, including fermentative DM/gas/effluent losses, aerobic stability and temperature endpoints, 10-day aerobic DM loss, and pH observations. Values, significance letters, DM-group means, and P-values are retained.",
+  "table_layout": "One row per reported property; treatment values are kept in separate columns corresponding to Table 3. Cell strings preserve significance letters and negative source-reported losses. This is a table-native transcription, not a normalized runtime parameter table.",
+  "limitations": [
+    "Reference-only; no GreenHub runtime parameter or default is mapped to these observations.",
+    "The feed is cultivated Italian ryegrass in Brazil, not Dutch roadside grass or project-specific VARTA feedstock.",
+    "Negative DM and gas loss values for the 32% DM INO treatment are retained literally; the study does not justify interpreting them as a physical production pathway or correcting them.",
+    "Aerobic stability is tied to this study's loose-bucket geometry, room temperature, 26 °C threshold, and 20-day protocol; it is not a silo storage degradation rate.",
+    "DMLae is measured after 10 days of aerobic exposure; it must not be treated as a 20-day loss.",
+    "The source reports a technical failure in pH sampling between days 10 and 18; no values are available for days 12, 14, or 16 and no interpolation is performed.",
+    "Treatment means and significance tests do not provide raw replicate data or standard deviations in the table."
+  ],
+  "conversion_or_processing": "Table 3 means, units, significance letters, and P-values were transcribed without numeric conversion, imputation, clamping, interpolation, kinetic fitting, or activation. The source's 60 °C DM basis is retained for losses.",
+  "uncertainty": "Five silo replicates were used per treatment combination. Standard deviations and raw replicate values are not supplied in Table 3; inferential results and significance letters are reproduced as reported.",
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "runtime_parameter_mapping": null,
+  "fair_metadata": {
+    "findable": "Stable local dataset identifier, descriptive title, DOI, citation, source table and retrieval date are recorded.",
+    "accessible": "UTF-8 CSV and JSON metadata sidecar are stored in the repository; the source article is openly available at SciELO.",
+    "interoperable": "CSV fields identify treatment, DM target, property, unit, basis, exposure timing, P-value factor and source record.",
+    "reusable": "Protocol threshold, exposure geometry, loss period, pH sampling gap, license, extraction method, replicate design, uncertainty and transferability limits are documented."
+  }
+}

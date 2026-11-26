@@ -36,10 +36,14 @@ def _save_flowsheet_diagram(system, output_path: Path) -> bool:
     """Save the complete plant diagram without making Graphviz mandatory."""
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
+    if shutil.which("dot") is None:
+        print(
+            "\nFlowsheet diagram was not generated because Graphviz 'dot' was not found on PATH. "
+            "Install Graphviz from https://graphviz.org/download/ and restart the application "
+            "to enable diagram export."
+        )
+        return False
     try:
-        import os
-        graphviz_bin = r"C:\Program Files\Graphviz\bin"
-        os.environ["PATH"] = graphviz_bin + os.pathsep + os.environ.get("PATH", "")
         system.diagram(
             kind="thorough",
             file=str(output_path.with_suffix("")),
@@ -50,9 +54,8 @@ def _save_flowsheet_diagram(system, output_path: Path) -> bool:
         )
     except Exception as error:  # pragma: no cover - external Graphviz behavior
         print(
-            "\nFlowsheet diagram was not generated. Verify that "
-            "C:\\Program Files\\Graphviz\\bin\\dot.exe exists and that the Python "
-            f"graphviz package is installed. Original error: {error}"
+            "\nFlowsheet diagram was not generated. Verify that Graphviz 'dot' is on PATH "
+            f"and that the Python graphviz package is installed. Original error: {error}"
         )
         return False
     if not output_path.exists():

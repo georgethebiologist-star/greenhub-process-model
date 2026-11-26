@@ -1,0 +1,28 @@
+{
+  "dataset_title": "South Holland provincial green-area management inventory: English field dictionary",
+  "dataset_identifier": "https://data.overheid.nl/en/dataset/a1dbcfc3-2533-46af-9483-7a102488b911",
+  "source_dataset_identifier": "https://nationaalgeoregister.nl/geonetwork?uuid=9B2A50A8-E419-4536-9771-AD2470D66E12",
+  "source_id": "SRC-PZH-GREEN-AREA-INVENTORY-2026",
+  "source_title": "Areaal beheer - Groen - groenobjecten langs de provinciale wegen en vaarwegen in beheer van de provincie Zuid-Holland",
+  "source_url": "https://data.overheid.nl/en/dataset/a1dbcfc3-2533-46af-9483-7a102488b911",
+  "wfs_url": "https://geodata.zuid-holland.nl/geoserver/verkeer/wfs?service=WFS&version=2.0.0&request=GetCapabilities",
+  "wms_url": "https://geodata.zuid-holland.nl/geoserver/verkeer/wms?service=WMS&version=1.3.0&request=GetCapabilities",
+  "feature_type": "verkeer:ABS_W_GROEN",
+  "retrieval_date": "2026-11-06",
+  "source_metadata_updated": "2026-01-20",
+  "geography": "South Holland, Netherlands; provincial roads and waterways under provincial management",
+  "publisher": "Provincie Zuid-Holland",
+  "license": "Public domain, as stated by the national open-data catalog",
+  "evidence_class": "official_administrative_inventory_schema",
+  "data_contents": "The published WFS inventory schema includes route, route section, managed-object description, green type, slope, mowing method, ecological management, maintenance frequency, zone, polygon area and slope-corrected area, owner, manager, notes, district and maintenance crew.",
+  "scope_note": "This local file translates the official feature-schema labels and descriptions into English. Attribute-only feature records were subsequently retrieved and grouped in roadside_grass_pzh_inventory_2026_summary_reference.csv; polygon geometries were not retrieved or spatially screened.",
+  "access_note": "The public WFS was queried read-only for attributes only. The 37,188 feature attributes are summarized by source type, maintenance-frequency label and mowing-description label; the summary sidecar documents the query and transformations.",
+  "model_readiness": "reference_only",
+  "limitations": [
+    "A gross green-area inventory includes non-grass objects and areas that may not be mowable, ecologically harvestable, accessible, or contractually available.",
+    "Mapped polygon area and slope-corrected area are not harvested biomass, delivered tonnage, dry-matter yield, or plant feed capacity.",
+    "Mowing and maintenance frequency values need source-code/value interpretation and do not establish measured cut dates or collected quantities.",
+    "No feedstock composition, contamination, moisture, collection efficiency, haul distance, cost, access rights, or annual mass is supplied by this field dictionary.",
+    "The field dictionary and aggregate summary do not activate any GreenHub default, parameter-registry value, or scenario input."
+  ]
+}

@@ -178,12 +178,14 @@ def load_roadside_grass_specification(
         table = pd.read_csv(fiber_path)
         row = table.loc[table["sample_name_english"].eq("Greenhub whole grass")].iloc[0]
         measured = []
-        dm = float(row["dry_matter_fraction"]) / 100.0
+        # Keep the legacy source-column name for compatibility, but use the
+        # explicit percent-points alias to avoid treating e.g. 14.3 as a fraction.
+        dm = float(row["dry_matter_percent"]) / 100.0
         measured.append(InputRecord.from_mapping({"name":"Total solids", "python_name":"total_solids", "value":dm, "unit":"fraction wet mass", "basis":"wet basis", "stream":"incoming_grass", "sample_id":sample, "scenario":"All", "month":"All", "data_type":"aggregate", "measurement_status":"measured", "source_class":"A", "reference":"VARTA_2026_10_27/Nutriënten Vezel row 7", "comment":"Measured Greenhub whole grass dry matter; original Dutch label retained in traceability dataset.", "priority":1, "active":True}))
         for label, name, unit, scale in (("Nitrogen", "total_nitrogen", "kg/kg wet feed", 1e-3), ("Phosphorus", "total_phosphorus", "kg/kg wet feed", 1e-3), ("Potassium", "total_potassium", "kg/kg wet feed", 1e-3)):
             key = {"Nitrogen":"nitrogen_g_kg_dm", "Phosphorus":"phosphorus_g_kg_dm", "Potassium":"potassium_g_kg_dm"}[label]
             value = float(row[key]) * dm * scale
-            measured.append(InputRecord.from_mapping({"name":label, "python_name":name, "value":value, "unit":unit, "basis":"wet basis; converted from g/kg dry matter", "stream":"incoming_grass", "sample_id":sample, "scenario":"All", "month":"All", "data_type":"aggregate", "measurement_status":"calculated", "source_class":"A", "reference":f"VARTA_2026_10_27/Nutriënten Vezel row 7; conversion {key} × dry_matter_fraction / 1000", "comment":"Calculated wet-basis aggregate from measured VARTA dry-basis nutrient and dry matter.", "priority":1, "active":True}))
+            measured.append(InputRecord.from_mapping({"name":label, "python_name":name, "value":value, "unit":unit, "basis":"wet basis; converted from g/kg dry matter", "stream":"incoming_grass", "sample_id":sample, "scenario":"All", "month":"All", "data_type":"aggregate", "measurement_status":"calculated", "source_class":"A", "reference":f"VARTA_2026_10_27/Nutriënten Vezel row 7; conversion {key} × dry_matter_percent / 1000", "comment":"Calculated wet-basis aggregate from measured VARTA dry-basis nutrient and dry matter.", "priority":1, "active":True}))
         return FeedSpecification(
             selected_month=month, sample_id=sample, scenario=scenario_id, entry_mode="roadside_grass_varta",
             monthly_total_mass_kg=base.monthly_total_mass_kg, operating_days=base.operating_days,

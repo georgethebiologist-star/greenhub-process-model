@@ -1,0 +1,93 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "MATERIAL-GREENHUB-WHOLE-GRASS-VARTA-2026",
+  "project_id": "greenhub",
+  "data_scope_class": "material_or_site_specific",
+  "context_independent": false,
+  "material": {
+    "material_id": "greenhub_whole_grass_varta_2026_07_16",
+    "display_name": "GreenHub whole grass sample (VARTA, 16 July 2026)",
+    "material_type": "fresh roadside grass sample",
+    "geography": "Project-supplied GreenHub sample; collection site not specified",
+    "collection_stage": "Whole grass before size reduction",
+    "sampling_time": "2026-07-16",
+    "treatment_history": "Workbook label is whole grass; sampling and storage protocol are not reported."
+  },
+  "mass_composition": [],
+  "analytical_properties": [
+    {"property_id":"dry_matter_content","value":14.3,"unit":"% as received","sample_basis":"GreenHub whole-grass sample","method":null,"status":"measured","quality_class":"A","source_ids":["SRC-VARTA-2026-10-27"]},
+    {"property_id":"total_nitrogen","value":21.0,"unit":"g/kg DM","sample_basis":"GreenHub whole-grass sample","method":null,"status":"measured","quality_class":"A","source_ids":["SRC-VARTA-2026-10-27"],"accounting_note":"Total-element result; not a nitrogen-species allocation."},
+    {"property_id":"total_sulfur","value":5.0,"unit":"g/kg DM","sample_basis":"GreenHub whole-grass sample","method":null,"status":"measured","quality_class":"A","source_ids":["SRC-VARTA-2026-10-27"]},
+    {"property_id":"total_phosphorus","value":2.8,"unit":"g/kg DM","sample_basis":"GreenHub whole-grass sample","method":null,"status":"measured","quality_class":"A","source_ids":["SRC-VARTA-2026-10-27"],"accounting_note":"Total-element result; not a phosphate-species allocation."},
+    {"property_id":"total_potassium","value":29.1,"unit":"g/kg DM","sample_basis":"GreenHub whole-grass sample","method":null,"status":"measured","quality_class":"A","source_ids":["SRC-VARTA-2026-10-27"],"accounting_note":"Total-element result; not a dissolved/particulate allocation."},
+    {"property_id":"total_calcium","value":13.9,"unit":"g/kg DM","sample_basis":"GreenHub whole-grass sample","method":null,"status":"measured","quality_class":"A","source_ids":["SRC-VARTA-2026-10-27"]},
+    {"property_id":"total_magnesium","value":2.2,"unit":"g/kg DM","sample_basis":"GreenHub whole-grass sample","method":null,"status":"measured","quality_class":"A","source_ids":["SRC-VARTA-2026-10-27"]},
+    {"property_id":"total_sodium","value":1.3,"unit":"g/kg DM","sample_basis":"GreenHub whole-grass sample","method":null,"status":"measured","quality_class":"A","source_ids":["SRC-VARTA-2026-10-27"]},
+    {"property_id":"chloride","value":11.7,"unit":"g/kg DM","sample_basis":"GreenHub whole-grass sample","method":null,"status":"measured","quality_class":"A","source_ids":["SRC-VARTA-2026-10-27"]},
+    {"property_id":"iron","value":380.0,"unit":"mg/kg DM","sample_basis":"GreenHub whole-grass sample","method":null,"status":"measured","quality_class":"A","source_ids":["SRC-VARTA-2026-10-27"]},
+    {"property_id":"zinc","value":52.0,"unit":"mg/kg DM","sample_basis":"GreenHub whole-grass sample","method":null,"status":"measured","quality_class":"A","source_ids":["SRC-VARTA-2026-10-27"]},
+    {"property_id":"manganese","value":69.0,"unit":"mg/kg DM","sample_basis":"GreenHub whole-grass sample","method":null,"status":"measured","quality_class":"A","source_ids":["SRC-VARTA-2026-10-27"]},
+    {"property_id":"copper","value":25.0,"unit":"mg/kg DM","sample_basis":"GreenHub whole-grass sample","method":null,"status":"measured","quality_class":"A","source_ids":["SRC-VARTA-2026-10-27"]},
+    {"property_id":"boron","value":16.7,"unit":"mg/kg DM","sample_basis":"GreenHub whole-grass sample","method":null,"status":"measured","quality_class":"A","source_ids":["SRC-VARTA-2026-10-27"]},
+    {"property_id":"molybdenum","value":3.0,"unit":"mg/kg DM","sample_basis":"GreenHub whole-grass sample","method":null,"status":"measured","quality_class":"A","source_ids":["SRC-VARTA-2026-10-27"]},
+    {"property_id":"crude_protein","value":null,"unit":"g/kg DM","sample_basis":"GreenHub whole-grass sample","method":null,"status":"not_reported","quality_class":null,"source_ids":["SRC-VARTA-2026-10-27"]}
+  ],
+  "derived_analytical_properties": [
+    {
+      "property_id": "crude_protein_equivalent_n_times_6_25",
+      "value": 131.25,
+      "unit": "g/kg DM",
+      "sample_basis": "GreenHub whole-grass sample; calculated from measured total nitrogen",
+      "status": "calculated_from_analytical_properties",
+      "quality_class": "C",
+      "source_ids": ["SRC-VARTA-2026-10-27", "S14_AAKJAER_PEDERSEN_2025"],
+      "calculation": {
+        "equation": "total_nitrogen_g_kg_dm * nitrogen_to_crude_protein_factor",
+        "input_property_ids": ["total_nitrogen"],
+        "method_source_ids": ["S14_AAKJAER_PEDERSEN_2025"],
+        "assumptions": ["nitrogen_to_crude_protein_factor = 6.25"]
+      },
+      "limitations": [
+        "Not a measured crude-protein result; the source workbook reports crude protein as not reported.",
+        "May include non-protein nitrogen and does not resolve soluble, insoluble, or extractable protein.",
+        "Reference-only analytical interpretation; not a mass-composition component or process input."
+      ],
+      "activation_state": "reference_only",
+      "uncertainty": null
+    }
+  ],
+  "closure": {"status":"not_checked","accounting_group":null,"target_total":null,"residual_component_id":null,"method":"Total-element and proximate assays overlap; the workbook does not provide an exclusive chemical composition or mass closure."},
+  "activation_state": "reference_only",
+  "provenance": [
+    {
+      "source_id":"SRC-VARTA-2026-10-27",
+      "source_title":"VARTA 2026 grass fiber and whole-grass nutrient laboratory measurements",
+      "authors":"VARTA laboratory report issuer (as recorded in the workbook metadata)",
+      "reference_year":2026,
+      "doi_or_stable_id":"VARTA_2026_10_27 (project-local identifier; not a DOI)",
+      "related_identifiers":["Greenhub/data/Pre-treatment/Feedstock/varta_2026_grass_fiber_measurements.csv"],
+      "source_url":null,
+      "source_location":"Workbook sheet Nutriënten Vezel, source row 7, sample 3",
+      "retrieval_date":"2026-11-07",
+      "license":"No external reuse license identified; project-supplied laboratory data"
+    },
+    {
+      "source_id":"S14_AAKJAER_PEDERSEN_2025",
+      "source_title":"Identifying Endogenous Proteins of Perennial Ryegrass (Lolium perenne) with Ex Vivo Antioxidant Activity",
+      "authors":"Aakjaer Pedersen et al.",
+      "reference_year":2025,
+      "doi_or_stable_id":"10.3390/proteomes13010008",
+      "related_identifiers":[],
+      "source_url":"https://doi.org/10.3390/proteomes13010008",
+      "source_location":"Methods §2.2; crude protein estimated from nitrogen using factor 6.25",
+      "retrieval_date":"2026-11-11",
+      "license":"CC BY 4.0"
+    }
+  ],
+  "metadata_gaps": [
+    "Laboratory methods, replicate count, uncertainty, and collection site are not reported.",
+    "Crude protein was not reported for this GreenHub sample.",
+    "Measured total elements do not establish dissolved, particulate, or molecular species fractions.",
+    "This standardized discovery record is not consumed as a complete runtime feed profile; only dry matter and chloride are calculation-connected in the existing GreenHub pathway."
+  ]
+}

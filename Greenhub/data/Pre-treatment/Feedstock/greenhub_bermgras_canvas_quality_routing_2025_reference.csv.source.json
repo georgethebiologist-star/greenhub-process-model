@@ -1,0 +1,30 @@
+{
+  "dataset_id": "urn:greenhub:dataset:greenhub-bermgras-canvas-quality-routing-2025:v1",
+  "title": "Greenhub Bermgras Canvas qualitative site-quality and routing guidance",
+  "source_file": "greenhub_bermgras_canvas_quality_routing_2025_reference.csv",
+  "source_id": "SRC-GHZH-KEUZEHULP-2025",
+  "source_title": "Keuzehulp van bermvak tot toepassing: Slimme keuzes voor bermmaaisel",
+  "authors": ["Greenhub Zuid-Holland; knowledge and practice contributions from the Rijnland project partners"],
+  "publication_year": 2025,
+  "source_url": "https://greenhub-zuidholland.nl/wp-content/uploads/2025/06/Keuzehulp-van-bermvak-tot-toepassing-2025-Greenhub-Zuid-Holland-E.pdf",
+  "doi": null,
+  "persistent_identifier": "No DOI or persistent publication identifier identified; local source_id SRC-GHZH-KEUZEHULP-2025 and dataset URN are used.",
+  "retrieval_date": "2026-11-08",
+  "geography": "South Holland, Netherlands; qualitative guidance developed for Dutch roadside verge management",
+  "license": "No explicit reuse license for the PDF identified; factual criteria are summarized with source attribution, and the source document is not redistributed.",
+  "rows": 7,
+  "evidence_class": "first_party_screening_guidance",
+  "quality_class": "not_applicable_guidance",
+  "source_location": "Printed page 22, Step 3: origin and composition of roadside cuttings; quality assurance, litter, and invasive species.",
+  "related_standard_reference": "The guide maps green/orange/red area classes to CROW visual litter-quality levels A+/A, B, and C/D. This extract preserves the guide's mapping; it does not independently validate or replace the CROW quality catalog.",
+  "data_handling": "English summaries preserve the guide's qualitative rules. No numerical threshold, contamination prevalence, biomass share, cleaning efficiency, or route-specific rejection fraction is inferred. All records are reference-only and not model inputs.",
+  "limitations": [
+    "This is operational screening guidance, not a measured dataset, scientific literature result, legal product standard, or validated GreenHub biorefinery acceptance specification.",
+    "No numeric contamination limits, chemical analyses, microplastic measurements, sampling protocol, or mass/flow quantities are provided.",
+    "The guide states that choices depend on each location and situation and should be agreed among partners; the color categories must not be applied as universal process exclusion rules.",
+    "The guide's local soil/circular-use pathway is not identical to GreenHub's biorefinery route; route compatibility needs site-specific testing."
+  ],
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "runtime_parameter_mapping": null
+}

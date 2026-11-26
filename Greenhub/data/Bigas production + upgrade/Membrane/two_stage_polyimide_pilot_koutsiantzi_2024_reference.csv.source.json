@@ -1,0 +1,39 @@
+{
+  "dataset_id": "greenhub:reference:phase6:koutsiantzi-two-stage-polyimide-pilot-2024",
+  "dataset_title": "Two-stage polyimide membrane biogas-upgrading pilot: abstract-level observations and modeled normalization",
+  "dataset_file": "two_stage_polyimide_pilot_koutsiantzi_2024_reference.csv",
+  "source_ids": ["KOUTSIANTZI2024", "KOUTSIANTZI_THESIS_2024"],
+  "persistent_identifier": "doi:10.1016/j.envres.2023.118080",
+  "related_persistent_identifier": "doi:10.12681/eadd/57788",
+  "authors": [
+    "Chrysovalantou Koutsiantzi",
+    "Konstantinos Koukovinos",
+    "Angela Liatsou",
+    "Petros Gkotsis",
+    "Anastasios Zouboulis",
+    "Manassis Mitrakas",
+    "Eustathios S. Kikkinides"
+  ],
+  "publication_year": 2024,
+  "geography": "Thessaloniki municipal wastewater treatment plant, Greece",
+  "material_scope": "Biogas from anaerobic digestion of municipal wastewater sludge; two commercial polyimide hollow-fiber membranes in a two-stage configuration with recycle",
+  "evidence_class": "B_measured_and_modelled_literature",
+  "retrieval_date": "2026-11-07",
+  "source_locations": {
+    "journal_article": "Publisher/PubMed abstract and publisher highlights",
+    "doctoral_dissertation": "Repository English abstract"
+  },
+  "data_handling": "Only discrete numerical values stated in accessible abstracts are transcribed. No graphs; tables; supplementary files; or raw time series were digitized. Pilot observations and model-normalized counterfactuals are distinguished in the CSV.",
+  "license_and_access": "The journal article full-text reuse license could not be verified from the accessible record. The thesis repository states that thesis files are copyright-protected and PDF download requires free registration. Public repository metadata availability does not imply a license for thesis content. Only minimal abstract-level facts are transcribed.",
+  "activation_state": "reference_only",
+  "readiness": "reference_only_abstract_level_with_model_discrepancy",
+  "transferability": "Technical comparator only. Feed is municipal wastewater-sludge biogas, not GreenHub grass-derived biogas; gas contaminants; scale; membrane hardware; pretreatment; and operating conditions differ.",
+  "known_discrepancy": "The journal abstract reports 67% methane recovery for an N2-absence normalized model case, while the related 2024 doctoral dissertation repository abstract reports 87.8% for a binary-gas normalized case. The abstracts do not establish whether the modeled cases or definitions are identical. Preserve both records separately and do not average; choose; or activate either value without inspecting full methods and supporting data.",
+  "limitations": [
+    "Accessible abstract does not state exact pressure; flow reference conditions; stage cuts; membrane area; run count; uncertainty; or complete mass/composition balances.",
+    "The published pilot averages have no reported dispersion in the accessible abstract.",
+    "The product nitrogen is attributed to air interference during pretreatment; the methane composition therefore should not be interpreted as the membrane's binary CH4/CO2 separation capability.",
+    "The N2-free values are model-normalized; not measured pilot observations.",
+    "No GreenHub parameter; runtime default; process result; TEA; LCA; or Pareto calculation consumes these values."
+  ]
+}

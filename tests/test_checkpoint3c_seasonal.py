@@ -25,6 +25,7 @@ from Greenhub.feed_profiles import (
 from Greenhub.parameters import ResolutionMode
 from Greenhub.storage_inventory import StorageInventory
 from Greenhub.time_grid import generate_time_grid
+from Greenhub.weather_reference import monthly_ambient_c
 
 
 def invoke(app, method: str, path: str, payload=None):
@@ -204,10 +205,109 @@ def test_seasonal_api_serialization_overflow_and_mass_balance(tmp_path):
     assert result["storage_inventory_series"][0]["degradation_status"] == "not_implemented_no_eligible_data"
     assert result["capacity_utilization_series"]
     assert result["process_state_series"]
+    assert result["time_grid"][0]["ambient_temperature_c"] == pytest.approx(monthly_ambient_c(6))
+    assert result["time_grid"][0]["ambient_temperature_basis"] == "KNMI_Rotterdam_344_2021_2025_monthly_mean_proxy"
+    assert result["time_grid"][0]["grass_feed_temperature_k"] > 0
+    assert result["time_grid"][0]["post_protein_digester_inlet_temperature_k"] > 0
     rendered = json.dumps(result, allow_nan=False)
-    assert not re.search(r"[A-Za-z]:[\\/]", rendered)
+    assert not re.search(r"(?<![A-Za-z])[A-Za-z]:[\\/]", rendered)
     run_id = result["run_id"]
     for resource in ("time-series", "inventory", "utilization", "seasonal-summary"):
         endpoint_status, payload = invoke(app, "GET", f"/api/v1/simulations/{run_id}/{resource}")
         assert endpoint_status == 200
         json.dumps(payload, allow_nan=False)
+
+
+def test_knmi_weather_is_ambient_only_and_explicit_override_wins(tmp_path):
+    app = create_app(tmp_path)
+    base = {
+        "schema_version": "1.0.0", "request_id": "weather-reference",
+        "project_id": "greenhub", "resolution_mode": "quasi_dynamic",
+        "start_date": "2026-01-01", "end_date": "2026-12-31", "time_step": "monthly",
+        "biomass_schedule": {
+            "annual_available_biomass_tonnes": 12.0,
+            "annual_processed_biomass_tonnes": 12.0,
+            "season_start": "2026-06-01", "season_end": "2026-06-30",
+            "peak_date": "2026-06-15", "spread_days": 1, "active_months": [6],
+        },
+        "operating_schedule": {"operating_days_per_week": 7, "operating_hours_per_day": 24},
+    }
+    reference_status, reference = invoke(app, "POST", "/api/v1/simulations", base)
+    override_status, override = invoke(app, "POST", "/api/v1/simulations", {
+        **base, "request_id": "weather-explicit-override",
+        "operating_overrides": [{"parameter_id": "phase5.ambient_temperature_c", "value": 30, "unit": "degC"}],
+    })
+    assert reference_status == override_status == 201
+    assert len(reference["time_grid"]) == len(override["time_grid"]) == 12
+    assert [row["ambient_temperature_c"] for row in reference["time_grid"]] == pytest.approx(
+        [monthly_ambient_c(month) for month in range(1, 13)]
+    )
+    assert all(row["ambient_temperature_c"] == 30 for row in override["time_grid"])
+    assert all(row["ambient_temperature_basis"] == "user_parameter_override" for row in override["time_grid"])
+    assert [row["grass_feed_temperature_k"] for row in override["time_grid"]] == pytest.approx(
+        [row["grass_feed_temperature_k"] for row in reference["time_grid"]]
+    )
+    assert sum(row["heating_kwh"] for row in override["utility_series"]) < sum(
+        row["heating_kwh"] for row in reference["utility_series"]
+    )
+
+
+def test_processing_delay_warning_discloses_unmodeled_protein_quality_effect(tmp_path):
+    app = create_app(tmp_path)
+    request = {
+        "schema_version": "1.0.0",
+        "request_id": "seasonal-delay-quality-warning",
+        "project_id": "greenhub",
+        "resolution_mode": "quasi_dynamic",
+        "start_date": "2026-06-01",
+        "end_date": "2026-06-30",
+        "time_step": "monthly",
+        "biomass_schedule": {
+            "annual_available_biomass_tonnes": 12.0,
+            "annual_processed_biomass_tonnes": 12.0,
+            "processing_delay_days": 2,
+            "season_start": "2026-06-01",
+            "season_end": "2026-06-30",
+            "peak_date": "2026-06-15",
+            "spread_days": 1,
+            "active_months": [6],
+        },
+        "operating_schedule": {"operating_days_per_week": 7, "operating_hours_per_day": 24},
+    }
+    status, result = invoke(app, "POST", "/api/v1/simulations", request)
+    assert status == 201
+    warnings = " ".join(result["warnings"])
+    assert "does not modify feed composition or protein extraction yield" in warnings
+    assert "10.3303/CET24109019" in warnings
+    processed_storage = [
+        row for row in result["storage_inventory_series"]
+        if row["biomass_withdrawn_kg"] > 0.0
+    ]
+    assert processed_storage
+    assert all(row["processed_feed_storage_age_h"] >= 2 * 24 for row in processed_storage)
+    annual_status, annual = invoke(app, "GET", f"/api/v1/simulations/{result['run_id']}/annual-summary")
+    assert annual_status == 200
+    schedule = annual["biomass_schedule"]
+    assert schedule["collection_delay_inventory_peak_tonnes"] > 0.0
+    assert schedule["collection_delay_inventory_final_tonnes"] == pytest.approx(0.0, abs=1e-8)
+    assert schedule["collection_delay_inventory_max_abs_mass_residual_tonnes"] == pytest.approx(0.0, abs=1e-8)
+
+
+def test_collection_delay_inventory_closes_mass_for_daily_schedule():
+    from Greenhub.application.contracts import BiomassSchedule
+    from Greenhub.application.biomass_schedule import schedule_feed_rows
+
+    config = BiomassSchedule(
+        annual_available_biomass_tonnes=100.0,
+        annual_processed_biomass_tonnes=60.0,
+        collection_refinery_fraction=0.6,
+    )
+    grid = generate_time_grid("2026-01-01", "2026-12-31", "daily")
+    rows = schedule_feed_rows(config, grid, processing_delay_days=14)
+
+    assert sum(row["harvested_biomass_kg"] for row in rows) == pytest.approx(60_000.0)
+    assert sum(row["collected_biomass_kg"] for row in rows) == pytest.approx(60_000.0)
+    assert rows[0]["collection_delay_inventory_entering_kg"] == pytest.approx(0.0)
+    assert max(row["collection_delay_inventory_remaining_kg"] for row in rows) > 0.0
+    assert rows[-1]["collection_delay_inventory_remaining_kg"] == pytest.approx(0.0, abs=1e-8)
+    assert all(abs(row["collection_delay_inventory_residual_kg"]) < 1e-8 for row in rows)

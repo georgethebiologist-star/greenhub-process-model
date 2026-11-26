@@ -1,0 +1,72 @@
+{
+  "dataset_id": "GH-REF-PHASE7-RIZZIOLI-2025",
+  "source_id": "RIZZIOLI2025",
+  "source_file": "agricultural_digestate_membrane_recovery_rizzioli_2025_reference.csv",
+  "title": "Agricultural digestate nutrient and water recovery across membrane configurations",
+  "authors": ["Fabio Rizzioli", "Marco Cirilli", "Nicola Frison", "David Bolzonella", "Federico Battista"],
+  "publication_year": 2025,
+  "doi": "10.1016/j.jclepro.2025.144958",
+  "source_url": "https://doi.org/10.1016/j.jclepro.2025.144958",
+  "full_text_url": "https://iris.univr.it/retrieve/5571eb54-88c0-467c-92a1-5e58f6af0403/1-s2.0-S0959652625003087-main.pdf",
+  "data_license": "CC BY 4.0, as stated in the published article",
+  "retrieval_date": "2026-11-07",
+  "evidence_class": "B",
+  "evidence_type": "peer-reviewed laboratory-scale primary experimental study; measured feed/stream concentrations and mass-based recovery means with SD",
+  "geography": "Isola della Scala, Italy",
+  "feedstock_scope": "Agricultural digestate from a full-scale mesophilic anaerobic digester treating cow manure and lignocellulosic energy-crop residues; not grass-only and not GreenHub digestate",
+  "reference_year": "Published 2025; digestate source plant sampled for laboratory filtration tests (sampling year not stated in the extracted article text)",
+  "source_locations": [
+    "Table 1, raw agricultural digestate characterization, PDF p.2",
+    "Table 2, nutrient and water recovery, PDF p.4",
+    "Table 3, Line 1 stream characterization, PDF p.4-5",
+    "Table 4, Line 2 stream characterization, PDF p.5",
+    "Table 5, Line 3 stream characterization, PDF p.5",
+    "Materials and methods §§2.1-2.3, PDF pp.2-3"
+  ],
+  "retrieval_and_transcription": "Values transcribed from the publisher-hosted open-access article PDF retrieved via the University of Verona institutional repository. Table values and reported units/bases were retained. 'n.d.' is represented by a blank numeric cell and a status field; it is not zero. Recovery means and standard deviations are copied from Table 2, not recomputed.",
+  "process_conditions": {
+    "starting_digestate_mass_per_trial_kg": 2.0,
+    "source_AD_plant_capacity_kW": 1000,
+    "source_AD_temperature_C": 35,
+    "test_room_temperature_approx_C": 24,
+    "preliminary_solid_liquid_separation": "2 mm, 500 µm, or 100 µm screens were tested; the reported filtration configurations included preliminary separation and centrifugation",
+    "centrifugation": "4000 rcf for 20 min",
+    "line_1": "MF (0.45 µm) + UF (300 kDa) + RO; MF and UF at 2 bar, RO at 30 bar",
+    "line_2": "UF (300 kDa) + RO; UF at 2 bar, RO at 30 bar",
+    "line_3": "NF (NF270) + RO; NF at 4.5 bar, RO at 30 bar",
+    "scale_up_design_basis": "Authors report a designed demonstrative system for approximately 20 tonnes/day of agricultural digestate; this is not a built/validated plant performance result"
+  },
+  "data_files": [
+    "agricultural_digestate_feed_characterization_rizzioli_2025_reference.csv",
+    "agricultural_digestate_membrane_recovery_rizzioli_2025_reference.csv",
+    "agricultural_digestate_recovery_yields_rizzioli_2025_reference.csv"
+  ],
+  "file_checksums_sha256": {
+    "agricultural_digestate_feed_characterization_rizzioli_2025_reference.csv": "39840D17C6D828FFC7764AE08B743F2B88504886DCF9786E5E678DCDE453E294",
+    "agricultural_digestate_membrane_recovery_rizzioli_2025_reference.csv": "8CC138435F1C9962CB2A029E3A1B129BD18DE3CAEDF635B734A5B5B504CB7CC9",
+    "agricultural_digestate_recovery_yields_rizzioli_2025_reference.csv": "1BAF49BE388AFE71A765A99110090D30439170FA6907BE3FF9F1A0EA4D4A5A9D"
+  },
+  "units_and_basis": {
+    "total_solids_pct_w_w": "mass percent of stream",
+    "COD_g_per_kg": "g COD/kg stream as reported",
+    "TKN_g_per_kg": "g N/kg stream as reported",
+    "ammonium_N_g_per_kg": "g NH4-N/kg stream as reported",
+    "total_phosphorus_g_per_kg": "g P/kg stream as reported",
+    "potassium_as_K2O_g_per_kg": "g K2O/kg stream as reported; not elemental K",
+    "electrical_conductivity_mS_per_cm": "mS/cm",
+    "recovery_pct": "mass-based percent of initial nutrient or digestate feed mass, as defined in source Equations 1-3; total recovery includes recovered concentrate streams while RO-retentate recovery is a specific product-stream fraction",
+    "uncertainty": "Table 2 reports mean ± SD; replicate count is not specified in the extracted table text"
+  },
+  "applicability": "Reference-only comparator for Phase 7 nutrient/water separation and stream-composition context. It is a manure/energy-crop digestate tested at laboratory scale. It does not validate GreenHub's grass digestate composition, membrane performance, product quality, economics, contaminant safety, or recoverable water reuse.",
+  "limitations": [
+    "No direct roadside-grass or GreenHub digestate validation.",
+    "Concentrations alone are not component mass flows; only the source-reported Table 2 recoveries are mass-based recovery metrics.",
+    "The authors report initial laboratory filtration tests and note that extended cyclic/fouling testing remains future work.",
+    "The ~20 t/day plant is a design/scale-up basis and not observed commercial operation.",
+    "No GreenHub chemical demand, membrane electricity, lifecycle inventory, fertilizer regulatory qualification, or sales grade can be inferred from this dataset.",
+    "K is reported as K2O in Tables 2-5; it must not be relabeled as elemental potassium."
+  ],
+  "integration_status": "reference_only; not connected to runtime parameters, defaults, equations, UI inputs, TEA, LCA, or Pareto scenarios",
+  "quality_interpretation": "B denotes directly reported peer-reviewed literature evidence. Transferability is separately limited and does not imply GreenHub validation.",
+  "checksum_scope": "SHA-256 values above cover the three CSV files; the FAIR catalog separately records checksums for every indexed asset."
+}

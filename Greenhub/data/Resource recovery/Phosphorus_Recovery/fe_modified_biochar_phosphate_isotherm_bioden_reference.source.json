@@ -1,0 +1,37 @@
+{
+  "dataset_id": "urn:greenhub:dataset:bioden-t3-2-fe-biochar-phosphate-isotherm:v1",
+  "source_file": "fe_modified_biochar_phosphate_isotherm_bioden_reference.csv",
+  "title": "BioDEN Task 3.2 measured phosphate adsorption isotherm on Fe-modified biochar",
+  "source_id": "BIODEN_T3.2_BIOCHAR_2024",
+  "persistent_identifier": "Task 3.2 public factsheet; no DOI identified",
+  "source_url": "https://www.biogas-e.be/sites/default/files/uploads/docs/task-3.2_factsheet-bioden_p-en_0.pdf",
+  "source_location": "Table 1; factsheet pp. 1–2",
+  "retrieval_date": "2026-11-06",
+  "evidence_class": "B measured project factsheet",
+  "geography": "BioDEN project; test digestate from a laboratory-scale chicken-manure digester; country not stated in factsheet",
+  "license_status": "No explicit reuse license identified; only factsheet observations and bibliographic metadata are transcribed.",
+  "synthetic_isotherm_conditions": {
+    "adsorbent": "Fe-modified corncob biochar",
+    "pH": 7,
+    "solution_volume_ml": 50,
+    "biochar_mass_g": 0.1,
+    "equilibrium_contact_time_h": 24,
+    "reported_concentration_unit": "mg P/L",
+    "reported_capacity_unit": "mg P/g biochar"
+  },
+  "separate_real_digestate_test": {
+    "matrix": "Liquid fraction of digestate from a laboratory-scale chicken-manure digester",
+    "initial_phosphate_as_P_mg_L": 230,
+    "biochar_dosage_range_g_L": "2–52",
+    "maximum_reported_removal_percent": 93,
+    "data_status": "text-level range only; figure values are not digitized into the synthetic isotherm table"
+  },
+  "limitations": [
+    "The tabulated nine-point isotherm is for synthetic phosphate solutions, not real digestate.",
+    "The real digestate result is a separate text-level maximum across a dose range; no dose-specific curve, replication, or uncertainty was tabulated in the accessible factsheet.",
+    "The report gives measured qe values; no values were recalculated or fitted here.",
+    "Digestate matrix is chicken manure, not grass-derived digestate; chloride, organics, competing ions, and pH applicability require validation.",
+    "Reference-only; no adsorption isotherm or recovery coefficient is activated in GreenHub."
+  ],
+  "applicability": "Useful source data for checking adsorption models and documenting matrix effects; not a predictive parameter for GreenHub nutrient recovery."
+}

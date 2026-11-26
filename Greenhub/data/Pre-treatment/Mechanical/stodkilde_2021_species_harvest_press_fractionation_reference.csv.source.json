@@ -1,0 +1,33 @@
+{
+  "dataset_id": "urn:greenhub:dataset:stodkilde-2021-species-harvest-press-fractionation",
+  "title": "Species- and harvest-resolved feed, pulp, concentrate and nitrogen-recovery observations from a green-biorefinery experiment",
+  "source_id": "SRC-STODKILDE-2021-AFST",
+  "citation": "Stødkilde, L., Lashkari, S., Eriksen, J., & Jensen, S. K. (2021). Enhancing protein recovery in green biorefineries through selection of plant species and time of harvest. Animal Feed Science and Technology, 278, 115016.",
+  "doi": "10.1016/j.anifeedsci.2021.115016",
+  "persistent_source_url": "https://doi.org/10.1016/j.anifeedsci.2021.115016",
+  "full_text_url": "https://pure.au.dk/ws/files/277690669/1_s2.0_S0377840121002029_main.pdf",
+  "retrieval_date": "2026-11-08",
+  "geography": "Foulumgaard, Aarhus University, Denmark",
+  "reference_year": 2021,
+  "harvest_year": 2016,
+  "license": "CC BY, as identified by the Aarhus University Pure record and article full text.",
+  "material_scope": "Lucerne, red clover, white clover, perennial ryegrass and tall fescue, harvested at four independent spring first-cut dates; duplicate split-plot field design.",
+  "process_conditions": "Plants cut at 7 cm and frozen at -18 C; lab Angelia 8500S twin-screw press; juice protein precipitated with 12 M phosphoric acid to pH 4, held overnight at 4 C and centrifuged at 2000 g/4 C. A second press used 200 g pulp plus 400 mL Milli-Q water and 10 minutes magnetic stirring.",
+  "data_scope": "300 long-form observations from Tables 1–5: whole-plant DM/N/DM yield; single- and double-pressed pulp and concentrate DM/N concentrations; source-calculated N recovery in pulp and protein concentrate. Pooled model SEM and Tukey group markers are attached without treating SEM as date-specific.",
+  "source_locations": "Tables 1–5, journal PDF pp. 4–7; Methods §§2.1–2.4, pp. 2–3.",
+  "known_transcription_issue": "Table 1 May 17 red-clover DM is rendered as 12.81 in the machine-readable PDF text layer. It is recorded as 128.1 with an explicit reconciliation note because the four-date arithmetic mean equals the published species LSmean of 126.5. This is the sole OCR-reconciled cell and should be checked against a visual page scan if one becomes available.",
+  "limitations": [
+    "Cultivated Danish forage is a comparator, not Dutch roadside grass or GreenHub/VARTA feedstock.",
+    "One first-cut growing season and one laboratory press system; no roadside-specific process transfer is established.",
+    "Field plots were duplicated, but analytical replicate counts are not separately reported; SEM values are pooled across the model, not date-specific.",
+    "Nitrogen recovery is not crude-protein recovery; nitrogen cannot be multiplied by a generic factor and treated as recovered saleable protein without a defensible conversion and product balance.",
+    "The 2020 proceedings extract overlaps this experiment for ryegrass. Some reported recovery values differ across publications; preserve source-specific records and do not pool or average them without reconciliation.",
+    "Table values are least-square means; species-level means are not forced to equal the arithmetic average of displayed harvest-date means.",
+    "Phosphoric-acid volume/equivalents, full press mass/water balances, energy demand and residual-juice composition are not available in these tables.",
+    "All rows remain reference-only and are not runtime defaults or calibration parameters."
+  ],
+  "conversion_method": "No unit conversion or derived total was applied. Source-reported numeric table entries, units, basis, SEM and significance suffixes are retained. The single Table 1 OCR-reconciled cell is explicitly flagged.",
+  "uncertainty": "Source gives an overall model SEM per species and endpoint, not date-specific uncertainty; the pooled SEM is repeated with an explicit scope label and must not be interpreted as per-row uncertainty. Field plots are in duplicate.",
+  "activation_state": "reference_only",
+  "sha256": "2a3068febb239ffb93736baa96ccc5a4fa352a7a48773017cb72f4a6a96cde37"
+}

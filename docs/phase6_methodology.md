@@ -140,7 +140,9 @@ f = 1 - (1 - f_ref)^exposure
 
 `f` is bounded between zero and one. This gives physically monotonic response without claiming a Henry-law stage calculation. CO2, H2S, NH3, CH4, and water remain explicit in gas and liquid ledgers.
 
-V612 releases selected dissolved fractions at flash pressure. A selected portion of flash gas returns to the compressor feed. A612 releases additional gas at regeneration pressure, applies water purge, and returns regenerated water through P611. Fresh water equals the calculated circulation deficit and cannot be negative.
+V612 releases selected dissolved fractions at flash pressure. Flash-gas recycle is specified as a ratio of incoming conditioned raw dry gas flow (the reported literature basis), not as a split fraction of flash gas. S610 targets that raw-gas ratio and caps actual recycle at the available flash-gas flow; reports distinguish target ratio, achieved ratio, and the fraction of flash gas recycled. The parameter ID is preserved for request compatibility, but existing overrides now use the corrected raw-gas-flow basis. A612 releases additional gas at regeneration pressure, applies water purge, and returns regenerated water through P611. Fresh water equals the calculated circulation deficit and cannot be negative.
+
+The A611 report also exposes fresh-water makeup per Nm³ of dry raw gas and the industrial screening range 0.00004–0.0004 m³/Nm³ reported by Bauer et al. (2013), SGC Rapport 2013:270, §3.2 p.51 (`water_circulation.csv`, WS_WATER_009–010). This is report-only: it does not calibrate the model, choose a purge fraction, or validate scale-up from GreenHub's small modeled flow to industrial operation. The range is included in unit design results and therefore travels through the existing result contract. The purge fraction and water-mode defaults remain structural assumptions pending directly applicable data.
 
 ### 7.3 Design And Utilities
 

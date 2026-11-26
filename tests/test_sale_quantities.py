@@ -29,6 +29,8 @@ def test_seasonal_component_and_molar_inventory_integrates_once():
     assert g['biomethane'] == pytest.approx((1/16.04246+.1/44.0095)*10,rel=1e-4)
     gas.P *= 10
     assert seasonal_sale_quantities(model,10)[1] == g
+    model.scenario_configuration = SimpleNamespace(biogas_upgrading='BG0')
+    assert seasonal_sale_quantities(model, 10)[1] == {}
 
 
 def test_price_profile_uses_chemical_mass_and_declared_currency_conversion():

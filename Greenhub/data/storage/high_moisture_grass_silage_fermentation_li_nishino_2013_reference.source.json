@@ -1,0 +1,40 @@
+{
+  "dataset_id": "urn:greenhub:dataset:storage:li-nishino-2013-high-moisture-grass-silage:v1",
+  "title": "Effects of Ensiling Fermentation and Aerobic Deterioration on the Bacterial Community in Italian Ryegrass, Guinea Grass, and Whole-crop Maize Silages Stored at High Moisture Content",
+  "source_id": "SRC-LI-NISHINO-HIGH-MOISTURE-GRASS-SILAGE-2013",
+  "authors": [
+    "Yanbing Li",
+    "Naoki Nishino"
+  ],
+  "publication_year": 2013,
+  "journal": "Asian-Australasian Journal of Animal Sciences",
+  "volume_issue_pages": "26(9), 1304–1312",
+  "doi": "10.5713/ajas.2013.13175",
+  "source_url": "https://doi.org/10.5713/ajas.2013.13175",
+  "full_text_urls": [
+    "https://pdfs.semanticscholar.org/88f9/afac9640505395e009a5a816f05a7d62556f.pdf",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC4093406/"
+  ],
+  "geography": "Experimental field location is not asserted from the author affiliations; methods state harvest dates but the extracted report does not establish a Dutch or GreenHub collection location.",
+  "retrieval_date": "2026-11-08",
+  "source_location": "Tables 2–3, pp. 1306–1307; relevant methods pp. 1305–1306.",
+  "methods_summary": "First-growth direct-cut forage harvested at late heading, chopped to approximately 25 mm, packed 300 g per laminated bag, vacuum sealed, no additives, triplicate bags, ambient storage for 3, 7, 14, 28, 56 or 120 d. For aerobic challenge, 150 g from 14-, 28-, 56- or 120-d silage was placed uncompacted in an uncovered 500-mL bottle and exposed to air for 7 d at 25 °C. DM dried at 60 °C for 48 h; fermentation chemistry from water extracts; chemical analyses in duplicate.",
+  "license_or_rights": "No explicit open data-reuse license identified. The article states copyright © 2013 by Asian-Australasian Journal of Animal Sciences. This repository contains a limited factual transcription with citations, not the article or figures; review rights before external redistribution.",
+  "evidence_class": "B-tier peer-reviewed primary experimental measurements; table transcription",
+  "quality_class": "B",
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "row_count": 164,
+  "sha256_csv": "ab962a3245ef213bc533790009df2acc88758c7553c426ef91ba3fcbdbbd3f86",
+  "transcription_policy": "Italian ryegrass and guinea grass fresh-crop DM/pH from Table 1 and physicochemical rows from Tables 2–3 are transcribed. Values, row-level SE, comparison letters, and t-test markers are retained. No missing timepoints are interpolated and no kinetic parameters are estimated.",
+  "limitations": [
+    "This is cultivated forage silage, not roadside grass or VARTA/GreenHub feed. Transferability must be validated before parameter use.",
+    "The study concerns high-moisture direct-cut silage; sealed storage was described as ambient without numeric temperature or a temperature time series.",
+    "The reported measurements are concentrations and pH, not feed mass recovery, dry-matter loss, component inventories, leachate, emissions, methane potential, or protein quality.",
+    "The table's row-level SE is repeated for each condition only to preserve table scope; the source does not provide individual observation-level confidence intervals in these tables.",
+    "The aerobic challenge is a single seven-day exposure at 25 °C in small, uncompacted, uncovered bottles; it is not a general post-opening kinetic model.",
+    "Table 1 reports Italian ryegrass WSC as 124 g/kg DM while the Results narrative reports 25 g/kg DM. This unresolved source inconsistency is not silently resolved; WSC is excluded from this extract.",
+    "No explicit reuse license was identified; the paper carries a 2013 journal copyright notice.",
+    "No storage curve, degradation coefficient, emission factor, methane yield, model default, or GreenHub parameter mapping is inferred."
+  ]
+}

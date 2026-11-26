@@ -1,0 +1,46 @@
+{
+  "dataset_id": "urn:greenhub:dataset:storage:krommweh-post-opening-silage-emissions-2020:v1",
+  "dataset_version": "1.0.0",
+  "dataset_file": "post_opening_aerobic_silage_emissions_krommweh_2020_reference.csv",
+  "record_count": 8,
+  "sha256": "f7fba2539944076ea9e45cdffb09b26bb33abd9fea3ae2fd51ec258e4e9794e7",
+  "source_id": "SRC-KROMMWEH-AEROBIC-SILAGE-EMISSIONS-2020",
+  "citation": "Krommweh, M. S., Schmithausen, A. J., Deeken, H. F., Büscher, W., & Maack, G.-C. (2020). A new experimental setup for measuring greenhouse gas and volatile organic compound emissions of silage during the aerobic storage period in a special silage respiration chamber. Environmental Pollution, 267, 115513. https://doi.org/10.1016/j.envpol.2020.115513",
+  "publication_year": 2020,
+  "doi": "10.1016/j.envpol.2020.115513",
+  "source_url": "https://doi.org/10.1016/j.envpol.2020.115513",
+  "bibliographic_record_url": "https://pubmed.ncbi.nlm.nih.gov/32891044/",
+  "retrieval_date": "2026-11-08",
+  "source_locations": [
+    "PubMed abstract, experimental design and Results: measurement period and cumulative emissions during the first 600 experimental hours."
+  ],
+  "applicable_phases": [
+    2
+  ],
+  "material_scope": "Three silage bales (grass and lucerne) examined during opening and subsequent aerobic exposure; two species-specific cumulative emission totals are given in the abstract.",
+  "experimental_context": "Special silage respiration chamber; whole bale without wrapping film after opening; emission behaviour followed for periods up to 55 days. The abstract's numerical cumulative totals cover the first 600 experimental hours.",
+  "data_scope": "Eight cumulative emission observations: CO2, methanol, ethanol and ethyl acetate for one grass silage bale and one lucerne silage bale, as reported in the abstract.",
+  "evidence_class": "B_measured_literature_abstract_extract",
+  "quality_class": "B",
+  "license": "PubMed identifies Elsevier copyright (2020); no open reuse license was found for this article. This project stores eight attributed factual measurements from the abstract, not article text or figures. Review rights before redistribution outside the project.",
+  "data_availability": "Abstract-level values only in this extract. Full-text article is linked through PubMed/Elsevier; detailed operating metadata and supporting measurements were not transcribed in this collection pass.",
+  "conversion_or_processing": "Direct transcription of eight abstract-reported cumulative masses. No unit conversion, bale-mass normalization, time extrapolation, CO2-equivalent characterization, or emission-factor calculation was applied.",
+  "uncertainty": "The abstract does not report per-species replicate counts or uncertainty for the cumulative totals. Three bales were examined in the overall experiment; do not assume three replicates per material.",
+  "limitations": [
+    "Post-opening aerobic exposure is not the same process as anaerobic ensiling or sealed storage.",
+    "Cumulative totals are per bale over 600 h, and bale mass is not reported in the abstract; these values are not emission factors and per-tonne factors cannot be calculated.",
+    "CO2 is reported as measured mass. It is not a fossil CO2 burden or a CO2e value; biogenic-carbon accounting must be defined separately.",
+    "Methanol, ethanol and ethyl acetate are VOCs, not characterized impact results in this extract.",
+    "The source reports measurements of CO2, O2, CH4 and N2O concentrations inside bale gas, but those concentrations are not emission totals and are not transcribed here.",
+    "Livestock grass/lucerne silage and bale conditions are not validated proxies for loose Dutch roadside grass storage.",
+    "No rates, storage kinetics, or runtime factors are activated."
+  ],
+  "runtime_policy": "Reference-only; not linked to storage reactions, LCA characterization, parameter registry, defaults, TEA, or Pareto calculations.",
+  "access_protocol": "HTTPS DOI and PubMed bibliographic record.",
+  "fair_metadata": {
+    "findable": "Stable repository URN, source ID, DOI, PubMed record and SHA-256 are recorded.",
+    "accessible": "UTF-8 CSV and JSON metadata sidecar; source records are linked over HTTPS.",
+    "interoperable": "Records include phase, material, post-opening time window, property, value, unit, mass basis, method, evidence tier and source location.",
+    "reusable": "Uncertainty, missing bale mass, copyright status, transfer limitations and no-runtime-use policy are explicit."
+  }
+}

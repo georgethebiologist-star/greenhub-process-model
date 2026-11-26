@@ -7,6 +7,7 @@ import { runSimulation, DEFAULT_PARAMETERS, PROCESS_AREAS } from './src/data/gre
 async function startServer() {
   const app = express();
   const PORT = Number(process.env.PORT || 3000);
+  const HOST = process.env.GREENHUB_WEB_HOST || '0.0.0.0';
 
   app.use(cors());
   app.use(express.json({ limit: '2mb' }));
@@ -168,8 +169,8 @@ async function startServer() {
     });
   }
 
-  app.listen(PORT, '0.0.0.0', () => {
-    console.log(`[GreenHub Server] Server running on http://0.0.0.0:${PORT}`);
+  app.listen(PORT, HOST, () => {
+    console.log(`[GreenHub Server] Server running on http://${HOST}:${PORT}`);
   });
 }
 

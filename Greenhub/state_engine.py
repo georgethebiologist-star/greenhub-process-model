@@ -135,10 +135,22 @@ def build_state_outputs(model, resolved_parameters=(), resolution_mode="steady_s
         "storage_degradation": ("seasonal.storage_degradation_rate_per_day",),
         "residence_time_effect": ("phase4.precipitation_residence_time_min",),
         "protein_precipitation_recovery": ("phase4.precipitation_efficiency",),
+        "EQ-P6-WS-H2S-001": (
+            "phase6.water_scrubber_h2s_solubility_fit_low_a",
+            "phase6.water_scrubber_h2s_solubility_fit_low_b_k",
+            "phase6.water_scrubber_h2s_solubility_fit_high_a",
+            "phase6.water_scrubber_h2s_solubility_fit_high_b_k",
+            "phase6.water_scrubber_h2s_solubility_fit_high_c",
+            "phase6.water_scrubber_h2s_solubility_fit_high_d_per_k",
+            "phase6.water_scrubber_h2s_solubility_fit_transition_temperature_k",
+            "phase6.water_scrubber_h2s_solubility_fit_minimum_temperature_k",
+            "phase6.water_scrubber_h2s_solubility_fit_maximum_temperature_k",
+        ),
     }.items():
         available = [pid for pid in pids if pid in params and params[pid].active_value is not None and not params[pid].blocked]
-        equation_usage.append({"equation_id": name, "parameter_ids": list(pids), "used": bool(available),
-                               "fallback": not bool(available), "status": "calculated" if available else "structural_fallback"})
+        used = len(available) == len(pids)
+        equation_usage.append({"equation_id": name, "parameter_ids": list(pids), "used": used,
+                               "fallback": not used, "status": "calculated" if used else "structural_fallback"})
     fate = []
     for snapshot in snapshots:
         fate.append({"unit_id": snapshot["unit_id"], "stream_id": snapshot["stream_id"],

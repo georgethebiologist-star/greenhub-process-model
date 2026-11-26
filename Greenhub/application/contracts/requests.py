@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from calendar import monthrange
 from datetime import date
 import json
 from functools import lru_cache
@@ -120,6 +121,20 @@ class OperatingSchedule:
 
 
 @dataclass(frozen=True)
+class BiomassHarvestEvent:
+    """One dated biomass-availability event; date is scenario timing, mass is wet tonnes."""
+
+    date: str
+    available_biomass_tonnes: float
+
+    def __post_init__(self) -> None:
+        date.fromisoformat(self.date)
+        value = self.available_biomass_tonnes
+        if isinstance(value, bool) or not isfinite(float(value)) or value < 0.0:
+            raise ValueError("harvest event availability must be finite non-negative wet tonnes.")
+
+
+@dataclass(frozen=True)
 class BiomassSchedule:
     """Annual biomass availability and refinery plan shared with the proxy dashboard."""
 
@@ -139,6 +154,14 @@ class BiomassSchedule:
     accessible_area_ha: float | None = None
     harvest_yield_tonnes_per_ha: float | None = None
     collection_efficiency: float = 1.0
+    monthly_availability_tonnes: tuple[float, ...] | None = None
+    availability_evidence_class: str | None = None
+    availability_status: str | None = None
+    availability_note: str | None = None
+    availability_temporal_profile_quality_class: str | None = None
+    availability_source_id: str | None = None
+    availability_source_url: str | None = None
+    harvest_events: tuple[BiomassHarvestEvent, ...] | None = None
 
     def __post_init__(self) -> None:
         numeric = (
@@ -171,12 +194,56 @@ class BiomassSchedule:
                 raise ValueError("Accessible area and harvest yield must be finite non-negative numbers.")
         if not 0.0 <= self.collection_efficiency <= 1.0:
             raise ValueError("collection_efficiency must be within [0, 1].")
+        if self.monthly_availability_tonnes is not None:
+            monthly = tuple(float(value) for value in self.monthly_availability_tonnes)
+            if len(monthly) != 12 or any(not isfinite(value) or value < 0.0 for value in monthly):
+                raise ValueError("monthly_availability_tonnes must contain 12 finite non-negative monthly values.")
+            total = sum(monthly)
+            if abs(total - self.annual_available_biomass_tonnes) > max(1e-6, self.annual_available_biomass_tonnes * 1e-8):
+                raise ValueError("monthly_availability_tonnes must sum to annual_available_biomass_tonnes.")
+            start_date, end_date = date.fromisoformat(self.season_start), date.fromisoformat(self.season_end)
+            for index, amount in enumerate(monthly, start=1):
+                if amount <= 0.0:
+                    continue
+                month_start = date(start_date.year, index, 1)
+                month_end = date(start_date.year, index, monthrange(start_date.year, index)[1])
+                if min(end_date, month_end) < max(start_date, month_start):
+                    raise ValueError(f"Monthly biomass availability for month {index} falls outside the collection season.")
+            object.__setattr__(self, "monthly_availability_tonnes", monthly)
         try:
             start, end, peak = map(date.fromisoformat, (self.season_start, self.season_end, self.peak_date))
         except (TypeError, ValueError) as error:
             raise ValueError("Biomass schedule dates must use YYYY-MM-DD.") from error
         if start.year != end.year or end < start or peak.year != start.year or not start <= peak <= end:
             raise ValueError("Biomass season and peak dates must be ordered within one calendar year.")
+        if self.harvest_events is not None:
+            events = tuple(
+                item if isinstance(item, BiomassHarvestEvent) else BiomassHarvestEvent(**dict(item))
+                for item in self.harvest_events
+            )
+            if not events:
+                raise ValueError("harvest_events must contain at least one dated event when provided.")
+            event_dates = [date.fromisoformat(item.date) for item in events]
+            if any(day < start or day > end for day in event_dates):
+                raise ValueError("Every harvest event date must fall within the collection season.")
+            if event_dates != sorted(event_dates) or len(set(event_dates)) != len(event_dates):
+                raise ValueError("harvest_events must be ordered by unique event date.")
+            event_total = sum(float(item.available_biomass_tonnes) for item in events)
+            if abs(event_total - self.annual_available_biomass_tonnes) > max(
+                1e-6, self.annual_available_biomass_tonnes * 1e-8
+            ):
+                raise ValueError("harvest event wet tonnes must sum to annual_available_biomass_tonnes.")
+            event_monthly = [0.0] * 12
+            for item, day in zip(events, event_dates):
+                event_monthly[day.month - 1] += float(item.available_biomass_tonnes)
+            if self.monthly_availability_tonnes is not None and any(
+                abs(actual - expected) > max(1e-6, self.annual_available_biomass_tonnes * 1e-8)
+                for actual, expected in zip(self.monthly_availability_tonnes, event_monthly)
+            ):
+                raise ValueError("monthly_availability_tonnes must match the month totals of harvest_events.")
+            if self.monthly_availability_tonnes is None:
+                object.__setattr__(self, "monthly_availability_tonnes", tuple(event_monthly))
+            object.__setattr__(self, "harvest_events", events)
         object.__setattr__(self, "active_months", tuple(sorted(self.active_months)))
 
 
@@ -495,6 +562,22 @@ class SimulationRequest:
                 accessible_area_ha=(None if biomass_payload.get("accessible_area_ha") is None else float(biomass_payload["accessible_area_ha"])),
                 harvest_yield_tonnes_per_ha=(None if biomass_payload.get("harvest_yield_tonnes_per_ha") is None else float(biomass_payload["harvest_yield_tonnes_per_ha"])),
                 collection_efficiency=float(biomass_payload.get("collection_efficiency", 1.0)),
+                monthly_availability_tonnes=(None if biomass_payload.get("monthly_availability_tonnes") is None else tuple(float(value) for value in biomass_payload["monthly_availability_tonnes"])),
+                availability_evidence_class=biomass_payload.get("availability_evidence_class"),
+                availability_status=biomass_payload.get("availability_status"),
+                availability_note=biomass_payload.get("availability_note"),
+                availability_temporal_profile_quality_class=biomass_payload.get("availability_temporal_profile_quality_class"),
+                availability_source_id=biomass_payload.get("availability_source_id"),
+                availability_source_url=biomass_payload.get("availability_source_url"),
+                harvest_events=(
+                    None if biomass_payload.get("harvest_events") is None else tuple(
+                        item if isinstance(item, BiomassHarvestEvent) else BiomassHarvestEvent(
+                            date=str(item["date"]),
+                            available_biomass_tonnes=float(item["available_biomass_tonnes"]),
+                        )
+                        for item in biomass_payload["harvest_events"]
+                    )
+                ),
             ) if biomass_payload else None
         )
         inventory_payload = payload.get("initial_storage_inventory") or {}

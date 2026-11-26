@@ -1,0 +1,42 @@
+{
+  "dataset_id": "urn:greenhub:dataset:storage:assis-ryegrass-ensiling-2026-table2:v1",
+  "persistent_identifier_status": "Repository-local identifier for this transcription; the DOI identifies the source article, not this derived dataset.",
+  "dataset_version": "1.0.0",
+  "source_file": "wilted_ryegrass_ensiling_fermentation_assis_2026_reference.csv",
+  "title": "Italian ryegrass silage fermentation and composition after 62 days",
+  "citation": "Assis, J. A., Carbonare, M. S. D., & Schmidt, P. (2026). Different dry matter contents on the fermentation and preservation of wilted ryegrass silage with or without microbial inoculants. Revista Brasileira de Zootecnia, 55. https://doi.org/10.37496/rbz5520250112",
+  "authors": ["Juliana Aparecida de Assis", "Maryon Strack Dalle Carbonare", "Patrick Schmidt"],
+  "persistent_identifier": "doi:10.37496/rbz5520250112",
+  "source_url": "https://www.scielo.br/j/rbz/a/FjJbkQK3bR7T9FKXtYznJSq/?lang=en",
+  "doi_url": "https://doi.org/10.37496/rbz5520250112",
+  "source_locations": ["Table 2 and its footnotes", "Methods sections 2.1–2.2 for treatment and analytical protocols"],
+  "retrieval_date": "2026-11-07",
+  "reference_year": 2026,
+  "experiment_year": 2021,
+  "geography": "Forage grown at a commercial farm in Castro, Paraná, Brazil; research performed by UFPR in Curitiba, Paraná, Brazil.",
+  "evidence_class": "B_measured",
+  "license": "Creative Commons Attribution 4.0 International (CC BY 4.0), stated on the article page. Cite the article and retain the license attribution.",
+  "material_scope": "Wilted Italian ryegrass (Lolium multiflorum L., cultivar F ABC 1), ensiled at 32% or 45% target DM with a control, a three-strain microbial inoculant (INO), or a microbial inoculant plus enzymes (INO+E).",
+  "experimental_conditions": "Thirty 8.8-L PVC silos were used, five per each of six treatment combinations. Silos were stored for 62 days and then opened. Forage was chopped to 10 mm and compacted to the reported target densities of 145 kg DM/m3 (32% DM) or 176 kg DM/m3 (45% DM). Chemical and volatile-compound variables use the source's 105 °C-corrected DM basis; the article states loss-related variables use 60 °C DM basis.",
+  "data_scope": "Nineteen Table 2 properties are transcribed in the table's treatment-group layout. Values, superscript significance letters, marginal means by DM group, and P-values for DM, inoculant, and interaction effects are retained. Censored yeast/mold counts and source dashes are preserved as text.",
+  "table_layout": "One row per reported property; treatment values are kept in separate columns corresponding to Table 2. Cell strings preserve the article's significance letters and censored values. This is a table-native transcription, not a normalized runtime parameter table.",
+  "limitations": [
+    "Reference-only; no GreenHub runtime parameter or default is mapped to these observations.",
+    "The feed is cultivated Italian ryegrass in Brazil, not Dutch roadside grass or project-specific VARTA feedstock.",
+    "This table is an endpoint at 62 days; it does not provide intermediate storage-time data and must not be used to fit a kinetic curve.",
+    "Treatment means and significance tests do not provide raw replicate data or standard deviations in the table.",
+    "The inoculant treatments are specific commercial formulations and do not establish GreenHub reagent demand or response.",
+    "Censored counts such as <10^4 and dash cells are not zero; no below-detection value is imputed."
+  ],
+  "conversion_or_processing": "Treatment means, marginal means, units, DM basis, significance letters, and P-values were transcribed without numeric conversion, imputation, averaging, interpolation, or activation. Treatment values are printed with any significance letter attached, as in the source table.",
+  "uncertainty": "Five silo replicates were used per treatment combination. Standard deviations and raw replicate values are not supplied in Table 2; inferential results and significance letters are reproduced as reported.",
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "runtime_parameter_mapping": null,
+  "fair_metadata": {
+    "findable": "Stable local dataset identifier, descriptive title, DOI, citation, source table and retrieval date are recorded.",
+    "accessible": "UTF-8 CSV and JSON metadata sidecar are stored in the repository; the source article is openly available at SciELO.",
+    "interoperable": "CSV fields identify every treatment/harvest column, property, unit, basis, P-value factor and source record.",
+    "reusable": "Treatment definitions, protocol, basis, license, extraction method, replicate design, censoring, uncertainty and transferability limits are documented."
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "schema_version": "1.0.0",
+  "route_id": "greenhub-grass-protein-biogas-npk-reference-v1",
+  "project_id": "greenhub",
+  "display_name": "GreenHub roadside-grass protein, biogas and nutrient recovery reference route",
+  "route_status": "reference_only",
+  "technology_family_ids": [
+    "pretreatment_fractionation",
+    "protein_recovery",
+    "anaerobic_digestion",
+    "biogas_upgrading",
+    "npk_recovery"
+  ],
+  "technology_instances": [
+    {
+      "instance_id": "gh-primary-fractionation",
+      "technology_family_id": "pretreatment_fractionation",
+      "technology_id": "greenhub-grass-press-and-primary-separation",
+      "project_specific": true,
+      "input_stream_ids": ["raw_grass"],
+      "output_stream_ids": ["press_juice", "press_cake"],
+      "parameter_bindings": [
+        {"parameter_id": "feed_profile", "unit": "material profile identifier", "binding_kind": "project_material_profile", "scenario_overridable": true},
+        {"parameter_id": "press_partition", "unit": "mass/component split", "binding_kind": "project_parameter_registry", "scenario_overridable": true}
+      ],
+      "activation_state": "reference_only",
+      "limitations": ["Stream partition must be tied to the selected feed profile and a matched press measurement.", "Press cake is an external-route coproduct unless a validated process configuration explicitly includes it downstream."]
+    },
+    {
+      "instance_id": "gh-protein-recovery",
+      "technology_family_id": "protein_recovery",
+      "technology_id": "greenhub-isoelectric-protein-recovery",
+      "project_specific": true,
+      "input_stream_ids": ["press_juice"],
+      "output_stream_ids": ["wet_protein_cake", "protein_residual"],
+      "parameter_bindings": [
+        {"parameter_id": "protein_precipitation_pH", "unit": "pH", "binding_kind": "project_parameter_registry", "scenario_overridable": true},
+        {"parameter_id": "protein_capture_fraction", "unit": "fraction of declared soluble-protein basis", "binding_kind": "measurement_required", "scenario_overridable": true}
+      ],
+      "activation_state": "reference_only",
+      "limitations": ["Recovery requires a feed-speciation denominator and a matched precipitate/residual protein balance."]
+    },
+    {
+      "instance_id": "gh-protein-drying",
+      "technology_family_id": "protein_recovery",
+      "technology_id": "spray-drying-proxy",
+      "project_specific": true,
+      "input_stream_ids": ["wet_protein_cake"],
+      "output_stream_ids": ["dried_protein_product", "evaporated_water"],
+      "parameter_bindings": [
+        {"parameter_id": "drying_target_moisture", "unit": "kg water/kg wet product", "binding_kind": "request_input", "scenario_overridable": true},
+        {"parameter_id": "drying_energy", "unit": "kWh or MJ on a declared denominator", "binding_kind": "measurement_required", "scenario_overridable": true}
+      ],
+      "activation_state": "reference_only",
+      "limitations": ["No grass-specific GreenHub dryer mass/energy balance is available; literature energy comparators retain their original bases and are not defaults."]
+    },
+    {
+      "instance_id": "gh-residual-anaerobic-digestion",
+      "technology_family_id": "anaerobic_digestion",
+      "technology_id": "bmp-material-conversion-proxy",
+      "project_specific": true,
+      "input_stream_ids": ["protein_residual"],
+      "output_stream_ids": ["raw_biogas", "digestate"],
+      "parameter_bindings": [
+        {"parameter_id": "residual_bmp", "unit": "m3 CH4/kg VS on declared normal-volume basis", "binding_kind": "project_parameter_registry", "scenario_overridable": true},
+        {"parameter_id": "continuous_reactor_realization", "unit": "fraction of BMP", "binding_kind": "measurement_required", "scenario_overridable": true}
+      ],
+      "activation_state": "reference_only",
+      "limitations": ["Batch BMP is potential, not continuous reactor performance; feed-specific kinetics, inhibition and stability are unvalidated."]
+    },
+    {
+      "instance_id": "gh-biogas-upgrading",
+      "technology_family_id": "biogas_upgrading",
+      "technology_id": "selected-upgrading-route",
+      "project_specific": false,
+      "input_stream_ids": ["raw_biogas"],
+      "output_stream_ids": ["biomethane", "upgrading_offgas"],
+      "parameter_bindings": [
+        {"parameter_id": "upgrading_recovery_and_quality", "unit": "fractions and gas composition", "binding_kind": "project_parameter_registry", "scenario_overridable": true}
+      ],
+      "activation_state": "reference_only",
+      "limitations": ["Technology choice and performance depend on inlet gas composition, product specification, scale and operating envelope."]
+    },
+    {
+      "instance_id": "gh-npk-recovery",
+      "technology_family_id": "npk_recovery",
+      "technology_id": "selected-digestate-nutrient-recovery-chain",
+      "project_specific": true,
+      "input_stream_ids": ["digestate"],
+      "output_stream_ids": ["fertilizer_candidates", "treated_digestate"],
+      "parameter_bindings": [
+        {"parameter_id": "digestate_ionic_speciation", "unit": "mass or molar concentration on sample basis", "binding_kind": "measurement_required", "scenario_overridable": true},
+        {"parameter_id": "recovery_product_specification", "unit": "technology-specific product grade", "binding_kind": "project_parameter_registry", "scenario_overridable": true}
+      ],
+      "activation_state": "reference_only",
+      "limitations": ["Nutrient recovery, product purity and fertilizer substitution are separate evidence gates."]
+    }
+  ],
+  "material_streams": [
+    {"stream_id": "raw_grass", "material_state_id": "greenhub.roadside_grass.raw", "from": "external:feed_profile", "to": "gh-primary-fractionation", "stream_role": "input", "composition_scope": "mixed_declared_bases", "mass_balance_basis": "wet_mass"},
+    {"stream_id": "press_juice", "material_state_id": "greenhub.roadside_grass.press_juice", "from": "gh-primary-fractionation", "to": "gh-protein-recovery", "stream_role": "intermediate", "composition_scope": "mixed_declared_bases", "mass_balance_basis": "wet_mass", "limitations": ["Requires measured press yield and matched juice composition."]},
+    {"stream_id": "press_cake", "material_state_id": "greenhub.roadside_grass.press_cake", "from": "gh-primary-fractionation", "to": "boundary:external_coproduct", "stream_role": "coproduct", "composition_scope": "mixed_declared_bases", "mass_balance_basis": "wet_mass"},
+    {"stream_id": "wet_protein_cake", "material_state_id": "greenhub.protein.wet_isoelectric_cake", "from": "gh-protein-recovery", "to": "gh-protein-drying", "stream_role": "intermediate", "composition_scope": "mixed_declared_bases", "mass_balance_basis": "wet_mass"},
+    {"stream_id": "protein_residual", "material_state_id": "greenhub.protein.residual_liquid_and_cell_debris", "from": "gh-protein-recovery", "to": "gh-residual-anaerobic-digestion", "stream_role": "intermediate", "composition_scope": "mixed_declared_bases", "mass_balance_basis": "wet_mass"},
+    {"stream_id": "dried_protein_product", "material_state_id": "greenhub.protein.dried_product", "from": "gh-protein-drying", "to": "boundary:protein_product", "stream_role": "product", "composition_scope": "mixed_declared_bases", "mass_balance_basis": "wet_mass"},
+    {"stream_id": "evaporated_water", "material_state_id": "water.vapour", "from": "gh-protein-drying", "to": "boundary:dryer_exhaust", "stream_role": "emission", "composition_scope": "exclusive_mass_components", "mass_balance_basis": "component_mass"},
+    {"stream_id": "raw_biogas", "material_state_id": "greenhub.ad.raw_biogas", "from": "gh-residual-anaerobic-digestion", "to": "gh-biogas-upgrading", "stream_role": "intermediate", "composition_scope": "mixed_declared_bases", "mass_balance_basis": "component_mass"},
+    {"stream_id": "digestate", "material_state_id": "greenhub.ad.digestate", "from": "gh-residual-anaerobic-digestion", "to": "gh-npk-recovery", "stream_role": "intermediate", "composition_scope": "mixed_declared_bases", "mass_balance_basis": "wet_mass"},
+    {"stream_id": "biomethane", "material_state_id": "greenhub.upgraded_biomethane", "from": "gh-biogas-upgrading", "to": "boundary:biomethane_product", "stream_role": "product", "composition_scope": "analytical_properties_only", "mass_balance_basis": "component_mass"},
+    {"stream_id": "upgrading_offgas", "material_state_id": "greenhub.upgrading.offgas", "from": "gh-biogas-upgrading", "to": "boundary:offgas", "stream_role": "emission", "composition_scope": "mixed_declared_bases", "mass_balance_basis": "component_mass"},
+    {"stream_id": "fertilizer_candidates", "material_state_id": "greenhub.npk.recovered_candidates", "from": "gh-npk-recovery", "to": "boundary:recovery_candidates", "stream_role": "coproduct", "composition_scope": "mixed_declared_bases", "mass_balance_basis": "component_mass"},
+    {"stream_id": "treated_digestate", "material_state_id": "greenhub.npk.treated_digestate", "from": "gh-npk-recovery", "to": "boundary:treated_digestate", "stream_role": "coproduct", "composition_scope": "mixed_declared_bases", "mass_balance_basis": "wet_mass"}
+  ],
+  "input_resolution": {
+    "precedence": ["request_override", "selected_project_material_profile", "project_parameter_registry", "declared_structural_state", "explicit_missing"],
+    "missing_value_policy": "block_or_report_only",
+    "override_contract": "This template declares the existing precedence only. It does not alter UI defaults, request/result schemas, workbook columns, or project adapter execution."
+  },
+  "compatibility": {
+    "legacy_phase_ids": ["Phase 3", "Phase 4", "Phase 5", "Phase 6", "Phase 7"],
+    "scenario_id_prefixes": ["F", "PR", "AD", "BG", "NR"],
+    "api_contract_change_required": false,
+    "executable_model": false
+  },
+  "activation_gates": [
+    "Every active process transition requires a project-owned calculation and evidence gate.",
+    "Reference-only technology instances must not affect process chemistry or defaults.",
+    "A new project must provide its own material profiles and parameter applicability; no GreenHub feed values are inherited."
+  ],
+  "metadata_gaps": [
+    "No runtime project selector exists yet.",
+    "This is a topology/reference template; it does not define an executable or validated process model.",
+    "GreenHub roadside grass lacks matched unit-by-unit measurements for all listed transformations."
+  ]
+}

@@ -7,11 +7,11 @@ from math import isfinite
 from typing import Any, Mapping
 
 DATA_QUALITY_CLASSES = {
-    "A": "Project measurement",
-    "B": "Supplier or industry data",
-    "C": "Peer-reviewed literature",
-    "D": "Engineering estimate",
-    "E": "Placeholder or unknown",
+    "A": "Measured project data",
+    "B": "Directly reported literature, official, or supplier/industry evidence",
+    "C": "Source-linked assumption or proxy with applicability limits",
+    "D": "Assumption or estimate without directly supporting source, or materially uncertain",
+    "E": "Legacy structural placeholder or unknown; normalize to D unless source-linked",
 }
 
 MEASUREMENT_STATUSES = {

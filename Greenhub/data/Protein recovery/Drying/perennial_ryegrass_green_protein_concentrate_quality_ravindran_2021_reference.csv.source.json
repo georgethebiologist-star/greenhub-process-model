@@ -1,0 +1,45 @@
+{
+  "source_id": "SRC-RAVINDRAN-2021-RYEGRASS-PROTEIN",
+  "dataset_title": "Product composition and process-context observations for perennial-ryegrass green protein concentrate",
+  "persistent_identifier": "doi:10.3390/cleantechnol3030039",
+  "source_doi": "10.3390/cleantechnol3030039",
+  "source_url": "https://doi.org/10.3390/cleantechnol3030039",
+  "publisher_url": "https://www.mdpi.com/2571-8797/3/3/39",
+  "authors": [
+    "Rajeev Ravindran",
+    "Sybrandus Koopmans",
+    "Johan P. M. Sanders",
+    "Helena McMahon",
+    "James Gaffey"
+  ],
+  "publication_year": 2021,
+  "journal": "Clean Technologies",
+  "volume_issue_pages": "3(3), 656-669",
+  "retrieval_date": "2026-11-07",
+  "license": "Creative Commons Attribution 4.0 International (CC BY 4.0); article is marked open access, and MDPI's current rights page states articles use CC BY 4.0 unless an exception is stated.",
+  "geography": "West Cork, Ireland",
+  "source_material": "Fresh perennial ryegrass (Lolium perenne) processed by the Grassa BV green-biorefinery process",
+  "process_description": [
+    "Mechanical extrusion produced press cake and green juice.",
+    "The press cake was reported to contain approximately 50-60% of original, primarily insoluble protein; the remaining approximate 40-50% was pressed into green juice.",
+    "Protein in green juice was heat-coagulated in heat exchangers and separated by vacuum filtration.",
+    "The concentrate used in the feed trial was dried by belt dryer to approximately 90% dry matter."
+  ],
+  "dataset_file": "perennial_ryegrass_green_protein_concentrate_quality_ravindran_2021_reference.csv",
+  "row_count": 15,
+  "data_handling": "Reported product percentages, range values, qualitative starch statement, approximate dry-matter endpoint, gross energy, and approximate process protein partition were transcribed without unit conversion or midpoint imputation. Table 6 states that figures are g per 100 g of feed; Results 3.1 does not make the moisture basis of proximate values explicit. Table 4 amino-acid values were not transcribed because the table's denominator was not unambiguously established from the available source text. The two approximate protein-partition ranges are separate prose statements and are not forced into a closed mass balance.",
+  "evidence_class": "B_measured_literature_reference",
+  "quality_class": "B",
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "runtime_parameter_mapping": [],
+  "limitations": [
+    "Feedstock is cultivated perennial ryegrass, not Dutch roadside grass.",
+    "Grassa process details are proprietary; the source gives no complete stream masses or component balance.",
+    "The basis of the proximate-analysis percentages in Results 3.1 and gross-energy value is not specified there; do not convert them to dry-matter basis.",
+    "No replicate-level data, standard deviations, detection limit for starch, acid demand, dryer operating temperatures, dryer energy, or powder particle-size distribution are reported in this extract.",
+    "The approximately 50-60% and 40-50% protein partition figures are textual process estimates, not validated GreenHub recovery fractions; do not combine them as exact paired fractions.",
+    "No product grade, regulatory approval, sale price, or GreenHub route product specification is established."
+  ],
+  "suggested_use": "Phase 4 reference-only comparator for grass-protein product composition, approximate product dry matter, and process boundary. Not a GreenHub default, mass-balance closure, dryer energy input, protein-recovery factor, or market-price basis."
+}

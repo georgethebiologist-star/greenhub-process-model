@@ -4,7 +4,7 @@
   "description": "Quality of cited source evidence and of the GreenHub screening value are recorded separately. A literature/market source does not make a derived analogue price directly applicable to GreenHub product grade.",
   "benchmarks": {
     "Protein product": {
-      "quality_class": "B",
+      "quality_class": "C",
       "source_quality_class": "B",
       "source_id": "SRC-WUR-PROTEIN-PRICE",
       "source_title": "WUR protein product price table",
@@ -103,7 +103,7 @@
       "uncertainty": "No standalone market price."
     },
     "Biomethane (user all-in direct basis)": {
-      "quality_class": "C",
+      "quality_class": "E",
       "source_quality_class": "E",
       "source_id": "USER-GAS-GO-SCREEN-2026",
       "source_title": "User-provided TTF gas plus Guarantees of Origin screening range",
@@ -127,7 +127,7 @@
   },
   "ui_default_prices": {
     "dry_protein_product": {
-      "quality_class": "B",
+      "quality_class": "C",
       "source_quality_class": "B",
       "basis": "WUR feed-protein analogues; selected €1.60/kg screening point is not a grass-protein quote.",
       "source_title": "WUR protein product price table",
@@ -143,7 +143,7 @@
       "uncertainty": "User range €1.50–€3.50/L; no probability distribution."
     },
     "biomethane": {
-      "quality_class": "C",
+      "quality_class": "E",
       "source_quality_class": "E",
       "basis": "User-provided €0.88/m³ all-in gas plus GO screening value; source is not the ACER EUR/MWh benchmark.",
       "source_title": "User-provided TTF/GO benchmark table",

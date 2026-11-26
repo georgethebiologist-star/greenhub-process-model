@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0.0",
+  "catalog_id": "greenhub:technology-families:1",
+  "identifier_status": "Stable repository-local identifiers; no DOI or public persistent resolver has been registered.",
+  "compatibility_policy": "Display names and family identifiers are additive metadata. Historical phase numbers, process-area IDs, scenario IDs, workbook sheets, and API request fields remain unchanged.",
+  "families": [
+    {
+      "family_id": "pretreatment_fractionation",
+      "display_name": "Pretreatment and fractionation",
+      "sequence": 3,
+      "legacy_phase": "Phase 3",
+      "parent_family_id": null,
+      "legacy_process_area_ids": ["feed_preparation_and_primary_separation"],
+      "scenario_id_prefixes": ["F"],
+      "technology_subfamilies": ["feedstock cleaning", "size reduction", "mechanical pressing", "solid-liquid separation", "thermal conditioning", "hydrothermal carbonization", "alkaline extraction", "subcritical-water extraction", "enzymatic conditioning", "pulsed-electric-field conditioning"],
+      "context_scope": "Technology performance is feedstock-, configuration-, and operating-condition-specific. Feed composition and contaminant assays are material- and site-specific.",
+      "activation_note": "Use only route choices already active in the selected GreenHub configuration; staged hydrothermal, PEF, and thermal/enzymatic evidence does not activate those routes."
+    },
+    {
+      "family_id": "protein_recovery",
+      "display_name": "Protein recovery",
+      "sequence": 4,
+      "legacy_phase": "Phase 4",
+      "parent_family_id": null,
+      "legacy_process_area_ids": ["protein_recovery"],
+      "scenario_id_prefixes": ["PR"],
+      "technology_subfamilies": ["isoelectric precipitation", "thermal coagulation", "acid and heat precipitation", "lactic-acid fermentation and biological acidification", "trichloroacetic-acid precipitation (laboratory evidence only)", "alkaline protein extraction", "subcritical-water extraction", "fermentation", "membrane concentration", "centrifugation", "drying", "lyophilization (laboratory evidence only)"],
+      "context_scope": "Recovery yield, reagent demand, quality, fouling, and drying response depend on feedstock, juice composition, and the specific operating envelope.",
+      "activation_note": "PR scenario IDs and existing data gates remain authoritative; staged routes remain inactive until their gates pass."
+    },
+    {
+      "family_id": "anaerobic_digestion",
+      "display_name": "Anaerobic digestion",
+      "sequence": 5,
+      "legacy_phase": "Phase 5",
+      "parent_family_id": null,
+      "legacy_process_area_ids": ["anaerobic_digestion"],
+      "scenario_id_prefixes": ["AD"],
+      "technology_subfamilies": ["biochemical methane potential testing", "interlaboratory BMP assay quality and reproducibility", "single-stage CSTR", "two-stage digestion", "high-rate digestion", "digestate handling"],
+      "context_scope": "Kinetics and methane yields are substrate-, inoculum-, temperature-, loading-, and residence-time-specific. Stoichiometry and balance methods may be shared where definitions and units match.",
+      "activation_note": "Do not transfer a substrate-calibrated kinetic coefficient to another waste stream without validation."
+    },
+    {
+      "family_id": "biogas_upgrading",
+      "display_name": "Biogas upgrading",
+      "sequence": 6,
+      "legacy_phase": "Phase 6",
+      "parent_family_id": "anaerobic_digestion",
+      "legacy_process_area_ids": ["biogas_conditioning_and_upgrading"],
+      "scenario_id_prefixes": ["BG"],
+      "technology_subfamilies": ["gas conditioning", "water scrubbing", "membrane separation", "pressure-swing adsorption", "amine absorption", "carbonate absorption-desorption"],
+      "context_scope": "Vendor envelopes and separation equations are technology-specific; methane recovery, slip, utility use, and consumables depend on inlet gas composition, scale, and operating conditions.",
+      "activation_note": "This is a child technology family in the digestion-to-biomethane route; existing BG IDs and gates remain unchanged."
+    },
+    {
+      "family_id": "npk_recovery",
+      "display_name": "NPK recovery",
+      "sequence": 7,
+      "legacy_phase": "Phase 7",
+      "parent_family_id": null,
+      "legacy_process_area_ids": ["digestate_treatment_and_nutrient_recovery"],
+      "scenario_id_prefixes": ["NR"],
+      "technology_subfamilies": ["solid-liquid separation", "struvite precipitation", "ammonia stripping and capture", "calcium-phosphate precipitation", "ion exchange", "potassium and water concentration"],
+      "context_scope": "Nutrient speciation, recovery, product grade, chemical demand, contaminants, and fertilizer substitution depend on digestate composition and local product requirements.",
+      "activation_note": "Existing NR IDs and evidence gates remain unchanged; recovery is not equivalent to saleable-product or fertilizer-substitution evidence."
+    },
+    {
+      "family_id": "crosscutting_separation",
+      "display_name": "Cross-cutting separation equipment",
+      "sequence": 0,
+      "legacy_phase": "Cross-cutting",
+      "parent_family_id": null,
+      "legacy_process_area_ids": ["feed_preparation_and_primary_separation", "digestate_treatment_and_nutrient_recovery"],
+      "scenario_id_prefixes": [],
+      "technology_subfamilies": ["centrifugation", "solid-liquid separation"],
+      "context_scope": "Equipment capacity and separation performance depend on the slurry, particle distribution, and vendor configuration; equipment models can be reused only after those inputs are checked.",
+      "activation_note": "A cross-cutting family; it does not create a new process route or scenario ID."
+    },
+    {
+      "family_id": "crosscutting_utilities",
+      "display_name": "Cross-cutting utilities and support",
+      "sequence": 0,
+      "legacy_phase": "Cross-cutting",
+      "parent_family_id": null,
+      "legacy_process_area_ids": ["shared_utilities_and_supporting_operations"],
+      "scenario_id_prefixes": [],
+      "technology_subfamilies": ["heat and power supply", "pumping", "cleaning utilities", "CHP and energy recovery"],
+      "context_scope": "Equipment-specific duties may transfer within validated envelopes; tariffs, grid factors, ambient conditions, and operating schedules are site- and project-specific.",
+      "activation_note": "Utility datasets remain separately identified from process chemistry and product recovery."
+    }
+  ]
+}

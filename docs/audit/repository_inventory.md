@@ -2,6 +2,10 @@
 
 Audit date: 2026-07-29
 
+> Historical baseline: counts, branch state, and scope describe the repository on this
+> date and are not a current inventory. See the [current architecture](../architecture.md)
+> and [pre-release status](../PRE_RELEASE_STATUS.md) for the handover state.
+
 ## Scope And Instructions
 
 The active scientific scope is `Greenhub/`, `tests/`, `docs/`, repository-root

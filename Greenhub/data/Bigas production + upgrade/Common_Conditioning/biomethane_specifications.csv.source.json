@@ -1,0 +1,38 @@
+{
+  "dataset_id": "urn:greenhub:dataset:common-conditioning:biomethane-specifications:v2",
+  "dataset_version": "2.0.0",
+  "dataset_file": "biomethane_specifications.csv",
+  "record_count": 58,
+  "sha256": "50cda1f4aa35b4953806cc0b3c11affa0704481b8968d9fb5da301528557d349",
+  "retrieval_date": "2026-11-08",
+  "access_protocol": "UTF-8 CSV and HTTPS references",
+  "source_ids": [
+    "SRC001",
+    "SRC002",
+    "SRC-NL-ENERGIEREGELING-G-QUALITY-2026"
+  ],
+  "new_source": {
+    "title": "Energieregeling, Annex 1, Part B: G-gas at injection into a connection or system coupling",
+    "stable_identifier": "Staatscourant 2025, 37730",
+    "url": "https://zoek.officielebekendmakingen.nl/stcrt-2025-37730.html",
+    "effective_date": "2026-01-01",
+    "source_location": "Annex 1 Part B and footnotes 1–6"
+  },
+  "evidence_class": "mixed historical literature and official statutory requirements; see row-level source metadata",
+  "license_or_rights": "Government publication link; reuse governed by the source publication terms and applicable Dutch open-government rules. No CC license is asserted for the aggregated dataset.",
+  "processing": "Direct transcription of legal requirements; split ranges into bounds. Preserved original units and country, network category, conditions and footnote applicability. No methane minimum was inferred.",
+  "runtime_policy": "Reference-only. Not linked to parameter registry, runtime defaults, upgrading performance or product-price qualification.",
+  "limitations": [
+    "The Dutch G-gas table is not an operator acceptance for the project connection.",
+    "No single minimum methane fraction is stated in Annex 1 Part B.",
+    "Pressure, standard-volume convention, exact injection point, exceptions and off-taker acceptance must be confirmed for the intended project.",
+    "The conditional CO2 equation is registered but is blocked from runtime use until required typed inputs and exception applicability are resolved.",
+    "Historical comparison records from 2009 and Danish 2020 remain intact and must not be merged with the 2026 Dutch requirements."
+  ],
+  "fair_metadata": {
+    "findable": "Stable local URN, source ID, official gazette identifier and HTTPS URL.",
+    "accessible": "Machine-readable CSV and JSON sidecar; source accessible via HTTPS.",
+    "interoperable": "Country, specification year, statutory network category, values, units, exact legal locations and status are explicit.",
+    "reusable": "Source history preserved; conditionality, unresolved project inputs, runtime exclusion and rights limitations are stated."
+  }
+}

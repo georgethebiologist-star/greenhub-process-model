@@ -1,4 +1,4 @@
-﻿filename,row_count,encoding,delimiter,integration_status
+filename,row_count,encoding,delimiter,integration_status,notes
 digester_geometry_and_sizing.csv,4,UTF-8 with BOM,",",ready_with_documented_gaps
 digester_operating_windows.csv,13,UTF-8 with BOM,",",ready_with_documented_gaps
 digester_mixing_power.csv,6,UTF-8 with BOM,",",ready_with_documented_gaps
@@ -8,5 +8,10 @@ digester_startup_and_stability.csv,9,UTF-8 with BOM,",",ready_with_documented_ga
 digester_equipment_costs.csv,19,UTF-8 with BOM,",",ready_with_documented_gaps
 digester_scenario_controller.csv,4,UTF-8 with BOM,",",ready_with_documented_gaps
 digester_engineering_equations.csv,11,UTF-8 with BOM,",",ready_with_documented_gaps
-source_register.csv,10,UTF-8 with BOM,",",ready_with_documented_gaps
+source_register.csv,11,UTF-8 with BOM,",",ready_with_documented_gaps
 assumption_and_missing_data_register.csv,5,UTF-8 with BOM,",",ready_with_documented_gaps
+brown_juice_reactor_benchmarks.csv,5,UTF-8,",",report_only_literature_benchmark
+green_valleys_brown_juice_characterization_and_pilot_profile_2020_reference.csv,32,UTF-8,",",reference_only_project_measurements
+feng_2021_brown_juice_anaerobic_filter_abstract_reference.csv,2,UTF-8 with BOM,",",reference_only_abstract_measurements_not_runtime_eligible
+guanlao_2019_roadside_grass_thermophilic_ad_reference.csv,118,UTF-8,",",reference_only_D3
+ryegrass_silage_two_phase_maus_2020_process_reference.csv,33,UTF-8,",",reference_only,"Peer-reviewed two-stage ryegrass-silage AD process observations; reference-only, no GreenHub parameter activation"

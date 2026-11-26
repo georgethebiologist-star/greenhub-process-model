@@ -319,7 +319,6 @@ def default_dynamic_complete_proxy_closure_policy(
             _assumption("mea_methane_recovery", 0.995, "fraction", "ASSUMP-MEA-001", "MEA methane recovery is missing from the project dataset"),
             _assumption("mea_product_methane_fraction", 0.99, "fraction", "ASSUMP-MEA-002", "MEA product purity is a scenario closure"),
             _assumption("common_conditioning_electricity", 0.1642, "kWh/m3 raw gas", "GH-LEGACY-P6-COND-ENERGY", "legacy Phase 6 utilities normalized to raw gas flow", source_status="greenhub_legacy_proxy_result", source_file="Greenhub/results/phase6_energy_summary.csv"),
-            _assumption("freeze_drying_electricity", 1.50, "kWh/kg water", "ASSUMP-DRY-FD-001", "no transferable scalar freeze-drying energy exists in the project data"),
         ])
     return DynamicCompleteProxyClosurePolicy(
         policy_id=("complete_proxy_closure_v1" if allow_assumptions else "complete_proxy_datasets_only_v1"),
@@ -648,8 +647,12 @@ def _complete_drying(protein: object, config: DynamicCompleteProxyConfig, policy
         CompleteProxyStream("evaporated_water", water, {"Water": water}, {}, "complete_proxy_dryer", "utility_or_condensation", "dynamic_process_calculation"),
     )
     input_mass = product_mass + water
-    warning = ("Mass-only drying excludes energy; zero reported dryer demand is not a zero-energy claim."
-               if method is DynamicDryingMethod.MASS_ONLY else "dryer energy is a legacy or engineering proxy; no TEA/LCA is activated")
+    if method is DynamicDryingMethod.MASS_ONLY:
+        warning = "Mass-only drying excludes energy; zero reported dryer demand is not a zero-energy claim."
+    elif blockers:
+        warning = "No transferable source-backed scalar dryer energy is available; zero reported demand is not a zero-energy claim."
+    else:
+        warning = "Dryer energy is a legacy or engineering proxy; no TEA/LCA is activated."
     return _unit("complete_proxy_dryer", method.value, input_mass, 0.0, outputs, {"water_removed_kg_hr": water, "heat_demand_mj_hr": heat, "electricity_kwh_hr": electricity, "target_moisture_fraction": config.drying_target_moisture_fraction, "protein_preserved": True}, evidence, (warning,), blockers)
 
 

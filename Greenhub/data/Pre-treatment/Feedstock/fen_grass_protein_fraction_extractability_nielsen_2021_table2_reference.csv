@@ -1,0 +1,11 @@
+observation_id,source_id,source_table,measurement_year,geography,species,harvest_cuts,annual_neutral_extractable_b1_b2_mean_g_kg_dm,annual_neutral_extractable_b1_b2_sd_g_kg_dm,annual_neutral_extractable_b1_b2_share_total_cp_percent,annual_potentially_extractable_b1_b2_b3_mean_g_kg_dm,annual_potentially_extractable_b1_b2_b3_sd_g_kg_dm,annual_potentially_extractable_b1_b2_b3_share_total_cp_percent,status,source_class,activation_state
+NFP21-T2-RCG-1C,SRC-NIELSEN-2021,2,2019,Vejrumbro Central Jutland Denmark,reed canary grass,1,41,3,38,67,6,63,reported,B,reference_only
+NFP21-T2-TF-1C,SRC-NIELSEN-2021,2,2019,Vejrumbro Central Jutland Denmark,tall fescue,1,48,4,41,76,8,65,reported,B,reference_only
+NFP21-T2-RCG-2C,SRC-NIELSEN-2021,2,2019,Vejrumbro Central Jutland Denmark,reed canary grass,2,101,16,46,152,23,68,reported,B,reference_only
+NFP21-T2-TF-2C,SRC-NIELSEN-2021,2,2019,Vejrumbro Central Jutland Denmark,tall fescue,2,88,23,40,142,32,65,reported,B,reference_only
+NFP21-T2-RCG-3C,SRC-NIELSEN-2021,2,2019,Vejrumbro Central Jutland Denmark,reed canary grass,3,97,12,49,136,17,69,reported,B,reference_only
+NFP21-T2-TF-3C,SRC-NIELSEN-2021,2,2019,Vejrumbro Central Jutland Denmark,tall fescue,3,104,17,49,148,18,70,reported,B,reference_only
+NFP21-T2-RCG-4C,SRC-NIELSEN-2021,2,2019,Vejrumbro Central Jutland Denmark,reed canary grass,4,104,12,47,158,18,72,reported,B,reference_only
+NFP21-T2-TF-4C,SRC-NIELSEN-2021,2,2019,Vejrumbro Central Jutland Denmark,tall fescue,4,107,18,45,163,26,69,reported,B,reference_only
+NFP21-T2-RCG-5C,SRC-NIELSEN-2021,2,2019,Vejrumbro Central Jutland Denmark,reed canary grass,5,117,14,49,173,18,76,reported,B,reference_only
+NFP21-T2-TF-5C,SRC-NIELSEN-2021,2,2019,Vejrumbro Central Jutland Denmark,tall fescue,5,110,10,47,172,15,73,reported,B,reference_only

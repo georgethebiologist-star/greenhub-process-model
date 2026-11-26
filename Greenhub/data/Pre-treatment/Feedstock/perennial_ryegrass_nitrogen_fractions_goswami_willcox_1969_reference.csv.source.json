@@ -1,0 +1,33 @@
+{
+  "dataset_id": "urn:greenhub:dataset:src-goswami-willcox-1969-ryegrass-n-fractions:v1",
+  "source_file": "perennial_ryegrass_nitrogen_fractions_goswami_willcox_1969_reference.csv",
+  "title": "Nitrogenous fractions in perennial ryegrass across nitrogen-fertilizer treatments",
+  "source_id": "SRC-GOSWAMI-WILLCOX-1969-RYEGRASS-NF",
+  "authors": ["A. K. Goswami", "J. S. Willcox"],
+  "year": 1969,
+  "journal": "Journal of the Science of Food and Agriculture",
+  "volume": "20",
+  "issue": "10",
+  "pages": "592-595",
+  "doi": "10.1002/jsfa.2740201005",
+  "source_url": "https://doi.org/10.1002/jsfa.2740201005",
+  "transcription_source": "D. Pacheco and G. C. Waghorn (2008), Dietary nitrogen: definitions, digestion, excretion and consequences of excess for grazing ruminants",
+  "transcription_source_url": "https://www.nzgajournal.org.nz/index.php/ProNZGA/article/download/2738/2366/4131",
+  "transcription_source_location": "Table 3, page 110; table caption attributes the data to Goswami and Willcox (1969)",
+  "retrieval_date": "2026-11-10",
+  "geography": "Experimental location not established from the reviewed transcription source",
+  "material": "Perennial ryegrass (Lolium perenne) across four N-application rates, averaged across cuts at vegetative, heading, and flowering stages",
+  "measurement_method": "The CSV transcribes total-N concentration and reported nitrogen-fraction percentages from Table 3 of the 2008 source; underlying 1969 methods were not reviewed from the primary full text.",
+  "evidence_class": "Primary study values located through a secondary table transcription; class B source evidence with an explicit transcription chain",
+  "license": "The CSV contains a limited numeric transcription and provenance. The 2008 article is available at the linked publisher site; source-specific reuse terms should be checked before redistribution.",
+  "record_count": 4,
+  "activation_state": "Reference-only. Not connected to GreenHub runtime parameters; N-basis fractions cannot be converted to molecule masses without further assumptions and a total-N/protein overlap reconciliation.",
+  "readiness_state": "reference_only_not_D4",
+  "limitations": [
+    "The source is fertilized cultivated ryegrass, not Dutch roadside grass or the VARTA project sample.",
+    "The reported values are averages over multiple growth stages and cuts, not stage-specific distributions.",
+    "Reported constituent fractions sum to less than 100 percent in each row; the residual column is arithmetic and is not a measured constituent.",
+    "Fraction values are percentages of total nitrogen, not mass percentages of the corresponding compounds.",
+    "This is a transcription from a 2008 secondary table; the original 1969 full text was not independently inspected."
+  ]
+}

@@ -20,6 +20,10 @@ def test_decision_support_openapi_documents_additive_analysis_inputs():
     feed_composition=openapi_schema()["components"]["schemas"]["SimulationRequest"]["properties"]["feed_composition"]
     assert feed_composition["additionalProperties"]["maximum"]==1.1
     assert "0.90 to 1.10" in feed_composition["description"]
+    biomass_schedule = openapi_schema()["components"]["schemas"]["SimulationRequest"]["$defs"]["biomass_schedule"]["properties"]
+    assert biomass_schedule["monthly_availability_tonnes"]["minItems"] == 12
+    assert biomass_schedule["availability_source_id"]
+    assert biomass_schedule["harvest_events"]["items"]["required"] == ["date", "available_biomass_tonnes"]
 
 
 def test_resolved_parameter_quality_metadata_is_optional_and_documented():
@@ -83,7 +87,7 @@ def test_default_api_reads_saved_pareto_job_from_legacy_results_root(tmp_path, m
 def test_latest_pareto_api_exposes_grass_bonus_metadata_and_selected_scenarios(tmp_path, monkeypatch):
     from Greenhub import settings
     monkeypatch.setattr(settings, "RESULTS_DIR", tmp_path / "results")
-    result_dir = settings.RESULTS_DIR / "pareto_rvo_2026"
+    result_dir = settings.RESULTS_DIR / "pareto_positive_200_2026"
     result_dir.mkdir(parents=True)
     metadata = {
         "schema_version": "greenhub-rvo-pareto-1.0",
@@ -95,7 +99,8 @@ def test_latest_pareto_api_exposes_grass_bonus_metadata_and_selected_scenarios(t
             "samples": [{"sample_id": "large row payload must stay filtered"}],
         }},
     }
-    (result_dir / "latest.json").write_text(json.dumps(metadata), encoding="utf-8")
+    from Greenhub.pareto_reporting import pareto_ui_projection
+    (result_dir / "latest_ui.json").write_text(json.dumps(pareto_ui_projection(metadata)), encoding="utf-8")
 
     status, response = invoke(create_app(tmp_path), "GET", "/api/v1/decision-support/pareto/latest")
 
@@ -108,7 +113,7 @@ def test_latest_pareto_api_exposes_grass_bonus_metadata_and_selected_scenarios(t
 def test_latest_pareto_api_prefers_compact_generated_projection(tmp_path, monkeypatch):
     from Greenhub import settings
     monkeypatch.setattr(settings, "RESULTS_DIR", tmp_path / "results")
-    result_dir = settings.RESULTS_DIR / "pareto_rvo_2026"
+    result_dir = settings.RESULTS_DIR / "pareto_positive_200_2026"
     result_dir.mkdir(parents=True)
     full = {"schema_version": "full", "groups_payload": {"large": {"samples": [{"large": "ledger"}]}}}
     compact = {"schema_version": "compact", "groups_payload": {"small": {"selected_candidates": {"x": [{"sample_id": "S-1"}]}}}}
@@ -119,6 +124,129 @@ def test_latest_pareto_api_prefers_compact_generated_projection(tmp_path, monkey
 
     assert status == 200
     assert response == compact
+
+
+def test_latest_pareto_api_prefers_positive_200_and_preserves_legacy(tmp_path, monkeypatch):
+    from Greenhub import settings
+    monkeypatch.setattr(settings, 'RESULTS_DIR', tmp_path / 'results')
+    old_dir = settings.RESULTS_DIR / 'pareto_rvo_2026'
+    new_dir = settings.RESULTS_DIR / 'pareto_positive_200_2026'
+    old_dir.mkdir(parents=True)
+    new_dir.mkdir(parents=True)
+    old = {'schema_version': 'old-edited'}
+    new = {'schema_version': 'positive-200-designs', 'groups_payload': {}}
+    (old_dir / 'latest_ui.json').write_text(json.dumps(old), encoding='utf-8')
+    (new_dir / 'latest_ui.json').write_text(json.dumps(new), encoding='utf-8')
+
+    status, response = invoke(create_app(tmp_path), 'GET', '/api/v1/decision-support/pareto/latest')
+
+    assert status == 200
+    assert response == new
+    assert json.loads((old_dir / 'latest_ui.json').read_text(encoding='utf-8')) == old
+
+
+@pytest.mark.parametrize(
+    ("group_name", "support_case", "protein_recovery", "sample_id"),
+    [
+        ("protein_bypass", "C60-GB50", "PR0", "positive200-protein_bypass-000-19000-C60-GB50"),
+        ("protein_enabled", "C60-GB50", "PR2", "positive200-protein_enabled-002-22000-C60-GB50"),
+        ("protein_enabled", "C60-GB50", "PR3", "positive200-protein_enabled-000-18000-C60-GB50"),
+    ],
+)
+def test_saved_seasonal_pareto_candidate_replays_through_http_api(
+    tmp_path, group_name, support_case, protein_recovery, sample_id
+):
+    """The website's candidate-evaluation endpoint must reproduce its saved point."""
+    from pathlib import Path
+
+    result_path = (
+        Path(__file__).resolve().parents[1]
+        / "Greenhub"
+        / "results"
+        / "pareto_positive_200_2026"
+        / "latest_ui.json"
+    )
+    published = json.loads(result_path.read_text(encoding="utf-8"))
+    group_payload = published["groups_payload"][group_name]
+    candidates = list(group_payload["scenario_catalog"])
+    candidates.extend(
+        row
+        for rows in group_payload.get("selected_candidates", {}).values()
+        for row in rows
+    )
+    candidates = list({row["sample_id"]: row for row in candidates}.values())
+    candidate = next(
+        row for row in candidates if row["sample_id"] == sample_id
+    ) if sample_id is not None else next(
+        row for row in candidates
+        if row["support_case"] == support_case
+        and row["configuration"]["simulation"]["scenarios"]["protein_recovery"] == protein_recovery
+    )
+    assert candidate["values"]["npv"] > 0
+    configuration = candidate["configuration"]
+    simulation_request = configuration["simulation"]
+    assert simulation_request["biomass_schedule"]["monthly_availability_tonnes"]
+    assert simulation_request["scenarios"]["protein_recovery"] == protein_recovery
+
+    status, replay = invoke(
+        create_app(tmp_path),
+        "POST",
+        "/api/v1/decision-support/evaluate",
+        {"configuration": configuration},
+    )
+
+    assert status == 200
+    assert replay["configuration"]["simulation"]["scenarios"] == simulation_request["scenarios"]
+    for key in (
+        "annual_revenue_eur",
+        "annual_opex_eur",
+        "high_direct_capex_eur",
+        "total_public_support_pv_eur",
+        "proxy_npv_eur",
+    ):
+        assert replay["tea"]["totals"][key] == pytest.approx(candidate["tea_totals"][key], rel=1e-10, abs=0.01)
+    for key in ("climate_kg_co2e_per_year", "kg_co2e_per_tonne_wet_feed"):
+        assert replay["lca"]["totals"][key] == pytest.approx(candidate["lca_totals"][key], rel=1e-10, abs=0.01)
+    for key in ("net_carbon", "npv", "subsidy_granted", "climate"):
+        assert replay["objectives"][key]["value"] == pytest.approx(candidate["values"][key], rel=1e-10, abs=0.01)
+
+    expected_months = candidate["seasonal_feed_profile"]
+    replay_schedule = replay["annual"]["biomass_schedule"]
+    assert replay_schedule["annual_available_tonnes"] == pytest.approx(
+        simulation_request["biomass_schedule"]["annual_available_biomass_tonnes"], rel=1e-10, abs=0.01
+    )
+    assert replay_schedule["annual_processed_tonnes"] == pytest.approx(
+        candidate["actual_feed_processed_tonnes"], rel=1e-10, abs=0.01
+    )
+    for aggregate, field in (
+        ("annual_collected_tonnes", "collected_at_harvest_tonnes"),
+        ("annual_uncollected_tonnes", "uncollected_biomass_tonnes"),
+    ):
+        assert replay_schedule[aggregate] == pytest.approx(
+            sum(float(row[field]) for row in expected_months), rel=1e-10, abs=0.01
+        )
+    assert replay_schedule["ending_inventory_tonnes"] == pytest.approx(
+        candidate["ending_inventory_tonnes"], rel=1e-10, abs=0.01
+    )
+    assert len(replay_schedule["monthly"]) == len(expected_months) >= 12
+    for expected, actual in zip(expected_months, replay_schedule["monthly"]):
+        assert actual["time_label"] == expected["time_label"]
+        for key in (
+            "available_biomass_tonnes",
+            "collected_at_harvest_tonnes",
+            "collected_for_processing_tonnes",
+            "collection_delay_harvest_tonnes",
+            "collection_delay_release_tonnes",
+            "collection_delay_inventory_entering_tonnes",
+            "collection_delay_inventory_remaining_tonnes",
+            "collection_delay_inventory_peak_tonnes",
+            "collection_delay_inventory_mass_residual_tonnes",
+            "processed_biomass_tonnes",
+            "uncollected_biomass_tonnes",
+            "ending_inventory_tonnes",
+            "storage_mass_residual_tonnes",
+        ):
+            assert actual[key] == pytest.approx(expected[key], rel=1e-10, abs=0.01)
 
 
 def test_stale_simulation_artifacts_are_not_served_after_restart(tmp_path):
@@ -283,7 +411,7 @@ def test_simulation_request_errors_are_structured_and_do_not_leak(payload, expec
     assert response["error"]["code"] == expected_code
     rendered = json.dumps(response, allow_nan=False)
     assert "Traceback" not in rendered
-    assert not re.search(r"[A-Za-z]:[\\/]", rendered)
+    assert not re.search(r"(?<![A-Za-z])[A-Za-z]:[\\/]", rendered)
 
 
 def test_simulation_and_result_endpoints_return_json_safe_service_results(tmp_path):
@@ -292,8 +420,11 @@ def test_simulation_and_result_endpoints_return_json_safe_service_results(tmp_pa
     assert status == 201
     assert result["status"] == "completed"
     assert result["validation"]["passed"] is True
-    assert result["summary_kpis"]["boundary_inlet_mass"]["value"] == pytest.approx(409.9083178971942)
-    assert result["summary_kpis"]["boundary_outlet_mass"]["value"] == pytest.approx(409.9083179012139)
+    # These totals correspond to the current canonical feed composition. The
+    # previous values (409.9083178971942 / 409.9083179012139 kg/h) are
+    # reproduced exactly when the committed pre-update feed profile is supplied.
+    assert result["summary_kpis"]["boundary_inlet_mass"]["value"] == pytest.approx(402.0792079882833)
+    assert result["summary_kpis"]["boundary_outlet_mass"]["value"] == pytest.approx(402.07920799222285)
     run_id = result["run_id"]
 
     for resource in (
@@ -304,7 +435,7 @@ def test_simulation_and_result_endpoints_return_json_safe_service_results(tmp_pa
         endpoint_status, response = invoke(app, "GET", f"/api/v1/simulations/{run_id}/{resource}")
         assert endpoint_status == 200, resource
         rendered = json.dumps(response, allow_nan=False)
-        assert not re.search(r"[A-Za-z]:[\\/]", rendered), resource
+        assert not re.search(r"(?<![A-Za-z])[A-Za-z]:[\\/]", rendered), resource
 
     plot_id = result["plots"][0]["plot_id"]
     plot_status, plot = invoke(app, "GET", f"/api/v1/simulations/{run_id}/plots/{plot_id}")
@@ -355,6 +486,7 @@ def test_empirical_annual_reporting_exposes_shared_schedule_and_chart_contract(t
             "feed_kg_per_hr": 10000,
             "season_start": "2026-04-15",
             "season_end": "2026-11-15",
+            "processing_delay_days": 14,
             "peak_date": "2026-07-31",
             "spread_days": 55,
             "active_months": list(range(1, 13)),
@@ -370,7 +502,32 @@ def test_empirical_annual_reporting_exposes_shared_schedule_and_chart_contract(t
     assert schedule["annual_available_tonnes"] == pytest.approx(30000)
     assert schedule["annual_processed_tonnes"] == pytest.approx(result['seasonal_summary']['total_biomass_processed_kg']/1000)
     assert sum(r['planned_processed_biomass_tonnes'] for r in schedule['monthly']) == pytest.approx(30000)
+    assert schedule["annual_collected_tonnes"] == pytest.approx(30000)
+    assert schedule["annual_collected_for_processing_tonnes"] == pytest.approx(30000)
+    assert schedule["annual_uncollected_tonnes"] == pytest.approx(0, abs=1e-6)
+    assert schedule["annual_unused_tonnes"] == pytest.approx(
+        schedule["annual_supply_minus_actual_processing_tonnes"]
+    )
+    assert all(r["utilization_basis"] == "collected_at_harvest / available_biomass" for r in schedule["monthly"])
     assert schedule['ending_inventory_tonnes'] == pytest.approx(result['seasonal_summary']['final_inventory_kg']/1000)
+    assert schedule['collection_delay_inventory_peak_tonnes'] > 0.0
+    assert schedule['collection_delay_inventory_final_tonnes'] == pytest.approx(0.0, abs=1e-8)
+    assert schedule['collection_delay_inventory_max_abs_mass_residual_tonnes'] == pytest.approx(0.0, abs=1e-8)
+    assert all(abs(row['collection_delay_inventory_mass_residual_tonnes']) < 1e-8 for row in schedule['monthly'])
+    processed_ages = [
+        row['processed_feed_storage_age_hours'] for row in schedule['monthly']
+        if row['processed_biomass_tonnes'] > 0.0 and row['processed_feed_storage_age_hours'] is not None
+    ]
+    assert processed_ages
+    assert min(processed_ages) >= 14 * 24
+    assert schedule['annual_operating_hours'] == pytest.approx(sum(
+        row['available_operating_hours'] for row in result['throughput_series']
+    ))
+    assert sum(row['operating_hours'] for row in schedule['monthly']) == pytest.approx(
+        schedule['annual_operating_hours']
+    )
+    assert any(row['operating_hours'] > 0 for row in schedule['monthly'] if row['time_label'] == '2026-11')
+    assert all(abs(row.get('storage_mass_residual_tonnes', 0.0)) < 1e-8 for row in schedule['monthly'])
     assert annual['reporting_status']['validated_simulation_ready'] is False
     assert schedule["policy_id"] == "shared_normal_supply_monthly_cap_v1"
     assert len(schedule["monthly"]) == 12
@@ -386,11 +543,14 @@ def test_empirical_annual_reporting_exposes_shared_schedule_and_chart_contract(t
     assert annual["chart_contract"]["heat"] == "kWh per actual model timestep"
     assert annual["display_utilities"]["electricity"]["unit"] == "MWh/year"
     assert annual["display_utilities"]["heating"]["unit"] == "GJ/year"
+    assert annual["utilities"]["fresh_water"]["value"] > 0
+    assert annual["display_utilities"]["fresh_water"]["unit"] == "m3/year"
+    assert annual["utilities"]["fresh_water_mass"]["value"] > 0
     assert [stage["stage_id"] for stage in annual["process_pathway"]] == [
         "feed", "pretreatment", "protein", "ad", "gas", "nutrients"
     ]
     assert annual["reporting_status"]["model"] == "empirical"
-    assert not re.search(r"[A-Za-z]:[\\/]", json.dumps(annual, allow_nan=False))
+    assert not re.search(r"(?<![A-Za-z])[A-Za-z]:[\\/]", json.dumps(annual, allow_nan=False))
 
 
 def test_parameter_validation_uses_canonical_bounds(tmp_path):
@@ -419,4 +579,4 @@ def test_feedstock_resolution_readiness_endpoint_is_json_safe(tmp_path):
         "markdown": "docs/feedstock_resolution_readiness.md",
     }
     assert response["top_resolvable_fields"]
-    assert not re.search(r"[A-Za-z]:[\\/]", json.dumps(response, allow_nan=False))
+    assert not re.search(r"(?<![A-Za-z])[A-Za-z]:[\\/]", json.dumps(response, allow_nan=False))

@@ -7,7 +7,8 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from scripts.run_rvo_pareto_analysis import ECONOMIC_DEFAULTS, LCA_BASIS, FINANCIAL_BASIS
+from scripts.run_rvo_pareto_analysis import ECONOMIC_DEFAULTS, LCA_BASIS, FINANCIAL_BASIS, _write_group_batch_shards
+from Greenhub.pareto_reporting import load_pareto_results, pareto_ui_projection, publish_pareto_ui_artifacts
 
 OUT = ROOT / "Greenhub" / "results" / "pareto_rvo_2026"
 HEAT = ECONOMIC_DEFAULTS["environment"]["heatKgCo2eKwh"]
@@ -53,7 +54,7 @@ def publish(path: Path, payload: dict) -> None:
 
 def main() -> None:
     manifest_path = OUT / "rvo_pareto_manifest.json"
-    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest = load_pareto_results(OUT)
     manifest["grass_utilization_bonus"] = {
         "label": "Grass utilization/logistics bonus",
         "rates_eur_per_wet_tonne": ECONOMIC_DEFAULTS["grass_utilization_bonus"]["test_levels_eur_per_wet_tonne"],
@@ -80,7 +81,7 @@ def main() -> None:
     for group, batch in manifest["groups_payload"].items():
         visit(batch)
         batch_path = OUT / f"{group}_batch.json"
-        publish(batch_path, batch)
+        _write_group_batch_shards(batch, batch_path)
         manifest["groups"][group].update({
             "sample_count": batch["sample_count"],
             "evaluated_count": batch["evaluated_count"],
@@ -89,8 +90,13 @@ def main() -> None:
             "support_front_counts": {case: len(front.get("points", [])) for case, front in batch["fronts"]["by_support_case"].items()},
         })
     visit(manifest)
-    publish(manifest_path, manifest)
-    publish(OUT / "latest.json", manifest)
+    compact = pareto_ui_projection(manifest)
+    publish(manifest_path, compact)
+    publish(OUT / "latest.json", compact)
+    publish_pareto_ui_artifacts(
+        manifest, OUT / "latest_ui.json",
+        ROOT / "frontend" / "public" / "data" / "greenhub-pareto-latest.json",
+    )
     print("Updated provenance and screening limitations; scientific outputs unchanged.")
 
 

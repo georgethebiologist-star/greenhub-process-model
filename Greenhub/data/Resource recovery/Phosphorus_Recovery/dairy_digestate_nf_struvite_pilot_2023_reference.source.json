@@ -1,0 +1,25 @@
+{
+  "source_id": "TSARIDOU2023",
+  "title": "Nutrients recovery from liquid anaerobic digestate by combining nanofiltration and struvite precipitation - The case of dairy effluents valorization",
+  "authors": ["Charikleia Tsaridou", "Anthoula Karanasiou", "Dimitris Sioutopoulos", "Konstantinos Plakas", "Christos Tzioumaklis", "Nikos Patsikas", "Pantelis Gliaos", "Anastasios Karabelas"],
+  "publication_year": 2023,
+  "doi": "10.30955/gnc2023.00314",
+  "url": "https://doi.org/10.30955/gnc2023.00314",
+  "publisher_page": "https://cosmos.gnest.org/cest2023/p/cest202300314",
+  "source_type": "peer-reviewed conference paper / pilot case report",
+  "geography": "Industrial dairy-processing anaerobic digestion plant; location not specified in abstract",
+  "material_scope": "Liquid digestate from anaerobic digestion of dairy-processing effluents; pilot nanofiltration followed by struvite precipitation",
+  "license": "CC BY 4.0 (publisher page terms)",
+  "evidence_class": "B_measured_or_source_reported",
+  "exact_locations": ["Abstract"],
+  "retrieval_date": "2026-11-06",
+  "data_handling": "Transcribed discrete results stated in the publisher-hosted abstract. Approximate values and process basis are retained as reported; no values inferred from plots or chemistry.",
+  "activation": "reference_only",
+  "limitations": [
+    "Dairy-effluent digestate is not GreenHub grass digestate; nutrient speciation, salts, solids and organics may differ materially.",
+    "The 60% NF permeate recovery does not define membrane flux, pressure, fouling, energy or cleaning demand.",
+    "Approximate retentate concentrations are not feed concentrations and should not be treated as total N or total P.",
+    "The near-optimal N:Mg:P ratio and pH are study conditions, not universal parameter values.",
+    "The precipitate mass is not a purity or saleable-product yield; no complete nutrient/product mass balance is provided in the abstract."
+  ]
+}

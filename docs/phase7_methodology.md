@@ -32,16 +32,14 @@ NR7 adds E741 or M741 and V741. Orders B and C reconnect the same mechanism-base
 
 ### T701 Equalization
 
-T701 is a steady-state homogenization vessel. Working volume equals liquid volumetric flow times residence time. Total volume divides working volume by the working fraction. Mixer electricity is volume times specified power density divided by motor efficiency. Optional measured residual-gas release transfers explicit CH4, CO2, NH3, and H2S without chemical conversion.
-
-Heat loss, settling, storage dynamics, and continuing digestion are not active because supporting data are absent.
-
-### T701 Equalization
-
-The working volume is hydraulic flow times residence time. A configurable cylindrical
-height-to-diameter ratio gives the reported dimensions. The reported class-E heat loss
-uses the workbook U-value, exposed tank area, and positive feed-to-ambient temperature
-difference; it is a design estimate, not a dynamic tank-temperature prediction.
+T701 is a steady-state homogenization vessel. Working volume equals liquid volumetric
+flow times residence time; total volume divides working volume by the working fraction.
+A configurable cylindrical height-to-diameter ratio determines the reported dimensions.
+Mixer electricity is volume times specified power density divided by motor efficiency.
+The class-E heat-loss estimate uses the workbook U-value, exposed tank area, and positive
+feed-to-ambient temperature difference. It is not a dynamic tank-temperature prediction.
+Optional measured residual-gas release transfers explicit CH4, CO2, NH3, and H2S without
+chemical conversion. Settling, storage dynamics, and continuing digestion are not modelled.
 
 ### S701 Solid-Liquid Separation
 

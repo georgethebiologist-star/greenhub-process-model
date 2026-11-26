@@ -1,0 +1,46 @@
+{
+  "dataset_id": "urn:greenhub:dataset:storage:muhandiram-cultivated-grass-ensiling-2023:v1",
+  "persistent_identifier_status": "Repository-local URN identifies this transcription; DOI identifies the source article, not this derivative dataset.",
+  "dataset_version": "1.0.0",
+  "title": "Cultivated ryegrass and Festulolium ensiling composition/proteolysis time series",
+  "source_ids": [
+    "SRC-MUHANDIRAM-GRASS-ENSILING-2023-REFERENCE"
+  ],
+  "citation": "Muhandiram, N. P. K. et al. (2023). Designing agricultural grasses to help mitigate proteolysis during ensiling to optimize protein feed provisions for livestock. Food and Energy Security, 12(4), e475. https://doi.org/10.1002/fes3.475",
+  "doi": "10.1002/fes3.475",
+  "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10909542/",
+  "retrieval_date": "2026-11-08",
+  "source_locations": [
+    "Table 1: fresh forage before wilting",
+    "Table 2: Cut 2 time course",
+    "Table 3: Cut 4 time course",
+    "Methods sections 2.1–2.4"
+  ],
+  "reference_year": 2023,
+  "experiment_year": 2016,
+  "geography": "Aberystwyth, Wales, United Kingdom",
+  "material_scope": "Cultivated perennial ryegrass cv AberMagic and Festulolium cv Lp × Fg; two harvest cuts; wilted and ensiled in laboratory tube silos.",
+  "experimental_conditions": "Harvested 31 May 2016 and 9 August 2016; wilted 24 h; Lactobacillus plantarum inoculated; target chop length 30 mm; 100 g per 160 mL tube; dark storage at 21 C; triplicate silos opened destructively at 0 h, 9 h, 1 d, 2 d, 3 d, 14 d, and 90 d.",
+  "license": "Creative Commons Attribution 4.0 International (CC BY 4.0), stated on the open-access article.",
+  "evidence_class": "B_measured",
+  "quality_class": "B",
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "row_count": 264,
+  "sha256_csv": "3a98bc6b574a3608df8e9f2d073faac4d2ba8dee601c20a159fe57489afce6d0",
+  "transcription_policy": "Tables 1–3 values, units, marginal means, SEM, p-values and significance annotations transcribed without conversion. Reported time labels are retained and converted to elapsed hours using 1 d = 24 h only for machine-readable sorting. No kinetic fit, retention calculation, or interpolated time point is added.",
+  "fair_metadata": {
+    "findable": "Repository-local URN, article DOI, title, authors, year, source tables and registers are provided.",
+    "accessible": "UTF-8 CSV and JSON metadata sidecar in the repository; source is open access.",
+    "interoperable": "Long-form rows include material, cut, cultivar, time, metric, value, unit, basis, statistics and table locator.",
+    "reusable": "CC BY 4.0, extraction/transcription approach, cultivar, geography, laboratory settings, assay summary, and transfer limits are recorded."
+  },
+  "limitations": [
+    "Cultivated UK ryegrass/Festulolium is not Dutch roadside/VARTA biomass; no direct GreenHub calibration is claimed.",
+    "Silo concentrations and pH do not identify fresh-matter loss, effluent, emissions, or retained component mass.",
+    "No raw replicate-level observations are supplied in the paper; the extract contains reported means and pooled factorial statistics only.",
+    "The two harvest cuts have strongly different material DM; comparisons must retain the cut and cultivar context.",
+    "The source used a silage inoculant and laboratory tube silos at 21 C; these are not necessarily GreenHub storage conditions.",
+    "No data have been used to replace a runtime kinetic parameter or alter model outputs."
+  ]
+}

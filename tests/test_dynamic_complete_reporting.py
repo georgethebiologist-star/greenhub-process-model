@@ -6,6 +6,7 @@ import pytest
 from Greenhub.application.dynamic_complete_scenario import DynamicCompleteScenario, build_biomass_schedule
 from Greenhub.application.biomass_schedule import build_empirical_biomass_schedule
 from Greenhub.application.contracts import BiomassSchedule
+from Greenhub.application.contracts import SimulationRequest
 from Greenhub.application.dynamic_complete_reporting_service import (
     METRIC_KINDS, aggregate_rates, build_scenario_summary, default_summary, summarize_biosteam_grid,
 )
@@ -62,6 +63,12 @@ def test_empirical_annual_schedule_uses_the_same_distribution_and_cap_policy():
     empirical = build_empirical_biomass_schedule(BiomassSchedule())
     assert empirical["annual_available_tonnes"] == pytest.approx(30000)
     assert empirical["annual_processed_tonnes"] == pytest.approx(30000)
+    standing_reference = empirical['availability_basis']['published_dutch_standing_biomass_reference']
+    assert standing_reference['status'] == 'literature_reference_not_used_as_supply'
+    assert standing_reference['quality_class'] == 'B'
+    assert standing_reference['site_count'] == 10
+    assert standing_reference['mean_t_dm_per_ha'] == pytest.approx(3.4620733334, abs=1e-9)
+    assert 'Do not substitute' in standing_reference['warning']
     assert [row["available_biomass_tonnes"] for row in empirical["monthly"]] == pytest.approx(
         [row["available_biomass_tonnes"] for row in dynamic["monthly"]]
     )
@@ -72,6 +79,50 @@ def test_empirical_annual_schedule_uses_the_same_distribution_and_cap_policy():
     assert midsummer == pytest.approx([midsummer[0]] * 3)
     assert capped["annual_unused_tonnes"] == pytest.approx(15000)
     assert empirical["policy_id"] == "shared_normal_supply_monthly_cap_v1"
+
+
+def test_source_monthly_supply_preserves_published_season_totals_and_daily_mass():
+    from Greenhub.application.biomass_schedule import schedule_feed_rows
+
+    profile = [0.0] * 12
+    for month, days in ((6, 30), (7, 31), (8, 31)):
+        profile[month - 1] = 25300.0 * days / 92.0
+    for month, days in ((9, 30), (10, 31), (11, 15)):
+        profile[month - 1] = 17000.0 * days / 76.0
+    config = BiomassSchedule(
+        annual_available_biomass_tonnes=42300,
+        annual_processed_biomass_tonnes=42300,
+        feed_kg_per_hr=100000,
+        season_start="2026-06-01", season_end="2026-11-15",
+        peak_date="2026-07-31", active_months=(6, 7, 8, 9, 10, 11),
+        monthly_availability_tonnes=tuple(profile),
+        availability_evidence_class="B",
+        availability_temporal_profile_quality_class="C",
+    )
+    report = build_empirical_biomass_schedule(config)
+    rows = schedule_feed_rows(config, generate_time_grid("2026-01-01", "2026-12-31", "daily"))
+    assert report["annual_available_tonnes"] == pytest.approx(42300)
+    assert sum(r["available_wet_biomass_kg"] for r in rows) == pytest.approx(42_300_000)
+    assert sum(r["available_wet_biomass_kg"] for r in rows if r["time"][5:7] in {"06", "07", "08"}) == pytest.approx(25_300_000)
+    assert sum(r["available_wet_biomass_kg"] for r in rows if r["time"][5:7] in {"09", "10", "11"}) == pytest.approx(17_000_000)
+    assert sum(r["collected_biomass_kg"] for r in rows) == pytest.approx(42_300_000)
+    assert report["policy_id"] == "source_monthly_supply_with_monthly_cap_v1"
+
+
+def test_monthly_supply_request_round_trip_preserves_profile_and_provenance():
+    profile = [0.0] * 12
+    profile[5] = 100.0
+    request = SimulationRequest.from_dict({
+        "schema_version": "1.0.0", "request_id": "monthly-profile", "project_id": "greenhub",
+        "biomass_schedule": {
+            "annual_available_biomass_tonnes": 100, "annual_processed_biomass_tonnes": 100,
+            "monthly_availability_tonnes": profile,
+            "availability_evidence_class": "B", "availability_temporal_profile_quality_class": "C",
+        },
+    })
+    round_trip = SimulationRequest.from_dict(request.to_dict())
+    assert round_trip.biomass_schedule.monthly_availability_tonnes == tuple(profile)
+    assert round_trip.biomass_schedule.availability_evidence_class == "B"
 
 
 def test_active_months_and_hourly_capacity_do_not_rescale_availability():

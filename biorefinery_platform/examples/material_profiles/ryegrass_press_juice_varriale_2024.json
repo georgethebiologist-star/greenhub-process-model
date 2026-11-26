@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "MATERIAL-PRG-PRESSJUICE-VARRIALE-2024",
+  "project_id": null,
+  "data_scope_class": "technology_and_material_specific",
+  "context_independent": false,
+  "material": {
+    "material_id": "perennial_ryegrass_press_juice_filtered",
+    "display_name": "Filtered perennial ryegrass press-juice",
+    "material_type": "liquid process intermediate",
+    "geography": "Julius Kuehn-Institute, Braunschweig, Germany",
+    "collection_stage": "After mechanical pressing, two centrifugation steps, paper filtration, and 0.2-micrometre sterile filtration",
+    "sampling_time": null,
+    "treatment_history": "Centrifuged twice at 4500 rpm for 20 min; paper-filtered; sterile-filtered at 0.2 micrometre; stored at -20 C before use"
+  },
+  "mass_composition": [],
+  "analytical_properties": [
+    {"property_id":"pH","value":5.3,"unit":"pH","sample_basis":"filtered press-juice","method":"pH meter","status":"literature_value","quality_class":"B","source_ids":["S14_VARRIALE_2024_JUICE"]},
+    {"property_id":"glucose","value":3.7,"unit":"g/L","sample_basis":"filtered press-juice","method":"HPLC with refractive-index detector","status":"literature_value","quality_class":"B","source_ids":["S14_VARRIALE_2024_JUICE"]},
+    {"property_id":"fructose","value":36.4,"unit":"g/L","sample_basis":"filtered press-juice","method":"HPLC with refractive-index detector","status":"literature_value","quality_class":"B","source_ids":["S14_VARRIALE_2024_JUICE"]},
+    {"property_id":"total_sugars","value":40.1,"unit":"g/L","sample_basis":"filtered press-juice","method":"HPLC with refractive-index detector","status":"literature_value","quality_class":"B","source_ids":["S14_VARRIALE_2024_JUICE"],"accounting_note":"Source-reported aggregate; overlaps glucose and fructose."},
+    {"property_id":"total_protein","value":1008,"unit":"mg/L","sample_basis":"filtered press-juice","method":"Bradford assay with BSA standard","status":"literature_value","quality_class":"B","source_ids":["S14_VARRIALE_2024_JUICE"]},
+    {"property_id":"total_amino_acids","value":479.2,"unit":"mg/L","sample_basis":"filtered press-juice after protein precipitation","method":"OPA derivatization HPLC","status":"literature_value","quality_class":"B","source_ids":["S14_VARRIALE_2024_JUICE"]},
+    {"property_id":"sodium","value":0.14,"unit":"g/L","sample_basis":"filtered press-juice","method":"Ion chromatography","status":"literature_value","quality_class":"B","source_ids":["S14_VARRIALE_2024_JUICE"]},
+    {"property_id":"ammonium","value":0.066,"unit":"g/L","sample_basis":"filtered press-juice","method":"Ion chromatography","status":"literature_value","quality_class":"B","source_ids":["S14_VARRIALE_2024_JUICE"]},
+    {"property_id":"potassium","value":6.31,"unit":"g/L","sample_basis":"filtered press-juice","method":"Ion chromatography","status":"literature_value","quality_class":"B","source_ids":["S14_VARRIALE_2024_JUICE"]},
+    {"property_id":"magnesium","value":0.23,"unit":"g/L","sample_basis":"filtered press-juice","method":"Ion chromatography","status":"literature_value","quality_class":"B","source_ids":["S14_VARRIALE_2024_JUICE"]},
+    {"property_id":"calcium","value":0.57,"unit":"g/L","sample_basis":"filtered press-juice","method":"Ion chromatography","status":"literature_value","quality_class":"B","source_ids":["S14_VARRIALE_2024_JUICE"]},
+    {"property_id":"total_cations","value":7.32,"unit":"g/L","sample_basis":"filtered press-juice","method":"Ion chromatography","status":"literature_value","quality_class":"B","source_ids":["S14_VARRIALE_2024_JUICE"],"accounting_note":"Source-reported aggregate; overlaps named cations."},
+    {"property_id":"chloride","value":4.23,"unit":"g/L","sample_basis":"filtered press-juice","method":"Ion chromatography","status":"literature_value","quality_class":"B","source_ids":["S14_VARRIALE_2024_JUICE"]},
+    {"property_id":"nitrite","value":"<0.01","unit":"g/L","sample_basis":"filtered press-juice","method":"Ion chromatography","status":"not_detected","quality_class":"B","detection_limit":"0.01 g/L","source_ids":["S14_VARRIALE_2024_JUICE"]},
+    {"property_id":"nitrate","value":0.03,"unit":"g/L","sample_basis":"filtered press-juice","method":"Ion chromatography","status":"literature_value","quality_class":"B","source_ids":["S14_VARRIALE_2024_JUICE"]},
+    {"property_id":"phosphate","value":2.75,"unit":"g/L","sample_basis":"filtered press-juice","method":"Ion chromatography","status":"literature_value","quality_class":"B","source_ids":["S14_VARRIALE_2024_JUICE"]},
+    {"property_id":"sulfate","value":1.42,"unit":"g/L","sample_basis":"filtered press-juice","method":"Ion chromatography","status":"literature_value","quality_class":"B","source_ids":["S14_VARRIALE_2024_JUICE"]},
+    {"property_id":"total_anions","value":8.43,"unit":"g/L","sample_basis":"filtered press-juice","method":"Ion chromatography","status":"literature_value","quality_class":"B","source_ids":["S14_VARRIALE_2024_JUICE"],"accounting_note":"Source-reported aggregate; overlaps named anions."}
+  ],
+  "closure": {"status":"not_checked","accounting_group":null,"target_total":null,"residual_component_id":null,"method":"No density, dry matter, or complete mutually exclusive mass composition is reported; analytical concentrations are not mass fractions."},
+  "technology_family_ids": ["pretreatment_fractionation"],
+  "activation_state": "reference_only",
+  "provenance": [
+    {
+      "source_id":"S14_VARRIALE_2024_JUICE",
+      "source_title":"Short-term adaptation as a tool to improve bioethanol production using grass press-juice as fermentation medium",
+      "authors":"Ludovica Varriale; Doris Geib; Roland Ulber",
+      "reference_year":2024,
+      "doi_or_stable_id":"10.1007/s00253-024-13224-0",
+      "related_identifiers":["https://pmc.ncbi.nlm.nih.gov/articles/PMC11199226/"],
+      "source_url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC11199226/",
+      "source_location":"Table 1; Methods 2.1–2.2",
+      "retrieval_date":"2026-11-10",
+      "license":"CC BY 4.0"
+    }
+  ],
+  "metadata_gaps": [
+    "No raw-grass/juice/cake matched mass balance or juice yield.",
+    "Cultivar and harvest date not reported for this sample.",
+    "Table 1 replicate count and uncertainty are not reported.",
+    "No density or dry-matter concentration for the juice.",
+    "This material-state record cannot populate raw-feed UI composition defaults."
+  ]
+}

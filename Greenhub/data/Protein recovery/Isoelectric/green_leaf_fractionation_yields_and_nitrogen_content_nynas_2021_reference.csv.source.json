@@ -1,0 +1,79 @@
+{
+  "dataset_id": "urn:greenhub:dataset:nynas-2021-green-leaf-fractionation-table-2",
+  "dataset_title": "Green-leaf fractionation nitrogen yields and fraction nitrogen concentrations",
+  "dataset_file": "green_leaf_fractionation_yields_and_nitrogen_content_nynas_2021_reference.csv",
+  "source_id": "SRC002",
+  "source_doi": "10.3390/foods10112533",
+  "source_url": "https://doi.org/10.3390/foods10112533",
+  "authors": [
+    "Anna-Lovisa Nynäs",
+    "William R. Newson",
+    "Eva Johansson"
+  ],
+  "journal": "Foods",
+  "volume_issue_pages": "10(11), 2533",
+  "source_doi": "10.3390/foods10112533",
+  "source_url": "https://doi.org/10.3390/foods10112533",
+  "authors": [
+    "Anna-Lovisa Nynäs",
+    "William R. Newson",
+    "Eva Johansson"
+  ],
+  "journal": "Foods",
+  "volume_issue_pages": "10(11), 2533",
+  "citation": "Nynäs, A.-L., Newson, W. R., & Johansson, E. (2021). Protein Fractionation of Green Leaves as an Underutilized Food Source—Protein Yield and the Effect of Process Parameters. Foods, 10(11), 2533.",
+  "doi": "10.3390/foods10112533",
+  "persistent_source_url": "https://doi.org/10.3390/foods10112533",
+  "full_text_urls": [
+    "https://www.mdpi.com/2304-8158/10/11/2533",
+    "https://pub.epsilon.slu.se/26683/1/nynas_a-l_et_al_211223.pdf"
+  ],
+  "retrieval_date": "2026-11-07",
+  "geography": "Southern Sweden field residues and Alnarp campus lucerne; retail spinach sourced from Italy.",
+  "reference_year": 2021,
+  "field_sample_years": "2017-2018; retail spinach collection date not stated",
+  "evidence_class": "B_measured",
+  "quality_class": "B",
+  "license": "CC BY 4.0",
+  "source_locations": {
+    "table_2a": "Table 2a, journal article p. 7",
+    "table_2b": "Table 2b, journal article p. 7",
+    "table_2c": "Table 2c, journal article p. 8",
+    "methods": "Sections 2.1-2.5, journal article pp. 3-6"
+  },
+  "dataset_scope": "189 tidy source observations: Table 2a initial-biomass-relative N yields (54 rows), Table 2b incoming-fraction-relative step N yields (36 rows), and Table 2c fraction N concentration on a dry-matter basis (99 rows; the unreported carrot P4 value is retained as a blank status row).",
+  "materials": [
+    "Broccoli, cabbage, kale, mangold, beetroot, sugarbeet, carrot leafy residues",
+    "First-cut lucerne",
+    "Retail baby spinach"
+  ],
+  "process_conditions": {
+    "feed_preparation": "Frozen plant material was thawed and divided into three 300 g process portions.",
+    "pressing": "Twin-screw pressing; pulp was re-pressed after addition of MilliQ water at 50% of pulp mass (100% for carrot).",
+    "particle_separation": "Centrifugal separation; reported methods include 11800 RCF for 10 min at 4 C after pressing.",
+    "thermal_fractionation": "Particle-free juice aliquots (40 mL) had freeze-thaw precipitate removed, were heated at 55 C for 25 min, cooled on ice, then centrifuged.",
+    "acid_fractionation": "S2 was adjusted to pH 4.5 by dropwise addition of 1 M HCl; acid volume/consumption was not reported.",
+    "product_recovery": "P3 was resolubilized with water and adjusted to pH 7 using 0.1 M NaOH; residual insoluble fraction P4 was separated.",
+    "nitrogen_analysis": "Dumas nitrogen analysis of dried samples; the paper reports nitrogen rather than protein because a material-specific N-to-protein factor was unknown."
+  },
+  "variable_definitions": {
+    "table_2a": "Nitrogen recovered in each indicated stream as a percentage of nitrogen in the initial biomass.",
+    "table_2b": "Nitrogen transfer into each indicated output as a percentage of nitrogen entering that process step; this is a local step denominator and is not interchangeable with Table 2a.",
+    "table_2c": "Nitrogen concentration as percent of stream dry matter, not crude-protein content."
+  },
+  "uncertainty": "Table 2 reports mean ± standard deviation. The table caption states three process replicates unless a superscript gives another replicate count. Blank SDs are left blank where the source gives no SD. Table 2c BM values are transcribed from that panel; no values are copied from Table 1 to replace them.",
+  "conversion_method": "None. Values, denominators, sample names, and units remain as reported. No conversion from nitrogen to protein and no inferred reagent dosage.",
+  "limitations": [
+    "The study is green leafy biomass fractionation, not roadside grass; lucerne is a forage comparator, not a validated grass proxy.",
+    "N yields and N concentrations do not equal protein recovery, product purity, or a full mass balance.",
+    "Table 2a and Table 2b have different denominators and must not be combined as if they were the same recovery metric.",
+    "A reported step yield above 100% can result from measured fraction variability and is not clipped or normalized.",
+    "The pH endpoint and HCl concentration are known, but HCl volume/equivalents per feed or juice are not reported.",
+    "Table 2c carrot P4 is unreported; it is blank with reporting_status=not_reported, not zero.",
+    "This evidence does not characterize the GreenHub roadside-grass feed, current runtime route, product market grade, or operational scale."
+  ],
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "parameter_registry_mapping": null,
+  "suggested_use": "Phase 4 reference evidence for distinguishing nitrogen partition by process stage and fraction nitrogen concentration. Do not use as a GreenHub runtime recovery factor or acid/base demand."
+}

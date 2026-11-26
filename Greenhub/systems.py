@@ -70,6 +70,7 @@ from Greenhub.phase6_upgrading import (
     RichLeanHeatExchanger,
     WaterAbsorber,
     WaterFlashTank,
+    RawGasRatioFlashSplitter,
     WaterRegenerator,
     feed_quality_limits_from_mapping,
     mea_parameters_from_mapping,
@@ -1595,11 +1596,12 @@ def _create_bg2_water_scrubbing(
     )
     flash_reject = V612 - 0
     if has_flash_recycle:
-        S610 = bst.Splitter(
+        S610 = RawGasRatioFlashSplitter(
             ID="S610",
             ins=V612 - 0,
             outs=(flash_recycle, "water_scrubber_flash_reject"),
-            split=parameters.flash_gas_recycle_fraction,
+            parameters=parameters,
+            raw_gas_reference=conditioned_biogas,
         )
         flash_reject = S610 - 1
         units[S610.ID] = S610

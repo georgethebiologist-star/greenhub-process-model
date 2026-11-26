@@ -1,5 +1,6 @@
 ﻿filename,row_count,encoding,delimiter,primary_key,integration_status,description
-hydrolysis_kinetics.csv,12,UTF-8 with BOM,",",parameter_id,ready_with_documented_gaps,"ADM1 standard, calibrated proxy and explicit grass-specific gaps"
+hydrolysis_kinetics.csv,12,UTF-8 with BOM,",",parameter_id,ready_with_documented_gaps,"ADM1 standard, calibrated proxy and explicit GreenHub-residual gaps; fitted grass-silage rates are in a separate reference-only table"
+grass_silage_adm1_biernacki_2013_reference.csv,4,UTF-8 with BOM,",",observation_id,reference_only,Fitted literature kinetics for grass silage; not GreenHub residual calibration
 acidogenesis_kinetics.csv,4,UTF-8 with BOM,",",parameter_id,ready_with_documented_gaps,Sugar and amino-acid Monod/uptake parameters
 acetogenesis_kinetics.csv,10,UTF-8 with BOM,",",parameter_id,ready_with_documented_gaps,"LCFA, C4 and propionate uptake kinetics"
 methanogenesis_kinetics.csv,7,UTF-8 with BOM,",",parameter_id,ready_with_documented_gaps,Acetoclastic and hydrogenotrophic kinetics
@@ -9,4 +10,7 @@ microbial_yields_and_decay.csv,14,UTF-8 with BOM,",",parameter_id,ready_with_doc
 temperature_corrections.csv,16,UTF-8 with BOM,",",parameter_id,ready_with_documented_gaps,"Reference temperatures, source coefficients and validated relative rates"
 ad_equation_registry.csv,8,UTF-8 with BOM,",",equation_id,ready_with_documented_gaps,Symbolic and Python-readable kinetic/transfer equations
 source_register.csv,6,UTF-8 with BOM,",",source_id,ready_with_documented_gaps,Bibliographic and scope metadata
+roadside_grass_juice_continuous_digestion_chopda_2026_abstract_reference.csv,4,UTF-8 with BOM,",",record_id,reference_only,"Abstract-level roadside-grass screw-press, continuous grass-juice digestion and digestate use evidence; yield denominator ambiguous; no raw data or full-text access; not an AD parameter or default"
 assumption_and_missing_data_register.csv,5,UTF-8 with BOM,",",register_id,ready_with_documented_gaps,Unresolved parameters without numerical assumptions
+brown_2022_grass_htc_ad_bmp_reference.csv,12,UTF-8,",",record_id,reference_only,Table 6 measured and source-calculated BMP values for untreated grass and HTC process waters; not runtime-mapped.
+bmp_interlaboratory_hafner_2026_bottle_calculated_reference.csv,619,UTF-8,",",bottle_id,reference_only,"619 author-calculated bottle BMP records from a 31-lab, six-substrate interlaboratory study; assay validation only; not a process yield or default."

@@ -1,0 +1,44 @@
+{
+  "dataset_title": "Abstract-level pilot observations for PEF-assisted grass-clover pressing and protein separation",
+  "dataset_identifier": "https://doi.org/10.1016/j.fufo.2022.100173",
+  "source_id": "SRC_GUO_GRASS_PEF_2022",
+  "authors": ["X. Guo", "K. Aganovic", "U. Bindrich", "A. Juadjur", "C. Hertel", "E. Ebert", "J. große Macke", "C. Geil", "V. Heinz"],
+  "reference_year": 2022,
+  "publication_doi": "10.1016/j.fufo.2022.100173",
+  "publication_url": "https://doi.org/10.1016/j.fufo.2022.100173",
+  "retrieval_date": "2026-11-07",
+  "source_file": "grass_clover_pilot_press_PEF_protein_separation_guo_2022_abstract_reference.csv",
+  "source_location": "Article abstract; Future Foods 6 (2022), 100173",
+  "license": "The accessible article landing page identifies the work as open access; a secondary author-profile record lists CC BY-NC-ND 4.0. This extract is limited to attributed abstract-level factual observations; verify the authoritative article license before redistributing full text, figures, or supplementary material.",
+  "geography": "Pilot facility study; institution and full experimental geography should be verified from the full article before applying geographically.",
+  "evidence_class": "B_literature_abstract",
+  "experimental_context": "Fresh blend of perennial ryegrass (70%) and white clover (30%); large-scale screw pressing combined with industrial-scale pulsed-electric-field pretreatment. A disk separator processed 400 L of raw juice after protein precipitation at pH 5.0 and 60 °C.",
+  "data_handling": "Eight reported abstract facts/values transcribed as printed; relative increases retain the untreated-control comparator and approximate qualifier. No conversion, inferred absolute yield, or interpolation was performed.",
+  "applicability": "Phase 3–4 comparator for pressing, PEF response, juice processing scale, precipitation pH/temperature, and crude-protein product composition. Not a GreenHub roadside-grass calibration dataset.",
+  "activation_state": "partial_D4_opt_in_runtime_candidate",
+  "calculation_connected": true,
+  "runtime_parameter_mapping": {
+    "GUO2022_PRECIPITATION_PH": {
+      "parameter_id": "phase4.target_pH",
+      "technology_scenario": "PR3",
+      "calculation_modes": ["literature_default", "expert_override"],
+      "readiness": "D4",
+      "quality_class": "B"
+    },
+    "GUO2022_PRECIPITATION_TEMPERATURE": {
+      "parameter_id": "phase4.precipitation_temperature_C",
+      "technology_scenario": "PR3",
+      "calculation_modes": ["literature_default", "expert_override"],
+      "readiness": "D4",
+      "quality_class": "B"
+    }
+  },
+  "limitations": [
+    "Only the abstract was used; methods, replicate counts, uncertainty, absolute mass yields, machine settings, process duration, PEF energy, chemical consumption, and complete component balances are not represented.",
+    "The feed is a cultivated grass-clover blend rather than Dutch roadside grass.",
+    "Approximately 25% higher juice yield and 31% higher crude-protein yield are comparative increases, not absolute recovery fractions and not transferable default multipliers.",
+    "The reported 37.3 g crude protein per 100 g DM is product concentration, not protein yield or true-protein purity.",
+    "Only precipitation pH and temperature are opt-in runtime candidates. The other six abstract facts remain reference-only; relative PEF yield gains, product concentration, and processed juice volume are not activated as model inputs.",
+    "The abstract does not provide a titration curve, acid/base mass, precipitation recovery, residence time, or heat duty; verify the authoritative article license before broader redistribution."
+  ]
+}

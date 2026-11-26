@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0.0",
+  "catalog_id": "greenhub:phase-3-7-reuse-index:1",
+  "identifier_status": "Stable repository-local catalog identifier; no public DOI or resolver registration is claimed.",
+  "data_sources": [
+    "Greenhub/data/global_audit_package/global_dataset_manifest.csv",
+    "Greenhub/data/global_audit_package/global_source_register.csv",
+    "Greenhub/data/fair_input_catalog/master_input_records.csv"
+  ],
+  "counts": {
+    "technology_dataset_assets": 503,
+    "canonical_phase_3_to_7_input_records": 538,
+    "phase_3_to_7_inputs_by_phase": {
+      "3": 69,
+      "4": 80,
+      "5": 81,
+      "6": 174,
+      "7": 134
+    },
+    "runtime_inputs_quality_by_phase": {
+      "3": {
+        "E": 69
+      },
+      "4": {
+        "E": 80
+      },
+      "5": {
+        "E": 81
+      },
+      "6": {
+        "B": 10,
+        "E": 164
+      },
+      "7": {
+        "E": 134
+      }
+    },
+    "dataset_assets_without_linked_source": 123,
+    "dataset_assets_without_doi_or_stable_id": 151,
+    "dataset_assets_missing_source_metadata": 442,
+    "context_independent_empirical_assets": 0,
+    "d4_promotions": 0
+  },
+  "maturity_note": "This is a discoverability and transferability crosswalk. It neither fills missing measurements nor promotes staged datasets to calculation-ready status."
+}

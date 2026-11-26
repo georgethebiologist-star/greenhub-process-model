@@ -1,0 +1,46 @@
+{
+  "dataset_id": "urn:greenhub:dataset:protein-recovery:kaur-2021-trojan-ryegrass-gpc:v1",
+  "persistent_identifier_status": "Repository-local identifier for this transcription; DOI identifies the article, not this derived dataset.",
+  "dataset_version": "1.0.0",
+  "title": "Trojan ryegrass grass-protein-concentrate yield, composition and method conditions",
+  "source_id": "SRC-KAUR-2021-TROJAN-RYEGRASS-GPC",
+  "citation": "Kaur, L. et al. (2021). Physico-Chemical Characteristics and In Vitro Gastro-Small Intestinal Digestion of New Zealand Ryegrass Proteins. Foods, 10(2), 331. https://doi.org/10.3390/foods10020331",
+  "doi": "10.3390/foods10020331",
+  "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7913788/",
+  "repository_url": "https://mro.massey.ac.nz/items/db3caa01-1e03-4d0f-8643-a2af00827f1f",
+  "retrieval_date": "2026-11-08",
+  "source_locations": [
+    "Methods §§2.1–2.4, pp. 3–4",
+    "Results §3.1, p. 6",
+    "Table 1, p. 7"
+  ],
+  "reference_year": 2021,
+  "experiment_year": null,
+  "geography": "Massey University, Palmerston North, New Zealand; exact field site/harvest date not stated in cited methods extract.",
+  "material_scope": "Perennial ryegrass (Lolium perenne L.) cultivar Trojan. Harvested grass was frozen at −20 °C before lab processing; final powder was freeze-dried. Not roadside/VARTA feed.",
+  "license": "Creative Commons Attribution 4.0 International (CC BY 4.0), identified by Massey Research Online and the article publisher.",
+  "evidence_class": "B_measured_or_source_reported",
+  "quality_class": "B",
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "row_count": 31,
+  "sha256_csv": "fcbf678a5f9dcfac991c081809406994e22f301a53a7ca3f28bccd669dd7b4bd",
+  "transcription_policy": "Article Table 1 values and explicit prose/method conditions are transcribed without normalizing ambiguous bases, converting protocol ratios to feed-scale quantities, or inferring missing acid demand and stream flows.",
+  "fair_metadata": {
+    "findable": "Local URN, source DOI, article/repository URLs, citation and exact page/section/table are recorded.",
+    "accessible": "UTF-8 CSV and JSON sidecar are stored; article is open access under CC BY 4.0.",
+    "interoperable": "Long-form fields identify route, unit, basis, source location, method and evidence status.",
+    "reusable": "License, process conditions, analytical method, factor N×5.83, unreported bases, missing-data boundaries and transferability are documented."
+  },
+  "limitations": [
+    "Cultivated New Zealand Trojan ryegrass is not roadside grass or GreenHub feedstock.",
+    "Acid precipitation route uses NaOH and repeated pressing; it is not the GreenHub route and is not a chemistry calibration.",
+    "Table 1 reports proximate percentages and mineral mg/100 g but does not further specify the basis; no dry-basis conversion is made.",
+    "The Table 1 composition categories are not a closed mass balance and must not be summed; carbohydrate/fibre overlap is not resolved by the table.",
+    "Protein content uses Kjeldahl N × 5.83; it is not a true-protein assay and should not be silently converted using N × 6.25.",
+    "Acid product yield is approximate and no numerical acid demand, clarified-juice volume, press-cake mass or full component balance is reported.",
+    "Enzyme-route values and water additions are a distinct alternate process; they are not normalized per tonne because feed batch mass is not reported.",
+    "Freeze drying is not spray drying; no dryer energy, evaporation rate or powder recovery curve is available.",
+    "No product price, TEA/LCA factor or runtime parameter is derived from the extract."
+  ]
+}

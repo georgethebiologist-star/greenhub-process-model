@@ -1,0 +1,25 @@
+{
+  "dataset_id": "urn:greenhub:dataset:piepenschneider-roadside-yield-2016-abstract:v1",
+  "title": "Mean annual biomass yield under roadside verge management regimes",
+  "source_id": "SRC-PIEPENSCHNEIDER-2016",
+  "doi": "10.1016/j.biombioe.2015.12.012",
+  "source_url": "https://doi.org/10.1016/j.biombioe.2015.12.012",
+  "source_table_or_section": "Publisher abstract; only the three abstract-level aggregate means are transcribed",
+  "retrieval_date": "2026-11-06",
+  "evidence_class": "B measured literature result",
+  "geography": "Kassel, Germany",
+  "observation_period": "2013–2014; source-reported mean across the two years",
+  "reported_observations": 3,
+  "license_status": "No open reuse license identified for the journal article; metadata and aggregate factual values only, with DOI attribution.",
+  "scope": "Three aggregate annual dry-matter yield means for repeated mulching, four-cut harvest, and two-cut harvest of urban roadside-verge grass.",
+  "method_context": "Urban sites managed in 2013–2014; source abstract states 4 cuts for anaerobic digestion, 2 cuts for IFBB, and 8× mulching as reference. This file transcribes only the abstract's three mean annual yields, not the fuller year/site spread available in the article.",
+  "units_and_conversion": "Source-reported t dry matter per hectare per year; no conversion applied.",
+  "uncertainty": "No uncertainty statistics included in the abstract-level extraction. Site-/year-/replicate-level variability is not available in this file.",
+  "limitations": [
+    "Kassel urban roadside grass is a European analogue, not Dutch roadside-grass evidence.",
+    "The values are biomass yields under study management regimes, not captured, accessible, contracted, or delivered feedstock.",
+    "Do not infer collection efficiency, seasonal monthly supply, or cumulative annual regrowth from these aggregate means.",
+    "Reference-only; no GreenHub runtime defaults or Pareto scenario inputs are changed."
+  ],
+  "applicability": "Useful external comparison for how cutting frequency relates to annual roadside biomass yield; insufficient as a Dutch availability factor without local site and management validation."
+}

@@ -12,6 +12,16 @@
 - engineering assumptions from the feedstock assumption register
 - missing rows
 
+## Current national roadside-availability evidence (staged only)
+
+The evidence register includes four additional B-tier records from two traceable sources:
+
+- Rijkswaterstaat's current motorway verge maintenance page reports **more than 18,000 ha** of managed motorway verges and says most grass mowing occurs once per year. This is total verge area, not eligible grass area or a GreenHub supply contract: [Rijkswaterstaat, Bermonderhoud](https://www.rijkswaterstaat.nl/leefomgeving/leefbaarheid-en-milieu/bermonderhoud).
+- Wageningen Research Report 2415 reports **115,000 t dry matter/year** of grass mixed with other herbaceous biomass on RWS-managed sites, which include verges and canal banks; its Table 7 separately reports other biomass categories. This is not pure grass, not roadside-only supply, and not metered delivery. [DOI 10.18174/630159](https://doi.org/10.18174/630159), p. 18, section 2.1.6 and Table 7.
+- The same report gives a broad **3–5 t DM/ha** road-verge biomass snapshot and states a corresponding transport range of **12–20 t fresh/ha**. It warns that the yield is a current-situation snapshot and can decline with more intensive removal; paired endpoints, accessible area, removal fraction, collection losses, and moisture are not established.
+
+These records are staged evidence, not active defaults or calculation inputs. Do not multiply the RWS total area by the national yield range to claim a deliverable annual feedstock supply: the area scope, vegetation mix, spatial overlap, competing ecological uses, safe/accessible harvest area, harvest fraction, contamination, and logistics are not resolved. The rows support a future spatially constrained availability calculation, but do not replace the current explicit user feed-supply assumption.
+
 ## Required Flags
 
 Each row includes:

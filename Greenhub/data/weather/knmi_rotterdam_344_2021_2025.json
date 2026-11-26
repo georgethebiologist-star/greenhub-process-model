@@ -1,0 +1,26 @@
+{
+  "dataset_id": "urn:greenhub:weather:knmi:344:monthly-mean-air-temperature:2021-2025",
+  "source_id": "SRC-KNMI-ROTTERDAM-344-MONTHLY-2021-2025",
+  "title": "KNMI Rotterdam station 344 monthly mean air temperature, 2021–2025",
+  "source_organization": "Royal Netherlands Meteorological Institute (KNMI)",
+  "source_url": "https://cdn.knmi.nl/knmi/map/page/klimatologie/gegevens/maandgegevens/mndgeg_344_tg.txt",
+  "source_table_location": "STN,YYYY,JAN...DEC,YEAR; rows 344,2021 through 344,2025",
+  "retrieved_on": "2026-11-09",
+  "access": "Open HTTPS text series",
+  "usage_rights": "Free use with attribution to KNMI, as stated in the source header",
+  "station": {"number": 344, "name": "Rotterdam", "country": "Netherlands"},
+  "measurement": "Monthly mean ambient air temperature",
+  "source_unit": "0.1 degC",
+  "normalization": "Arithmetic mean of five source monthly means divided by 10 to degC; no missing months in 2021–2025",
+  "evidence_class": "A: directly observed official station monthly means; the five-year monthly value is a transparent arithmetic derivation from those measurements",
+  "application_status": "Measured station series applied as an explicit South-Holland ambient proxy because the exact plant coordinates are not specified; not a plant-site measurement",
+  "transferability": "South-Holland processing-site ambient proxy only; not feedstock, juice or digester inlet temperature",
+  "uncertainty": "Interannual variation and station-to-site error not quantified; not a climate normal or measured plant-site condition",
+  "jan_to_dec_tenths_degC": {
+    "2021": [38, 46, 67, 66, 114, 180, 179, 172, 167, 124, 80, 59],
+    "2022": [56, 72, 78, 97, 142, 172, 189, 202, 154, 138, 90, 41],
+    "2023": [60, 60, 71, 89, 134, 195, 184, 181, 183, 138, 85, 73],
+    "2024": [43, 84, 90, 109, 154, 159, 183, 197, 162, 126, 76, 65],
+    "2025": [39, 42, 75, 116, 142, 185, 193, 187, 157, 127, 84, 65]
+  }
+}

@@ -3,20 +3,20 @@
   "active_equation_count": 0,
   "cost_overlap_group_count": 24,
   "dataset_eligibility_counts": {
-    "blocked": 52,
-    "reference_only": 249
+    "blocked": 67,
+    "reference_only": 477
   },
   "default_eligible_dataset_count": 0,
-  "equation_count": 179,
+  "equation_count": 194,
   "equation_eligibility_counts": {
-    "blocked": 169,
-    "reference_only": 10
+    "blocked": 190,
+    "reference_only": 4
   },
-  "quarantine_row_count": 278,
+  "quarantine_row_count": 589,
   "resolved_cost_overlap_count": 0,
   "scientific_values_modified": false,
-  "source_audit_generated_at": "2026-07-29",
-  "source_checksum_count": 301,
-  "source_dataset_count": 301,
-  "source_issue_count": 443
+  "source_audit_generated_at": "2026-11-11T12:04:04Z",
+  "source_checksum_count": 544,
+  "source_dataset_count": 544,
+  "source_issue_count": 810
 }

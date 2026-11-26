@@ -1,0 +1,36 @@
+{
+  "dataset_id": "urn:greenhub:dataset:protein-recovery:riihinen-2023-finnish-grass-precipitation:v1",
+  "source_id": "SRC-RIIHINEN-EFFOST-GRASS-PROTEIN-2023",
+  "title": "Enrichment of protein from Finnish grass material for human consumption",
+  "authors": [
+    "Kaisu Riihinen",
+    "Saska Sormunen",
+    "Raija Lantto",
+    "Kaisu Honkapää"
+  ],
+  "publication_year": 2023,
+  "persistent_identifier": "ISBN 978-90-9037865-7; abstract P2.1.088; no DOI identified",
+  "source_url": "https://onfoods.it/sites/default/files/2024-07/Abstract%20book_37th_EFFoST_International_Conference_ISBN.pdf",
+  "source_location": "37th EFFoST International Conference 2023 Abstract Book, P2.1.088, p. 252",
+  "retrieval_date": "2026-11-08",
+  "geography": "Finland; exact experimental site not stated in abstract",
+  "material_scope": "Cultivated red clover (Trifolium pratense) and timothy (Phleum pratense); screw-pressed grass juice",
+  "license_or_rights": "No explicit open reuse license identified in the abstract book; retain citation and short factual observations, and review rights before external redistribution.",
+  "evidence_class": "B-tier primary experimental conference abstract; summary-level reported values",
+  "quality_class": "B",
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "row_count": 10,
+  "sha256_csv": "2cf4b259a27cdc7d86749ce2240be56f432026164306435b5a1fa1054b39ce94",
+  "transcription_policy": "Only facts and values stated in abstract P2.1.088 are extracted. Tested pH/temperature levels, best-content test outcomes, and selected-protocol mass-balance observations are separated; no unreported values are inferred.",
+  "limitations": [
+    "Conference abstract only; it does not provide the detailed methods, raw observations, replicate count, uncertainty, or complete fraction-by-fraction table.",
+    "Materials are cultivated Finnish red clover and timothy, not Dutch roadside grass, VARTA samples, or GreenHub feed.",
+    "The 25 mmol sodium sulphite addition has no stated juice-volume or biomass denominator and cannot provide a normalized reagent dose.",
+    "The abstract explicitly associates pH 4 with the red-clover maximum protein-content result but does not separately restate pH for the timothy value.",
+    "The selected-protocol precipitate protein contents (41 and 51 g/100 g DM) are distinct from the reported best-content test results (45 and 56 g/100 g DM); the abstract does not reconcile them.",
+    "The approximate 10% recovery denominator is total protein in grass juice, not protein in incoming grass; it is not whole-feed protein recovery.",
+    "No acid identity/dose, pH titration curve, precipitate mass yield, energy, residence time, full mass closure, or scale-up relationship is reported in the abstract.",
+    "No GreenHub default, parameter, equation, route, TEA/LCA value, UI setting, or Pareto configuration consumes these records."
+  ]
+}

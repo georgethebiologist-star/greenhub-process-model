@@ -1,0 +1,42 @@
+{
+  "dataset_id": "urn:greenhub:dataset:feedstock:rejuice-wp5-roadside-season-and-ensiled-juice:v1",
+  "dataset_version": "1.0.0",
+  "title": "ReJuice WP5 draft roadside-grass season and ensiled-juice context",
+  "source_file": "rejuice_wp5_roadside_grass_seasonality_and_ensiled_juice_reference.csv",
+  "source_file_sha256": "0d86d3c2dee9fa805c7c43973b663e2693fb7cda46cc37e6002b824385dd3fde",
+  "source_id": "SRC-REJUICE-WP5-SEASONAL-CALENDAR-DRAFT-2025",
+  "citation": "Degieter, M., Schouteten, J. J., & Fernandes de Souza, M. (2025, April). WP5 Seizoenskalender [Draft deliverable]. ReJuice Interreg Vlaanderen-Nederland.",
+  "doi": null,
+  "source_url": "https://interregvlaned.eu/uploads/project-downloads/Seizoenskalender_deliverable_DRAFT.pdf",
+  "publication_date": "2025-04",
+  "retrieval_date": "2026-11-08",
+  "geography": "Regional statements pool Netherlands and Flanders; individual roadside-grass sites are not identified.",
+  "record_count": 4,
+  "process_phases": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "rights_status": "The linked deliverable is marked DRAFT; no explicit reuse license was identified. Only concise factual statements are transcribed with attribution; the PDF is not redistributed.",
+  "evidence_class": "draft project deliverable combining secondary literature and stakeholder interviews",
+  "quality_class": "B for source-reported regional season context; C for the approximate press-yield and qualitative process statements without measurement protocols",
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "runtime_parameter_mapping": null,
+  "extraction_method": "Factual English transcription of four roadside-grass statements in Section 5.1. No monthly mass profile, yield denominator, conversion, or missing value was inferred.",
+  "important_deduplication": "The draft repeats broad regional roadside-biomass totals attributed to Inagro and RVO (2014). Those totals were not re-imported here because the RVO report is already separately staged; this extract records only the additional seasonal and ensiled-juice statements.",
+  "limitations": [
+    "The report is explicitly a draft and states that it combines secondary literature with stakeholder interviews; the roadside section does not publish a cut-by-cut or monthly supply dataset.",
+    "May–November and the two peak windows are regional qualitative statements, not measured monthly tonnage shares or a GreenHub delivery calendar.",
+    "The approximate 40% juice figure has no reported press conditions, batch size, replicate uncertainty, wet/dry denominator, or closing mass balance; it is not a GreenHub press recovery factor.",
+    "The qualitative protein statement has no paired assays or product yields and cannot activate protein precipitation equations.",
+    "These regional review statements do not establish current Dutch roadside-grass contracts, accessible feed, or GreenHub-specific availability."
+  ],
+  "fair_metadata": {
+    "findable": "Versioned local URN, source ID, full author/title/date citation, source URL, section/page location, and row IDs are supplied.",
+    "accessible": "UTF-8 CSV and JSON sidecar are indexed through the local and global FAIR catalogs.",
+    "interoperable": "Long-form records separate phase, metric, value, unit, measurement basis, observation status, evidence class, and limitations.",
+    "reusable": "Draft status, evidence hierarchy, geographic transfer limits, missing bases, and runtime exclusion are explicit."
+  }
+}

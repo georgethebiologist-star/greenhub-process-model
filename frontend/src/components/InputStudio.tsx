@@ -31,9 +31,9 @@ export function InputStudio({ feed, setFeed, scenario, onRun, running=false }: {
   return <section className="input-studio panel">
     <div className="panel-title"><span className="title-icon"><SlidersHorizontal size={17}/></span><div><h3>Feed characterization context</h3><p>The master workbook remains authoritative. These values are visible planning references and do not overwrite empirical chemistry.</p></div></div>
     <div className="input-section"><div className="eyebrow">Feed composition <span className="badge provisional">planning only</span></div><div className="input-grid">
-      {field('moisturePct','Moisture','% wet basis','Shown for review; the workbook feed profile remains authoritative.',100)}
-      {field('proteinPct','Protein','% dry matter','Shown for review; not sent to the scientific model yet.',100)}
-      {field('phosphorusPct','Total phosphorus','% wet basis','Shown for review; not sent to the scientific model yet.',100)}
+      {field('moisturePct','Moisture','% wet basis','VARTA whole-grass reference: water calculated by difference from measured dry matter. Planning reference only; the feed profile remains authoritative.',100)}
+      {field('proteinPct','Protein','% dry matter','Calculated from the profile’s soluble and suspended protein fractions. These are literature-linked estimates, not a protein assay of the VARTA sample.',100)}
+      {field('phosphorusPct','Total phosphorus','% wet basis','VARTA total elemental phosphorus converted to wet basis. This is not a measurement of dissolved phosphate species.',100)}
     </div></div>
     <div className="input-summary"><div><strong>Selected pathway</strong><span>{scenario.feed_front_end ? 'Feed preparation, digestion and nutrient recovery configured' : 'Choose a process pathway above'}</span></div><div><strong>Input status</strong><span>Operating schedule active above · composition shown for context</span></div><button className="run-button" onClick={onRun} disabled={running}>{running?'Calculating…':'Run simulation'}</button></div>
   </section>;

@@ -1,0 +1,25 @@
+{
+  "dataset_id": "urn:greenhub:dataset:piepenschneider-roadside-ifbb-methane-2016-abstract:v1",
+  "title": "Abstract-level specific methane yield of IFBB press fluid from urban roadside grass",
+  "source_id": "SRC-PIEPENSCHNEIDER-2016",
+  "doi": "10.1016/j.biombioe.2015.12.012",
+  "source_url": "https://doi.org/10.1016/j.biombioe.2015.12.012",
+  "source_table_or_section": "Publisher abstract",
+  "retrieval_date": "2026-11-06",
+  "evidence_class": "B measured literature result",
+  "license_status": "No open reuse license identified for the journal article; cite the published factual value and DOI, do not redistribute the article.",
+  "geography": "Urban roadside verges, Kassel, Germany",
+  "study_period": "2013–2014",
+  "scope": "One abstract-level maximum specific methane yield reported for IFBB press fluid.",
+  "reported_value": 292,
+  "reported_unit": "L_N CH4/kg volatile solids",
+  "basis": "Volatile solids in press fluid; the abstract does not specify the exact sample or treatment associated with the maximum.",
+  "method_details": "Not reported in the abstract; no BMP protocol, incubation duration, inoculum, or replicate count inferred.",
+  "limitations": [
+    "The abstract identifies a maximum rather than a central tendency or full distribution.",
+    "Press fluid is not equivalent to whole roadside grass, GreenHub raw juice, post-protein residual, or a continuous digester feed.",
+    "No source uncertainty or sample-level data are provided in this transcription.",
+    "Reference-only; no runtime parameter, default, or Pareto input is changed."
+  ],
+  "applicability": "External screening benchmark for the potential of a roadside-grass-derived liquid fraction; not suitable for quantitative prediction without route- and protocol-matched measurements."
+}

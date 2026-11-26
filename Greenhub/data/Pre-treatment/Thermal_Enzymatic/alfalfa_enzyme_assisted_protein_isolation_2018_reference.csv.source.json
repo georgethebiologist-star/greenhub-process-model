@@ -1,0 +1,42 @@
+{
+  "dataset_id": "urn:greenhub:dataset:thermal-enzymatic:kim-2018-alfalfa-protein-isolation:v1",
+  "dataset_version": "1.0.0",
+  "dataset_file": "alfalfa_enzyme_assisted_protein_isolation_2018_reference.csv",
+  "record_count": 43,
+  "sha256": "2e0560d0d412674ef35bdbe89c7d52a631457ffd0468be1d4761ed8b2a7dfe90",
+  "source_id": "SRC-ENZ-003",
+  "citation": "Kim, Y. (2018). Enzyme-assisted Protein Isolation from Alfalfa Leaves. United States Alfalfa Farmer's Research Initiative final report.",
+  "doi": "",
+  "stable_source_identifier": "https://alfalfa.org/pdf/USAFRI/Final%20Reports/2018/18Kim.pdf",
+  "source_url": "https://alfalfa.org/pdf/USAFRI/Final%20Reports/2018/18Kim.pdf",
+  "retrieval_date": "2026-11-08",
+  "license": "No explicit reuse license identified in the report; source PDF is not bundled or redistributed.",
+  "geography": "Mann Valley Farm, River Falls, Wisconsin, USA.",
+  "feedstock_scope": "Alfalfa leaves, not roadside grass, cultivated ryegrass, or GreenHub feed.",
+  "experimental_scope": "Laboratory enzyme-assisted alkaline extraction, acid precipitation, centrifugation, and peptide hydrolysis; screen assays and a 2-L extraction/recovery run.",
+  "quality_class": "B_measured_primary_research_report; reference_only",
+  "data_structure": "Long-form factual records from report Methods, text results, and Table 1. Graph-only point values were not digitized. No regressions or inferred missing values are included.",
+  "phase_coverage": {
+    "1": "Alfalfa leaf dry-basis composition only; no roadside-grass supply or seasonal yield.",
+    "2": "Fresh-category versus air-dried alfalfa leaf extractability comparator; no storage duration, degradation, or wet-grass kinetics.",
+    "4": "Enzyme dose/blend and time response, alkaline solubilization, acid precipitation, solids/protein accounting, and peptide hydrolysis."
+  },
+  "reported_methods": "Feed characterization was on dry basis; enzyme protein concentration measured by DC assay with BSA standard; extraction screening used 6.4% w/v dry solids; the 2-L run used two 1-L flasks and nominal 10% w/v dry solids.",
+  "uncertainty": "Reported ± values are retained as printed. The report states methods measurements were duplicates or triplicates and error bars are SD, but property-specific replicate counts are not given. Table 1 values are means of duplicate measurements. Many text-reported outcome values have no uncertainty.",
+  "known_accounting_issue": "The source reports 110% protein closure and explains that soluble protein in liquid retained by centrifuged solids was counted in both fractions. The recorded overclosure is evidence, not an adjusted balance.",
+  "applicability_limitations": [
+    "Alfalfa leaves differ from roadside grass in species, composition, contaminants, and protein fractions.",
+    "The assay material described as fresh-leaf category was frozen, lyophilized, and ground; this is not a wet roadside-grass slurry.",
+    "Bench-scale shaking and centrifuge rpm are not transferable to industrial residence time, power, RCF, or separation efficiency.",
+    "High upstream solubilization did not translate into high precipitated-product recovery: the source reports 62.8% solubilization but only 7% final precipitated protein relative to initial feed protein.",
+    "No GreenHub mass-flow, energy, water, chemical-dose, plant-scale, product-price, or environmental-impact parameter is activated."
+  ],
+  "conversion_or_processing": "Direct transcription. One 91 g solids-in-liquid result is retained as source-stated difference by initial-minus-insolubilized solids. Source-reported ratios and 110% closure are preserved; not independently recomputed.",
+  "runtime_policy": "Reference-only. Does not enable enzyme-assisted extraction, change the baseline, supply defaults, or calibrate GreenHub roadside-grass response.",
+  "fair_metadata": {
+    "findable": "Local URN, stable report URL, source-register ID, and FAIR catalog entry.",
+    "accessible": "Publicly hosted report URL; no explicit reuse license identified.",
+    "interoperable": "UTF-8 CSV with units, material basis, phase, stage, source location, and status per record.",
+    "reusable": "Methods, uncertainty, accounting anomaly, source limitations, retrieval date, and rights note accompany the data."
+  }
+}

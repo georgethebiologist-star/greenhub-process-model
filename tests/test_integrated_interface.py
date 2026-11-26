@@ -7,7 +7,7 @@ import csv
 from openpyxl import load_workbook
 
 from Greenhub.integrated_reporting import save_integrated_reports
-from Greenhub.integration import create_integrated_greenhub_system
+from Greenhub.integration import _portable_dataset_path, create_integrated_greenhub_system
 from Greenhub.model_completeness import VALID_STATES, write_model_completeness_reports
 from Greenhub.systems import create_greenhub_system
 
@@ -20,6 +20,13 @@ def test_integrated_interface_and_reports(tmp_path):
     assert model.scenario_configuration.scenario_chain == "F1/PR3/AD1/BG2/NR4"
     assert model.validation_report is not None
     assert abs(model.validation_report.overall_error_kg_hr) < 1e-6
+    assert model.dataset_provenance["master_input_workbook"] == (
+        "Greenhub/data/greenhub_feed_inputs.xlsx"
+    )
+    assert model.dataset_provenance["protein_recovery_dataset_directory"] == (
+        "Greenhub/data/Protein recovery"
+    )
+    assert "C:\\" not in model.dataset_provenance["master_input_workbook"]
 
     process_unit_ids = {
         unit_id
@@ -107,3 +114,10 @@ def test_repeated_integrated_builds_and_legacy_factory_remain_isolated():
     historical_foundation = create_greenhub_system()
     assert set(historical_foundation.units) == {"T101", "S101"}
     assert historical_foundation.system is not second.system
+
+
+def test_external_workbook_provenance_omits_machine_local_parent_path(tmp_path):
+    reference = _portable_dataset_path(tmp_path / "partner-input.xlsx")
+
+    assert reference == "external/partner-input.xlsx"
+    assert "C:\\" not in reference

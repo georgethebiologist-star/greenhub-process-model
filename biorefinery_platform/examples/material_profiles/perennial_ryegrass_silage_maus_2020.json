@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0.0",
+  "record_id": "MATERIAL-PRG-SILAGE-MAUS-2020",
+  "project_id": null,
+  "data_scope_class": "technology_and_material_specific",
+  "context_independent": false,
+  "material": {
+    "material_id": "perennial_ryegrass_silage_maus_2020",
+    "display_name": "Perennial ryegrass silage used in a two-stage AD study",
+    "material_type": "ensiled lignocellulosic feedstock",
+    "geography": null,
+    "collection_stage": "Silage feed before anaerobic digestion",
+    "sampling_time": null,
+    "treatment_history": "Perennial ryegrass silage; cut to 3 cm and stored at -20 °C before experimental use. Harvest site and cultivar are not reported."
+  },
+  "mass_composition": [],
+  "analytical_properties": [
+    {"property_id":"volatile_solids_content","value":32,"unit":"% fresh mass","sample_basis":"perennial ryegrass silage","method":"As reported in study; detailed assay method is cited by the article but not restated in the extracted passage","status":"literature_value","quality_class":"B","source_ids":["SRC-MAUS-2020-RYEGRASS-AD"]},
+    {"property_id":"total_kjeldahl_nitrogen","value":7.6,"unit":"g/kg fresh mass","sample_basis":"perennial ryegrass silage","method":"As reported in study; detailed assay method is cited by the article but not restated in the extracted passage","status":"literature_value","quality_class":"B","source_ids":["SRC-MAUS-2020-RYEGRASS-AD"]},
+    {"property_id":"ammonium_nitrogen","value":0.7,"unit":"g/kg fresh mass","sample_basis":"perennial ryegrass silage","method":"As reported in study","status":"literature_value","quality_class":"B","source_ids":["SRC-MAUS-2020-RYEGRASS-AD"]},
+    {"property_id":"acetic_acid","value":2.6,"unit":"g/kg fresh mass","sample_basis":"perennial ryegrass silage","method":"As reported in study","status":"literature_value","quality_class":"B","source_ids":["SRC-MAUS-2020-RYEGRASS-AD"]},
+    {"property_id":"propionic_acid","value":"<0.04","unit":"g/kg fresh mass","sample_basis":"perennial ryegrass silage","method":"As reported in study; censoring threshold type not specified","status":"not_detected","quality_class":"B","detection_limit":"0.04 g/kg fresh mass; threshold type not specified","source_ids":["SRC-MAUS-2020-RYEGRASS-AD"]},
+    {"property_id":"lactic_acid","value":2.6,"unit":"g/kg fresh mass","sample_basis":"perennial ryegrass silage","method":"As reported in study","status":"literature_value","quality_class":"B","source_ids":["SRC-MAUS-2020-RYEGRASS-AD"]},
+    {"property_id":"ethanol","value":2.2,"unit":"g/kg fresh mass","sample_basis":"perennial ryegrass silage","method":"As reported in study","status":"literature_value","quality_class":"B","source_ids":["SRC-MAUS-2020-RYEGRASS-AD"]},
+    {"property_id":"carbon_nitrogen_mass_ratio","value":19.3,"unit":"kg C/kg N","sample_basis":"perennial ryegrass silage","method":"As reported in study","status":"literature_value","quality_class":"B","source_ids":["SRC-MAUS-2020-RYEGRASS-AD"]},
+    {"property_id":"chemical_oxygen_demand","value":357.7,"unit":"g O2/kg fresh mass","sample_basis":"perennial ryegrass silage","method":"As reported in study; detailed assay method is cited by the article but not restated in the extracted passage","status":"literature_value","quality_class":"B","source_ids":["SRC-MAUS-2020-RYEGRASS-AD"]}
+  ],
+  "closure": {"status":"not_checked","accounting_group":null,"target_total":null,"residual_component_id":null,"method":"Analytical properties overlap and do not form a mutually exclusive mass composition; no closure is inferred."},
+  "technology_family_ids": ["anaerobic_digestion", "two_stage_two_phase_hydrolysis_anaerobic_filter"],
+  "activation_state": "reference_only",
+  "provenance": [
+    {
+      "source_id":"SRC-MAUS-2020-RYEGRASS-AD",
+      "source_title":"Impact of process temperature and organic loading rate on cellulolytic / hydrolytic biofilm microbiomes during biomethanation of ryegrass silage revealed by genome-centered metagenomics and metatranscriptomics",
+      "authors":"Irena Maus et al.",
+      "reference_year":2020,
+      "doi_or_stable_id":"10.1186/s40793-020-00354-x",
+      "related_identifiers":["https://pmc.ncbi.nlm.nih.gov/articles/PMC8067321/"],
+      "source_url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC8067321/",
+      "source_location":"Methods: reactor set-up and sampling; feed characterization and Results: biogas reactor performance; Fig. 2",
+      "retrieval_date":"2026-11-10",
+      "license":"CC BY 4.0"
+    }
+  ],
+  "metadata_gaps": [
+    "No harvest location, cultivar, maturity stage, or project-specific representativeness is established.",
+    "The cited assay methods are not fully restated in the accessible passage.",
+    "This silage profile is not a raw-grass composition and must not replace the GreenHub UI feed profile.",
+    "Analytical observations do not include a complete, exclusive component mass balance."
+  ]
+}

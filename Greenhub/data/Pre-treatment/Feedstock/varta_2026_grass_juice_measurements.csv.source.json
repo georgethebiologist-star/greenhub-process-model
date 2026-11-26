@@ -1,0 +1,26 @@
+{
+  "dataset_id": "VARTA_2026_10_27_juice",
+  "source_file": "varta_2026_grass_juice_measurements.csv",
+  "title": "VARTA 2026 grass-juice nutrient laboratory measurements",
+  "source_id": "SRC-VARTA-2026-10-27",
+  "source_workbook": "261027 Nutriënten Grasmonsters VARTA.xlsx",
+  "source_workbook_sha256": "F0449B8E18E66DEBF851B58FE6FDAF9678F92225A110BDB4D57EB226260A7DC8",
+  "source_sheet": "Nutriënten Sap",
+  "source_rows": "5–7 inclusive; 3 sample records",
+  "retrieval_date": "2026-11-07",
+  "geography": "GreenHub and Reterra samples; exact collection sites are not fully specified by the workbook",
+  "evidence_class": "A, laboratory values as reported in user-supplied workbook",
+  "doi": null,
+  "persistent_identifier": "VARTA_2026_10_27_juice (project-local dataset identifier; not a DOI)",
+  "license": "No external reuse license identified; project-supplied laboratory data",
+  "translation": "English headers and sample labels retain the original Dutch labels and source worksheet/row.",
+  "activation_state": "reference_only_for_phase3_component_partition",
+  "readiness_state": "D3 until sample lineage and matched flow data are documented",
+  "missing_value_policy": "Blank dates and laboratory values remain missing; measured numeric zero is retained as zero.",
+  "limitations": [
+    "The GreenHub grass-juice sample has no sample date in this extract.",
+    "No shared batch identifier proves pairing with the dated GreenHub whole-grass sample or any press-cake sample.",
+    "No press inlet/outlet masses, added-water record, or matched component balance are available.",
+    "The three rows are sample-specific and do not define a seasonal distribution or a press-yield calibration."
+  ]
+}

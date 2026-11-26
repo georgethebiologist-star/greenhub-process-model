@@ -1,0 +1,53 @@
+{
+  "dataset_id": "urn:greenhub:dataset:feed-bmp:christodoulou-aramis-metharoad-2022-reference:v1",
+  "dataset_version": "1.0.0",
+  "dataset_file": "roadside_grass_bmp_seasonal_contamination_christodoulou_2022_reference.csv",
+  "record_count": 91,
+  "sha256": "76470f39ef28713772a547099b2d34bc39f18d5af5cb0d9867df91227b904222",
+  "source_id": "SRC-ARAMIS-METHAROAD-SI502089-2022",
+  "citation": "Christodoulou, X., & Moatti, E. (2022). MéthaRoad - Valorisation de la biomasse des fauches des bords des routes dans des installations de biogaz. Swiss Federal Office of Energy final report, contract SI/502089-01.",
+  "publication_year": 2022,
+  "report_date": "2022-02-28",
+  "project_identifier": "SI/502089-01",
+  "persistent_identifier": "Swiss ARAMIS project SI/502089; no DOI identified",
+  "doi": "",
+  "source_url": "https://www.aramis.admin.ch/Texte/?ProjectID=47377",
+  "full_text_url": "https://www.aramis.admin.ch/Dokument.aspx?DocumentID=68742",
+  "retrieval_date": "2026-11-08",
+  "geography": "Selected roadside locations in Canton of Vaud, Switzerland; not a representative Dutch/GreenHub sample.",
+  "material_scope": "Roadside grass at five road/verge types sampled in June and September 2021; triplicate BMP and contaminant analyses; national resource estimates are separate author scenarios.",
+  "quality_class": "B for measured or directly reported study observations; C for author-estimated national resource potential",
+  "license": "No explicit open reuse license identified on the ARAMIS page or report during retrieval. Factual observations are transcribed with attribution for internal research traceability; verify redistribution and commercial reuse rights.",
+  "data_availability": "Official 47-page final report available through Swiss federal ARAMIS; no raw replicate data package identified.",
+  "data_structure": "Long-form CSV separates sample/site/campaign, mean and printed uncertainty, censored values, report-level summaries, and C-class national estimates. Blank numeric cells are not zero. Source locations refer to report page and PDF page.",
+  "phase_coverage": {
+    "1": "Vaud roadside type/campaign sampling, reported seasonal solids/C:N ranges, macro/microplastic contamination and explicitly author-estimated Swiss resource scenarios; no Dutch accessible supply.",
+    "2": "Two seasonal sampling dates only; no controlled storage duration, aerobic/anaerobic degradation kinetics or storage emissions.",
+    "3": "No GreenHub pretreatment, pressing, extraction, water addition or separation data.",
+    "4": "No protein extraction, product quality or drying data.",
+    "5": "Triplicate mesophilic batch BMP by route/campaign and a report-level digester integration estimate; no continuous GreenHub residual AD calibration.",
+    "6": "No gas upgrading, methane recovery/slip or upgrader utility observations.",
+    "7": "Feed contamination and selected metal/PAH screening relevant to digestate/fertilizer quality; digestate HAP results were not measured and this is not nutrient recovery or fertilizer substitution evidence."
+  },
+  "limitations": [
+    "Sampling is from five selected road/verge types in Vaud, Switzerland; it is not a representative national or Dutch roadside survey.",
+    "Campaigns differed in weather and cutting equipment; June motorway samples followed heavy rain, while September sampling followed dry weather.",
+    "BMP is batch potential at 37 °C using wastewater-treatment sludge inoculum, not continuous digester performance; printed ± values have no identified statistic type and NL reference conditions are not fully specified.",
+    "The report's C:N narrative gives conflicting first-campaign ranges (21–40 and 16–32); both are retained.",
+    "The report's zinc narrative says values were below 2.5 ppm LOQ but separately reports 3.454 and 5.767 ppm for La Veyre intensive; both statements are retained without reconciliation.",
+    "PAH and general metal non-detects are censored and not zero. Mass bases are not consistently stated.",
+    "Macroplastic table percentages have an unclear denominator; values are not converted into concentration or regulatory-compliance factors.",
+    "The 2–3 t fresh matter per total road-km/year factor and Swiss national annual tonnage are author estimates compiled from secondary sources; not measured, accessible, contracted, or GreenHub feedstock.",
+    "No explicit open reuse license was identified; review rights before external redistribution or commercial reuse."
+  ],
+  "conversion_or_processing": "Direct transcription from report tables/text; no figure digitization, unit conversion, extrapolation to GreenHub, imputation, or fitted model.",
+  "uncertainty": "Printed ± values are retained without SD/SE interpretation; grouped ranges and censored bounds stay explicit; author-estimated supply bounds are not statistical confidence intervals.",
+  "runtime_policy": "Reference-only; not connected to parameter registry, model defaults, route calculations, TEA/LCA, scenario generation, or Pareto results.",
+  "access_protocol": "HTTPS ARAMIS project metadata page and final-report PDF; stable project identifier recorded; no DOI identified.",
+  "fair_metadata": {
+    "findable": "Local URN, stable Swiss ARAMIS project identifier, catalog-indexed dataset, title/authors/year, and SHA-256.",
+    "accessible": "HTTPS project and report links; access is open through the federal ARAMIS portal, while reuse rights remain unverified.",
+    "interoperable": "UTF-8 CSV using the GreenHub long-form observation schema with phases, units, bases, censoring bounds, and source locations.",
+    "reusable": "Citation, retrieval date, geography, methods, row-level evidence classes, uncertainty, limitations, and explicit runtime exclusion are included."
+  }
+}

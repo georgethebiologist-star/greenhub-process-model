@@ -1,0 +1,27 @@
+{
+  "source_file": "road_verge_composition_2020.csv",
+  "title": "Road-verge grass composition and theoretical BMP reference observations",
+  "source_id": "SRC-BROWN-2020",
+  "authors": "Aaron E. Brown; Judith S. Ford; Catherine S. E. Bale; Miller A. Camargo-Valero; Nick J. Cheffins; Patrick E. Mason; Andrew M. Price-Allison; Andrew B. Ross; Peter G. Taylor",
+  "publication_year": 2020,
+  "doi": "10.1016/j.biombioe.2020.105570",
+  "source_url": "https://doi.org/10.1016/j.biombioe.2020.105570",
+  "open_full_text_url": "https://eprints.whiterose.ac.uk/160532/1/39%20Brown%20et%20al.%2C%202020.pdf",
+  "license": "CC BY 4.0",
+  "source_location": "Table 3, p. 6",
+  "retrieval_date": "2026-11-06",
+  "evidence_class": "B_literature_measurement_and_derived_values",
+  "geography": "Lincolnshire, England, United Kingdom",
+  "material_scope": "Fresh verge grass and verge grass ensiled for four months; sampled in 2016",
+  "composition_basis": "Dry basis (%)",
+  "uncertainty_note": "Composition values are transcribed with the source's printed ± values. The Table 3 note does not identify the statistic for those composition values. Theoretical BMP standard deviations are reported across 9 fresh and 7 ensiled sampling sites.",
+  "limitations": [
+    "Not GreenHub or Dutch VARTA grass; composition is reference-only.",
+    "Theoretical Buswell and Boyle methane potentials assume complete biodegradation and are not measured BMP or continuous-reactor yields.",
+    "Oxygen analytical or difference-calculation basis is not identified in the table note.",
+    "Ensiled sulfur is reported ND; it is retained as censored/missing, not zero.",
+    "Four-month bale ensiling is not equivalent to GreenHub loose-feed storage or a validated kinetic model."
+  ],
+  "activation_state": "reference_only",
+  "redistribution_note": "Contains limited attributed numeric data and metadata; the publication is CC BY 4.0."
+}

@@ -1,0 +1,53 @@
+{
+  "dataset_id": "urn:greenhub:dataset:feed-bmp:meadow-grass-pretreatment-bmp-digestate-chopda-2025-reference:v1",
+  "dataset_version": "1.0.0",
+  "dataset_file": "meadow_grass_pretreatment_bmp_digestate_chopda_2025_reference.csv",
+  "source_file": "meadow_grass_pretreatment_bmp_digestate_chopda_2025_reference.csv",
+  "record_count": 63,
+  "sha256": "c9f0e451db7c8606971e55fcb389084cab3eb56cb7efd6f08ca1896a529c81d6",
+  "source_id": "SRC-CHOPDA-MEADOW-GRASS-2025",
+  "citation": "Chopda, R., Tsapekos, P., Robles-Aguilar, A., de Souza, M. F., Akyol, Ç., Speelman, S., Angelidaki, I., & Meers, E. (2025). From grass to lactic acid and energy: evaluating pretreatment techniques for enhanced biorefinery outputs. Biomass Conversion and Biorefinery, 15, 7179–7189. https://doi.org/10.1007/s13399-024-05776-y",
+  "publication_year": 2025,
+  "journal": "Biomass Conversion and Biorefinery, volume 15, pages 7179–7189",
+  "doi": "10.1007/s13399-024-05776-y",
+  "source_url": "https://doi.org/10.1007/s13399-024-05776-y",
+  "institutional_record": "https://orbit.dtu.dk/en/publications/from-grass-to-lactic-acid-and-energy-evaluating-pretreatment-tech/",
+  "accepted_author_manuscript": "https://backend.orbit.dtu.dk/ws/files/368289470/Final-GrassBiorefinery_2.pdf",
+  "retrieval_date": "2026-11-08",
+  "source_location": "Accepted author manuscript: §2.1–2.5, Table 1, §3.1–3.3, Figure 3, and Abstract; page/section locations are retained in each CSV row.",
+  "geography": "UCD Lyons Farms, Newcastle, County Dublin, Ireland; feed transported to Denmark for experimentation.",
+  "material_scope": "Meadow-grass mixture including ryegrass, white clover, red clover, Yorkshire fog, creeping buttercup, and chickweed; harvested June 2021.",
+  "evidence_class": "B_measured_literature_observations_and_source_reported_conditions",
+  "quality_class": "B",
+  "license": "No open reuse license identified for the accepted author manuscript. DTU Orbit general-rights notice permits one copy for private study/research, prohibits further distribution and commercial use, and permits distribution of the record URL. The repository extract contains attributed facts and values only; review rights before any external redistribution.",
+  "data_availability": "No separate raw-data repository or supplementary dataset was identified in the institutional record during retrieval. Values are limited transcriptions from source tables, text, and abstract; no figure digitization was performed.",
+  "data_structure": "Long-form observations with reported value, numeric/range fields, unit, basis, experiment/treatment, condition, replicate count, uncertainty note, and exact section/table location. Empty numeric cells mean no numeric value is transcribed; they are not zero.",
+  "phase_coverage": {
+    "1": "Feed identity, harvest-month context, and reported lignocellulosic composition; no annual supply, accessible area, collection, moisture profile, or roadside-specific availability.",
+    "2": "Laboratory ensiling duration, temperature, final pH, and post-treatment TS/VS endpoints; no mass-retention series, gas/emission losses, leachate, aerobic storage, or kinetic parameters.",
+    "3": "Milling size and an alternative acid/enzyme hydrolysis route; no screw-press performance, extraction balance, dilution water, or GreenHub unit-energy data.",
+    "4": "Lactic-acid fermentation from hydrolysate is included as an alternate pathway only; no protein solubilization, isoelectric precipitation, protein recovery, or protein-product quality.",
+    "5": "Triplicate batch BMP and limited gas composition for meadow grass and an acid/enzyme hydrolysis residue; no continuous residual digester kinetics or post-protein residual-specific BMP.",
+    "6": "Raw batch-biogas methane fraction only; no upgrading technology, methane recovery/slip, parasitic energy, water, cost, or product-specification evidence.",
+    "7": "Reported N/P/K amounts in study digestates; no GreenHub flow-weighted nutrient balance, nutrient speciation, fertilizer processing, compliance, or substitution validation."
+  },
+  "limitations": [
+    "The study material is cultivated meadow grass from Ireland, not roadside grass, Dutch VARTA samples, or GreenHub's protein-depleted process streams.",
+    "The source does not explicitly state the denominator for the cellulose, hemicellulose, and lignin percentages; these bases remain unresolved and no dry-basis conversion was made.",
+    "Table 1 reports means of triplicates and SD below 0.1% for measured conditions; treatment-specific SDs for methane yield and gas composition are not transcribed from the figure.",
+    "The 3-week ensiling data are laboratory endpoints and cannot define full-scale storage kinetics, wet-mass loss, methane loss, or emissions.",
+    "BMP data are batch biochemical-potential results, not continuous digester performance or a validated scale-up relationship.",
+    "Digestate N/P/K values are reported per t DM, but the article text does not unambiguously identify whether that dry-matter denominator is digestate or grass input; they also do not define nutrient availability, downstream product grade, lawful application, or avoided-fertilizer credits.",
+    "The manuscript's repository terms restrict redistribution; only the source URL may be freely distributed under the stated notice."
+  ],
+  "conversion_or_processing": "Direct transcription of the reported values, ranges, and conditions; no conversions, imputations, graph digitization, kinetic fitting, or GreenHub parameter mapping.",
+  "uncertainty": "Replicate count and the source-reported Table 1 SD bound are retained where given. Exact BMP treatment SDs, composition-basis uncertainty, and scale-up uncertainty are not resolved.",
+  "runtime_policy": "Reference-only; no parameter registry, default, process equation, TEA/LCA factor, scenario, or Pareto mapping.",
+  "access_protocol": "HTTPS DOI and DTU Orbit record; accepted manuscript accessible at the institutional repository URL subject to the stated general-rights notice.",
+  "fair_metadata": {
+    "findable": "Repository-local URN, stable DOI, source ID, and catalog-indexed dataset path.",
+    "accessible": "HTTPS links to DOI and DTU repository; manuscript access conditions and reuse restrictions are recorded.",
+    "interoperable": "UTF-8 long-form CSV with explicit phase, experiment, treatment, metric, reported value, numeric/range fields, units, basis, conditions, and source location.",
+    "reusable": "Citation, retrieval date, SHA-256, evidence class, applicability, uncertainty, limitations, conversion policy, and license status are recorded."
+  }
+}

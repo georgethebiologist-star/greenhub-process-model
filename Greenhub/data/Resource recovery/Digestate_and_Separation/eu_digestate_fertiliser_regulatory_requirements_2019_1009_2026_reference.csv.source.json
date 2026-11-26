@@ -1,0 +1,34 @@
+{
+  "dataset_id": "urn:greenhub:dataset:phase7:eu-digestate-fertiliser-regulatory-requirements:2026-07-01:v1.1",
+  "dataset_version": "1.1.0",
+  "dataset_file": "eu_digestate_fertiliser_regulatory_requirements_2019_1009_2026_reference.csv",
+  "record_count": 85,
+  "sha256": "273a5c052eb48f4ec9367f18188ceaafb9ee86596f4226dea24b73f0df90b029",
+  "retrieval_date": "2026-11-08",
+  "source_ids": [
+    "SRC-EU-REG-2019-1009-CONSOL-2026-07-01",
+    "SRC-NL-BUSINESSGOV-FERTILISER-RESIDUE-ADMISSION",
+    "SRC-NL-RVO-ANNEX-AA-DIGESTATE-2026"
+  ],
+  "access_protocol": "UTF-8 CSV/JSON and source links served over HTTPS",
+  "evidence_class": "official regulation and official national government guidance; not A/B measured/literature data",
+  "license_or_rights": "No CC license is asserted. The consolidated EU document says it is a documentation tool and authentic acts have legal effect. Dutch government pages are linked as guidance; their reuse/license terms have not been independently established.",
+  "processing": "Thresholds and clauses were transcribed from the 2026-07-01 consolidated EU text (CMC4/CMC5/CMC12; PFC1(A)/PFC1(C)) and RVO guidance checked 2026-03-12. Requirements remain route-conditional. No project assays or conformity result is derived.",
+  "runtime_policy": "Reference-only. No parameter registry, service, default, process chemistry, fertilizer revenue or LCA credit is connected.",
+  "limitations": [
+    "A CE-marked EU route is not the only possible Dutch market route; national admission for waste/residue fertilisers is separate.",
+    "Roadside grass is not presumed eligible as CMC4 fresh-crop digestate because the legal wording requires plants or plant parts grown for biogas production.",
+    "CMC5 input eligibility is not declared for roadside mowings, collected litter/sand, ensiling, co-feeds or project-specific pre-processing.",
+    "PFC 1(A) is only one product-function category; struvite and recovered mineral nutrient salts may require other CMC/PFC rules not staged here.",
+    "CMC12/PFC1(C) are screening pathways for candidate precipitated phosphate salts, not proof the project's material input, chemical processing chain or final salt qualifies.",
+    "RVO guidance requires waste/residue materials to be listed in current Annex Aa; exact inclusion of roadside grass, GreenHub digestate and separated fractions has not been verified.",
+    "No actual N/P/K, moisture, metals, PAH16, macroscopic impurity, pathogen, stability, PFAS, pesticide or buyer-grade measurement is provided.",
+    "No fertilizer sale price, substitution credit, regulatory approval or runtime compliance claim is inferred."
+  ],
+  "fair_metadata": {
+    "findable": "Stable local URN, source IDs, EUR-Lex CELEX/ELI, Business.gov.nl and RVO source links.",
+    "accessible": "Machine-readable UTF-8 CSV and JSON metadata; source documents linked over HTTPS.",
+    "interoperable": "Requirement rows provide Phase 7, jurisdiction, version, CMC/PFC, threshold, units, legal location, pathway and applicability.",
+    "reusable": "Applicability, route choice, measurement gaps, rights caveat and no-runtime policy are recorded."
+  }
+}

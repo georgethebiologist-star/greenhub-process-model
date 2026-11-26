@@ -1,6 +1,7 @@
 ﻿filename,scope,row_count,validation_status,integration_readiness
 assumption_and_missing_data_register.csv,assumption and missing data register,12,PASS,partial_ready
 cleaning_data.csv,cleaning data,4,PASS,partial_ready
+green_valleys_brown_juice_nanofiltration_2020_reference.csv,Green Valleys brown-juice pilot and demonstration nanofiltration evidence,30,PASS,reference_only
 diafiltration_data.csv,diafiltration data,10,PASS,partial_ready
 energy_data.csv,energy data,5,PASS,partial_ready
 equation_registry.csv,equation registry,7,PASS,partial_ready
@@ -25,3 +26,6 @@ biostimulant_retention_evidence_assessment.csv,PR7 retention evidence assessment
 biostimulant_unmapped_pool_evidence.csv,PR7 external membrane-retention evidence,9,PASS,evidence_context_only_not_applied
 biostimulant_feed_property_references.csv,PR7 fresh-feed rheology context references,2,PASS,context_only_no_transferable_fresh_grass_viscosity; no proxy auto-applied
 biostimulant_product_price_references.csv,PR7 product-price context references,1,PASS,public_supplier_comparator_not_applied; not an equivalent PR7 offtake product
+clover_grass_pilot_membrane_protein_quality_badfar_2027_reference.csv,Pilot-scale clover-grass membrane processing and protein-quality observations,21,PASS,reference_only
+clover_grass_pilot_membrane_protein_quality_badfar_2027_reference.csv,Pilot-scale clover-grass membrane processing and protein-quality observations,21,PASS,reference_only
+clover_grass_membrane_stream_composition_and_conditions_echers_2026_reference.csv,"Echers et al. clover-grass pilot stream composition, pigment and operating-condition observations",45,PASS,reference_only

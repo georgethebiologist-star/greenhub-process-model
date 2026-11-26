@@ -1,0 +1,43 @@
+{
+  "dataset_title": "Field yield, chemical characterization, batch digestion, and ADM1 fit for residue grass",
+  "dataset_identifier": "urn:greenhub:dataset:feed-bmp:bedoić-residue-grass-field-ad-reference:2019:v1",
+  "source_file": "bedoić_residue_grass_field_and_AD_reference_2019.csv",
+  "source_id": "SRC-BEDOIC-2019",
+  "source_title": "Green biomass to biogas – a study on anaerobic digestion of residue grass",
+  "authors": ["Robert Bedoić", "Lidija Čuček", "Boris Ćosić", "Damjan Krajnc", "Goran Smoljanić", "Zdravko Kravanja", "Davor Ljubas", "Tomislav Pukšec", "Neven Duić"],
+  "publication_year": 2019,
+  "journal": "Journal of Cleaner Production",
+  "volume": 213,
+  "pages": "700-709",
+  "doi": "10.1016/j.jclepro.2018.12.224",
+  "source_url": "https://doi.org/10.1016/j.jclepro.2018.12.224",
+  "open_manuscript_url": "https://powerlab.fsb.hr/neven/pdf/16-sci-cc/green-biomas-to-biogas.pdf",
+  "metadata_record_url": "https://www.croris.hr/crosbi/publikacija/prilog-casopis/258569",
+  "retrieval_date": "2026-11-07",
+  "geography": "Zagreb area, Croatia",
+  "dataset_rows": 46,
+  "evidence_class": "B_primary_literature_measurements_and_model_fit",
+  "activation_state": "reference_only",
+  "license": "No explicit open-data license identified; attributed factual observations are recorded, but no full text is redistributed.",
+  "data_basis": "Phase 1 records retain field fresh-mass yield in kg/m2 and source-reported fresh- or dry-matter composition. Phase 5 records include measured 40-day batch BGP/BMP in Nm3/kg TS, source-reported theoretical COD and C/N, fitted ADM1 parameter values, and modeled comparison outputs. No unit conversions or recalibration were applied.",
+  "methods": {
+    "field_sampling": "Three grassland classes (uncultivated land, Sava riverbank, highway verge); nine 2 m2 quadrats per class; collected end of April 2018. Field yield reported as mean and SD.",
+    "chemical_analysis": "Moisture, ash, heating values and elemental composition tested using HRN EN ISO methods listed in Table 1; paired dry-matter values retained where the source table defines fresh (dry) basis.",
+    "batch_digestion": "250 mL batch flasks, 39 C, 42-day operation, triplicate tests, 9 g TS per reactor, 6% DM, inoculum-to-substrate ratio 1:1; BGP/BMP reported after 40 days.",
+    "adm1_fit": "Selected disintegration, hydrolysis and Monod constants fitted to MRG2 riverbank-grass gas production and gas-composition data; predictions compared with MRG1 and MRG3."
+  },
+  "source_locations": ["Table 3 field yield and feed composition", "Table 4 theoretical COD", "Section 3.1 C/N ratios", "Table 5 measured BGP/BMP", "Table 6 fitted ADM1 kinetics", "Table 8 modeled BGP and relative errors"],
+  "uncertainty": "Field-yield SD is retained where reported. Most chemistry, BMP, and fitted-parameter rows have no uncertainty estimate; empty uncertainty is not zero. Parameter covariance/confidence intervals are not reported.",
+  "applicability": "Primary literature comparator for roadside/residue grass availability, composition, biochemical methane potential, and grass-specific ADM1 fitting. Not GreenHub site data, a protein-extraction residual, continuous reactor performance, or a Dutch seasonal default.",
+  "limitations": [
+    "One April sampling campaign in Croatia; quadrat yield cannot be annualized or treated as accessible supply.",
+    "BMP is a laboratory batch endpoint on TS basis, not methane yield per VS, continuous yield, or a direct GreenHub residual performance factor.",
+    "Co-digestion records contain maize silage and/or cattle slurry and must not be used as grass-only values.",
+    "Fitted Table 6 parameters are specific to one riverbank sample (MRG2) and the study's modified ADM1 model; direct transfer to GreenHub is not justified.",
+    "Table 8 MRG2 is calibration; MRG1/MRG3 transfers have reported relative errors 21.9% and 19.2%, not broad independent validation.",
+    "Theoretical COD is composition-derived, not measured biodegradable COD; C/N is a source-reported calculation.",
+    "No GreenHub defaults, runtime mappings, scenario outputs, or workbook/API/UI override rules are changed."
+  ],
+  "runtime_parameter_mapping": null,
+  "transcription_note": "Numeric records were transcribed from the open author manuscript tables/text. No fitted curves or missing uncertainty values were reconstructed."
+}

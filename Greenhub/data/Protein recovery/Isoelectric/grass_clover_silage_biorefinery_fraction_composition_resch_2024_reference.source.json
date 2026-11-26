@@ -1,0 +1,33 @@
+{
+  "dataset_id": "urn:greenhub:dataset:protein-recovery:resch-grass-clover-fraction-composition-2024:v1",
+  "persistent_identifier_status": "Repository-local stable identifier for this transcription; source publication DOI is recorded separately.",
+  "dataset_version": "1.0.0",
+  "source_file": "grass_clover_silage_biorefinery_fraction_composition_resch_2024_reference.csv",
+  "title": "Grass-clover and red-clover silage biorefinery fraction composition reference observations",
+  "citation": "Resch, R., Terler, G., Winter, M., Mandl, M., Baldinger, L., Sweeney, J., McDonnell, K., & Steinwidder, A. (2024). Nutrient composition, fermentation characteristics and mass balance of press juice and press cake obtained from biorefining of grass-clover and red clover silage. Grass and Forage Science, 79(3), 449–463. https://doi.org/10.1111/gfs.12682",
+  "authors": ["Reinhard Resch", "Georg Terler", "Manuel Winter", "Michael Mandl", "Lisa Baldinger", "Joseph Sweeney", "Kevin McDonnell", "Andreas Steinwidder"],
+  "persistent_identifier": "doi:10.1111/gfs.12682",
+  "source_url": "https://doi.org/10.1111/gfs.12682",
+  "open_full_text_pdf": "https://www.farm4more.eu/wp-content/uploads/2024/06/Grass-and-Forage-Science-2024-Resch-Nutrient-composition-fermentation-characteristics-and-mass-balance-of-press.pdf",
+  "source_locations": ["Table 1, printed pp. 5–6: nutrient composition", "Table 3, printed p. 8: fermentation parameters and pH", "Methods section: sample and replicate description"],
+  "retrieval_date": "2026-11-07",
+  "reference_year": 2024,
+  "experiment_year": 2020,
+  "geography": "Raumberg-Gumpenstein, Styria, Austria",
+  "evidence_class": "B_measured",
+  "license": "Open-access article; publisher PDF states that it is distributed under the applicable Creative Commons license. Verify license terms at the source before redistribution beyond this attributed tabular transcription.",
+  "material_scope": "Cultivated grass-clover mixture and pure red clover harvested at inflorescence emergence, wilted, ensiled, and processed in a farm-scale green biorefinery. Not roadside grass, VARTA samples, or GreenHub-specific material.",
+  "experimental_conditions": "Four replicate samples per forage type and fraction. Samples include wilted forage, silage, press juice, fresh press cake, and re-ensiled press cake. The silage biorefinery campaign ran in July 2021 using silage made from summer 2020 forage. Table 1 reports means and residual standard deviations; Table 3 reports pH and fermentation parameters.",
+  "data_scope": "52 observation rows transcribed from Tables 1 and 3: crude protein, fresh-matter dry matter concentration, sugar, crude ash, NDF, and pH where reported. Numeric values retain source units and distinct wet/dry bases. NDF for press juice is not analysed and is intentionally omitted rather than recorded as zero.",
+  "limitations": [
+    "Reference-only; values are not GreenHub defaults, calibration data, or runtime parameters.",
+    "Cultivated Austrian grass-clover/red clover silage differs from roadside grass and GreenHub feed; transferability is limited.",
+    "The article states that supporting data are available from the corresponding author on reasonable request; raw replicate-level observations are not included here.",
+    "Reported residual SD is retained as printed and is not treated as a confidence interval or as uncertainty of a GreenHub parameter.",
+    "Table 1 concentration rows do not alone close a process balance. The source's Table 5 mass-balance results are not reconstructed in this extract.",
+    "pH is retained as a source-reported analytical result and must not be used to infer chemical dosing or precipitation demand."
+  ],
+  "conversion_or_processing": "Means and residual SDs were transcribed from the article tables. No unit conversion, interpolation, imputation, balance closure, averaging across crop types, or inference was applied. Significance superscripts were excluded from numeric cells; crop and process fraction labels are retained.",
+  "uncertainty": "The article reports four samples per forage type and residual standard deviations in the tables. Raw replicates are not published in the accessible article.",
+  "activation_state": "reference_only"
+}

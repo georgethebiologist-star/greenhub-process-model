@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "source_id": "SRC-HANSEN-ALFALFA-SCREWPRESS-2022",
+  "source_title": "Scale-Up of Alfalfa (Medicago sativa) Protein Recovery Using Screw Presses",
+  "authors": "Mikkel Hansen; Christina Albers Andersen; Peter Ruhdal Jensen; Timothy John Hobley",
+  "reference_year": 2022,
+  "persistent_identifier": "https://doi.org/10.3390/foods11203229",
+  "alternate_identifier": "PMCID: PMC9602060",
+  "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9602060/",
+  "source_location": "Methods §2.1; Table 1; Table 2; Table A1; Abstract; Results §3.1 and Conclusions",
+  "retrieval_date": "2026-11-09",
+  "geography": "Fyn, Denmark; alfalfa harvested in spring 2019",
+  "evidence_class": "Primary experimental literature; measurements and source-reported cumulative recovery",
+  "license": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+  "measurement_basis": "Single-screw pilot press, 50.8 kg initial fresh whole-alfalfa batch; feed reported to contain 2189 g protein. Working pressure 6 bar, 10 rpm, 0.5 mm filter. Pulp rehydrated with tap water at twice pulp mass before each subsequent pass. Source tables report mass in g and APC composition on dry matter basis.",
+  "uncertainty": "Table 2 values are mean ± standard deviation, n=3, for protein content and protein digestibility. Table A1 fraction masses are reported without uncertainty. Cumulative total-protein recovery is reported at the first, second, and tenth pass only; other pass-specific cumulative values are not reported.",
+  "conversion_and_scaling": "No values converted. Source's % DM basis and g mass units are retained. Pressing, juice precipitation, centrifugation, and freeze-drying are laboratory/pilot-specific; do not scale as a GreenHub design equation.",
+  "related_technology_family_ids": ["pretreatment_fractionation", "protein_recovery"],
+  "applicability": "Reusable as a traceable alfalfa screw-press and product-quality comparator for alternative green-biomass projects after matching equipment and feed basis.",
+  "limitations": [
+    "Feedstock is alfalfa, not roadside grass or GreenHub feed.",
+    "The reported ten-pass sequence includes repeated water addition and does not imply industrial feasibility.",
+    "Centrifugation followed acidification of juice to pH 3.5; the recovered concentrate was freeze-dried.",
+    "The authors report over 14% of wet input mass unaccounted in Table 1 and note repeated pressing uses substantial water, time, and energy.",
+    "No source data are calculation-connected in GreenHub; do not use as a default or direct isoelectric precipitation yield."
+  ],
+  "license_note": "The article is CC BY 4.0. Attribute the source and identify this structured extract as a transcribed dataset; retain the source's distinct bases and limitations.",
+  "activation_state": "reference_only",
+  "runtime_mapping": "none"
+}

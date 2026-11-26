@@ -9,7 +9,7 @@ calibration separate from mechanistic calculations. Normal gas conditions are
 from __future__ import annotations
 
 from dataclasses import dataclass
-from math import ceil, exp, pi
+from math import ceil, exp, log, pi
 from typing import Mapping
 
 from Greenhub.phase5_specifications import (
@@ -97,6 +97,7 @@ def empirical_absorption_fraction(
     temperature_c: float,
     reference_temperature_c: float,
     temperature_coefficient_per_c: float,
+    temperature_response_ratio: float | None = None,
 ) -> float:
     """Scale a calibrated absorption fraction with transparent drivers.
 
@@ -113,14 +114,61 @@ def empirical_absorption_fraction(
         reference_water_to_gas_ratio,
         "Reference water-to-gas ratio",
     )
-    temperature_factor = exp(
-        float(temperature_coefficient_per_c)
-        * (float(reference_temperature_c) - float(temperature_c))
+    temperature_factor = (
+        positive(temperature_response_ratio, "Temperature response ratio")
+        if temperature_response_ratio is not None
+        else exp(
+            float(temperature_coefficient_per_c)
+            * (float(reference_temperature_c) - float(temperature_c))
+        )
     )
     exposure = max(0.0, pressure_factor * liquid_factor * temperature_factor)
     if base >= 1.0:
         return 1.0
     return max(0.0, min(1.0, 1.0 - (1.0 - base) ** exposure))
+
+
+def h2s_solubility_temperature_ratio(
+    temperature_c: float,
+    reference_temperature_c: float,
+    low_a: float,
+    low_b_k: float,
+    high_a: float,
+    high_b_k: float,
+    high_c: float,
+    high_d_per_k: float,
+    transition_temperature_k: float,
+    minimum_temperature_k: float,
+    maximum_temperature_k: float,
+) -> float:
+    """Return the IUPAC-evaluated H2S mole-fraction-solubility ratio.
+
+    The critical evaluation reports separate fits below and above the transition.
+    Their source form is ln(x_H2S) = A + B/T (+ C ln(T) + D*T).
+    This is a pure-water equilibrium correction, not a scrubber mass-transfer model.
+    """
+
+    temperature_k = float(temperature_c) + 273.15
+    reference_temperature_k = float(reference_temperature_c) + 273.15
+    positive(temperature_k, "Absorber temperature")
+    positive(reference_temperature_k, "Reference absorber temperature")
+    lower = float(minimum_temperature_k)
+    transition = float(transition_temperature_k)
+    upper = float(maximum_temperature_k)
+    if not lower <= temperature_k <= upper or not lower <= reference_temperature_k <= upper:
+        raise ValueError("H2S solubility fit is outside its source-reported temperature range.")
+
+    def log_solubility(temperature: float) -> float:
+        if temperature < transition:
+            return float(low_a) + float(low_b_k) / temperature
+        return (
+            float(high_a)
+            + float(high_b_k) / temperature
+            + float(high_c) * log(temperature)
+            + float(high_d_per_k) * temperature
+        )
+
+    return exp(log_solubility(temperature_k) - log_solubility(reference_temperature_k))
 
 
 @dataclass(frozen=True)

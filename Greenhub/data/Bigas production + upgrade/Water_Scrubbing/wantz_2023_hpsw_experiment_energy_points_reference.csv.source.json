@@ -1,0 +1,33 @@
+{
+  "dataset_id": "urn:greenhub:dataset:water-scrubbing:wantz-2023-hpsw-energy-points:v1",
+  "source_id": "SRC008",
+  "title": "Innovative high-pressure water scrubber for biogas upgrading at farm-scale using vacuum for water regeneration",
+  "authors": [
+    "Eliot Wantz",
+    "Mathis Lemonnier",
+    "David Benizri",
+    "Nicolas Dietrich",
+    "Gilles Hébrard"
+  ],
+  "publication_year": 2023,
+  "doi": "10.1016/j.apenergy.2023.121781",
+  "published_version_url": "https://doi.org/10.1016/j.apenergy.2023.121781",
+  "transcription_source_url": "https://www.researchgate.net/publication/373689139_Innovative_high-pressure_water_scrubber_for_biogas_upgrading_at_farm-scale_using_vacuum_for_water_regeneration",
+  "transcription_source_version": "Author-uploaded preprint submitted 2023-02-27; publication record identifies Applied Energy 350, article 121781.",
+  "source_location": "Results and discussion, electricity measurements for Experiments 31 and 35; the manuscript states a two-hour meter window and approximately 0.8 kWh/Nm3 raw biogas for both points.",
+  "geography": "Farm anaerobic-digester installation at Lamothe, Seysses, France.",
+  "retrieval_date": "2026-11-08",
+  "evidence_class": "B-tier measured literature comparator",
+  "license_or_rights": "No explicit reuse license was identified for the manuscript; the author-uploaded page warns content may be subject to copyright. The source PDF is not included. Review rights before external redistribution.",
+  "data_handling": "Twelve short factual records transcribe two operating-point contexts and their measured electrical demand. The source-normalized specific consumption is kept as approximate as reported; no value is inferred from the rounded power and flow figures.",
+  "activation_state": "reference_only",
+  "quality_class": "B",
+  "sha256_csv": "fdd70d7c3c15e7ce4f8c8c55208404f8a450e9ae32ea3f8e4f297fc2e9afd963",
+  "limitations": [
+    "These are two farm-scale water-scrubber operating points on biogas, not roadside-grass-specific measurements or GreenHub calibration.",
+    "The paper reports total electrical demand for the tested apparatus; equipment loads and auxiliary contributions are configuration-specific.",
+    "Point-level uncertainty and replicate statistics are not given for these readings; power is described as approximate.",
+    "The paper's abstract-level claims of improved efficiency and methane recovery are separate from these electrical observations and are not reinterpreted here.",
+    "No model parameter, default, UI value, route, TEA/LCA calculation, or Pareto result is activated or changed."
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "project_id": "greenhub",
+  "display_name": "GreenHub roadside-grass biorefinery",
+  "status": "runnable_project_adapter",
+  "adapter_entrypoint": "Greenhub.application.project_adapter:build_greenhub_model",
+  "technology_family_ids": ["pretreatment_fractionation", "protein_recovery", "anaerobic_digestion", "biogas_upgrading", "npk_recovery"],
+  "route_template_ids": ["greenhub-grass-protein-biogas-npk-reference-v1"],
+  "description": "The existing GreenHub empirical and supported quasi-dynamic pathway registered as one project in the broader biorefinery platform.",
+  "data_context": "Roadside grass in the Netherlands, using the current GreenHub feedstock and scenario evidence. Values are not global defaults for other waste streams or locations.",
+  "compatibility": {
+    "simulation_request_project_id": "Preserved as a compatibility/provenance label; it does not select the project adapter.",
+    "scenario_ids": "F*, PR*, AD*, BG*, NR* remain unchanged.",
+    "api_contracts": "No request or result schema changes are required for the adapter seam."
+  }
+}

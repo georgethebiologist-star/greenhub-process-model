@@ -1,0 +1,16 @@
+{
+  "source_file": "green_biorefinery_energy_benchmarks.csv",
+  "source_title": "Environmental impacts of a biorefinery integrated into dairy farming system",
+  "source_type": "Peer-reviewed open-access journal article; pilot-derived process measurements",
+  "authors": "Narta Elshani; Steffen Adler; Pernilla Tidåker; Jon Kristian Sommerseth; Matthias Koesling; Håvard Steinshamn",
+  "reference_year": 2026,
+  "persistent_identifier": "10.1038/s44264-026-00189-y",
+  "source_url": "https://doi.org/10.1038/s44264-026-00189-y",
+  "source_table_page": "Methods, GBR process energy paragraph; published aggregate per Mg DM feed",
+  "retrieval_date": "2026-11-06",
+  "evidence_class": "B",
+  "material_scope": "Grass-clover biomass processed at the NIBIO Tuv pilot, Norway",
+  "applicability": "Whole-facility comparison benchmark only; the CSV values are not roadside-grass-specific and are not press-only.",
+  "limitations": "Do not activate as a GreenHub default or add the total-energy row to its electricity and heat components. Facility, feedstock, geography, scale, and inventory boundaries differ from GreenHub.",
+  "rights_note": "Consult the publisher's article license and reuse terms before redistributing article content; this sidecar records only citation and provenance metadata."
+}

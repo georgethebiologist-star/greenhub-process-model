@@ -1,0 +1,37 @@
+{
+  "dataset_id": "urn:greenhub:dataset:ad:guanlao-2019-roadside-grass-pilot-digestion:v1",
+  "title": "Anaerobic digestion and sanitation of grass clippings from roadside and grassland",
+  "source_id": "SRC-GUANLAO-2019-ROADSIDE-GRASS-AD",
+  "authors": [
+    "Anjelika Mae S. Guanlao"
+  ],
+  "publication_year": 2019,
+  "source_url": "https://libstore.ugent.be/fulltxt/RUG01/002/791/211/RUG01-002791211_2019_0001_AC.pdf",
+  "doi": null,
+  "persistent_identifier": "Ghent University master's dissertation, academic year 2018–2019; no DOI identified",
+  "retrieval_date": "2026-11-08",
+  "geography": "Zele and Quévy-le-Grand, Belgium; roadside batch origin and grassland comparator separately identified",
+  "source_type": "Primary master's dissertation reporting two pilot CSTR experiments",
+  "source_location": "Sections 2–3 and Tables 6–16, printed pp. 18–37; source URLs to the university library PDF",
+  "license_or_rights": "No explicit open reuse license identified in the repository record or thesis. This extract contains short factual observations with citation; do not redistribute the thesis or figures.",
+  "evidence_class": "B-tier primary experimental dissertation; reported pilot measurements, assay results and operating settings",
+  "quality_class": "B",
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "row_count": 118,
+  "sha256_csv": "df6c8e905696c1a25a71804ade6d81b33acd6f224b1165d3f7ec97f3a16d2ef2",
+  "data_handling": "Transcribed only legible source-reported values and methods. The Table 9 protein row was omitted because extracted text alignment was ambiguous. Table 16 values are retained separately from the reactor-specific Table 13/narrative values rather than reconciled. No time-series graph points were digitized.",
+  "limitations": [
+    "Only Batch 1 is roadside grass; Batch 2 is a separate managed grassland comparator, with different harvest, drying and ensiling history.",
+    "Batch 1 source is a heterogeneous roadside clipping batch from Zele, Belgium, not Dutch roadside/VARTA grass; crop composition and individual botanical fractions are not specified.",
+    "One batch per feed class, small 33 L and 72 L pilot digesters, and no stated replicate uncertainty for yields.",
+    "The source calls the EPi-test output biomethane potential. It is a source-specific calculation from feed composition, not a directly reported standardized BMP assay.",
+    "Reported methane volumes are per tonne DOM; standard gas conditions are not stated, so values are not relabeled Nm3.",
+    "Nominal operating conditions in Table 6 differ from average conditions in Tables 13 and 15; both are retained separately.",
+    "Table 16 summary untreated methane productivity/content differs from the Digester 1 narrative and Table 13; no reconciliation is inferred.",
+    "The enzyme tests apply to Batch 2 grassland, not Batch 1 roadside grass, and dilution sharply changed solids, OLR and HRT. Enzyme activity/dose per mass of dry feed and a water balance are unavailable.",
+    "The methods list TAN, total N, phosphorus, conductivity and pH assays, but corresponding numeric nutrient/speciation results are not tabulated in the accessible thesis. Missing results remain missing, not zero.",
+    "Sanitation used commercial bird seeds, not identified roadside weed species; this does not establish fertilizer or regulatory safety.",
+    "No GreenHub default, model equation, UI setting, route, TEA/LCA factor or Pareto configuration consumes these records."
+  ]
+}

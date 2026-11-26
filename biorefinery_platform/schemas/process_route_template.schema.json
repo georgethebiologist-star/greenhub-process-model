@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Project biorefinery process-route template",
+  "description": "Declarative process topology for route discovery and project adapters. It contains no chemistry, parameter values, or API request/result contract.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "route_id",
+    "project_id",
+    "display_name",
+    "route_status",
+    "technology_family_ids",
+    "technology_instances",
+    "material_streams",
+    "input_resolution",
+    "compatibility"
+  ],
+  "properties": {
+    "schema_version": {"type": "string"},
+    "route_id": {"type": "string", "minLength": 1},
+    "project_id": {"type": "string", "minLength": 1},
+    "display_name": {"type": "string", "minLength": 1},
+    "route_status": {"type": "string", "enum": ["draft", "reference_only", "active"]},
+    "technology_family_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string"}},
+    "technology_instances": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/technology_instance"}},
+    "material_streams": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/material_stream"}},
+    "input_resolution": {"$ref": "#/$defs/input_resolution"},
+    "compatibility": {"type": "object"},
+    "activation_gates": {"type": "array", "items": {"type": "string"}},
+    "metadata_gaps": {"type": "array", "uniqueItems": true, "items": {"type": "string"}}
+  },
+  "$defs": {
+    "technology_instance": {
+      "type": "object",
+      "required": ["instance_id", "technology_family_id", "technology_id", "project_specific", "input_stream_ids", "output_stream_ids", "parameter_bindings", "activation_state"],
+      "properties": {
+        "instance_id": {"type": "string", "minLength": 1},
+        "technology_family_id": {"type": "string", "minLength": 1},
+        "technology_id": {"type": "string", "minLength": 1},
+        "project_specific": {"type": "boolean"},
+        "input_stream_ids": {"type": "array", "items": {"type": "string"}},
+        "output_stream_ids": {"type": "array", "items": {"type": "string"}},
+        "parameter_bindings": {"type": "array", "items": {"$ref": "#/$defs/parameter_binding"}},
+        "activation_state": {"type": "string", "enum": ["active", "reference_only", "blocked"]},
+        "limitations": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    },
+    "parameter_binding": {
+      "type": "object",
+      "required": ["parameter_id", "unit", "binding_kind", "scenario_overridable"],
+      "properties": {
+        "parameter_id": {"type": "string", "minLength": 1},
+        "unit": {"type": "string", "minLength": 1},
+        "binding_kind": {"type": "string", "enum": ["request_input", "project_material_profile", "project_parameter_registry", "structural_state", "measurement_required"]},
+        "scenario_overridable": {"type": "boolean"},
+        "source_record_ids": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    },
+    "material_stream": {
+      "type": "object",
+      "required": ["stream_id", "material_state_id", "from", "to", "stream_role", "composition_scope"],
+      "properties": {
+        "stream_id": {"type": "string", "minLength": 1},
+        "material_state_id": {"type": "string", "minLength": 1},
+        "from": {"type": "string", "minLength": 1},
+        "to": {"type": "string", "minLength": 1},
+        "stream_role": {"type": "string", "enum": ["input", "intermediate", "product", "coproduct", "emission", "utility", "unresolved"]},
+        "composition_scope": {"type": "string", "enum": ["exclusive_mass_components", "analytical_properties_only", "mixed_declared_bases", "unknown"]},
+        "mass_balance_basis": {"type": "string", "enum": ["wet_mass", "dry_mass", "component_mass", "not_applicable", "unknown"]},
+        "limitations": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    },
+    "input_resolution": {
+      "type": "object",
+      "required": ["precedence", "missing_value_policy"],
+      "properties": {
+        "precedence": {
+          "type": "array",
+          "minItems": 5,
+          "items": {"type": "string", "enum": ["request_override", "selected_project_material_profile", "project_parameter_registry", "declared_structural_state", "explicit_missing"]}
+        },
+        "missing_value_policy": {"type": "string", "enum": ["block_or_report_only", "require_explicit_scenario_input"]},
+        "override_contract": {"type": "string"}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

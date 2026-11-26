@@ -1,0 +1,31 @@
+{
+  "dataset_id": "urn:greenhub:dataset:greenhub-zuid-holland-processing-capacity-ambitions-2026:v1",
+  "title": "Greenhub Zuid-Holland first-party processing-capacity ambitions",
+  "source_file": "greenhub_zuid_holland_processing_capacity_ambitions_2026_reference.csv",
+  "source_ids": ["SRC-GHZH-CAPACITY-AMBITION-2026"],
+  "source_urls": ["https://greenhub-zuidholland.nl/", "https://greenhub-zuidholland.nl/aanpak/"],
+  "doi": null,
+  "persistent_identifier": "urn:greenhub:dataset:greenhub-zuid-holland-processing-capacity-ambitions-2026:v1",
+  "publication_year": null,
+  "retrieval_date": "2026-11-08",
+  "authors": ["Greenhub Zuid-Holland"],
+  "geography": "Province of Zuid-Holland, Netherlands",
+  "evidence_class": "first_party_project_target",
+  "quality_class": "not_applicable_project_target",
+  "license": "No explicit dataset or website-content reuse license identified; factual target statements transcribed with source attribution only.",
+  "rows": 2,
+  "source_locations": {
+    "homepage_grass_target": "Homepage, Ambities section: up to 30,000 tonnes of verge cuttings in 3–5 years.",
+    "approach_mixed_residual_target": "Aanpak page, ‘Van Bermgras tot bouwmateriaal en bodemproduct’: production location for 30,000 tonnes/year of biogenic residuals from public-space maintenance and horticulture."
+  },
+  "data_handling": "The two 30,000 t/year statements are stored separately because the stated feed scopes differ. They are project ambitions, not measured supply, installed capacity, or operating throughput. They are not added, annualized, or connected to model defaults.",
+  "limitations": [
+    "The homepage gives a 3–5-year horizon but no absolute target year; the approach page gives no commissioning or operating date.",
+    "No wet/dry basis, feed moisture, operating hours, availability, contracted feed, design capacity documentation, or realized throughput is published.",
+    "The homepage describes roadside verge cuttings; the approach page describes a mixed stream that also includes horticultural residues. Do not assume these statements describe the same feed boundary.",
+    "A project target is neither a measured-data quality class nor a literature value; the dataset uses not_applicable_project_target and remains reference-only."
+  ],
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "runtime_parameter_mapping": null
+}

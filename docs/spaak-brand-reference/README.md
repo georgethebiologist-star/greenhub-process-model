@@ -4,9 +4,9 @@ This folder preserves downloaded Spaak Circular Solutions website assets for fut
 
 ## Saved Location
 
-Use this folder in prompts:
+Use the relative path from the repository root:
 
-`C:\my\Spaak\Greenhub\Model\docs\spaak-brand-reference\assets`
+`docs/spaak-brand-reference/assets/`
 
 ## Strong Design References
 

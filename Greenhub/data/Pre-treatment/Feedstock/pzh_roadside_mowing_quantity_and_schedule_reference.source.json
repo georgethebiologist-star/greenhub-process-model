@@ -1,0 +1,27 @@
+{
+  "dataset_id": "urn:greenhub:dataset:feedstock:pzh-roadside-mowing-quantity-schedule:v1",
+  "title": "South Holland roadside mowing quantity and schedule reference",
+  "source_id": "SRC-PZH-VERGE-MOWING-2026",
+  "source_title": "De bermen in Zuid-Holland komen tot bloei: Een maaibeleid voor duurzaamheid en circulariteit",
+  "publisher": "Province of South Holland",
+  "doi": null,
+  "source_url": "https://werkenvoor.zuid-holland.nl/artikelen/de-bermen-in-zuid-holland-komen-tot-bloei/",
+  "geography": "Province of South Holland, Netherlands",
+  "retrieval_date": "2026-11-08",
+  "source_locations": "Page lines 17, 22, 27, and 29–34 in the retrieved official page text; record-level line references are in the CSV.",
+  "evidence_class": "official first-party management statement; underlying measurements not published",
+  "quality_class": "B",
+  "license_or_rights": "No explicit open-data license identified for this webpage; factual statements are transcribed with attribution; review rights before external redistribution.",
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "row_count": 8,
+  "sha256_csv": "7cc8d39d863848f55213419829f7c6ce4f6900bce14ec32e835a752084288ab7",
+  "data_handling": "English translations/paraphrases of published facts. No wet/dry interpretation, annualization, yield conversion, seasonal mass allocation or availability share is inferred.",
+  "limitations": [
+    "The approximately 10,000 t/year figure does not state whether mass is wet or dry, whether it is weighed, which assets are included, or what fraction is accessible and deliverable to GreenHub.",
+    "The 647 km figure is road-network context, not verge area or an identified biomass denominator; no tonnes-per-kilometre ratio is calculated.",
+    "The article describes an April safety round and two ecological mowing windows (June–July and September–October), but gives no seasonal mass split or measured annual availability profile.",
+    "A few days of field rest is qualitative and is not converted into a storage-duration or drying parameter.",
+    "No scenario input, runtime default, process model, UI setting, TEA/LCA calculation or Pareto output is changed."
+  ]
+}

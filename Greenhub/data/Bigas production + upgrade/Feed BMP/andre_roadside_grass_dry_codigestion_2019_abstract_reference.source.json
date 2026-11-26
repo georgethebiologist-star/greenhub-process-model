@@ -1,0 +1,29 @@
+{
+  "dataset_title": "Seasonal roadside-grass dry co-digestion pilot evidence from André et al. (2019), abstract-level transcription",
+  "dataset_identifier": "greenhub:feed-bmp:andre-roadside-grass-dry-codigestion-2019-abstract:v1",
+  "source_file": "andre_roadside_grass_dry_codigestion_2019_abstract_reference.csv",
+  "source_id": "ANDRE2019",
+  "source_title": "Dry anaerobic co-digestion of roadside grass and cattle manure at a 60 L batch pilot scale",
+  "authors": ["Laura André", "I. Zdanevitch", "C. Pineau", "J. Lencauchez", "A. Damiano", "A. Pauss", "T. Ribeiro"],
+  "reference_year": 2019,
+  "doi": "10.1016/j.biortech.2019.121737",
+  "source_url": "https://doi.org/10.1016/j.biortech.2019.121737",
+  "abstract_source_url": "https://pubmed.ncbi.nlm.nih.gov/31323720/",
+  "retrieval_date": "2026-11-06",
+  "source_location": "PubMed indexed abstract; article pages 1–8",
+  "evidence_class": "B_literature_reported_abstract",
+  "license": "No reuse license identified in accessible metadata; only factual abstract-level observations are transcribed.",
+  "rows": 6,
+  "data_basis": "The abstract describes laboratory methane-potential measurements in June and October 2016 and 60 L dry-batch pilot co-digestion of roadside grass with solid cattle manure. Values and denominators are retained as reported; no conversions or model fitting are performed.",
+  "applicability": "Reference-only Phase 5 evidence for the seasonality and operability of roadside-grass/manure dry digestion. It is not evidence for GreenHub post-protein residual digestion, grass-only methane yield, or Dutch supply performance.",
+  "limitations": [
+    "The abstract does not fully identify the substrate-to-value mapping for each seasonal methane-potential result; the June/October association follows the abstract's stated order and is flagged for full-text confirmation.",
+    "The abstract does not give replicate counts, uncertainty, complete BMP protocol, feed characterization, loading, temperature, batch duration, or pilot working volume.",
+    "The inhibition-associated 34.8–44.4 Nm3 CH4/t VS range is not defined as a loss, yield, or specific response; it is retained as text and not used quantitatively.",
+    "The pilot compares layered filling with a mixed blend, but configuration-specific yields are absent from the abstract.",
+    "No values are transferred to GreenHub defaults, kinetic parameters, annual production, or Pareto scenarios."
+  ],
+  "activation_state": "reference_only",
+  "runtime_parameter_mapping": null,
+  "retrieval_and_transcription_note": "Primary article DOI and PubMed abstract cross-checked. Full text was not available through the accessible publisher page; unresolved substrate attribution is kept explicit."
+}

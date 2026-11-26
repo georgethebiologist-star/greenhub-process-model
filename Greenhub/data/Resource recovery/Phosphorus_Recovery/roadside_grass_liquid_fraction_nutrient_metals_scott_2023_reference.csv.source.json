@@ -1,0 +1,36 @@
+{
+  "dataset_id": "urn:greenhub:dataset:scott-2023-roadside-grass-liquid-fraction-nutrients:v1",
+  "title": "Replicated nutrient and metal characterization of roadside-grass liquid fraction",
+  "source_file": "roadside_grass_liquid_fraction_nutrient_metals_scott_2023_reference.csv",
+  "source_id": "SRC-SCOTT-2023",
+  "authors": ["Hannah Scott", "Marcella Fernandes de Souza", "Erik Meers", "Naomi Laura Jane Rintoul-Hynes"],
+  "publication_year": 2023,
+  "doi": "10.1002/jpln.202200308",
+  "source_url": "https://doi.org/10.1002/jpln.202200308",
+  "full_text_url": "https://onlinelibrary.wiley.com/doi/full/10.1002/jpln.202200308",
+  "repository_copy_url": "https://repository.canterbury.ac.uk/download/18c0ba0941f8aa829fa35dc6aca368470e42b16b0b68aabcaf0fcbad41e9acb6/339269/Journal%20of%20Plant%20Nutrition%20and%20Soil%20Science%20-%202023%20-%20Scott%20-%20Constraints%20using%20the%20liquid%20fraction%20from%20roadside%20grass%20as%20a.pdf",
+  "license": "Creative Commons Attribution-NonCommercial (CC BY-NC); commercial redistribution/use of the article-derived data requires permission or legal review",
+  "license_source": "Canterbury Christ Church University repository record and article PDF front matter",
+  "retrieval_date": "2026-11-07",
+  "rows": 18,
+  "source_location": "Table 1; Methods sections 2.1-2.2",
+  "sampling": {
+    "replicates": 3,
+    "date": "June 2019",
+    "location": "First metre of a roadside verge along a 2.4 km street with low-to-medium traffic, Dijkstraat, Maldegem, Belgium",
+    "collection_and_processing": "Cut with tractor-mounted flail head and screw-pressed; liquid fraction transported within 24 h and stored at 4 C before use"
+  },
+  "measurement_basis": "Table 1 reports mean and standard deviation in mg/kg fresh matter and mg/kg dry matter; MPC values are source-reported fertilizer limits in mg/kg dry matter. Nutrient forms P2O5 and K2O are retained as reported and are not converted to elemental P or K.",
+  "data_handling": "Transcribed the 18 Table 1 constituents, means, SDs, sample count and source-reported maximum permissible concentrations. No unit conversion, imputation, or derived recovery fraction was applied. Displayed 0.00 and 0.03 values are retained at source precision; they are not silently converted to absence.",
+  "evidence_class": "B_measured_literature_data",
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "runtime_parameter_mapping": null,
+  "limitations": [
+    "One roadside location and one June collection campaign in Belgium; not a Dutch or GreenHub sample.",
+    "The sample is press liquid, not protein-depleted brown juice, anaerobic digestate, or a recovered fertilizer product.",
+    "The source reports only three replicates and does not establish route-wide contaminant distributions or process mass-flow partitioning.",
+    "The paper reports poor tomato growth and plant deaths with untreated GLF; nutrient composition alone does not establish product safety, fertilizer suitability, or marketability.",
+    "Reported fertilizer MPCs are source-context benchmarks and are not current GreenHub product acceptance criteria."
+  ]
+}

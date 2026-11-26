@@ -1,0 +1,42 @@
+{
+  "dataset_identifier": "urn:greenhub:dataset:santamaria-fernandez-clover-grass-nutrient-recovery-ad-summary-2020:v1",
+  "persistent_identifier_status": "The DOI identifies the article, not this GreenHub extract.",
+  "source_file": "clover_grass_nutrient_recovery_and_ad_balance_santamaria_2020_reference.csv",
+  "dataset_version": "1.0.0",
+  "title": "Reported fraction yields, nutrient recovery ranges and residual anaerobic-digestion outcomes from a clover-grass biorefinery",
+  "citation": "Santamaria-Fernandez, M., Ytting, N. K., Lübeck, M., & Uellendahl, H. (2020). Potential Nutrient Recovery in a Green Biorefinery for Production of Feed, Fuel and Fertilizer for Organic Farming. Waste and Biomass Valorization, 11, 5901–5911. https://doi.org/10.1007/s12649-019-00842-3",
+  "doi": "10.1007/s12649-019-00842-3",
+  "source_url": "https://doi.org/10.1007/s12649-019-00842-3",
+  "full_text_url": "https://vbn.aau.dk/ws/files/450867530/e.Proofing.pdf",
+  "retrieval_date": "2026-11-08",
+  "geography": "Denmark; red clover and clover-grass small-scale trials and a Foulum pilot-derived CSTR feed.",
+  "evidence_class": "B_primary_literature_reported_and_source_calculated_values",
+  "license_and_reuse": "The Aalborg University accepted-manuscript record carries a private-study/source-URL redistribution notice; no CC BY license was verified for this source. This CSV is a factual transcription/summary, not a copy of the article. Verify publisher reuse terms before redistributing the extract externally.",
+  "source_data_availability": "The article reports experimental analyses and process-flow data in the paper; no machine-readable raw-data package was identified in the repository record during this pass.",
+  "row_count": 48,
+  "source_scope": "Small-scale red-clover and clover-grass fractionation, plus pilot-derived clover-grass press-cake/brown-juice anaerobic co-digestion. Cultivated Danish forage, not roadside/VARTA grass.",
+  "extraction_scope": "The companion 69-row dataset already contains Table 1 composition and Table 2 operating summaries. This additional extract captures wet product-share values and recovery ranges/outcomes stated in the abstract and narrative, plus selected Table 2 inlet/effluent values recovered from the article text layer.",
+  "basis_and_conversion": "Direct source transcription. Percentage recovery ranges refer to source-defined nutrient mass in the named fraction relative to input; grouped analyte ranges remain grouped. No cross-feedstock averaging, missing-value imputation, conversion, or mass-balance closure was performed.",
+  "quality_notes": [
+    "Ranges are source-reported across crop types; range endpoints are not assigned to an individual crop unless the source explicitly does so.",
+    "The source's Table 2 text layer is malformed. TS/VS and other narrative values are flagged; no uncertain table cells are repaired by inference.",
+    "The paper contains incompatible/ambiguous C:N statements (17 to 7.3 versus a separate 19.2/20.0/12.8 passage). The alternate passage is retained as quarantined text and not reconciled.",
+    "P and S concentrations in digestate may be influenced by measurement error and inoculum during start-up, as the authors note.",
+    "Digestate composition is not a nutrient-recovery efficiency, plant uptake, legal product grade, or fertilizer-substitution factor.",
+    "All rows are reference-only; no parameter, model default, TEA/LCA credit, process route, or Pareto scenario consumes them."
+  ],
+  "activation_state": "reference_only",
+  "readiness": "D3",
+  "phase_tags": [
+    "Phase 3: fractionation stream flows and nutrient partition",
+    "Phase 4: protein concentrate nutrient recovery",
+    "Phase 5: residual AD",
+    "Phase 7: digestate composition and fertilizer-use context"
+  ],
+  "fair_metadata": {
+    "findable": "Repository-local URN, title, article DOI, source ID and direct full-text URL are recorded.",
+    "accessible": "CSV and JSON sidecar are local; the source article is linked at the Aalborg University repository.",
+    "interoperable": "Long-form UTF-8 CSV uses stable record/source IDs, explicit bounds/operators, process stream, basis, unit, source location and status.",
+    "reusable": "Citation, retrieval date, extraction method, rights caveat, uncertainty, source conflicts and transfer limits are included."
+  }
+}

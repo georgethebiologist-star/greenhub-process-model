@@ -13,7 +13,7 @@ from hashlib import sha256
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 import scripts.run_rvo_pareto_analysis as runner
-from Greenhub.pareto_reporting import write_pareto_ui_projection
+from Greenhub.pareto_reporting import load_pareto_results, pareto_ui_projection, write_pareto_ui_projection
 
 OUT = runner.OUT
 SOURCE = OUT / "latest.json"
@@ -37,10 +37,10 @@ def _atomic_write_text(target: Path, content: str) -> None:
 
 
 def main() -> None:
-    manifest = json.loads(SOURCE.read_text(encoding="utf-8"))
+    manifest = load_pareto_results(OUT)
     updated_groups = {}
     current_electricity_rate = float(runner.UI_FINANCE['electricityCostEurMWh'])
-    eligibility_ledger = OUT / 'scenario_financial_eligibility_ledger_20261105.csv'
+    eligibility_ledger = OUT / 'scenario_financial_eligibility_ledger_20261106.csv'
     rejection_counts = {}
     if eligibility_ledger.exists():
         with eligibility_ledger.open(encoding='utf-8-sig', newline='') as stream:
@@ -115,9 +115,9 @@ def main() -> None:
         group["baseline_references"] = [
             row["sample_id"] for row in paired_rows if row.get("baseline_reference")
         ]
-        group["sample_count"] = len(paired_rows) + rejection_counts.get(group_name, 0)
         group["evaluated_count"] = sum(row.get("status") == "evaluated" for row in paired_rows)
-        group["rejected_count"] = rejection_counts.get(group_name, 0) + sum(row.get("status") != "evaluated" for row in paired_rows)
+        group["rejected_count"] = len(rejected_rows)
+        group["sample_count"] = group["evaluated_count"] + group["rejected_count"]
 
         primary = runner._pareto(paired_rows, ("net_carbon", "npv"))
         subsidy = runner._pareto(paired_rows, ("subsidy_granted", "npv"))
@@ -139,9 +139,46 @@ def main() -> None:
             group["fronts"]["by_support_case"][case_id] = front
             group["selected_candidates"][f"net_carbon_vs_npv_{case_id}"] = runner._select_ranked(front, case_rows, runner.UI_CANDIDATE_COUNT, True)
 
+        # The UI's scenario selector reads this catalog, so it must be rebuilt
+        # from the same repriced rows as the published fronts.
+        group['scenario_catalog'] = runner._scenario_catalog(paired_rows)
+        batch_path = OUT / f'{group_name}_batch.json'
+        batch_content = json.dumps(group, ensure_ascii=False, allow_nan=False)
+        if len(batch_content.encode('utf-8')) > runner.MAX_GROUP_ARTIFACT_BYTES:
+            runner._write_group_batch_shards(group, batch_path)
+        else:
+            runner._atomic_json_write(batch_path, group)
+
         updated_groups[group_name] = group
-        # Source batch ledgers exceed 100 MB each. The active UI projection and
-        # compact financial ledger are refreshed below without duplicating them.
+        # Full group outputs are rewritten with bounded JSON artifacts above;
+        # the UI projection and audit ledgers are refreshed from those rows.
+
+    eligibility_rows = []
+    for group_name, group in updated_groups.items():
+        for row in group['samples']:
+            configuration = row.get('configuration') or {}
+            simulation = configuration.get('simulation') or {}
+            eligibility_rows.append({
+                'sample_id': row.get('sample_id'), 'group': group_name,
+                'design_id': row.get('design_id'), 'status': row.get('status'),
+                'support_case': row.get('support_case'),
+                'harvest_regime_id': ((row.get('seasonal_profile') or {}).get('regime_id')
+                                      or (simulation.get('biomass_schedule') or {}).get('harvest_regime_id')),
+                'scenario_ids_json': json.dumps(simulation.get('scenarios') or {}, sort_keys=True),
+                'product_gate_eligible': (row.get('product_gate') or {}).get('eligible'),
+                'saleable_products_json': json.dumps((row.get('product_gate') or {}).get('saleable_products') or []),
+                'rejection_reason': row.get('rejection_reason', ''),
+                'wet_feed_t_per_year': float(((row.get('annual') or {}).get('feed_processed') or {}).get('value') or 0.0) / 1000.0,
+                'npv_eur': ((row.get('objectives') or {}).get('npv') or {}).get('value'),
+                'scenario_request_id': simulation.get('request_id'),
+            })
+    eligibility_path = OUT / 'scenario_financial_eligibility_ledger_20261106.csv'
+    temporary_eligibility_path = eligibility_path.with_suffix(eligibility_path.suffix + '.tmp')
+    with temporary_eligibility_path.open('w', newline='', encoding='utf-8') as stream:
+        writer = csv.DictWriter(stream, fieldnames=list(eligibility_rows[0]), lineterminator='\n')
+        writer.writeheader()
+        writer.writerows(eligibility_rows)
+    temporary_eligibility_path.replace(eligibility_path)
 
     manifest.update({
         "schema_version": "greenhub-rvo-pareto-1.2",
@@ -153,7 +190,8 @@ def main() -> None:
             "average_value_eur_per_nm3": runner.BIOMETHANE_VALUE_AVERAGE_EUR_PER_NM3,
             "sensitivity_range_eur_per_nm3": list(runner.BIOMETHANE_VALUE_RANGE_EUR_PER_NM3),
             "density_kg_per_nm3": runner.BIOMETHANE_DENSITY_KG_PER_NM3,
-            "calculation": "candidate biomethane kg/year ÷ density × average value per Nm3; candidate-specific annual volume is used",
+            "calculation": "reported biomethane product kg/year ÷ traceable pure-methane reference density × average value per Nm3; reported model-condition volume is fallback only when product mass is unavailable",
+            "density_source": runner.ECONOMIC_DEFAULTS['physical_constants']['biomethane_density_kg_per_nm3'],
             "standard_conditions": "Nm3 at 0 degC and 101.325 kPa; biomethane treated as methane for mass-volume conversion",
             "caveat": "Screening overlay only; actual SDE++ support depends on eligible biomethane injection and annual correction amounts.",
         },
@@ -198,10 +236,13 @@ def main() -> None:
         'economic_defaults_path': 'Greenhub/data/greenhub_economic_defaults.json',
         'electricity_price_reconciled_eur_per_mwh': current_electricity_rate,
         'finance_applied_after_process_simulation': True,
-        'full_ledger_note': 'Projection recalculated from saved process runs; source full JSON and batch ledgers were not rewritten because they exceed available workspace capacity.',
+            'full_ledger_note': 'All repriced process rows, frontiers, and UI scenario catalogs were rewritten from saved process outputs; process simulations were not repeated.',
     }
+    compact = pareto_ui_projection(manifest)
+    runner._atomic_json_write(OUT / 'latest.json', compact)
+    runner._atomic_json_write(OUT / 'rvo_pareto_manifest.json', compact)
     write_pareto_ui_projection(manifest, OUT / "latest_ui.json")
-    pointer_path = OUT / 'current_generation_20261105.json'
+    pointer_path = OUT / 'current_generation_20261106.json'
     pointer = json.loads(pointer_path.read_text(encoding='utf-8')) if pointer_path.exists() else {}
     pointer.update({
         'created_at_utc': manifest['created_at_utc'],
@@ -210,7 +251,7 @@ def main() -> None:
         'financial_reconciliation': {
             'electricity_rate_eur_per_mwh': current_electricity_rate,
             'basis': 'Saved electricity demand × current Configure rate; post-route UI finance function recalculates NPV.',
-            'full_ledger_refreshed': False,
+            'full_ledger_refreshed': True,
         },
         'groups': {
             name: {
@@ -237,9 +278,11 @@ def main() -> None:
                 'high_direct_capex_eur': totals['high_direct_capex_eur'],
                 'original_sales_eur_per_year': totals['annual_revenue_eur'],
                 'original_partial_opex_eur_per_year': totals['annual_opex_eur'],
-                'original_operating_profit_eur_per_year': totals['annual_revenue_eur']-totals['annual_opex_eur'],
+                'product_sales_margin_eur_per_year': totals['annual_revenue_eur']-totals['annual_opex_eur'],
+                'grass_logistics_operating_income_eur_per_year': totals.get('grass_utilization_bonus_eur_per_year', 0.0),
+                'operating_profit_including_grass_bonus_eur_per_year': totals.get('operating_profit_including_grass_bonus_excluding_public_support_eur_per_year'),
                 'capex_grant_eur': totals['subsidy_eur'],
-                'biomethane_support_eur_per_year': totals['opex_premium_eur_per_year'],
+                'public_operating_support_eur_per_year': totals['opex_premium_eur_per_year'],
                 'total_support_pv_eur': totals['total_public_support_pv_eur'],
                 'npv_eur': totals['proxy_npv_eur'],
                 'net_carbon_t_c_per_year': row['objectives']['net_carbon']['value'],
@@ -248,7 +291,7 @@ def main() -> None:
                 'electricity_demand_kwh_per_year': (row.get('electricity_price_reconciliation') or {}).get('annual_demand_kwh'),
                 'electricity_opex_delta_eur_per_year': (row.get('electricity_price_reconciliation') or {}).get('annual_opex_delta_eur'),
             })
-    ledger_path = OUT/'support_repriced_financial_ledger_20261105.csv'
+    ledger_path = OUT/'support_repriced_financial_ledger_20261106.csv'
     temporary_ledger = ledger_path.with_suffix(ledger_path.suffix + '.tmp')
     with temporary_ledger.open('w', newline='', encoding='utf-8') as stream:
         writer = csv.DictWriter(stream, fieldnames=list(ledger[0]), lineterminator='\n')

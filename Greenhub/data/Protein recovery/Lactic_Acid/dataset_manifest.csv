@@ -1,4 +1,5 @@
 filename,purpose,row_count,validation_status,integration_readiness,key_limitation
+forage_development_stage_lactic_fermentation_protein_yield_santamaria_2019_reference.csv,Abstract-level Phase 1/4 maturity and lactic-acid LPC yield observations,5,PASS,reference_only,"Crop comparators, aggregate abstract ranges only; not roadside-grass stage response; CC BY-NC-ND 4.0 manuscript rights require redistribution review; no runtime mapping."
 assumption_and_missing_data_register.csv,assumption and missing data register,14,PASS,partial_ready,See assumption_and_missing_data_register.csv and row-level notes
 feed_composition.csv,feed composition,7,PASS,partial_ready,See assumption_and_missing_data_register.csv and row-level notes
 fermentation_equation_registry.csv,fermentation equation registry,6,PASS,partial_ready,See assumption_and_missing_data_register.csv and row-level notes
@@ -9,3 +10,4 @@ reactor_parameters.csv,reactor parameters,14,PASS,partial_ready,See assumption_a
 scenario_controller.csv,scenario controller,3,PASS,partial_ready,See assumption_and_missing_data_register.csv and row-level notes
 source_register.csv,source register,9,PASS,partial_ready,See assumption_and_missing_data_register.csv and row-level notes
 strain_database.csv,strain database,5,PASS,partial_ready,See assumption_and_missing_data_register.csv and row-level notes
+grass_clover_alfalfa_cellwall_sugar_fractionation_glazowska_2025_reference.csv,Table 2 HPLC-RI monosaccharide values in AIR across alfalfa and grass-clover process fractions; reference-only.,132,PASS_WITH_SOURCE_UNIT_CAVEAT,reference_only_D3,"Cultivated feed comparator, no stream mass balance or HPLC uncertainty, and source unit conflict is preserved without correction."

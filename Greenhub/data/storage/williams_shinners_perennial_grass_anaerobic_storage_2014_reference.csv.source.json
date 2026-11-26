@@ -1,0 +1,45 @@
+{
+  "dataset_id": "urn:greenhub:dataset:storage:williams-shinners-perennial-grass-anaerobic-storage-2014:v1",
+  "persistent_identifier_status": "Repository-local stable dataset identifier; DOI identifies the source article, not this transcription.",
+  "dataset_version": "1.0.0",
+  "source_file": "williams_shinners_perennial_grass_anaerobic_storage_2014_reference.csv",
+  "title": "Farm-scale anaerobic storage and aerobic feed-out reference outcomes for switchgrass and reed canarygrass",
+  "citation": "Williams, S. D., & Shinners, K. J. (2014). Farm-scale anaerobic storage and aerobic stability of high dry matter perennial grasses as biomass feedstocks. Biomass and Bioenergy, 64, 91–98. https://doi.org/10.1016/j.biombioe.2014.03.037",
+  "persistent_identifier": "doi:10.1016/j.biombioe.2014.03.037",
+  "source_url": "https://doi.org/10.1016/j.biombioe.2014.03.037",
+  "full_text_url": "https://artefacts-discovery.researcher.life/full_text_files/DA-2/f0/f063b784ac6d35b892e9b63c5f4a79df/full_text/pVRjE_sqCjo7SCFSe%2BW9vU1XWhRmD_PjyV_P7tu1Guc%3D.pdf",
+  "source_locations": [
+    "Table 1, article p. 3: dry matter concentrations and anaerobic/aerobic dry-matter losses",
+    "Table 3, article p. 5: cellulose and hemicellulose entering storage and constituent recovery",
+    "Table 5, article p. 6: aerobic-exposure heating degree days",
+    "Methods §§2.1–2.3, article pp. 2–4: harvest, storage, replication and aerobic exposure"
+  ],
+  "retrieval_date": "2026-11-07",
+  "reference_year": 2014,
+  "experiment_year": 2010,
+  "geography": "Wisconsin, USA. The authors acknowledge staff of the University of Wisconsin Arlington Agricultural Research Station; exact plot location is not explicitly stated in the methods.",
+  "evidence_class": "B_measured_primary_literature",
+  "license": "The article states © 2014 Elsevier Ltd. All rights reserved; no open reuse license was identified. This repository contains attributed factual values only, not source text or figures. External redistribution rights are not asserted.",
+  "material_scope": "Mature, seed-ripening switchgrass (Panicum virgatum cv. Shawnee) and reed canarygrass (Phalaris arundinacea cv. Palaton), harvested in 2010 after one day of field wilting and chopped to a theoretical 12 mm cut. Switchgrass had low- and high-DM treatments; only low-DM reed canarygrass was harvested because rain prevented the high-DM treatment.",
+  "experimental_conditions": "Farm-scale anaerobic silo bags: one bag per crop, opened after 222 d for switchgrass and 230 d for reed canarygrass. Six replicate mesh-bag subsample parcels were used per storage treatment. The aerobic stability test placed material in loosely filled, uncovered 200-L barrels indoors in a ventilated shed for 2 or 7 d, at final DM density 80–90 kg/m3. Four barrels were filled per treatment; Table 5 does not state the replicate count for its reported heating-degree-day means. Inoculated material received approximately 400000 cfu/g Lactobacillus buchneri and 100000 cfu/g Pediococcus pentosaceus.",
+  "data_scope": "Six individual crop × treatment × DM-class rows, excluding the article's pooled treatment and pooled DM summaries. Table 1 values: stored/removed DM concentration, anaerobic storage DM loss, and additional DM loss after 2 and 7 d aerobic exposure; reported significance letters retained for applicable cells. Table 3 values: cellulose and hemicellulose concentrations entering storage on a DM basis and source-defined constituent recovery fractions. Table 5 values: dry matter at start of aerobic exposure and heating degree days at shallow/deep positions after 2/7 d.",
+  "limitations": [
+    "Reference-only; not Dutch roadside grass, not a GreenHub runtime input/default, and not a storage calibration. Crop species, maturity, harvest, chopping, storage structure and high-DM cellulosic-feedstock purpose differ from the project's wet roadside grass.",
+    "The trial used one farm-scale silo bag per species and one harvest year; six mesh-bag subsamples per treatment do not constitute independent silo replicates.",
+    "The aerobic exposure test is sequential after anaerobic storage. It is not a separate aerobic-storage scenario and its 2/7-day endpoints must not be interpreted as a standalone aerobic storage curve.",
+    "Loss data are endpoint treatment means. No kinetic function, interpolation, annualization, GreenHub transfer coefficient, or emissions inventory is inferred.",
+    "The Table 5 dry-matter concentrations differ slightly from Table 1 removal values; both source-table values are preserved separately rather than reconciled.",
+    "Table 3 recovery fractions can exceed one for hemicellulose; these are source-reported analytical recovery ratios, not mass-balance closure guarantees.",
+    "Table 5 heating degree days are reported by the source in °C; the CSV labels the accumulated quantity as °C·day. Table 5 replicate count is not specified.",
+    "The source reports additional LSD statistics and pooled treatment/DM summaries that are not transcribed. Only the six individual treatment rows and source significance-group letters shown alongside those rows are included."
+  ],
+  "conversion_or_processing": "Direct transcription of six unpooled treatment rows from Tables 1, 3 and 5. DM concentration is preserved as g/kg material as reported; losses are preserved as g/kg DM; recovery values are dimensionless fractions. Heating-degree-day values are carried over numerically and labeled as accumulated °C·day. No conversion, interpolation, fitting, imputation, averaging, or activation was performed.",
+  "uncertainty": "The article reports six replicate mesh-bag subsample parcels per storage treatment and significance groups/LSD statistics for Tables 1 and 3; cell-level SD/SE is not reported in these tables. Table 5 replicate count and uncertainty are not stated. Empty significance-group fields mean no group letter is shown for that source-table cell, not zero or not measured.",
+  "activation_state": "reference_only",
+  "fair_metadata": {
+    "findable": "Stable repository-local dataset URN, descriptive title, DOI, article citation, and table-level source locations are recorded.",
+    "accessible": "UTF-8 CSV and JSON sidecar are stored in the project; source article is linked through DOI and an accessible full-text copy.",
+    "interoperable": "CSV includes crop taxonomy, treatment, storage duration, measurement stage, explicit units in field names, basis-specific endpoints, and a stable record ID.",
+    "reusable": "Source citation, table locations, extraction rules, license caveat, uncertainty, methods, scope, and transferability limitations are recorded. Values are reference-only and not eligible as GreenHub defaults."
+  }
+}

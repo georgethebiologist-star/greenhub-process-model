@@ -1,0 +1,45 @@
+{
+  "dataset_id": "urn:greenhub:dataset:storage:schmithausen-grass-lucerne-ensiling-2022:v1",
+  "persistent_identifier_status": "Repository-local stable dataset identifier; DOI identifies the article, not this transcription.",
+  "dataset_version": "1.0.0",
+  "source_file": "grass_lucerne_ensiling_schmithausen_2022_reference.csv",
+  "title": "Grass and lucerne ensiling conditions and day-149 chemistry reference observations",
+  "citation": "Schmithausen, A. J., Deeken, H. F., Gerlach, K., Trimborn, M., Weiß, K., Büscher, W., & Maack, G.-C. (2022). Greenhouse gas formation during the ensiling process of grass and lucerne silage. Journal of Environmental Management, 304, 114142. https://doi.org/10.1016/j.jenvman.2021.114142",
+  "persistent_identifier": "doi:10.1016/j.jenvman.2021.114142",
+  "source_url": "https://doi.org/10.1016/j.jenvman.2021.114142",
+  "full_text_url": "https://bonndoc.ulb.uni-bonn.de/xmlui/bitstream/handle/20.500.11811/12850/8121.pdf?isAllowed=y&sequence=2",
+  "source_locations": [
+    "Study 1, Table 3.1, dissertation pp. 29-30: barrel setup, wilting, feed loading, dry matter, density",
+    "Study 1, Table 3.2, dissertation p. 33: fresh forage and day-149 silage composition",
+    "Study 1, Methods, dissertation pp. 29-31: site, harvest timing, storage conditions and analytical methods"
+  ],
+  "retrieval_date": "2026-11-07",
+  "reference_year": 2022,
+  "experiment_year": null,
+  "geography": "Campus Frankenforst, Königswinter, Germany; second cut collected on 9 May, year not stated in the extracted Methods passage",
+  "evidence_class": "B_measured",
+  "license": "The article is published by Elsevier; an open reuse license was not identified. The accessible Bonn dissertation reproduces the study text and tables. Values are transcribed with attribution; check publisher and repository terms before external redistribution.",
+  "material_scope": "Cultivated grass and lucerne from a German second cut. Four laboratory ensiling variants (grass/lucerne, approximately 20/24 h wilting), three 120-L HDPE barrels per variant. Material was stored indoors and sampled on day 149.",
+  "experimental_conditions": "After approximately 20 h overnight wilting, longer-wilt variants received about 4 additional hours of sun wilting at approximately 17 °C. Short-wilt ambient temperature range was 0.8–16.8 °C and the source-defined sum of hourly mean values was 151.3 °C; longer-wilt range was 0.8–17.9 °C and sum was 219.9 °C. Barrels were stored indoors at 23.2 ± 1.4 °C. Fresh material was sampled before short-wilt variants were ensiled; ensiled material was sampled on day 149. Dry matter was corrected for volatile losses.",
+  "data_scope": "86 long-form records transcribed from Tables 3.1 and 3.2: barrel count, approximate wilting duration, ambient-air temperature range and source-defined temperature sum, fresh loading per barrel, DM concentration and density; plus pH, DM, crude ash, crude protein, lactic acid, acetic acid, total reported butyric-acid homologues, NH3-N per kg DM and NH3-N per kg total N for fresh and day-149 materials. Standard deviations and significance groups are retained where reported.",
+  "limitations": [
+    "Reference-only and not a GreenHub roadside-grass dataset, runtime input, default, or validated storage calibration.",
+    "The study intentionally tested low-DM conditions to provoke poor silage quality; lucerne variants show severe malfermentation and should not be treated as representative expected GreenHub behavior.",
+    "Fresh forage samples were collected on the ensiling day before the short-wilt variants were ensiled; these are not paired time-zero samples for every treatment.",
+    "Only day-149 material composition is available in these tables; no mass recovery, leachate, component-specific mass loss, or complete carbon/nitrogen balance is reported here.",
+    "Reported headspace gas concentrations are not emission quantities. The authors explicitly state emissions could not be quantified; do not convert concentrations or graph curves into emissions or kinetic parameters.",
+    "NH3-N is a material concentration or fraction of total N, not an NH3 emission measurement.",
+    "Temperature sum is defined by the source as the sum of hourly mean values; it is not converted to a mean temperature or degree-day value.",
+    "Standard deviations are absent for fresh-material and Table 3.1 means; blank uncertainty fields mean not reported, not zero.",
+    "Publisher reuse rights for the article table values were not established in this metadata pass."
+  ],
+  "conversion_or_processing": "Tables 3.1 and 3.2 transcribed into long form. Units and measurement bases are preserved as reported. No conversion, imputation, interpolation, kinetic fitting, emission calculation, or activation performed.",
+  "uncertainty": "Treatment chemistry means and standard deviations are copied from Table 3.2 (n=3 barrels per variant). Fresh-material replicate counts are not stated in the table and remain blank. Table 3.1 means have no reported SD. Approximate wilting-duration wording is retained in notes.",
+  "activation_state": "reference_only",
+  "fair_metadata": {
+    "findable": "Stable repository-local dataset ID, descriptive title, DOI, and source locations are recorded; DOI identifies the source publication.",
+    "accessible": "Open CSV and JSON sidecar in the repository; public full-text dissertation URL is recorded.",
+    "interoperable": "UTF-8 CSV with explicit property, value, standard deviation, unit, basis, species, treatment, sample stage, and storage-day fields.",
+    "reusable": "Citation, extraction method, evidence class, scope, limitations, uncertainty, retrieval date, and license caveat are provided."
+  }
+}

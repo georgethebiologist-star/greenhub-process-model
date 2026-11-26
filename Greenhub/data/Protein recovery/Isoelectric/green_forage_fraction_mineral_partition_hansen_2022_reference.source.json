@@ -1,0 +1,34 @@
+{
+  "source_id": "HANSEN2022",
+  "title": "Mineral concentration in fractions of green forages after screw-pressing",
+  "authors": ["N. P. Hansen", "V. K. Damborg", "L. Stødkilde", "M. R. Weisbjerg", "S. K. Jensen"],
+  "publication_year": 2022,
+  "doi": null,
+  "persistent_identifier": "Grassland Science in Europe, volume 27, pages 164-166; DOI not identified",
+  "url": "https://www.europeangrassland.org/fileadmin/documents/Infos/Printed_Matter/Proceedings/EGF2022.pdf",
+  "source_type": "peer-reviewed conference proceedings research paper",
+  "geography": "Aarhus University experimental farm, Foulum, Denmark",
+  "material_scope": "Cultivated white clover, red clover, lucerne and perennial ryegrass; whole plant, screw-press pulp, green juice, heat-precipitated green protein and brown juice",
+  "license": "No explicit reuse license identified in the proceedings PDF; source citation and exact table location retained.",
+  "evidence_class": "B_measured",
+  "exact_locations": ["Hansen et al., Grassland Science in Europe 27 (2022), pp. 164-166, Table 1; methods and results on pp. 164-165"],
+  "retrieval_date": "2026-11-06",
+  "data_handling": "Transcribed the 20 forage-by-fraction least-square-mean rows and all six analyte columns exactly as shown. Units follow Table 1 footnote: K, Ca, Mg and P are g/kg DM; Zn and Cu are mg/kg DM. Mg and Cu significance-letter groups are preserved. Table SEM and overall model p-values are documented separately here; no date-specific values or total element flows are inferred.",
+  "table_statistics": {
+    "sample_count": 52,
+    "sampling_months": ["July", "September", "November"],
+    "largest_SEM_by_analyte": {"K_g_per_kg_DM": 7.42, "Ca_g_per_kg_DM": 1.985, "Mg_g_per_kg_DM": 0.312, "P_g_per_kg_DM": 0.925, "Zn_mg_per_kg_DM": 7.46, "Cu_mg_per_kg_DM": 1.261},
+    "p_value_forage_effect": {"K": "0.02", "Ca": "<0.01", "Mg": "0.03", "P": "<0.01", "Zn": "0.01", "Cu": "0.02"},
+    "p_value_fraction_effect": {"K": "<0.01", "Ca": "<0.01", "Mg": "<0.01", "P": "<0.01", "Zn": "<0.01", "Cu": "<0.01"},
+    "p_value_forage_by_fraction_interaction": {"K": "0.57", "Ca": "0.18", "Mg": "0.01", "P": "0.14", "Zn": "0.24", "Cu": "<0.01"},
+    "SEM_interpretation": "Largest standard error of mean, one table-level value per analyte; not a sample-specific standard deviation or measurement uncertainty."
+  },
+  "activation": "reference_only",
+  "limitations": [
+    "This is cultivated forage from Denmark, not roadside grass or VARTA material; species, maturity, soil contamination, and management differ.",
+    "Concentrations are least-square means across sampling months, not paired cut-specific observations. Protein and brown-juice fractions from November were unavailable; the reported model means must not be interpreted as November measurements.",
+    "The work reports mineral concentrations, not fraction flow rates or elemental mass balances; concentration enrichment must not be called nutrient recovery.",
+    "The process used two-stage heat precipitation, not GreenHub isoelectric precipitation, and the small white-protein pellet was not analyzed for minerals.",
+    "Proceedings publication DOI and explicit reuse license were not identified; this is reference evidence only and no runtime or commercial product-grade claim is made."
+  ]
+}

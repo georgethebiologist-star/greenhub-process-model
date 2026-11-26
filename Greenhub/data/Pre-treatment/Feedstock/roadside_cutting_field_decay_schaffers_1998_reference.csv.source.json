@@ -1,0 +1,47 @@
+{
+  "dataset_id": "urn:greenhub:dataset:roadside-cutting-field-decay-schaffers-1998:v1",
+  "source_file": "roadside_cutting_field_decay_schaffers_1998_reference.csv",
+  "source_id": "SRC-SCHAFFERS-1998",
+  "title": "Plot-level initial biomass, composition, and fitted field-retention parameters for fresh roadside cuttings",
+  "authors": ["A. P. Schaffers", "M. C. Vesseur", "K. V. Sýkora"],
+  "publication_year": 1998,
+  "doi": "10.1046/j.1365-2664.1998.00316.x",
+  "source_url": "https://doi.org/10.1046/j.1365-2664.1998.00316.x",
+  "article_url": "https://besjournals.onlinelibrary.wiley.com/doi/10.1046/j.1365-2664.1998.00316.x",
+  "license": "Not stated in accessible article metadata; page marks article Free Access. Dataset is a limited factual transcription of published numeric results; redistribution rights should not be inferred.",
+  "retrieval_date": "2026-11-07",
+  "rows": 8,
+  "geography": "Roadside locations in the middle and eastern Netherlands",
+  "source_location": "Tables 1 and 3; Journal of Applied Ecology 35(3), pp. 349–364",
+  "evidence_class": "B_published_primary_field_measurements_and_fitted_parameters",
+  "units_and_basis": {
+    "biomass_t_dm_per_ha": "t dry matter per hectare at cutting",
+    "n_mg_per_g_dm": "mg N per g dry matter (numerically equal to g/kg DM)",
+    "p_mg_per_g_dm": "mg P per g dry matter",
+    "k_mg_per_g_dm": "mg K per g dry matter",
+    "c_mg_per_g_dm": "mg C per g dry matter",
+    "cn_ratio": "dimensionless C:N ratio as reported",
+    "cp_ratio": "dimensionless C:P ratio as reported",
+    "*_asymptotic_fraction": "dimensionless fitted asymptotic remaining fraction a",
+    "*_k_per_week": "fitted rate parameter k in week^-1, for Y(t)=a+(1-a)exp(-kt), t in weeks",
+    "*_fit_r2": "coefficient of determination of source-reported fit"
+  },
+  "study_conditions": {
+    "field_period": "24 May to 6 July 1993; cutting dates varied by site between 24 May and 8 June",
+    "cuttings": "Fresh material cut at 1 cm, chopped to <=10 cm, mixed, and placed in 1 mm mesh litterbags in the field",
+    "sampling": "Five litterbags per plot per sampling set; sampled at 1–2 week intervals over 4–6 weeks",
+    "weather_context": "Mean air temperature approximately 16 °C; 75 mm rainfall over 43 days at the nearby weather station",
+    "model": "Source fit: Y(t)=a+(1-a)exp(-kt), where Y is remaining fraction and t is weeks since cutting"
+  },
+  "data_handling": "Tables 1 and 3 transcribed at printed precision. Source-reported missing/failed-fit fields are blank. No interpolation, averaging, refitting, unit conversion, or model activation was performed.",
+  "limitations": [
+    "This describes fresh cuttings left in field conditions before collection, not stored silage, ensiled biomass, or the GreenHub plant's storage process.",
+    "The study is one 1993 short-term field campaign and has only eight plots: seven in two grassland communities and one contrasting grass-heath plot.",
+    "Table 3 coefficients are fitted parameters, not raw time-series measurements. Fit quality varies; Rossum east N parameters are specially flagged by the source as uncertain, and several other N fits are weak.",
+    "The paper's broader regression/projection figures are not transcribed here. No harvested-versus-left-behind mass balance or collected feed quantity is inferred.",
+    "Do not apply these coefficients as GreenHub storage defaults or combine field losses with silage-storage loss estimates without a defined sequential boundary."
+  ],
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "runtime_parameter_mapping": null
+}

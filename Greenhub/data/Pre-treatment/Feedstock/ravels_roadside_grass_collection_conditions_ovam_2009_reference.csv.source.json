@@ -1,0 +1,39 @@
+{
+  "dataset_id": "greenhub:feedstock:ravels-roadside-grass-collection-ovam:2009:v1",
+  "dataset_version": "1.0.0",
+  "source_file": "ravels_roadside_grass_collection_conditions_ovam_2009_reference.csv",
+  "source_id": "SRC-OVAM-BDB-2009-ROADGRASS",
+  "source_title": "Integrated disposal and processing technologies for mowed roadside grass (including energetic valorisation)",
+  "authors": ["Frank Elsen", "Pieter Janssens", "Jan Bries", "Willem Moens", "Erik Bomans"],
+  "publication_year": 2009,
+  "field_campaign_year": 2008,
+  "sponsor": "OVAM; report executed by Bodemkundige Dienst van Belgie vzw",
+  "persistent_identifier": null,
+  "doi": null,
+  "source_url": "https://www.bdb.be/files/rap200901.pdf",
+  "source_location": "Section 14.2.3 (roadside grass and co-stream specifications)",
+  "retrieval_date": "2026-11-07",
+  "license": "No explicit open reuse license identified in the public report. Do not claim CC licensing; retain attribution and check reuse terms before redistribution.",
+  "geography": "Ravels, Belgium; roadside grass from narrow rural roads",
+  "observation_unit": "One campaign-level summary describing four delivered loads; no four-row load-level dataset was reported.",
+  "evidence_class": "B field observations as reported in an institutional study",
+  "quality_class": "B",
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "runtime_parameter_mapping": null,
+  "applicable_phases": [1, 2],
+  "rows": 1,
+  "column_metadata": {
+    "reported_mass_per_load_value": "Approximate reported load quantity; each was described as slightly below about 25 tonnes.",
+    "reported_mass_per_load_unit": "Tonnes per delivered load; exact wet/dry basis is not explicitly stated in the passage.",
+    "maximum_interim_storage_days": "About three days, based on contractor report; exact load-level timing was not independently measured."
+  },
+  "handling": "English-language field summary of the report. The four loads are not represented as independent observations. No total annual supply, dry-matter mass, contamination fraction, or storage loss is calculated.",
+  "major_limitations": [
+    "No roadside area, route length, harvested area, crop yield per hectare, or access constraint was quantified for these loads.",
+    "Individual load weights and moisture/composition are unavailable; the load mass basis is not resolved in the cited passage.",
+    "Freshness, heat, fermentation odour, sand and litter are qualitative observations, not laboratory measurements.",
+    "One Belgian municipality and one 2008 campaign do not represent Dutch supply or seasonal availability."
+  ],
+  "content_rights_note": "The source report PDF is not copied into the repository; only limited factual fields and traceability metadata are staged."
+}

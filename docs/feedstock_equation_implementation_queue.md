@@ -7,7 +7,7 @@ This report is read-only. It does not implement equations, activate parameters, 
 - `blocked_dynamic_model_scope`: 10
 - `blocked_missing_inputs`: 1
 - `implemented_typed`: 1
-- `needs_source_review`: 5
+- `needs_source_review`: 17
 - `needs_unit_conversion_policy`: 2
 
 ## First Safest Candidate
@@ -174,6 +174,42 @@ This report is read-only. It does not implement equations, activate parameters, 
 - blocked_reason: none
 - recommended_next_action: Keep typed implementation under existing activation tests.
 
+### 
+
+- canonical_field: `missing`
+- source_file: `Pre-treatment/Feedstock/roadside_grass_composition_scientific.csv`
+- implementation_status: `needs_source_review`
+- activation_status: `reference_only`
+- required_inputs: `none`
+- output_field: `missing`
+- source_or_doi: `An assessment of road-verge grass as a feedstock for farm-fed anaerobic digestion plants`
+- blocked_reason: Duplicate identity, unresolved symbols, required inputs, or source-location metadata block implementation.
+- recommended_next_action: Resolve duplicate identity and source metadata plus every typed symbol/input contract before implementing the equation.
+
+### 
+
+- canonical_field: `missing`
+- source_file: `Pre-treatment/Feedstock/roadside_grass_missing_proxy_candidates.csv`
+- implementation_status: `needs_source_review`
+- activation_status: `reference_only`
+- required_inputs: `none`
+- output_field: `missing`
+- source_or_doi: `missing`
+- blocked_reason: Duplicate identity, unresolved symbols, required inputs, or source-location metadata block implementation.
+- recommended_next_action: Resolve duplicate identity and source metadata plus every typed symbol/input contract before implementing the equation.
+
+### 
+
+- canonical_field: `missing`
+- source_file: `Pre-treatment/Feedstock/roadside_grass_missing_proxy_candidates_extended.csv`
+- implementation_status: `needs_source_review`
+- activation_status: `reference_only`
+- required_inputs: `none`
+- output_field: `missing`
+- source_or_doi: `missing`
+- blocked_reason: Duplicate identity, unresolved symbols, required inputs, or source-location metadata block implementation.
+- recommended_next_action: Resolve duplicate identity and source metadata plus every typed symbol/input contract before implementing the equation.
+
 ### EQ003
 
 - canonical_field: `bmp_buswell`
@@ -210,6 +246,30 @@ This report is read-only. It does not implement equations, activate parameters, 
 - blocked_reason: catalogued equation has no approved typed implementation
 - recommended_next_action: Implement an approved function with dimensional, source-reference, trend, boundary, and invalid-input tests.
 
+### EQ_CP_MASS_WEIGHTED
+
+- canonical_field: `missing`
+- source_file: `Pre-treatment/Feedstock/roadside_grass_missing_proxy_candidates.csv`
+- implementation_status: `needs_source_review`
+- activation_status: `reference_only`
+- required_inputs: `none`
+- output_field: `missing`
+- source_or_doi: `Mass-weighted sensible heat-capacity relation`
+- blocked_reason: Duplicate identity, unresolved symbols, required inputs, or source-location metadata block implementation.
+- recommended_next_action: Resolve duplicate identity and source metadata plus every typed symbol/input contract before implementing the equation.
+
+### EQ_CP_MASS_WEIGHTED
+
+- canonical_field: `missing`
+- source_file: `Pre-treatment/Feedstock/roadside_grass_missing_proxy_candidates_extended.csv`
+- implementation_status: `needs_source_review`
+- activation_status: `reference_only`
+- required_inputs: `none`
+- output_field: `missing`
+- source_or_doi: `Mass-weighted sensible heat-capacity relation`
+- blocked_reason: Duplicate identity, unresolved symbols, required inputs, or source-location metadata block implementation.
+- recommended_next_action: Resolve duplicate identity and source metadata plus every typed symbol/input contract before implementing the equation.
+
 ### EQ_GLF_TS_FROM_PAIRED_BASIS
 
 - canonical_field: `liquid_total_solids`
@@ -222,6 +282,78 @@ This report is read-only. It does not implement equations, activate parameters, 
 - blocked_reason: source equation referenced by data row but not reviewed for typed implementation
 - recommended_next_action: Review equation source, inputs, units, and canonical output.
 
+### EQ_GLF_TS_FROM_PAIRED_BASIS
+
+- canonical_field: `missing`
+- source_file: `Pre-treatment/Feedstock/roadside_grass_missing_proxy_candidates.csv`
+- implementation_status: `needs_source_review`
+- activation_status: `reference_only`
+- required_inputs: `none`
+- output_field: `missing`
+- source_or_doi: `Constraints using the liquid fraction from roadside grass as a bio-based fertilizer`
+- blocked_reason: Duplicate identity, unresolved symbols, required inputs, or source-location metadata block implementation.
+- recommended_next_action: Resolve duplicate identity and source metadata plus every typed symbol/input contract before implementing the equation.
+
+### EQ_GLF_TS_FROM_PAIRED_BASIS
+
+- canonical_field: `missing`
+- source_file: `Pre-treatment/Feedstock/roadside_grass_missing_proxy_candidates_extended.csv`
+- implementation_status: `needs_source_review`
+- activation_status: `reference_only`
+- required_inputs: `none`
+- output_field: `missing`
+- source_or_doi: `Constraints using the liquid fraction from roadside grass as a bio-based fertilizer`
+- blocked_reason: Duplicate identity, unresolved symbols, required inputs, or source-location metadata block implementation.
+- recommended_next_action: Resolve duplicate identity and source metadata plus every typed symbol/input contract before implementing the equation.
+
+### EQ_K_FROM_K2O
+
+- canonical_field: `missing`
+- source_file: `Pre-treatment/Feedstock/roadside_grass_missing_proxy_candidates.csv`
+- implementation_status: `needs_source_review`
+- activation_status: `reference_only`
+- required_inputs: `none`
+- output_field: `missing`
+- source_or_doi: `Constraints using the liquid fraction from roadside grass as a bio-based fertilizer`
+- blocked_reason: Duplicate identity, unresolved symbols, required inputs, or source-location metadata block implementation.
+- recommended_next_action: Resolve duplicate identity and source metadata plus every typed symbol/input contract before implementing the equation.
+
+### EQ_K_FROM_K2O
+
+- canonical_field: `missing`
+- source_file: `Pre-treatment/Feedstock/roadside_grass_missing_proxy_candidates_extended.csv`
+- implementation_status: `needs_source_review`
+- activation_status: `reference_only`
+- required_inputs: `none`
+- output_field: `missing`
+- source_or_doi: `Constraints using the liquid fraction from roadside grass as a bio-based fertilizer`
+- blocked_reason: Duplicate identity, unresolved symbols, required inputs, or source-location metadata block implementation.
+- recommended_next_action: Resolve duplicate identity and source metadata plus every typed symbol/input contract before implementing the equation.
+
+### EQ_P_FROM_P2O5
+
+- canonical_field: `missing`
+- source_file: `Pre-treatment/Feedstock/roadside_grass_missing_proxy_candidates.csv`
+- implementation_status: `needs_source_review`
+- activation_status: `reference_only`
+- required_inputs: `none`
+- output_field: `missing`
+- source_or_doi: `Constraints using the liquid fraction from roadside grass as a bio-based fertilizer`
+- blocked_reason: Duplicate identity, unresolved symbols, required inputs, or source-location metadata block implementation.
+- recommended_next_action: Resolve duplicate identity and source metadata plus every typed symbol/input contract before implementing the equation.
+
+### EQ_P_FROM_P2O5
+
+- canonical_field: `missing`
+- source_file: `Pre-treatment/Feedstock/roadside_grass_missing_proxy_candidates_extended.csv`
+- implementation_status: `needs_source_review`
+- activation_status: `reference_only`
+- required_inputs: `none`
+- output_field: `missing`
+- source_or_doi: `Constraints using the liquid fraction from roadside grass as a bio-based fertilizer`
+- blocked_reason: Duplicate identity, unresolved symbols, required inputs, or source-location metadata block implementation.
+- recommended_next_action: Resolve duplicate identity and source metadata plus every typed symbol/input contract before implementing the equation.
+
 ### EQ_VS_CORR
 
 - canonical_field: `S2/H1.1_fresh_vs`
@@ -233,6 +365,18 @@ This report is read-only. It does not implement equations, activate parameters, 
 - source_or_doi: `10.1016/j.biombioe.2020.105570`
 - blocked_reason: source equation referenced by data row but not reviewed for typed implementation
 - recommended_next_action: Review equation source, inputs, units, and canonical output.
+
+### EQ_VS_CORR
+
+- canonical_field: `missing`
+- source_file: `Pre-treatment/Feedstock/roadside_grass_composition_scientific.csv`
+- implementation_status: `needs_source_review`
+- activation_status: `reference_only`
+- required_inputs: `none`
+- output_field: `missing`
+- source_or_doi: `An assessment of road-verge grass as a feedstock for farm-fed anaerobic digestion plants`
+- blocked_reason: Duplicate identity, unresolved symbols, required inputs, or source-location metadata block implementation.
+- recommended_next_action: Resolve duplicate identity and source metadata plus every typed symbol/input contract before implementing the equation.
 
 ### EQ_K_FROM_K2O
 

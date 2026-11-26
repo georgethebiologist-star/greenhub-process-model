@@ -3,10 +3,11 @@
   "source_file": "recovery.csv",
   "title": "Isoelectric and acid protein-recovery evidence for green biomass extracts",
   "schema_version": "1.0.0",
-  "retrieval_date": "2026-11-05",
+  "retrieval_date": "2026-11-09",
   "records": {
     "REC-001": {
       "quality_class": "B",
+      "application_quality_class": "C",
       "evidence_class": "measured_peer_reviewed",
       "geography": "Denmark",
       "reference_year": 2019,
@@ -63,6 +64,38 @@
       "conversion_method": "Identity as reported (0.30); no cross-feedstock conversion applied.",
       "uncertainty": "No uncertainty interval reported in the abstract.",
       "runtime_mapping": "Dynamic screening proxy only; retain alfalfa transferability warning.",
+      "transferability_class": "proxy_high"
+    },
+    "REC-005": {
+      "quality_class": "B",
+      "application_quality_class": "C",
+      "evidence_class": "measured_peer_reviewed",
+      "geography": "Store Heddinge, Zealand, Denmark",
+      "reference_year": 2019,
+      "source_doi": "10.3389/fsufs.2019.00112",
+      "source_url": "https://doi.org/10.3389/fsufs.2019.00112",
+      "source_location": "Figure 5 and Conclusion; Materials and Methods, Sample Preparation and Precipitation, lines 334–339",
+      "license": "Creative Commons Attribution (CC BY); see publisher article license statement",
+      "applicability": "Cultivated perennial ryegrass (Lolium perenne cv. Mahogany) juice; reports total-N precipitation during isoelectric treatment, not purified-protein recovery. The source used a twin-screw press, added water for a second press, and clarified the juice.",
+      "conversion_method": "Identity as reported: 0.38 kg precipitated total N per kg total N in cleared ryegrass juice. The runtime mapping to the model's soluble-protein recovery fraction is a denominator/speciation proxy; no protein conversion is applied.",
+      "uncertainty": "The study reports n=3 and plots mean ± SD in Figure 5, but the numeric SD is not tabulated in the article text. Transfer uncertainty to roadside/VARTA grass is unquantified.",
+      "runtime_mapping": "Optional PR1 literature-default/expert-override candidate for phase4.precipitation_efficiency. It is a closer grass-species comparator than the grass-clover observation, but the total-N denominator still differs from the model's soluble-protein pool. Validate with matched GreenHub protein and N balances.",
+      "transferability_class": "proxy_high"
+    },
+    "REC-006": {
+      "quality_class": "B",
+      "application_quality_class": "C",
+      "evidence_class": "peer_reviewed_reported_operating_range_with_scalar_endpoint_assumption",
+      "geography": "Store Heddinge, Zealand, Denmark",
+      "reference_year": 2019,
+      "source_doi": "10.3389/fsufs.2019.00112",
+      "source_url": "https://doi.org/10.3389/fsufs.2019.00112",
+      "source_location": "Materials and Methods, Sample Preparation and Precipitation; Results and Discussion, lines 334–338 and 391–393",
+      "license": "Creative Commons Attribution (CC BY); see publisher article license statement",
+      "applicability": "The article reports hydrochloric-acid isoelectric precipitation at pH 4.0–4.5 for grass juice, including perennial ryegrass. Its juice was produced by twin-screw pressing with a water-assisted second press and clarified; this differs from the GreenHub roadside-grass process boundary.",
+      "conversion_method": "No unit conversion. The source reports an interval pH 4.0–4.5; 4.5 is selected as the upper endpoint because the runtime parameter is scalar. This endpoint selection is a C-class assumption and is not presented as a unique source optimum.",
+      "uncertainty": "No statistical distribution or uncertainty interval is reported for the pH range. The scalar endpoint choice is an explicit assumption; project-specific titration response remains unknown.",
+      "runtime_mapping": "Optional PR1 literature_default/expert_override candidate for phase4.target_pH only. Structural workbook default remains unchanged. The selected pH is reported as an opt-in candidate with source range and transfer warning.",
       "transferability_class": "proxy_high"
     }
   }

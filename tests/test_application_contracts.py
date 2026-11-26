@@ -45,10 +45,10 @@ def test_parameter_service_exposes_sources_and_validates_overrides():
         scenarios=ScenarioSelection(protein_recovery="PR1"),
     )
     resolved = {item.parameter_id: item for item in service.resolve_parameters(request)}
-    assert resolved["phase4.precipitation_efficiency"].active_value == pytest.approx(0.34)
+    assert resolved["phase4.precipitation_efficiency"].active_value == pytest.approx(0.38)
     assert service.validate_overrides(request) == ()
     sources = service.list_parameter_sources("phase4.precipitation_efficiency")
-    assert any(item.source_row_id == "REC-001" for item in sources)
+    assert any(item.source_row_id == "REC-005" for item in sources)
 
 
 def test_process_page_design_override_units_are_accepted_and_applied():

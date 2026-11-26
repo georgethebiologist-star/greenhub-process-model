@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import csv
 import json
 from pathlib import Path
 
@@ -8,6 +9,7 @@ import pytest
 
 from Greenhub.dynamic_complete_proxy import (
     DynamicCompleteProxyConfig,
+    default_dynamic_complete_proxy_closure_policy,
     run_dynamic_complete_proxy_scenario_grid,
     run_dynamic_complete_proxy_scenario_step,
     summarize_dynamic_complete_proxy_grid,
@@ -47,6 +49,38 @@ def test_datasets_only_mode_preserves_blockers_instead_of_failing():
     assert "digestate_N_P_K_S_speciation_missing" in result.blockers
     assert "protein_proxy_closure_disabled" in result.blockers
     assert result.balances["all_downstream_unit_balances_close"] is True
+
+
+def test_freeze_drying_energy_remains_blocked_without_a_transferable_scalar():
+    policy = default_dynamic_complete_proxy_closure_policy(allow_assumptions=True)
+    assert policy.available("dryer_heat_mj_per_kg_water")
+    assert not policy.available("freeze_drying_electricity")
+
+    result = run_dynamic_complete_proxy_scenario_step(
+        DynamicCompleteProxyConfig(
+            drying_method="freeze_drying_proxy",
+            resource_recovery_methods=(),
+        ),
+        "2026-05",
+    )
+    assert "freeze_drying_energy_missing_without_assumptions" in result.drying.blockers
+    assert result.drying.metrics["electricity_kwh_hr"] == 0.0
+    assert "not a zero-energy claim" in result.drying.warnings[0]
+
+
+def test_drying_energy_benchmarks_preserve_source_bases_and_stay_reference_only():
+    path = Path(__file__).resolve().parents[1] / "Greenhub/data/Protein recovery/Drying/drying_energy_literature_benchmarks.csv"
+    with path.open("r", encoding="utf-8-sig", newline="") as file:
+        rows = list(csv.DictReader(file))
+    assert len(rows) == 5
+    assert all(row["activation_state"] == "reference_only" for row in rows)
+    records = {row["record_id"]: row for row in rows}
+    assert records["DRY-ENERGY-BM2005-SEC"]["unit"] == "MJ/kg water evaporated"
+    assert records["DRY-ENERGY-BM2005-SEC"]["value_low"] == "3"
+    assert records["DRY-ENERGY-BM2005-SEC"]["value_high"] == "20"
+    assert records["DRY-ENERGY-ELSHANI2026-PILOT"]["unit"] == "MJ/Mg dry matter biomass"
+    assert records["DRY-ENERGY-WHEATGRASS2024-LCA"]["unit"] == "kWh/kg protein concentrate powder"
+    assert len({row["unit"] for row in rows}) >= 4
 
 
 def test_press_cake_is_external_and_never_enters_ad(complete_step):

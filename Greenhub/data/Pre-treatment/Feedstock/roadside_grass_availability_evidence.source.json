@@ -1,0 +1,36 @@
+{
+  "title": "Dutch roadside-grass availability and mowing evidence from national and regional sources",
+  "source_file": "roadside_grass_availability_evidence.csv",
+  "source_id": "SRC-RWS-BERMONDERHOUD-CURRENT; SRC-ZH-PROVINCIE-BERMGRAS-UNDATED; SRC-ZH-GREEN-WASTE-DATA-2026; SRC-ZH-BIOMASS-INVENTORY-2023; SRC-ARBOR-UTRECHT-2015",
+  "source_url": "https://www.rijkswaterstaat.nl/leefomgeving/leefbaarheid-en-milieu/bermonderhoud; https://werkenvoor.zuid-holland.nl/artikelen/de-bermen-in-zuid-holland-komen-tot-bloei/; https://data.overheid.nl/en/dataset/0f08e50f-6483-4d62-8a29-16a049e5c5ec; https://circulair.zuid-holland.nl/wp-content/uploads/2021/12/Biomassa-reststromen-analyse-Zuid-Holland-eindverslag-V3-Robin-de-Roo.pdf; https://www.list.lu/fileadmin/files/projects/ARBOR/ARBOR_Synergypark_Case_Study_Report.pdf",
+  "source_location": "Rijkswaterstaat: official Bermonderhoud page, introduction and section ‘Maaien en snoeien’; Zuid-Holland: Sections ‘We gaan (minder) maaien’, ‘Elke weg een eigen maaiplan’, and ‘Bermzeep’; Utrecht Region: ARBOR Chapter 3, §§3.2.1–3.2.3, pp. 10–11",
+  "authors": "Rijkswaterstaat; Provincie Zuid-Holland; interview with provincial green-asset staff; ARBOR report editors Gohar Nuhoff-Isakhanyan and Emiel Wubben and case-study contributors",
+  "publication_year": null,
+  "retrieval_date": "2026-11-07",
+  "persistent_identifier": "0f08e50f-6483-4d62-8a29-16a049e5c5ec (persistent government dataset identifier; not a DOI); ARBOR report has no DOI",
+  "license": "Rijkswaterstaat management page and provincial article: no dataset-specific reuse license stated; provincial open-data catalog: public domain; ARBOR report: no explicit reuse license identified.",
+  "geography": "Multiple Netherlands comparators: Rijkswaterstaat motorway network; Province of Zuid-Holland; Utrecht Region (Province of Utrecht plus Het Gooi in North Holland)",
+  "evidence_class": "official operational reporting; aggregate quantity and schedule",
+  "reported_values": {
+    "annual_mown_verge_grass": "approximately 10,000 t/year; wet/dry mass basis, reference year, and metering method unstated",
+    "provincial_inventory_estimates": "46,100 t in a previous inventory and 60,102 t in a later inventory; both reported in the provincial 2023 report; underlying reference years, mass bases, and detailed calculation inputs are unresolved",
+    "annual_municipal_green_waste": "76,084 t/year across Zuid-Holland municipal green waste; mixed composition; dataset updated 2026-08-13; reference year and mass basis unstated",
+    "annual_mowing_rounds": "Zuid-Holland reports two rounds, June–July and September–October; Rijkswaterstaat says motorway grass is mown once yearly in most cases, with local variation",
+    "collection_timing": "Zuid-Holland page says mown material is left in the field for a few days before collection; exact duration unstated",
+    "utrecht_region_annual_collected": "approximately 60,000 tonnes/year mown, collected, and processed; mass basis, reference year, and measurement method unstated",
+    "utrecht_region_annual_uncollected": "approximately 70,000 tonnes/year remains after mowing and is not collected; report says leaving it depends on biodiversity and traffic-safety conditions",
+    "utrecht_region_reported_total_potential": "approximately 130,000 tonnes/year, the report's sum of its collected and uncollected categories; not all collected or accessible",
+    "utrecht_region_mowing_schedule": "typically two rounds per year, May–June and September–October, as described in the 2015 report",
+    "rws_mowing_schedule": "once per year in most cases; locations may be mown more frequently depending on vegetation and road-safety risk; exact routes and dates not given"
+  },
+  "applicability": "Regional maintenance context only; the quantity is not the GreenHub contracted or delivered supply and is not connected to model defaults or scenario availability.",
+  "limitations": [
+    "Undated page; reference year is not given.",
+    "Mass basis and measurement method are not stated; do not convert to dry matter.",
+    "No per-road or per-round tonnage, contamination fraction, access constraint, or GreenHub allocation is reported.",
+    "The 76,084 t/year municipal dataset includes verge grass, pruning residues and other public-space green waste; it cannot be used as roadside-grass supply without category-level records and basis clarification.",
+    "Mowing regimes differ between Rijkswaterstaat, provincial, municipal, and ecological management; reported national summaries are not route calendars.",
+    "The ARBOR Utrecht-region quantities are approximate project-reported estimates; their underlying reference year, wet/dry basis, measurement method, site records, and collection constraints are not supplied. The 130,000 t/year figure is the report's total of the preceding categories and must not be counted again as a separate stream.",
+    "The 46,100 t and 60,102 t inventory figures are distinct calculated estimates based on differing source material, not repeat weighbridge measurements; do not interpret their difference as a measured temporal increase or combine them with the approximately 10,000 t provincial-road figure, 117/120 t GreenHub reports, or mixed municipal green-waste totals."
+  ]
+}

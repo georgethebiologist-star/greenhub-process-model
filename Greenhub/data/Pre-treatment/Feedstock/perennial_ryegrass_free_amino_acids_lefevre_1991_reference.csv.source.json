@@ -1,0 +1,31 @@
+{
+  "dataset_id": "urn:greenhub:dataset:src-lefevre-1991-ryegrass-free-amino-acids:v1",
+  "source_file": "perennial_ryegrass_free_amino_acids_lefevre_1991_reference.csv",
+  "title": "Free amino-acid content of perennial ryegrass plant parts at defoliation",
+  "source_id": "SRC-LEFEVRE-1991-RYEGRASS-AA",
+  "authors": ["J. Lefevre", "J. Bigot", "J. Boucaud"],
+  "year": 1991,
+  "journal": "Journal of Experimental Botany",
+  "volume": "42",
+  "issue": "1",
+  "pages": "89-95",
+  "doi": "10.1093/jxb/42.1.89",
+  "source_url": "https://doi.org/10.1093/jxb/42.1.89",
+  "publisher_record_url": "https://academic.oup.com/jxb/article-abstract/42/1/89/536215",
+  "retrieval_date": "2026-11-10",
+  "source_location": "Publisher abstract; free-amino-acid contents reported for stubble, leaves, and roots on the day of defoliation",
+  "geography": "Experiment location not stated in the accessible abstract; author affiliation is not treated as experiment location",
+  "material": "Perennial ryegrass (Lolium perenne L.), separated into leaves, stubble, and roots",
+  "measurement_method": "The article studies nitrogen remobilization and free amino-acid composition/content; method details are in the full article and are not inferred from the abstract extract.",
+  "evidence_class": "Primary literature measurements; class B for source observations",
+  "license": "Publisher access terms apply. This repository extract contains three abstract-reported numeric facts and provenance, not article text or figures; verify reuse rights before redistribution.",
+  "record_count": 3,
+  "activation_state": "Reference-only. Not connected to the GreenHub active composition because the source reports plant parts rather than matched Dutch roadside whole grass and does not resolve overlap with total-N-derived protein.",
+  "readiness_state": "reference_only_not_D4",
+  "limitations": [
+    "The material is cultivated perennial ryegrass, not the project VARTA roadside-grass sample.",
+    "The three values are plant-part-specific and cannot be aggregated without plant-part mass fractions.",
+    "The accessible abstract does not report sample count, variance, or a GreenHub-matched analytical basis beyond dry weight.",
+    "Free amino acids contain nitrogen and may overlap with crude-protein values derived from total nitrogen; no active profile conversion was made."
+  ]
+}

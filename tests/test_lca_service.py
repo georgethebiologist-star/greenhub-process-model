@@ -77,11 +77,30 @@ def test_static_missing_utility_propagates_instead_of_becoming_zero():
     assert empty["inventory"][0]["quantity"] is None
 
 
+def test_fresh_process_water_is_reported_without_fabricating_climate_impact():
+    water_stream = NS(
+        source_unit=None, stream_id="fresh_scrubbing_water", aliases=(),
+        components={"Water": NS(value=2.0)},
+    )
+    report = calculate_empirical_lca(
+        simulation(utilities=[utility("electricity", 0.0, "kW")], streams=[water_stream]),
+        basis("electricity", operating_hours_per_year=100),
+    ).to_dict()
+    assert report["resource_use"]["fresh_process_water_m3_per_year"] == pytest.approx(0.2)
+    assert report["resource_use"]["status"] == "calculated_activity_not_characterized_as_impact"
+    assert report["totals"]["climate_kg_co2e_per_year"] == 0.0
+    assert "No water-scarcity characterization factor" in report["resource_use"]["warning"]
+
+
 def test_static_heat_kj_per_hour_to_kwh_no_generation_credit():
     result=simulation(utilities=[utility("electricity", 5, "kW"), utility("electricity", -3, "kW"),
                                  utility("heat", 3600, "kJ/hr"), utility("heat", -7200, "kJ/hr")])
     before=deepcopy(result)
-    report=calculate_empirical_lca(result, basis("electricity", "heat", operating_hours_per_year=100)).to_dict()
+    report=calculate_empirical_lca(
+        result,
+        basis("electricity", "heat", operating_hours_per_year=100),
+        factors=screening_lca_factors(),
+    ).to_dict()
     quantities={row["flow_id"]: row["quantity"] for row in report["inventory"]}
     assert quantities == {"electricity": 500, "heat": 100}
     assert result == before
@@ -136,7 +155,7 @@ def test_units_metadata_duplicates_and_complete_functional_units():
 
 
 def test_supplied_utility_factor_is_separate_and_traceable():
-    factor=replace(load_climate_factors()["electricity"], value=0.2, source_status="engineering_assumption",
+    factor=replace(load_climate_factors(include_screening=True)["electricity"], value=0.2, source_status="engineering_assumption",
                    evidence_class="engineering_assumption", applicability="Synthetic test only",
                    warning="Not a measured electricity footprint")
     result=simulation(utilities=[utility("electricity", 5, "kW")])
@@ -146,12 +165,35 @@ def test_supplied_utility_factor_is_separate_and_traceable():
 
 
 def test_screening_electricity_factor_is_explicitly_traceable_and_opt_in():
+    assert "electricity" not in load_climate_factors()
+    assert "heat" not in load_climate_factors()
     factor = screening_lca_factors()["electricity"]
     assert factor.value == pytest.approx(0.406463)
     assert factor.source_status == "official_dataset"
     assert factor.reference_year == 2021
     assert "JRC.4800KC0" in factor.source_url
     assert "Table3_EU_LC" in factor.source_table_page
+    heat = screening_lca_factors()["heat"]
+    assert heat.value == pytest.approx(0.111456)
+    assert "does not identify the carrier" in heat.warning
+
+
+def test_screening_utility_factors_load_from_the_provenance_registry():
+    factors = load_climate_factors(include_screening=True)
+    assert factors["electricity"].value == pytest.approx(0.406463)
+    assert "JRC.4800KC0" in factors["electricity"].source_url
+    assert "cedelft.eu" in factors["heat"].source_url
+
+
+def test_screening_utility_factors_change_only_when_explicitly_selected():
+    result = simulation(utilities=[utility("electricity", 4, "kW"), utility("heat", 3600, "kJ/h")])
+    project = basis("electricity", "heat", operating_hours_per_year=100)
+    default = calculate_empirical_lca(result, project).to_dict()
+    screening = calculate_empirical_lca(result, project, factors=screening_lca_factors()).to_dict()
+    assert default["totals"]["climate_kg_co2e_per_year"] is None
+    assert screening["totals"]["climate_kg_co2e_per_year"] == pytest.approx(
+        4 * 100 * 0.406463 + 100 * 0.111456
+    )
 
 
 def test_lca_factor_loader_tolerates_additive_source_provenance_metadata():

@@ -25,6 +25,8 @@ def seasonal_sale_quantities(model, hours):
         stream = model.streams.get(product)
         if stream is not None:
             components[product] = {component: float(stream.imass[component]) * hours}
-    gas = model.streams.get('biomethane')
+    scenario_configuration = getattr(model, 'scenario_configuration', None)
+    biogas_upgrading = getattr(scenario_configuration, 'biogas_upgrading', None)
+    gas = model.streams.get('biomethane') if biogas_upgrading != 'BG0' else None
     moles = {} if gas is None else {'biomethane': sum(float(gas.imol[c.ID]) for c in gas.chemicals if c.ID != 'Water') * hours}
     return components, moles

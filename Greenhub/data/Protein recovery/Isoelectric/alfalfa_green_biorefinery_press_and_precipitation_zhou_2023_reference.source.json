@@ -1,0 +1,37 @@
+{
+  "dataset_id": "urn:greenhub:dataset:protein-recovery:zhou-2023-alfalfa-press-precipitation:v1",
+  "dataset_version": "1.0.0",
+  "persistent_identifier_status": "Repository-local identifier identifies this transcription; DTU Orbit stable record identifies the thesis; no thesis DOI identified.",
+  "title": "Alfalfa wet fractionation, acid/heat precipitation and side-stream reference observations",
+  "source_id": "SRC-ZHOU-DTU-THESIS-2023-ALFALFA-PROTEIN",
+  "citation": "Zhou, F. (2023). Valorization of Green Biomass: Alfalfa Pulp as a Potential Platform for Food and Biochemicals. PhD thesis, Technical University of Denmark.",
+  "source_url": "https://orbit.dtu.dk/files/363463153/PhD_thesis_-_Fa_Zhou.pdf",
+  "repository_record": "https://orbit.dtu.dk/en/publications/valorization-of-green-biomass-alfalfa-pulp-as-a-potential-platfor/",
+  "retrieval_date": "2026-11-08",
+  "source_locations": [
+    "Table 1.2 (PDF extracted-text locator 675–732; printed page not verified)",
+    "§4.4.6, p. 106",
+    "Figure 4.6"
+  ],
+  "geography": "Technical University of Denmark research; exact crop field site and harvest context not identified in the extracted sections.",
+  "material_scope": "Cultivated alfalfa, not Dutch roadside grass, VARTA samples or GreenHub feed.",
+  "license_or_rights": "No explicit reuse license identified on the thesis record; attribution retained and external redistribution rights require review.",
+  "evidence_class": "B_primary_thesis_experimental_observations",
+  "quality_class": "B",
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "row_count": 56,
+  "sha256_csv": "cb27732ac77208ee030a7d46db573a5afcb72e547cc5b83ec79aaea68e15e999",
+  "transcription_policy": "Transcribe source-reported values only. Preserve source dashes as nonnumeric table entries; do not calculate normalized acid dose, infer stream density, or reconcile feed-moisture and figure discrepancies.",
+  "limitations": [
+    "Alfalfa is a comparator crop and route, not GreenHub roadside-grass validation.",
+    "Table 1.2 reports technical-replicate mean and SD but does not state replicate count in the extracted source.",
+    "Protein precipitation is reported as percent of green juice; this is not protein recovery from incoming feed or an isolated-protein mass yield.",
+    "The 135.7 g addition is the mass of 1 M HCl solution in a batch, not pure HCl mass, and is not normalized per kg feed or juice volume. Solution volume/density, liquid denominator details, and acid equivalents per feed are absent; no transferable dose is calculated.",
+    "§4.4.6 states 85.6% feed water, while Figure 4.6 labels 177.2 g DM per 1000 g feed. These imply different moisture values and are retained as a source discrepancy.",
+    "The 193.0 g protein-pellet prose/theoretical value differs from the Figure 4.6 actual label of 186.2 g; the values are not reconciled.",
+    "The reported batch flow values do not constitute a fully closed mass balance; figure theoretical/actual flows and prose values are not combined into a single balance.",
+    "The thesis does not provide GreenHub-specific press energy, full nutrient/protein component closure, or roadside-feed transfer validation.",
+    "No GreenHub defaults, registry parameters, chemistry, TEA/LCA factors, route configuration or Pareto output consume this reference package."
+  ]
+}

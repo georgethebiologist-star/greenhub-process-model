@@ -1,0 +1,17 @@
+source_field,english_field,source_type,source_unit,source_definition_english,greenhub_phase,possible_use,not_sufficient_for,activation_status
+Traject,Route,Text,,Road or waterway route name,1,Group mapped verge polygons by route,Does not identify contracted collection routes or haul distance,metadata_only
+Trajectdeel,Route section,Text,,Route subsection identifier,1,Spatially group management areas and relate them to route sections,Does not provide plant-gate delivery or accessible area by itself,metadata_only
+Beheerobjectomschrijving,Management object description,Text,,Code or description for the managed object,1,Filter roadside verge objects from other green objects,Requires code list and data-value review before classification,metadata_only
+Type,Green-space type,Text,,Type of green area,1,Screen candidate verge/grass polygons,"Does not establish species composition, grass fraction, or biomass yield",metadata_only
+Helling,Slope,Text,,Land-surface slope category or description,1,Flag terrain/access constraints,Not a machine-accessibility or collection feasibility measure without validated thresholds,metadata_only
+Maaien,Mowing method,Text,,Description of mowing type or method,1;3,Distinguish mowing-management and likely collection regimes,Does not quantify recovered mass or losses,metadata_only
+Eco,Ecological management,Text,,Ecological-management designation,1;3,Identify management constraints that may limit harvest timing or frequency,Does not supply measured monthly biomass,metadata_only
+OH_Freq,Maintenance frequency,Text,,Maintenance frequency for the managed object,1;3,Translate management frequency into candidate cut-count scenarios,Frequency labels require interpretation and do not specify measured harvest dates or yield,metadata_only
+Zone,Management zone,Text,,Zone identifier for the managed object,1,Spatial stratification and route-level aggregation,"Does not define ownership, access permission, or contract status",metadata_only
+Oppervlakte,Polygon area,m2,m2,Area of the mapped polygon,1,Calculate mapped gross candidate area after filtering suitable grass/verge records,"Is not equal to mowable grass area, harvestable area, or delivered feedstock",metadata_only
+Opp_correctie,Slope-corrected area,m2,m2,Polygon area after slope correction,1,Compare mapped geometric area to corrected area as one access-screening input,Correction method and suitability for harvesting need source documentation; not actual collected biomass,metadata_only
+EIGENAAR,Owner,Text,,Owner of the managed object,1,Identify landowner/permission pathway,Ownership listing is not evidence of feedstock rights or an executed supply contract,metadata_only
+BEHEERDER,Manager,Text,,Organization responsible for management,1,Identify mowing/maintenance data contact and route-level source,Does not establish that the manager collects or can allocate material to GreenHub,metadata_only
+OPMERKINGEN,Notes,Text,,Free-text management notes,1,Review for local access and operating constraints,Free text must be interpreted and cannot be used as a validated model parameter without review,metadata_only
+WIJK,District,Text,,District or local management area,1,Aggregate candidate assets geographically,Not equivalent to a municipality-level delivered-supply total,metadata_only
+ONDERHOUDSPLOEG,Maintenance crew,Text,,Maintenance team responsible for the asset,1,Potential contact/operational grouping for future field-data requests,"Does not describe actual equipment hours, route sequence, or quantity collected",metadata_only

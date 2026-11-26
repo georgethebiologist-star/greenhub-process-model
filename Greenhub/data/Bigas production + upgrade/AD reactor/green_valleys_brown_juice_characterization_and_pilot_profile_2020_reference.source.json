@@ -1,0 +1,34 @@
+{
+  "dataset_title": "Green Valleys brown-juice characterization and pilot anaerobic-filter operating profile",
+  "dataset_identifier": "greenhub:ad-reactor:green-valleys-brown-juice-2020:v1",
+  "source_file": "green_valleys_brown_juice_characterization_and_pilot_profile_2020_reference.csv",
+  "source_id": "SRC-GREEN-VALLEYS-BJ-2020",
+  "source_title": "Status of demonstration facilities at AU Foulum and VGN Sötåsen; Green Valleys project meeting, 18 March 2020",
+  "authors": ["Morten Ambye-Jensen (presenter; individual authorship of extracted tables is not stated in the document)"],
+  "reference_year": 2020,
+  "doi": null,
+  "source_url": "https://agrovast.se/wp-content/uploads/2020/03/Green-Valleys_20200318_3_4.3_4_4A_B_C_DMAJensen_AUAGRO_public-version.pdf",
+  "retrieval_date": "2026-11-07",
+  "source_location": "Presentation sections titled Experimental setup (reactor conditions and duration), Table 1 (pilot operating periods), Brown Juice input/Table 2 (sample characterization), and Conclusions. Web-extracted PDF lines 223-334.",
+  "document_type": "public project technical presentation / grey literature",
+  "evidence_class": "B_reported_project_measurement",
+  "license": "No explicit reuse license identified; only factual values and short labels transcribed with source attribution.",
+  "rows": 32,
+  "data_basis": "Reported brown-juice sample measurements and study-specific pilot packed-filter operating conditions. Raw and warmed samples remain distinct. Batch BMP is separately labeled from continuous reactor operation.",
+  "experimental_context": {
+    "material": "Brown juice from a Green Valleys green-biorefinery demonstration at Aarhus University Foulum, Denmark; crop proportions are not reported in the extracted table.",
+    "pilot": "Packed anaerobic filter with 5.5 m3 working volume, mesophilic operation reported at 30-32 C, brown juice feed pre-warmed to 55-60 C, semi-continuous operation.",
+    "period": "118 days, 4 October 2019 to 29 January 2020; feed stored at ambient temperature reported as -2 to 14 C, average 6 C.",
+    "batch_test": "The report states ultimate methane potential following 90 days of batch digestion; full batch BMP protocol and uncertainty are not supplied in the extracted passage."
+  },
+  "interpretation_and_limits": [
+    "The reported fresh and warmed brown-juice measurements are sample-specific values, not a controlled before/after experiment with documented replicate uncertainty.",
+    "The 409.6 NmL CH4/g VS and 264.2 NmL CH4/g COD values are batch BMP endpoints, not continuous reactor yields.",
+    "Period feed load is copied with its printed unit kg/day; the table does not explicitly define the mass basis. Do not infer kg wet feed or use it as a mass-balance flow without confirmation.",
+    "Table 1 gives paired printed OLR values (e.g. 1.9 (1.88)); both are retained as text, not represented as an uncertainty range.",
+    "No methane fraction, continuous methane yield, COD-removal value by period, energy use, or digestate composition is transcribed from this document.",
+    "Cultivated grass/clover Green Valleys brown juice is not GreenHub roadside-grass protein-depleted supernatant; evidence remains reference-only."
+  ],
+  "normalization": "No conversions or inferred values were applied; values and units are transcribed as reported. Period day ranges and paired OLR precision are retained verbatim.",
+  "activation_state": "reference_only"
+}

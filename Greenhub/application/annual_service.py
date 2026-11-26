@@ -11,6 +11,8 @@ from .biomass_schedule import (
     schedule_feed_rows,
 )
 from Greenhub.time_grid import generate_time_grid
+from .water_reporting import fresh_water_kg_per_hour_from_result, kg_to_m3
+from .material_fate import accumulate_material_fate, finalize_material_fate
 
 
 PRODUCT_KEYS = (
@@ -50,6 +52,7 @@ def _from_quasi_dynamic(result, request) -> dict[str, object]:
     suffix = 'year' if full_year else 'reported period'
     products = {key: float(seasonal.get("total_products_kg", {}).get(key, 0.0)) for key in PRODUCT_KEYS}
     utilities = seasonal.get("total_utilities", {})
+    fresh_water_kg = _optional_number(utilities.get("fresh_water_kg"))
     processed = float(seasonal.get("total_biomass_processed_kg", 0.0))
     process_residual = float(seasonal.get("process_mass_residual_kg", 0.0))
     storage_residual = float(seasonal.get("storage_mass_residual_kg", 0.0))
@@ -70,6 +73,11 @@ def _from_quasi_dynamic(result, request) -> dict[str, object]:
                 key: float(utilities_by_time.get(label, {}).get(key, 0.0))
                 for key in ("electricity_kwh", "heating_kwh", "cooling_kwh")
             },
+            "fresh_water_m3": (
+                kg_to_m3(float(utilities_by_time[label]["fresh_water_kg"]))
+                if label in utilities_by_time and utilities_by_time[label].get("fresh_water_kg") is not None
+                else None
+            ),
             "mass_residual_kg": float(balances_by_time.get(label, {}).get("overall_mass_residual_kg", 0.0)),
         })
     volumetric_products = {}
@@ -81,9 +89,10 @@ def _from_quasi_dynamic(result, request) -> dict[str, object]:
         for row in monthly:
             key=str(row['period'])[:7]
             if key not in grouped:
-                grouped[key]={'period':key,'feed_processed_kg':0.0,'mass_residual_kg':0.0,'products_kg':{},'intermediate_streams_kg':{},'volumetric_products_m3':{},'utilities_kwh':{}}
+                grouped[key]={'period':key,'feed_processed_kg':0.0,'mass_residual_kg':0.0,'products_kg':{},'intermediate_streams_kg':{},'volumetric_products_m3':{},'utilities_kwh':{},'fresh_water_m3':0.0}
             target=grouped[key]
             for field in ('feed_processed_kg','mass_residual_kg'): target[field]+=row[field]
+            target['fresh_water_m3'] = None if target['fresh_water_m3'] is None or row['fresh_water_m3'] is None else target['fresh_water_m3'] + row['fresh_water_m3']
             for field in ('products_kg','intermediate_streams_kg','volumetric_products_m3','utilities_kwh'):
                 for name,value in row[field].items(): target[field][name]=target[field].get(name,0)+value
         monthly=list(grouped.values())
@@ -107,6 +116,8 @@ def _from_quasi_dynamic(result, request) -> dict[str, object]:
             "electricity": _value(float(utilities.get("electricity_kwh", 0.0)), f"kWh/{suffix}"),
             "heating": _value(float(utilities.get("heating_kwh", 0.0)), f"kWh/{suffix}"),
             "cooling": _value(float(utilities.get("cooling_kwh", 0.0)), f"kWh/{suffix}"),
+            "fresh_water_mass": _value(fresh_water_kg, f"kg/{suffix}"),
+            "fresh_water": _value(None if fresh_water_kg is None else kg_to_m3(fresh_water_kg), f"m3/{suffix}"),
         },
         "balance": _balance_summary(
             processed, process_residual, storage_residual,
@@ -115,6 +126,10 @@ def _from_quasi_dynamic(result, request) -> dict[str, object]:
         "monthly": monthly,
         "warnings": tuple(result.warnings),
     }
+    summary["material_fate"] = finalize_material_fate(
+        seasonal.get("material_fate_totals", {}),
+        "Integrated from actual model timesteps; component and elemental amounts are kg/year or kg/reported period.",
+    )
     return _with_empirical_reporting(summary, result, request)
 
 
@@ -139,6 +154,7 @@ def _annualize_steady_state(result, request) -> dict[str, object]:
     cooling_kj = -sum(
         min(float(item.demand.value or 0.0), 0.0) for item in result.utilities if item.kind == "heat"
     ) * operating_hours
+    fresh_water_kg = fresh_water_kg_per_hour_from_result(result.streams) * operating_hours
     overall = next((item for item in result.balances if item.balance_id == "overall_mass"), None)
     inlet = float(overall.inlet.value or 0.0) * operating_hours if overall else 0.0
     feed_stream = next((item for item in result.streams if "feed" in item.aliases or item.stream_id == "feed"), None)
@@ -166,6 +182,8 @@ def _annualize_steady_state(result, request) -> dict[str, object]:
             "electricity": _value(electricity, "kWh/year"),
             "heating": _value(heating_kj / 3600.0, "kWh/year"),
             "cooling": _value(cooling_kj / 3600.0, "kWh/year"),
+            "fresh_water_mass": _value(fresh_water_kg, "kg/year"),
+            "fresh_water": _value(kg_to_m3(fresh_water_kg), "m3/year"),
         },
         "balance": _balance_summary(inlet, process_residual, 0.0, element_residuals, result.validation.passed),
         "monthly": (),
@@ -174,6 +192,12 @@ def _annualize_steady_state(result, request) -> dict[str, object]:
             *result.warnings,
         ),
     }
+    material_totals: dict[str, object] = {}
+    accumulate_material_fate(material_totals, result.streams, operating_hours)
+    summary["material_fate"] = finalize_material_fate(
+        material_totals,
+        "Selected steady-state stream rates multiplied by annual operating hours; component and elemental amounts are kg/year.",
+    )
     return _with_empirical_reporting(summary, result, request)
 
 
@@ -206,7 +230,11 @@ def _balance_summary(feed_kg: float, process_residual_kg: float, storage_residua
 
 
 def _value(value: float, unit: str) -> dict[str, object]:
-    return {"value": float(value), "unit": unit}
+    return {"value": None if value is None else float(value), "unit": unit}
+
+
+def _optional_number(value) -> float | None:
+    return None if value is None else float(value)
 
 
 def _with_empirical_reporting(summary: dict[str, object], result, request) -> dict[str, object]:
@@ -229,6 +257,7 @@ def _with_empirical_reporting(summary: dict[str, object], result, request) -> di
         "heat": "kWh per actual model timestep",
         "annual_electricity": "MWh/year",
         "annual_heat": "GJ/year",
+        "fresh_water": "m3 per actual model timestep; converted from external makeup-water mass at 1000 kg/m3",
     }
     utilities = summary["utilities"]
     suffix=summary['period'].get('totals_basis','year')
@@ -236,6 +265,7 @@ def _with_empirical_reporting(summary: dict[str, object], result, request) -> di
         "electricity": _value(float(utilities.get("electricity", {}).get("value", 0.0)) / 1000.0, f"MWh/{suffix}"),
         "heating": _value(float(utilities.get("heating", {}).get("value", 0.0)) * 0.0036, f"GJ/{suffix}"),
         "cooling": _value(float(utilities.get("cooling", {}).get("value", 0.0)) * 0.0036, f"GJ/{suffix}"),
+        "fresh_water": utilities.get("fresh_water", _value(0.0, f"m3/{suffix}")),
     }
     summary["process_pathway"] = _process_pathway(result)
     summary["reporting_status"] = {
@@ -254,6 +284,57 @@ def _schedule_report(result, request, monthly: list[dict[str, object]]) -> dict[
         month=str(row["period"])[:7]
         actual[month]=actual.get(month,0.0)+float(row["feed_processed_kg"])/1000.0
     if request.biomass_schedule is not None:
+        grid_by_label = {
+            str(step.get("label")): str(step.get("start_date", ""))[:7]
+            for step in (getattr(result, "time_grid", ()) or ())
+            if step.get("label") and step.get("start_date")
+        }
+
+        def month_for_step(item: dict[str, object]) -> str:
+            label = str(item.get("time", ""))
+            return grid_by_label.get(label, label[:7])
+
+        operating_hours_by_month: dict[str, float] = {}
+        throughput_by_month: dict[str, float] = {}
+        for item in getattr(result, "throughput_series", ()) or ():
+            month = month_for_step(item)
+            if not month:
+                continue
+            operating_hours_by_month[month] = operating_hours_by_month.get(month, 0.0) + float(
+                item.get("available_operating_hours", 0.0) or 0.0
+            )
+            throughput_by_month[month] = throughput_by_month.get(month, 0.0) + float(
+                item.get("actual_throughput_kg", 0.0) or 0.0
+            )
+
+        inventory_by_month: dict[str, dict[str, float]] = {}
+        for item in getattr(result, "storage_inventory_series", ()) or ():
+            month = month_for_step(item)
+            if not month:
+                continue
+            values = inventory_by_month.setdefault(month, {
+                "inventory_entering_kg": float(item.get("inventory_entering_kg", 0.0) or 0.0),
+                "biomass_received_kg": 0.0,
+                "biomass_withdrawn_kg": 0.0,
+                "processed_feed_storage_age_mass_kg_h": 0.0,
+                "overflow_kg": 0.0,
+                "degradation_loss_kg": 0.0,
+                "inventory_remaining_kg": 0.0,
+                "storage_mass_residual_kg": 0.0,
+            })
+            for field in (
+                "biomass_received_kg", "biomass_withdrawn_kg", "overflow_kg",
+                "degradation_loss_kg", "storage_mass_residual_kg",
+            ):
+                values[field] += float(item.get(field, 0.0) or 0.0)
+            withdrawn = float(item.get("biomass_withdrawn_kg", 0.0) or 0.0)
+            processed_age = item.get("processed_feed_storage_age_h")
+            if withdrawn > 0.0 and processed_age is not None:
+                values["processed_feed_storage_age_mass_kg_h"] += withdrawn * float(processed_age)
+            # Series rows are ordered by timestep; the last remaining inventory
+            # is the monthly closing stock, not a sum over daily/weekly stocks.
+            values["inventory_remaining_kg"] = float(item.get("inventory_remaining_kg", 0.0) or 0.0)
+
         planned = build_empirical_biomass_schedule(request.biomass_schedule)
         grid = generate_time_grid(request.start_date, request.end_date, request.time_step or "monthly")
         grid = extend_grid_for_processing_delay(
@@ -262,22 +343,44 @@ def _schedule_report(result, request, monthly: list[dict[str, object]]) -> dict[
         )
         delayed_supply: dict[str, dict[str, float]] = {}
         delayed_supply_intervals: dict[str, dict[str, float]] = {}
+        harvest_dates_by_month: dict[str, list[str]] = {}
+        release_dates_by_month: dict[str, list[str]] = {}
         for supply_row in schedule_feed_rows(
             request.biomass_schedule,
             grid,
             processing_delay_days=request.biomass_schedule.processing_delay_days,
         ):
             key = str(supply_row["time"])[:7]
+            harvest_dates_by_month.setdefault(key, []).extend(
+                str(item) for item in supply_row.get("harvest_event_dates", ())
+            )
+            release_dates_by_month.setdefault(key, []).extend(
+                str(item) for item in supply_row.get("processing_release_dates", ())
+            )
             target = delayed_supply.setdefault(key, {
                 "available_wet_biomass_kg": 0.0,
+                "harvested_biomass_kg": 0.0,
                 "collected_biomass_kg": 0.0,
                 "uncollected_biomass_kg": 0.0,
+                "collection_delay_inventory_entering_kg": 0.0,
+                "collection_delay_inventory_remaining_kg": 0.0,
+                "collection_delay_inventory_residual_kg": 0.0,
+                "collection_delay_inventory_peak_kg": 0.0,
             })
             for field in target:
-                target[field] += float(supply_row.get(field, 0.0))
+                value = float(supply_row.get(field, 0.0))
+                if field == "collection_delay_inventory_peak_kg":
+                    target[field] = max(target[field], value)
+                else:
+                    target[field] += value
             interval_target = delayed_supply_intervals.setdefault(str(supply_row["time"]), {
                 "available_wet_biomass_kg": 0.0,
+                "harvested_biomass_kg": 0.0,
                 "collected_biomass_kg": 0.0,
+                "collection_delay_inventory_entering_kg": 0.0,
+                "collection_delay_inventory_remaining_kg": 0.0,
+                "collection_delay_inventory_residual_kg": 0.0,
+                "collection_delay_inventory_peak_kg": 0.0,
             })
             for field in interval_target:
                 interval_target[field] += float(supply_row.get(field, 0.0))
@@ -288,7 +391,13 @@ def _schedule_report(result, request, monthly: list[dict[str, object]]) -> dict[
         interval_rows = [{
             "period": period,
             "available_biomass_tonnes": float(values["available_wet_biomass_kg"]) / 1000.0,
+            "harvested_biomass_tonnes": float(values["harvested_biomass_kg"]) / 1000.0,
+            "collection_delay_inventory_entering_tonnes": float(values["collection_delay_inventory_entering_kg"]) / 1000.0,
+            "collection_delay_inventory_remaining_tonnes": float(values["collection_delay_inventory_remaining_kg"]) / 1000.0,
+            "collection_delay_inventory_mass_residual_tonnes": float(values["collection_delay_inventory_residual_kg"]) / 1000.0,
+            "collection_delay_inventory_peak_tonnes": float(values["collection_delay_inventory_peak_kg"]) / 1000.0,
             "processed_biomass_tonnes": actual_intervals.get(period, 0.0),
+            "released_to_processing_tonnes": float(values["collected_biomass_kg"]) / 1000.0,
         } for period, values in sorted(delayed_supply_intervals.items())]
         rows = []
         planned_by_month = {str(row["time_label"]): row for row in planned["monthly"]}
@@ -297,22 +406,68 @@ def _schedule_report(result, request, monthly: list[dict[str, object]]) -> dict[
             row = planned_by_month.get(period, {"time_label": period, "available_biomass_tonnes": 0.0, "processed_biomass_tonnes": 0.0})
             schedule_row = delayed_supply.get(period, {})
             actual_processed = actual.get(period, 0.0)
-            processed = float(schedule_row.get("collected_biomass_kg", 0.0)) / 1000.0
+            operating_hours = operating_hours_by_month.get(period, float(row.get("operating_hours", 0.0) or 0.0))
+            throughput_kg = throughput_by_month.get(period, actual_processed * 1000.0)
+            collected_for_processing = float(schedule_row.get("collected_biomass_kg", 0.0)) / 1000.0
             available = float(schedule_row.get("available_wet_biomass_kg", 0.0)) / 1000.0
+            collected_at_harvest = float(
+                schedule_row.get("harvested_biomass_kg", row.get("processed_biomass_tonnes", 0.0) * 1000.0)
+            ) / 1000.0
+            uncollected = float(schedule_row.get("uncollected_biomass_kg", 0.0)) / 1000.0
             rows.append({
                 **row,
+                # The collection calendar is shifted by storage residence; use
+                # the actual controller hours, including the post-harvest tail,
+                # rather than the unshifted harvest-month hours in the plan.
+                "operating_hours": operating_hours,
+                "basis_feed_kg_per_hr": throughput_kg / operating_hours if operating_hours else 0.0,
                 "available_biomass_tonnes": available,
-                "planned_processed_biomass_tonnes": processed,
+                # Preserve the legacy field as the amount released to processing
+                # this period; add explicit fields so delayed harvest and process
+                # dates are not conflated in seasonal reporting.
+                "planned_processed_biomass_tonnes": collected_for_processing,
+                "collected_at_harvest_tonnes": collected_at_harvest,
+                "collected_for_processing_tonnes": collected_for_processing,
+                "collection_delay_inventory_entering_tonnes": float(schedule_row.get("collection_delay_inventory_entering_kg", 0.0)) / 1000.0,
+                "collection_delay_harvest_tonnes": float(schedule_row.get("harvested_biomass_kg", 0.0)) / 1000.0,
+                "collection_delay_release_tonnes": collected_for_processing,
+                "collection_delay_inventory_remaining_tonnes": float(schedule_row.get("collection_delay_inventory_remaining_kg", 0.0)) / 1000.0,
+                "collection_delay_inventory_mass_residual_tonnes": float(schedule_row.get("collection_delay_inventory_residual_kg", 0.0)) / 1000.0,
+                "collection_delay_inventory_peak_tonnes": float(schedule_row.get("collection_delay_inventory_peak_kg", 0.0)) / 1000.0,
                 "processed_biomass_tonnes": actual_processed,
                 "actual_processed_biomass_tonnes": actual_processed,
-                "unprocessed_available_biomass_tonnes": max(available-actual_processed,0.0),
-                "unused_biomass_tonnes": max(available - processed, 0.0),
-                "uncollected_biomass_tonnes": float(schedule_row.get("uncollected_biomass_kg", 0.0)) / 1000.0,
-                "utilization_fraction": actual_processed / available if available else 0.0,
-                "utilization_percent": 100.0 * actual_processed / available if available else 0.0,
+                "unprocessed_available_biomass_tonnes": max(available-collected_at_harvest,0.0),
+                # Legacy field: retained for existing consumers. Use the new
+                # uncollected_biomass_tonnes field for harvest-date losses.
+                "unused_biomass_tonnes": max(available-collected_for_processing,0.0),
+                "uncollected_biomass_tonnes": uncollected,
+                **({
+                    "storage_inventory_entering_tonnes": stock["inventory_entering_kg"] / 1000.0,
+                    "biomass_received_after_storage_conditions_tonnes": stock["biomass_received_kg"] / 1000.0,
+                    "storage_withdrawn_tonnes": stock["biomass_withdrawn_kg"] / 1000.0,
+                    "storage_overflow_tonnes": stock["overflow_kg"] / 1000.0,
+                    "storage_degradation_loss_tonnes": stock["degradation_loss_kg"] / 1000.0,
+                    "ending_inventory_tonnes": stock["inventory_remaining_kg"] / 1000.0,
+                    "storage_mass_residual_tonnes": stock["storage_mass_residual_kg"] / 1000.0,
+                    "processed_feed_storage_age_hours": (
+                        stock["processed_feed_storage_age_mass_kg_h"] / stock["biomass_withdrawn_kg"]
+                        if stock["biomass_withdrawn_kg"] > 0.0 else None
+                    ),
+                } if (stock := inventory_by_month.get(period)) is not None else {}),
+                # Month-level availability and throughput are time-shifted by
+                # storage, so the comparable monthly utilization is the harvest
+                # collection fraction, not processing divided by harvest-month supply.
+                "utilization_fraction": collected_at_harvest / available if available else 0.0,
+                "utilization_percent": 100.0 * collected_at_harvest / available if available else 0.0,
+                "utilization_basis": "collected_at_harvest / available_biomass",
+                "harvest_event_dates": tuple(dict.fromkeys(harvest_dates_by_month.get(period, ()))),
+                "processing_release_dates": tuple(dict.fromkeys(release_dates_by_month.get(period, ()))),
             })
         available_total = sum(float(row["available_biomass_tonnes"]) for row in rows)
         processed_total = sum(float(row["processed_biomass_tonnes"]) for row in rows)
+        harvested_total = sum(float(row["collected_at_harvest_tonnes"]) for row in rows)
+        released_total = sum(float(row["collected_for_processing_tonnes"]) for row in rows)
+        uncollected_total = sum(float(row["uncollected_biomass_tonnes"]) for row in rows)
         user_target = float(request.biomass_schedule.annual_processed_biomass_tonnes)
         effective_target = float(planned["requested_processed_tonnes"])
         capacity_shortfall = max(effective_target - processed_total, 0.0)
@@ -340,12 +495,43 @@ def _schedule_report(result, request, monthly: list[dict[str, object]]) -> dict[
             "equipment_scale_design_peak_kg_hr": float(result.seasonal_summary.get("equipment_scale_design_peak_kg_hr", 0.0)),
             "equipment_capacity_costing_status": "structural_capacity_scaled_no_capex_repricing",
             "processing_delay_days": request.biomass_schedule.processing_delay_days,
+            "harvest_events": None if request.biomass_schedule.harvest_events is None else [
+                {
+                    "date": event.date,
+                    "available_biomass_tonnes": event.available_biomass_tonnes,
+                    "evidence_class": request.biomass_schedule.availability_evidence_class,
+                    "temporal_profile_quality_class": request.biomass_schedule.availability_temporal_profile_quality_class,
+                    "source_id": request.biomass_schedule.availability_source_id,
+                    "source_url": request.biomass_schedule.availability_source_url,
+                    "status": request.biomass_schedule.availability_status,
+                }
+                for event in request.biomass_schedule.harvest_events
+            ],
             "processing_start_date": result.seasonal_summary.get("processing_start_date"),
             "processing_end_date": result.seasonal_summary.get("processing_end_date"),
+            "annual_operating_hours": sum(operating_hours_by_month.values()),
             "annual_available_tonnes": available_total,
+            "annual_collected_tonnes": harvested_total,
+            "annual_collection_fraction": harvested_total / available_total if available_total else 0.0,
+            "annual_collected_for_processing_tonnes": released_total,
+            "collection_delay_inventory_peak_tonnes": max(
+                (float(row.get("collection_delay_inventory_peak_tonnes", 0.0)) for row in rows),
+                default=0.0,
+            ),
+            "collection_delay_inventory_final_tonnes": (
+                float(rows[-1].get("collection_delay_inventory_remaining_tonnes", 0.0))
+                if rows else 0.0
+            ),
+            "collection_delay_inventory_max_abs_mass_residual_tonnes": max(
+                (abs(float(row.get("collection_delay_inventory_mass_residual_tonnes", 0.0))) for row in rows),
+                default=0.0,
+            ),
             "annual_processed_tonnes": processed_total,
+            # Retain the established aggregate contract; the explicit
+            # annual_uncollected_tonnes field is the source-calendar quantity.
             "annual_unused_tonnes": max(available_total - processed_total, 0.0),
-            "annual_uncollected_tonnes": sum(float(r["unused_biomass_tonnes"]) for r in rows),
+            "annual_uncollected_tonnes": uncollected_total,
+            "annual_supply_minus_actual_processing_tonnes": max(available_total - processed_total, 0.0),
             "ending_inventory_tonnes": float(result.seasonal_summary.get("final_inventory_kg",0))/1000,
             "utilization_fraction": processed_total / available_total if available_total else 0.0,
             "peak_month_processed_tonnes": max((float(row["processed_biomass_tonnes"]) for row in rows), default=0.0),

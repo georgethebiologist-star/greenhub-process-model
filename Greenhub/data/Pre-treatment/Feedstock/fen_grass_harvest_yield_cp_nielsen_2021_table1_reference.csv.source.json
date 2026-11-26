@@ -1,0 +1,36 @@
+{
+  "dataset_id": "NIELSEN-2021-FEN-GRASS-TABLE-1",
+  "source_file": "fen_grass_harvest_yield_cp_nielsen_2021_table1_reference.csv",
+  "title": "Effects of harvest and fertilization frequency on protein yield and extractability from flood-tolerant perennial grasses cultivated on a fen peatland",
+  "source_id": "SRC-NIELSEN-2021",
+  "authors": ["Claudia Kalla Nielsen", "Lene Stødkilde", "Uffe Jørgensen", "Poul Erik Lærke"],
+  "publication_year": 2021,
+  "doi": "10.3389/fenvs.2021.619258",
+  "source_url": "https://doi.org/10.3389/fenvs.2021.619258",
+  "source_location": "Table 1; article Methods: Site Description and Experimental Design; article lines/table text verified 2026-11-07",
+  "license": "Creative Commons Attribution (CC BY), as stated in the article",
+  "retrieval_date": "2026-11-07",
+  "geography": "Vejrumbro, Central Jutland, Denmark",
+  "measurement_year": 2019,
+  "experimental_design": "Four-block field experiment on a fen peatland; reed canary grass and tall fescue; one through five harvests; reported annual-average rows and per-harvest rows.",
+  "record_count": 40,
+  "units": {
+    "dm_yield_mean_t_dm_ha": "t dry matter per hectare for the reported harvest; annual-average records are t dry matter per hectare per year",
+    "dm_yield_sd_t_dm_ha": "source-reported standard deviation in the corresponding yield unit",
+    "crude_protein_mean_g_kg_dm": "g crude protein per kg dry matter",
+    "crude_protein_sd_g_kg_dm": "source-reported standard deviation in g/kg dry matter",
+    "harvest_week": "week number reported by the study; not converted to a date or month"
+  },
+  "transformation": "Table 1 means and parenthetical standard deviations transcribed as separate numeric fields. Annual-average rows are retained separately from individual harvest rows. No conversion, interpolation, reweighting, or imputation applied.",
+  "activation_state": "reference_only",
+  "quality_class": "B, peer-reviewed literature measurements",
+  "applicability": "Evidence for harvest timing and composition-yield coupling in cultivated flood-tolerant grasses; only a qualitative/analogue reference for roadside feedstock.",
+  "limitations": [
+    "Cultivated reed canary grass and tall fescue on fen peatland are not mixed roadside verge grass.",
+    "The one-cut regime received 100 kg N and K per hectare per year; two- to five-cut regimes received 200 kg N and K per hectare per year. Harvest frequency and fertilizer regime are therefore confounded.",
+    "The study's seasonal harvest weeks are not transferable directly to Dutch roadside mowing calendars.",
+    "Annual-average values are study-reported means; SDs are not sums of cut-level SDs.",
+    "Table 1 does not provide GreenHub site-area availability, delivered fresh-mass yield, collection losses, or route-level costs.",
+    "The authors state raw data are available from authors; this extract contains published table values, not replicate-level data."
+  ]
+}

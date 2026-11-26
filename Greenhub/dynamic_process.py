@@ -1194,22 +1194,48 @@ def build_dataset_residual_biogas_policy(
     allow_proxy: bool = False,
     closure_policy: DynamicProxyClosurePolicy | None = None,
 ) -> DynamicResidualBiogasPolicy:
-    """Attach de-FOS whey BMP only to a supernatant-like residual preview."""
+    """Attach an explicitly selected literature BMP proxy to a residual preview.
+
+    The default remains the de-FOS-whey proxy. A closure policy may select a
+    staged brown-juice range scenario; it is not activated by default and all
+    results remain report-only.
+    """
 
     evidence = load_ad_bmp_evidence()
-    bmp = evidence.by_parameter_id("BMP_DFOS_VS")
+    parameter_id = closure_policy.bmp_parameter_id if closure_policy else "BMP_DFOS_VS"
+    bmp = evidence.by_parameter_id(parameter_id)
     provenance = _policy_provenance("residual_biogas", (bmp,) if bmp else ())
-    if not allow_proxy or bmp is None or bmp.normalized_value is None:
+    eligible = bmp is not None and bmp.normalized_value is not None and bmp.evidence_class in {
+        "proxy_usable", "proxy_scenario_bound"
+    }
+    if not allow_proxy or not eligible:
         return DynamicResidualBiogasPolicy(
             policy_id="dataset_residual_bmp_strict_v1",
             provenance=provenance,
             blockers=("greenhub_supernatant_BMP_missing", "residual_VS_missing"),
-            warnings=("BMP_DFOS_VS_reported_not_applied",) if bmp else (),
+            warnings=(f"{parameter_id}_reported_not_applied",) if bmp else ("selected_BMP_record_missing",),
             status="blocked_strict_evidence_mode",
         )
+    assert bmp is not None
     closure_enabled = closure_policy is not None
+    is_scenario_bound = bmp.evidence_class == "proxy_scenario_bound"
+    if parameter_id == "BMP_DFOS_VS":
+        policy_id = "dataset_de_fos_whey_bmp_proxy_v1"
+        proxy_warning = "PROXY: de-FOS grass whey BMP applies only to the supernatant-like fraction"
+    elif parameter_id == "RAV22-WHEY-METHANE-VS":
+        policy_id = "dataset_ravindran_grass_whey_bmp_proxy_v1"
+        proxy_warning = (
+            "SCENARIO-BOUND PROXY: cultivated ryegrass grass-whey BMP with two-fold wash-water dilution; "
+            "not a GreenHub roadside-grass isoelectric-supernatant or continuous-digester measurement"
+        )
+    else:
+        policy_id = f"dataset_{parameter_id.casefold()}_proxy_v1"
+        proxy_warning = (
+            f"SCENARIO-BOUND PROXY: {parameter_id} is explicitly selected; "
+            "reported brown-juice range is not a measured roadside-grass or GreenHub isoelectric-supernatant BMP"
+        )
     return DynamicResidualBiogasPolicy(
-        policy_id="dataset_de_fos_whey_bmp_proxy_v1",
+        policy_id=policy_id,
         bmp_m3_ch4_per_kg_vs=bmp.normalized_value,
         bmp_basis=bmp.normalized_unit,
         residual_vs_estimation_policy=(
@@ -1226,20 +1252,25 @@ def build_dataset_residual_biogas_policy(
                 "field_evidence_class": {
                     "residual_vs_estimation_policy": closure_policy.evidence_class,
                     "include_residual_unallocated_dry_matter_as_vs": closure_policy.evidence_class,
-                    "bmp_m3_ch4_per_kg_vs": "proxy_usable",
+                    "bmp_m3_ch4_per_kg_vs": bmp.evidence_class,
                 },
                 "engineering_closure": closure_policy.to_dict(),
             } if closure_policy else {}),
         },
         blockers=(("AD_kinetics_not_implemented",) if closure_enabled else ("residual_VS_missing", "AD_kinetics_not_implemented")),
         warnings=(
-            "PROXY: de-FOS grass whey BMP applies only to the supernatant-like fraction",
+            proxy_warning,
             "cell debris is combined by mass but has no assigned BMP",
             "press cake is excluded from the in-project AD boundary",
+            *(bmp.blocker_reasons if is_scenario_bound else ()),
             *((closure_policy.warnings) if closure_policy else ()),
             *(("PROXY: residual unallocated dry matter counted as VS-like",) if closure_policy and closure_policy.include_residual_unallocated_dry_matter_as_vs else ()),
         ),
-        proxy_class="de_fos_whey_for_supernatant_proxy",
+        proxy_class=(
+            "de_fos_whey_for_supernatant_proxy"
+            if parameter_id == "BMP_DFOS_VS"
+            else bmp.proxy_class
+        ),
         proxy_enabled=True,
         status="proxy_enabled_report_only_vs_closed" if closure_enabled else "proxy_enabled_report_only_metadata",
     )

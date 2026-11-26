@@ -1,0 +1,104 @@
+---
+title: "Wechselberger_et_al_2023_calculation_of_technology_specific_methane_emission_factors"
+author: "Viktoria Wechselberger"
+date: "22.12.2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# Load packages
+library(tidyverse)
+
+# Import data
+data <- read.csv("./Wechselberger_et_al_2023_data.csv")
+```
+
+```{r}
+# In case repeated measurements were performed at the same component source during comparable operating conditions, emission factors are averaged:
+data <- data %>% 
+  group_by(
+    process_stage, emission_source, technology,
+    data_source_citation, data_source_reference,
+    plant_id, component_id, special_occurrences,
+    leakage_id, number_of_plants_included_in_statistic,
+    parameter_for_summarazing_data_from_different_plants
+    ) %>% 
+  summarize_at(
+    vars(CH4_emission_factor_in_percent_of_production, 
+         CH4_emission_factor_in_percent_of_utilization),
+    ~ mean(., na.rm = TRUE)
+    )
+
+# Some rows contain summarized data (median). These rows will be duplicated n-times depending on the number of measurements included (number_of_plants_included_in_statistic):
+data <- data[rep(rownames(data), data$number_of_plants_included_in_statistic), ]
+```
+
+## Technology specific methane emission factors (EFs) (median EF per technology) of 1) total data, 2) present study and 3) secondary data:
+```{r}
+# 1) Technology specific EFs of total data (primary and secondary data)
+data_total <- data %>% 
+  group_by(
+    process_stage, emission_source, technology, special_occurrences
+    ) %>% 
+  summarize_at(
+    vars(CH4_emission_factor_in_percent_of_production,
+         CH4_emission_factor_in_percent_of_utilization),
+    funs(number_data_points_total = sum(!is.na(.)),
+         total = median(., na.rm = TRUE))
+    )
+
+# 2) Technology specific EFs of the present study (Wechselberger et al. 2023)
+data_presented_study <- data %>% 
+  filter(data_source_citation == "Wechselberger et al. 2023") %>%
+  group_by(
+    process_stage, emission_source, technology, special_occurrences
+    ) %>% 
+  summarize_at(
+    vars(CH4_emission_factor_in_percent_of_production, 
+         CH4_emission_factor_in_percent_of_utilization),
+    funs(number_data_points_presented_study = sum(!is.na(.)),
+         presented_study = median(., na.rm = TRUE))
+    ) 
+
+# 3) Technology specific EFs of secondary data
+data_previous_studies <- data %>% 
+  filter(data_source_citation != "Wechselberger et al. 2023") %>%
+  group_by(
+    process_stage, emission_source, technology, special_occurrences
+    ) %>% 
+  summarize_at(
+    vars(CH4_emission_factor_in_percent_of_production, 
+         CH4_emission_factor_in_percent_of_utilization),
+    funs(number_data_points_previous_studies = sum(!is.na(.)),
+         previous_studies = median(., na.rm = TRUE))
+    )
+
+# Combine 1), 2) and 3) in one data frame
+data <- data_total %>% 
+  left_join(data_presented_study, 
+            by = c("process_stage", "emission_source", 
+                   "technology", "special_occurrences")) %>% 
+  left_join(data_previous_studies, 
+            by = c("process_stage", "emission_source", 
+                   "technology", "special_occurrences")) 
+```
+
+## Technology specific methane EFs shown in Table 3 (Wechselberger et al., 2023)
+```{r}
+# In case repeated measurements were performed at the same plant component and one measurement covered normal operating conditions (e.g. full load operation of the CHP unit) while the second measurement did not (e.g. partial load operation), then only the measurement during normal operation was used for the calculation of technology specific EFs shown in Table 2 (!special_occurrences %in% "1"). In addition, Table 3 did not show EFs covering more then one technology/plant components (!technology %in% "Not specified").
+
+results <- data %>%
+  filter(
+    !special_occurrences %in% "1",
+    !technology %in% "Not specified"
+    ) %>% 
+  select(-special_occurrences)
+
+as.tibble(results)
+```
+
+

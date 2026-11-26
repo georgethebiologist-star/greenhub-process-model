@@ -1,0 +1,29 @@
+{
+  "dataset_id": "urn:greenhub:dataset:grass-silage-forced-aeration-williams-1997",
+  "title": "Grass-silage chemistry and microbial indicators before and after forced aeration",
+  "source_id": "SRC-GRASS-SILAGE-BUNKER-1997",
+  "citation": "Williams, A.G., Hoxey, R.P., & Lowe, J.F. (1997). Changes in temperature and silo gas composition during ensiling, storage and feeding-out grass silage. Grass and Forage Science, 52(2), 176–189. DOI: 10.1111/j.1365-2494.1997.tb02348.x.",
+  "doi": "10.1111/j.1365-2494.1997.tb02348.x",
+  "source_url": "https://doi.org/10.1111/j.1365-2494.1997.tb02348.x",
+  "open_full_text_pdf": "https://eurekamag.com/research/002/773/002773794.pdf",
+  "source_location": "Table 4, printed p. 181 (PDF text page around 5); abstract and Methods pp. 176–177.",
+  "retrieval_date": "2026-11-06",
+  "geography": "Silsoe Research Institute, Silsoe, United Kingdom",
+  "reference_year": 1997,
+  "evidence_class": "B_measured",
+  "license": "No explicit reuse license identified; third-party observations are transcribed with attribution and kept reference-only.",
+  "material_scope": "Tetraploid hybrid Italian/perennial ryegrass (variety Sabalan), approximately 300 g DM/kg at ensiling; two approximately 12 t bunker silos.",
+  "experimental_conditions": "One bunker was compacted using 5 t tractor weights, average surface pressure 4.1 kPa (Bunker 1); the second was left to settle under its own weight (Bunker 2). Table 4 summarizes five cores per bunker, sampled 330 d after ensiling and analyzed before and after 20 d forced aeration in insulated cylinders.",
+  "data_scope": "48 mean and standard-deviation pairs transcribed from Table 4 for dry matter, water-soluble carbohydrate, lactic/acetic/butyric acids, total N, ammonia-N, pH, moulds, streptococci, bacilli and lactic acid bacteria.",
+  "limitations": [
+    "This is cultivated ryegrass silage, not roadside grass or GreenHub VARTA feed.",
+    "The 20-day forced-aeration core test is not a whole-silo storage trial or a direct model of the GreenHub storage configuration.",
+    "Concentrations before and after aeration are not component inventories; no dry-matter or nutrient mass loss is inferred from their differences.",
+    "The source separately estimates 0.3% and 0.9% dry-matter loss over 120–150 d for its two bunker cases, but these model estimates are not added to this measured chemistry table or treated as GreenHub rates.",
+    "No measured time series, replicate-level values, or GreenHub-calibrated kinetic equation is provided by this transcription.",
+    "All records remain reference-only and do not activate model defaults or equations."
+  ],
+  "conversion_method": "No numeric conversions applied; reported means, SDs, sample count, units and bases are transcribed from Table 4.",
+  "uncertainty": "Table 4 reports mean and standard deviation for five cores per bunker and state; values are not paired individual-core changes.",
+  "activation_state": "reference_only"
+}

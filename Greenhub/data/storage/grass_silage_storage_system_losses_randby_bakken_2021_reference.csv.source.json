@@ -1,0 +1,44 @@
+{
+  "dataset_id": "urn:greenhub:dataset:storage:randby-bakken-low-dm-grass-silage-storage-2021:v1",
+  "persistent_identifier_status": "Repository-local stable identifier for this CSV transcription; the cited article has DOI 10.1016/j.anifeedsci.2021.114868.",
+  "dataset_version": "1.0.0",
+  "source_file": "grass_silage_storage_system_losses_randby_bakken_2021_reference.csv",
+  "title": "Low-dry-matter grass-clover silage storage losses, density and crop DM reference observations",
+  "citation": "Randby, Å.T., & Bakken, A.K. (2021). Bunkers or round bales: Losses and silage quality with or without acid treatment of low dry matter grass crops. Animal Feed Science and Technology, 275, 114868. https://doi.org/10.1016/j.anifeedsci.2021.114868",
+  "persistent_identifier": "doi:10.1016/j.anifeedsci.2021.114868",
+  "source_url": "https://doi.org/10.1016/j.anifeedsci.2021.114868",
+  "full_text_url": "https://www.researchgate.net/publication/349116084_Bunkers_or_round_bales_Losses_and_silage_quality_with_or_without_acid_treatment_of_low_dry_matter_grass_crops",
+  "source_locations": [
+    "Abstract: crop dry matter, density and pooled loss comparisons",
+    "Table 3, printed page 6: treatment-level offered/wasted/invisible loss means and group SEM",
+    "Methods §§2.1–2.3: site, harvests, additive and sealing conditions"
+  ],
+  "retrieval_date": "2026-11-08",
+  "reference_year": 2021,
+  "experiment_year": 2017,
+  "geography": "Animal Production Experimental Centre, Ås, Norway (59°40′N, 10°47′E).",
+  "evidence_class": "B_measured_literature",
+  "license": "The open-access article states it is distributed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Attribution retained; this extract is limited to source-reported factual data.",
+  "material_scope": "Cultivated grass-clover crops harvested in three 2017 harvests; bunker silos, round bales and laboratory-scale silos. Not Dutch roadside grass or GreenHub/VARTA feed.",
+  "experimental_conditions": "Crop DM lows reported for H1/H2/H3 were 194/186/213 g DM/kg fresh crop. The study used a formic- and propionic-acid-based additive at a 4 L/t target. Bales were wrapped immediately or after delays; delayed bales had harvest-average delays of 16.7, 8.3 and 18.2 h (H1–H3), with individual delays from 3.5 to 25.9 h. Table 3 treatment means are pooled over harvests; N=3 for bunker observations and N=9 for bale/laboratory-silo observations. Table-reported SEM values are group-level. Bale mass-loss calculations include the paper's estimated effluent correction.",
+  "data_scope": "67 long-form records: abstract-reported crop-DM lows, wet and DM density comparisons by silo type, and Table 3 offered silage, wasted silage and invisible loss means for 10 silo/additive/sealing treatments on fresh-crop and initial-crop-DM bases.",
+  "limitations": [
+    "Reference-only literature comparator; not a GreenHub default, roadside-grass calibration or runtime input.",
+    "Cultivated Norwegian grass-clover and farm/pilot storage equipment differ from Dutch roadside/VARTA material and GreenHub storage configurations.",
+    "The abstract crop-DM figures are described as low observations, not harvest means; uncertainty is not reported for these values.",
+    "Table 3 treatment means are pooled over three harvests. The paper does not provide one common numeric storage duration for the pooled observations; no storage-day kinetics are inferred.",
+    "Invisible losses combine respiration, effluent, fermentation, aerobic deterioration and gaseous losses; the source does not partition these components.",
+    "Round-bale losses use an estimated correction for unmeasured effluent. This estimate can overstate losses according to the authors.",
+    "The 4 L/t additive value is a target. Actual bale dosage varied by harvest (5.0, 4.3 and 3.1 L/t). No chemical demand is inferred for GreenHub.",
+    "Abstract density comparisons lack uncertainty and do not expose all pooling strata."
+  ],
+  "conversion_or_processing": "Direct transcription of source-reported values and units. No conversion, interpolation, component-loss allocation, kinetic fitting or imputation. Table 3 group-level SEMs are retained as printed.",
+  "uncertainty": "Table 3 SEMs are recorded for each outcome using the source's bunker versus bale/laboratory group SEM. Exact uncertainty for abstract-level crop-DM lows and density contrasts is not reported.",
+  "activation_state": "reference_only",
+  "fair_metadata": {
+    "findable": "Local versioned URN, article DOI, citation, source and table locations recorded.",
+    "accessible": "Publisher DOI landing page and author-posted full text linked; retrieval date recorded.",
+    "interoperable": "UTF-8 long-form CSV with explicit silo type, additive, sealing, measurement, unit and mass basis fields.",
+    "reusable": "Article CC BY 4.0 status, attribution, extraction method, uncertainty and transferability limits recorded."
+  }
+}

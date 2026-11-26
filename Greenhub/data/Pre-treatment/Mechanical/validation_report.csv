@@ -4,7 +4,9 @@ mechanical_particle_size_response.csv,parameter_id,22,pass,pass,pass,pass,
 mechanical_release_performance.csv,parameter_id,137,pass,pass,pass,pass,
 mechanical_dynamic_models.csv,parameter_id,7,pass,pass,pass,pass,
 mechanical_scenario_controller.csv,scenario_id,5,pass,pass,pass,pass,
-source_register.csv,source_id,6,pass,pass,pass,pass,
+source_register.csv,source_id,13,pass,pass,pass,pass,"S12_Ayanfe_2023 added with DOI, CC BY 4.0, source location and transferability notes."
 equation_registry.csv,equation_id,7,pass,pass,pass,pass,
 assumption_and_missing_data_register.csv,register_id,32,pass,pass,pass,pass,
-dataset_manifest.csv,dataset_id,8,pass,pass,pass,pass,
+dataset_manifest.csv,dataset_id,10,pass,pass,pass,pass,"DS-010 records the row count and reference-only activation state of the mechanical benchmark file."
+greenhub_mechanical_pretreatment_pressing_data.csv,record_id,126,pass,pass,pass,pass,"Includes M107–M122 (Ayanfe et al. 2023) and M123–M126 (Sandoval et al. 2026) as DOI-linked report-only evidence; no model activation."
+prg_screw_press_pilot_benchmark.source.json,dataset_id,1,pass,pass,pass,pass,"Source metadata for DOI-linked report-only observations M123–M126; no model activation."

@@ -1,0 +1,33 @@
+{
+  "dataset_id": "urn:greenhub:dataset:storage:crook-annual-ryegrass-bale-silage-2020:v1",
+  "persistent_identifier_status": "Repository-local stable dataset identifier; source DOI identifies the article, not this transcription.",
+  "dataset_version": "1.0.0",
+  "source_file": "annual_ryegrass_bale_silage_85d_crook_2020_reference.csv",
+  "title": "Annual ryegrass round-bale silage post-storage dry-matter recovery and quality reference observations",
+  "citation": "Crook, T., Stewart, B., Sims, M., Weiss, C., Coffey, K., Coblentz, W., & Beck, P. (2020). The effects of moisture at baling and wrapping delay on storage characteristics of annual ryegrass round bale silage. Crop, Forage & Turfgrass Management, 6(1), e20015. https://doi.org/10.1002/cft2.20015",
+  "persistent_identifier": "doi:10.1002/cft2.20015",
+  "source_url": "https://doi.org/10.1002/cft2.20015",
+  "full_text_url": "https://acsess.onlinelibrary.wiley.com/doi/10.1002/cft2.20015",
+  "source_locations": ["Table 2: post-storage outcomes by initial moisture treatment", "Table 4: post-storage outcomes by wrapping delay"],
+  "retrieval_date": "2026-11-07",
+  "reference_year": 2020,
+  "experiment_year": 2016,
+  "geography": "University of Arkansas Southwest Research & Extension Center, Perrytown, Arkansas, USA",
+  "evidence_class": "B_measured",
+  "license": "Article page accessible; no explicit reuse license identified in the accessible metadata. Values are factual table measurements transcribed with attribution; redistribution terms should be checked before external republishing.",
+  "material_scope": "Annual ryegrass (Lolium multiflorum) wrapped round-bale silage in one field experiment. DRY treatment was cured 72 hours and had 38 ± 9.5% moisture at baling according to Methods and table notes (the abstract instead says 30 ± 9.5%); WET treatment had 74.6 ± 0.8% moisture. Bales were stored 85 days.",
+  "experimental_conditions": "DRY n=18 and WET n=20 bales across wrapping delays of 0, 1, 2, and 3 days; four blocks. Four layers of 25-micrometer film. Table 2 gives means by moisture treatment pooled across wrapping delays. Table 4 gives means by wrapping delay pooled across moisture treatments. Table standard errors are reproduced as printed. Article reports no moisture-by-delay interaction for DM recovery; do not interpret pooled means as cell-level outcomes.",
+  "data_scope": "26 long-form records: Table 2 post-storage bale weight, dry-matter concentration, dry-matter recovery, pH, ammonia-N fraction, crude protein, and nonfibrous carbohydrate for DRY/WET moisture groups; Table 4 dry-matter recovery, pH, and ammonia-N fraction for 0–3 day wrapping delays.",
+  "limitations": [
+    "Reference-only; not a roadside-grass or GreenHub storage calibration dataset and not a runtime default.",
+    "Single southeastern U.S. annual-ryegrass wrapped-bale experiment; material, climate, storage structure and scale differ from GreenHub loose or bulk roadside-grass storage.",
+    "Methods and table notes report 38 ± 9.5% moisture for DRY bales, while the abstract reports 30 ± 9.5%; preserve the conflict and do not silently resolve it.",
+    "Table 2 means are pooled over wrapping delay, and Table 4 means are pooled over moisture treatment; they are not factorial cell data and must not be joined as if paired.",
+    "Reported DM recovery is an aggregate endpoint. Composition concentrations do not establish component-specific mass recovery or gaseous/leachate losses.",
+    "Ammonia-N is the fraction of total nitrogen in silage, not an ammonia emission. NFC is calculated by difference and is not a direct sugar measurement.",
+    "Reported means and standard errors are not raw replicate observations; no kinetic curve or causal delay response is fitted from these aggregates."
+  ],
+  "conversion_or_processing": "Transcribed reported Table 2 and Table 4 means and standard errors as printed. No conversion, imputation, interpolation, reconstruction of factorial cells, or kinetic fitting performed.",
+  "uncertainty": "Table standard errors are retained. The paper reports n=18 DRY and n=20 WET bales, treatment allocation by block, and an 85-day storage period; raw replicate-level data were not extracted.",
+  "activation_state": "reference_only"
+}

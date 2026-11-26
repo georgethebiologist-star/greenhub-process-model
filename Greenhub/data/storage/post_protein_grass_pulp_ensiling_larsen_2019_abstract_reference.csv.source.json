@@ -1,0 +1,48 @@
+{
+  "dataset_id": "urn:greenhub:dataset:storage:post-protein-grass-pulp-ensiling-larsen-2019-abstract:v1",
+  "dataset_version": "1.0.0",
+  "dataset_file": "post_protein_grass_pulp_ensiling_larsen_2019_abstract_reference.csv",
+  "record_count": 16,
+  "sha256": "437b1c7f20f85ba71176717bbbbb683b52dc5b2f351481b4d7b9e3b76def7bf6",
+  "source_id": "SRC-LARSEN-POSTBIOREFINERY-PULP-2019",
+  "citation": "Larsen, S. U., Ambye-Jensen, M., Jørgensen, H., & Jørgensen, U. (2019). Ensiling of the pulp fraction after biorefining of grass into pulp and protein juice. Industrial Crops and Products, 139, 111576.",
+  "journal": "Industrial Crops and Products 139, article 111576",
+  "publication_year": 2019,
+  "doi": "10.1016/j.indcrop.2019.111576",
+  "source_url": "https://doi.org/10.1016/j.indcrop.2019.111576",
+  "publisher_record": "https://www.sciencedirect.com/science/article/abs/pii/S0926669019305874",
+  "institutional_record": "https://pure.au.dk/portal/en/publications/ensiling-of-the-pulp-fraction-after-biorefining-of-grass-into-pul/",
+  "retrieval_date": "2026-11-07",
+  "source_location": "Published abstract on the Aarhus University Pure record and ScienceDirect article record",
+  "geography": "Experimental site/geography not stated in the accessible abstract; study authors are Denmark-based, which is not treated as proof of experimental location.",
+  "material_scope": "Pulp after protein-juice extraction from grass-clover and ryegrass; not GreenHub roadside grass or VARTA feed.",
+  "evidence_class": "B_measured_literature_abstract_aggregate",
+  "quality_class": "B",
+  "license": "No explicit reuse license was confirmed for the article or abstract record. This extract preserves a small set of attributed abstract-level facts; reuse rights for the published article remain unverified.",
+  "data_availability": "Accessible record provides abstract-level aggregates only; full article tables and raw measurements were not available in the accessible source record during this collection pass.",
+  "data_structure": "Long-form source-reported values, ranges, and qualitative directions. Blank numeric fields mean that the abstract does not provide a numeric value; they are not zero.",
+  "applicable_phases": [
+    2,
+    3,
+    4,
+    5
+  ],
+  "limitations": [
+    "Abstract-only extract; treatment-level tables, raw replicates, exact storage temperatures, delay-hour values, and statistical uncertainty are unavailable here.",
+    "Recovery ranges are not paired to species, treatment, or exact storage condition in the abstract; do not use as a calibrated rate or GreenHub default.",
+    "The reported effluent percentage basis is not stated in the accessible abstract; preserve the literal values and do not convert to mass-loss coefficients.",
+    "The 98–116% methane-potential recovery is a relative recovery metric, not an absolute methane yield or a physical fraction; values above 100% remain literal.",
+    "Reported BMP-duration effects concern batch biochemical-potential assays and are not continuous-reactor HRT or kinetic constants.",
+    "Cultivated grass/grass-clover pulp is a comparator, not Dutch roadside grass or GreenHub post-isoelectric residue."
+  ],
+  "conversion_or_processing": "Direct abstract-level transcription; no conversions, imputations, interpolations, or kinetic fitting.",
+  "uncertainty": "Numerical SD/SEM, n, and treatment-level uncertainty are not present in the accessible abstract.",
+  "runtime_policy": "Reference-only; no parameter registry, default, process equation, TEA/LCA factor, or Pareto input mapping.",
+  "access_protocol": "HTTPS DOI, publisher article record, and institutional publication metadata record.",
+  "fair_metadata": {
+    "findable": "Repository-local URN and article DOI link.",
+    "accessible": "HTTPS source records; full article data access remains limited.",
+    "interoperable": "UTF-8 long-form CSV with explicit phases, material, scale, metric, value text, numeric/range fields, units, basis, time, source location and uncertainty.",
+    "reusable": "Citation, checksum, limitations, uncertainty, applicability and unresolved license status are recorded."
+  }
+}

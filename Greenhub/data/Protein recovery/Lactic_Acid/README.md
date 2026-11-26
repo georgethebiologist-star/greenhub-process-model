@@ -32,3 +32,30 @@ The most directly relevant route uses *Lactobacillus salivarius* BC 1001, select
 4. Treat *Bacillus coagulans* at pH 6.0 as a lactic-acid-production proxy, not as a direct protein-precipitation case.
 5. Keep all missing numerical fields blank.
 6. The dynamic BioSTEAM unit should fail or request calibration when mandatory variables are absent.
+
+## Development-stage comparator
+
+`forage_development_stage_lactic_fermentation_protein_yield_santamaria_2019_reference.csv`
+adds five abstract-level Phase 1/4 observations from Santamaria-Fernandez et al.
+(2019; DOI `10.1016/j.jclepro.2019.01.292`). The paper compares chicory, red
+clover and timothy at different development stages and reports aggregate LPC
+recovery and red-clover yield ranges. Maturity lowers protein extractability
+and LPC production, but the abstract does not provide a numeric stage-response
+curve. These records are reference-only, not GreenHub roadside-grass defaults.
+The accepted author manuscript is marked CC BY-NC-ND 4.0 in the Aalborg
+repository; check rights before external or commercial redistribution.
+
+## Cell-wall composition across process fractions
+
+`grass_clover_alfalfa_cellwall_sugar_fractionation_glazowska_2025_reference.csv`
+transcribes Table 2 HPLC-RI monosaccharide values for alfalfa and cultivated
+grass-clover fractions from fresh material through press cake, green juice,
+fiber filtrate, brown juice, and protein concentrate. It provides Phase 3–5
+comparators for cell-wall material carried through screw pressing and protein
+recovery. It is not roadside-grass calibration or a stream mass balance.
+
+The source's Table 2 unit statements conflict. Analyte columns are described in
+the footnote as µg/mg AIR, the total column is labelled µg, and the total
+percent values do not reconcile with that unit note; the method uses 10 mg AIR.
+The dataset preserves the printed values and labels without unit correction or
+conversion. No runtime input consumes this reference.

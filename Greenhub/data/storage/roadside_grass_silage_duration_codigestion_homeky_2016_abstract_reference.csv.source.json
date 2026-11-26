@@ -1,0 +1,45 @@
+{
+  "dataset_id": "urn:greenhub:dataset:storage:homeky-roadside-grass-silage-duration-2016-abstract:v1",
+  "persistent_identifier_status": "Repository-local stable dataset identifier; the DOI identifies the cited article, not this transcription.",
+  "dataset_version": "1.0.0",
+  "source_file": "roadside_grass_silage_duration_codigestion_homeky_2016_abstract_reference.csv",
+  "title": "Roadside-grass silage duration and relative co-digestion methane-yield response",
+  "citation": "Homeky, B. O., Adouani, N., Potier, O., & Pons, M.-N. (2016). Anaerobic codigestion of cow slurry with grass silage: Effect of silage duration. Environmental Progress & Sustainable Energy, 35(5), 1374–1380. https://doi.org/10.1002/ep.12361",
+  "persistent_identifier": "doi:10.1002/ep.12361",
+  "source_url": "https://doi.org/10.1002/ep.12361",
+  "full_text_url": null,
+  "source_locations": [
+    "Publisher abstract: tested silage durations, batch replication, control comparison and relative methane-yield changes"
+  ],
+  "retrieval_date": "2026-11-08",
+  "reference_year": 2016,
+  "experiment_year": null,
+  "geography": "Not reported in the accessible abstract; author affiliation is not treated as experimental location.",
+  "evidence_class": "B_measured_literature_abstract_only",
+  "license": "Publisher copyright; no open reuse license identified. The extract preserves a small set of abstract-level factual values with attribution; review publisher terms before external redistribution.",
+  "material_scope": "Roadside grass ensiled without additives and co-digested with cow slurry; three storage durations.",
+  "experimental_conditions": "Anaerobic batch tests of cow-slurry/grass-silage mixtures after 3, 8 and 36 weeks of ensiling. Each mixture was tested twice, with no additional inoculum. The abstract does not report the grass-to-slurry ratio, exact storage conditions, batch duration, temperature, or absolute methane yields.",
+  "data_scope": "Three abstract-reported relative methane-yield changes versus slurry-only controls. Storage durations in days are transparent unit conversions from reported weeks (7 days/week). Directional language is preserved alongside signed percentage change.",
+  "limitations": [
+    "Reference-only: no runtime, default, parameter registry, or calculation consumes these values.",
+    "The values compare co-digestion mixtures with slurry-only controls and do not isolate the causal effect of storage on grass methane potential.",
+    "Absolute methane yields, exact slurry-to-grass ratio, storage temperature, grass species/site, test duration, and uncertainty intervals are not available in the accessible abstract.",
+    "Two batch repetitions per mixture provide limited replication; no SD or statistical test is reported in the abstract.",
+    "The abstract's methane-yield denominator is VS added to the test, but it does not state how added VS is apportioned between grass and slurry.",
+    "Do not infer storage dry-matter loss, per-tonne-harvested methane yield, methane kinetics, or a minimum GreenHub storage duration from these results.",
+    "The study is roadside-grass relevant but not demonstrated to represent Dutch VARTA feed or GreenHub processing conditions."
+  ],
+  "conversion_or_processing": "Direct transcription of three abstract-reported relative changes. Verbal decrease/increase was mapped to signed percent values; weeks were converted to days using 7 days/week. No absolute yield, uncertainty, or kinetic value was inferred.",
+  "uncertainty": "The abstract states each mixture was tested twice but gives no variability statistic, absolute yield, or test-level observations.",
+  "activation_state": "reference_only",
+  "phase_tags": [
+    "Phase 2: storage",
+    "Phase 5: anaerobic digestion"
+  ],
+  "fair_metadata": {
+    "findable": "Stable repository-local dataset ID, descriptive title, DOI, and source location are recorded; the DOI identifies the article.",
+    "accessible": "CSV and JSON sidecar are included in the repository; the publisher abstract is accessible, full text was not available in this collection pass.",
+    "interoperable": "UTF-8 CSV with explicit storage duration, comparison basis, reported unit, replication, and missingness fields.",
+    "reusable": "Citation, conversions, evidence class, scope, limitations, uncertainty and licensing caveat are recorded."
+  }
+}

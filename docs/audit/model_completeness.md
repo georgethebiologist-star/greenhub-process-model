@@ -1,10 +1,10 @@
 # GreenHub Model Completeness Register
 
-Generated: 2026-07-29T18:37:42.613063+00:00
-Selected configuration: `F2/PR3/AD1/BG2/NR4`; order `A`; month `July`.
-Selected connected units represented: **51**.
+Generated: 2026-11-25T20:46:23.726283+00:00
+Selected configuration: `F1/PR3/AD1/BG2/NR4`; order `A`; month `July`.
+Selected connected units represented: **50**.
 Additional implemented scenario-only or compatibility units represented: **38**.
-Total unit-ID rows: **89**.
+Total unit-ID rows: **88**.
 
 This register describes implementation presence, not scientific validation. A calculated value may still use structural-test inputs. Zero is never interpreted as proof that a model is available.
 
@@ -19,7 +19,7 @@ This register describes implementation presence, not scientific validation. A ca
 | Anaerobic Digestion | 4 |
 | Biogas Conditioning and Upgrading | 48 |
 | Digestate Treatment and Nutrient Recovery | 22 |
-| Feed Preparation and Primary Separation | 6 |
+| Feed Preparation and Primary Separation | 5 |
 | Protein Recovery | 9 |
 
 | Maturity | Units |
@@ -28,7 +28,7 @@ This register describes implementation presence, not scientific validation. A ca
 | E1 | 12 |
 | E2 | 5 |
 | E3 | 7 |
-| E4 | 44 |
+| E4 | 43 |
 | E5 | 0 |
 
 No unit is classified E5: the active model uses structural inputs and lacks sufficient project validation and custom-equipment costing.
@@ -38,7 +38,6 @@ No unit is classified E5: the active model uses structural inputs and lacks suff
 | Unit | Class | Process area | Maturity | Purchase cost | Power | Heat | Principal gaps |
 |---|---|---|---|---|---|---|---|
 | U101 | FeedPreparation | Feed Preparation and Primary Separation | E4 | missing | calculated | not applicable | purchase cost; installed cost; equipment lifetime; maintenance basis; consumables |
-| U201 | PulsedElectricField | Feed Preparation and Primary Separation | E4 | missing | calculated | not applicable | purchase cost; installed cost; equipment lifetime; maintenance basis; consumables |
 | S201 | ScrewPress | Feed Preparation and Primary Separation | E4 | missing | calculated | not applicable | purchase cost; installed cost; equipment lifetime; maintenance basis; consumables |
 | C301 | PrimaryCentrifuge | Feed Preparation and Primary Separation | E4 | missing | calculated | not applicable | purchase cost; installed cost; equipment lifetime; maintenance basis |
 | M401 | AcidificationMixer | Protein Recovery | E4 | missing | calculated | not applicable | purchase cost; installed cost; equipment lifetime; maintenance basis |
@@ -62,7 +61,7 @@ No unit is classified E5: the active model uses structural inputs and lacks suff
 | M606 | Mixer | Biogas Conditioning and Upgrading | E0 | not applicable | not applicable | not applicable | none identified at this maturity level |
 | M607 | Mixer | Biogas Conditioning and Upgrading | E0 | not applicable | not applicable | not applicable | none identified at this maturity level |
 | M610 | Mixer | Biogas Conditioning and Upgrading | E0 | not applicable | not applicable | not applicable | none identified at this maturity level |
-| S610 | Splitter | Biogas Conditioning and Upgrading | E0 | not applicable | not applicable | not applicable | none identified at this maturity level |
+| S610 | RawGasRatioFlashSplitter | Biogas Conditioning and Upgrading | E0 | missing | missing | not applicable | energy balance; power demand; purchase cost; installed cost; equipment lifetime; maintenance basis; consumables |
 | C611 | IsentropicCompressor | Biogas Conditioning and Upgrading | E4 | missing | calculated | not applicable | purchase cost; installed cost; equipment lifetime; maintenance basis; consumables |
 | E611 | HXutility | Biogas Conditioning and Upgrading | E4 | calculated | missing | calculated | power demand; equipment lifetime; maintenance basis; consumables |
 | A611 | WaterAbsorber | Biogas Conditioning and Upgrading | E3 | missing | missing | not applicable | energy balance; power demand; purchase cost; installed cost; equipment lifetime; maintenance basis |

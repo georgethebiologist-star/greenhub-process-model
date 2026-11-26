@@ -20,6 +20,17 @@ not be interpreted as untreated green juice.
 - `greenhub_mechanical_separation_component_partitioning.csv` supplies typed
   component-partition candidates and their traceability fields.
 
+The same mechanical evidence file also includes M107–M122 from Ayanfe et al.
+(2023; DOI [10.1016/j.biteb.2023.101356](https://doi.org/10.1016/j.biteb.2023.101356)),
+transcribing fresh-grass liquid yield, liquid DM, liquid CP concentration, and
+CP recovery for laboratory pneumatic and twin-screw presses, with untreated
+and formic/propionic-acid treatments. CP recovery follows the source equation
+and initial-feed basis; the rounded table values close within 0.003 absolute.
+This study's timothy/meadow-fescue ley, laboratory scales, and optional acid
+additive are not roadside-grass measurements. Records remain B-class,
+report-only evidence and do not activate F1, alter the default route, or imply
+the acid additive is used in GreenHub.
+
 The loader preserves source and record IDs, material, process boundary, basis,
 transferability, confidence, source notes, and the original partition text. Rows
 with a range instead of a scalar, an incompatible boundary, an incompatible

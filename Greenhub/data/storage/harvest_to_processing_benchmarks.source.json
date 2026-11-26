@@ -1,0 +1,17 @@
+{
+  "source_file": "harvest_to_processing_benchmarks.csv",
+  "source_title": "Impact of Biomass Harvest-to-Processing Time on Protein Extraction in a Green Biorefinery Demonstration Plant",
+  "source_type": "Peer-reviewed demonstration-scale experimental study",
+  "authors": "Thalles A. Andrade; Natália H. M. dos Passos; Damian E. L. Fetzer; Morten Ambye-Jensen",
+  "reference_year": 2024,
+  "persistent_identifier": "10.3303/CET24109019",
+  "source_url": "https://doi.org/10.3303/CET24109019",
+  "open_full_text_url": "https://www.cetjournal.it/cet/24/109/019.pdf",
+  "source_table_page": "Table 1 (trial delays), Table 2 (LPC CP and ash), Figure 2 and Results text (explicit recovery endpoints), pp. 110-113",
+  "retrieval_date": "2026-11-06",
+  "evidence_class": "B_measured",
+  "material_scope": "Two grass-clover mixtures processed at an Aarhus University demonstration facility in August 2021 and August 2022; cutting methods and harvest-to-processing delays varied.",
+  "applicability": "Direct evidence that harvest-to-processing delay and cutting/handling conditions affect green-biorefinery LPC composition and recovery. Use as a route-context benchmark only, not as roadside-grass-specific values.",
+  "limitations": "The study does not establish transferable first-order storage kinetics. The mixtures differ from roadside grass; yield endpoints are not available at every delay as tabulated observations; some stationary-cutting CP recovery rose non-monotonically and authors call for further investigation. The paper reports LPC CP concentration and recovery, which are not the same as retained protein mass in stored biomass. Do not interpolate unreported points, derive rate constants, or activate these values as runtime defaults.",
+  "rights_note": "The source PDF is openly accessible from the publisher. This local file contains transcribed measurement metadata and limited numeric observations, not the article text or figures."
+}

@@ -11,6 +11,8 @@ This package covers no treatment, mild thermal treatment, enzyme-assisted treatm
 - `enzyme_database.csv`
 - `enzymatic_treatment_response.csv`
 - `enzymatic_kinetic_models.csv`
+- `alfalfa_sodium_chlorite_and_sugar_fermentation_tables_zhou_2023_reference.csv` (Phase 3/5 literature comparator; reference-only)
+- `alfalfa_sodium_chlorite_and_sugar_fermentation_tables_zhou_2023_reference.csv` (Phase 3/5 literature comparator; reference-only)
 
 Supporting files:
 - `thermal_enzymatic_equation_registry.csv`

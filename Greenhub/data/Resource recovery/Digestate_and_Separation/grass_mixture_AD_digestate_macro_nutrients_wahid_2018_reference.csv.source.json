@@ -1,0 +1,33 @@
+{
+  "dataset_id": "urn:greenhub:dataset:digestate:wahid-grass-mixture-ad-nutrients-2018:v1",
+  "persistent_identifier_status": "Repository-local stable identifier; DOI identifies source article.",
+  "dataset_version": "1.0.0",
+  "source_file": "grass_mixture_AD_digestate_macro_nutrients_wahid_2018_reference.csv",
+  "title": "Paired feed and day-70 digestate macro-nutrient composition in grass–forb/lucerne mono-digestion",
+  "citation": "Wahid, R., Nielsen, S. F., Hernandez, V. M., Ward, A. J., Gislum, R., Jørgensen, U., Larsen, S. U., & Møller, H. B. (2018). Anaerobic mono-digestion of lucerne, grass and forbs – Influence of species and cutting frequency. Biomass and Bioenergy, 109, 25–31. https://doi.org/10.1016/j.biombioe.2017.12.029",
+  "persistent_identifier": "doi:10.1016/j.biombioe.2017.12.029",
+  "source_url": "https://doi.org/10.1016/j.biombioe.2017.12.029",
+  "open_full_text_url": "https://orgprints.org/32974/1/Wahid%20et%20al%202018.pdf",
+  "source_locations": ["Table 2, printed p.206"],
+  "retrieval_date": "2026-11-07",
+  "reference_year": 2018,
+  "experiment_year": "Experiment established in spring 2014; the methods state harvest on 6 October but the excerpted methods do not specify the harvest calendar year.",
+  "geography": "Foulumgaard Experimental Station, Aarhus University, Denmark",
+  "evidence_class": "B_measured",
+  "license": "Accessible author manuscript at Organic Eprints; no explicit license for the article or data extract was identified in the repository record. Numeric table values are transcribed with source attribution; external redistribution terms should be checked.",
+  "material_scope": "Pure lucerne silage harvested under a four-cut regime (Lu-4), and multispecies silage mixtures of lucerne, perennial ryegrass, caraway, chicory and ribwort plantain under four-cut (Mix-4) and two-cut (Mix-2) regimes. Not roadside grass and not GreenHub's press cake or isoelectric residual.",
+  "experimental_conditions": "For continuous AD, the silage was mixed with water at 40:60 mass ratio before feeding. Three 20-L CSTRs had 15-L working volume and were operated at 52 °C for 70 days; effluent was sampled weekly. Table 2 compares feed-mixture concentrations with digestate at day 70. TN and TAN values are reported with standard deviations from duplicate measurements; other macronutrients have no uncertainty reported in the table. Feed/digestate concentrations are not paired flow-weighted inventories.",
+  "data_scope": "48 Table 2 entries in long form: TN, TAN, P, K, Mg, Ca, S, and Na for feed mixture and day-70 digestate in Lu-4, Mix-4, and Mix-2. The table's nutrient units/bases are preserved: TN/TAN in percent fresh matter and other elements in g/kg fresh matter. Blank SD means no SD was reported for that cell, not zero uncertainty.",
+  "limitations": [
+    "Reference-only; no GreenHub defaults, canonical parameters, nutrient recovery equations, or route calculations are activated by this extract.",
+    "Cultivated Danish forage mixtures include lucerne and forbs, and are not roadside-grass feedstock or the GreenHub post-protein residual stream.",
+    "Feed samples are silage mixed with dilution water at 40:60 mass ratio; their wet-basis concentrations must not be compared directly with undiluted grass without accounting for that basis.",
+    "Only one CSTR per substrate regime is described; analytical duplicates do not provide process replicate uncertainty.",
+    "Feed and day-70 digestate concentrations do not establish nutrient mass retention or recovery without matched flow/stream masses and water balance.",
+    "The 2-cut reactor experienced a reported temperature excursion to 65 °C and inoculum addition at day 37; do not interpret all outcomes as steady-state performance.",
+    "No alkalinity or full nutrient speciation is reported in this table, and the paper does not quantify nutrient product recovery."
+  ],
+  "conversion_or_processing": "Table 2 means and the reported TN/TAN standard deviations were transcribed as printed. No conversion, concentration-basis harmonization, calculation of removal/recovery, or imputation was performed.",
+  "uncertainty": "TN/TAN analytical SDs are reported in the table; other analytes have no reported SD. One reactor was used for each substrate regime, and source-specific limits are listed above.",
+  "activation_state": "reference_only"
+}

@@ -1,0 +1,21 @@
+{
+  "dataset_id": "greenhub:ad:green-biorefinery-residual-bmp:2022:v1",
+  "dataset_version": "1.0.0",
+  "source_file": "green_biorefinery_residual_bmp_reference_2022.csv",
+  "source_title": "Biogas, Biomethane and Digestate Potential of By-Products from Green Biorefinery Systems",
+  "authors": "Rajeev Ravindran; Kwame Donkor; Lalitha Gottumukkala; Abhay Menon; Amita Jacob Guneratnam; Helena McMahon; Sybrandus Koopmans; Johan P. M. Sanders; James Gaffey",
+  "publication_year": 2022,
+  "experiment_material_origin": "Perennial ryegrass obtained from a farm in West Cork, Republic of Ireland, processed in the Grassa BV green biorefinery; grass press cake, grass whey, and de-FOS whey are co-products. Unrefined ryegrass silage is included as comparator.",
+  "persistent_identifier": "10.3390/cleantechnol4010003",
+  "source_url": "https://doi.org/10.3390/cleantechnol4010003",
+  "open_full_text_url": "https://edepot.wur.nl/570594",
+  "source_table_page": "Table 3; article pp. 43–46 (PDF pages to verify against publisher pagination)",
+  "retrieval_date": "2026-11-06",
+  "evidence_class": "B_measured",
+  "license": "CC BY 4.0 (Wageningen University & Research repository record and MDPI open-access article)",
+  "method_context": "The article states that BMP assays used an Anaero BMP system with 1 L plastic bottle digesters and followed German standard VDI 4630. Inoculum was maintained in the laboratory on mixed waste streams (food waste, grass silage, and whey permeate), sieved, and degassed. Feed co-products were stored at 4 °C and analyses were completed within two weeks of extraction. Exact incubation temperature, test duration, replicate count, and uncertainty for the Table 3 summary are not transcribed here.",
+  "applicability": "Direct literature measurements for green-biorefinery grass co-products, including press cake and protein/FOS-processed whey. Useful reference evidence for Phase 5 BMP and Phase 6 gas impurity screening; not direct Dutch roadside grass, GreenHub screw-press cake, or GreenHub isoelectric supernatant.",
+  "limitations": "All values are reference-only and are not runtime defaults or calibration points. Source grass is cultivated perennial ryegrass and the de-FOS process includes protein precipitation plus fructooligosaccharide extraction, which differs from the GreenHub route. Table units are L/kg without an explicit standard-state designation; no normalization to Nm3 was performed. Source-reported methane yield is described as biomethane potential and here means methane volume from BMP, not upgraded saleable biomethane. Weighted gas compositions are copied as reported and are not normalized to 100%. No source uncertainty, replicate count, or Table 3 error statistics are captured in this extraction.",
+  "conversion_or_processing": "Transcribed Table 3 values and row labels as reported. No derived methane yields, standard-state conversions, gas-fraction normalization, interpolation, or imputation. Explicit zeros are preserved only where the source table reports zero; blank comparator biodegradability remains absent.",
+  "rights_note": "Open-access source is published under CC BY 4.0. Cite the DOI and retain attribution when reusing this factual extraction."
+}

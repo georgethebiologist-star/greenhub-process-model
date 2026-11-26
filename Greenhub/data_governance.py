@@ -25,6 +25,10 @@ INTEGRATION_ELIGIBILITY = frozenset(
 )
 
 ISSUE_POLICIES: Mapping[str, tuple[str, str]] = {
+    "malformed_csv_row_width": (
+        "Inspect the exact source row and distinguish missing fields from extra unquoted values. Preserve externally supplied raw files; for derived project registers, repair quoting or schema width and add a regression check.",
+        "dataset parsing, audit reproducibility, FAIR catalogs, and every downstream consumer of the affected rows",
+    ),
     "duplicate_identifier_within_dataset": (
         "Assign a unique canonical row identifier without changing the scientific value; retain the original identifier in provenance.",
         "parameter loading, deterministic selection, provenance, and every calculation using this dataset",
@@ -36,6 +40,10 @@ ISSUE_POLICIES: Mapping[str, tuple[str, str]] = {
     "missing_exact_source_location": (
         "Add the exact table, page, figure, equation, section, or manufacturer-document location.",
         "default selection, source reproduction, validation, and scientific reporting",
+    ),
+    "broken_file_reference": (
+        "Repair or remove the broken cross-file reference after verifying the intended target; do not silently substitute another dataset.",
+        "dataset loading, source traceability, and any calculation or report that follows the reference",
     ),
     "conflicting_units": (
         "Resolve the source unit contract and normalization using source evidence; preserve the original unit text.",
@@ -214,14 +222,18 @@ def _sha256(path: Path) -> str:
 
 def source_dataset_checksums(
     manifest_rows: Sequence[Mapping[str, str]],
+    source_rows: Sequence[Mapping[str, str]] = (),
 ) -> dict[str, str]:
-    """Return SHA-256 checksums for the 301 manifest-listed source datasets."""
+    """Checksum manifest datasets and explicitly linked non-CSV source assets."""
 
     checksums: dict[str, str] = {}
-    for row in manifest_rows:
-        dataset_path = row["dataset_path"]
-        if dataset_path in checksums:
-            raise ValueError(f"Duplicate dataset path in global manifest: {dataset_path}")
+    dataset_paths = {row["dataset_path"] for row in manifest_rows}
+    dataset_paths.update(
+        row["dataset_path"]
+        for row in source_rows
+        if Path(row["dataset_path"]).suffix.lower() != ".csv"
+    )
+    for dataset_path in sorted(dataset_paths):
         checksums[dataset_path] = _sha256(_source_path(dataset_path))
     return checksums
 
@@ -304,6 +316,10 @@ def build_dataset_activation_matrix(
             eligibility = "reference_only"
             reason = "Schema-loadable D3 evidence has not passed GreenHub applicability, parameter, equation, and validation gates."
             action = "Review row applicability and transferability for one selected unit; do not select a default before unit-level tests."
+        elif readiness == "D4":
+            eligibility = "reference_only"
+            reason = "D4 evidence is recorded, but this audit gate never activates datasets or defaults; verify each runtime mapping independently."
+            action = "Retain the explicit proxy and source limitations; review each consuming parameter and equation before any default eligibility decision."
         else:
             raise ValueError(f"Unsupported dataset readiness '{readiness}' for {dataset_path}")
         if eligibility not in INTEGRATION_ELIGIBILITY:
@@ -494,6 +510,10 @@ def build_checkpoint1_registries(output_dir: Path = AUDIT_DIR) -> dict[str, obje
             "datasets",
         },
     )
+    sources = _read_csv(
+        AUDIT_DIR / "global_source_register.csv",
+        {"dataset_path", "source_id", "doi_or_stable_id"},
+    )
     expected_datasets = int(summary["dataset_count"])
     expected_issues = int(summary["issue_count"])
     if len(manifest) != expected_datasets or len(readiness) != expected_datasets:
@@ -506,7 +526,7 @@ def build_checkpoint1_registries(output_dir: Path = AUDIT_DIR) -> dict[str, obje
             f"Global issue counts disagree: summary={expected_issues}, issues={len(issues)}"
         )
 
-    checksums = source_dataset_checksums(manifest)
+    checksums = source_dataset_checksums(manifest, sources)
     quarantine = build_quarantine_register(issues)
     activation = build_dataset_activation_matrix(
         readiness,

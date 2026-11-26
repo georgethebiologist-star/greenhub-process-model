@@ -1,0 +1,4 @@
+record_id,replicate_id,sum_targeted_pfas_ug_per_kg_dry,unit,basis,reported_treatment,reported_cut,source_locator,non_detect_handling,derivation_status
+KOS2025-C-OG1-R1,1,4.595,ug/kg dry,orchard grass dry-matter concentration,control soil and tap water,first cutting 2023-07-08,Table 2: sum of eight reported detections across 40 targeted analytes,non-detects treated as zero,derived sum of published Table 2 entries
+KOS2025-C-OG1-R2,2,1.824,ug/kg dry,orchard grass dry-matter concentration,control soil and tap water,first cutting 2023-07-08,Table 2: sum of three reported detections across 40 targeted analytes,non-detects treated as zero,derived sum of published Table 2 entries
+KOS2025-C-OG1-R3,3,1.054,ug/kg dry,orchard grass dry-matter concentration,control soil and tap water,first cutting 2023-07-08,Table 2: sum of two reported detections across 40 targeted analytes,non-detects treated as zero,derived sum of published Table 2 entries

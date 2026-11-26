@@ -1,0 +1,99 @@
+{
+  "dataset_id": "urn:greenhub:dataset:nynas-2021-green-biomass-feed-table-1",
+  "dataset_title": "Green biomass feed nitrogen and dry-matter measurements",
+  "dataset_file": "nynas_2021_green_biomass_feed_nitrogen_and_dry_matter_reference.csv",
+  "source_id": "SRC002",
+  "source_doi": "10.3390/foods10112533",
+  "doi": "10.3390/foods10112533",
+  "source_url": "https://doi.org/10.3390/foods10112533",
+  "persistent_source_url": "https://doi.org/10.3390/foods10112533",
+  "citation": "Nynäs, A.-L., Newson, W. R., & Johansson, E. (2021). Protein Fractionation of Green Leaves as an Underutilized Food Source—Protein Yield and the Effect of Process Parameters. Foods, 10(11), 2533.",
+  "authors": [
+    "Anna-Lovisa Nynäs",
+    "William R. Newson",
+    "Eva Johansson"
+  ],
+  "publication_year": 2021,
+  "journal": "Foods",
+  "volume_issue_pages": "10(11), 2533",
+  "retrieval_date": "2026-11-07",
+  "reference_year": 2021,
+  "geography": "Southern Sweden field residues and Alnarp campus lucerne; retail spinach was Italian produce.",
+  "field_sample_years": "2017-2018; retail spinach date not stated",
+  "license": "CC BY 4.0",
+  "evidence_class": "B_measured",
+  "quality_class": "B",
+  "source_location": "Table 1, Materials and Methods §2.1",
+  "observations": 18,
+  "dataset_scope": "Table 1 nitrogen content (% of dry matter) and dry matter concentration (% of as-received biomass) for nine green biomasses.",
+  "biomass_sources": [
+    {
+      "name": "Broccoli",
+      "taxon": "Brassica oleracea, var. italica",
+      "date": "2017-10-02",
+      "context": "Field harvest residue, southern Sweden"
+    },
+    {
+      "name": "Cabbage",
+      "taxon": "Brassica oleracea, var. capitata",
+      "date": "2017-08-30",
+      "context": "Field harvest residue, southern Sweden"
+    },
+    {
+      "name": "Kale",
+      "taxon": "Brassica oleracea, var. sabellica",
+      "date": "2017-10-23",
+      "context": "Field harvest residue, southern Sweden"
+    },
+    {
+      "name": "Mangold",
+      "taxon": "Beta vulgaris, subsp. vulgaris, var. cicla",
+      "date": "2017-08-30",
+      "context": "Over-mature leafy residue, southern Sweden"
+    },
+    {
+      "name": "Beetroot",
+      "taxon": "Beta vulgaris, subsp. vulgaris, var. Red hawk",
+      "date": "2017-09-13",
+      "context": "Field harvest residue, southern Sweden"
+    },
+    {
+      "name": "Sugarbeet",
+      "taxon": "Beta vulgaris, subsp. vulgaris, var. Lombok",
+      "date": "2018-10-12",
+      "context": "Field harvest residue, southern Sweden"
+    },
+    {
+      "name": "Carrot",
+      "taxon": "Daucus carota subsp. sativus",
+      "date": "2018-06-28",
+      "context": "Field harvest residue, southern Sweden"
+    },
+    {
+      "name": "Lucerne",
+      "taxon": "Medicago sativa",
+      "date": "2018-05-25",
+      "context": "First-cut crop from Alnarp campus, Sweden"
+    },
+    {
+      "name": "Spinach",
+      "taxon": "Spinacia oleracea",
+      "date": "retail date not stated",
+      "context": "Italian retail baby spinach"
+    }
+  ],
+  "methods": "Biomass was rinsed, frozen, and stored at -20 °C. Samples for dry matter and nitrogen analysis were taken before freezing. Nitrogen was determined by Dumas analysis on dried material.",
+  "uncertainty": "Table 1 reports single values without row-specific standard deviations. No uncertainty was imputed.",
+  "conversion_method": "None. Nitrogen remains percent of dry matter; dry matter remains percent of as-received sample.",
+  "table_specificity_note": "Table 1 feed values are retained as a separate source table from Table 2c fraction values. Some biomass nitrogen entries differ between those panels; no averaging or replacement was made.",
+  "limitations": [
+    "The study is not Dutch roadside grass. Lucerne is the closest forage comparator but is not a validated GreenHub feed proxy.",
+    "Leafy crop residues, first-cut lucerne, and retail spinach do not represent the full composition range of VARTA roadside grass.",
+    "Nitrogen is not crude protein and should not be converted without a justified material-specific factor.",
+    "The values do not provide route-level accessible area, annual yield, roadside harvest contamination, or seasonal supply.",
+    "This is point-measurement literature evidence; source-level uncertainty and field replication are not reported in this table."
+  ],
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "suggested_use": "Phase 1 feed-property reference and Phase 4 comparator only. Do not substitute these values for measured roadside-grass feed composition or runtime defaults."
+}

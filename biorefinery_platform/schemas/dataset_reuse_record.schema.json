@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Biorefinery dataset reuse record",
+  "description": "Project-neutral metadata profile for evidence assets. Missing evidence stays explicit in metadata_gaps; scope tags do not authorize parameter transfer.",
+  "$defs": {
+    "provenance_record": {
+      "type": "object",
+      "required": ["source_id", "source_title", "reference_year", "doi_or_stable_id", "source_url", "source_location", "retrieval_date", "license"],
+      "properties": {
+        "source_id": {"type": ["string", "null"]},
+        "source_title": {"type": ["string", "null"]},
+        "authors": {"type": ["string", "null"]},
+        "reference_year": {"type": ["integer", "string", "null"]},
+        "doi_or_stable_id": {"type": ["string", "null"]},
+        "related_identifiers": {"type": "array", "items": {"type": "string"}},
+        "source_url": {"type": ["string", "null"]},
+        "source_location": {"type": ["string", "null"]},
+        "retrieval_date": {"type": ["string", "null"]},
+        "license": {"type": ["string", "null"]}
+      },
+      "additionalProperties": true
+    }
+  },
+  "type": "object",
+  "required": [
+    "schema_version",
+    "data_asset_id",
+    "project_id",
+    "technology_family_ids",
+    "data_scope_class",
+    "context_independent",
+    "evidence_class",
+    "activation_state",
+    "provenance",
+    "metadata_gaps"
+  ],
+  "properties": {
+    "schema_version": {"type": "string"},
+    "data_asset_id": {"type": "string", "minLength": 1},
+    "project_id": {"type": "string", "minLength": 1},
+    "technology_family_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+    "legacy_phase": {"type": ["string", "null"]},
+    "data_scope_class": {
+      "type": "string",
+      "enum": [
+        "context_independent",
+        "technology_specific",
+        "material_or_site_specific",
+        "technology_and_material_specific",
+        "context_specific_unclassified"
+      ]
+    },
+    "context_independent": {"type": "boolean"},
+    "portability_class": {"type": "string"},
+    "portability_review_status": {"type": "string"},
+    "evidence_class": {"type": ["string", "array"], "items": {"type": "string"}},
+    "quality_class": {"type": ["string", "null"], "enum": ["A", "B", "C", "D", "E", null], "description": "Evidence grade, kept separate from transferability and activation. E records an unverified value or compatibility placeholder; D is retained for legacy read compatibility only."},
+    "activation_state": {"type": "string"},
+    "unit": {"type": ["string", "null"]},
+    "basis": {"type": ["string", "null"]},
+    "uncertainty": {"type": ["string", "number", "null"]},
+    "applicability": {"type": ["string", "array", "null"], "items": {"type": "string"}},
+    "conversion_and_scaling": {"type": ["string", "array", "null"], "items": {"type": "string"}},
+    "provenance": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["source_id", "source_title", "reference_year", "doi_or_stable_id", "source_url", "source_location", "retrieval_date", "license"],
+        "properties": {
+          "source_id": {"type": ["string", "null"]},
+          "source_title": {"type": ["string", "null"]},
+          "authors": {"type": ["string", "null"]},
+          "reference_year": {"type": ["integer", "string", "null"]},
+          "doi_or_stable_id": {"type": ["string", "null"]},
+          "related_identifiers": {"type": "array", "items": {"type": "string"}},
+          "source_url": {"type": ["string", "null"]},
+          "source_location": {"type": ["string", "null"]},
+          "retrieval_date": {"type": ["string", "null"]},
+          "license": {"type": ["string", "null"]}
+        },
+        "additionalProperties": true
+      }
+    },
+    "metadata_gaps": {"type": "array", "uniqueItems": true, "items": {"type": "string"}}
+  },
+  "additionalProperties": true
+}

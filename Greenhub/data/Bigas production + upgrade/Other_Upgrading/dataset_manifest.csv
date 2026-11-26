@@ -1,0 +1,2 @@
+filename,scope,row_count,validation_status,integration_readiness
+hoyos_2026_carbonate_biogas_upgrading_pilot_reference.csv,Carbonate absorption and air-assisted stripping pilot product-gas composition,5,PASS,reference_only

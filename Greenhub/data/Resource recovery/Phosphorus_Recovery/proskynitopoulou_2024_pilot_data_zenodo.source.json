@@ -1,0 +1,61 @@
+{
+  "dataset_id": "urn:greenhub:external-dataset:zenodo-15040664:v1",
+  "title": "Data for: Nutrient recovery from digestate: Pilot test experiments",
+  "source_id": "PROSKYNITOPOULOU2024DATA",
+  "creator": "Centre for Research and Technology Hellas; Waste4Soil Project",
+  "publication_date": "2024-02-27",
+  "doi": "10.5281/zenodo.15040664",
+  "landing_page": "https://zenodo.org/records/15040664",
+  "persistent_url": "https://doi.org/10.5281/zenodo.15040664",
+  "access_protocol": "HTTPS; public Zenodo record and public CSV downloads",
+  "retrieval_date": "2026-11-07",
+  "resource_type": "supplementary research dataset",
+  "files": [
+    {
+      "filename": "File_1_Biogas plant information.csv",
+      "size_bytes": 279,
+      "md5": "0759cb93c870956a48e8fb9cf9e1c0bd",
+      "url": "https://zenodo.org/records/15040664/files/File_1_Biogas%20plant%20information.csv?download=1"
+    },
+    {
+      "filename": "File_2_Nutrient rejection in the MF, UF and RO.csv",
+      "size_bytes": 105,
+      "md5": "77358d7c07b4bf292e42eb555f4d73ec",
+      "url": "https://zenodo.org/records/15040664/files/File_2_Nutrient%20rejection%20in%20the%20MF%2C%20UF%20and%20RO.csv?download=1"
+    },
+    {
+      "filename": "File_3_Concentrations of nutrient ions in the four process tanks of the SED unit.csv",
+      "size_bytes": 350,
+      "md5": "a0a26693071ae9788cb6b26687c159f0",
+      "url": "https://zenodo.org/records/15040664/files/File_3_Concentrations%20of%20nutrient%20ions%20in%20the%20four%20process%20tanks%20of%20the%20SED%20unit.csv?download=1"
+    },
+    {
+      "filename": "File_4_Percentage of nutrients typically recovered from the feed in a typical.csv",
+      "size_bytes": 112,
+      "md5": "40ce0f75f89e7c649bbadf0c2a422a1d",
+      "url": "https://zenodo.org/records/15040664/files/File_4_Percentage%20of%20nutrients%20typically%20recovered%20from%20the%20feed%20in%20a%20typical.csv?download=1"
+    }
+  ],
+  "combined_size_bytes": 846,
+  "data_license": null,
+  "data_license_status": "No license displayed on the Zenodo dataset record; permission for redistribution or derivative reuse is unresolved.",
+  "related_publication": {
+    "title": "Nutrient recovery from digestate: Pilot test experiments",
+    "doi": "10.1016/j.jenvman.2024.120166",
+    "url": "https://doi.org/10.1016/j.jenvman.2024.120166",
+    "article_license": "CC BY-NC-ND 4.0"
+  },
+  "evidence_class": "B_measured_literature_dataset",
+  "phase_relevance": [7],
+  "activation_state": "reference_only_external",
+  "calculation_connected": false,
+  "material_context": "Digestate from a Greek mesophilic biogas plant treating food-industry waste (80%), animal waste (15%), and agricultural waste (5%); screw-press separated and pasteurized.",
+  "applicability": "Useful for finding source-published process and nutrient-separation evidence and verifying the paper's study context; it is not a grass digestate and cannot define GreenHub recovery performance.",
+  "data_handling": "Only public landing-page metadata, file names, sizes, and MD5 values were indexed. No supplementary file content or numerical observations were copied into the repository.",
+  "limitations": [
+    "The digestate substrate is not roadside grass or GreenHub post-protein residual.",
+    "The data-use license is not stated on the dataset record; public download does not by itself establish reuse permission.",
+    "A direct read-only network request from this workspace was blocked; values remain unverified against the deposited CSV payloads.",
+    "Do not use the linked recovery percentages as GreenHub defaults, calibrations, or fertilizer credits."
+  ]
+}

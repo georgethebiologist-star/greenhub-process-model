@@ -1,0 +1,41 @@
+{
+  "dataset_id": "urn:greenhub:dataset:storage:assis-ryegrass-ensiling-2026-table1:v1",
+  "persistent_identifier_status": "Repository-local identifier for this transcription; the DOI identifies the source article, not this derived dataset.",
+  "dataset_version": "1.0.0",
+  "source_file": "wilted_ryegrass_ensiling_feed_properties_assis_2026_reference.csv",
+  "title": "Pre-ensiling wilted Italian ryegrass properties at two dry-matter targets",
+  "citation": "Assis, J. A., Carbonare, M. S. D., & Schmidt, P. (2026). Different dry matter contents on the fermentation and preservation of wilted ryegrass silage with or without microbial inoculants. Revista Brasileira de Zootecnia, 55. https://doi.org/10.37496/rbz5520250112",
+  "authors": ["Juliana Aparecida de Assis", "Maryon Strack Dalle Carbonare", "Patrick Schmidt"],
+  "persistent_identifier": "doi:10.37496/rbz5520250112",
+  "source_url": "https://www.scielo.br/j/rbz/a/FjJbkQK3bR7T9FKXtYznJSq/?lang=en",
+  "doi_url": "https://doi.org/10.37496/rbz5520250112",
+  "source_locations": ["Table 1; table footnote 1", "Methods sections 2.1–2.2 for sampling and analysis basis"],
+  "retrieval_date": "2026-11-07",
+  "reference_year": 2026,
+  "experiment_year": 2021,
+  "geography": "Forage grown at a commercial farm in Castro, Paraná, Brazil; research performed by UFPR in Curitiba, Paraná, Brazil.",
+  "evidence_class": "B_measured",
+  "license": "Creative Commons Attribution 4.0 International (CC BY 4.0), stated on the article page. Cite the article and retain the license attribution.",
+  "material_scope": "Wilted Italian ryegrass (Lolium multiflorum L., cultivar F ABC 1), sampled at harvest targets of 32% and 45% dry matter before ensiling. This is cultivated livestock forage, not Dutch roadside grass.",
+  "experimental_conditions": "The crop was manually cut on 2021-08-20 and field-wilted for 24 h (32% DM target) or 48 h (45% DM target), turned three times daily, then chopped to 10 mm. The harvested forage was sampled in duplicate. Table 1 reports one value per harvest and no standard deviation.",
+  "data_scope": "Fourteen Table 1 properties are transcribed. The two DM measurements retain their separate oven temperatures; chemical concentrations retain the source DM basis; microbial counts retain log10 CFU/g and the source does not further specify the mass basis in the table.",
+  "table_layout": "One row per reported property; separate columns retain the two harvest DM targets as presented in Table 1. This table-native layout is a raw reference transcription, not a normalized runtime parameter table.",
+  "limitations": [
+    "Reference-only; no GreenHub runtime parameter or default is mapped to these observations.",
+    "The feed is cultivated Italian ryegrass in Brazil, not Dutch roadside grass or the project-specific VARTA feedstock.",
+    "Table 1 reports a single value per harvest. Duplicate sampling is reported in Methods, but no biological replicate count, standard deviation, or raw replicate observations are provided in the table.",
+    "The two DM columns are target harvest groups, not a continuous moisture response curve.",
+    "Crude protein and fiber values are source-specific forage composition, not a measured composition of protein-recovery residuals."
+  ],
+  "conversion_or_processing": "Values and units were transcribed from Table 1 without numeric conversion, averaging, imputation, interpolation, or activation. The source distinguishes 60 °C and 105 °C dry-matter analyses; these are retained as different properties.",
+  "uncertainty": "No standard deviations are reported in Table 1. Duplicate sampling is noted but is not interpreted as independent biological replication.",
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "runtime_parameter_mapping": null,
+  "fair_metadata": {
+    "findable": "Stable local dataset identifier, descriptive title, DOI, citation, source table and retrieval date are recorded.",
+    "accessible": "UTF-8 CSV and JSON metadata sidecar are stored in the repository; the source article is openly available at SciELO.",
+    "interoperable": "CSV fields use explicit property names, units, sample stage, basis, harvest group, replicate description and source identifiers.",
+    "reusable": "The experimental context, source, CC BY 4.0 license, extraction method, uncertainty and transferability limitations are documented."
+  }
+}

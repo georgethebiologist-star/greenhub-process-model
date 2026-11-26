@@ -1,5 +1,7 @@
 # Protein Precipitation Unblock Plan
 
+> Historical planning snapshot (2026-07-30). Its `current_behavior_to_preserve` field predates the PR1 literature-default update: the current resolver selects `REC-005` (0.38) and `REC-006` (pH 4.5) for PR1 literature-default/expert-override runs. The broader evidence gaps and blocked pathways in this plan remain relevant. See [the current PR1 pathway](alpha_0_2_checkpoint_2/activated_reference_pathway.md).
+
 ```yaml
 scope: protein_recovery_isoelectric_reference_data
 activation_policy: do_not_activate_all

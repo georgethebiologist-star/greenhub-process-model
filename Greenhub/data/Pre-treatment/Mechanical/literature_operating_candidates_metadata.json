@@ -1,0 +1,63 @@
+{
+  "dataset_id": "urn:greenhub:dataset:literature-operating-candidates-v1",
+  "title": "Direct literature operating candidates for screw pressing and anaerobic digestion",
+  "schema_version": "1.0.0",
+  "retrieval_date": "2026-11-05",
+  "source_file": "literature_operating_candidates.csv",
+  "license": "Values and metadata are transcribed for research use; consult cited publisher articles for licensing and reuse terms.",
+  "runtime_policy": "Candidates are available only in explicit literature_default or expert_override calculation modes. Existing workbook defaults remain unchanged. Literature quality (B) describes the evidence source, while proxy_high transferability and warnings describe its limits for Dutch roadside grass.",
+  "records": {
+    "PRESS-001": {
+      "evidence_class": "directly reported peer-reviewed literature measurement",
+      "doi": "10.1111/gfs.12722",
+      "source_url": "https://doi.org/10.1111/gfs.12722",
+      "reference_year": 2025,
+      "geography": "Jokioinen, Finland",
+      "retrieval_date": "2026-11-05",
+      "applicability": "Fresh primary-growth timothy before ensiling, single-screw pressing, with 0.4 L water per kg fresh grass added in first and second cycles; report is not roadside-grass data.",
+      "conversion_method": "Identity from table value 0.301 g liquid/g fresh sample; no conversion applied. Whether the separately added water is included in the denominator is not unambiguously resolved from the tabulated value.",
+      "uncertainty": "No uncertainty interval reported for this descriptive fresh-grass liquid yield.",
+      "runtime_mapping": "Optional F1 literature candidate for phase3.juice_yield_kg_per_kg_wet_feed. Requires explicit literature_default or expert_override mode; structural default remains unchanged.",
+      "transferability_class": "proxy_high"
+    },
+    "AD-001": {
+      "evidence_class": "directly reported peer-reviewed operating condition",
+      "doi": "10.1016/j.biortech.2011.07.020",
+      "source_url": "https://doi.org/10.1016/j.biortech.2011.07.020",
+      "reference_year": 2011,
+      "geography": "Finland",
+      "retrieval_date": "2026-11-05",
+      "applicability": "Semi-continuous CSTR digestion of grass silage at 35 degC, OLR 2 kg VS/m3/d and HRT 30 d.",
+      "conversion_method": "Direct setpoint transcription; no unit conversion.",
+      "uncertainty": "No uncertainty interval attached to these operating setpoints.",
+      "runtime_mapping": "Optional AD1 literature candidate. The study reports process instability under this initial operating combination; candidates are not recommended design setpoints.",
+      "transferability_class": "proxy_high"
+    },
+    "AD-002": {
+      "evidence_class": "directly reported peer-reviewed operating condition",
+      "doi": "10.1016/j.biortech.2011.07.020",
+      "source_url": "https://doi.org/10.1016/j.biortech.2011.07.020",
+      "reference_year": 2011,
+      "geography": "Finland",
+      "retrieval_date": "2026-11-05",
+      "applicability": "Semi-continuous CSTR digestion of grass silage at 35 degC and OLR 2 kg VS/m3/d.",
+      "conversion_method": "Direct setpoint transcription; no unit conversion.",
+      "uncertainty": "No uncertainty interval attached to this operating setpoint.",
+      "runtime_mapping": "Optional AD1 literature candidate; the source reported instability at the initial condition set.",
+      "transferability_class": "proxy_high"
+    },
+    "AD-003": {
+      "evidence_class": "directly reported peer-reviewed operating condition",
+      "doi": "10.1016/j.biortech.2011.07.020",
+      "source_url": "https://doi.org/10.1016/j.biortech.2011.07.020",
+      "reference_year": 2011,
+      "geography": "Finland",
+      "retrieval_date": "2026-11-05",
+      "applicability": "Semi-continuous CSTR digestion of grass silage at 35 degC and HRT 30 d.",
+      "conversion_method": "Direct setpoint transcription; basis retained as volatile solids fed per reactor volume per day.",
+      "uncertainty": "No uncertainty interval attached to this operating setpoint.",
+      "runtime_mapping": "Optional AD1 literature candidate; the source reported instability at the initial condition set.",
+      "transferability_class": "proxy_high"
+    }
+  }
+}

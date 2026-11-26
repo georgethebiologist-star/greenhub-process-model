@@ -1,0 +1,54 @@
+{
+  "dataset_id": "urn:greenhub:dataset:storage:saute-paiaguas-grass-silage-storage-loss-effluent-2021:v1",
+  "persistent_identifier_status": "Repository-local URN identifies this transcription; DOI identifies the source article, not this derivative dataset.",
+  "dataset_version": "1.0.0",
+  "title": "Paiaguás grass silage storage losses, effluent and composition marginal means",
+  "source_file": "paiaguas_grass_silage_storage_loss_effluent_saute_2021_reference.csv",
+  "source_id": "SRC-SAUTE-PAIAGUAS-GRASS-SILAGE-2021",
+  "citation": "Saute, J. M., Tres, T. T., Osmari, M. P., Silva, S. L., Daniel, J. L. P., & Jobim, C. C. (2021). Nutritional value, total dry matter losses, effluent production and pollutant potential in Brachiaria brizantha cv. Paiaguás grass. Arquivo Brasileiro de Medicina Veterinária e Zootecnia, 73(3), 675–683. https://doi.org/10.1590/1678-4162-12197",
+  "doi": "10.1590/1678-4162-12197",
+  "source_url": "https://www.scielo.br/j/abmvz/a/dBKkfPD6rTsFHQx6yzP95jG/?lang=en",
+  "doi_url": "https://doi.org/10.1590/1678-4162-12197",
+  "retrieval_date": "2026-11-08",
+  "source_locations": [
+    "Table 2, printed p. 678: silage dry-matter loss, electrical conductivity and pH",
+    "Table 3, printed p. 679: effluent dry-matter loss, production, COD, BOD and pH",
+    "Table 4, printed pp. 679–680: silage composition and in-vitro dry-matter digestibility",
+    "Methods/Results text, printed p. 677: initial forage composition and DM-loss method",
+    "Figure 2 / Results text, printed p. 680: 216-hour aerobic-stability bound"
+  ],
+  "reference_year": 2021,
+  "experiment_period": "2016-12-13 to 2017-05-17; the source reports this overall experimental period.",
+  "geography": "Fazenda Experimental de Iguatemi, Universidade Estadual de Maringá, Paraná, Brazil",
+  "material_scope": "Cultivated Brachiaria brizantha cv. Paiaguás grass; initial forage DM reported as 20.7%; ensiled in laboratory PVC silos.",
+  "experimental_conditions": "Silo volume 0.013 m3; up to 8.45 kg grass; theoretical particle sizes 5, 8, 12 mm; compaction densities 550, 600, 650 kg/m3; sealed and stored covered for 90 days. The factorial design was split-plot 3 x 3 with four replications. Effluent was collected during storage. The article reports aerobic stability observations for 216 h after opening.",
+  "license": "Creative Commons Attribution 4.0 International (CC BY 4.0), stated by the journal's official policy.",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "evidence_class": "B_measured",
+  "quality_class": "B",
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "row_count": 114,
+  "sha256_csv": "fa573056574b1f5648d69372e5388f60d4dbef9d2a4dd9867e6a5c0527263995",
+  "transcription_policy": "Transcribes reported Table 2–4 marginal means, SEM, factor p-values, interaction p-values and significance letters; adds five source-reported initial forage values and one stated aerobic-stability upper bound. Decimal commas are represented with decimal points for numeric CSV fields. No interaction-cell values are inferred, no graph points are digitized, and no unit/basis is corrected by assumption.",
+  "known_source_ambiguities": [
+    "Table 3 COD and BOD are labeled mg/L in the source, with values 2.08–18.97; the published units and numbers are preserved without rescaling, and the concentration scale needs verification before use.",
+    "Table 3 reports an overall effluent average of 14.7 L/t in prose, which does not reconcile with the Table 3 marginal means. The prose average is not included as an extra record; table values are retained verbatim pending source clarification.",
+    "Table 4 reports percentages but does not state the denominator basis in its heading/footnote; the extract marks this basis unspecified.",
+    "The reported effluent production denominator is per tonne of ensiled material; wet/dry basis is not stated.",
+    "The Table 2 electrical-conductivity unit is printed as µ/cm; it is transcribed verbatim and not silently changed to µS/cm."
+  ],
+  "limitations": [
+    "The feed is tropical cultivated Brachiaria, not Dutch roadside, GreenHub, or VARTA material; values are not GreenHub process factors.",
+    "Only marginal means by particle-size and compaction-density main effects are published in Tables 2–4. The factorial interaction is significant for several Table 3 and Table 4 outcomes, so no combined 3 x 3 treatment response can be reconstructed from these marginal means.",
+    "No raw replicate measurements, mass closure, gas emission flux, or complete component inventory is published in this extract.",
+    "Effluent COD/BOD unit scale and several percent/tonne bases are unresolved as stated above; no conversions or runtime mapping are made.",
+    "No GreenHub defaults, model equations, scenario IDs, routes, or results are changed."
+  ],
+  "fair_metadata": {
+    "findable": "Repository-local URN, source DOI, bibliographic citation, source-register entry, table/page locators, and FAIR catalog record are supplied.",
+    "accessible": "UTF-8 CSV and JSON sidecar are repository assets; the article is openly available under CC BY 4.0.",
+    "interoperable": "Long-form records use source IDs, phase, factor, factor level, metric, value, unit, basis, statistics and source locations.",
+    "reusable": "License, transcription policy, experimental context, unclear units/bases, source discrepancies, and transfer limits are recorded."
+  }
+}

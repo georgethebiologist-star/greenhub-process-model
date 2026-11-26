@@ -1,4 +1,10 @@
 filename,purpose,row_count,populated_numeric_rows,blank_value_rows,integration_status
+demarke_struvite_crop_fertilizer_efficiency_szymanska_2019_reference.csv,"Table 1 crop/soil relative fertilizer efficiency plus treatment nutrient doses and explicit prose apparent-recovery values for Dutch De Marke farm-biorefinery struvite.",42,42,0,"traceable_reference_only; CC BY; manure-derived product-use analogue; not a GreenHub default or fertilizer credit"
+demarke_struvite_crop_fertilizer_efficiency_szymanska_2019_reference.csv,"Table 1 crop/soil relative fertilizer efficiency plus treatment nutrient doses and explicit prose apparent-recovery values for Dutch De Marke farm-biorefinery struvite.",42,42,0,"traceable_reference_only; CC BY; manure-derived product-use analogue; not a GreenHub default or fertilizer credit"
+roadside_grass_liquid_fraction_nutrient_metals_scott_2023_reference.csv,"Replicated nutrient and metal concentrations in Belgian roadside-grass press liquid; both wet- and dry-matter bases; reference-only.",18,18,0,"traceable_reference_only; CC BY-NC; not a GreenHub default or fertilizer credit"
+source_register.csv,"Bibliographic sources, scope, applicability, and reuse limitations",21,20,0,traceable_metadata_only
+phase7_cattail_digestate_recovery_reference.csv,Text-preserved recovery and product-quality summaries for grass-containing sewage-sludge digestate; reference-only,4,0,4,traceable_reference_only_not_runtime_eligible
+fe_modified_biochar_phosphate_isotherm_bioden_reference.csv,"Measured synthetic-solution phosphate isotherm from a public BioDEN project factsheet; the real-digestate test is kept separate as a text-level range.",9,9,0,traceable_reference_only_not_runtime_eligible
 assumption_and_missing_data_register.csv,assumption and missing data register,148,0,148,ready_with_documented_gaps
 calcium_phosphate_equilibrium_and_kinetics.csv,calcium phosphate equilibrium and kinetics,24,4,20,ready_with_documented_gaps
 competing_ion_effects.csv,competing ion effects,6,0,6,ready_with_documented_gaps
@@ -10,5 +16,11 @@ precipitation_equation_registry.csv,precipitation equation registry,5,0,5,ready_
 precipitation_experiments.csv,precipitation experiments,14,14,0,ready_with_documented_gaps
 product_purity_and_moisture.csv,product purity and moisture,11,1,10,ready_with_documented_gaps
 reagent_demand.csv,reagent demand,11,0,11,ready_with_documented_gaps
-source_register.csv,source register,9,0,9,ready_with_documented_gaps
+dairy_digestate_nf_struvite_pilot_2023_reference.csv,"Pilot nanofiltration/struvite results for dairy-effluent digestate; reference-only",7,7,0,traceable_reference_only_not_runtime_eligible
+green_biorefinery_digestate_nutrient_reference_2022.csv,"Measured Table 4 digestate composition from cultivated-ryegrass biorefinery BMP tests; reference-only",59,53,0,traceable_reference_only_not_runtime_eligible
 struvite_equilibrium_and_kinetics.csv,struvite equilibrium and kinetics,9,4,5,ready_with_documented_gaps
+demarke_manure_digestate_nutrient_recovery_2019_reference.csv,"Measured digestate, struvite and ammonium-sulfate comparator data from Dutch cattle-slurry biorefinery; reference-only",18,18,0,traceable_reference_only_not_runtime_eligible
+agricultural_digestate_membrane_recovery_rizzioli_2025_reference.csv,"Measured stream compositions for three agricultural-digestate membrane configurations; reference-only, manure/energy-crop matrix",29,29,6,traceable_reference_only_not_runtime_eligible
+agricultural_digestate_recovery_yields_rizzioli_2025_reference.csv,"Reported mass-based nutrient and water recovery means and SDs for three agricultural-digestate membrane configurations; reference-only",15,15,0,traceable_reference_only_not_runtime_eligible
+agricultural_digestate_feed_characterization_rizzioli_2025_reference.csv,"Measured raw agricultural digestate characterization with source-reported standard deviations; reference-only",10,10,0,traceable_reference_only_not_runtime_eligible
+demarke_struvite_second_year_grass_soil_szymanska_2020_reference.csv,"Second-year grass nutrient uptake and soil response to De Marke biorefinery struvite; greenhouse pot-study comparator, reference-only",185,185,0,traceable_reference_only_not_runtime_eligible

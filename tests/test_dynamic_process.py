@@ -1,4 +1,5 @@
 import json
+from dataclasses import replace
 from pathlib import Path
 
 import pytest
@@ -283,14 +284,93 @@ def test_dynamic_operational_preview_does_not_change_empirical_feedstock_proxies
 def test_unit_evidence_loaders_preserve_named_proxy_records():
     cap = load_centrifuge_policy_evidence().by_parameter_id("CAP-ALF-001")
     rec = load_isoelectric_recovery_evidence().by_parameter_id("REC-001")
+    ryegrass_iep = load_isoelectric_recovery_evidence().by_parameter_id("REC-005")
     bmp = load_ad_bmp_evidence().by_parameter_id("BMP_DFOS_VS")
 
     assert cap is not None and cap.evidence_class == "proxy_scenario_bound"
     assert cap.normalized_value == pytest.approx(0.8)
     assert rec is not None and rec.proxy_class == "n_to_soluble_protein_proxy"
     assert rec.basis == "precipitated N / N in cleared juice"
+    assert ryegrass_iep is not None
+    assert ryegrass_iep.normalized_value == pytest.approx(0.38)
+    assert ryegrass_iep.data_status == "measured"
+    assert ryegrass_iep.evidence_class == "proxy_scenario_bound"
+    assert "total_n_precipitation_not_isolated_protein_recovery" in ryegrass_iep.blocker_reasons
+    assert ryegrass_iep.source_id == "SRC003"
     assert bmp is not None and bmp.normalized_value == pytest.approx(0.52028)
     assert bmp.original_material == "grass biorefinery de-FOS whey"
+
+
+def test_seasonal_roadside_grass_bmp_is_traceable_but_not_misapplied_to_residual_ad():
+    evidence = load_ad_bmp_evidence()
+    spring_fresh_wet = evidence.by_parameter_id("BMP_CZ_FG_SP_WF")
+    summer_ensiled_dry = evidence.by_parameter_id("BMP_CZ_GS_SU_DF")
+    brown_ensiled = evidence.by_parameter_id("BMP_BR_ENSILED_S2H11_15D")
+    seasonal_rows = [row for row in evidence.records if row.parameter_id.startswith(("BMP_CZ_", "BMP_BR_"))]
+
+    assert len(seasonal_rows) == 22
+    assert spring_fresh_wet is not None
+    assert spring_fresh_wet.normalized_value == pytest.approx(0.27418)
+    assert spring_fresh_wet.source_id == "SRC001"
+    assert spring_fresh_wet.source_location == "Table 6, p.11"
+    assert spring_fresh_wet.evidence_class == "metadata_only"
+    assert summer_ensiled_dry is not None
+    assert summer_ensiled_dry.normalized_value == pytest.approx(0.18263)
+    assert "ensiled" in summer_ensiled_dry.original_material
+    assert brown_ensiled is not None
+    assert brown_ensiled.normalized_value == pytest.approx(0.276)
+    assert brown_ensiled.source_id == "SRC005"
+    assert brown_ensiled.source_location == "Table 4, p.7"
+    assert "50 °C/48 h hydrolysis simulation" in brown_ensiled.raw_record["operating_conditions"]
+    assert "not an unpretreated BMP endpoint" in brown_ensiled.raw_record["notes"]
+    assert all(row.evidence_class == "metadata_only" for row in seasonal_rows)
+
+
+def test_post_protein_extraction_brown_juice_range_is_staged_as_scenario_bound_evidence():
+    evidence = load_ad_bmp_evidence()
+    low = evidence.by_parameter_id("BMP_PE_BJ_RANGE_MIN")
+    midpoint = evidence.by_parameter_id("BMP_PE_BJ_RANGE_MID")
+    high = evidence.by_parameter_id("BMP_PE_BJ_RANGE_MAX")
+    press_cake = evidence.by_parameter_id("BMP_PE_PC_RANGE_MIN")
+
+    assert low is not None and low.normalized_value == pytest.approx(0.429)
+    assert midpoint is not None and midpoint.normalized_value == pytest.approx(0.484)
+    assert high is not None and high.normalized_value == pytest.approx(0.539)
+    assert all(row.evidence_class == "proxy_scenario_bound" for row in (low, midpoint, high))
+    assert "midpoint" in midpoint.data_status
+    assert "not an observed mean" in midpoint.raw_record["operating_conditions"]
+    assert "brown_juice_after_lactic_fermentation_not_isoelectric_supernatant" in low.blocker_reasons
+    assert press_cake is not None and press_cake.evidence_class == "metadata_only"
+
+
+def test_ravindran_grass_whey_bmp_is_traceable_but_only_an_optional_scenario_proxy():
+    evidence = load_ad_bmp_evidence()
+    whey = evidence.by_parameter_id("RAV22-WHEY-METHANE-VS")
+
+    assert whey is not None
+    assert whey.raw_value == "544.6"
+    assert whey.normalized_value == pytest.approx(0.5446)
+    assert whey.unit == "L CH4/kg VS"
+    assert whey.normalized_unit == "m3 CH4/kg VS"
+    assert whey.source_id == "SRC-RAVINDRAN-GBR-2022"
+    assert "10.3390/cleantechnol4010003" in whey.doi_or_url
+    assert "Table 3" in whey.source_location
+    assert whey.evidence_class == "proxy_scenario_bound"
+    assert "grass_whey_two_fold_wash_water_dilution" in whey.blocker_reasons
+    assert "batch_BMP_not_continuous_digester_performance" in whey.blocker_reasons
+
+    closure = replace(
+        default_proxy_closure_policy(),
+        bmp_parameter_id="RAV22-WHEY-METHANE-VS",
+    )
+    policy = build_dataset_residual_biogas_policy(allow_proxy=True, closure_policy=closure)
+
+    assert policy.policy_id == "dataset_ravindran_grass_whey_bmp_proxy_v1"
+    assert policy.bmp_m3_ch4_per_kg_vs == pytest.approx(0.5446)
+    assert policy.proxy_class == "green_biorefinery_grass_whey_proxy"
+    assert "scenario-bound proxy" in policy.warnings[0].casefold()
+    assert "AD_kinetics_not_implemented" in policy.blockers
+    assert policy.activation_status == "report_only_not_model_active"
 
 
 def test_isoelectric_is_default_and_only_one_method_is_selected():
@@ -355,6 +435,33 @@ def test_de_fos_bmp_is_proxy_metadata_for_supernatant_not_press_cake():
     assert policy.applicable_stream == "final_supernatant_only"
     assert policy.proxy_class == "de_fos_whey_for_supernatant_proxy"
     assert "residual_VS_missing" in policy.blockers
+
+
+def test_report_only_ad_policy_can_select_a_staged_brown_juice_range_scenario():
+    closure = replace(
+        default_proxy_closure_policy(),
+        bmp_parameter_id="BMP_PE_BJ_RANGE_MID",
+    )
+    policy = build_dataset_residual_biogas_policy(allow_proxy=True, closure_policy=closure)
+
+    assert policy.bmp_m3_ch4_per_kg_vs == pytest.approx(0.484)
+    assert policy.proxy_class == "green_biorefinery_brown_juice_range_proxy"
+    assert "scenario-bound" in policy.warnings[0].casefold()
+    assert any("lactic_fermentation" in warning for warning in policy.warnings)
+    assert "AD_kinetics_not_implemented" in policy.blockers
+    assert policy.status == "proxy_enabled_report_only_vs_closed"
+
+
+def test_report_only_ad_policy_rejects_staged_press_cake_outside_mixer_boundary():
+    closure = replace(
+        default_proxy_closure_policy(),
+        bmp_parameter_id="BMP_PE_PC_RANGE_MIN",
+    )
+    policy = build_dataset_residual_biogas_policy(allow_proxy=True, closure_policy=closure)
+
+    assert policy.bmp_m3_ch4_per_kg_vs is None
+    assert policy.status == "blocked_strict_evidence_mode"
+    assert "BMP_PE_PC_RANGE_MIN_reported_not_applied" in policy.warnings
 
 
 def test_residual_bmp_report_exposes_supernatant_basis_and_unmodeled_vs():

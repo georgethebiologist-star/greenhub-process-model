@@ -1,0 +1,27 @@
+{
+  "dataset_id": "urn:greenhub:dataset:seasonal-ryegrass-fractionation-stodkilde-2020",
+  "title": "Perennial ryegrass fraction composition and nitrogen recovery by spring cutting date",
+  "source_id": "SRC-STODKILDE-2020",
+  "citation": "Stødkilde, L., Eriksen, J., & Jensen, S.K. (2020). Biorefined grasses and legumes – effect of species and spring cutting date on extractable protein yield. Grassland Science in Europe, 25, proceedings paper, pp. 683–684.",
+  "doi": null,
+  "persistent_source_url": "https://www.europeangrassland.org/fileadmin/documents/Infos/Printed_Matter/Proceedings/EGF2020.pdf",
+  "source_location": "Proceedings PDF pp. 683–684; Tables 1, 2 and 3; methods on p. 683.",
+  "retrieval_date": "2026-11-06",
+  "geography": "Foulumgaard, Aarhus University, Denmark",
+  "reference_year": 2020,
+  "evidence_class": "B_measured",
+  "license": "No explicit reuse license identified in the proceedings PDF; source data are transcribed with attribution and retained as reference-only.",
+  "material_scope": "Cultivated perennial ryegrass (Lolium perenne) harvested on four consecutive spring dates in a replicated plot study; samples were frozen before laboratory screw pressing.",
+  "process_conditions": "Pulp and green juice were produced with an Angel 8500s laboratory screw press. Soluble proteins were precipitated by adding 12 M phosphoric acid to pH 4; acidified juice was held overnight at 4 C before fraction analysis.",
+  "data_scope": "Twenty values transcribed from Tables 1–3: herbage nitrogen concentration, pulp and protein-isolate nitrogen concentrations, and source-calculated nitrogen recovery to pulp and protein isolate for perennial ryegrass only.",
+  "limitations": [
+    "Cultivated ryegrass is an analogue, not roadside grass or the GreenHub VARTA feedstock.",
+    "Recovery is total nitrogen partitioning computed from sample mass balances and N analyses, not isolated true-protein recovery; the source reports that some calculated fraction recoveries can exceed 100% due to sample-level mass-balance variation.",
+    "The paper reports group SEM and significance tests, not date-specific uncertainty for each ryegrass observation; no replicate-level values were inferred.",
+    "The source reports acid concentration and target pH but not the acid volume or acid equivalents consumed; this does not close GreenHub's titration/reagent-demand gap.",
+    "All observations are reference-only and do not activate GreenHub defaults or equations."
+  ],
+  "conversion_method": "No numeric conversions applied; source values, units, basis, dates, and table locations are retained as reported.",
+  "uncertainty": "Date-specific uncertainties are not reported for the ryegrass rows in the tables; pooled SEM values are not assigned to individual dates.",
+  "activation_state": "reference_only"
+}

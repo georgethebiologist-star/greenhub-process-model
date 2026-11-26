@@ -1,0 +1,61 @@
+{
+  "dataset_id": "urn:greenhub:dataset:storage:wet-green-protein-paste-storage-santamaria-stodkilde:v1",
+  "title": "Wet green-protein paste storage observations and author-reported limits",
+  "dataset_version": "1.0",
+  "source_ids": [
+    "SRC-SANTAMARIA-STODKILDE-WET-PASTE-2019",
+    "SRC-OKNET-ECOFEED-WET-PROTEIN-SHELF-LIFE-2021"
+  ],
+  "sources": [
+    {
+      "source_id": "SRC-SANTAMARIA-STODKILDE-WET-PASTE-2019",
+      "title": "Shelf life of the wet protein pastes upon storage",
+      "authors": [
+        "Maria Santamaria Fernandez",
+        "Lene Stødkilde"
+      ],
+      "year": 2019,
+      "doi": null,
+      "stable_identifier": "Organic Eprints 36872",
+      "url": "https://orgprints.org/36872/1/D1.4%20Research%20report_Shelf%20life%20of%20wet%20protein%20pastes.pdf",
+      "source_locations": "Report methods and results; printed pp. 1–2; pH-storage results paragraph before Figure 2.",
+      "data_collection_year_or_period": "Summer 2017; storage through 12 months",
+      "retrieval_date": "2026-11-08"
+    },
+    {
+      "source_id": "SRC-OKNET-ECOFEED-WET-PROTEIN-SHELF-LIFE-2021",
+      "title": "Clover-grass protein by bio-refining: nutrient composition and shelf life",
+      "authors": [
+        "Sanna Steenfeldt",
+        "Ricarda Engberg",
+        "Morten Ambye-Jensen"
+      ],
+      "year": 2021,
+      "doi": null,
+      "stable_identifier": "Organic Eprints 39520",
+      "url": "https://orgprints.org/id/eprint/39520/1/PA-AU-green-protein-testing-layers-final.pdf",
+      "source_locations": "Practice abstract, Solution and Practical recommendation sections; printed p. 1.",
+      "data_collection_year_or_period": "Not stated in the abstract; storage trial observed through six months",
+      "retrieval_date": "2026-11-08"
+    }
+  ],
+  "geography": "Aarhus University Foulum, Denmark for the 2017 pilot report; practice abstract does not identify its experimental site in the extract.",
+  "material_scope": "Cultivated forage protein paste/concentrate from alfalfa, red clover, ryegrass, and a clover-grass blend; not roadside grass.",
+  "methods_summary": "Report: screw press, lactic-acid fermentation (pure L. salivarius or natural epiphytic fermentation), protein precipitation and decanter centrifugation; vacuum-packed paste; room temperature or approximately 4 C. Abstract: anaerobic clover-grass protein concentrate stored at 24 C or 4 C, with and without LAB; listed monthly sampling schedule.",
+  "license_or_rights": "No explicit open data-reuse license identified for either cited record. Only a concise factual extract is stored; the source documents are not redistributed. Review rights before external redistribution.",
+  "evidence_class": "B-tier primary pilot experiment as reported in project report and practice-abstract summary; exact data provenance is recorded per row.",
+  "quality_class": "B",
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "row_count": 17,
+  "sha256_csv": "443bf4498ae975b94b60fdd0a4590c6230db35cab291e6e7e686b0332f485de6",
+  "transcription_policy": "Transcribe only values stated in prose and exact study design. Do not digitize plots, reconstruct missing time series, infer shelf-life criteria, or fit rates.",
+  "limitations": [
+    "Extracted protein-paste storage does not establish raw grass storage or feedstock degradation kinetics.",
+    "Cultivated forage material is not roadside/VARTA/GreenHub material, and process route and storage packaging differ.",
+    "The practice abstract does not define the acceptance criterion for its stated maximum stable storage durations, or report sample sizes/uncertainty.",
+    "The 2017 report's stated bag total does not reconcile arithmetically with its stated four bags per crop/condition/time; replicate count is not encoded as a numeric datum.",
+    "No mass-loss, storage-gas, leachate, emissions, protein-recovery, or GreenHub-specific shelf-life factors are inferred.",
+    "No plotted time-series points were digitized; omitted values remain unreported in this extract."
+  ]
+}

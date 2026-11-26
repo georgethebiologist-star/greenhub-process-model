@@ -1,0 +1,26 @@
+{
+  "dataset_title": "Within-study standing-biomass summaries by mowing treatment and sampling month",
+  "dataset_identifier": "greenhub:feedstock:bakker-road-verge-biomass-summary-2023:v1",
+  "source_file": "mowing_regime_biomass_summary.csv",
+  "source_id": "SRC-BAKKER-AVSC-DATA-2025",
+  "source_dataset_file": "Biomass.csv",
+  "source_rows": 120,
+  "rows": 12,
+  "source_dataset_version_doi": "10.5281/zenodo.15349657",
+  "source_dataset_concept_doi": "10.5281/zenodo.15349656",
+  "doi_resolution_status": "resolved_by_zenodo_record_metadata; see Biomass.csv.source.json",
+  "retrieval_date": "2026-11-07",
+  "derivation": "For each month × mowing-treatment group, calculate n, arithmetic mean, sample standard deviation, minimum and maximum from non-missing Biomass values. Convert g DM/m² to t DM/ha by multiplying by 0.01. Do not sum June and August values.",
+  "evidence_class": "A_measured_summary",
+  "license": "CC BY 4.0 applies to source Zenodo version record; this is a GreenHub-derived descriptive extract",
+  "license_status": "source_dataset_license_verified; derived-file provenance retained",
+  "applicability": "Within-study descriptive summaries for Dutch roadside plots only; not annual harvestable yield or delivered feed.",
+  "limitations": [
+    "Summary rows are reproducible descriptive statistics, not published model contrasts or independent samples beyond the source plot records.",
+    "An August group has n=9 because one source value is missing; November biomass was not measured.",
+    "Standing biomass after a June cut is not the harvested June mass or a validated annual regrowth yield.",
+    "Site, soil, ecological management, collection access, and GreenHub contract representativeness are unresolved."
+  ],
+  "activation_state": "staged_evidence",
+  "runtime_parameter_mapping": null
+}

@@ -1,0 +1,33 @@
+{
+  "dataset_id": "urn:greenhub:dataset:storage:steinbrenner-grass-silage-2022:v1",
+  "persistent_identifier_status": "Local stable identifier; no public DOI or external identifier is claimed for this derived transcription.",
+  "dataset_version": "1.0.0",
+  "source_file": "grass_silage_storage_pressjuice_bmp_steinbrenner_2022_reference.csv",
+  "title": "Grass-silage 90-day fermentation, press-juice chemistry, and press-cake methane-potential reference observations",
+  "citation": "Steinbrenner, J., Mueller, J., & Oechsner, H. (2022). Combined Butyric Acid and Methane Production from Grass Silage in a Novel Green Biorefinery Concept. Waste and Biomass Valorization, 13, 1873–1884. https://doi.org/10.1007/s12649-021-01626-4",
+  "authors": ["Jörg Steinbrenner", "Joachim Mueller", "Hans Oechsner"],
+  "persistent_identifier": "doi:10.1007/s12649-021-01626-4",
+  "source_url": "https://link.springer.com/article/10.1007/s12649-021-01626-4",
+  "open_full_text_pdf": "https://link.springer.com/content/pdf/10.1007/s12649-021-01626-4.pdf",
+  "source_locations": ["Table 3, printed p.1880", "Table 4, printed p.1881", "Results section, methane-yield paragraph and Figure 3, printed p.1881"],
+  "retrieval_date": "2026-11-07",
+  "reference_year": 2022,
+  "experiment_year": 2018,
+  "geography": "Unterer Lindenhof, Eningen unter Achalm, Germany",
+  "evidence_class": "B_measured",
+  "license": "Creative Commons Attribution 4.0 International (CC BY 4.0), as stated by the publisher; attribution and license link retained.",
+  "material_scope": "Intensively managed agricultural grass harvested on 2018-05-23, chopped to 8 mm, and ensiled in small jars. The grassland was cut up to four times per year and fertilized with digestate. This is cultivated grass silage, not roadside grass, VARTA feed, or a protein-depleted GreenHub residual.",
+  "experimental_conditions": "Eight treatments: untreated control (C), water addition (W), CaCO3 addition (B), and combined water plus CaCO3 (WB), each held at 22 ± 1 °C or 37 ± 1 °C. Jars were opened after 3, 14, 30, and 90 days; endpoint composition is transcribed for day 90 only. Table 3 concentrations are reported per kg total solids; Table 4 press-juice concentrations are per kg fresh matter. Pressing used a tincture press at 20 MPa for 60 s. Press-cake methane potential used triplicate Hohenheim Biogas Yield Tests at 37 °C for 35 days, normalized to 273.15 K and 1013 hPa.",
+  "data_scope": "147 records: 80 Table 3 endpoint silage measurements, 64 Table 4 press-juice measurements, and 3 explicitly quantified press-cake specific methane yields stated in the Results text. The Tables 3–4 means and SDs are preserved separately. Censored <0.1 results remain text, not zero. Numeric methane yields not stated in the article text are blank rather than digitized from a figure.",
+  "limitations": [
+    "Reference-only; none of these observations are GreenHub defaults, runtime parameters, or evidence of a validated storage kinetic model.",
+    "The study uses cultivated German grass under controlled jar ensiling, not roadside grass, commercial storage piles, or the GreenHub feed basis.",
+    "Only the 90-day treatment endpoints are transcribed; do not interpolate the 3-, 14-, and 30-day time points or fit rate constants from these endpoints.",
+    "VS loss is an endpoint under the study treatments and cannot be interpreted as mass loss without the corresponding initial and final inventories.",
+    "Table 4 press-juice COD is reported as g/kg fresh matter; it must not be reinterpreted as mg/L or mapped directly to GreenHub brown-juice COD.",
+    "The three numeric methane-yield values included were stated in the Results text. The remaining treatment values shown only graphically were not digitized."
+  ],
+  "conversion_or_processing": "Published means, SDs, units, treatment labels, replicate count, bases, and censored observations were transcribed. The paper's m3 CH4/kg VS was normalized in the article to standard temperature/pressure; the CSV labels this as Nm3 CH4/kg VS without additional numeric conversion. No interpolation, figure digitization, imputation, or kinetic fitting was performed.",
+  "uncertainty": "Table means and SDs are published for triplicate experiments. Raw replicate-level data are not included in the article; the authors state collected data can be provided on request.",
+  "activation_state": "reference_only"
+}

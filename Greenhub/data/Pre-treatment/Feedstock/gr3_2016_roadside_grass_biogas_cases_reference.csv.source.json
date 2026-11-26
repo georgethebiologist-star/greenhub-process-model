@@ -1,0 +1,41 @@
+{
+  "dataset_id": "urn:greenhub:dataset:gr3-2016-belgian-grass-biogas-cases:v1",
+  "dataset_version": "1.0.0",
+  "title": "Selected GR3 Belgian roadside/nature-grass case evidence",
+  "source_file": "gr3_2016_roadside_grass_biogas_cases_reference.csv",
+  "source_file_sha256": "7a793c8877e7dc7e56074cdbd47ebf4b6f9924863a7370a60218f97e89607f6f",
+  "source_id": "SRC-GR3-2016-ROADSIDEBIOMASS-CASES",
+  "citation": "Laub, K. et al. (2016). GR3 Project: Grass to Green Gas — final project report. Published 10 March 2016, printed pp. 25 and 27.",
+  "source_url": "https://izes.eu/wp-content/uploads/GR3_endreport_20160314_HP.pdf",
+  "doi": null,
+  "publication_date": "2016-03-10",
+  "authors": "Katharina Laub; Joachim Pertagnol; Lies Bamelis; Lorie Hamilton; Federico Correales; David Bolzonella; Robert Gruwez; Alain de Vocht; Ramon Pasman; Achim Kaiser; Michael Köttner; Erik Meers; Reinhart van Poucke; Willem Boeve; Santino di Beradino",
+  "retrieval_date": "2026-11-08",
+  "geography": "Limburg, Belgium (Noord Limburg case) and Zaventem–Boutersem, Belgium (Brussels Airport case)",
+  "record_count": 16,
+  "process_phases": [
+    1,
+    2,
+    3,
+    5
+  ],
+  "rights_status": "No explicit open license identified in the report. Only concise reported facts are transcribed with attribution; the report itself is not redistributed.",
+  "evidence_class": "B_official_project_case_report",
+  "quality_class": "B",
+  "activation_state": "reference_only",
+  "runtime_parameter_mapping": null,
+  "extraction_method": "Factual transcription of specified case descriptions and reported case calculations; numeric separators are interpreted as European thousands separators only where noted in row limitations. No unreported conversions or recalculations.",
+  "limitations": [
+    "Historical Belgian case study in a 2016 European project report; not current Dutch roadside supply, not GreenHub measurements, and not a runtime default. No exact collection year, sampling protocol, or site-level uncertainty is supplied unless the record explicitly says otherwise.",
+    "The report summarizes several business cases and pilot observations; not every number is a direct measurement. Per-record observation_status and basis distinguish estimates, case assumptions, contextual capacities, qualitative observations and unclear-basis ranges.",
+    "The reported biogas value is biogas (not methane) per fresh tonne; methane content and gas reference conditions are absent.",
+    "The report's stated wet-digester particle size <1 mm is reproduced verbatim and flagged for checking before any use.",
+    "No source values change GreenHub defaults, calculations, or scenario results."
+  ],
+  "fair_metadata": {
+    "findable": "Versioned local URN, source ID, full citation, report URL, printed page and record IDs are provided.",
+    "accessible": "UTF-8 CSV and JSON sidecar are in the project data tree and indexed in the FAIR catalog.",
+    "interoperable": "Long-form UTF-8 CSV separates cases, process phase, variable, value/range, units, basis and evidence status.",
+    "reusable": "Each row preserves source wording, scope, provenance, limitations and reference-only status; no reuse license is asserted."
+  }
+}

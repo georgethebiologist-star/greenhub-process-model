@@ -1,0 +1,27 @@
+{
+  "source_id": "SZYMANASKA2019",
+  "title": "A Bio-Refinery Concept for N and P Recovery—A Chance for Biogas Plant Development",
+  "authors": ["Magdalena Szymańska", "Ewa Szara", "Tomasz Sosulski", "Adam Wąs", "Gijs W. P. van Pruissen", "René L. Cornelissen", "Mieczysław Borowik", "Marcin Konkol"],
+  "publication_year": 2019,
+  "sampling_year": 2017,
+  "doi": "10.3390/en12010155",
+  "url": "https://doi.org/10.3390/en12010155",
+  "full_text": "https://pdfs.semanticscholar.org/5c45/3e5ab1e84b3ae3c55b78c61fa6fa3b558d0b.pdf",
+  "publisher_page": "https://www.mdpi.com/1996-1073/12/1/155",
+  "source_type": "peer-reviewed primary experimental study",
+  "geography": "Experimental Dairy Farm De Marke, Hengelo (Gld), Netherlands",
+  "material_scope": "Cattle slurry anaerobic digestion; digestate solid-liquid separation; liquid digestate struvite precipitation and ammonia stripping to ammonium sulfate",
+  "license": "CC BY 4.0 (stated in full-text article footer)",
+  "evidence_class": "B_measured",
+  "exact_locations": ["Methods 2.2; Table 1; Table 2; Results and Discussion; Conclusions"],
+  "retrieval_date": "2026-11-06",
+  "data_handling": "Transcribed reported means and SDs where present, preserving wet-basis denominators, source terminology and study-specific recovery definitions. No values inferred from plots, missing flowrates, or stoichiometry.",
+  "activation": "reference_only",
+  "limitations": [
+    "The process digested cattle slurry, not roadside grass or GreenHub protein-extraction residues; matrix-specific values must not become GreenHub defaults.",
+    "Analyses were performed in triplicate, but process flowrates and a closed mass/element balance across the recovery train are not reported in the extracted records.",
+    "Source-reported N and P recovery percentages are differences between feed and final-effluent concentrations; they are not independently validated mass recoveries, and the reported N value combines struvite precipitation and ammonia stripping.",
+    "Struvite is a medium-purity mixed product with organic and mineral impurities. Ammonium sulfate is a dilute, acidic solution, not a dry fertilizer product grade.",
+    "The source reports cattle-slurry farm-scale conditions; these observations support comparator and product-specification research only, not GreenHub recovery equations, reagent demand, price-grade matching, or LCA factors."
+  ]
+}

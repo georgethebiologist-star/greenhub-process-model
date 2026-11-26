@@ -1,0 +1,44 @@
+{
+  "dataset_id": "urn:greenhub:dataset:membrane:buivydas-variable-methane-feed-upgrading-2024:v1",
+  "persistent_identifier_status": "Repository-local URN identifies this derivative extract; DOI identifies the article, not this extract.",
+  "dataset_version": "1.0.0",
+  "title": "Measured membrane-upgrading response at four blended inlet methane settings",
+  "source_file": "variable_methane_feed_membrane_upgrading_energy_slip_buivydas_2024_reference.csv",
+  "source_id": "BUIVYDAS-MEMBRANE-UPGRADING-2024",
+  "citation": "Buivydas, E., Navickas, K., & Venslauskas, K. (2024). A Life Cycle Assessment of Methane Slip in Biogas Upgrading Based on Permeable Membrane Technology with Variable Methane Concentration in Raw Biogas. Sustainability, 16(8), 3323. https://doi.org/10.3390/su16083323",
+  "doi": "10.3390/su16083323",
+  "source_url": "https://www.mdpi.com/2071-1050/16/8/3323",
+  "full_text_access_url": "https://gs.elaba.lt/object/elaba%3A193725890/193725890.pdf",
+  "retrieval_date": "2026-11-08",
+  "reference_year": 2024,
+  "geography": "Lithuania; location of the biogas-upgrading demonstration described by the article.",
+  "license": "Creative Commons Attribution 4.0 International (CC BY 4.0), stated in the article.",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "evidence_class": "B_measured_literature",
+  "quality_class": "B",
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "row_count": 24,
+  "sha256_csv": "aec6b953c59258459ef5672c018341431a63248dc061b630398149566c7d6c3b",
+  "experimental_design": "Four measured upgrader cases (CM-50, CM-60, CM-70, CM-80) at nominally 35 Nm3/h blended inlet flow; Table 1 reports inlet composition/flow/electricity consumption and Table 2 reports biomethane flow/purity and methane slip. The system is a three-stage permeable hollow-fibre membrane train with 16 bar compression. Upgraded gas was recycled to prepare elevated inlet methane fractions.",
+  "transcription_policy": "Table 1–2 means and their reported deviations are transcribed. The paper does not identify whether the deviations are SD, SE or another statistic in the tables; no label is inferred. Units and gas-flow reference conditions are retained as source-reported.",
+  "derived_values": "No derived recovery or methane balance is supplied. If specific energy is later calculated, use the reported power-rate means divided by the matching measured flow means; propagate uncertainty separately and respect the blended/recycle boundary.",
+  "known_source_ambiguities": [
+    "Table 2 labels methane slip as % vol, while section 2.4 describes a controlled 0.5% limit relative to total methane in the inlet biogas. The extract preserves the table value and flags denominator ambiguity; it is not a free-running slip-performance response.",
+    "The 35 Nm3/h feed is a blended upgrader inlet including upgraded-gas recycle used to set the four methane concentrations; it is not net raw biogas production from the digester.",
+    "The tables do not identify the statistic represented by each reported deviation or the reference temperature/pressure for Nm3.",
+    "The article's specific LCA scores use its own functional unit, system boundary, energy mix, and CML baseline; they are not imported as GreenHub impact factors."
+  ],
+  "limitations": [
+    "A single three-stage membrane upgrading system and fixed blended inlet flow do not establish a general scale-up curve or a GreenHub plant-specific energy factor.",
+    "The reported methane-slip value is under active control and should not be used to calibrate uncontrolled membrane slip.",
+    "The input gas is blended with recycled product; separate net raw-feed/recycle flow data are not included in the two tables.",
+    "No GreenHub runtime parameter, default, equation, route, scenario ID, TEA/LCA factor, or Pareto result is changed."
+  ],
+  "fair_metadata": {
+    "findable": "Repository-local dataset URN, article DOI, source register, article tables/section locators, and generated FAIR catalog record.",
+    "accessible": "UTF-8 CSV and JSON sidecar; article is openly available under CC BY 4.0.",
+    "interoperable": "Long-form CSV carries case, measured stream, metric, reported mean/deviation, unit, basis and source-table fields.",
+    "reusable": "License, methods, flow/recycle boundary, controlled methane-slip condition, statistical and unit ambiguities, and transfer limits are recorded."
+  }
+}

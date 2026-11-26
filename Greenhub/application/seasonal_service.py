@@ -8,11 +8,11 @@ from datetime import date, timedelta
 from math import isfinite
 from typing import Iterable
 
-from Greenhub.integration import create_integrated_greenhub_system
 from Greenhub.state_engine import build_state_outputs, state_from_stream
 from Greenhub.storage_inventory import StorageInventory
 from Greenhub.storage import StorageModel, apply_storage_conditions
 from Greenhub.time_grid import TimeGridStep, generate_time_grid
+from Greenhub.weather_reference import SOURCE_URL as KNMI_AMBIENT_SOURCE_URL, monthly_ambient_c
 
 from .sale_quantities import seasonal_sale_quantities
 from .contracts import InitialStorageInventory, OperatingSchedule, SimulationRequest
@@ -22,7 +22,10 @@ from .biomass_schedule import (
     schedule_feed_rows,
 )
 from .feed_profile_service import FeedProfileService
-from .result_factory import build_balances, build_products, build_unit_results, build_utilities
+from .project_adapter import GREENHUB_PROJECT_ADAPTER
+from .result_factory import build_balances, build_products, build_stream_results, build_unit_results, build_utilities
+from .material_fate import accumulate_material_fate
+from .water_reporting import fresh_water_kg_per_hour_from_model
 
 
 @dataclass(frozen=True)
@@ -129,7 +132,10 @@ def _biomass_schedule_operating_hours(
     active_months = set(config.active_months)
     eligible_days = [
         current for current in _dates(active_start, active_end)
-        if current.month in active_months
+        # Active months describe biomass collection. With a storage delay,
+        # processing dates move forward, so test the corresponding harvest
+        # date rather than the shifted calendar month.
+        if (current - delay).month in active_months
     ]
     if not eligible_days:
         return 0.0
@@ -158,8 +164,9 @@ def _biomass_schedule_operating_hours(
 
 
 class SeasonalSimulationService:
-    def __init__(self, profiles: FeedProfileService) -> None:
+    def __init__(self, profiles: FeedProfileService, project_adapter=GREENHUB_PROJECT_ADAPTER) -> None:
         self.profiles = profiles
+        self.project_adapter = project_adapter
 
     def run(
         self,
@@ -199,6 +206,13 @@ class SeasonalSimulationService:
             )
         storage_capacity = _resolved_number(resolved.get("seasonal.storage_capacity_kg"))
         warnings = list(profile_warnings)
+        if (
+            request.biomass_schedule is not None
+            and request.biomass_schedule.processing_delay_days > 0
+        ):
+            warnings.append(
+                "The processing-delay schedule shifts harvest/processing dates only; it does not modify feed composition or protein extraction yield. No validated roadside-grass response is available. Grass-clover delay evidence is report-only (Andrade et al. 2024, DOI 10.3303/CET24109019)."
+            )
         if storage_capacity is None:
             warnings.append(
                 "Storage capacity is unavailable; inventory is preserved without an overflow limit until seasonal.storage_capacity_kg is overridden."
@@ -220,13 +234,36 @@ class SeasonalSimulationService:
         state_rows = []
         representative = None
         total_products: dict[str, float] = {}
-        total_utilities = {"electricity_kwh": 0.0, "heating_kwh": 0.0, "cooling_kwh": 0.0}
+        material_fate_totals: dict[str, object] = {}
+        total_utilities = {"electricity_kwh": 0.0, "heating_kwh": 0.0, "cooling_kwh": 0.0, "fresh_water_kg": 0.0}
         elemental_totals: dict[str, float] = {}
         utilization_totals: dict[str, list[float]] = {}
 
+        explicit_ambient = any(
+            item.parameter_id == "phase5.ambient_temperature_c" for item in request.all_overrides
+        )
+        weather_grid = []
         for step, feed_row in zip(grid, supply):
             month = date.fromisoformat(step.start_date).strftime("%B")
-            template = self._build_model(request, month, model_overrides)
+            ambient_c = monthly_ambient_c(date.fromisoformat(step.start_date).month)
+            step_overrides = dict(model_overrides)
+            if not explicit_ambient:
+                step_overrides["ambient_temperature_c"] = ambient_c
+            weather_grid.append({
+                **step.to_dict(),
+                "ambient_temperature_c": (
+                    float(step_overrides["ambient_temperature_c"])
+                    if "ambient_temperature_c" in step_overrides else ambient_c
+                ),
+                "ambient_temperature_basis": (
+                    "user_parameter_override" if explicit_ambient
+                    else "KNMI_Rotterdam_344_2021_2025_monthly_mean_proxy"
+                ),
+                "ambient_temperature_source_url": (
+                    None if explicit_ambient else KNMI_AMBIENT_SOURCE_URL
+                ),
+            })
+            template = self._build_model(request, month, step_overrides)
             template_feed = template.streams["feed"]
             template_fractions = _stream_fractions(template_feed)
             supplied_fractions = request.feed_composition or _complete_fractions(
@@ -255,7 +292,10 @@ class SeasonalSimulationService:
                 received_components,
                 feed_row["temperature_k"] or float(template_feed.T),
                 storage_capacity,
-                age_h=float((request.storage_conditions or {}).get('storage_days',0))*24,
+                age_h=(
+                    float((request.storage_conditions or {}).get('storage_days', 0))
+                    + float(feed_row.get("upstream_residence_days", 0) or 0)
+                ) * 24.0,
             )
             workbook_days = float(template.feed_specification.operating_days)
             if schedule_plan is not None:
@@ -284,6 +324,8 @@ class SeasonalSimulationService:
             desired_rate = desired_mass / operating_hours if operating_hours > 0.0 else 0.0
             fractions = _inventory_fractions(inventory)
             temperature = inventory.temperature_k or float(template_feed.T)
+            weather_grid[-1]["grass_feed_temperature_k"] = temperature
+            weather_grid[-1]["grass_feed_temperature_basis"] = "inventory_or_feed_profile; not KNMI ambient air"
             model = None
             capacity_records = ()
             raw_capacity = None
@@ -298,7 +340,7 @@ class SeasonalSimulationService:
                 actual_mass = decision["actual_mass_kg"]
                 actual_rate = actual_mass / operating_hours if operating_hours > 0.0 else 0.0
                 if actual_rate + 1e-9 < desired_rate:
-                    model = self._build_model(request, month, model_overrides)
+                    model = self._build_model(request, month, step_overrides)
                     self._simulate_at_rate(model, actual_rate, fractions, temperature)
                     capacity_records = self._capacity_records(model, resolved, equipment_scale_factor)
             else:
@@ -348,6 +390,13 @@ class SeasonalSimulationService:
 
             if model is not None:
                 representative = model
+                digester_conditioner = model.units.get("H501")
+                if digester_conditioner is not None:
+                    weather_grid[-1]["post_protein_digester_inlet_temperature_k"] = float(digester_conditioner.ins[0].T)
+                    weather_grid[-1]["conditioned_digester_inlet_temperature_k"] = float(digester_conditioner.outs[0].T)
+                    weather_grid[-1]["post_protein_cooling_basis"] = (
+                        "H501 active heating/cooling utility; passive hold-to-cool not modeled"
+                    )
             ending = inventory.total_mass_kg
             storage_residual = entering + received - overflow - withdrawn - applied_degradation_kg - ending
             storage_rows.append({
@@ -405,6 +454,7 @@ class SeasonalSimulationService:
             }
             for name, value in products.items():
                 total_products[name] = total_products.get(name, 0.0) + value
+            accumulate_material_fate(material_fate_totals, build_stream_results(model), operating_hours)
             press_cake_stream = model.streams.get("pressed_fibre_cake")
             if press_cake_stream is None:
                 press_cake_stream = model.streams.get("fibre_cake")
@@ -414,7 +464,7 @@ class SeasonalSimulationService:
             }
             volumetric_products = {
                 "biomethane": float(model.streams["biomethane"].F_vol) * operating_hours
-            } if "biomethane" in model.streams else {}
+            } if "biomethane" in model.streams and model.scenario_configuration.biogas_upgrading != "BG0" else {}
             if "biostimulant_product" in model.streams:
                 volumetric_products["biostimulant_product"] = (
                     float(model.streams["biostimulant_product"].F_vol) * operating_hours
@@ -465,7 +515,8 @@ class SeasonalSimulationService:
             electricity = sum(float(item.demand.value or 0.0) for item in utilities if item.kind == "electricity") * operating_hours
             heating_kj = sum(max(float(item.demand.value or 0.0), 0.0) for item in utilities if item.kind == "heat") * operating_hours
             cooling_kj = -sum(min(float(item.demand.value or 0.0), 0.0) for item in utilities if item.kind == "heat") * operating_hours
-            utility = {"time": step.label, "electricity_kwh": electricity, "heating_kwh": heating_kj / 3600.0, "cooling_kwh": cooling_kj / 3600.0}
+            fresh_water_kg = fresh_water_kg_per_hour_from_model(model) * operating_hours
+            utility = {"time": step.label, "electricity_kwh": electricity, "heating_kwh": heating_kj / 3600.0, "cooling_kwh": cooling_kj / 3600.0, "fresh_water_kg": fresh_water_kg}
             utility_rows.append(utility)
             for key in total_utilities:
                 total_utilities[key] += utility[key]
@@ -488,7 +539,7 @@ class SeasonalSimulationService:
 
         if representative is None:
             month = date.fromisoformat(grid[0].start_date).strftime("%B")
-            representative = self._build_model(request, month, model_overrides)
+            representative = self._build_model(request, month, step_overrides)
             self._simulate_at_rate(representative, 0.0, _stream_fractions(representative.streams["feed"]), float(representative.streams["feed"].T))
         initial_mass = request.initial_storage_inventory.total_mass_kg
         collected = sum(float(item["collected_biomass_kg"]) for item in supply)
@@ -529,6 +580,7 @@ class SeasonalSimulationService:
                 for unit, values in sorted(utilization_totals.items())
             },
             "total_products_kg": dict(sorted(total_products.items())),
+            "material_fate_totals": material_fate_totals,
             "pr7_peak_membrane_area_m2": (
                 None if any(row.get("pr7_unresolved_mass_kg", 0.0) > 1e-12 for row in product_rows)
                 else max((float(row.get("pr7_membrane_area_m2") or 0.0) for row in product_rows), default=0.0)
@@ -567,29 +619,14 @@ class SeasonalSimulationService:
             "missing_data_warning_count": sum(len(item["warnings"]) for item in supply) + len(warnings),
         }
         return SeasonalComputation(
-            representative, tuple(item.to_dict() for item in grid), tuple(supply), tuple(storage_rows),
+            representative, tuple(weather_grid), tuple(supply), tuple(storage_rows),
             tuple(throughput_rows), tuple(utilization_rows), tuple(bottleneck_rows), tuple(product_rows),
             tuple(residual_rows), tuple(utility_rows), tuple(balance_rows), tuple(state_rows), summary,
             tuple(dict.fromkeys(warnings)),
         )
 
-    @staticmethod
-    def _build_model(request: SimulationRequest, month: str, model_overrides: dict[str, object]):
-        selection = request.scenarios
-        return create_integrated_greenhub_system(
-            scenario_id=selection.nutrient_recovery,
-            biogas_upgrading_scenario_id=selection.biogas_upgrading,
-            anaerobic_digestion_scenario_id=selection.anaerobic_digestion,
-            protein_recovery_scenario_id=selection.protein_recovery,
-            feed_preparation_scenario_id=selection.feed_preparation,
-            selected_month=month,
-            process_order=selection.process_order,
-            parameter_overrides=model_overrides or None,
-            biostimulant_route=(
-                None if request.biostimulant_route is None
-                else request.biostimulant_route.to_dict()
-            ),
-        )
+    def _build_model(self, request: SimulationRequest, month: str, model_overrides: dict[str, object]):
+        return self.project_adapter.build_model(request, month, model_overrides)
 
     @staticmethod
     def _simulate_at_rate(model, rate_kg_hr: float, fractions: dict[str, float], temperature_k: float) -> None:

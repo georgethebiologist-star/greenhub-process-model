@@ -6,6 +6,9 @@
 
 Audit date: 2026-07-29
 
+> Historical architecture checkpoint. For the current service layout and repository
+> map, use the maintained [architecture guide](../architecture.md).
+
 ## Execution Path
 
 ```text

@@ -1,0 +1,40 @@
+{
+  "dataset_id": "urn:greenhub:dataset:schaffers-1998-roadside-field-decay-tables4-5:v1",
+  "dataset_version": "1.0.0",
+  "title": "Community-mean field-decay model outputs and composition regressions for Dutch roadside cuttings",
+  "source_file": "roadside_cutting_field_decay_schaffers_1998_tables4_5_reference.csv",
+  "source_file_sha256": "0c47995e107af53ccbe2a6d6c291b6d814bf3e49944c56e2ec6bab8c38f4b7fb",
+  "source_id": "SRC-SCHAFFERS-1998",
+  "citation": "Schaffers, A.P., Vesseur, M.C. & Sýkora, K.V. (1998). Effects of delayed hay removal on the nutrient balance of roadside plant communities. Journal of Applied Ecology, 35, 166–174.",
+  "doi": "10.1046/j.1365-2664.1998.00316.x",
+  "source_url": "https://doi.org/10.1046/j.1365-2664.1998.00316.x",
+  "retrieval_date": "2026-11-08",
+  "geography": "Netherlands; roadside grassland plots in a 1993 field campaign",
+  "field_period": "24 May–6 July 1993; seven grassland plots had 5–6 week exposure, contrasting grass-heath plot had 4 weeks",
+  "record_count": 92,
+  "source_tables": [
+    4,
+    5
+  ],
+  "evidence_class": "B_primary_field_study_model_outputs_and_fits",
+  "quality_class": "B",
+  "license": "No explicit open license identified on accessible article record; concise table facts transcribed with full attribution.",
+  "method": "Table 4 values are reported community means of fitted/model-estimated remaining fractions and asymptotic parameters. Table 5 coefficients are source-reported regressions. Values are transcribed as printed; decimal points normalize the source's decimal-point glyphs; no parameter conversion or fit is performed.",
+  "equations": [
+    "Plot/community field decay: Y(t)=a+(1-a)*exp(-k*t), where Y is remaining fraction; a is asymptotic remaining fraction; k is week^-1.",
+    "Table 5 dry weight: remaining_percent=c+b*initial_C_to_N_ratio.",
+    "Table 5 nitrogen: remaining_percent=c*b**initial_C_to_N_ratio.",
+    "Table 5 phosphorus/potassium: remaining_percent=c*b**initial_phosphorus_concentration_mgP_per_gDM."
+  ],
+  "scope": "Phase 2 field delay/decomposition before biomass removal. This does not describe ensiling, bunker storage, indoor storage, or anaerobic degradation.",
+  "activation_state": "reference_only",
+  "limitations": [
+    "Dutch roadside-cutting field experiment in 1993; cut material was left in field litterbags for up to six weeks. This is field-delay/decomposition evidence, not bunker ensiling, warehouse storage, or GreenHub feed-specific kinetics. No runtime mapping or GreenHub default activation.",
+    "Table 4 values are model-estimated community means and are not raw litterbag replicates.",
+    "Table 5 regressions were based on seven grassland plots, with the grass-heath (Ericion) plot excluded initially; article warns of extrapolation beyond the observed C:N range.",
+    "The potassium regressions were not statistically significant, are described as poor/may be unjustified, and have no satisfactory asymptotic fit.",
+    "The source has no direct GreenHub feed, storage, leachate, emissions, protein, COD or methane measurements.",
+    "This extract complements the existing Table 1/Table 3 plot-level dataset; do not double-count fitted parameters or treat alternative Table 4/5 regressions as independent observations."
+  ],
+  "runtime_parameter_mapping": null
+}

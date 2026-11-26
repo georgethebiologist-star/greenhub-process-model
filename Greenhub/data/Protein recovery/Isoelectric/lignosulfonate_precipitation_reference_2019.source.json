@@ -1,0 +1,29 @@
+{
+  "dataset_title": "Green biomass protein precipitation outcomes: ryegrass and red clover reference observations",
+  "dataset_identifier": "greenhub:isoelectric:lignosulfonate-precipitation-reference-2019:v1",
+  "source_file": "lignosulfonate_precipitation_reference_2019.csv",
+  "source_id": "SRC003",
+  "source_title": "Enhancing Protein Recovery in Green Biorefineries by Lignosulfonate-Assisted Precipitation",
+  "authors": ["Rasmus la Cour", "Jan K. Schjoerring", "Henning Jørgensen"],
+  "reference_year": 2019,
+  "doi": "10.3389/fsufs.2019.00112",
+  "source_url": "https://doi.org/10.3389/fsufs.2019.00112",
+  "source_table": "Table 2",
+  "geography": "Experimental field near Store Heddinge, Zealand, Denmark",
+  "retrieval_date": "2026-11-06",
+  "evidence_class": "B_measured_literature",
+  "license": "CC BY 4.0",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "rows": 12,
+  "data_basis": "Crude protein concentration is percent of concentrate dry matter. Nitrogen recovery is total N recovered in fiber fraction plus protein concentrate divided by juice N; direct heat rows marked without prior clearing instead use uncleared juice. Standard deviations for crude protein are percentage points, n=3.",
+  "processing_and_conversions": "Values transcribed as reported; no numeric conversions or inferred values. Lignosulfonate load is recorded in source-reported N-equivalents.",
+  "applicability": "Reference-only experimental evidence; ryegrass and red clover juice are not measured GreenHub roadside-grass streams.",
+  "limitations": [
+    "Total-N precipitation/recovery is not equivalent to isolated true-protein recovery.",
+    "Overall recovery includes nitrogen in the clearing fiber fraction and protein concentrate for clarified routes.",
+    "Feed was harvested near Store Heddinge, frozen within 3 h, stored at -20 C and later thawed; freeze-thaw may affect protein precipitation.",
+    "The experiment used twin-screw pressing, 1:1 water re-pressing of pulp and mild centrifuge clearing, unlike the default GreenHub route.",
+    "No outlet mass flows or separator capture balance are supplied by this table; it cannot parameterize a closed unit balance."
+  ],
+  "activation_state": "reference_only"
+}

@@ -1,0 +1,42 @@
+{
+  "dataset_title": "Clover-grass fraction composition and press-cake/brown-juice anaerobic co-digestion observations",
+  "dataset_identifier": "urn:greenhub:dataset:santamaria-fernandez-clover-grass-nutrient-partition-2020:v1",
+  "source_id": "SRC_SANTAMARIA_FERNANDEZ_2020",
+  "citation": "Santamaria-Fernandez, M., Ytting, N. K., Lübeck, M., & Uellendahl, H. (2020). Potential Nutrient Recovery in a Green Biorefinery for Production of Feed, Fuel and Fertilizer for Organic Farming. Waste and Biomass Valorization, 11, 5901–5911.",
+  "doi": "10.1007/s12649-019-00842-3",
+  "persistent_source_url": "https://doi.org/10.1007/s12649-019-00842-3",
+  "full_text_url": "https://vbn.aau.dk/files/450867530/e.Proofing.pdf",
+  "retrieval_date": "2026-11-06",
+  "geography": "Denmark; small-scale material from Vamdrup/Orten, pilot at Aarhus University Research Centre Foulum, Tjele",
+  "reference_year": 2020,
+  "source_locations": [
+    "Table 1: total solids, volatile solids, carbon, ammonium-N fraction where measured, C:N where determined, P, K, S and total N for small-scale red clover/clover grass and pilot clover grass streams",
+    "Table 2: anaerobic co-digestion reactor HRT, OLR, TS/VS removal, methane yield and methane content"
+  ],
+  "evidence_class": "B_primary_literature_measurements",
+  "license_and_reuse": "Accepted author manuscript available from Aalborg University. Repository notice permits private-study download and redistribution only by source URL; local file contains a factual measurement transcription with attribution, not the manuscript itself. Check source rights before external redistribution.",
+  "data_basis": "Concentrations are reported per kg fresh fraction unless explicitly identified as a ratio or percentage. Bracketed source values are standard deviations. Blank standard deviations mean that the source table did not report one for that observation. Source analytical values and units are retained; no conversion or inference was used.",
+  "methods": {
+    "total_solids": "Drying at 105 C to constant mass",
+    "volatile_solids": "Ignition at 550 C for 3 h",
+    "carbon": "FLASH 2000 HT elemental analyzer",
+    "total_nitrogen": "Total Kjeldahl Nitrogen",
+    "ammonium_n": "Kjeldahl procedure for digestate; Hach Lange LCK-305 kit for brown juice",
+    "P_K_S": "ICP-OES",
+    "biogas_composition": "Gas chromatography"
+  },
+  "process_conditions": {
+    "small_scale": "Red clover harvested in May 2014 at Vamdrup and clover grass harvested in May 2014 at Orten; processed within 12 h in a Vincent CP4 screw press. Juice inoculated with Lactobacillus salivarius and fermented overnight at 37 C to pH about 4.1–4.3; protein concentrate separated by centrifugation.",
+    "pilot_scale": "About 7.5 t clover grass processed by continuous screw press; green juice inoculated with about 6% v/v L. salivarius culture, held around 38 C overnight to pH 3.9, then decanter-separated.",
+    "digestion": "3 L semi-continuous CSTR at 37 +/- 2 C, 100 rpm, operated for 74 d; press cake and brown juice from pilot trial fed at 31:69 wet mass (83:17 of VS). Reported operating and performance values are study-specific."
+  },
+  "limitations": [
+    "The feed is cultivated clover-grass (a clover and grass mixture), not Dutch roadside grass or the VARTA sample; it is a reference analogue only.",
+    "Small-scale fraction mass balance and pilot stream composition are distinct experimental scales; pilot stream-flow uncertainty prevented a complete pilot biorefinery mass balance.",
+    "The residual liquid is brown juice after lactic-acid fermentation, not GreenHub isoelectric-precipitation supernatant; its composition and digestion response are not directly interchangeable.",
+    "Table values are concentrations and selected reactor summaries; do not infer missing component loads, exact stoichiometric closure, or GreenHub recovery factors from them.",
+    "Values marked n.d. are not determined; <dl is left blank and marked below_detection_limit. Neither is zero.",
+    "All records are reference_only and must not be used as GreenHub defaults or parameter-registry values without a separate evidence/applicability gate."
+  ],
+  "activation_state": "reference_only"
+}

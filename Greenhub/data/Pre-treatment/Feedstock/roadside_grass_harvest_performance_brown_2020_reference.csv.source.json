@@ -1,0 +1,53 @@
+{
+  "dataset_id": "urn:greenhub:dataset:roadside-grass-harvest-performance-brown-2020:v1",
+  "source_file": "roadside_grass_harvest_performance_brown_2020_reference.csv",
+  "source_id": "SRC-BROWN-2020",
+  "title": "Measured roadside-grass harvest performance in two Lincolnshire campaigns",
+  "authors": [
+    "Aaron E. Brown",
+    "Judith S. Ford",
+    "Catherine S. E. Bale",
+    "Miller A. Camargo-Valero",
+    "Nick J. Cheffins",
+    "Patrick E. Mason",
+    "Andrew M. Price-Allison",
+    "Andrew B. Ross",
+    "Peter G. Taylor"
+  ],
+  "publication_year": 2020,
+  "doi": "10.1016/j.biombioe.2020.105570",
+  "source_url": "https://doi.org/10.1016/j.biombioe.2020.105570",
+  "open_full_text_url": "https://eprints.whiterose.ac.uk/160532/1/39%20Brown%20et%20al.%2C%202020.pdf",
+  "license": "CC BY 4.0, stated on the open-access article",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "retrieval_date": "2026-11-07",
+  "rows": 2,
+  "geography": "Lincolnshire, England, United Kingdom",
+  "source_location": "Results §§3.1 and 3.4, pp. 6–7 of the article PDF",
+  "evidence_class": "B_measured_literature_results",
+  "units_and_basis": {
+    "harvested_mass_t": "tonnes fresh/as-received mass",
+    "run_length_km": "km of harvested single-cut run",
+    "swath_width_m": "m",
+    "fresh_yield_t_per_ha": "tonnes fresh/as-received mass per hectare",
+    "moisture_percent": "percent of fresh mass; reported approximately",
+    "dry_matter_yield_t_dm_per_ha": "tonnes dry matter per hectare",
+    "average_collection_rate_t_per_h": "tonnes fresh/as-received mass per hour",
+    "travel_speed_km_per_h": "km per hour while harvesting",
+    "road_travel_speed_km_per_h": "km per hour while traveling between road and harvest sites",
+    "very_wet_harvest_speed_km_per_h": "km per hour while harvesting under the source's qualitative very-wet condition",
+    "harvester_capacity_t": "tonnes of cut grass carried by the 2018 harvesting vehicle; source does not specify wet/dry basis"
+  },
+  "data_handling": "Transcribed only values stated in Results §§3.1 and 3.4. Approximate source values are retained at their printed precision; unreported campaign-specific fields are blank, not inferred. No conversion or averaging was performed by GreenHub.",
+  "limitations": [
+    "The 2016 value is a single test harvest; the authors note it was unusually high following warm and wet growing conditions.",
+    "The 2018 values are pilot averages during a season with an unusually cold spring and hot/dry summer.",
+    "No site-level distribution, replicate count, or measurement uncertainty is reported for the aggregate harvest results.",
+    "These are UK measurements and do not establish Dutch roadside yield, access, contracts, ecological retention, or GreenHub delivered feed.",
+    "The source's dry/very-wet harvest speeds are qualitative condition cases with no moisture threshold or speed distribution; road travel speed is not an in-field harvest speed. Vehicle capacity is not specified on a dry-mass basis.",
+    "Keep measured harvest yields separate from Table 5 regional supply scenarios, which apply the 2016 fresh-yield assumption to road-network areas."
+  ],
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "runtime_parameter_mapping": null
+}

@@ -1,0 +1,16 @@
+record_id,source_table,configuration,analyte_or_stream,total_recovery_mean_pct,total_recovery_SD_pct,recovery_in_RO_retentate_mean_pct,recovery_in_RO_retentate_SD_pct,reported_basis
+RIZ25-RW-L1,Table 2,Line 1 MF+UF+RO,water recovered in RO permeate,25.09,1.25,,,mass recovered / initial digestate mass
+RIZ25-TKN-L1,Table 2,Line 1 MF+UF+RO,total Kjeldahl nitrogen,92.65,3.69,26.29,1.27,mass recovered in all reported concentrate streams / initial analyte mass
+RIZ25-NH4-L1,Table 2,Line 1 MF+UF+RO,ammonium-N,96.55,3.21,26.36,0.25,mass recovered in all reported concentrate streams / initial analyte mass
+RIZ25-TP-L1,Table 2,Line 1 MF+UF+RO,total phosphorus,92.78,4.85,7.77,0.04,mass recovered in all reported concentrate streams / initial analyte mass
+RIZ25-K2O-L1,Table 2,Line 1 MF+UF+RO,potassium expressed as K2O,93.99,3.55,22.95,1.31,mass recovered in all reported concentrate streams / initial analyte mass
+RIZ25-RW-L2,Table 2,Line 2 UF+RO,water recovered in RO permeate,32.75,1.86,,,mass recovered / initial digestate mass
+RIZ25-TKN-L2,Table 2,Line 2 UF+RO,total Kjeldahl nitrogen,91.18,3.29,41.01,1.87,mass recovered in all reported concentrate streams / initial analyte mass
+RIZ25-NH4-L2,Table 2,Line 2 UF+RO,ammonium-N,97.42,1.30,46.50,1.14,mass recovered in all reported concentrate streams / initial analyte mass
+RIZ25-TP-L2,Table 2,Line 2 UF+RO,total phosphorus,94.54,3.58,14.98,0.70,mass recovered in all reported concentrate streams / initial analyte mass
+RIZ25-K2O-L2,Table 2,Line 2 UF+RO,potassium expressed as K2O,99.98,0.00,44.32,0.42,mass recovered in all reported concentrate streams / initial analyte mass
+RIZ25-RW-L3,Table 2,Line 3 NF+RO,water recovered in RO permeate,4.75,0.14,,,mass recovered / initial digestate mass
+RIZ25-TKN-L3,Table 2,Line 3 NF+RO,total Kjeldahl nitrogen,94.15,2.25,5.63,0.21,mass recovered in all reported concentrate streams / initial analyte mass
+RIZ25-NH4-L3,Table 2,Line 3 NF+RO,ammonium-N,99.97,0.01,6.41,0.75,mass recovered in all reported concentrate streams / initial analyte mass
+RIZ25-TP-L3,Table 2,Line 3 NF+RO,total phosphorus,94.49,3.01,1.00,0.04,mass recovered in all reported concentrate streams / initial analyte mass
+RIZ25-K2O-L3,Table 2,Line 3 NF+RO,potassium expressed as K2O,99.21,0.02,4.59,0.33,mass recovered in all reported concentrate streams / initial analyte mass

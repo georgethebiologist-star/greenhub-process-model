@@ -1,0 +1,53 @@
+{
+  "dataset_id": "urn:greenhub:dataset:feed-bmp:jurgutis-2021-field-grass-digestate-reference:v1",
+  "dataset_version": "1.0.0",
+  "dataset_file": "field_grass_digestate_fertilisation_yield_nutrients_bmp_jurgutis_2021_reference.csv",
+  "record_count": 205,
+  "sha256": "e09244dbf53cc2fb157e2f4f2018fd8c8e4cb615edbaa168944b764ef654e10f",
+  "source_id": "SRC-JURGUTIS-FIELD-GRASS-DIGESTATE-2021",
+  "citation": "Jurgutis, L., Šlepetienė, A., Amalevičiūtė-Volungė, K., Volungevičius, J., & Šlepetys, J. (2021). The effect of digestate fertilisation on grass biogas yield and soil properties in field-biomass-biogas-field renewable energy production approach in Lithuania. Biomass and Bioenergy, 153, 106211. https://doi.org/10.1016/j.biombioe.2021.106211",
+  "publication_year": 2021,
+  "journal": "Biomass and Bioenergy, volume 153, article 106211",
+  "doi": "10.1016/j.biombioe.2021.106211",
+  "source_url": "https://doi.org/10.1016/j.biombioe.2021.106211",
+  "accessible_full_text": "https://www.lammc.lt/data/public/uploads/2021/11/lino-jurgucio-disertacija.pdf",
+  "retrieval_date": "2026-11-08",
+  "geography": "Semi-natural grassland experiment near Elektrėnai, Lithuania; eroded loamy Retisol.",
+  "material_scope": "Grassland was mainly switchgrass (Panicum virgatum); single annual harvest; digestate sourced from a full-scale mixed-feed anaerobic digester.",
+  "evidence_class": "B_measured_literature_observations_and_reported_protocol",
+  "quality_class": "B",
+  "license": "No explicit open reuse license was identified for the publisher article or dissertation PDF during retrieval. The repository contains a limited attributed factual extract, not a copy of the source tables or article. Review rights before external redistribution or commercial reuse.",
+  "data_availability": "Selected table values and figure labels are accessible in the published article reproduced in the public institutional dissertation PDF; no raw-data package was identified.",
+  "data_structure": "Long-form observations preserve experiment/treatment/year, value as reported, numeric value, unit, basis, method/condition, uncertainty note, exact source table/figure/section, evidence class, activation state, applicability and limitation. Empty numeric values mean non-numeric context, not zero.",
+  "phase_coverage": {
+    "1": "Digestate-fertilisation grass yield, grass total solids/volatile solids, and plant N/P/K response; not Dutch roadside availability or collection logistics.",
+    "2": "No storage/degradation experiment; no storage kinetics or emissions.",
+    "3": "Sample chopped to 35–40 mm for laboratory work; no GreenHub press, extraction, water or unit-energy balance.",
+    "4": "No protein recovery operation or product data.",
+    "5": "Batch BMP for fertilised field grass at mesophilic conditions; no post-protein residual or continuous-reactor calibration.",
+    "6": "Biogas/methane potential only; no upgrading, recovery, slip or utility data.",
+    "7": "Mixed-feed digestate composition, fertilisation rates, grass nutrient response, and selected soil response; no nutrient recovery yield, GreenHub digestate flow, product compliance or substitution factor."
+  },
+  "limitations": [
+    "The grass is Lithuanian semi-natural grassland, mainly switchgrass, not Dutch roadside/VARTA grass or GreenHub feed.",
+    "Fertilisation is a field treatment; observed yield response is not natural supply, harvestability, or a sustainable roadside nutrient-management recommendation.",
+    "The source has an internal harvest-timing inconsistency: methods say first week of July, while Results §3.3.1 says second half of September; retained as an unresolved conflict.",
+    "The 85 kg N ha-1 liquid-digestate three-year mean yield is 10.10 in Figure 4 and 10.11 in Results §3.3.1; both statements are retained and neither is treated as canonical.",
+    "Table 4 does not report a 2020 control TS/VS result; no value is inferred from pooled means.",
+    "Figure-label values have no reported uncertainty in the extract; Table 2/3/5 ± statistic is not specified and is preserved verbatim.",
+    "The BMP is batch potential, not continuous AD performance; standard gas reference conditions are not identified in Table 5.",
+    "Digestate came from a full-scale mixed-feed plant whose feed mix changed across years; it is not GreenHub digestate.",
+    "Digestate composition contains mixed percentage and volumetric bases. No density-based conversion, nutrient balance, legal compliance, or fertilizer substitution credit is inferred.",
+    "No explicit reuse license was found; this extract is for internal research traceability and remains subject to rights review before redistribution."
+  ],
+  "conversion_or_processing": "Direct transcription of table values and printed figure labels; no digitization, calculation, basis conversion, imputation, kinetic fitting, or GreenHub parameter mapping.",
+  "uncertainty": "Table-reported ± terms are retained without assigning SD/SE. Figure labels have no uncertainty. Field and BMP replicate hierarchy is described in methods but not linked unambiguously to each reported uncertainty.",
+  "runtime_policy": "Reference-only; not linked to runtime parameters, defaults, process equations, TEA/LCA factors, scenario generation, or Pareto outputs.",
+  "access_protocol": "HTTPS DOI and publicly accessible Lithuanian institutional dissertation PDF containing the article text; reuse terms were not identified.",
+  "fair_metadata": {
+    "findable": "Local versioned URN, DOI, source ID, and catalog-indexed dataset path.",
+    "accessible": "HTTPS DOI and institutional full-text link are recorded; access and reuse caveats are explicit.",
+    "interoperable": "UTF-8 CSV with common GreenHub long-form observation fields, explicit phases, units, bases and source locations.",
+    "reusable": "Citation, retrieval date, checksum, evidence class, uncertainty, limitations, no-conversion policy and runtime exclusion are recorded."
+  }
+}

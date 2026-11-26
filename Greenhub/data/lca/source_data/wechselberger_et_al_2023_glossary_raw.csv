@@ -1,0 +1,33 @@
+﻿Name of variable in data set;Full name of variable;Comment
+process_stage;Process stage;
+emission_source;Emission source ;
+technology;Biogas technology/plant component;
+data_source_citation;Citation;
+data_source_reference;Reference;
+country;Country in which the surveyed biogas plant is located;
+plant_id;Biogas plant ID;
+component_id;Component ID;e.g. Digester 1, Digester 2
+leakage_id;Leakage ID ;e.g. L1, L2
+special_occurrences;Occurrence of events not considered part of normal operation (1=yes);relevant in case repeated measurements are available for indivual plant components covering different operating conditions
+special_occurrences_description;Description of special occurrences;
+measurement_date;Measurement date;
+CH4_emission_rate_in_kg_per_hour;Methane emission rate [kg h-1];
+CH4_emission_factor_in_percent_of_production;Methane emission factor [% of produced methane];
+CH4_emission_factor_in_percent_of_utilization;Methane emission factor [% of utilized methane production];
+number_of_plants_included_in_statistic;Number of biogas plants/components included in statistic;
+parameter_for_summarazing_data_from_different_plants;Parameter for summarizing data;e.g. mean, median (in case the number of plants included in the statistic >1)
+info_substrate_storage;Information on the type of feedstock stored in the surveyed tank;
+digestate_storage_filling_level_in_percent;Filling level of the surveyed digestate storage tank [%];
+digestate_storage_capacity_in_cubic_meter;Storage capacity of the surveyed digestate storage tank [m3];
+digestate_storage_surface_area_in_square_meter;Surface area of the surveyed digestate storage tank [m2];
+info_ventilation_air;Information on the surveyed ventilated buildings ;
+leakage_location;Information on the leakage location;
+CHP_year_of_manufacture;Year of manufacture of the surveyed combined heat and power plant ;
+CHP_electrical_power_capacity_in_kW;Electrical capacity of the surveyed combined heat and power plant [kW];
+CHP_electrical_power_during_measurement_in_kW;Electrical power of the surveyed combined heat and power plant during measurements [kW];
+CHP_air_to_fuel_ratio;Calculated air-fuel ratio of the surveyed combined heat and power plant;
+info_AD_plant_hydraulic_retention_time_in_days;Hydraulic retention time [days];
+info_AD_plant_primary_feedstock;Primary feedstock utilized by the surveyed biogas plant;
+info_AD_plant_secondary_feedstock;Secondary feedstock utilized by the surveyed biogas plant;
+info_AD_plant_methane_production_in_kg_h_STP;Methane production of the biogas plant STP [kg h-1];
+info_AD_plant_comment_on_methane_production;Information on methane production data;

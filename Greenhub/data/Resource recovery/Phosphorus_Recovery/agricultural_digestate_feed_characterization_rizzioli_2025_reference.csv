@@ -1,0 +1,11 @@
+record_id,source_table,material,parameter,reported_mean,reported_SD,unit,basis,source_method_or_note
+RIZ25-FEED-TS,Table 1,raw agricultural digestate,total solids,7.76,0.16,% w/w,as-received,APHA Standard Methods
+RIZ25-FEED-VS,Table 1,raw agricultural digestate,volatile solids,5.45,0.24,% w/w,as-received,APHA Standard Methods
+RIZ25-FEED-VSTS,Table 1,raw agricultural digestate,volatile solids / total solids,70.23,0.05,%,ratio,source-reported
+RIZ25-FEED-PH,Table 1,raw agricultural digestate,pH,7.93,0.02,pH,measured,portable analyzer
+RIZ25-FEED-EC,Table 1,raw agricultural digestate,electrical conductivity,15.31,0.14,mS/cm,measured,portable analyzer
+RIZ25-FEED-TKN,Table 1,raw agricultural digestate,total Kjeldahl nitrogen,4.08,0.30,g N/L,as-received,APHA Standard Methods
+RIZ25-FEED-NH4,Table 1,raw agricultural digestate,ammonium nitrogen,3.52,0.19,g N/L,as-received,APHA Standard Methods
+RIZ25-FEED-PO4P,Table 1,raw agricultural digestate,orthophosphate phosphorus,0.21,0.02,g P/L,as-received,APHA Standard Methods
+RIZ25-FEED-TP,Table 1,raw agricultural digestate,total phosphorus,1.05,0.09,g P/L,as-received,APHA Standard Methods
+RIZ25-FEED-K,Table 1,raw agricultural digestate,total potassium,4.01,0.23,g K/L,as-received,Hach Lange spectrophotometric method

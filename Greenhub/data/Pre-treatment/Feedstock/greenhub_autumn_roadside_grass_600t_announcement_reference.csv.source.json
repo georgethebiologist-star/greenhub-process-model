@@ -1,0 +1,44 @@
+{
+  "dataset_id": "urn:greenhub:dataset:feedstock:autumn-roadside-grass-600t-announcement:v1",
+  "dataset_version": "1.0.0",
+  "title": "Greenhub Zuid-Holland announcement of approximately 600 t roadside grass for autumn processing",
+  "source_file": "greenhub_autumn_roadside_grass_600t_announcement_reference.csv",
+  "source_file_sha256": "1b4b9c0e7628a2b204153f1246d4fc6ae92b2419fa7b1e915148768f05938996",
+  "source_id": "SRC-GHZH-AUTUMN-ROADGRASS-600T-ANNOUNCEMENT-2025",
+  "citation": "Greenhub Zuid-Holland. (social post; exact publication timestamp not exposed). 'Van bermgras tot bouwmateriaal en bodemproduct'. The associated Greenhub agenda event is dated 7 November 2025. Repeated by Vernieuwersnetwerk Natuurlijke Reststromen, 'Aan de slag met Uitvoeringsagenda Greenhub'.",
+  "source_urls": [
+    "https://nl.linkedin.com/posts/greenhub-zuid-holland_van-bermgras-tot-bouwmateriaal-en-bodemproduct-activity-7389307797911478272-BwKN",
+    "https://natuurlijkereststromen.nl/aan-de-slag-met-uitvoeringsagenda-greenhub/",
+    "https://greenhub-zuidholland.nl/samen-door-de-bermgrasdeur/"
+  ],
+  "doi": null,
+  "publication_date": null,
+  "event_date_context": "2025-11-07",
+  "retrieval_date": "2026-11-08",
+  "geography": "Greenhub Zuid-Holland, Netherlands; exact source sites and supplier locations not disclosed",
+  "record_count": 1,
+  "process_phases": [
+    1,
+    3,
+    4
+  ],
+  "rights_status": "No explicit dataset reuse license identified; only a concise factual statement is transcribed with attribution. Source pages are linked, not redistributed.",
+  "evidence_class": "first_party_project_announcement_repeated_by_regional_network",
+  "quality_class": "not_applicable_announced_plan_not_measurement",
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "runtime_parameter_mapping": null,
+  "data_handling": "The source says approximately 600 tonnes of roadside grass would be processed that autumn into construction material and soil product, with delivery by two large market parties. It does not provide measured delivered mass or completion evidence. The associated 7 November 2025 agenda-event date provides context for interpreting 'this autumn'; the social post's exact timestamp is unavailable.",
+  "limitations": [
+    "No weighbridge records, delivery dates, site/supplier split, wet/dry basis, moisture, contamination, composition, reject mass, uncertainty or realized throughput are public.",
+    "A later Greenhub dry-run report separately gives 600 t of GKB's own grass for Bokashi; it is a different described material/use and must not be treated as confirmation of the roadside announcement.",
+    "The approximate announced quantity is not annual availability, contractually secured supply, installed capacity, or a validated value for the simulation.",
+    "Greenhub's official event page confirms the agenda event date, not the 600 t quantity; the quantity is sourced from the first-party Greenhub post and its regional-network reproduction."
+  ],
+  "fair_metadata": {
+    "findable": "Repository-local versioned URN, source ID, three source URLs, and a unique row ID are supplied.",
+    "accessible": "UTF-8 CSV and JSON provenance sidecar are indexed in the project's FAIR catalog.",
+    "interoperable": "Long-form CSV separates reported quantity, unit, measurement basis, campaign timing, evidence/quality class, phase relevance, and activation state.",
+    "reusable": "Source wording scope, date inference, non-measurement status, later same-number/different-stream report, and runtime exclusion are explicit."
+  }
+}

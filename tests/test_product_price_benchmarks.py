@@ -31,6 +31,7 @@ def test_screening_tea_mapping_uses_direct_biomethane_basis_only():
     assert prices["biomethane"]["reference_year"] == 2026
     assert prices["biomethane"]["reference_period"] == "2026"
     assert prices["biomethane"]["quality_class"] == "E"
+    assert prices["biomethane"]["source_quality_class"] == "E"
     assert prices["biomethane"]["source_title"] == "User-provided TTF/GO benchmark table"
     assert prices["biomethane"]["source_url"] == "https://www.energievergelijk.nl/energieprijzen/gasprijs"
     assert prices["dry_protein_product"]["quality_class"] == "C"
@@ -47,3 +48,16 @@ def test_screening_tea_mapping_uses_direct_biomethane_basis_only():
     assert reference["value"] == 60.51
     assert reference["unit"] == "EUR/MWh"
     assert screening_tea_product_price_ranges()["biomethane"]["quality_class"] == "E"
+
+
+def test_unsupported_preview_and_user_price_records_do_not_emit_d_class():
+    import json
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parents[1]
+    preview = json.loads((root / "Greenhub/data/frontend/preview_parameter_defaults.json").read_text(encoding="utf-8"))
+    review = json.loads((root / "Greenhub/data/tea/product_price_quality_review.json").read_text(encoding="utf-8"))
+
+    assert not [row for row in preview["parameters"] if row.get("quality_class") == "D"]
+    assert review["benchmarks"]["Biomethane (user all-in direct basis)"]["quality_class"] == "E"
+    assert review["ui_default_prices"]["biomethane"]["quality_class"] == "E"

@@ -1,0 +1,61 @@
+{
+  "source_id": "SRC-NYNAS-2024",
+  "dataset_title": "Pilot-scale green-biomass fraction protein concentrations",
+  "source_doi": "10.1021/acsfoodscitech.3c00426",
+  "source_url": "https://doi.org/10.1021/acsfoodscitech.3c00426",
+  "open_full_text_url": "https://pub.epsilon.slu.se/32849/1/nynas-a-l-et-al-20240206.pdf",
+  "authors": [
+    "Anna-Lovisa Nynäs",
+    "Emilia Berndtsson",
+    "William R. Newson",
+    "Helena Persson Hovmalm",
+    "Eva Johansson"
+  ],
+  "publication_year": 2024,
+  "journal": "ACS Food Science & Technology",
+  "volume_issue_pages": "4(1), 126-138",
+  "retrieval_date": "2026-11-07",
+  "license": "CC BY 4.0",
+  "geography": "Scania, Sweden",
+  "field_year": 2020,
+  "source_materials": [
+    "red clover",
+    "lucerne",
+    "beetroot tops",
+    "sugar beet tops",
+    "immature oat",
+    "hemp tops",
+    "pea residuals",
+    "white clover"
+  ],
+  "pilot_process": {
+    "biomass_feed_rate_kg_per_hour": "approximately 250-300",
+    "press": "Vincent CP-10 juicer",
+    "green_protein_precipitation": "green juice heated to regulated 55 C; 15-30 min holding time; centrifuge at approximately 4000 RCF",
+    "white_protein_precipitation": "40% w/v food-grade citric-acid solution added by automatic pH control to pH 4; 15-60 min holding time",
+    "white_protein_separation": "self-unloading disk centrifuge at approximately 8000 RCF"
+  },
+  "dataset_file": "pilot_fraction_protein_quality_nynas_2024_reference.csv",
+  "source_table": "Table 3",
+  "rows": 7,
+  "variables": {
+    "soluble_peak_ABD": "mg protein/g dry matter; SE-HPLC RuBisCO-rich peak regions A, B and D",
+    "soluble_peak_CE": "mg protein/g dry matter; SE-HPLC other peak regions C and E",
+    "insoluble_peak_ABD": "mg protein/g dry matter; SE-HPLC RuBisCO-rich peak regions A, B and D",
+    "insoluble_peak_CE": "mg protein/g dry matter; SE-HPLC other peak regions C and E",
+    "total_protein": "mg protein/g dry matter; source-calculated sum of soluble and insoluble peak areas"
+  },
+  "uncertainty": "Table 3 reports mean and standard deviation for each fraction across the biomass sources; significance letters are the source's Duncan post-hoc groups at p < 0.05.",
+  "data_handling": "Seven fraction-level rows were transcribed from Table 3. Means, standard deviations, and statistical groups are retained as reported; no values are converted or imputed.",
+  "evidence_class": "B_measured_pilot_reference",
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "limitations": [
+    "The eight source materials are cultivated leafy biomass from Sweden, not Dutch roadside grass or GreenHub feed.",
+    "The reported results are analytical concentrations per dry mass, not stream flow, total component mass, or recovery efficiency.",
+    "High between-material variability and pilot process-specific conditions limit transferability.",
+    "The process pH endpoint and citric-acid solution strength are reported, but acid consumption per volume or mass of juice is not; do not infer reagent demand from pH alone.",
+    "This source does not establish product market grade, food/feed certification, or GreenHub protein-price eligibility."
+  ],
+  "suggested_use": "Phase 4 reference for fraction-specific soluble/insoluble protein analytical concentrations and product-quality discussion. Not a runtime recovery factor, protein mass balance, reagent-demand parameter, or market-grade specification."
+}

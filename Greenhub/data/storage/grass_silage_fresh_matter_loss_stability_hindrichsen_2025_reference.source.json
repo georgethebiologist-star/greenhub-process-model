@@ -1,0 +1,34 @@
+{
+  "dataset_id": "urn:greenhub:dataset:storage:hindrichsen-2025-grass-silage-storage-meta-study:v1",
+  "title": "Meta Study on Preserving Grass Silage During Storage and Feed Out with SiloSolve FC",
+  "source_id": "HINDRICHSEN2025_META_GRASS",
+  "authors": [
+    "Ida Hindrichsen",
+    "Rafael Camargo do Amaral",
+    "Kristian Lybek Witt"
+  ],
+  "publication_year": 2025,
+  "doi": null,
+  "source_url": "https://conference.ifas.ufl.edu/silage/documents/Silage-2025-Abstract-Compilation.pdf",
+  "geography": "Three sites in Denmark, Lithuania and Germany",
+  "harvest_years": "2019–2023",
+  "retrieval_date": "2026-11-08",
+  "source_location": "International Silage Conference 2025 Abstract Compilation, Hindrichsen et al. abstract Table 1 and preceding Results paragraph; page number not verified.",
+  "methods_summary": "Six harvest times; grass mixtures without legumes; 0–2 d wilting where tested; 7–90 d anaerobic storage; mini-silos up to 1 kg or bales >600 kg; 3–5 replicates per treatment where stated; aerobic challenge up to 30 d.",
+  "license_or_rights": "No explicit reuse license identified in the conference abstract compilation. Only concise factual summaries are transcribed; review rights before external redistribution.",
+  "evidence_class": "B-tier published experimental meta-study summary",
+  "quality_class": "B",
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "row_count": 26,
+  "sha256_csv": "af985253d33180946e9218b6ca7792f47a643258b01313ed81b7892e13b4eac9",
+  "transcription_policy": "Transcribed published summary values and specified conditions only. Range/average summaries remain separate; no raw samples, intermediate time points, curve fits, unit conversions or modeled loss coefficients are inferred.",
+  "limitations": [
+    "This is grass silage, not roadside grass or GreenHub feed; vegetation, harvest maturity, site, storage package and inoculant use differ.",
+    "The abstract does not report the pooled n or the distribution of storage duration, dry matter and replicate counts behind each minimum/maximum/average.",
+    "Although the Table 1 caption mentions dry-matter loss, the corresponding storage/challenge rows are explicitly labeled fresh-matter loss; this extract follows the row labels and does not reinterpret them.",
+    "Table 1 reports fresh-matter loss; it is not dry-matter loss and must not be treated as an emissions or component-degradation fraction.",
+    "The meta-study is affiliated with the commercial inoculant supplier; intervention and sponsorship context are disclosed for interpretation.",
+    "No kinetic rate, time interpolation, inoculant benefit or GreenHub storage default is inferred. These observations do not clear the project-specific storage evidence gate."
+  ]
+}

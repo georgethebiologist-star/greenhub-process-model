@@ -1,0 +1,2 @@
+filename,description,row_count,schema_version,encoding,delimiter,integration_readiness,limitations
+knmi_rotterdam_344_2021_2025.json,"Source-row-preserving monthly temperature observations and provenance for KNMI Rotterdam station 344, 2021–2025.",5,1.0,UTF-8,,active_derived_ambient_proxy,"Site air and process-fluid temperatures are not measured; five-year monthly average is neither a climate normal nor a forecast. Explicit user ambient override takes priority."

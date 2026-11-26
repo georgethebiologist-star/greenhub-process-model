@@ -151,13 +151,14 @@ class LCAProjectBasis:
                 raise ValueError("Inventory completeness requires included group -> {status: complete/partial/missing, note: rationale}.")
 
 
-def load_climate_factors(overrides=None):
+def load_climate_factors(overrides=None, *, include_screening=False):
     path = Path(__file__).parent / "data" / "lca" / "climate_factors.json"
     data = json.loads(path.read_text(encoding="utf-8"))
     allowed = {f.name for f in fields(ClimateFactor)}
     factors = {
         item["factor_id"]: ClimateFactor(**{key: value for key, value in item.items() if key in allowed})
         for item in data["factors"]
+        if include_screening or item.get("activation") != "screening"
     }
     if overrides is not None:
         if not isinstance(overrides, Mapping):

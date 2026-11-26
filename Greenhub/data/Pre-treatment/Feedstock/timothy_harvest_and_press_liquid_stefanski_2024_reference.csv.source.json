@@ -1,0 +1,55 @@
+{
+  "dataset_id": "urn:greenhub:dataset:stefanski-2024-timothy-harvest-press-liquid-reference:v1",
+  "title": "Timothy-grass harvest timing and nitrogen effects on press-liquid yield and composition",
+  "source_file": "timothy_harvest_and_press_liquid_stefanski_2024_reference.csv",
+  "source_id": "SRC-STEFANSKI-EGF2024-HARVEST",
+  "authors": [
+    "T. Stefański",
+    "N. Ayanfe",
+    "O. Niemeläinen",
+    "K. Raiskio",
+    "M. Rinne"
+  ],
+  "publication_year": 2024,
+  "publication": "Grassland Science in Europe, Volume 29, Why grasslands?, pp. 131-133",
+  "persistent_identifier": null,
+  "source_url": "https://www.europeangrassland.org/fileadmin/documents/Infos/Printed_Matter/Proceedings/EGF2024.pdf",
+  "alternative_source_url": "https://pure.ilvo.be/ws/portalfiles/portal/43316050/EGF2024-Final.pdf",
+  "license_status": "No explicit reuse license identified in the proceedings; retain source attribution and review redistribution rights.",
+  "retrieval_date": "2026-11-07",
+  "rows": 15,
+  "source_location": "Article 'Grass for biorefinery: Effects of N fertilization and harvest time on liquid yield and composition'; Table 1, pp. 132-133; methods, pp. 131-132",
+  "evidence_class": "B_measured",
+  "experimental_context": {
+    "geography": "Jokioinen, Finland",
+    "feedstock": "Pure timothy (Phleum pratense), first and second cuts in 2023",
+    "harvest_schedule": "First cut harvested 5, 12 and 19 June; second cut harvested 25 and 31 July and 7 August",
+    "fertilizer_treatments": "First cut received 100, 130 or 160 kg N/ha in spring; second-cut area was harvested on 15 June and received 110 or 140 kg N/ha",
+    "replication": "Three plot replicates per treatment and harvest date",
+    "sample_and_press_method": "15 m2 was harvested per plot; samples were frozen within 2 h, thawed for 48 h at 4 C, then 500 g was separated using a laboratory twin-screw Angel Juicer",
+    "reported_measurements": "Grass dry matter; liquid yield per fresh-grass mass; liquid dry matter and ash; liquid yield and liquid nitrogen yield per hectare"
+  },
+  "column_basis": {
+    "grass_dm_g_kg_fresh": "g dry matter per kg fresh grass",
+    "juice_yield_g_kg_fresh_grass": "g press liquid per kg original fresh grass",
+    "juice_dm_g_kg_liquid": "g dry matter per kg press liquid",
+    "juice_ash_g_kg_dm": "g ash per kg press-liquid dry matter",
+    "juice_yield_kg_ha": "kg press liquid per hectare, as reported by the source",
+    "juice_n_yield_kg_ha": "kg nitrogen in press liquid per hectare, as reported by the source",
+    "sem_*": "Source-reported standard error of the mean for the corresponding cut-level response; repeated on each treatment row within the cut",
+    "*_tukey": "Source-reported Tukey significance-group letters; blank where the table reports no group letter"
+  },
+  "statistical_context": "Source Table 1 notes Tukey group letters at P<0.05 and reports SEM separately by cut. The accompanying table-wide p-values and narrative ranges are not transcribed into this treatment matrix. Raw replicate values are not supplied.",
+  "data_handling": "Direct transcription of Table 1 means, Tukey letters and cut-level SEM. No unit conversion, annualization, interpolation, or model parameter estimation was performed.",
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "runtime_parameter_mapping": null,
+  "limitations": [
+    "Cultivated pure timothy in Finland is not Dutch roadside grass; site, species, management, soil and weather differ.",
+    "Small laboratory twin-screw pressing is not a GreenHub pilot or industrial press and does not establish scale-up performance.",
+    "The reported fertilizer levels are experimental management treatments, not GreenHub fertilizer inputs or recommended rates.",
+    "Plot yield and liquid yield per hectare are study results, not contracted, accessible, collected or delivered GreenHub supply.",
+    "Only treatment means, group letters and SEM are available here; raw replicates and complete solid/liquid mass and component balances are absent.",
+    "The proceedings PDF did not identify an explicit reuse license."
+  ]
+}

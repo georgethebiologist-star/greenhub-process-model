@@ -1,0 +1,42 @@
+{
+  "source_id": "SRC_BAKKER_ROADVERGE_BIOMASS_2026",
+  "dataset_title": "Grassland management in a changing climate: Dutch road-verge standing biomass measurements",
+  "source_asset": "Analysis.R",
+  "source_asset_role": "source_analysis_script",
+  "source_asset_path": "Pre-treatment/Feedstock/road_verge_standing_biomass_bakker_2026_source/Analysis.R",
+  "source_record_filename": "Analysis.R",
+  "dataset_doi": "10.5281/zenodo.15349657",
+  "concept_doi": "10.5281/zenodo.15349656",
+  "article_doi": "10.1111/avsc.70085",
+  "source_url": "https://zenodo.org/records/15349657",
+  "article_url": "https://doi.org/10.1111/avsc.70085",
+  "creators": [
+    "Wiene Bakker",
+    "Jeroen Scheper",
+    "Wim Ozinga",
+    "Philippine Vergeer"
+  ],
+  "dataset_record_date": "2025-05-06",
+  "article_publication_year": 2026,
+  "retrieval_date": "2026-11-08",
+  "license": "CC BY 4.0, as stated by Zenodo version record 15349657; this does not assert reuse rights for the article.",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "source_md5": "3a6e7bacc886ef5c1a5e9257a6aee684",
+  "source_sha256": "a0bc9a2b0ebf80916d283ad16c639d1596d4efdc043fa1ca415536d302518c94",
+  "source_byte_size": 37788,
+  "row_count": "",
+  "encoding": "UTF-8",
+  "delimiter": "not_applicable",
+  "measurement_context": "Ten Dutch roadside grasslands; standing biomass sampled just before mowing in June and August 2023; first experimental block only.",
+  "interpretation": "Measured literature observations, not harvested/delivered annual yield or GreenHub contracted feed. Reference-only; no runtime parameter mapping.",
+  "paired_derived_asset": "Greenhub/data/Pre-treatment/Feedstock/road_verge_standing_biomass_bakker_2026_zenodo_reference.csv",
+  "limitations": [
+    "The source is a plot-level standing-biomass snapshot, not machine-collected mass or deliverable supply.",
+    "The single source-missing biomass value remains missing; no imputation is performed.",
+    "The exact source bytes are retained separately from the previously standardized Biomass.csv copy, whose record values are equivalent but line endings were normalized.",
+    "Analysis.R documents the dimensional conversion: source g DM/m2 multiplied by 10/1000 to obtain t DM/ha."
+  ],
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "parameter_registry_mapping": null
+}

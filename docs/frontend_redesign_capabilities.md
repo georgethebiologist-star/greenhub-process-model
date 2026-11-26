@@ -21,4 +21,4 @@ The redesigned navigation presents four primary work areas: Dashboard, Configure
 
 ## Verification
 
-From `frontend/`, run `npm run lint`, `npm run check:decision`, and `npm run build`. The decision check exercises backend-compatible decision request construction, evidence/readiness display safeguards, and the deterministic 2,000-scenario sampler. Backend API and simulation tests remain necessary for validating a deployed end-to-end run.
+From `frontend/`, run `corepack pnpm lint`, `corepack pnpm check:decision`, and `corepack pnpm build`. The decision check exercises backend-compatible decision request construction, evidence/readiness display safeguards, and the deterministic 2,000-scenario sampler. Backend API and simulation tests remain necessary for validating a deployed end-to-end run.

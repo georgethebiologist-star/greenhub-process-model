@@ -21,7 +21,7 @@ def test_varta_aggregate_nutrients_keep_measurement_provenance_and_convert_basis
     with source_path.open(encoding="utf-8-sig", newline="") as source_file:
         source_rows = list(csv.DictReader(source_file))
     source_row = next(row for row in source_rows if row["sample_name_english"] == "Greenhub whole grass")
-    dry_matter_fraction = float(source_row["dry_matter_fraction"]) / 100.0
+    dry_matter_fraction = float(source_row["dry_matter_percent"]) / 100.0
     assert float(source_row[source_field]) == pytest.approx(reported_g_kg_dm)
 
     feed = load_roadside_grass_specification(
@@ -37,4 +37,4 @@ def test_varta_aggregate_nutrients_keep_measurement_provenance_and_convert_basis
     assert record.source_class == "A"
     assert "wet basis" in record.basis
     assert "row 7" in record.reference
-    assert "dry_matter_fraction / 1000" in record.reference
+    assert "dry_matter_percent / 1000" in record.reference

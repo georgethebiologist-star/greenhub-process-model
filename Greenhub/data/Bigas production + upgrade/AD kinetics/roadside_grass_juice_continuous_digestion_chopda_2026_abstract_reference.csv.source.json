@@ -1,0 +1,35 @@
+{
+  "dataset_id": "urn:greenhub:dataset:roadside-grass-juice-continuous-digestion-chopda-2026-abstract:v1",
+  "source_file": "roadside_grass_juice_continuous_digestion_chopda_2026_abstract_reference.csv",
+  "source_id": "SRC-CHOPDA-2026",
+  "title": "Roadside-grass screw pressing, continuous grass-juice digestion, and digestate plant-use evidence (abstract-level extract)",
+  "authors": ["Rushab Chopda", "Marcella Fernandes de Souza", "Ana Robles-Aguilar", "Erik Meers"],
+  "publication_year": 2026,
+  "online_publication_date": "2025-08-28",
+  "issue_date": "2026-05",
+  "doi": "10.1007/s12649-025-03274-4",
+  "source_url": "https://doi.org/10.1007/s12649-025-03274-4",
+  "publisher_page": "https://link.springer.com/article/10.1007/s12649-025-03274-4",
+  "institutional_record": "https://biblio.ugent.be/publication/01K4MT8A7G42QK05X6MX5XECNY",
+  "license": "Publisher page states exclusive copyright and no open license. UGent record says authors do not have permission to share data. This extract contains only a minimal abstract-level factual value and route statements; do not redistribute full article or supplementary data without permission.",
+  "retrieval_date": "2026-11-07",
+  "rows": 4,
+  "geography": "Roadside grass study by Ghent University and collaborators; exact sampling site/geography not given in accessible abstract",
+  "source_location": "Publisher abstract; the full text is access-restricted. UGent bibliography lists the published version as UGent-only and states data cannot be shared.",
+  "evidence_class": "B_peer_reviewed_primary_study_abstract_extract",
+  "units_and_basis": {
+    "Nm3/t fresh matter": "Normal cubic metres per tonne of fresh matter as printed in the abstract. Accessible abstract does not define whether the tonne basis is incoming roadside grass, juice, or another fresh-matter stream."
+  },
+  "data_handling": "Transcribed the single numeric biogas-potential claim and route-level statements from the publisher abstract. No conversions, assumptions, inference of methane content, digitization of figures, or data reconstruction performed.",
+  "limitations": [
+    "Abstract-only extraction; experimental conditions and underlying tables are inaccessible in the public publisher record.",
+    "The denominator for 39.9 Nm3/tFM is not defined in the accessible abstract, and it is unclear whether it refers to incoming roadside grass or pressed grass juice. Do not compare directly with methane yield per tonne VS or per tonne fresh whole grass.",
+    "The source reports biogas, not methane volume; methane fraction and upgrading recovery are not available from the abstract.",
+    "No methane fraction, grass/juice analysis, press recovery, reactor conditions, retention time, loading, replicates, uncertainty, or mass balance is available from the accessible record.",
+    "The publisher states the article is under exclusive copyright; the institutional repository says authors do not have permission to share underlying data. This staged abstract-level evidence is reference-only and no source data files are redistributed.",
+    "The digestate plant trial does not establish fertilizer product grade, nutrient-recovery efficiency, or GreenHub market acceptance. The abstract flags high electrical conductivity and potential allelopathic effects for grass-juice digestate."
+  ],
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "runtime_parameter_mapping": null
+}

@@ -1,0 +1,42 @@
+{
+  "dataset_title": "Feng et al. pilot brown-juice anaerobic-filter abstract observations",
+  "dataset_identifier": "greenhub:ad-reactor:feng-2021-brown-juice-filter-abstract:v1",
+  "source_file": "feng_2021_brown_juice_anaerobic_filter_abstract_reference.csv",
+  "source_file_sha256": "be62e536cb1627e74907fa7280ac17838d756342b63a063a88b8cae2c99f38bd",
+  "source_id": "SRC013",
+  "source_title": "Pilot-scale anaerobic digestion of by-product liquid (brown juice) from grass protein extraction using an un-heated anaerobic filter",
+  "authors": "Lu Feng; Alastair James Ward; Morten Ambye-Jensen; Henrik Bjarne Møller",
+  "reference_year": 2021,
+  "doi": "10.1016/j.psep.2020.12.026",
+  "source_url": "https://doi.org/10.1016/j.psep.2020.12.026",
+  "publisher_record_url": "https://www.sciencedirect.com/science/article/abs/pii/S0957582020319534",
+  "institutional_record_url": "https://pure.au.dk/portal/en/publications/pilot-scale-anaerobic-digestion-of-by-product-liquid-brown-juicef/",
+  "retrieval_date": "2026-11-08",
+  "source_location": "Publisher and Aarhus University records, Abstract; publisher-rendered Substrates and inoculum section snippet for crop composition and collection context.",
+  "document_type": "peer-reviewed primary experimental article; abstract-level extract",
+  "evidence_class": "B_primary_literature_measurement_abstract",
+  "license": "No explicit open reuse license was identified for the article. Only short factual abstract results are transcribed; the article text/PDF is not redistributed.",
+  "rows": 2,
+  "data_basis": "Pilot anaerobic filtration of brown juice as sole substrate. COD removal and the abstract's specific-CH expression are separate records; no unreported pairing or normalized yield is inferred.",
+  "experimental_context": {
+    "location": "Aarhus University Foulum research centre, Denmark",
+    "input_crop": "60% ryegrass and 40% clover, harvested September 2019, as reported in the publisher-rendered source section",
+    "reactor": "Pilot anaerobic filter; no co-digestion substrate; insulated reactor without an installed continuous heating device",
+    "feed_heating": "Brown juice was warmed to 55-60 °C before feeding to maintain digestion temperature; this is feed temperature, not a measured reactor setpoint."
+  },
+  "interpretation_and_limits": [
+    "The abstract reports up to 80% influent COD removal at 5.5 d HRT; ‘up to’ is retained and is not represented as a mean or universal removal fraction.",
+    "The abstract's 230 mL gCOD^-1 d^-1 ‘specific CH production’ expression is stored verbatim. The gas-species rendering and dimensional/time interpretation are unresolved; normalized value is intentionally absent.",
+    "A secondary review table attributes 409.6 L CH4/kg VS to Feng et al. as continuous at 5.5 d, while a separately staged Green Valleys report assigns 409.6 NmL CH4/g VS to a 90-day batch BMP. The Feng abstract does not substantiate that VS-normalized continuous figure; it is excluded pending primary full-text reconciliation.",
+    "No replicates, uncertainty, period-specific feed/gas flows, gas composition, energy use, or digestate measurements are extracted from the abstract.",
+    "Cultivated grass-clover brown juice is a comparator, not GreenHub roadside feed or an isoelectric-precipitation supernatant measurement."
+  ],
+  "normalization": "No conversions. Numeric fields preserve the abstract values; the ambiguous specific-CH metric has no normalized value.",
+  "runtime_policy": "Reference-only; not linked to parameters, equations, defaults, TEA/LCA calculations, or Pareto inputs.",
+  "fair_metadata": {
+    "findable": "Repository-local persistent identifier, source ID, article DOI, URLs, and SHA-256 are recorded.",
+    "accessible": "UTF-8 CSV and JSON metadata sidecar; source records are linked over HTTPS.",
+    "interoperable": "Long-form CSV gives explicit source, phase, metric, value, unit, basis, operating condition, and activation state.",
+    "reusable": "Source locations, license uncertainty, experimental context, unresolved unit, non-activation, and transfer limits are stated."
+  }
+}

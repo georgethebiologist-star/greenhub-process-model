@@ -1,0 +1,51 @@
+{
+  "dataset_id": "urn:greenhub:dataset:feedstock:czubaszek-2023-proximate-ultimate-metals:v1",
+  "title": "Fresh roadside-grass proximate, ultimate and metals reference observations",
+  "source_id": "SRC-CZUBASZEK-2023",
+  "source_title": "Grass from Road Verges as a Substrate for Biogas Production",
+  "authors": [
+    "Robert Czubaszek",
+    "Agnieszka Wysocka-Czubaszek",
+    "Grzegorz Zając",
+    "et al."
+  ],
+  "publication_year": 2023,
+  "doi": "10.3390/en16114488",
+  "doi_url": "https://doi.org/10.3390/en16114488",
+  "transcription_source_url": "https://dspace.library.uu.nl/bitstream/handle/1874/428724/energies_16_04488.pdf?sequence=1",
+  "geography": "Urban road verges and median strips, Białystok, northeastern Poland",
+  "sample_collection_year": 2019,
+  "retrieval_date": "2026-11-08",
+  "source_tables": {
+    "Table 3": "p. 7; proximate and ultimate analysis of fresh grass from spring, summer and autumn cuttings; source units %",
+    "Table 4": "p. 8; metals in fresh grass from three cuttings; source unit mg kgDM-1; n.d. means not detected"
+  },
+  "license": "CC BY 4.0 as stated by the article; transcribed values and source citation are retained.",
+  "data_availability": "The article states no separate underlying dataset is available; this extract reproduces only the published table summaries.",
+  "evidence_class": "B-tier measured literature comparator",
+  "quality_class": "B",
+  "activation_state": "partially_calculation_connected_profile_default_proxy",
+  "calculation_connected": true,
+  "connected_records": [
+    "CZ2023-T4-SU-CHROMIUM",
+    "CZ2023-T4-SU-NICKEL",
+    "CZ2023-T4-SU-CADMIUM",
+    "CZ2023-T4-SU-MERCURY",
+    "CZ2023-T4-SU-LEAD"
+  ],
+  "connected_profile_component": "Greenhub/data/Pre-treatment/Feedstock/greenhub_feed_composition_defaults.json#compounds.HeavyMetals",
+  "connected_calculation": "sum(summer Cr, Ni, Cd, Hg, Pb in mg/kg DM) × VARTA measured kg DM/kg wet × 1e-6 kg/mg",
+  "connected_output_use": "Shared UI/backend feed composition and downstream contaminant tracking; not a compliance result.",
+  "rows": 42,
+  "sha256_csv": "fee014c449b722b37382d2cd7fb16824e2f157e1fed9f6406825195df7ad1670",
+  "transcription_policy": "Literal transcription of reported means, standard deviations, table significance letters and non-detect labels. The connected profile aggregate and wet-basis conversion are recorded separately in connected_calculation; they do not alter source observations or establish GreenHub compliance.",
+  "limitations": [
+    "The material is from Białystok, Poland, collected in 2019 during municipal verge maintenance; it is not a Dutch VARTA sample or GreenHub feed calibration.",
+    "Fresh means not ensiled in the study. Grass was brought to the laboratory, air-dried 24 h at room temperature and cut to 2–4 cm before preparation/analysis; it is not an as-received wet-feed dataset.",
+    "The source states analyses were run in triplicate, but does not establish that these are independent field sites. Analytical n must not be interpreted as spatial replication.",
+    "Elemental nitrogen is not crude protein and is not converted to protein. The reported proximate components are not forced to close to 100%.",
+    "Metal non-detects are censored observations, not zero; the values do not establish regulatory compliance or contaminant removal in downstream products.",
+    "Table 3 ash and sulfur are excluded from this supplemental file because the same source values are already present in the existing feedstock package. Existing Table 1/2/5 and methane-potential extracts are not duplicated.",
+    "Only the explicitly listed summer potentially-toxic-element rows contribute to one GreenHub profile proxy. Remaining observations are reference-only; this proxy does not establish Dutch compliance, chemical speciation, or product quality."
+  ]
+}

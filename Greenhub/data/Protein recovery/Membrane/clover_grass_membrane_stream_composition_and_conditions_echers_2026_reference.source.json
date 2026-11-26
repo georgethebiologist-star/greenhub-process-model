@@ -1,0 +1,54 @@
+{
+  "dataset_id": "urn:greenhub:dataset:protein-recovery:echers-clover-grass-membrane-2026:v1",
+  "persistent_identifier_status": "Repository-local stable dataset identifier; source DOI and publisher-hosted article/SI URLs recorded.",
+  "dataset_version": "1.0.0",
+  "source_file": "clover_grass_membrane_stream_composition_and_conditions_echers_2026_reference.csv",
+  "source_file_sha256": "566cc4d54ea52ba8a3becdb21e33d3f6bf48d96bd68bbaeef7305f2c2f0bf659",
+  "source_id": "ECHERS-CLOVER-GRASSPILOT-MEMBRANE-2026",
+  "title": "Clover-grass pilot membrane stream composition, pigment observations and operating conditions",
+  "citation": "Echers, S. G., Abdul-Khalek, N., Jensen, N. H., Jørgensen, A. K., Mattsson, T., Jørgensen, M. K., Lübeck, P. S., & Lübeck, M. (2026). Selective removal of green pigments and associated proteins from clover-grass protein concentrates: molecular insights into a non-destructive, two-stage membrane-based biorefinery concept for high-quality food protein production. Sustainable Food Technology, 4, 1689–1713. https://doi.org/10.1039/D5FB00771B",
+  "persistent_identifier": "doi:10.1039/D5FB00771B",
+  "source_url": "https://doi.org/10.1039/D5FB00771B",
+  "publisher_article_url": "https://pubs.rsc.org/en/content/articlehtml/2026/fb/d5fb00771b",
+  "publisher_fulltext_pdf_url": "https://pubs.rsc.org/en/content/articlepdf/2026/fb/d5fb00771b",
+  "publisher_supplementary_information_url": "https://www.rsc.org/suppdata/d5/fb/d5fb00771b/d5fb00771b1.pdf",
+  "retrieval_date": "2026-11-08",
+  "reference_year": 2026,
+  "experiment_year": 2022,
+  "geography": "Denmark; study location 57°02′16.5″N, 9°58′42.4″E",
+  "source_locations": [
+    "Methods 2.1–2.2.3; Table 1; Results 3.1; Figure 1B"
+  ],
+  "evidence_class": "B_primary_literature_measurement_and_reported_process_conditions",
+  "license": "Creative Commons Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0), as stated by the publisher. Redistribution and any commercial reuse must comply with this restriction; this extract contains factual observations and method values only, not article text or figures.",
+  "material_scope": "One pilot batch of cultivated Danish clover-grass. Seed Mix 35 was specified as 13% white clover and 87% perennial ryegrass; red clover was also observed. It is not roadside grass and is not the GreenHub isoelectric-precipitation route.",
+  "data_scope": "45 structured records: stream DM and CP including explicit not-reported entries, selected pilot handling/press/membrane conditions, text-reported total pigment concentrations and reported concentration-depletion comparisons.",
+  "experimental_context": {
+    "harvest_date": "2022-08-15",
+    "feed_handling": "15 kg crude harvested leaves (2.1 kg DM) processed within one hour; processing batch is not a seasonal yield measurement.",
+    "wet_fractionation": "Stabilizing solution ratio reported as 1:2 w/w without unambiguous numerator orientation; shredded at 20 °C for at least 5 min; KP6 screw press at 3.3 rpm and 4 bar counterpressure; strainer holes 1 × 1 mm.",
+    "membrane_conditions": "S1: ceramic 60 nm membrane, crossflow velocity 3 m/s, TMP 0.3–0.4 bar, VCF 4.7. S2: 10 kDa polymeric PES, 2 bar TMP, VCF 4.6; diafiltration factor 9.8; second-stage/DF volumetric crossflow approximately 2.9 m³/h.",
+    "analytical_basis": "DM gravimetric; CP estimated as total N × 6.25; Table 1 gives mean ± SD, n=2. Pigment analysis by acetone extraction/UV-Vis; methods report triplicate analyses."
+  },
+  "conversion_or_processing": "Values transcribed as reported. No conversion, stream-flow reconstruction, component recovery, water balance, annualization, scale-up, or transfer factor was applied. Text-reported ratios and ambiguous settings are retained verbatim.",
+  "uncertainty": "Table 1 reports SD with n=2; the process-batch independence of those analytical replicates is not established. Pigment text values have no numeric SD in the extracted result. Operating conditions are from one pilot batch and lack repeatability estimates.",
+  "limitations": [
+    "Concentrations cannot establish component recovery without paired stream flow or mass data; no such balance is supplied by this extract.",
+    "DF C is a liquid concentrate measured at 0.48% DM, not a dried powder or final packaged product.",
+    "S2 permeate and diafiltration permeate DM and CP are explicitly not reported; no imputation was made.",
+    "The 1:2 biomass/stabilizer ratio orientation is not resolved from the article text and is stored verbatim.",
+    "The trial is one cultivated Danish clover-grass batch, not roadside feed, a seasonal supply dataset, or an independently replicated plant campaign.",
+    "This membrane train differs from GreenHub's baseline precipitation route. No route substitution, parameter activation, or product recovery coefficient is inferred.",
+    "The article has a CC BY-NC 3.0 license. Commercial reuse requires a rights review.",
+    "The article reports a related patent and author-company relationships; this is disclosed as context, not an adjustment to the measurements."
+  ],
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "runtime_parameter_mapping": null,
+  "fair_metadata": {
+    "findable": "Local persistent dataset identifier, source ID, DOI, publisher article and SI URLs, and SHA-256 recorded.",
+    "accessible": "UTF-8 CSV and JSON sidecar; primary source linked over HTTPS.",
+    "interoperable": "Long-form records expose phase, process stage, stream, metric, value, unit, basis, uncertainty, exact source location, evidence class and activation state.",
+    "reusable": "Reproducible builder, explicit missingness, replicate limits, rights, non-transferability, and no-runtime-use policy recorded."
+  }
+}

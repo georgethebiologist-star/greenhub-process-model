@@ -1,0 +1,47 @@
+{
+  "dataset_title": "South Holland roadside green-area inventory: grouped area and maintenance summary",
+  "dataset_identifier": "https://data.overheid.nl/en/dataset/a1dbcfc3-2533-46af-9483-7a102488b911",
+  "source_dataset_identifier": "https://nationaalgeoregister.nl/geonetwork?uuid=9B2A50A8-E419-4536-9771-AD2470D66E12",
+  "source_id": "SRC-PZH-GREEN-AREA-INVENTORY-2026",
+  "source_title": "Areaal beheer - Groen - groenobjecten langs de provinciale wegen en vaarwegen in beheer van de provincie Zuid-Holland",
+  "source_url": "https://data.overheid.nl/en/dataset/a1dbcfc3-2533-46af-9483-7a102488b911",
+  "wfs_url": "https://geodata.zuid-holland.nl/geoserver/verkeer/wfs?service=WFS&version=2.0.0&request=GetCapabilities",
+  "feature_type": "verkeer:ABS_W_GROEN",
+  "retrieval_date": "2026-11-06",
+  "geography": "South Holland, Netherlands; provincial roads and waterways under provincial management",
+  "publisher": "Provincie Zuid-Holland",
+  "license": "Public domain, as stated by the national open-data catalog",
+  "evidence_class": "official_administrative_inventory_aggregation",
+  "processing": {
+    "source_records_retrieved": 37188,
+    "geometry_requested": false,
+    "aggregation_rows": 33,
+    "aggregation_keys": ["Type", "Onderhoud_frequentie", "Maaien"],
+    "summed_fields": ["Oppervlakte (m2)", "Opp_correctie (m2)"],
+    "filter_asset_types": ["berm", "grasstenen", "zichthoek"],
+    "filters_note": "All 37,188 published feature records were retrieved as attributes only. The summary retains roadside berms, grass-paving blocks and sightline areas separately; it does not spatially screen geometry or infer grass cover."
+  },
+  "source_fields": {
+    "asset_type_source": "Type",
+    "maintenance_frequency_source": "Onderhoud_frequentie",
+    "mowing_description_source": "Maaien",
+    "mapped_area_m2": "Oppervlakte",
+    "slope_corrected_area_m2": "Opp_correctie"
+  },
+  "model_readiness": "reference_only",
+  "activation_state": "reference_only",
+  "limitations": [
+    "This is a grouping of public administrative inventory attributes, not a measured grass crop or harvested-material dataset.",
+    "Mapped polygon area and slope-corrected area do not establish grass fraction, accessible area, harvest rights, collection efficiency, cut-level mass, dry matter, composition, delivered supply or plant capacity.",
+    "Sightline areas and grass-paving blocks are not assumed to be collectible feedstock; even berms require geometry, vegetation, ecological, access and contract screening.",
+    "The source label 'met meter maaien' is retained verbatim; its operational/English meaning has not been verified.",
+    "Maintenance frequency is preserved as a source label and is not treated as a measured harvest frequency or annual yield.",
+    "No GreenHub default, parameter-registry value, feedstock-resolution rule or scenario input is activated by this reference table."
+  ],
+  "provenance": {
+    "retrieved_by": "GreenHub data collection",
+    "query_mode": "WFS GetFeature; attribute-only; bounded request covering the published 37,188 features",
+    "retrieval_timestamp_utc": "2026-11-06",
+    "transformation": "Grouped selected source attributes and summed the two published area fields; no unit conversion or yield calculation was applied."
+  }
+}

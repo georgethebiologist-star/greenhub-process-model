@@ -1,0 +1,53 @@
+{
+  "dataset_id": "urn:greenhub:dataset:feedstock:pzh-green-management-pzh_provincial_roadside_and_ditch_management_inventory_2026:v1",
+  "dataset_version": "1.0.0",
+  "dataset_file": "pzh_provincial_roadside_and_ditch_management_inventory_2026_reference.csv",
+  "record_count": 16358,
+  "sha256": "8fa4c865ad2cfa5992e928f946a17a2b4d0804c05e839b0c3956a32309a52859",
+  "source_id": "SRC-PZH-GREEN-MANAGEMENT-2026",
+  "title": "feature-level provincial green-management objects classified as roadside berm or ditch bank",
+  "source_name": "Provincie Zuid-Holland, Areaal beheer - Groen (ABS_W_GROEN)",
+  "source_dataset_id": "data.overheid.nl:a1dbcfc3-2533-46af-9483-7a102488b911",
+  "national_georegister_uuid": "9B2A50A8-E419-4536-9771-AD2470D66E12",
+  "doi": null,
+  "source_url": "https://geodata.zuid-holland.nl/geoserver/ows?service=WFS&version=2.0.0&request=GetFeature&typeNames=verkeer%3AABS_W_GROEN",
+  "wfs_capabilities_url": "https://geodata.zuid-holland.nl/geoserver/verkeer/wfs?service=WFS&version=2.0.0&request=GetCapabilities",
+  "catalog_url": "https://data.overheid.nl/en/dataset/a1dbcfc3-2533-46af-9483-7a102488b911",
+  "feature_catalog_url": "https://www.nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search#/metadata/9B2A50A8-E419-4536-9771-AD2470D66E12",
+  "retrieval_date": "2026-11-08",
+  "retrieved_at_utc": "2026-11-08T07:36:09Z",
+  "source_layer": "verkeer:ABS_W_GROEN",
+  "source_feature_count": 37188,
+  "selection": "Type case-insensitively equals 'berm' or 'slootkant'; geometry and non-requested fields omitted.",
+  "geography": "Provincial roads and waterways managed by the Province of Zuid-Holland, Netherlands",
+  "units": {
+    "Oppervlakte": "m2, area of feature",
+    "Opp_correctie": "m2, area corrected for slope"
+  },
+  "evidence_class": "B_official_administrative_management_record",
+  "quality_class": "B",
+  "license": "Public domain according to data.overheid.nl metadata; source catalog entry updated 2026-05-29.",
+  "limitations": [
+    "Official management-object inventory, not harvested grass tonnage or verified execution. Feature areas include only objects classified as berm or slootkant; ditch banks are kept separate from road verges. Maintenance frequency is a plan/code, not a dated mowing event. No yield, collected fraction, supplier contract, wet/dry mass, contamination, storage loss, or plant-delivery record is supplied. Do not convert area to tonnes or runtime availability.",
+    "A management inventory is not proof that mowing occurred, that grass was collected, or that the object is under a GreenHub supply contract.",
+    "No biomass yield, harvested mass, dry-matter content, date-specific mowing record, contamination, storage, or delivery record is supplied.",
+    "Empty maintenance and mowing fields are preserved as empty; they are not inferred.",
+    "Only berm and slootkant feature classes are included; the latter is a separate ditch-bank stream and is not included in roadside-berm totals.",
+    "No conversion from m2 to tonnes, annual yield, nutrient load, TEA, LCA, runtime, or default input is performed."
+  ],
+  "validation": {
+    "returned_wfs_features": 37188,
+    "selected_berm_features": 9726,
+    "selected_slootkant_features": 6632,
+    "berm_slope_corrected_area_m2": 5885056.46,
+    "slootkant_slope_corrected_area_m2": 1752562.27
+  },
+  "activation_state": "reference_only",
+  "runtime_policy": "Not eligible as a feedstock quantity; use only as area/management evidence until yield, execution, collection and contract data are supplied.",
+  "fair_metadata": {
+    "findable": "Local URN, source ID, DataOverheid identifier, NGR UUID, layer name, and content hash are recorded.",
+    "accessible": "Public HTTPS WFS and catalog endpoints; source fields and exact query/filter are recorded.",
+    "interoperable": "UTF-8 CSV with source field names, documented square-metre units, stable feature identifiers, and separate berm/ditch-bank classes.",
+    "reusable": "Retrieval timestamp, filter, checksums, public-domain metadata, source limitations, and no-runtime policy are explicit."
+  }
+}

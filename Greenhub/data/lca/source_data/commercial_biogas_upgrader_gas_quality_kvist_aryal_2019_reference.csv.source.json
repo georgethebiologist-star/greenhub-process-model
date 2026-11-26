@@ -1,0 +1,41 @@
+{
+  "dataset_id": "urn:greenhub:dataset:commercial-biogas-upgrader-gas-quality-kvist-aryal-2019:v1",
+  "title": "Gas composition and methane loss at nine Danish commercial biogas upgrading plants",
+  "source_file": "commercial_biogas_upgrader_gas_quality_kvist_aryal_2019_reference.csv",
+  "source_id": "SRC-KVIST-ARYAL-2019",
+  "record_count": 10,
+  "article_citation": "Kvist, T.; Aryal, N. (2019). Methane loss from commercially operating biogas upgrading plants. Waste Management, 87, 295–300.",
+  "article_doi": "10.1016/j.wasman.2019.02.023",
+  "article_url": "https://doi.org/10.1016/j.wasman.2019.02.023",
+  "primary_article_record_url": "https://pure.au.dk/portal/en/publications/methane-loss-from-commercially-operating-biogas-upgrading-plants/",
+  "transcription_source": "IEA Bioenergy Task 37 (2025), Reduction of methane emissions from biogas systems and landfills, Table 6, pp. 13–14; that report attributes the nine-plant table to Kvist and Aryal (2019). The separate RTO result is transcribed from the original article abstract.",
+  "transcription_source_url": "https://www.ieabioenergy.com/wp-content/uploads/2025/07/IEA-Bioenergy_T37_Reduction-of-methane-emissions-from-biogas-systems-and-landfills-oxidation.pdf",
+  "retrieval_date": "2026-11-07",
+  "license": "Reuse license not identified for the original Waste Management article or the IEA Bioenergy report in the accessed records. Source identities and short factual observations are retained for internal traceability; redistribution rights require review.",
+  "source_location": "IEA Bioenergy Task 37 report Table 6, pp. 13–14; original article abstract for the RTO result",
+  "derivation": "Transcribed the nine plant rows shown in the IEA report's Table 6 and one abstract-level RTO methane-removal result. No gas compositions were normalized or recalculated. Empty cells mean the IEA table did not list that constituent; explicit zeros remain numeric zero.",
+  "study_scope": "Gas was sampled at three amine, four water-scrubber, and two membrane upgrading facilities at commercial Danish biogas plants. The primary article abstract reports an overall mean methane loss of 0.81% relative to methane supplied to the upgrading units and a 99.5% methane-emission reduction in a regenerative thermal oxidizer follow-up test.",
+  "column_basis": {
+    "feed_gas_*_pct": "Before-upgrading gas composition percentages as reproduced in the IEA report. The report labels these gas quality percentages but does not explicitly state a molar or volume basis in the table.",
+    "product_gas_*_pct": "After-upgrading biomethane composition percentages as reproduced in the IEA report. No conversion or renormalization was applied.",
+    "offgas_*_pct": "Upgrader waste-gas composition percentages as reproduced in the IEA report. No conversion or renormalization was applied.",
+    "methane_loss_pct": "Percent of methane supplied to the upgrading unit, per the primary article abstract.",
+    "rto_ch4_removal_pct": "Reported percentage reduction of methane in upgrading waste gas after a selected regenerative thermal oxidizer test; the abstract does not provide the plant ID or detailed test conditions."
+  },
+  "evidence_class": "B_primary_measured_literature_reproduced_in_secondary_table",
+  "quality_class": "B",
+  "geography": "Denmark",
+  "applicability": "Phase 6 reference for technology-specific gas composition and methane losses; can inform measurement planning and technology comparison only. It is not a GreenHub raw-gas specification or default.",
+  "limitations": [
+    "Plant identities, feedstocks, plant scale, upgrader throughput, pressure, time averaging, and replicate uncertainty are not provided in the reproduced table.",
+    "Gas percentages are retained as reported and may not sum to 100% because of rounding, omitted constituents, or incomplete reporting; no balance closure or normalization is implied.",
+    "The IEA table does not explicitly define the gas-composition percentage basis as volume or mole fraction. The published methane-loss denominator is separately identified as methane supplied to the upgrader.",
+    "Missing composition cells remain blank and are not interpreted as zero. Explicit source-reported zeros remain zero.",
+    "The RTO result is a separate follow-up on selected waste gas and is not paired to an identified plant row in the IEA table.",
+    "These are Danish commercial biogas installations, not measurements on GreenHub grass-derived gas, and the plant-level values must not be treated as a representative probability distribution or a single plant default.",
+    "No open reuse license was identified for either source; redistribution rights should be reviewed before external publication."
+  ],
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "runtime_parameter_mapping": null
+}

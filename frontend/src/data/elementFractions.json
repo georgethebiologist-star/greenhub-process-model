@@ -1,0 +1,501 @@
+{
+  "AceticAcid": {
+    "carbon": 0.4000102577834262,
+    "hydrogen": 0.0671378586144399,
+    "oxygen": 0.5328518836021339
+  },
+  "ActivatedCarbon": {
+    "carbon": 1.0
+  },
+  "AminoAcids": {
+    "carbon": 0.45,
+    "hydrogen": 0.07,
+    "nitrogen": 0.15,
+    "oxygen": 0.32,
+    "sulfur": 0.01
+  },
+  "Ammonia": {
+    "hydrogen": 0.17755300484072126,
+    "nitrogen": 0.8224469951592788
+  },
+  "Ammonium": {
+    "hydrogen": 0.2235091022182603,
+    "nitrogen": 0.7764908977817396
+  },
+  "AmmoniumChloride": {
+    "chloride": 0.6627786940195688,
+    "hydrogen": 0.07537203134855545,
+    "nitrogen": 0.2618492746318758
+  },
+  "AmmoniumNitrate": {
+    "hydrogen": 0.05036969962280444,
+    "nitrogen": 0.34997781202588196,
+    "oxygen": 0.5996524883513135
+  },
+  "AmmoniumSulfate": {
+    "hydrogen": 0.06102277350485305,
+    "nitrogen": 0.21199865112269214,
+    "oxygen": 0.4843183931650425,
+    "sulfur": 0.24266018220741226
+  },
+  "AmmoniumZeolite": {
+    "hydrogen": 0.02940677533048889,
+    "nitrogen": 0.1021618052715337,
+    "oxygen": 0.4667844923533384
+  },
+  "Antifoam": {},
+  "Arabinose": {
+    "carbon": 0.40001025778342625,
+    "hydrogen": 0.0671378586144399,
+    "oxygen": 0.5328518836021339
+  },
+  "Ash": {},
+  "BicarbonateIon": {
+    "carbon": 0.19684237990692408,
+    "hydrogen": 0.016519046217404902,
+    "oxygen": 0.786638573875671
+  },
+  "BoundZeatinRiboside": {
+    "carbon": 0.5127551765331824,
+    "hydrogen": 0.06024270306383459,
+    "nitrogen": 0.19932249108842742,
+    "oxygen": 0.22767962931455557
+  },
+  "ButyricAcid": {
+    "carbon": 0.5452895359543236,
+    "hydrogen": 0.09152158240065958,
+    "oxygen": 0.3631888816450168
+  },
+  "CalciumCarbonate": {
+    "calcium": 0.40043202457064814,
+    "carbon": 0.12000271763837225,
+    "oxygen": 0.4795652577909796
+  },
+  "CalciumChloride": {
+    "calcium": 0.36111511569235205,
+    "chloride": 0.638884884307648
+  },
+  "CalciumHydroxide": {
+    "calcium": 0.5409171324346751,
+    "hydrogen": 0.027207546008593562,
+    "oxygen": 0.43187532155673136
+  },
+  "CalciumIon": {
+    "calcium": 1.0
+  },
+  "CalciumOxide": {
+    "calcium": 0.7146907666903245,
+    "oxygen": 0.28530923330967556
+  },
+  "CalciumPhosphate": {
+    "calcium": 0.38763063593147395,
+    "oxygen": 0.41265250072505444,
+    "phosphorus": 0.1997168697914088
+  },
+  "CalciumSulfate": {
+    "calcium": 0.2943868324364664,
+    "oxygen": 0.4700846037111633,
+    "sulfur": 0.23552856385237025
+  },
+  "CapturedHydrogenSulfide": {
+    "hydrogen": 0.05914988110635641,
+    "sulfur": 0.9408501188936436
+  },
+  "CarbonDioxide": {
+    "carbon": 0.2729115304650132,
+    "oxygen": 0.7270884695349867
+  },
+  "CarbonateIon": {
+    "carbon": 0.20014864461771506,
+    "oxygen": 0.7998513553822849
+  },
+  "Cellulose": {
+    "carbon": 0.444,
+    "hydrogen": 0.062,
+    "oxygen": 0.494
+  },
+  "ChlorideIon": {
+    "chloride": 1.0
+  },
+  "CitricAcid": {
+    "carbon": 0.37509306512810087,
+    "hydrogen": 0.04197049897899018,
+    "oxygen": 0.5829364358929089
+  },
+  "DegradedProtein": {
+    "carbon": 0.53,
+    "hydrogen": 0.07,
+    "nitrogen": 0.16,
+    "oxygen": 0.23,
+    "sulfur": 0.01
+  },
+  "DicalciumPhosphate": {
+    "calcium": 0.2945670662686452,
+    "hydrogen": 0.0074082022250316435,
+    "oxygen": 0.47037240581451784,
+    "phosphorus": 0.22765233304164986
+  },
+  "DissolvedPhosphorus": {
+    "phosphorus": 1.0
+  },
+  "ElementalSulfur": {
+    "sulfur": 1.0
+  },
+  "EntrappedSugars": {
+    "carbon": 0.40001025778342625,
+    "hydrogen": 0.0671378586144399,
+    "oxygen": 0.5328518836021339
+  },
+  "FerricOxide": {
+    "oxygen": 0.300574494546247
+  },
+  "FerricSulfide": {
+    "sulfur": 0.4627317988310845
+  },
+  "Flocculant": {},
+  "FormicAcid": {
+    "carbon": 0.2609581930665211,
+    "hydrogen": 0.04379931246629577,
+    "oxygen": 0.6952424944671831
+  },
+  "Fructose": {
+    "carbon": 0.40001025778342625,
+    "hydrogen": 0.0671378586144399,
+    "oxygen": 0.5328518836021339
+  },
+  "Galactose": {
+    "carbon": 0.40001025778342625,
+    "hydrogen": 0.0671378586144399,
+    "oxygen": 0.5328518836021339
+  },
+  "Glucose": {
+    "carbon": 0.40001025778342625,
+    "hydrogen": 0.0671378586144399,
+    "oxygen": 0.5328518836021339
+  },
+  "HeatCoagulatedProtein": {
+    "carbon": 0.53,
+    "hydrogen": 0.07,
+    "nitrogen": 0.16,
+    "oxygen": 0.23,
+    "sulfur": 0.01
+  },
+  "HeavyMetals": {},
+  "Hemicellulose": {
+    "carbon": 0.455,
+    "hydrogen": 0.061,
+    "oxygen": 0.484
+  },
+  "HydrochloricAcid": {
+    "chloride": 0.972355622208314,
+    "hydrogen": 0.027644377791686117
+  },
+  "Hydrogen": {
+    "hydrogen": 1.0
+  },
+  "HydrogenIon": {
+    "hydrogen": 1.0
+  },
+  "HydrogenSulfide": {
+    "hydrogen": 0.05914988110635641,
+    "sulfur": 0.9408501188936436
+  },
+  "HydroxideIon": {
+    "hydrogen": 0.05926499970012948,
+    "oxygen": 0.9407350002998706
+  },
+  "Hydroxyapatite": {
+    "calcium": 0.3989357813190723,
+    "hydrogen": 0.0020066037797432292,
+    "oxygen": 0.41407021715291553,
+    "phosphorus": 0.18498740372065958
+  },
+  "Indole3AceticAcid": {
+    "carbon": 0.6856050063030885,
+    "hydrogen": 0.051782480542168365,
+    "nitrogen": 0.07995423781948988,
+    "oxygen": 0.1826582753352533
+  },
+  "InertSolids": {},
+  "LacticAcid": {
+    "carbon": 0.40001025778342625,
+    "hydrogen": 0.0671378586144399,
+    "oxygen": 0.5328518836021339
+  },
+  "Lignin": {
+    "carbon": 0.65,
+    "hydrogen": 0.06,
+    "oxygen": 0.29
+  },
+  "Lipids": {
+    "carbon": 0.77,
+    "hydrogen": 0.12,
+    "oxygen": 0.11
+  },
+  "Litter": {},
+  "MEADegradationProducts": {
+    "carbon": 0.3932578383408302,
+    "hydrogen": 0.115507927890997,
+    "nitrogen": 0.22930572590642123,
+    "oxygen": 0.26192850786175154
+  },
+  "MagnesiumChloride": {
+    "chloride": 0.7447248742267176,
+    "magnesium": 0.2552751257732825
+  },
+  "MagnesiumHydroxide": {
+    "hydrogen": 0.03456603328413325,
+    "magnesium": 0.4167546872685173,
+    "oxygen": 0.5486792794473495
+  },
+  "MagnesiumIon": {
+    "magnesium": 1.0
+  },
+  "MagnesiumOxide": {
+    "magnesium": 0.6030358968251605,
+    "oxygen": 0.39696410317483943
+  },
+  "MagnesiumSulfate": {
+    "magnesium": 0.20192310887647508,
+    "oxygen": 0.5316846061564741,
+    "sulfur": 0.2663922849670509
+  },
+  "MalicAcid": {
+    "carbon": 0.3582945576408947,
+    "hydrogen": 0.0451022109155041,
+    "oxygen": 0.5966032314436014
+  },
+  "Maltose": {
+    "carbon": 0.42106305037083647,
+    "hydrogen": 0.06478208598580974,
+    "oxygen": 0.5141548636433539
+  },
+  "Mannose": {
+    "carbon": 0.40001025778342625,
+    "hydrogen": 0.0671378586144399,
+    "oxygen": 0.5328518836021339
+  },
+  "Methane": {
+    "carbon": 0.7486819353141602,
+    "hydrogen": 0.25131806468584
+  },
+  "MicrobialBiomass": {
+    "carbon": 0.53,
+    "hydrogen": 0.07,
+    "nitrogen": 0.12,
+    "oxygen": 0.24,
+    "phosphorus": 0.02,
+    "sulfur": 0.01
+  },
+  "Microplastics": {},
+  "Monoethanolamine": {
+    "carbon": 0.3932578383408302,
+    "hydrogen": 0.115507927890997,
+    "nitrogen": 0.22930572590642123,
+    "oxygen": 0.26192850786175154
+  },
+  "NitrateIon": {
+    "nitrogen": 0.2258966630056657,
+    "oxygen": 0.7741033369943343
+  },
+  "NitriteIon": {
+    "nitrogen": 0.3044570757844171,
+    "oxygen": 0.695542924215583
+  },
+  "Nitrogen": {
+    "nitrogen": 1.0
+  },
+  "NonBiodegradableOrganics": {
+    "carbon": 0.5,
+    "hydrogen": 0.06,
+    "oxygen": 0.44
+  },
+  "OrganicNitrogen": {
+    "nitrogen": 1.0
+  },
+  "OrganicPhosphorus": {
+    "phosphorus": 1.0
+  },
+  "Orthophosphate": {
+    "oxygen": 0.6738620919626497,
+    "phosphorus": 0.3261379185668404
+  },
+  "OtherBiodegradableOrganics": {
+    "carbon": 0.45,
+    "hydrogen": 0.07,
+    "oxygen": 0.48
+  },
+  "OxalicAcid": {
+    "carbon": 0.2668010442175299,
+    "hydrogen": 0.022389989301923877,
+    "oxygen": 0.7108089664805461
+  },
+  "Oxygen": {
+    "oxygen": 1.0
+  },
+  "PSAAdsorbent": {
+    "carbon": 1.0
+  },
+  "ParticulateBiodegradableOrganics": {
+    "carbon": 0.45,
+    "hydrogen": 0.07,
+    "oxygen": 0.48
+  },
+  "ParticulateNitrogen": {
+    "nitrogen": 1.0
+  },
+  "ParticulatePhosphorus": {
+    "phosphorus": 1.0
+  },
+  "ParticulatePotassium": {
+    "potassium": 1.0
+  },
+  "PathogenIndicators": {},
+  "Pectin": {
+    "carbon": 0.41,
+    "hydrogen": 0.05,
+    "oxygen": 0.54
+  },
+  "PeptideBoundZeatin": {
+    "carbon": 0.5478256284621382,
+    "hydrogen": 0.059765706673030376,
+    "nitrogen": 0.3194330567818958,
+    "oxygen": 0.0729756080829355
+  },
+  "Peptides": {
+    "carbon": 0.53,
+    "hydrogen": 0.07,
+    "nitrogen": 0.16,
+    "oxygen": 0.23,
+    "sulfur": 0.01
+  },
+  "PersistentOrganics": {},
+  "Pesticides": {},
+  "PotassiumHydroxide": {
+    "hydrogen": 0.01796503880893258,
+    "oxygen": 0.28516562684250635,
+    "potassium": 0.696869334348561
+  },
+  "PotassiumIon": {
+    "potassium": 1.0
+  },
+  "PrecipitatedProtein": {
+    "carbon": 0.53,
+    "hydrogen": 0.07,
+    "nitrogen": 0.16,
+    "oxygen": 0.23,
+    "sulfur": 0.01
+  },
+  "PropionicAcid": {
+    "carbon": 0.48640402470135075,
+    "hydrogen": 0.08163821803183487,
+    "oxygen": 0.43195775726681435
+  },
+  "ProteinBoundIAA": {
+    "carbon": 0.6856050063030885,
+    "hydrogen": 0.051782480542168365,
+    "nitrogen": 0.07995423781948988,
+    "oxygen": 0.1826582753352533
+  },
+  "Sand": {},
+  "Siloxanes": {
+    "carbon": 0.3239396315286821,
+    "hydrogen": 0.08155520799029695,
+    "oxygen": 0.21575927051212654
+  },
+  "SodiumChloride": {
+    "chloride": 0.6066276565369448,
+    "sodium": 0.393372360573812
+  },
+  "SodiumHydroxide": {
+    "hydrogen": 0.025200321353225804,
+    "oxygen": 0.4000139110054179,
+    "sodium": 0.5747857926431632
+  },
+  "SodiumIon": {
+    "sodium": 1.0
+  },
+  "SodiumSulfate": {
+    "oxygen": 0.45055361739832983,
+    "sodium": 0.3237035150273011,
+    "sulfur": 0.22574286757436912
+  },
+  "SodiumZeolite": {
+    "oxygen": 0.45051470701282287,
+    "sodium": 0.16183777978927624
+  },
+  "SolubleInertSolids": {},
+  "SolubleProtein": {
+    "carbon": 0.53,
+    "hydrogen": 0.07,
+    "nitrogen": 0.16,
+    "oxygen": 0.23,
+    "sulfur": 0.01
+  },
+  "Starch": {
+    "carbon": 0.444,
+    "hydrogen": 0.062,
+    "oxygen": 0.494
+  },
+  "Struvite": {
+    "hydrogen": 0.06571561851167097,
+    "magnesium": 0.09903975608209337,
+    "nitrogen": 0.05707550510245041,
+    "oxygen": 0.6519550189096254,
+    "phosphorus": 0.12621410546903158
+  },
+  "SuccinicAcid": {
+    "carbon": 0.4068388297409289,
+    "hydrogen": 0.05121297635221992,
+    "oxygen": 0.5419481939068511
+  },
+  "Sucrose": {
+    "carbon": 0.42106305037083647,
+    "hydrogen": 0.06478208598580974,
+    "oxygen": 0.5141548636433539
+  },
+  "SulfateIon": {
+    "oxygen": 0.6662072440262912,
+    "sulfur": 0.3337927559737088
+  },
+  "SulfuricAcid": {
+    "hydrogen": 0.020553744307619776,
+    "oxygen": 0.6525141906766907,
+    "sulfur": 0.32693206501568944
+  },
+  "SuspendedInertSolids": {},
+  "SuspendedProtein": {
+    "carbon": 0.53,
+    "hydrogen": 0.07,
+    "nitrogen": 0.16,
+    "oxygen": 0.23,
+    "sulfur": 0.01
+  },
+  "SuspendedSolids": {
+    "carbon": 0.45,
+    "hydrogen": 0.07,
+    "nitrogen": 0.03,
+    "oxygen": 0.45
+  },
+  "Water": {
+    "hydrogen": 0.11189834407236524,
+    "oxygen": 0.8881016559276347
+  },
+  "Xylose": {
+    "carbon": 0.40001025778342625,
+    "hydrogen": 0.0671378586144399,
+    "oxygen": 0.5328518836021339
+  },
+  "Zeatin": {
+    "carbon": 0.5478256284621382,
+    "hydrogen": 0.059765706673030376,
+    "nitrogen": 0.3194330567818958,
+    "oxygen": 0.0729756080829355
+  },
+  "ZeatinRiboside": {
+    "carbon": 0.5127551765331824,
+    "hydrogen": 0.06024270306383459,
+    "nitrogen": 0.19932249108842742,
+    "oxygen": 0.22767962931455557
+  }
+}

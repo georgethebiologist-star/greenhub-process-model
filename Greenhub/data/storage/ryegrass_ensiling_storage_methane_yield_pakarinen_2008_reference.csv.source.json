@@ -1,0 +1,48 @@
+{
+  "dataset_id": "urn:greenhub:dataset:storage:pakarinen-ryegrass-ensiling-2008:v1",
+  "dataset_version": "1.0.0",
+  "dataset_file": "ryegrass_ensiling_storage_methane_yield_pakarinen_2008_reference.csv",
+  "record_count": 6,
+  "sha256": "9b40511467833a185e5ed7e1bcf085a9462d1429b421c26cedb77e5603b128cf",
+  "source_id": "SRC-PAKARINEN-ENERGY-CROP-STORAGE-2008",
+  "citation": "Pakarinen, O., Lehtomäki, A., Rissanen, S., & Rintala, J. (2008). Storing energy crops for methane production: Effects of solids content and biological additive. Bioresource Technology, 99(15), 7074-7082.",
+  "publication_year": 2008,
+  "doi": "10.1016/j.biortech.2008.01.007",
+  "source_url": "https://doi.org/10.1016/j.biortech.2008.01.007",
+  "accessible_full_text_url": "https://jyx.jyu.fi/bitstreams/ac243a25-b5f4-42db-8bcd-02e12eebb3c2/download",
+  "retrieval_date": "2026-11-08",
+  "source_locations": [
+    "Table 2, journal p. 7077: laboratory ryegrass storage outcomes, original no-additive treatment rows.",
+    "Methods §§2.1-2.2 and 2.4, journal pp. 7075-7076: crop identity, drying, silos, temperature, oxygen purge, and methane-yield basis."
+  ],
+  "geography": "Laukaa, Finland",
+  "material_scope": "Cultivated Lolium multiflorum-dominant crop; the seed mixture included 17% ryegrass and 83% oat, with oat used as a companion crop; authors state harvested material was mainly ryegrass.",
+  "applicable_phases": [
+    2,
+    5
+  ],
+  "experimental_conditions": "Laboratory material was chopped to about 5 cm; high-solids treatment was spread thin and dried 48 h at 20 C. No-additive treatment was packed in polyethylene bags in 5-L water-lock silos, flushed with N2 for about 3 min, and stored at 20 C. Storage experiments were performed in duplicate; methane assays were performed in triplicate.",
+  "evidence_class": "B_measured_literature_table_extract",
+  "quality_class": "B",
+  "license": "The article is Elsevier-copyrighted; the accessible University of Jyväskylä thesis reprints it with permission. No open-data reuse license was identified. This repository stores six selected factual observations and attribution only, not the source article or table image. Review rights before redistribution outside this project.",
+  "data_availability": "Six selected no-additive rows from Table 2 are transcribed. The full article is accessible as a reprint in the University of Jyväskylä repository; the primary bibliographic identifier is the DOI.",
+  "data_structure": "One row per reported crop-solids/storage-duration condition. Source-reported methane yield per current wet tonne and per original wet tonne are kept as separate columns. Missing methane potential for the high-solids initial sample is intentional because the source footnote says initial methane potential was tested only on the low-solids sample.",
+  "uncertainty": "Methane-potential standard deviations are transcribed where the table reports them. The source does not give SD for all composition, VS-loss, and methane-yield-per-tonne fields in this table extract.",
+  "conversion_or_processing": "Direct transcription of six source table rows. Decimal values and units are retained. No storage kinetics, intermediate values, loss factors, retention ratios, or emissions are inferred. Blank means not reported/not separately tested, not zero.",
+  "limitations": [
+    "Cultivated Finnish crop, not roadside/VARTA grass; companion-oat seed mixture means the study is not pure ryegrass.",
+    "Only anaerobic laboratory ensiling at 20 C is represented; this is not an aerobic-storage dataset.",
+    "Selected rows cover low-solids fresh material and high-solids material dried for 48 h; intermediate 24 h treatments and additive treatments are intentionally outside this small extract.",
+    "Storage times are 0, 2, and 6 months only. Do not interpolate or fit continuous kinetics from these six points.",
+    "Reported methane per original wet tonne incorporates storage VS and mass losses per the methods; it is distinct from methane per current wet tonne and from methane potential per kg VS.",
+    "The study does not provide a complete GreenHub-compatible mass, water, nutrient, or greenhouse-gas emission balance."
+  ],
+  "runtime_policy": "Reference-only; not mapped to the parameter registry, process calculations, model defaults, seasonal schedule, TEA/LCA, or Pareto inputs.",
+  "access_protocol": "HTTPS DOI and University of Jyväskylä repository full-text URL.",
+  "fair_metadata": {
+    "findable": "Repository-local URN, file checksum, source ID, DOI and repository URL.",
+    "accessible": "Machine-readable UTF-8 CSV and JSON sidecar; source access is through HTTPS.",
+    "interoperable": "Long-form CSV with explicit units, solids and storage conditions, time, source table, source basis, quality and activation state.",
+    "reusable": "Citation, checksum, rights warning, experimental context, missingness, transfer limits and no-runtime-use policy are explicit."
+  }
+}

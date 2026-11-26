@@ -1,0 +1,31 @@
+{
+  "dataset_title": "Green Valleys high-sugar brown-juice nanofiltration reference observations",
+  "dataset_identifier": "greenhub:protein-recovery:green-valleys-brown-juice-nf-2020:v1",
+  "source_file": "green_valleys_brown_juice_nanofiltration_2020_reference.csv",
+  "source_id": "SRC-GREEN-VALLEYS-BJ-2020",
+  "source_title": "Status of demonstration facilities at AU Foulum and VGN Sötåsen; Green Valleys project meeting, 18 March 2020",
+  "authors": ["Morten Ambye-Jensen (presenter; individual authorship of extracted tables is not stated in the document)"],
+  "reference_year": 2020,
+  "doi": null,
+  "source_url": "https://agrovast.se/wp-content/uploads/2020/03/Green-Valleys_20200318_3_4.3_4_4A_B_C_DMAJensen_AUAGRO_public-version.pdf",
+  "retrieval_date": "2026-11-07",
+  "source_location": "Presentation sections titled High sugar grass brown juice filtration using pilot and demo plant, Average Retention at 15 bar using GE HL membrane, and demo-scale filtration description; web-extracted PDF lines 407-490.",
+  "document_type": "public project technical presentation / grey literature",
+  "evidence_class": "B_reported_project_measurement",
+  "license": "No explicit reuse license identified; factual values and short labels are transcribed with source attribution.",
+  "rows": 30,
+  "experimental_contexts": {
+    "pilot": "GE HL nanofiltration membrane, pilot plant area 2.6 m2; feed characterization table reports operation at 15 bar and 25 C. Feed, permeate and concentrate concentrations are provided; no stream volumes or component mass recoveries are reported.",
+    "demonstration": "Separate GE HL demo-scale trial with 98 m2 membrane area; 2.03 m3 feed, 2.66 degree Brix, 15 bar and 30 C; concentrate volume 0.12 m3 and reported volume reduction factor 16.9. The presentation attributes low feed Brix mainly to pre-press washing water."
+  },
+  "interpretation_and_limits": [
+    "Pilot chemistry table and demo-scale concentration test are different experiments and must not be joined as if they share one feed composition or operating condition.",
+    "Concentration changes alone do not establish solute mass recovery, rejection, or retention without matched stream flow volumes and sample timing.",
+    "The reported 0.00 mg/L galactose and sucrose in permeate are retained as reported numeric values; analytical detection limits are not stated. Nondetect entries are retained as nd text, not zeros.",
+    "Degree Brix is a refractometric soluble-solids scale and is not treated as dry matter or a sugar-specific mass fraction.",
+    "No flux, filtration runtime, cleaning chemical use, membrane replacement interval, energy demand, or uncertainty is reported for the demo trial; these records cannot complete NF design or TEA/LCA inputs.",
+    "High-sugar grass brown juice from the Green Valleys platform is not confirmed to match GreenHub roadside grass residual juice; all records remain reference-only."
+  ],
+  "normalization": "Values and units are transcribed as reported. No derived recoveries or conversions are included.",
+  "activation_state": "reference_only"
+}

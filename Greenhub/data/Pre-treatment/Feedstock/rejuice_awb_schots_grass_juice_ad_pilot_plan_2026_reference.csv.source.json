@@ -1,0 +1,61 @@
+{
+  "dataset_id": "urn:greenhub:dataset:feedstock:rejuice-awb-schots-grass-juice-ad-pilot-plan-2026:v1",
+  "dataset_version": "1.0.0",
+  "title": "ReJuice AWB Schots grass-juice AD pilot plan and announced monitoring",
+  "source_file": "rejuice_awb_schots_grass_juice_ad_pilot_plan_2026_reference.csv",
+  "source_file_sha256": "3f6a4cb48d76dd486c8ba9f10fe8c19d6fe8a72467b30910112d1708dc0a6d6a",
+  "source_id": "SRC-REJUICE-AWB-SCHOTS-PILOT-PLAN-2026",
+  "citation": "ReJuice / Interreg Vlaanderen-Nederland. (2026-02-06). Pilootreactor biogas bij AWB Schots.",
+  "source_url": "https://interregvlaned.eu/nieuws/pilootreactor-biogas-bij-awb-schots",
+  "project_news_url": "https://interregvlaned.eu/rejuice/nieuws-events",
+  "doi": null,
+  "publication_date": "2026-02-06",
+  "retrieval_date": "2026-11-08",
+  "geography": "Belgium; pilot site identified as A.W.B. Schots, but no exact plot/feed catchment is supplied in the article.",
+  "record_count": 6,
+  "process_phases": [
+    1,
+    3,
+    5,
+    7
+  ],
+  "rights_status": "No explicit dataset reuse license identified; concise factual plan statements are transcribed with attribution. Source pages are linked, not redistributed.",
+  "evidence_class": "first-party project plan",
+  "quality_class": "not_applicable_project_plan_not_measurement",
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "runtime_parameter_mapping": null,
+  "data_handling": "The 2.5 m3 value is a planned reactor size, and 3000–9000 t/year is expected grass-juice output, not measured throughput. Monitoring topics are plans, not published observations. The public article states the installation was planned for February 2026; no claim is made here that it was or was not commissioned.",
+  "data_collection_lead": {
+    "priority": "high",
+    "phases": [
+      1,
+      3,
+      5,
+      7
+    ],
+    "request_from_partners": [
+      "commissioning and operation dates; feed source, harvest date, delivered and press-feed mass",
+      "grass and juice wet mass, dry matter, VS, soluble COD, composition, sediment mass and sample IDs",
+      "press feed/juice/fiber flows and paired composition",
+      "CSTR volume and working volume, HRT, OLR, temperature, pH, alkalinity, recirculation, uptime and feed schedule",
+      "daily standardized biogas flow and CH4/CO2/H2S, meter calibration, methane yield denominator and uncertainty",
+      "digestate flow, TS/VS, total/dissolved N/P/K, ammonium, COD, conductivity, metals and separation partition",
+      "utility, water, chemical and operator logs with timestamps"
+    ],
+    "official_project_news_checked_through": "2026-11-08",
+    "follow_up_event": "The official ReJuice news page lists a final event for 2027-02-22; use this as a retrieval lead, not as proof results will be released."
+  },
+  "limitations": [
+    "This is a project pilot-plan statement, not a measured operating result. The article does not provide actual commissioning status, date-resolved feed mass, grass source/composition, solids/flow basis, reactor loading, HRT, gas composition or measured yield, energy, water, reagent use, or digestate analyses. Do not use design/expected quantities as GreenHub feed availability, capacity, or process parameters. Request the pilot logs and lab records from project partners.",
+    "The expected 3000–9000 t/year quantity is grass juice output, not raw grass supply; it must not be equated to GreenHub's seasonal roadside-feed inventory.",
+    "The public page is a project announcement, not a technical report, raw-data repository, or commissioning certificate.",
+    "No GreenHub user should infer local route parity from this Belgian pilot without matching feed, press configuration, sediment load, basis, and reactor conditions."
+  ],
+  "fair_metadata": {
+    "findable": "Versioned local URN, source ID, project article and news URLs, publication date, and unique observation-plan records are supplied.",
+    "accessible": "UTF-8 CSV and JSON sidecar are indexed in local/global registers and the FAIR catalog.",
+    "interoperable": "Rows separate phase, plan/monitoring item, value, unit, basis/status, evidence and limitations.",
+    "reusable": "Planned versus measured status is explicit, with a prioritized request list for future primary observations."
+  }
+}

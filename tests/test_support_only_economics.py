@@ -61,7 +61,7 @@ def test_biomethane_bonus_has_backend_default_and_uses_simulated_volume():
     economics = result['candidate_economics']
     assert economics['biomethane_bonus_eur_per_year'] == pytest.approx(187)
     assert economics['assumptions']['biomethane_bonus_eur_per_m3'] == DEFAULT_BIOMETHANE_BONUS_EUR_PER_M3
-    assert economics['opex_support_years'] == 15
+    assert economics['opex_support_years'] == DEFAULT_BIOMETHANE_BONUS_YEARS
 
     override_tea = {'totals': {'annual_revenue_eur': 100, 'annual_opex_eur': 50,
                               'screening_capital_basis_eur': 100}}
@@ -76,42 +76,40 @@ def test_biomethane_bonus_has_backend_default_and_uses_simulated_volume():
 
 
 def test_all_published_scenarios_reconcile_to_original_operating_margin():
-    source = Path(__file__).resolve().parents[1] / 'Greenhub/results/pareto_rvo_2026/latest.json'
-    data = json.loads(source.read_text())
+    source = Path(__file__).resolve().parents[1] / 'Greenhub/results/pareto_positive_200_2026/latest_ui.json'
+    data = json.loads(source.read_text(encoding='utf-8'))
     for group in data['groups_payload'].values():
-        by_id = {row['sample_id']: row for row in group['samples']}
-        for row in group['samples']:
-            if row.get('status') != 'evaluated':
-                continue
+        rows = group['scenario_catalog']
+        by_id = {row['sample_id']: row for row in rows}
+        for row in rows:
             totals = row['tea_totals']
             assumptions = row['configuration']['candidate_economics']
-            cash = totals['annual_revenue_eur'] - totals['annual_opex_eur']
+            sales_margin = totals['annual_revenue_eur'] - totals['annual_opex_eur']
+            grass_income = totals.get('grass_utilization_bonus_eur_per_year', 0.0)
             cash_flows = row['candidate_economics']['annual_cash_flows_eur']
             expected = sum(flow / (1 + assumptions['discount_rate'])**year
                            for year, flow in enumerate(cash_flows))
             assert totals['proxy_npv_eur'] == pytest.approx(expected, abs=.001)
+            assert totals['proxy_npv_eur'] > 0
             assert 'after-tax' in totals['proxy_npv_basis'].lower()
             assert totals['optimized_annual_revenue_eur'] == totals['annual_revenue_eur']
             assert totals['optimized_annual_opex_eur'] == totals['annual_opex_eur']
             assert totals['optimization_savings_eur_per_year'] == 0
             assert totals['optimization_revenue_uplift_eur_per_year'] == 0
-            assert row['objectives']['operating_profit']['value'] == pytest.approx(cash)
+            assert totals['annual_gross_profit_eur'] == pytest.approx(sales_margin)
+            assert totals['operating_profit_including_grass_bonus_excluding_public_support_eur_per_year'] == pytest.approx(sales_margin + grass_income)
             for key in ('labour_reduction', 'logistics_reduction', 'energy_reduction',
                         'protein_yield_uplift', 'nutrient_recovery_uplift'):
                 assert key not in assumptions
-        # Independently verify that every advertised frontier member is
-        # nondominated under the recalculated objective values.
         for name, keys in [('net_carbon_vs_npv', ('net_carbon', 'npv')),
                            ('subsidy_vs_npv', ('subsidy_granted', 'npv')),
                            ('net_carbon_npv_subsidy', ('net_carbon', 'npv', 'subsidy_granted'))]:
             for point in group['fronts'][name]['points']:
                 current = by_id[point['sample_id']]
                 def score(row):
-                    return tuple(row['objectives'][key]['value'] * (1 if key == 'npv' else -1) for key in keys)
+                    return tuple(row['values'][key] * (1 if key == 'npv' else -1) for key in keys)
                 scores = score(current)
-                for other in group['samples']:
-                    if not all(other['objectives'][key]['eligible'] for key in keys):
-                        continue
+                for other in rows:
                     candidate = score(other)
                     assert not (all(a >= b for a, b in zip(candidate, scores))
                                 and any(a > b for a, b in zip(candidate, scores)))

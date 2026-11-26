@@ -105,18 +105,18 @@
 .analytics-detail-error { margin:0;padding:0 14px 10px;color:#8d4f2c;font-size:11px; }
 .analytics-hotspot-grid { display:grid;grid-template-columns:minmax(0,1fr);gap:12px; }
 .analytics-hotspot-grid.compact { margin-top:8px; }
-.analytics-hotspot-card { min-width:0;padding:13px;border:1px solid var(--line);border-radius:9px;background:var(--panel); }
+.analytics-hotspot-card { min-width:0;padding:18px 22px;border:1px solid var(--line);border-radius:9px;background:var(--panel);text-align:center; }
 .analytics-hotspot-plot { width:100%;height:230px;min-width:280px;min-height:185px; }
-.analytics-hotspot-empty { display:grid;min-height:120px;place-items:center;color:var(--muted);font-size:11px; }
+.analytics-hotspot-empty { display:grid;min-height:120px;place-items:center;color:var(--muted);font-size:16px; }
 .analytics-hotspot-caveat { grid-column:1/-1;margin:0;color:var(--muted);font-size:10px; }
 .hotspot-category-values { display:grid;gap:6px;margin-top:10px; }
 .hotspot-category-values>div { display:flex;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding-top:6px;font-size:10px; }
 .hotspot-category-values span { color:var(--muted); }
 .hotspot-category-values strong { text-align:right;font-weight:650; }
-.analytics-preview-head { display:flex;align-items:flex-start;justify-content:space-between;gap:20px;padding-bottom:14px;border-bottom:1px solid var(--line); }
-.analytics-preview-head>div:first-child { display:grid;justify-items:start;gap:7px; }
+.analytics-preview-head { display:flex;align-items:center;justify-content:center;gap:20px;padding-bottom:14px;border-bottom:1px solid var(--line);text-align:center; }
+.analytics-preview-head>div:first-child { display:grid;justify-items:center;gap:7px; }
 .analytics-preview-head .eyebrow { margin-top:3px; }
-.analytics-preview-head h2 { margin:0;font-size:24px; }
+.analytics-preview-head h2 { margin:0;font-size:32px;text-align:center; }
 .analytics-preview-head p { max-width:760px;margin:0;color:var(--muted);font-size:11px;line-height:1.55; }
 .preview-only-note { display:grid;gap:5px;max-width:270px;padding:12px;border:1px solid #decf9e;border-radius:9px;background:#fff8e7;color:#6d571e;font-size:10px;line-height:1.45; }
 .preview-only-note span { color:#756b51; }
@@ -149,3 +149,7 @@
 @media(max-width:700px) { .analytics-preview { padding:14px; }.analytics-preview-top,.analytics-preview-config-head { align-items:flex-start;flex-direction:column; }.analytics-preview-controls { grid-template-columns:1fr 1fr; }.analytics-route-switches { grid-template-columns:1fr; }.analytics-preview-chart { height:460px; }.analytics-preview-hotspots { height:345px; }.analytics-hotspot-grid { grid-template-columns:1fr; }.analytics-detail-grid { grid-template-columns:1fr; }.analytics-preview-select { grid-template-columns:1fr;gap:6px; }.analytics-preview-axis-title,.analytics-preview-x-title { font-size:10px; } }
 .optimization-scenario-filters{display:flex;align-items:center;flex-wrap:wrap;gap:8px}.optimization-grass-filter{display:flex;align-items:center;gap:10px;width:max-content;max-width:100%;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--panel-soft);color:var(--text);font-size:11px}.optimization-grass-filter select{min-width:130px;padding:6px 8px;border:1px solid var(--line-strong);border-radius:6px;background:#fff;color:var(--text);font:inherit}.optimization-scenario-filters .optimization-grass-filter:last-child{flex:1 1 330px}.optimization-scenario-filters .optimization-grass-filter:last-child select{flex:1;min-width:220px}
 .analytics-hotspot-error { margin:.55rem 0 0; padding:.55rem .7rem; border-left:3px solid var(--gold,#d1a520); background:rgba(209,165,32,.09); color:var(--ink,#0c3338); font-size:.82rem; line-height:1.35; }
+.analytics-hotspot-card h3 { margin:0 0 14px;font-size:25px;line-height:1.2;text-align:center; }
+.analytics-hotspot-card h3 span { font-size:20px;font-weight:500; }
+.analytics-hotspot-card .recharts-cartesian-axis-tick-value { font-size:14px; }
+.analytics-hotspot-card .recharts-cartesian-axis-line { stroke:var(--ink); }

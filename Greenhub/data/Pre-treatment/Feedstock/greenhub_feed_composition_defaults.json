@@ -4,10 +4,194 @@
   "composition_limits": {
     "minimum_total_fraction": 0.9,
     "maximum_total_fraction": 1.1,
-    "normalized_total_fraction": 1.0
+    "normalized_total_fraction": 1
   },
   "dry_matter_fraction": 0.143,
-  "mass_balance_method": "VARTA measured dry matter plus published dry-basis component estimates converted to wet basis; residual compounds preserve the prior model split proportionally to close mass. This is not a measured component speciation.",
+  "mass_balance_method": "VARTA measured dry matter plus published dry-basis component estimates converted to wet basis. The 7.2% DM Smit roadside-grass extractive-sugar aggregate is partitioned using normalized midpoints of reported Italian ryegrass glucose, fructose, sucrose, and fructosan ranges; this cross-study allocation is class C and preserves the aggregate sugar mass. Starch uses the 34 g/kg DM mean reported by Gierus et al. (2024) for a cultivated perennial-ryegrass NIRS calibration/validation set, scaled using the measured VARTA dry-matter fraction; it is a class-C cross-material proxy, not a roadside-grass or GreenHub-batch assay. The reported 1–169 g/kg DM range is not a probability distribution, and the NIRS R² is 0.77. A low-transferability literature nitrate-N result is converted to nitrate-ion mass using the molecular-weight ratio and the VARTA dry-matter fraction. VARTA measured chloride is represented as chloride ion and separated from the total-ash proxy. Summer roadside-grass Cr, Ni, Cd, Hg, and Pb are summed as a low-transferability contaminant proxy and also deducted from the total-ash proxy to avoid counting these species twice. A low-transferability grass pesticide-residue proxy is calculated from detected residue count and mean detected concentration, with non-detections treated as zero; this is a lower-bound literature proxy, not a VARTA measurement. A PFAS proxy uses the mean of three reported orchard-grass control replicate sums (non-detects treated as zero) and the VARTA dry-matter fraction; it is class C and is not a Dutch roadside-grass assay. Acetic acid uses the untreated landscape-grass value reported by Heller et al. (2023), converted from g/kg fresh matter to kg/kg wet feed; this is a class-C cross-context proxy, not a VARTA measurement. The net closure difference is assigned to ParticulateBiodegradableOrganics; this residual is an unmeasured allocation, not a measured component speciation. The ParticulateBiodegradableOrganics value is the calculated closure residual (1 minus all other stored wet-mass fractions) for this authored profile only; it is not a measured or chemically identified pool and must be recomputed when any component changes. Unmeasured nonzero legacy fractions remain compatibility fallbacks, not evidence of presence or absence.",
+  "analytical_reference": {
+    "sample_name": "Greenhub whole grass",
+    "sample_date": "2026-07-16",
+    "data_class": "A",
+    "source": {
+      "source_id": "SRC-VARTA-2026-10-27",
+      "source_file": "261027 Nutriënten Grasmonsters VARTA.xlsx",
+      "source_csv": "varta_2026_grass_fiber_measurements.csv",
+      "source_workbook_sha256": "F0449B8E18E66DEBF851B58FE6FDAF9678F92225A110BDB4D57EB226260A7DC8",
+      "source_sheet": "Nutriënten Vezel",
+      "source_row": 7,
+      "retrieval_date": "2026-11-07",
+      "geography": "Project-supplied Greenhub sample; collection site not specified",
+      "license": "No external reuse license identified; project-supplied laboratory data"
+    },
+    "activation_status": "Sample-specific analytical reference. Dry matter supplies the current UI moisture default, and the reported chloride analyte is connected to the model ChlorideIon pool. Other total-element measurements are not mapped to chemical species; nitrate and potentially toxic trace-element pools are separate literature-derived C-class estimates, not VARTA measurements. Complete feed-ion speciation and charge balance remain unmeasured.",
+    "measurements": [
+      {
+        "id": "dry_matter_percent",
+        "label": "Dry matter",
+        "value": 14.3,
+        "unit": "% as received",
+        "basis": "Whole-grass sample; measured",
+        "status": "measured",
+        "data_class": "A"
+      },
+      {
+        "id": "nitrogen_g_kg_dm",
+        "label": "Total nitrogen",
+        "value": 21,
+        "unit": "g/kg dry matter",
+        "basis": "Whole-grass sample; total element",
+        "status": "measured",
+        "data_class": "A"
+      },
+      {
+        "id": "sulfur_g_kg_dm",
+        "label": "Total sulfur",
+        "value": 5,
+        "unit": "g/kg dry matter",
+        "basis": "Whole-grass sample; total element",
+        "status": "measured",
+        "data_class": "A"
+      },
+      {
+        "id": "phosphorus_g_kg_dm",
+        "label": "Total phosphorus",
+        "value": 2.8,
+        "unit": "g/kg dry matter",
+        "basis": "Whole-grass sample; total element",
+        "status": "measured",
+        "data_class": "A"
+      },
+      {
+        "id": "potassium_g_kg_dm",
+        "label": "Total potassium",
+        "value": 29.1,
+        "unit": "g/kg dry matter",
+        "basis": "Whole-grass sample; total element",
+        "status": "measured",
+        "data_class": "A"
+      },
+      {
+        "id": "calcium_g_kg_dm",
+        "label": "Calcium",
+        "value": 13.9,
+        "unit": "g/kg dry matter",
+        "basis": "Whole-grass sample; total element",
+        "status": "measured",
+        "data_class": "A"
+      },
+      {
+        "id": "magnesium_g_kg_dm",
+        "label": "Magnesium",
+        "value": 2.2,
+        "unit": "g/kg dry matter",
+        "basis": "Whole-grass sample; total element",
+        "status": "measured",
+        "data_class": "A"
+      },
+      {
+        "id": "sodium_g_kg_dm",
+        "label": "Sodium",
+        "value": 1.3,
+        "unit": "g/kg dry matter",
+        "basis": "Whole-grass sample; total element",
+        "status": "measured",
+        "data_class": "A"
+      },
+      {
+        "id": "chloride_g_kg_dm",
+        "label": "Chloride",
+        "value": 11.7,
+        "unit": "g/kg dry matter",
+        "basis": "Whole-grass sample; reported chloride analyte",
+        "status": "measured",
+        "data_class": "A"
+      },
+      {
+        "id": "iron_mg_kg_dm",
+        "label": "Iron",
+        "value": 380,
+        "unit": "mg/kg dry matter",
+        "basis": "Whole-grass sample; trace element",
+        "status": "measured",
+        "data_class": "A"
+      },
+      {
+        "id": "zinc_mg_kg_dm",
+        "label": "Zinc",
+        "value": 52,
+        "unit": "mg/kg dry matter",
+        "basis": "Whole-grass sample; trace element",
+        "status": "measured",
+        "data_class": "A"
+      },
+      {
+        "id": "manganese_mg_kg_dm",
+        "label": "Manganese",
+        "value": 69,
+        "unit": "mg/kg dry matter",
+        "basis": "Whole-grass sample; trace element",
+        "status": "measured",
+        "data_class": "A"
+      },
+      {
+        "id": "copper_mg_kg_dm",
+        "label": "Copper",
+        "value": 25,
+        "unit": "mg/kg dry matter",
+        "basis": "Whole-grass sample; trace element",
+        "status": "measured",
+        "data_class": "A"
+      },
+      {
+        "id": "boron_mg_kg_dm",
+        "label": "Boron",
+        "value": 16.7,
+        "unit": "mg/kg dry matter",
+        "basis": "Whole-grass sample; trace element",
+        "status": "measured",
+        "data_class": "A"
+      },
+      {
+        "id": "molybdenum_mg_kg_dm",
+        "label": "Molybdenum",
+        "value": 3,
+        "unit": "mg/kg dry matter",
+        "basis": "Whole-grass sample; trace element",
+        "status": "measured",
+        "data_class": "A"
+      },
+      {
+        "id": "crude_protein_g_kg_dm",
+        "label": "Crude protein",
+        "value": null,
+        "unit": "g/kg dry matter",
+        "basis": "No result reported for this sample",
+        "status": "not_reported",
+        "data_class": null
+      }
+    ],
+    "derived_estimates": [
+      {
+        "id": "crude_protein_equivalent_g_kg_dm",
+        "label": "Crude-protein equivalent (total N × 6.25)",
+        "value": 131.25,
+        "unit": "g/kg dry matter",
+        "basis": "Calculated from this sample's measured total nitrogen (21 g/kg dry matter) using the N-to-protein factor 6.25, as explicitly used for crude-protein estimation by Aakjaer Pedersen et al. (2025), Methods §2.2.",
+        "status": "derived_estimate",
+        "data_class": "C",
+        "calculation": {
+          "equation": "total_nitrogen_g_kg_dm * nitrogen_to_protein_factor",
+          "input_measurement_id": "nitrogen_g_kg_dm",
+          "nitrogen_to_protein_factor": 6.25,
+          "method_source_id": "S14_AAKJAER_PEDERSEN_2025",
+          "method_source_doi": "10.3390/proteomes13010008",
+          "method_source_location": "Methods §2.2"
+        },
+        "limitation": "This is a nitrogen-based crude-protein equivalent, not a measured protein assay. It may include non-protein nitrogen and does not identify soluble, insoluble, or extractable protein. It is displayed for interpretation only and is not connected to the feed component profile or any process parameter."
+      }
+    ],
+    "limitation": "The whole-grass and juice samples do not have matched batch lineage. Total-element measurements do not establish ammonium, organic-N, phosphate, or ionic speciation. The reset-default component vector implies 3.386 g N/kg wet feed versus 3.003 g/kg measured and under-represents measured total P, K, and S; it contains no Ca, Mg, or Na component pools. No elemental rescaling or automatic closure has been applied. This comparison describes the reset-default profile only, not live user overrides; see the Phase 1–7 data-collection status report."
+  },
   "compounds": {
     "Water": {
       "label": "Moisture",
@@ -18,13 +202,14 @@
         "data_class": "A",
         "source": "VARTA_2026_10_27/Nutriënten Vezel, Greenhub whole grass row 7",
         "basis": "Measured whole-grass dry matter 14.3%; water by difference 85.7%."
-      }
+      },
+      "value_status": "measured"
     },
     "SolubleProtein": {
       "label": "Soluble protein",
-      "model_baseline_percent": 0.2550166666666666,
+      "model_baseline_percent": 0.3491101694915254,
       "data_class": "C",
-      "wet_mass_fraction": 0.0025501666666666663,
+      "wet_mass_fraction": 0.003491101694915254,
       "source": {
         "data_class": "C",
         "source": "Smit et al. 2022",
@@ -35,17 +220,30 @@
         "source_location": "Results and Discussion, Feedstock Selection and Composition; roadside-grass protein statement. Figure 2 and Supporting Information Tables S1-S6 for feedstock composition.",
         "retrieval_date": "2026-11-05",
         "license": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
-        "basis": "Smit et al. 2022 supports 10.7 g total protein/100 g dry roadside grass. This soluble/suspended partition is the legacy 20/80 model split; the paper does not report this fractionation.",
+        "basis": "Smit et al. 2022 supports 10.7 g total protein/100 g dry roadside grass. For this protein partition, Hoekstra et al. 2008 reports mean ryegrass true-protein N fractions of 175 g/kg total N as buffer-soluble B1N and 592 g/kg total N as non-soluble protein-associated fractions (B2N+B3N+CN). The source label B1N is distinct from BIN, the buffer-insoluble nitrogen assay. Their normalized ratio 175/(175+592) is transferred as a GreenHub-specific class-C split; it is not a GreenHub assay or industrial juice-recovery measurement.",
         "reported_total_protein_dry_basis": 0.107,
-        "partition_assumption": "20% soluble / 80% suspended model allocation; not measured.",
-        "uncertainty": "Partition uncertainty unquantified; only the total protein concentration has direct literature support."
-      }
+        "partition_assumption": "Soluble share = 175/(175+592) = 0.2281616688 from the mean Hoekstra lamina/sheath N fractions; non-soluble share = 0.7718383312. The normalized share is applied to Smit's total protein and converted using the measured VARTA dry-matter fraction. Both pseudo-components use the same 16% N convention. Not measured in GreenHub.",
+        "partition_source_id": "SRC-HOEKSTRA-2008-NFRAC",
+        "partition_source_doi": "10.1016/S1573-5214(08)80035-8",
+        "partition_source_observations": {
+          "soluble_true_protein_n_g_per_kg_total_n": 175,
+          "non_soluble_protein_associated_n_g_per_kg_total_n": 592,
+          "soluble_fraction_code": "B1N",
+          "non_soluble_fraction_codes": [
+            "B2N",
+            "B3N",
+            "CN"
+          ]
+        },
+        "uncertainty": "Transfer uncertainty is not quantified. Hoekstra reports tissue means varying by lamina/sheath and the experiment varied season, nitrogen rate, cultivar, regrowth period, and cutting height. Buffer solubility is only a proxy for the GreenHub model's soluble/suspended distinction."
+      },
+      "value_status": "literature_derived_assumption"
     },
     "SuspendedProtein": {
       "label": "Suspended protein",
-      "model_baseline_percent": 1.2750833333333331,
+      "model_baseline_percent": 1.1809898305084747,
       "data_class": "C",
-      "wet_mass_fraction": 0.012750833333333331,
+      "wet_mass_fraction": 0.011809898305084747,
       "source": {
         "data_class": "C",
         "source": "Smit et al. 2022",
@@ -55,128 +253,203 @@
         "source_location": "Results and Discussion, Feedstock Selection and Composition; roadside-grass protein statement. Figure 2 and Supporting Information Tables S1-S6 for feedstock composition.",
         "retrieval_date": "2026-11-05",
         "license": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
-        "basis": "Smit et al. 2022 supports 10.7 g total protein/100 g dry roadside grass. This soluble/suspended partition is the legacy 20/80 model split; the paper does not report this fractionation.",
+        "basis": "Smit et al. 2022 supports 10.7 g total protein/100 g dry roadside grass. For this protein partition, Hoekstra et al. 2008 reports mean ryegrass true-protein N fractions of 175 g/kg total N as buffer-soluble B1N and 592 g/kg total N as non-soluble protein-associated fractions (B2N+B3N+CN). The source label B1N is distinct from BIN, the buffer-insoluble nitrogen assay. Their normalized ratio 592/(175+592) is transferred as a GreenHub-specific class-C split; it is not a GreenHub assay or industrial juice-recovery measurement.",
         "reported_total_protein_dry_basis": 0.107,
-        "partition_assumption": "20% soluble / 80% suspended model allocation; not measured.",
-        "uncertainty": "Partition uncertainty unquantified; only the total protein concentration has direct literature support."
-      }
+        "partition_assumption": "Non-soluble share = 592/(175+592) = 0.7718383312 from the mean Hoekstra lamina/sheath N fractions; soluble share = 0.2281616688. The normalized share is applied to Smit's total protein and converted using the measured VARTA dry-matter fraction. Both pseudo-components use the same 16% N convention. Not measured in GreenHub.",
+        "partition_source_id": "SRC-HOEKSTRA-2008-NFRAC",
+        "partition_source_doi": "10.1016/S1573-5214(08)80035-8",
+        "partition_source_observations": {
+          "soluble_true_protein_n_g_per_kg_total_n": 175,
+          "non_soluble_protein_associated_n_g_per_kg_total_n": 592,
+          "soluble_fraction_code": "B1N",
+          "non_soluble_fraction_codes": [
+            "B2N",
+            "B3N",
+            "CN"
+          ]
+        },
+        "uncertainty": "Transfer uncertainty is not quantified. Hoekstra reports tissue means varying by lamina/sheath and the experiment varied season, nitrogen rate, cultivar, regrowth period, and cutting height. Buffer solubility is only a proxy for the GreenHub model's soluble/suspended distinction."
+      },
+      "value_status": "literature_derived_assumption"
     },
     "PrecipitatedProtein": {
       "label": "Precipitated protein",
-      "model_baseline_percent": 0.0,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0,
+      "model_baseline_percent": 0,
+      "data_class": null,
+      "record_role": "structural_initial_state",
+      "input_status": "structural_model_state",
+      "wet_mass_fraction": 0,
       "source": {
-        "data_class": "C",
-        "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "data_class": null,
+        "evidence_class": "structural_model_initialization",
+        "source": "GreenHub raw-feed process boundary",
+        "basis": "Initialized at zero because no precipitation has occurred before the raw-feed inlet. This is a model-state convention, not an analytical result or evidence that protein is absent. Use a separate measured pretreated-feed profile if precipitation occurred upstream.",
+        "applicability": "Untreated raw-grass inlet only; not valid for a pretreated feed profile."
+      },
+      "value_status": "structural_initial_state"
     },
     "HeatCoagulatedProtein": {
       "label": "Heat-coagulated protein",
-      "model_baseline_percent": 0.0,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0,
+      "model_baseline_percent": 0,
+      "data_class": null,
+      "record_role": "structural_initial_state",
+      "input_status": "structural_model_state",
+      "wet_mass_fraction": 0,
       "source": {
-        "data_class": "C",
-        "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "data_class": null,
+        "evidence_class": "structural_model_initialization",
+        "source": "GreenHub raw-feed process boundary",
+        "basis": "Initialized at zero because no thermal coagulation has occurred before the raw-feed inlet. This is a model-state convention, not an analytical result or evidence that protein is absent. Use a separate measured pretreated-feed profile if coagulation occurred upstream.",
+        "applicability": "Untreated raw-grass inlet only; not valid for a pretreated feed profile."
+      },
+      "value_status": "structural_initial_state"
     },
     "DegradedProtein": {
       "label": "Degraded protein",
-      "model_baseline_percent": 0.0,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0,
+      "model_baseline_percent": 0,
+      "data_class": null,
+      "record_role": "structural_initial_state",
+      "input_status": "structural_model_state",
+      "wet_mass_fraction": 0,
       "source": {
-        "data_class": "C",
-        "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "data_class": null,
+        "evidence_class": "structural_model_initialization",
+        "source": "GreenHub untreated raw-feed process boundary",
+        "basis": "Initialized at zero at the untreated grass inlet because the simulation applies no upstream protein degradation before this boundary. Storage and thermal quality changes are represented downstream. This is a model-state convention, not an analytical result or proof that a previously stored feed contains no degradation products.",
+        "applicability": "Untreated raw-grass input only; replace with a measured/stored-material profile if upstream degradation occurred.",
+        "uncertainty": "Structural process-state initialization; not a measured material composition."
+      },
+      "value_status": "structural_initial_state"
     },
     "Peptides": {
       "label": "Peptides",
       "model_baseline_percent": 0.08426000000000004,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0008426000000000004
+      "data_class": null,
+      "wet_mass_fraction": 0.0008426000000000004,
+      "source": {
+        "data_class": null,
+        "source": "GreenHub model baseline structural placeholder",
+        "basis": "Legacy structural placeholder; no DOI-linked direct source supports this specific amount. The numeric value is retained only as a legacy compatibility fallback; it is not an analytical result, literature-derived estimate, or evidence of component presence or absence. No direct source supports this exact amount.",
+        "uncertainty": "Unknown; no representative project measurement or defensible transfer interval is registered.",
+        "evidence_class": "unmeasured_numeric_fallback",
+        "applicability": "No sample-specific quantitative evidence supports this exact value; replace with an assay or an explicitly reviewed literature-derived scenario assumption."
+      },
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_numeric_fallback",
+      "value_status": "unmeasured_numeric_fallback"
     },
     "AminoAcids": {
       "label": "Amino acids",
       "model_baseline_percent": 0.08426000000000004,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0008426000000000004
+      "data_class": null,
+      "wet_mass_fraction": 0.0008426000000000004,
+      "source": {
+        "data_class": null,
+        "source": "GreenHub model baseline structural placeholder",
+        "basis": "Legacy structural placeholder; no DOI-linked direct source supports this specific amount. The numeric value is retained only as a legacy compatibility fallback; it is not an analytical result, literature-derived estimate, or evidence of component presence or absence. No direct source supports this exact amount.",
+        "uncertainty": "Unknown; no representative project measurement or defensible transfer interval is registered.",
+        "evidence_class": "unmeasured_numeric_fallback",
+        "applicability": "No sample-specific quantitative evidence supports this exact value; replace with an assay or an explicitly reviewed literature-derived scenario assumption."
+      },
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_numeric_fallback",
+      "value_status": "unmeasured_numeric_fallback"
     },
     "MicrobialBiomass": {
       "label": "Microbial biomass",
-      "model_baseline_percent": 0.0,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0,
+      "model_baseline_percent": 0,
+      "data_class": null,
+      "record_role": "structural_initial_state",
+      "input_status": "structural_model_state",
+      "wet_mass_fraction": 0,
       "source": {
-        "data_class": "C",
-        "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "data_class": null,
+        "evidence_class": "structural_model_initialization",
+        "source": "GreenHub anaerobic digester state initialization",
+        "basis": "Initialized at zero in the incoming grass because this component represents the modelled anaerobic digester microbial inventory, not epiphytic microbes on the harvested plant. Reactor biomass is initialized/formed within the digestion model; this is not a microbial assay.",
+        "applicability": "Raw feed input only; digester inoculum and reactor biomass are separate process-state inputs.",
+        "uncertainty": "Structural process-state initialization; not a measured material composition."
+      },
+      "value_status": "structural_initial_state"
     },
     "EntrappedSugars": {
       "label": "Sugars",
-      "model_baseline_percent": 1.0295999999999998,
-      "data_class": "B",
-      "wet_mass_fraction": 0.010295999999999998,
+      "model_baseline_percent": 0.4784,
+      "data_class": "C",
+      "wet_mass_fraction": 0.004784,
       "source": {
-        "data_class": "B",
-        "source": "Smit et al. 2022",
+        "data_class": "C",
+        "source": "Residual of the Smit roadside-grass extractive-sugar aggregate after literature-proxy allocation to free monosaccharides",
         "source_id": "SRC-SMIT-2022",
         "doi": "10.1021/acssuschemeng.2c00838",
+        "secondary_source_id": "SRC-MASAKI-1976",
+        "secondary_source_doi": "10.2508/chikusan.47.205",
+        "aggregate_source_row_id": "RG_COMP_V1:extractive_sugars",
+        "allocation_source_row_id": "MAS76-NSC-FRUCTOSAN",
         "source_title": "Biomass Pre-Extraction as a Versatile Strategy to Improve Biorefinery Feedstock Flexibility, Sugar Yields, and Lignin Purity",
         "url": "https://doi.org/10.1021/acssuschemeng.2c00838",
-        "source_location": "Main-text discussion accompanying Figure 2; reported roadside-grass extractive sugars",
+        "source_location": "Smit et al. main-text discussion accompanying Figure 2; Masaki & Ohyama (1976), J-STAGE abstract",
         "geography": "Study geography not verified in the available source metadata",
         "reference_year": 2022,
-        "retrieval_date": "2026-11-05",
-        "basis": "Extractive sugars reported as 7.2% of feedstock mass in a dry-basis composition context; converted using the VARTA default dry-matter fraction; represented by the aggregate model sugar pool.",
-        "conversion_method": "0.072 kg/kg dry feed × VARTA dry-matter fraction = wet-feed fraction",
-        "uncertainty": "No uncertainty interval for the 7.2% aggregate value is reported in the cited main-text statement; between-sample variability is not represented.",
-        "applicability": "Roadside-grass literature value; extraction-feed preparation and species mix may differ from Dutch VARTA grass."
-      }
+        "retrieval_date": "2026-11-10",
+        "basis": "Smit et al. reports a 0.072 kg extractive-sugar pool/kg dry roadside grass. Masaki & Ohyama report component ranges for Italian ryegrass; the normalized range midpoints are used only as allocation weights. EntrappedSugars is the remaining aggregate pool after glucose, fructose, and sucrose are allocated.",
+        "conversion_method": "For source-reported ranges glucose 1.0–4.4, fructose 0.7–5.0, sucrose 0.3–4.5, and fructosan 1.2–12.6 % DM: calculate midpoints (2.7, 2.85, 2.4, 6.9), normalize by 14.85, multiply each share by 0.072 kg/kg DM and VARTA DM fraction 0.143. EntrappedSugars is the fructosan-weight remainder; total allocated sugars remain 0.072 kg/kg DM.",
+        "uncertainty": "The source ranges span growth stages and aftermaths but are not means or probability bounds. The range-midpoint ratios are a modelling allocation transferred from cultivated Italian ryegrass to roadside grass; no same-sample free-sugar assay or allocation uncertainty distribution is available.",
+        "applicability": "Class-C GreenHub proxy combining a roadside-grass aggregate with cultivated Italian ryegrass species ratios; not a species-resolved VARTA measurement. Sensitivity should use the published component ranges and matched assays should replace it.",
+        "source_quality_class": "B",
+        "source_ids": [
+          "SRC-SMIT-2022",
+          "SRC-MASAKI-1976"
+        ],
+        "source_dois": [
+          "10.1021/acssuschemeng.2c00838",
+          "10.2508/chikusan.47.205"
+        ],
+        "partition_method": "normalized_midpoint_weights_within_published_aggregate; mass_conserving",
+        "profile_component_dry_basis_fraction": 0.03345454545454545
+      },
+      "value_status": "literature_derived_assumption"
     },
     "Starch": {
       "label": "Starch",
-      "model_baseline_percent": 0.26883999999999997,
-      "data_class": "B",
-      "wet_mass_fraction": 0.0026883999999999996,
+      "model_baseline_percent": 0.4862,
+      "data_class": "C",
+      "wet_mass_fraction": 0.004862,
       "source": {
         "data_class": "B",
-        "source": "Guțu et al. 2025, secondary citation to Chornolata et al. 2018",
-        "source_title": "The Evaluation of the Biomass Quality of Lolium perenne 'Măgura' and Phleum pratense 'Tirom' Grown under the Conditions of Moldova",
-        "url": "https://agronomyjournal.usamv.ro/pdf/2025/issue_2/Art116.pdf",
-        "source_id": "SRC-GUTU-2025",
-        "geography": "Chişinău, Moldova; Phleum pratense 'Tirom' monoculture forage",
-        "reference_year": 2025,
-        "source_location": "p. 974, Results and Discussions; paragraph attributes 1.88% starch in Phleum pratense to Chornolata et al. (2018). The 2025 study's own Table 1 does not measure starch.",
-        "retrieval_date": "2026-11-05",
-        "source_type": "peer-reviewed secondary literature report; primary 2018 source not recovered",
-        "primary_reference": "Chornolata, L.P.; Horbachuk, T.V.; Liakhovchenko, I.A. (2018). Carbohydrate fractions in the green mass of forage crops. Feeds and Feed Production, issue 85, pp. 132–137 (in Ukrainian). The 2025 source reference list identifies this citation; the primary article and its methods/data have not been verified.",
-        "primary_reference_url": "https://fri-journal.com/index.php/journal/issue/view/5",
-        "primary_reference_doi": "",
-        "primary_reference_status": "Bibliographic citation identified from the 2025 paper; primary full text, measurement protocol and uncertainty not verified; no DOI located.",
-        "reported_value_percent_dry_matter": 1.88,
-        "converted_value_g_per_kg_dry_matter": 18.8,
-        "basis": "Published value 1.88% of dry matter converted to 18.8 g/kg dry matter, then to 0.0026884 kg/kg wet grass using the measured VARTA dry-matter fraction 0.143. The value is attributed to Phleum pratense in the cited secondary paper; it is not a GreenHub roadside-grass measurement.",
-        "applicability": "Low-transferability literature proxy: Timothy (Phleum pratense) forage in Moldova used for mixed roadside-grass feed. The primary Chornolata et al. (2018) source and sampling uncertainty have not been recovered.",
-        "uncertainty": "No standard deviation or range is reported for the cited 1.88% value; between-species, harvest-stage and site variability are not quantified."
-      }
+        "source_quality_class": "B",
+        "source": "Gierus et al. 2024",
+        "source_title": "Protein and Carbohydrate Fractionation to Evaluate Perennial Ryegrass (Lolium perenne L.) Accessions",
+        "source_id": "SRC-GIERUS-2024-RYEGRASS-STARCH",
+        "doi": "10.3390/agronomy14010168",
+        "url": "https://www.mdpi.com/2073-4395/14/1/168",
+        "source_url": "https://doi.org/10.3390/agronomy14010168",
+        "source_location": "Table 2, starch row; NIRS calibration and validation summary",
+        "geography": "Asendorf, Malchow, and Hohenschulen, northern Germany",
+        "reference_year": 2024,
+        "retrieval_date": "2026-11-11",
+        "source_type": "peer-reviewed primary study; source-reported NIRS calibration/validation summary",
+        "reported_mean_g_per_kg_dry_matter": 34,
+        "reported_range_min_g_per_kg_dry_matter": 1,
+        "reported_range_max_g_per_kg_dry_matter": 169,
+        "sample_count": 100,
+        "nirs_r_squared": 0.77,
+        "standard_error_calibration_g_per_kg_dry_matter": 1.45,
+        "standard_error_validation_g_per_kg_dry_matter": 2.23,
+        "basis": "Table 2 reports a mean of 34 g/kg DM across 100 source samples. The GreenHub proxy converts 34/1000 × the measured VARTA DM fraction 0.143 = 0.004862 kg/kg wet feed. This value is an adapter assumption, not a GreenHub or roadside-grass measurement.",
+        "applicability": "Low-transferability class-C proxy from cultivated diploid perennial ryegrass with intermediate heading at three northern-German sites; it does not represent the GreenHub roadside mixture or VARTA batch. Use the mean only as an explicitly flagged comparator until matched starch data are measured.",
+        "uncertainty": "The reported 1–169 g/kg DM range is a sample range, not a confidence interval or probability distribution. The source reports NIRS R²=0.77, SEC=1.45 g/kg DM, and SEV=2.23 g/kg DM. Transfer uncertainty to roadside grass is unquantified; no GreenHub starch assay is available."
+      },
+      "value_status": "literature_derived_assumption"
     },
     "Cellulose": {
       "label": "Cellulose",
       "model_baseline_percent": 3.44344,
-      "data_class": "B",
+      "data_class": "C",
       "wet_mass_fraction": 0.0344344,
       "source": {
         "data_class": "B",
+        "source_quality_class": "B",
         "source": "Truba et al. 2017",
         "source_id": "SRC-TRUBA-2017",
         "doi": "10.12911/22998993/66249",
@@ -186,19 +459,21 @@
         "geography": "Siedlce, Poland",
         "reference_year": 2017,
         "retrieval_date": "2026-11-05",
-        "basis": "240.8 g/kg dry matter; Lolium perenne cv. Info proxy converted with VARTA dry matter.",
+        "basis": "240.8 g/kg dry matter; Lolium perenne cv. Info literature measurement transferred as a GreenHub roadside-grass assumption and converted with VARTA dry matter.",
         "conversion_method": "240.8 g/kg dry matter ÷ 1000 × VARTA dry-matter fraction",
         "uncertainty": "Three field replicates and treatment/year LSD results are reported, but no uncertainty interval for the species-average value is given; inter-site and roadside transferability are unquantified.",
-        "applicability": "Polish experimental perennial ryegrass; cultivar, management, soil and harvest stage differ from Dutch roadside grass."
-      }
+        "applicability": "Polish experimental perennial ryegrass; cultivar, management, soil and harvest stage differ from Dutch roadside grass. Source evidence is B; the GreenHub application is a C literature-derived assumption."
+      },
+      "value_status": "literature_derived_assumption"
     },
     "Hemicellulose": {
       "label": "Hemicellulose",
       "model_baseline_percent": 2.14071,
-      "data_class": "B",
+      "data_class": "C",
       "wet_mass_fraction": 0.0214071,
       "source": {
         "data_class": "B",
+        "source_quality_class": "B",
         "source": "Truba et al. 2017",
         "source_id": "SRC-TRUBA-2017",
         "doi": "10.12911/22998993/66249",
@@ -208,19 +483,21 @@
         "geography": "Siedlce, Poland",
         "reference_year": 2017,
         "retrieval_date": "2026-11-05",
-        "basis": "149.7 g/kg dry matter; Lolium perenne cv. Info proxy converted with VARTA dry matter.",
+        "basis": "149.7 g/kg dry matter; Lolium perenne cv. Info literature measurement transferred as a GreenHub roadside-grass assumption and converted with VARTA dry matter.",
         "conversion_method": "149.7 g/kg dry matter ÷ 1000 × VARTA dry-matter fraction",
         "uncertainty": "Three field replicates and treatment/year LSD results are reported, but no uncertainty interval for the species-average value is given; inter-site and roadside transferability are unquantified.",
-        "applicability": "Polish experimental perennial ryegrass; cultivar, management, soil and harvest stage differ from Dutch roadside grass."
-      }
+        "applicability": "Polish experimental perennial ryegrass; cultivar, management, soil and harvest stage differ from Dutch roadside grass. Source evidence is B; the GreenHub application is a C literature-derived assumption."
+      },
+      "value_status": "literature_derived_assumption"
     },
     "Lignin": {
       "label": "Lignin",
       "model_baseline_percent": 0.58916,
-      "data_class": "B",
+      "data_class": "C",
       "wet_mass_fraction": 0.0058916,
       "source": {
         "data_class": "B",
+        "source_quality_class": "B",
         "source": "Truba et al. 2017",
         "source_id": "SRC-TRUBA-2017",
         "doi": "10.12911/22998993/66249",
@@ -230,481 +507,884 @@
         "geography": "Siedlce, Poland",
         "reference_year": 2017,
         "retrieval_date": "2026-11-05",
-        "basis": "ADL 41.2 g/kg dry matter; Lolium perenne cv. Info proxy converted with VARTA dry matter.",
+        "basis": "ADL 41.2 g/kg dry matter; Lolium perenne cv. Info literature measurement transferred as a GreenHub roadside-grass assumption and converted with VARTA dry matter.",
         "conversion_method": "41.2 g/kg dry matter ÷ 1000 × VARTA dry-matter fraction",
         "uncertainty": "Three field replicates and treatment/year LSD results are reported, but no uncertainty interval for the species-average value is given; inter-site and roadside transferability are unquantified.",
-        "applicability": "ADL is an operational lignin proxy and includes cutin/ash; not equivalent to a chemically pure lignin measurement. Polish experimental perennial ryegrass differs from Dutch roadside grass."
-      }
+        "applicability": "ADL is an operational lignin proxy and includes cutin/ash; not equivalent to a chemically pure lignin measurement. Polish experimental perennial ryegrass differs from Dutch roadside grass. Source evidence is B; the GreenHub application is a C literature-derived assumption."
+      },
+      "value_status": "literature_derived_assumption"
     },
     "Pectin": {
       "label": "Pectin",
-      "model_baseline_percent": 0.6319500000000002,
+      "model_baseline_percent": 0.143,
       "data_class": "C",
-      "wet_mass_fraction": 0.006319500000000002
+      "wet_mass_fraction": 0.00143,
+      "source": {
+        "data_class": "C",
+        "source": "Della Rosa et al. 2022, Table 1, FR0 (100% cultivated perennial ryegrass); low-transferability literature proxy",
+        "source_id": "SRC-DELLAROSA-2022-RYEGRASS-COMPOSITION",
+        "source_title": "Substituting ryegrass-based pasture with graded levels of forage rape in the diet of lambs decreases methane emissions and increases propionate, succinate, and primary alcohols in the rumen",
+        "doi": "10.1093/jas/skac223",
+        "url": "https://doi.org/10.1093/jas/skac223",
+        "source_location": "Table 1, FR0 (100% ryegrass) column, printed p. 3; pectin row",
+        "geography": "AgResearch Aorangi Farm, Palmerston North, New Zealand",
+        "reference_year": 2022,
+        "retrieval_date": "2026-11-09",
+        "basis": "10 ± 0.6 g/kg dry matter pectin (operationally measured as homogalacturonan); converted using the separate VARTA sample's measured dry-matter fraction 0.143, giving 1.43 ± 0.086 g/kg wet feed. This is a literature-linked assumption, not a matched GreenHub feed measurement.",
+        "conversion_method": "10 g/kg DM × 0.143 kg DM/kg wet feed = 1.43 g/kg wet feed = 0.00143 kg/kg wet feed; source SD scales to 0.086 g/kg wet feed.",
+        "uncertainty": "The source reports SD 0.6 g/kg DM; composition-table replicate count is not stated. Converted within-study SD is 0.086 g/kg wet feed. Transfer uncertainty from cultivated New Zealand ryegrass to Dutch roadside/VARTA grass is unquantified and not included in the model value.",
+        "applicability": "C-class proxy for the model's pectin pool only. The source operationally quantified homogalacturonan; it is not a matched roadside-grass sample, and transferability is low."
+      },
+      "value_status": "literature_derived_assumption"
     },
     "Glucose": {
       "label": "Glucose",
-      "model_baseline_percent": 0.0,
+      "model_baseline_percent": 0.1872,
       "data_class": "C",
-      "wet_mass_fraction": 0.0,
+      "wet_mass_fraction": 0.001872,
       "source": {
         "data_class": "C",
-        "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "source": "Proxy allocation of Smit et al. roadside-grass extractive sugars using Italian ryegrass literature range midpoints",
+        "source_id": "SRC-MASAKI-1976",
+        "secondary_source_id": "SRC-SMIT-2022",
+        "source_row_id": "MAS76-NSC-GLUCOSE",
+        "aggregate_source_row_id": "RG_COMP_V1:extractive_sugars",
+        "doi": "10.2508/chikusan.47.205",
+        "secondary_source_doi": "10.1021/acssuschemeng.2c00838",
+        "source_title": "Nonstructural Carbohydrates in Italian Ryegrass Determined by Liquid Chromatography",
+        "source_url": "https://doi.org/10.2508/chikusan.47.205",
+        "source_location": "Masaki & Ohyama (1976), J-STAGE abstract; Smit et al. roadside-grass extractive-sugar aggregate",
+        "reference_year": 1976,
+        "retrieval_date": "2026-11-10",
+        "source_quality_class": "B",
+        "reported_range_pct_dm": [
+          1,
+          4.4
+        ],
+        "range_midpoint_pct_dm": 2.7,
+        "allocation_method": "Normalize the midpoint weights of four reported Italian ryegrass sugar ranges, multiply the glucose share by Smit's 0.072 kg extractive sugars/kg DM, then convert using VARTA DM fraction 0.143.",
+        "basis": "kg glucose/kg wet feed; derived partition, not a VARTA or roadside-grass glucose measurement.",
+        "uncertainty": "Published range spans varied growth stages; no per-stage mean, variance, replicate count, or target-material assay is reported. Cross-study midpoint allocation is uncertain.",
+        "applicability": "Class-C proxy for a Dutch roadside-grass profile; Italian ryegrass species and growth-stage mix differ from the VARTA sample."
+      },
+      "value_status": "literature_derived_assumption"
     },
     "Fructose": {
       "label": "Fructose",
-      "model_baseline_percent": 0.0,
+      "model_baseline_percent": 0.1976,
       "data_class": "C",
-      "wet_mass_fraction": 0.0,
+      "wet_mass_fraction": 0.001976,
       "source": {
         "data_class": "C",
-        "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "source": "Proxy allocation of Smit et al. roadside-grass extractive sugars using Italian ryegrass literature range midpoints",
+        "source_id": "SRC-MASAKI-1976",
+        "secondary_source_id": "SRC-SMIT-2022",
+        "source_row_id": "MAS76-NSC-FRUCTOSE",
+        "aggregate_source_row_id": "RG_COMP_V1:extractive_sugars",
+        "doi": "10.2508/chikusan.47.205",
+        "secondary_source_doi": "10.1021/acssuschemeng.2c00838",
+        "source_title": "Nonstructural Carbohydrates in Italian Ryegrass Determined by Liquid Chromatography",
+        "source_url": "https://doi.org/10.2508/chikusan.47.205",
+        "source_location": "Masaki & Ohyama (1976), J-STAGE abstract; Smit et al. roadside-grass extractive-sugar aggregate",
+        "reference_year": 1976,
+        "retrieval_date": "2026-11-10",
+        "source_quality_class": "B",
+        "reported_range_pct_dm": [
+          0.7,
+          5
+        ],
+        "range_midpoint_pct_dm": 2.85,
+        "allocation_method": "Normalize the midpoint weights of four reported Italian ryegrass sugar ranges, multiply the fructose share by Smit's 0.072 kg extractive sugars/kg DM, then convert using VARTA DM fraction 0.143.",
+        "basis": "kg fructose/kg wet feed; derived partition, not a VARTA or roadside-grass fructose measurement.",
+        "uncertainty": "Published range spans varied growth stages; no per-stage mean, variance, replicate count, or target-material assay is reported. Cross-study midpoint allocation is uncertain.",
+        "applicability": "Class-C proxy for a Dutch roadside-grass profile; Italian ryegrass species and growth-stage mix differ from the VARTA sample."
+      },
+      "value_status": "literature_derived_assumption"
     },
     "Sucrose": {
       "label": "Sucrose",
-      "model_baseline_percent": 0.0,
+      "model_baseline_percent": 0.1664,
       "data_class": "C",
-      "wet_mass_fraction": 0.0,
+      "wet_mass_fraction": 0.001664,
       "source": {
         "data_class": "C",
-        "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "source": "Proxy allocation of Smit et al. roadside-grass extractive sugars using Italian ryegrass literature range midpoints",
+        "source_id": "SRC-MASAKI-1976",
+        "secondary_source_id": "SRC-SMIT-2022",
+        "source_row_id": "MAS76-NSC-SUCROSE",
+        "aggregate_source_row_id": "RG_COMP_V1:extractive_sugars",
+        "doi": "10.2508/chikusan.47.205",
+        "secondary_source_doi": "10.1021/acssuschemeng.2c00838",
+        "source_title": "Nonstructural Carbohydrates in Italian Ryegrass Determined by Liquid Chromatography",
+        "source_url": "https://doi.org/10.2508/chikusan.47.205",
+        "source_location": "Masaki & Ohyama (1976), J-STAGE abstract; Smit et al. roadside-grass extractive-sugar aggregate",
+        "reference_year": 1976,
+        "retrieval_date": "2026-11-10",
+        "source_quality_class": "B",
+        "reported_range_pct_dm": [
+          0.3,
+          4.5
+        ],
+        "range_midpoint_pct_dm": 2.4,
+        "allocation_method": "Normalize the midpoint weights of four reported Italian ryegrass sugar ranges, multiply the sucrose share by Smit's 0.072 kg extractive sugars/kg DM, then convert using VARTA DM fraction 0.143.",
+        "basis": "kg sucrose/kg wet feed; derived partition, not a VARTA or roadside-grass sucrose measurement.",
+        "uncertainty": "Published range spans varied growth stages; no per-stage mean, variance, replicate count, or target-material assay is reported. Cross-study midpoint allocation is uncertain.",
+        "applicability": "Class-C proxy for a Dutch roadside-grass profile; Italian ryegrass species and growth-stage mix differ from the VARTA sample."
+      },
+      "value_status": "literature_derived_assumption"
     },
     "Xylose": {
       "label": "Xylose",
-      "model_baseline_percent": 0.0,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0,
+      "model_baseline_percent": 0,
+      "data_class": null,
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_zero_fallback",
+      "wet_mass_fraction": 0,
       "source": {
-        "data_class": "C",
-        "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "data_class": null,
+        "evidence_class": "unmeasured_numeric_fallback",
+        "source": "No sample-specific analytical measurement is registered",
+        "basis": "No concentration was measured for this batch. The numeric zero is retained only as a compatibility fallback for the current simulation; it must not be interpreted as absence or a detection-limit result.",
+        "applicability": "No feedstock/site transfer is supported; replace with an analytical sample profile when measured.",
+        "uncertainty": "Unknown. The simulation fallback does not quantify the analyte or component flow."
+      },
+      "value_status": "unmeasured_numeric_fallback"
     },
     "Arabinose": {
       "label": "Arabinose",
-      "model_baseline_percent": 0.0,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0,
+      "model_baseline_percent": 0,
+      "data_class": null,
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_zero_fallback",
+      "wet_mass_fraction": 0,
       "source": {
-        "data_class": "C",
-        "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "data_class": null,
+        "evidence_class": "unmeasured_numeric_fallback",
+        "source": "No sample-specific analytical measurement is registered",
+        "basis": "No concentration was measured for this batch. The numeric zero is retained only as a compatibility fallback for the current simulation; it must not be interpreted as absence or a detection-limit result.",
+        "applicability": "No feedstock/site transfer is supported; replace with an analytical sample profile when measured.",
+        "uncertainty": "Unknown. The simulation fallback does not quantify the analyte or component flow."
+      },
+      "value_status": "unmeasured_numeric_fallback"
     },
     "Galactose": {
       "label": "Galactose",
-      "model_baseline_percent": 0.0,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0,
+      "model_baseline_percent": 0,
+      "data_class": null,
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_zero_fallback",
+      "wet_mass_fraction": 0,
       "source": {
-        "data_class": "C",
-        "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "data_class": null,
+        "evidence_class": "unmeasured_numeric_fallback",
+        "source": "No sample-specific analytical measurement is registered",
+        "basis": "No concentration was measured for this batch. The numeric zero is retained only as a compatibility fallback for the current simulation; it must not be interpreted as absence or a detection-limit result.",
+        "applicability": "No feedstock/site transfer is supported; replace with an analytical sample profile when measured.",
+        "uncertainty": "Unknown. The simulation fallback does not quantify the analyte or component flow."
+      },
+      "value_status": "unmeasured_numeric_fallback"
     },
     "Mannose": {
       "label": "Mannose",
-      "model_baseline_percent": 0.0,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0,
+      "model_baseline_percent": 0,
+      "data_class": null,
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_zero_fallback",
+      "wet_mass_fraction": 0,
       "source": {
-        "data_class": "C",
-        "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "data_class": null,
+        "evidence_class": "unmeasured_numeric_fallback",
+        "source": "No sample-specific analytical measurement is registered",
+        "basis": "No concentration was measured for this batch. The numeric zero is retained only as a compatibility fallback for the current simulation; it must not be interpreted as absence or a detection-limit result.",
+        "applicability": "No feedstock/site transfer is supported; replace with an analytical sample profile when measured.",
+        "uncertainty": "Unknown. The simulation fallback does not quantify the analyte or component flow."
+      },
+      "value_status": "unmeasured_numeric_fallback"
     },
     "Maltose": {
       "label": "Maltose",
-      "model_baseline_percent": 0.0,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0,
+      "model_baseline_percent": 0,
+      "data_class": null,
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_zero_fallback",
+      "wet_mass_fraction": 0,
       "source": {
-        "data_class": "C",
-        "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "data_class": null,
+        "evidence_class": "unmeasured_numeric_fallback",
+        "source": "No sample-specific analytical measurement is registered",
+        "basis": "No concentration was measured for this batch. The numeric zero is retained only as a compatibility fallback for the current simulation; it must not be interpreted as absence or a detection-limit result.",
+        "applicability": "No feedstock/site transfer is supported; replace with an analytical sample profile when measured.",
+        "uncertainty": "Unknown. The simulation fallback does not quantify the analyte or component flow."
+      },
+      "value_status": "unmeasured_numeric_fallback"
     },
     "AceticAcid": {
       "label": "Acetic acid",
-      "model_baseline_percent": 0.0,
+      "model_baseline_percent": 0.009,
       "data_class": "C",
-      "wet_mass_fraction": 0.0,
+      "wet_mass_fraction": 0.00009,
       "source": {
         "data_class": "C",
-        "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "source_quality_class": "B",
+        "source": "Heller et al. (2023), untreated landscape-management grass",
+        "source_id": "S13_HELLER_2023_LANDSCAPE_GRASS",
+        "source_row_id": "HLR23-COMP-UT",
+        "source_title": "Comparison of Different Mechanical Pretreatment Methods for the Anaerobic Digestion of Landscape Management Grass",
+        "authors": "René Heller; Christina Brandhorst; Benedikt Hülsemann; Andreas Lemmer; Hans Oechsner",
+        "doi": "10.3390/en16248091",
+        "source_url": "https://doi.org/10.3390/en16248091",
+        "source_location": "Table 1; Results section 3.2; untreated (UT) material",
+        "reference_year": 2023,
+        "retrieval_date": "2026-11-09",
+        "license": "CC BY 4.0, as stated by the open-access publisher",
+        "geography": "Swabian Alb region and University of Hohenheim research setting, Germany",
+        "reported_value_g_per_kg_fresh_matter": 0.09,
+        "basis": "Table 1 reports 0.09 g acetic acid per kg fresh matter for untreated (UT) landscape-management grass. Converted as 0.09 g/kg × 1 kg/1000 g = 0.00009 kg/kg wet feed.",
+        "conversion_method": "0.09 g/kg fresh matter ÷ 1000 g/kg = 0.00009 kg/kg wet feed; no dry-matter conversion.",
+        "applicability": "Proxy only: German orchard/lowland-meadow landscape grass is not the project-supplied Dutch roadside-grass sample; harvesting, maturity, storage, and analytical conditions differ.",
+        "uncertainty": "The source reports n=2 acetic-acid analyses but no standard deviation in Table 1; transfer uncertainty to GreenHub roadside grass is unquantified.",
+        "activation_status": "Low-transferability class-C default proxy; replace with matched GreenHub feed assay when available."
+      },
+      "value_status": "literature_derived_assumption"
     },
     "LacticAcid": {
       "label": "Lactic acid",
-      "model_baseline_percent": 0.0,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0,
+      "model_baseline_percent": 0,
+      "data_class": null,
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_zero_fallback",
+      "wet_mass_fraction": 0,
       "source": {
-        "data_class": "C",
-        "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "data_class": null,
+        "evidence_class": "unmeasured_numeric_fallback",
+        "source": "No sample-specific analytical measurement is registered",
+        "basis": "No concentration was measured for this batch. The numeric zero is retained only as a compatibility fallback for the current simulation; it must not be interpreted as absence or a detection-limit result.",
+        "applicability": "No feedstock/site transfer is supported; replace with an analytical sample profile when measured.",
+        "uncertainty": "Unknown. The simulation fallback does not quantify the analyte or component flow."
+      },
+      "value_status": "unmeasured_numeric_fallback"
     },
     "PropionicAcid": {
       "label": "Propionic acid",
-      "model_baseline_percent": 0.0,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0,
+      "model_baseline_percent": 0,
+      "data_class": null,
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_zero_fallback",
+      "wet_mass_fraction": 0,
       "source": {
-        "data_class": "C",
-        "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "data_class": null,
+        "evidence_class": "unmeasured_numeric_fallback",
+        "source": "No sample-specific analytical measurement is registered",
+        "basis": "No concentration was measured for this batch. The numeric zero is retained only as a compatibility fallback for the current simulation; it must not be interpreted as absence or a detection-limit result.",
+        "applicability": "No feedstock/site transfer is supported; replace with an analytical sample profile when measured.",
+        "uncertainty": "Unknown. The simulation fallback does not quantify the analyte or component flow."
+      },
+      "value_status": "unmeasured_numeric_fallback"
     },
     "ButyricAcid": {
       "label": "Butyric acid",
-      "model_baseline_percent": 0.0,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0,
+      "model_baseline_percent": 0,
+      "data_class": null,
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_zero_fallback",
+      "wet_mass_fraction": 0,
       "source": {
-        "data_class": "C",
-        "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "data_class": null,
+        "evidence_class": "unmeasured_numeric_fallback",
+        "source": "No sample-specific analytical measurement is registered",
+        "basis": "No concentration was measured for this batch. The numeric zero is retained only as a compatibility fallback for the current simulation; it must not be interpreted as absence or a detection-limit result.",
+        "applicability": "No feedstock/site transfer is supported; replace with an analytical sample profile when measured.",
+        "uncertainty": "Unknown. The simulation fallback does not quantify the analyte or component flow."
+      },
+      "value_status": "unmeasured_numeric_fallback"
     },
     "FormicAcid": {
       "label": "Formic acid",
-      "model_baseline_percent": 0.0,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0,
+      "model_baseline_percent": 0,
+      "data_class": null,
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_zero_fallback",
+      "wet_mass_fraction": 0,
       "source": {
-        "data_class": "C",
-        "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "data_class": null,
+        "evidence_class": "unmeasured_numeric_fallback",
+        "source": "No sample-specific analytical measurement is registered",
+        "basis": "No concentration was measured for this batch. The numeric zero is retained only as a compatibility fallback for the current simulation; it must not be interpreted as absence or a detection-limit result.",
+        "applicability": "No feedstock/site transfer is supported; replace with an analytical sample profile when measured.",
+        "uncertainty": "Unknown. The simulation fallback does not quantify the analyte or component flow."
+      },
+      "value_status": "unmeasured_numeric_fallback"
     },
     "SuccinicAcid": {
       "label": "Succinic acid",
-      "model_baseline_percent": 0.0,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0,
+      "model_baseline_percent": 0,
+      "data_class": null,
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_zero_fallback",
+      "wet_mass_fraction": 0,
       "source": {
-        "data_class": "C",
-        "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "data_class": null,
+        "evidence_class": "unmeasured_numeric_fallback",
+        "source": "No sample-specific analytical measurement is registered",
+        "basis": "No concentration was measured for this batch. The numeric zero is retained only as a compatibility fallback for the current simulation; it must not be interpreted as absence or a detection-limit result.",
+        "applicability": "No feedstock/site transfer is supported; replace with an analytical sample profile when measured.",
+        "uncertainty": "Unknown. The simulation fallback does not quantify the analyte or component flow."
+      },
+      "value_status": "unmeasured_numeric_fallback"
     },
     "CitricAcid": {
       "label": "Citric acid",
-      "model_baseline_percent": 0.0,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0,
+      "model_baseline_percent": 0,
+      "data_class": null,
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_zero_fallback",
+      "wet_mass_fraction": 0,
       "source": {
-        "data_class": "C",
-        "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "data_class": null,
+        "evidence_class": "unmeasured_numeric_fallback",
+        "source": "No sample-specific analytical measurement is registered",
+        "basis": "No concentration was measured for this batch. The numeric zero is retained only as a compatibility fallback for the current simulation; it must not be interpreted as absence or a detection-limit result.",
+        "applicability": "No feedstock/site transfer is supported; replace with an analytical sample profile when measured.",
+        "uncertainty": "Unknown. The simulation fallback does not quantify the analyte or component flow."
+      },
+      "value_status": "unmeasured_numeric_fallback"
     },
     "MalicAcid": {
       "label": "Malic acid",
-      "model_baseline_percent": 0.0,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0,
+      "model_baseline_percent": 0,
+      "data_class": null,
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_zero_fallback",
+      "wet_mass_fraction": 0,
       "source": {
-        "data_class": "C",
-        "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "data_class": null,
+        "evidence_class": "unmeasured_numeric_fallback",
+        "source": "No sample-specific analytical measurement is registered",
+        "basis": "No concentration was measured for this batch. The numeric zero is retained only as a compatibility fallback for the current simulation; it must not be interpreted as absence or a detection-limit result.",
+        "applicability": "No feedstock/site transfer is supported; replace with an analytical sample profile when measured.",
+        "uncertainty": "Unknown. The simulation fallback does not quantify the analyte or component flow."
+      },
+      "value_status": "unmeasured_numeric_fallback"
     },
     "OxalicAcid": {
       "label": "Oxalic acid",
-      "model_baseline_percent": 0.0,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0,
+      "model_baseline_percent": 0,
+      "data_class": null,
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_zero_fallback",
+      "wet_mass_fraction": 0,
       "source": {
-        "data_class": "C",
-        "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "data_class": null,
+        "evidence_class": "unmeasured_numeric_fallback",
+        "source": "No sample-specific analytical measurement is registered",
+        "basis": "No concentration was measured for this batch. The numeric zero is retained only as a compatibility fallback for the current simulation; it must not be interpreted as absence or a detection-limit result.",
+        "applicability": "No feedstock/site transfer is supported; replace with an analytical sample profile when measured.",
+        "uncertainty": "Unknown. The simulation fallback does not quantify the analyte or component flow."
+      },
+      "value_status": "unmeasured_numeric_fallback"
     },
     "Lipids": {
       "label": "Lipids",
-      "model_baseline_percent": 0.3370400000000002,
+      "model_baseline_percent": 0.5863,
       "data_class": "C",
-      "wet_mass_fraction": 0.0033704000000000017
+      "wet_mass_fraction": 0.005863,
+      "source": {
+        "data_class": "C",
+        "source": "Della Rosa et al. 2022, Table 1, FR0 (100% cultivated perennial ryegrass); crude-fat proxy for model lipid pool",
+        "source_id": "SRC-DELLAROSA-2022-RYEGRASS-COMPOSITION",
+        "source_title": "Substituting ryegrass-based pasture with graded levels of forage rape in the diet of lambs decreases methane emissions and increases propionate, succinate, and primary alcohols in the rumen",
+        "doi": "10.1093/jas/skac223",
+        "url": "https://doi.org/10.1093/jas/skac223",
+        "source_location": "Table 1, FR0 (100% ryegrass) column, printed p. 3; crude fat row",
+        "geography": "AgResearch Aorangi Farm, Palmerston North, New Zealand",
+        "reference_year": 2022,
+        "retrieval_date": "2026-11-09",
+        "basis": "41 ± 3 g/kg dry matter crude fat; converted using the separate VARTA sample's measured dry-matter fraction 0.143, giving 5.863 ± 0.429 g/kg wet feed. Crude fat is an operational assay and is used as a low-transferability proxy for the model's lipid pool, not as chemically identical total lipid.",
+        "conversion_method": "41 g/kg DM × 0.143 kg DM/kg wet feed = 5.863 g/kg wet feed = 0.005863 kg/kg wet feed; source SD scales to 0.429 g/kg wet feed.",
+        "uncertainty": "The source reports SD 3 g/kg DM; composition-table replicate count is not stated. Converted within-study SD is 0.429 g/kg wet feed. Assay-to-model-pool and between-site transfer uncertainties are unquantified and not included in the model value.",
+        "applicability": "C-class crude-fat proxy for the model lipid pool only. The source is cultivated New Zealand ryegrass, not Dutch roadside/VARTA grass; low transferability. The paper prints an AOAC method code that should be verified before method equivalence is assumed."
+      },
+      "value_status": "literature_derived_assumption"
     },
     "OtherBiodegradableOrganics": {
       "label": "Other biodegradable organics",
-      "model_baseline_percent": 0.0,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0,
+      "model_baseline_percent": 0,
+      "data_class": null,
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_zero_fallback",
+      "wet_mass_fraction": 0,
       "source": {
-        "data_class": "C",
-        "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "data_class": null,
+        "evidence_class": "unmeasured_numeric_fallback",
+        "source": "No sample-specific analytical measurement is registered",
+        "basis": "No concentration was measured for this batch. The numeric zero is retained only as a compatibility fallback for the current simulation; it must not be interpreted as absence or a detection-limit result.",
+        "applicability": "No feedstock/site transfer is supported; replace with an analytical sample profile when measured.",
+        "uncertainty": "Unknown. The simulation fallback does not quantify the analyte or component flow."
+      },
+      "value_status": "unmeasured_numeric_fallback"
     },
     "ParticulateBiodegradableOrganics": {
       "label": "Particulate biodegradable organics",
-      "model_baseline_percent": 0.6319500000000002,
-      "data_class": "C",
-      "wet_mass_fraction": 0.006319500000000002
+      "model_baseline_percent": 0.6074170372953298,
+      "data_class": null,
+      "wet_mass_fraction": 0.006074170372953298,
+      "source": {
+        "data_class": null,
+        "source": "Calculated residual allocation used to close the active feed profile after literature-linked starch, pectin, crude-fat, nitrate, trace-metal, pesticide-residue, PFAS, and acetic-acid proxy updates",
+        "basis": "Unmeasured residual pool adjusted for the class-C starch and pectin proxies, crude-fat proxy, nitrate-ion proxy, trace-metal proxy deducted from the ash pool, pesticide-residue proxy, PFAS proxy, and acetic-acid proxy. This is bookkeeping, not an independent measurement or literature value. At the authored profile baseline, this exact numeric value is 1 minus the sum of all other wet-mass fractions. It closes the stored profile; it is not a measured or separately identified chemical fraction and must be recalculated when other composition inputs change.",
+        "uncertainty": "The closure arithmetic is exact for this stored profile; the physical identity and composition of the residual are unmeasured and uncertain.",
+        "evidence_class": "derived_model_residual",
+        "applicability": "Profile-specific closure only; not a transferable feedstock concentration."
+      },
+      "record_role": "derived_profile_residual",
+      "input_status": "calculated_baseline_mass_balance_residual",
+      "value_status": "derived_residual"
     },
     "NonBiodegradableOrganics": {
       "label": "Non-biodegradable organics",
       "model_baseline_percent": 0.21065000000000006,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0021065000000000007
+      "data_class": null,
+      "wet_mass_fraction": 0.0021065000000000007,
+      "source": {
+        "data_class": null,
+        "source": "GreenHub model baseline structural placeholder",
+        "basis": "Legacy structural placeholder; no DOI-linked direct source supports this specific amount. The numeric value is retained only as a legacy compatibility fallback; it is not an analytical result, literature-derived estimate, or evidence of component presence or absence. No direct source supports this exact amount.",
+        "uncertainty": "Unknown; no representative project measurement or defensible transfer interval is registered.",
+        "evidence_class": "unmeasured_numeric_fallback",
+        "applicability": "No sample-specific quantitative evidence supports this exact value; replace with an assay or an explicitly reviewed literature-derived scenario assumption."
+      },
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_numeric_fallback",
+      "value_status": "unmeasured_numeric_fallback"
     },
     "PersistentOrganics": {
       "label": "Persistent organics",
-      "model_baseline_percent": 0.0002106500000000001,
+      "model_baseline_percent": 3.56213e-8,
       "data_class": "C",
-      "wet_mass_fraction": 2.106500000000001e-06,
+      "wet_mass_fraction": 3.56213e-10,
       "source": {
         "data_class": "C",
-        "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Unvalidated trace-level placeholder inherited from the legacy profile; not a measured roadside-grass concentration and not supported by direct literature for this value.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "source_quality_class": "B",
+        "source_evidence_class": "Primary orchard-grass PFAS measurement; GreenHub application is a material- and geography-transfer proxy.",
+        "source_id": "SRC-KOSIARSKI-2025",
+        "source": "Kosiarski, Usner & Preisendanz 2025, control orchard-grass first cutting",
+        "source_title": "From wastewater to feed: Understanding per- and polyfluoroalkyl substances occurrence in wastewater-irrigated crops",
+        "doi": "10.1002/jeq2.20630",
+        "url": "https://doi.org/10.1002/jeq2.20630",
+        "dataset_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11718136/",
+        "source_location": "Table 2, orchard grass first cutting, Control (C), Replicates 1–3; table values in µg/kg dry weight; first cutting harvested 2023-07-08.",
+        "geography": "Greenhouse experiment at Penn State University Park, Pennsylvania, USA; orchard grass (Dactylis glomerata); control soil and tap-water treatment.",
+        "reference_year": 2025,
+        "retrieval_date": "2026-11-09",
+        "reported_target_analyte_count": 40,
+        "reported_detected_analyte_count": 8,
+        "reported_replicate_sums_ug_per_kg_dry": [
+          4.595,
+          1.824,
+          1.054
+        ],
+        "reported_replicate_count": 3,
+        "mean_detected_target_sum_ug_per_kg_dry": 2.491,
+        "basis": "Mean sum of the reported concentrations of targeted PFAS in the three control first-cutting orchard-grass replicates, with table non-detects treated as zero. This is a lower-bound aggregate of 40 targeted analytes, not a measurement of all persistent organics.",
+        "conversion_method": "mean(4.595, 1.824, 1.054) µg/kg dry × GreenHub VARTA dry_matter_fraction 0.143 × 1e-9 kg/µg = 3.56213e-10 kg targeted PFAS/kg GreenHub wet-feed proxy.",
+        "uncertainty": "Only three composite subsamples from one greenhouse control treatment and one harvest were reported; they are not three independent roadside sites. Non-detects treated as zero bias the total downward. Unmeasured PFAS, precursors, extraction recoveries, and Dutch roadside transfer are not quantified.",
+        "license": "Source article is CC BY-NC 4.0; this is a cited derived summary, not a redistribution of the article or its full raw dataset.",
+        "applicability": "Class C transfer proxy for the model's PFAS-only PersistentOrganics pool. Not Dutch roadside grass, not a VARTA assay, not a compliance result, and not a claim that PFAS are absent. Replace with matched, analyte-resolved assays on incoming grass and separated process fractions."
+      },
+      "value_status": "literature_derived_assumption"
     },
     "Pesticides": {
       "label": "Pesticides",
-      "model_baseline_percent": 0.0002106500000000001,
+      "model_baseline_percent": 0.000005399248120300752,
       "data_class": "C",
-      "wet_mass_fraction": 2.106500000000001e-06,
+      "wet_mass_fraction": 5.3992481203007515e-8,
       "source": {
         "data_class": "C",
-        "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Unvalidated trace-level placeholder inherited from the legacy profile; not a measured roadside-grass concentration and not supported by direct literature for this value.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "source_quality_class": "B",
+        "source_evidence_class": "Primary grass-residue monitoring; GreenHub application is a transfer-limited proxy.",
+        "source_id": "SRC-PRECHSL-2022",
+        "source": "Prechsl et al. 2022, grass pesticide-residue monitoring in South Tyrol",
+        "source_title": "Long-term monitoring of pesticide residues on public sites: A regional approach to survey and reduce spray drift",
+        "doi": "10.3389/fenvs.2022.1062333",
+        "url": "https://doi.org/10.3389/fenvs.2022.1062333",
+        "dataset_url": "https://zenodo.org/records/7357488",
+        "source_location": "Results, section 3.1; study summary: 399 grass sample analyses, 334 detections, mean concentration 0.0645 mg/kg fresh weight over detected residues; LOQ 0.01 mg/kg.",
+        "geography": "Public grass sites in South Tyrol, Northern Italy; 2018–2021; selected sites include sensitive zones near orchards and vineyards.",
+        "reference_year": 2022,
+        "retrieval_date": "2026-11-09",
+        "reported_sample_count": 399,
+        "reported_detection_count": 334,
+        "reported_mean_detected_residue_mg_per_kg_fresh": 0.0645,
+        "reported_sd_detected_residue_mg_per_kg_fresh": 0.1013,
+        "reported_loq_mg_per_kg": 0.01,
+        "basis": "Lower-bound estimated mean summed pesticide-residue mass per analyzed fresh-grass sample, calculated from the reported number of detections and mean concentration among detections. Non-detections and concentrations below the limit of quantification are treated as zero for this calculation; this does not establish absence.",
+        "conversion_method": "(0.0645 mg/kg fresh grass × 334 detections ÷ 399 analyzed samples) × 1e-6 kg/mg = 5.3992481203007515e-8 kg pesticide residue/kg wet grass.",
+        "uncertainty": "The paper reports variability across detected residues, not the distribution of total residue mass per sample. Treating non-detections and below-LOQ concentrations as zero makes the derived mean a lower bound. Transfer uncertainty to Dutch roadside grass is unquantified.",
+        "applicability": "Class C proxy for the aggregate pesticide pool only. South Tyrol public-site grass is not Dutch roadside biomass, and selected sites were influenced by local agricultural spray drift. Not a compliance or safety assessment; replace with a matched GreenHub contaminant panel when available."
+      },
+      "value_status": "literature_derived_assumption"
     },
     "Ammonium": {
       "label": "Ammonium",
       "model_baseline_percent": 0.008426000000000003,
-      "data_class": "C",
-      "wet_mass_fraction": 8.426000000000002e-05
+      "data_class": null,
+      "wet_mass_fraction": 0.00008426000000000002,
+      "source": {
+        "data_class": null,
+        "source": "GreenHub model baseline structural placeholder",
+        "basis": "Legacy structural placeholder; no DOI-linked direct source supports this specific amount. The numeric value is retained only as a legacy compatibility fallback; it is not an analytical result, literature-derived estimate, or evidence of component presence or absence. No direct source supports this exact amount.",
+        "uncertainty": "Unknown; no representative project measurement or defensible transfer interval is registered.",
+        "evidence_class": "unmeasured_numeric_fallback",
+        "applicability": "No sample-specific quantitative evidence supports this exact value; replace with an assay or an explicitly reviewed literature-derived scenario assumption."
+      },
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_numeric_fallback",
+      "value_status": "unmeasured_numeric_fallback"
     },
     "OrganicNitrogen": {
       "label": "Organic nitrogen",
       "model_baseline_percent": 0.02106500000000001,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0002106500000000001
+      "data_class": null,
+      "wet_mass_fraction": 0.0002106500000000001,
+      "source": {
+        "data_class": null,
+        "source": "GreenHub model baseline structural placeholder",
+        "basis": "Legacy structural placeholder; no DOI-linked direct source supports this specific amount. The numeric value is retained only as a legacy compatibility fallback; it is not an analytical result, literature-derived estimate, or evidence of component presence or absence. No direct source supports this exact amount.",
+        "uncertainty": "Unknown; no representative project measurement or defensible transfer interval is registered.",
+        "evidence_class": "unmeasured_numeric_fallback",
+        "applicability": "No sample-specific quantitative evidence supports this exact value; replace with an assay or an explicitly reviewed literature-derived scenario assumption."
+      },
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_numeric_fallback",
+      "value_status": "unmeasured_numeric_fallback"
     },
     "ParticulateNitrogen": {
       "label": "Particulate nitrogen",
       "model_baseline_percent": 0.02106500000000001,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0002106500000000001
+      "data_class": null,
+      "wet_mass_fraction": 0.0002106500000000001,
+      "source": {
+        "data_class": null,
+        "source": "GreenHub model baseline structural placeholder",
+        "basis": "Legacy structural placeholder; no DOI-linked direct source supports this specific amount. The numeric value is retained only as a legacy compatibility fallback; it is not an analytical result, literature-derived estimate, or evidence of component presence or absence. No direct source supports this exact amount.",
+        "uncertainty": "Unknown; no representative project measurement or defensible transfer interval is registered.",
+        "evidence_class": "unmeasured_numeric_fallback",
+        "applicability": "No sample-specific quantitative evidence supports this exact value; replace with an assay or an explicitly reviewed literature-derived scenario assumption."
+      },
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_numeric_fallback",
+      "value_status": "unmeasured_numeric_fallback"
     },
     "OrganicPhosphorus": {
       "label": "Organic phosphorus",
-      "model_baseline_percent": 0.0,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0,
+      "model_baseline_percent": 0,
+      "data_class": null,
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_zero_fallback",
+      "wet_mass_fraction": 0,
       "source": {
-        "data_class": "C",
-        "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "data_class": null,
+        "evidence_class": "unmeasured_numeric_fallback",
+        "source": "No sample-specific analytical measurement is registered",
+        "basis": "No concentration was measured for this batch. The numeric zero is retained only as a compatibility fallback for the current simulation; it must not be interpreted as absence or a detection-limit result.",
+        "applicability": "No feedstock/site transfer is supported; replace with an analytical sample profile when measured.",
+        "uncertainty": "Unknown. The simulation fallback does not quantify the analyte or component flow."
+      },
+      "value_status": "unmeasured_numeric_fallback"
     },
     "DissolvedPhosphorus": {
       "label": "Dissolved phosphorus",
       "model_baseline_percent": 0.0042130000000000015,
-      "data_class": "C",
-      "wet_mass_fraction": 4.213000000000001e-05
+      "data_class": null,
+      "wet_mass_fraction": 0.00004213000000000001,
+      "source": {
+        "data_class": null,
+        "source": "GreenHub model baseline structural placeholder",
+        "basis": "Legacy structural placeholder; no DOI-linked direct source supports this specific amount. The numeric value is retained only as a legacy compatibility fallback; it is not an analytical result, literature-derived estimate, or evidence of component presence or absence. No direct source supports this exact amount.",
+        "uncertainty": "Unknown; no representative project measurement or defensible transfer interval is registered.",
+        "evidence_class": "unmeasured_numeric_fallback",
+        "applicability": "No sample-specific quantitative evidence supports this exact value; replace with an assay or an explicitly reviewed literature-derived scenario assumption."
+      },
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_numeric_fallback",
+      "value_status": "unmeasured_numeric_fallback"
     },
     "ParticulatePhosphorus": {
       "label": "Particulate phosphorus",
       "model_baseline_percent": 0.016852000000000006,
-      "data_class": "C",
-      "wet_mass_fraction": 0.00016852000000000005
+      "data_class": null,
+      "wet_mass_fraction": 0.00016852000000000005,
+      "source": {
+        "data_class": null,
+        "source": "GreenHub model baseline structural placeholder",
+        "basis": "Legacy structural placeholder; no DOI-linked direct source supports this specific amount. The numeric value is retained only as a legacy compatibility fallback; it is not an analytical result, literature-derived estimate, or evidence of component presence or absence. No direct source supports this exact amount.",
+        "uncertainty": "Unknown; no representative project measurement or defensible transfer interval is registered.",
+        "evidence_class": "unmeasured_numeric_fallback",
+        "applicability": "No sample-specific quantitative evidence supports this exact value; replace with an assay or an explicitly reviewed literature-derived scenario assumption."
+      },
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_numeric_fallback",
+      "value_status": "unmeasured_numeric_fallback"
     },
     "ParticulatePotassium": {
       "label": "Particulate potassium",
       "model_baseline_percent": 0.02949100000000001,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0002949100000000001
+      "data_class": null,
+      "wet_mass_fraction": 0.0002949100000000001,
+      "source": {
+        "data_class": null,
+        "source": "GreenHub model baseline structural placeholder",
+        "basis": "Legacy structural placeholder; no DOI-linked direct source supports this specific amount. The numeric value is retained only as a legacy compatibility fallback; it is not an analytical result, literature-derived estimate, or evidence of component presence or absence. No direct source supports this exact amount.",
+        "uncertainty": "Unknown; no representative project measurement or defensible transfer interval is registered.",
+        "evidence_class": "unmeasured_numeric_fallback",
+        "applicability": "No sample-specific quantitative evidence supports this exact value; replace with an assay or an explicitly reviewed literature-derived scenario assumption."
+      },
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_numeric_fallback",
+      "value_status": "unmeasured_numeric_fallback"
     },
     "PotassiumIon": {
       "label": "Potassium ion",
       "model_baseline_percent": 0.02106500000000001,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0002106500000000001
+      "data_class": null,
+      "wet_mass_fraction": 0.0002106500000000001,
+      "source": {
+        "data_class": null,
+        "source": "GreenHub model baseline structural placeholder",
+        "basis": "Legacy structural placeholder; no DOI-linked direct source supports this specific amount. The numeric value is retained only as a legacy compatibility fallback; it is not an analytical result, literature-derived estimate, or evidence of component presence or absence. No direct source supports this exact amount.",
+        "uncertainty": "Unknown; no representative project measurement or defensible transfer interval is registered.",
+        "evidence_class": "unmeasured_numeric_fallback",
+        "applicability": "No sample-specific quantitative evidence supports this exact value; replace with an assay or an explicitly reviewed literature-derived scenario assumption."
+      },
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_numeric_fallback",
+      "value_status": "unmeasured_numeric_fallback"
     },
     "HydrogenIon": {
       "label": "Hydrogen ion",
-      "model_baseline_percent": 0.0,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0,
+      "model_baseline_percent": 0,
+      "data_class": null,
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_zero_fallback",
+      "wet_mass_fraction": 0,
       "source": {
-        "data_class": "C",
-        "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "data_class": null,
+        "evidence_class": "unmeasured_numeric_fallback",
+        "source": "No sample-specific analytical measurement is registered",
+        "basis": "No concentration was measured for this batch. The numeric zero is retained only as a compatibility fallback for the current simulation; it must not be interpreted as absence or a detection-limit result.",
+        "applicability": "No feedstock/site transfer is supported; replace with an analytical sample profile when measured.",
+        "uncertainty": "Unknown. The simulation fallback does not quantify the analyte or component flow."
+      },
+      "value_status": "unmeasured_numeric_fallback"
     },
     "HydroxideIon": {
       "label": "Hydroxide ion",
-      "model_baseline_percent": 0.0,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0,
+      "model_baseline_percent": 0,
+      "data_class": null,
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_zero_fallback",
+      "wet_mass_fraction": 0,
       "source": {
-        "data_class": "C",
-        "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "data_class": null,
+        "evidence_class": "unmeasured_numeric_fallback",
+        "source": "No sample-specific analytical measurement is registered",
+        "basis": "No concentration was measured for this batch. The numeric zero is retained only as a compatibility fallback for the current simulation; it must not be interpreted as absence or a detection-limit result.",
+        "applicability": "No feedstock/site transfer is supported; replace with an analytical sample profile when measured.",
+        "uncertainty": "Unknown. The simulation fallback does not quantify the analyte or component flow."
+      },
+      "value_status": "unmeasured_numeric_fallback"
     },
     "NitrateIon": {
       "label": "Nitrate ion",
-      "model_baseline_percent": 0.0,
+      "model_baseline_percent": 0.03912142783525026,
       "data_class": "C",
-      "wet_mass_fraction": 0.0,
+      "wet_mass_fraction": 0.00039121427835250264,
       "source": {
         "data_class": "C",
-        "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "source": "Della Rosa et al. 2022, Table 1, FR0 (100% cultivated perennial ryegrass); low-transferability literature nitrate-N proxy",
+        "source_id": "SRC-DELLAROSA-2022-RYEGRASS-COMPOSITION",
+        "source_row_id": "DR22-FR0-NITRATE_N",
+        "source_title": "Substituting ryegrass-based pasture with graded levels of forage rape in the diet of lambs decreases methane emissions and increases propionate, succinate, and primary alcohols in the rumen",
+        "doi": "10.1093/jas/skac223",
+        "url": "https://doi.org/10.1093/jas/skac223",
+        "source_location": "Table 1, FR0 (100% ryegrass) column, printed p. 3; nitrate-N row",
+        "geography": "AgResearch Aorangi Farm, Palmerston North, New Zealand",
+        "reference_year": 2022,
+        "retrieval_date": "2026-11-09",
+        "license": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+        "basis": "The source reports 618 ± 155 mg nitrate-N/kg dry matter. Applying the separate VARTA sample's measured dry-matter fraction (0.143) and converting N mass to nitrate-ion mass gives 0.3912 ± 0.0981 g NO3-/kg wet feed. This is a cross-source literature assumption, not a measurement of the VARTA sample.",
+        "conversion_method": "618 mg nitrate-N/kg DM × 0.143 kg DM/kg wet × (62.0049 g/mol NO3- ÷ 14.0067 g/mol N) × 1e-6 kg/mg = 0.0003912143 kg NO3-/kg wet feed. The reported within-study SD converts to 0.0000981201 kg/kg wet feed.",
+        "uncertainty": "The source SD is 155 mg nitrate-N/kg DM; composition-table replicate count is not stated. Converted within-study SD is reported, but transfer uncertainty from cultivated New Zealand ryegrass to GreenHub roadside/VARTA grass is unquantified and not propagated.",
+        "applicability": "C-class proxy for nitrate ion only. The source measures nitrate-N in cultivated ryegrass, not nitrate in GreenHub roadside grass; this estimate does not derive from or reconcile the VARTA total-N measurement."
+      },
+      "value_status": "literature_derived_assumption"
     },
     "NitriteIon": {
       "label": "Nitrite ion",
-      "model_baseline_percent": 0.0,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0,
+      "model_baseline_percent": 0,
+      "data_class": null,
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_zero_fallback",
+      "wet_mass_fraction": 0,
       "source": {
-        "data_class": "C",
-        "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "data_class": null,
+        "evidence_class": "unmeasured_numeric_fallback",
+        "source": "No sample-specific analytical measurement is registered",
+        "basis": "No concentration was measured for this batch. The numeric zero is retained only as a compatibility fallback for the current simulation; it must not be interpreted as absence or a detection-limit result.",
+        "applicability": "No feedstock/site transfer is supported; replace with an analytical sample profile when measured.",
+        "uncertainty": "Unknown. The simulation fallback does not quantify the analyte or component flow."
+      },
+      "value_status": "unmeasured_numeric_fallback"
     },
     "Orthophosphate": {
       "label": "Orthophosphate",
-      "model_baseline_percent": 0.0,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0,
+      "model_baseline_percent": 0,
+      "data_class": null,
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_zero_fallback",
+      "wet_mass_fraction": 0,
       "source": {
-        "data_class": "C",
-        "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "data_class": null,
+        "evidence_class": "unmeasured_numeric_fallback",
+        "source": "No sample-specific analytical measurement is registered",
+        "basis": "No concentration was measured for this batch. The numeric zero is retained only as a compatibility fallback for the current simulation; it must not be interpreted as absence or a detection-limit result.",
+        "applicability": "No feedstock/site transfer is supported; replace with an analytical sample profile when measured.",
+        "uncertainty": "Unknown. The simulation fallback does not quantify the analyte or component flow."
+      },
+      "value_status": "unmeasured_numeric_fallback"
     },
     "SodiumIon": {
       "label": "Sodium ion",
-      "model_baseline_percent": 0.0,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0,
+      "model_baseline_percent": 0,
+      "data_class": null,
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_zero_fallback",
+      "wet_mass_fraction": 0,
       "source": {
-        "data_class": "C",
-        "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "data_class": null,
+        "evidence_class": "unmeasured_numeric_fallback",
+        "source": "No sample-specific analytical measurement is registered",
+        "basis": "No concentration was measured for this batch. The numeric zero is retained only as a compatibility fallback for the current simulation; it must not be interpreted as absence or a detection-limit result.",
+        "applicability": "No feedstock/site transfer is supported; replace with an analytical sample profile when measured.",
+        "uncertainty": "Unknown. The simulation fallback does not quantify the analyte or component flow."
+      },
+      "value_status": "unmeasured_numeric_fallback"
     },
     "MagnesiumIon": {
       "label": "Magnesium ion",
-      "model_baseline_percent": 0.0,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0,
+      "model_baseline_percent": 0,
+      "data_class": null,
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_zero_fallback",
+      "wet_mass_fraction": 0,
       "source": {
-        "data_class": "C",
-        "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "data_class": null,
+        "evidence_class": "unmeasured_numeric_fallback",
+        "source": "No sample-specific analytical measurement is registered",
+        "basis": "No concentration was measured for this batch. The numeric zero is retained only as a compatibility fallback for the current simulation; it must not be interpreted as absence or a detection-limit result.",
+        "applicability": "No feedstock/site transfer is supported; replace with an analytical sample profile when measured.",
+        "uncertainty": "Unknown. The simulation fallback does not quantify the analyte or component flow."
+      },
+      "value_status": "unmeasured_numeric_fallback"
     },
     "CalciumIon": {
       "label": "Calcium ion",
-      "model_baseline_percent": 0.0,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0,
+      "model_baseline_percent": 0,
+      "data_class": null,
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_zero_fallback",
+      "wet_mass_fraction": 0,
       "source": {
-        "data_class": "C",
-        "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "data_class": null,
+        "evidence_class": "unmeasured_numeric_fallback",
+        "source": "No sample-specific analytical measurement is registered",
+        "basis": "No concentration was measured for this batch. The numeric zero is retained only as a compatibility fallback for the current simulation; it must not be interpreted as absence or a detection-limit result.",
+        "applicability": "No feedstock/site transfer is supported; replace with an analytical sample profile when measured.",
+        "uncertainty": "Unknown. The simulation fallback does not quantify the analyte or component flow."
+      },
+      "value_status": "unmeasured_numeric_fallback"
     },
     "ChlorideIon": {
       "label": "Chloride ion",
-      "model_baseline_percent": 0.0,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0,
+      "model_baseline_percent": 0.16731,
+      "data_class": "A",
+      "wet_mass_fraction": 0.0016731,
       "source": {
-        "data_class": "C",
-        "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "data_class": "A",
+        "source": "Project-supplied VARTA whole-grass laboratory result",
+        "source_id": "SRC-VARTA-2026-10-27",
+        "source_file": "261027 Nutriënten Grasmonsters VARTA.xlsx",
+        "source_csv": "varta_2026_grass_fiber_measurements.csv",
+        "source_workbook_sha256": "F0449B8E18E66DEBF851B58FE6FDAF9678F92225A110BDB4D57EB226260A7DC8",
+        "source_location": "Nutriënten Vezel, row 7, sample 3 (Greenhub whole grass), chloride result",
+        "sample_date": "2026-07-16",
+        "geography": "Project-supplied GreenHub sample; collection site not specified",
+        "retrieval_date": "2026-11-07",
+        "basis": "The source reports chloride at 330 mmol/kg dry matter and 11.7 g/kg dry matter. The analyte is mapped to the model chloride-anion pool for the same sample; the laboratory extraction method and replicate uncertainty were not supplied.",
+        "conversion_method": "11.7 g chloride/kg dry matter × 0.143 kg dry matter/kg wet feed ÷ 1000 g/kg = 0.0016731 kg Cl−/kg wet feed",
+        "uncertainty": "No analytical uncertainty, extraction method, or replicate count is supplied in the workbook. This is a measured sample value, not a seasonal mean. Other feed ions remain incompletely speciated, so charge balance is not claimed.",
+        "applicability": "Directly applicable to the GreenHub whole-grass sample represented by the UI default. Do not inherit as another project's default."
+      },
+      "value_status": "measured"
     },
     "SulfateIon": {
       "label": "Sulfate ion",
-      "model_baseline_percent": 0.0,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0,
+      "model_baseline_percent": 0,
+      "data_class": null,
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_zero_fallback",
+      "wet_mass_fraction": 0,
       "source": {
-        "data_class": "C",
-        "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "data_class": null,
+        "evidence_class": "unmeasured_numeric_fallback",
+        "source": "No sample-specific analytical measurement is registered",
+        "basis": "No concentration was measured for this batch. The numeric zero is retained only as a compatibility fallback for the current simulation; it must not be interpreted as absence or a detection-limit result.",
+        "applicability": "No feedstock/site transfer is supported; replace with an analytical sample profile when measured.",
+        "uncertainty": "Unknown. The simulation fallback does not quantify the analyte or component flow."
+      },
+      "value_status": "unmeasured_numeric_fallback"
     },
     "BicarbonateIon": {
       "label": "Bicarbonate ion",
-      "model_baseline_percent": 0.0,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0,
+      "model_baseline_percent": 0,
+      "data_class": null,
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_zero_fallback",
+      "wet_mass_fraction": 0,
       "source": {
-        "data_class": "C",
-        "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "data_class": null,
+        "evidence_class": "unmeasured_numeric_fallback",
+        "source": "No sample-specific analytical measurement is registered",
+        "basis": "No concentration was measured for this batch. The numeric zero is retained only as a compatibility fallback for the current simulation; it must not be interpreted as absence or a detection-limit result.",
+        "applicability": "No feedstock/site transfer is supported; replace with an analytical sample profile when measured.",
+        "uncertainty": "Unknown. The simulation fallback does not quantify the analyte or component flow."
+      },
+      "value_status": "unmeasured_numeric_fallback"
     },
     "CarbonateIon": {
       "label": "Carbonate ion",
-      "model_baseline_percent": 0.0,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0,
+      "model_baseline_percent": 0,
+      "data_class": null,
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_zero_fallback",
+      "wet_mass_fraction": 0,
       "source": {
-        "data_class": "C",
-        "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "data_class": null,
+        "evidence_class": "unmeasured_numeric_fallback",
+        "source": "No sample-specific analytical measurement is registered",
+        "basis": "No concentration was measured for this batch. The numeric zero is retained only as a compatibility fallback for the current simulation; it must not be interpreted as absence or a detection-limit result.",
+        "applicability": "No feedstock/site transfer is supported; replace with an analytical sample profile when measured.",
+        "uncertainty": "Unknown. The simulation fallback does not quantify the analyte or component flow."
+      },
+      "value_status": "unmeasured_numeric_fallback"
     },
     "Ash": {
       "label": "Ash",
-      "model_baseline_percent": 2.5596999999999994,
-      "data_class": "B",
-      "wet_mass_fraction": 0.025596999999999995,
+      "model_baseline_percent": 2.392204529,
+      "data_class": "C",
+      "wet_mass_fraction": 0.02392204529,
       "source": {
-        "data_class": "B",
+        "data_class": "C",
         "source": "Brown et al. 2020",
         "source_id": "SRC-BROWN-2020",
         "doi": "10.1016/j.biombioe.2020.105570",
@@ -714,167 +1394,312 @@
         "geography": "United Kingdom; precise sample location not recorded in this profile",
         "reference_year": 2020,
         "retrieval_date": "2026-11-05",
-        "basis": "Fresh verge-grass ash 17.9% of dry matter, converted with the VARTA dry-matter fraction.",
-        "conversion_method": "0.179 kg/kg dry matter × VARTA dry-matter fraction = wet-feed fraction",
-        "uncertainty": "Source reports 17.9 ± 2.0% dry matter for fresh verge grass; model uses the central value only and does not sample the reported spread.",
-        "applicability": "Direct roadside/verge-grass evidence, but country, site, collection equipment and contamination conditions may differ from VARTA."
-      }
+        "basis": "Brown et al. reports total ash of 17.9% dry matter for fresh verge grass. The model separates the VARTA measured chloride analyte and the Czubaszek summer potentially-toxic-element proxy from this total-ash pool for component mass bookkeeping.",
+        "conversion_method": "(0.179 kg total ash/kg dry matter − 0.0117 kg chloride/kg dry matter − 0.00001297 kg/kg dry matter potentially-toxic elements) × VARTA dry-matter fraction 0.143 = 0.02392204529 kg residual ash pool/kg wet feed",
+        "uncertainty": "Brown et al. reports 17.9 ± 2.0% dry matter; VARTA chloride is measured on another sample basis with no assay uncertainty reported; Czubaszek et al. reports analyte-specific SDs for a different roadside-grass sample. Covariance, ash-method chloride retention, and cross-study transfer uncertainty are unknown; central values only are used.",
+        "applicability": "Mixed-evidence bookkeeping pool for GreenHub's July VARTA sample. It is not a measured VARTA ash result; chloride retention during ashing is unknown, and the full inorganic-ion mass/charge balance is not resolved."
+      },
+      "value_status": "literature_derived_assumption"
     },
     "SuspendedSolids": {
       "label": "Suspended solids",
       "model_baseline_percent": 0.3370400000000002,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0033704000000000017
+      "data_class": null,
+      "wet_mass_fraction": 0.0033704000000000017,
+      "source": {
+        "data_class": null,
+        "source": "GreenHub model baseline structural placeholder",
+        "basis": "Legacy structural placeholder; no DOI-linked direct source supports this specific amount. The numeric value is retained only as a legacy compatibility fallback; it is not an analytical result, literature-derived estimate, or evidence of component presence or absence. No direct source supports this exact amount.",
+        "uncertainty": "Unknown; no representative project measurement or defensible transfer interval is registered.",
+        "evidence_class": "unmeasured_numeric_fallback",
+        "applicability": "No sample-specific quantitative evidence supports this exact value; replace with an assay or an explicitly reviewed literature-derived scenario assumption."
+      },
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_numeric_fallback",
+      "value_status": "unmeasured_numeric_fallback"
     },
     "SolubleInertSolids": {
       "label": "Soluble inert solids",
-      "model_baseline_percent": 0.0,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0,
+      "model_baseline_percent": 0,
+      "data_class": null,
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_zero_fallback",
+      "wet_mass_fraction": 0,
       "source": {
-        "data_class": "C",
-        "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "data_class": null,
+        "evidence_class": "unmeasured_numeric_fallback",
+        "source": "No sample-specific analytical measurement is registered",
+        "basis": "No concentration was measured for this batch. The numeric zero is retained only as a compatibility fallback for the current simulation; it must not be interpreted as absence or a detection-limit result.",
+        "applicability": "No feedstock/site transfer is supported; replace with an analytical sample profile when measured.",
+        "uncertainty": "Unknown. The simulation fallback does not quantify the analyte or component flow."
+      },
+      "value_status": "unmeasured_numeric_fallback"
     },
     "SuspendedInertSolids": {
       "label": "Suspended inert solids",
-      "model_baseline_percent": 0.0,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0,
+      "model_baseline_percent": 0,
+      "data_class": null,
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_zero_fallback",
+      "wet_mass_fraction": 0,
       "source": {
-        "data_class": "C",
-        "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "data_class": null,
+        "evidence_class": "unmeasured_numeric_fallback",
+        "source": "No sample-specific analytical measurement is registered",
+        "basis": "No concentration was measured for this batch. The numeric zero is retained only as a compatibility fallback for the current simulation; it must not be interpreted as absence or a detection-limit result.",
+        "applicability": "No feedstock/site transfer is supported; replace with an analytical sample profile when measured.",
+        "uncertainty": "Unknown. The simulation fallback does not quantify the analyte or component flow."
+      },
+      "value_status": "unmeasured_numeric_fallback"
     },
     "InertSolids": {
       "label": "Inert solids",
       "model_baseline_percent": 0.08426000000000004,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0008426000000000004
+      "data_class": null,
+      "wet_mass_fraction": 0.0008426000000000004,
+      "source": {
+        "data_class": null,
+        "source": "GreenHub model baseline structural placeholder",
+        "basis": "Legacy structural placeholder; no DOI-linked direct source supports this specific amount. The numeric value is retained only as a legacy compatibility fallback; it is not an analytical result, literature-derived estimate, or evidence of component presence or absence. No direct source supports this exact amount.",
+        "uncertainty": "Unknown; no representative project measurement or defensible transfer interval is registered.",
+        "evidence_class": "unmeasured_numeric_fallback",
+        "applicability": "No sample-specific quantitative evidence supports this exact value; replace with an assay or an explicitly reviewed literature-derived scenario assumption."
+      },
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_numeric_fallback",
+      "value_status": "unmeasured_numeric_fallback"
     },
     "Sand": {
       "label": "Sand",
       "model_baseline_percent": 0.1685200000000001,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0016852000000000008
+      "data_class": null,
+      "wet_mass_fraction": 0.0016852000000000008,
+      "source": {
+        "data_class": null,
+        "source": "GreenHub model baseline structural placeholder",
+        "basis": "Legacy structural placeholder; no DOI-linked direct source supports this specific amount. The numeric value is retained only as a legacy compatibility fallback; it is not an analytical result, literature-derived estimate, or evidence of component presence or absence. No direct source supports this exact amount.",
+        "uncertainty": "Unknown; no representative project measurement or defensible transfer interval is registered.",
+        "evidence_class": "unmeasured_numeric_fallback",
+        "applicability": "No sample-specific quantitative evidence supports this exact value; replace with an assay or an explicitly reviewed literature-derived scenario assumption."
+      },
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_numeric_fallback",
+      "value_status": "unmeasured_numeric_fallback"
     },
     "Litter": {
       "label": "Litter",
       "model_baseline_percent": 0.04213000000000002,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0004213000000000002
+      "data_class": null,
+      "wet_mass_fraction": 0.0004213000000000002,
+      "source": {
+        "data_class": null,
+        "source": "GreenHub model baseline structural placeholder",
+        "basis": "Legacy structural placeholder; no DOI-linked direct source supports this specific amount. The numeric value is retained only as a legacy compatibility fallback; it is not an analytical result, literature-derived estimate, or evidence of component presence or absence. No direct source supports this exact amount.",
+        "uncertainty": "Unknown; no representative project measurement or defensible transfer interval is registered.",
+        "evidence_class": "unmeasured_numeric_fallback",
+        "applicability": "No sample-specific quantitative evidence supports this exact value; replace with an assay or an explicitly reviewed literature-derived scenario assumption."
+      },
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_numeric_fallback",
+      "value_status": "unmeasured_numeric_fallback"
     },
     "HeavyMetals": {
       "label": "Heavy metals",
-      "model_baseline_percent": 0.0008426000000000004,
+      "model_baseline_percent": 0.000185471,
       "data_class": "C",
-      "wet_mass_fraction": 8.426000000000004e-06,
+      "wet_mass_fraction": 0.00000185471,
       "source": {
         "data_class": "C",
-        "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Unvalidated trace-level placeholder inherited from the legacy profile; not a measured roadside-grass concentration and not supported by direct literature for this value.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "source": "Czubaszek et al. 2023, summer roadside-grass Table 4; proxy scaled to the VARTA dry-matter fraction",
+        "source_id": "SRC-CZUBASZEK-2023",
+        "source_quality_class": "B",
+        "source_evidence_class": "Primary experimental literature measurements; GreenHub application is C-class because of cross-study and geographic transfer.",
+        "source_title": "Grass from Road Verges as a Substrate for Biogas Production",
+        "authors": "R. Czubaszek; A. Wysocka-Czubaszek; G. Zając; et al.",
+        "doi": "10.3390/en16114488",
+        "source_url": "https://doi.org/10.3390/en16114488",
+        "source_location": "Table 4, p. 8; summer 2019 cutting; reported on dry matter",
+        "source_row_ids": [
+          "CZ2023-T4-SU-CHROMIUM",
+          "CZ2023-T4-SU-NICKEL",
+          "CZ2023-T4-SU-CADMIUM",
+          "CZ2023-T4-SU-MERCURY",
+          "CZ2023-T4-SU-LEAD"
+        ],
+        "geography": "Urban road verges and median strips, Białystok, northeastern Poland",
+        "reference_year": 2023,
+        "sample_collection_year": 2019,
+        "retrieval_date": "2026-11-09",
+        "reported_analytes": {
+          "chromium": {
+            "value": 7.54,
+            "standard_deviation": 3.49,
+            "unit": "mg/kg dry matter"
+          },
+          "nickel": {
+            "value": 0.78,
+            "standard_deviation": 0.59,
+            "unit": "mg/kg dry matter"
+          },
+          "cadmium": {
+            "value": 0.27,
+            "standard_deviation": 0.03,
+            "unit": "mg/kg dry matter"
+          },
+          "mercury": {
+            "value": 1.93,
+            "standard_deviation": 0.11,
+            "unit": "mg/kg dry matter"
+          },
+          "lead": {
+            "value": 2.45,
+            "standard_deviation": 1.52,
+            "unit": "mg/kg dry matter"
+          }
+        },
+        "reported_sum_mg_per_kg_dry_matter": 12.97,
+        "basis": "Sum of the reported summer Cr, Ni, Cd, Hg, and Pb means (12.97 mg/kg dry matter), multiplied by the VARTA sample's measured dry-matter fraction. This is a literature proxy, not a measurement of the VARTA sample.",
+        "conversion_method": "(7.54 + 0.78 + 0.27 + 1.93 + 2.45) mg/kg dry matter × 0.143 kg dry matter/kg wet feed × 1e-6 kg/mg = 1.85471e-6 kg/kg wet feed",
+        "uncertainty": "Source reports analyte-specific SDs from triplicate laboratory analyses, not independent field sites. Aggregate covariance and transfer uncertainty are unknown; SDs are not combined. Arsenic is not included because this source table does not report it.",
+        "applicability": "Summer roadside-grass comparator for GreenHub's July sample, but collected in Białystok, Poland in 2019. Not a Dutch contaminant assay and not evidence of regulatory or product compliance."
+      },
+      "value_status": "literature_derived_assumption"
     },
     "Microplastics": {
       "label": "Microplastics",
       "model_baseline_percent": 0.0008426000000000004,
-      "data_class": "C",
-      "wet_mass_fraction": 8.426000000000004e-06,
+      "data_class": null,
+      "wet_mass_fraction": 0.000008426000000000004,
       "source": {
-        "data_class": "C",
+        "data_class": null,
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Unvalidated trace-level placeholder inherited from the legacy profile; not a measured roadside-grass concentration and not supported by direct literature for this value.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "basis": "Unvalidated trace-level placeholder inherited from the legacy profile; not a measured roadside-grass concentration and not supported by direct literature for this value. The numeric value is retained only as a legacy compatibility fallback; it is not an analytical result, literature-derived estimate, or evidence of component presence or absence. No direct source supports this exact amount.",
+        "uncertainty": "Unknown; no representative project measurement or defensible transfer interval is registered.",
+        "evidence_class": "unmeasured_numeric_fallback",
+        "applicability": "No sample-specific quantitative evidence supports this exact value; replace with an assay or an explicitly reviewed literature-derived scenario assumption."
+      },
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_numeric_fallback",
+      "value_status": "unmeasured_numeric_fallback"
     },
     "PathogenIndicators": {
       "label": "Pathogen indicators",
       "model_baseline_percent": 0.0021065000000000007,
-      "data_class": "C",
-      "wet_mass_fraction": 2.1065000000000006e-05,
+      "data_class": null,
+      "wet_mass_fraction": 0.000021065000000000006,
       "source": {
-        "data_class": "C",
+        "data_class": null,
         "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Unvalidated trace-level placeholder inherited from the legacy profile; not a measured roadside-grass concentration and not supported by direct literature for this value.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "basis": "Unvalidated trace-level placeholder inherited from the legacy profile; not a measured roadside-grass concentration and not supported by direct literature for this value. The numeric value is retained only as a legacy compatibility fallback; it is not an analytical result, literature-derived estimate, or evidence of component presence or absence. No direct source supports this exact amount.",
+        "uncertainty": "Unknown; no representative project measurement or defensible transfer interval is registered.",
+        "evidence_class": "unmeasured_numeric_fallback",
+        "applicability": "No sample-specific quantitative evidence supports this exact value; replace with an assay or an explicitly reviewed literature-derived scenario assumption."
+      },
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_numeric_fallback",
+      "value_status": "unmeasured_numeric_fallback"
     },
     "Indole3AceticAcid": {
       "label": "Free auxin (IAA)",
-      "model_baseline_percent": 0.0,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0,
+      "model_baseline_percent": 0,
+      "data_class": null,
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_zero_fallback",
+      "wet_mass_fraction": 0,
       "source": {
-        "data_class": "C",
-        "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "data_class": null,
+        "evidence_class": "unmeasured_numeric_fallback",
+        "source": "No sample-specific analytical measurement is registered",
+        "basis": "No concentration was measured for this batch. The numeric zero is retained only as a compatibility fallback for the current simulation; it must not be interpreted as absence or a detection-limit result.",
+        "applicability": "No feedstock/site transfer is supported; replace with an analytical sample profile when measured.",
+        "uncertainty": "Unknown. The simulation fallback does not quantify the analyte or component flow."
+      },
+      "value_status": "unmeasured_numeric_fallback"
     },
     "ProteinBoundIAA": {
       "label": "Protein-bound IAA",
-      "model_baseline_percent": 0.0,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0,
+      "model_baseline_percent": 0,
+      "data_class": null,
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_zero_fallback",
+      "wet_mass_fraction": 0,
       "source": {
-        "data_class": "C",
-        "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "data_class": null,
+        "evidence_class": "unmeasured_numeric_fallback",
+        "source": "No sample-specific analytical measurement is registered",
+        "basis": "No concentration was measured for this batch. The numeric zero is retained only as a compatibility fallback for the current simulation; it must not be interpreted as absence or a detection-limit result.",
+        "applicability": "No feedstock/site transfer is supported; replace with an analytical sample profile when measured.",
+        "uncertainty": "Unknown. The simulation fallback does not quantify the analyte or component flow."
+      },
+      "value_status": "unmeasured_numeric_fallback"
     },
     "Zeatin": {
       "label": "Free zeatin",
-      "model_baseline_percent": 0.0,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0,
+      "model_baseline_percent": 0,
+      "data_class": null,
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_zero_fallback",
+      "wet_mass_fraction": 0,
       "source": {
-        "data_class": "C",
-        "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "data_class": null,
+        "evidence_class": "unmeasured_numeric_fallback",
+        "source": "No sample-specific analytical measurement is registered",
+        "basis": "No concentration was measured for this batch. The numeric zero is retained only as a compatibility fallback for the current simulation; it must not be interpreted as absence or a detection-limit result.",
+        "applicability": "No feedstock/site transfer is supported; replace with an analytical sample profile when measured.",
+        "uncertainty": "Unknown. The simulation fallback does not quantify the analyte or component flow."
+      },
+      "value_status": "unmeasured_numeric_fallback"
     },
     "PeptideBoundZeatin": {
       "label": "Peptide-bound zeatin",
-      "model_baseline_percent": 0.0,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0,
+      "model_baseline_percent": 0,
+      "data_class": null,
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_zero_fallback",
+      "wet_mass_fraction": 0,
       "source": {
-        "data_class": "C",
-        "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "data_class": null,
+        "evidence_class": "unmeasured_numeric_fallback",
+        "source": "No sample-specific analytical measurement is registered",
+        "basis": "No concentration was measured for this batch. The numeric zero is retained only as a compatibility fallback for the current simulation; it must not be interpreted as absence or a detection-limit result.",
+        "applicability": "No feedstock/site transfer is supported; replace with an analytical sample profile when measured.",
+        "uncertainty": "Unknown. The simulation fallback does not quantify the analyte or component flow."
+      },
+      "value_status": "unmeasured_numeric_fallback"
     },
     "ZeatinRiboside": {
       "label": "Zeatin riboside",
-      "model_baseline_percent": 0.0,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0,
+      "model_baseline_percent": 0,
+      "data_class": null,
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_zero_fallback",
+      "wet_mass_fraction": 0,
       "source": {
-        "data_class": "C",
-        "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "data_class": null,
+        "evidence_class": "unmeasured_numeric_fallback",
+        "source": "No sample-specific analytical measurement is registered",
+        "basis": "No concentration was measured for this batch. The numeric zero is retained only as a compatibility fallback for the current simulation; it must not be interpreted as absence or a detection-limit result.",
+        "applicability": "No feedstock/site transfer is supported; replace with an analytical sample profile when measured.",
+        "uncertainty": "Unknown. The simulation fallback does not quantify the analyte or component flow."
+      },
+      "value_status": "unmeasured_numeric_fallback"
     },
     "BoundZeatinRiboside": {
       "label": "Bound zeatin riboside",
-      "model_baseline_percent": 0.0,
-      "data_class": "C",
-      "wet_mass_fraction": 0.0,
+      "model_baseline_percent": 0,
+      "data_class": null,
+      "record_role": "unmeasured_model_fallback",
+      "input_status": "not_measured_zero_fallback",
+      "wet_mass_fraction": 0,
       "source": {
-        "data_class": "C",
-        "source": "GreenHub legacy structural placeholder; retained pending representative measurement",
-        "basis": "Structural zero placeholder inherited from the legacy profile; unknown concentration is not evidence of absence.",
-        "uncertainty": "Unknown; no empirical uncertainty interval is available."
-      }
+        "data_class": null,
+        "evidence_class": "unmeasured_numeric_fallback",
+        "source": "No sample-specific analytical measurement is registered",
+        "basis": "No concentration was measured for this batch. The numeric zero is retained only as a compatibility fallback for the current simulation; it must not be interpreted as absence or a detection-limit result.",
+        "applicability": "No feedstock/site transfer is supported; replace with an analytical sample profile when measured.",
+        "uncertainty": "Unknown. The simulation fallback does not quantify the analyte or component flow."
+      },
+      "value_status": "unmeasured_numeric_fallback"
     }
   }
 }

@@ -1,0 +1,38 @@
+{
+  "source_id": "SRC-SANTAMARIA-2019-DEVELOPMENT-STAGE",
+  "dataset_title": "Abstract-level forage development-stage and lactic-fermentation protein-yield observations",
+  "persistent_identifier": "doi:10.1016/j.jclepro.2019.01.292",
+  "source_doi": "10.1016/j.jclepro.2019.01.292",
+  "source_url": "https://doi.org/10.1016/j.jclepro.2019.01.292",
+  "publisher_url": "https://www.sciencedirect.com/science/article/pii/S0959652619303191",
+  "repository_record_url": "https://vbn.aau.dk/en/publications/influence-of-the-development-stage-of-green-plants-for-the-recove/",
+  "authors": [
+    "Maria Santamaria-Fernandez",
+    "Nanna Karkov Ytting",
+    "Mette Lübeck"
+  ],
+  "publication_year": 2019,
+  "journal": "Journal of Cleaner Production",
+  "volume_issue_pages": "218, 1055-1064",
+  "retrieval_date": "2026-11-07",
+  "license": "Aalborg University Research Portal identifies the accepted author manuscript as CC BY-NC-ND 4.0. This record is an attributed abstract-level factual extract; check license applicability before external or commercial redistribution.",
+  "geography": "Northern Europe; crop trial location is not included in the abstract extract",
+  "source_materials": ["chicory", "red clover", "timothy"],
+  "process": "Forage pressing followed by lactic-acid fermentation of green juice and separation of leaf protein concentrate",
+  "dataset_file": "forage_development_stage_lactic_fermentation_protein_yield_santamaria_2019_reference.csv",
+  "row_count": 5,
+  "data_handling": "Only aggregate quantitative ranges and qualitative maturity direction explicitly present in the publisher abstract/highlights are transcribed. No individual treatment values were inferred from figures or secondary review tables. Max-only wording is represented as an upper bound, not a symmetric range. Dry-LPC mass is kept distinct from crude-protein mass. No values are converted or mapped to GreenHub defaults.",
+  "evidence_class": "B_literature_abstract",
+  "quality_class": "B",
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "runtime_parameter_mapping": [],
+  "limitations": [
+    "Source materials are chicory, red clover, and timothy, not Dutch roadside grass or VARTA feedstock.",
+    "The abstract provides aggregate ranges but not individual harvest-stage values, sampling dates, replicate counts, or uncertainty statistics.",
+    "Red-clover ranges are not paired with specific development stages in the abstract.",
+    "Lactic-acid fermentation results do not parameterize GreenHub's isoelectric or thermal precipitation route.",
+    "The accepted author manuscript has a CC BY-NC-ND 4.0 license; check licensing before redistribution or commercial reuse."
+  ],
+  "suggested_use": "Phase 1/4 evidence that maturity changes crop protein extractability and Phase 4 benchmark context for lactic-acid-fermented LPC. Not a roadside-grass seasonal equation, GreenHub recovery factor, product-quality specification, or runtime default."
+}

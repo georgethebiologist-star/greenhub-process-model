@@ -1,0 +1,31 @@
+{
+  "dataset_title": "Continuous cattle-manure and grass co-digestion outcomes and digestate observations (abstract-level extract)",
+  "dataset_identifier": "urn:greenhub:feed-bmp:moset-grass-manure-continuous-codigestion-2017:v1",
+  "source_file": "grass_manure_continuous_codigestion_moset_2017_abstract_reference.csv",
+  "source_id": "SRC-MOSET-2017",
+  "source_title": "Co-digestion of cattle manure and grass harvested with different technologies. Effect on methane yield, digestate composition and energy balance",
+  "authors": ["Veronica Moset Hernandez", "Doline Fontaine", "Henrik Bjarne Møller"],
+  "publication_year": 2017,
+  "doi": "10.1016/j.energy.2017.08.068",
+  "source_url": "https://doi.org/10.1016/j.energy.2017.08.068",
+  "repository_record_url": "https://pure.au.dk/portal/en/publications/co-digestion-of-cattle-manure-and-grass-harvested-with-different-/",
+  "retrieval_date": "2026-11-07",
+  "source_locations": ["Publisher abstract; study aim and abstract conclusions"],
+  "rows": 16,
+  "evidence_class": "B_primary_experimental_article_abstract_extract",
+  "data_basis": "Minimal transcription of abstract-reported co-digestion conditions, relative methane outcomes, qualitative digestate findings, and relative energy statements. Reported comparisons and their denominators are retained as written; no absolute yield, energy demand, or nutrient concentration is inferred.",
+  "license": "No reuse license for the full article was confirmed. This file contains a short factual abstract-level extract with attribution; no article tables, figures, or full text are reproduced.",
+  "applicability": "Reference-only co-digestion comparator for Phases 3, 5, and 7. The study mixes natural grass with cattle manure, whereas GreenHub's main anaerobic-digestion route uses protein-recovery residuals. Its values do not calibrate the GreenHub residual stream.",
+  "limitations": [
+    "Abstract-level only; no table-level raw data or replicate uncertainty were transcribed.",
+    "The grass co-feed is not GreenHub press cake, grass juice, post-protein residual, or roadside feed from the GreenHub supply chain.",
+    "The abstract does not give exact thermophilic temperature, absolute methane yield, methane flow, organic loading rate, operating duration, methane fraction baseline, or digestate concentrations.",
+    "The reported 6% decrease in methane concentration is not identified as a relative percent or percentage-point decrease; it is kept as reported and must not be converted.",
+    "The 14% mixing-energy comparison lacks a stated reactor-specific energy balance and is not a mixing-power coefficient.",
+    "No value is connected to the parameter registry, defaults, runtime calculations, UI, or Pareto scenarios."
+  ],
+  "activation_state": "reference_only",
+  "parameter_registry_mapping": "none",
+  "runtime_mapping": "none",
+  "curation_note": "The DOI identifies the article. The local URN identifies this GreenHub transcription version and is not an externally registered persistent identifier."
+}

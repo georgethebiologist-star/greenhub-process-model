@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Biorefinery project descriptor",
+  "description": "Project registration metadata. Project-specific chemistry, data, defaults, and routes remain owned by the registered project adapter.",
+  "type": "object",
+  "required": ["project_id", "display_name", "status", "adapter_entrypoint", "technology_family_ids", "data_context"],
+  "properties": {
+    "project_id": {"type": "string", "pattern": "^[a-z][a-z0-9_-]*$"},
+    "display_name": {"type": "string", "minLength": 1},
+    "status": {"type": "string"},
+    "adapter_entrypoint": {"type": "string", "minLength": 1},
+    "technology_family_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+    "route_template_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string"}, "description": "Optional declarative route references. They do not make a route executable or alter API selection."},
+    "description": {"type": "string"},
+    "data_context": {"type": "string"},
+    "compatibility": {"type": "object"}
+  },
+  "additionalProperties": false
+}

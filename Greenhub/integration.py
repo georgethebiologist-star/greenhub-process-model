@@ -16,6 +16,17 @@ import biosteam as bst
 from Greenhub.input_data import INPUT_WORKBOOK_PATH, FeedSpecification
 from Greenhub.phase7_inputs import Phase7InputBundle
 from Greenhub.phase7_systems import Phase7Model, create_phase7_scenario
+from Greenhub.settings import PROJECT_ROOT
+
+
+def _portable_dataset_path(path: Path) -> str:
+    """Describe a dataset without embedding the current machine's root path."""
+
+    resolved = Path(path).expanduser().resolve()
+    try:
+        return resolved.relative_to(PROJECT_ROOT).as_posix()
+    except ValueError:
+        return f"external/{resolved.name}"
 
 
 @dataclass(frozen=True)
@@ -98,9 +109,9 @@ class IntegratedGreenHubModel:
 
     def __post_init__(self) -> None:
         self.dataset_provenance = {
-            "master_input_workbook": str(self.source_workbook_path.resolve()),
+            "master_input_workbook": _portable_dataset_path(self.source_workbook_path),
             "master_input_status": "D5 - loaded, validated, connected, tested, and reported",
-            "protein_recovery_dataset_directory": str(
+            "protein_recovery_dataset_directory": _portable_dataset_path(
                 Path(__file__).resolve().parent / "data" / "Protein recovery"
             ),
             "protein_recovery_dataset_status": (

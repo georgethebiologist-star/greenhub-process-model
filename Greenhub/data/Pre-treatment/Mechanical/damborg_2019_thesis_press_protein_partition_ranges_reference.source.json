@@ -1,0 +1,31 @@
+{
+  "dataset_id": "urn:greenhub:dataset:pretreatment:damborg-2019-thesis-protein-partition-ranges:v1",
+  "title": "Green biorefinery - characterisation and utilisation of the pulp fraction from extraction of green protein from grassland plants",
+  "source_id": "SRC-DAMBORG-GREEN-BIOREFINERY-THESIS-2019",
+  "authors": [
+    "Vinni Kragbæk Damborg"
+  ],
+  "publication_year": 2019,
+  "source_url": "https://pure.au.dk/portal/en/publications/green-biorefinery-characterisation-and-utilisation-of-the-pulp-fr/",
+  "doi": null,
+  "geography": "Danish grassland crops; exact experiment site not established from the abstract",
+  "retrieval_date": "2026-11-08",
+  "source_location": "Aarhus University Pure publication record, thesis abstract, Trial I and Trial II summaries",
+  "methods_summary": "The thesis abstract describes protein extraction from four common Danish grassland crops using physical screw-press treatment and subsequent protein concentration. The four transcribed values are ranges across the abstract's crop/trial context.",
+  "license_or_rights": "No explicit reuse license identified for the thesis record. This extract contains short factual ranges with citation, not thesis text or figures; review rights before external redistribution.",
+  "evidence_class": "B-tier primary doctoral thesis; abstract-level reported ranges",
+  "quality_class": "B",
+  "activation_state": "reference_only",
+  "calculation_connected": false,
+  "row_count": 4,
+  "sha256_csv": "a8bad5742d4fb79882099876347d4828b494fc042b70d0d841487d2d636fee7d",
+  "transcription_policy": "Only four ranges explicitly stated in the institutional thesis abstract are transcribed. No species mapping, paired recovery, mass-balance closure, uncertainty, or process equation is inferred.",
+  "limitations": [
+    "The feedstocks are cultivated Danish forage crops, not Dutch roadside grass, VARTA samples, or GreenHub feed.",
+    "The accessible source is an abstract-level institutional thesis record; press settings, precipitation route, individual species values, replicate counts, and full trial-level tables are not transcribed.",
+    "Reported range endpoints are not paired across metrics and must not be summed as if they describe one mass balance.",
+    "Ranges are not confidence intervals and contain no recoverable SD/SE from the accessible abstract.",
+    "Rumen-undegraded protein is an animal nutrition endpoint, not a process protein recovery or market-quality guarantee.",
+    "No GreenHub default, parameter, equation, route, TEA/LCA value, or Pareto configuration consumes these records."
+  ]
+}

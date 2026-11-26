@@ -1,0 +1,37 @@
+{
+  "dataset_id": "BRS-ROADSIDE-GRASS-DRAFT-2021",
+  "title": "Draft report: Berm grass — measurement-only reference extract",
+  "source_id": "SRC-BRS-BERMGRASS-DRAFT-2021",
+  "source_file": "brs_roadside_grass_pilot_2021_draft_reference.csv",
+  "provided_source_file": "User-supplied bermgrass_report_english.csv",
+  "provided_source_file_sha256": "2EEA7362C25C4C7082D2832B8E8E7734B44C7751F57E3913789D42C6559FC1DB",
+  "underlying_report": "Draft report: Berm grass; report date 2021-08-04 as stated in supplied translation",
+  "underlying_report_status": "Original Dutch report/PDF not present in the repository and not independently verified",
+  "doi": null,
+  "stable_url": null,
+  "retrieval_date": "2026-11-07",
+  "geography": "Netherlands; exact sampling site and sampling dates not specified in the supplied translation",
+  "evidence_class": "user-provided translated project report; claimed measurements not independently verified",
+  "quality_class": "A as reported measurement; provisional pending original-report verification",
+  "record_count": 105,
+  "source_record_number": "One-based data-record line number in the supplied CSV, including the header line offset",
+  "transformation": "Retained rows with record_type=measurement and all reported values, units, qualifiers, Dutch/English labels, page/table locations and translation notes. Excluded metadata and narrative-only rows. No unit conversion, imputation, recalculation, or normalization was applied.",
+  "activation_state": "reference_only",
+  "model_connection": "None. This file is not connected to defaults, canonical parameters, runtime calculations, or result reporting.",
+  "reported_content": [
+    "Results overview measurements for incoming roadside grass and named output fractions",
+    "Pilot mass-balance diagram values on page 7",
+    "One reported 5:1 water-to-sample mixing ratio",
+    "One approximate protein-recovery statement from the report conclusion"
+  ],
+  "limitations": [
+    "Underlying source PDF/lab report was not supplied; translation, transcription, table interpretation and measurement provenance remain unverified.",
+    "The page-7 mass-balance diagram explicitly states that it is not fully balanced; do not interpret its values as a closed balance or calibrate a model from them.",
+    "Reported pilot/project observations are not necessarily representative of current GreenHub feedstock or industrial operation.",
+    "The 5:1 water-to-sample ratio is a reported laboratory recipe, not a validated industrial dilution requirement.",
+    "The conclusion's approximate 11% protein recovery is distinct from the page-7 tabulated fraction yield and is preserved as a source claim, not reconciled or adopted.",
+    "No DOI, stable primary-source URL, explicit license, sampling design, or uncertainty information was verified for the draft report."
+  ],
+  "privacy": "Personal requester metadata from the supplied source CSV is omitted from this curated extract and sidecar.",
+  "license": "Not identified; source report rights and redistribution terms require confirmation."
+}

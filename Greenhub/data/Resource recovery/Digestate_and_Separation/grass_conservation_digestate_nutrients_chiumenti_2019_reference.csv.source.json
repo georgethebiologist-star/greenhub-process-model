@@ -1,0 +1,27 @@
+{
+  "title": "Digestate nutrient and solids observations following anaerobic digestion of fresh, dried, and ensiled riverbank grass",
+  "source_file": "grass_conservation_digestate_nutrients_chiumenti_2019_reference.csv",
+  "source_id": "SRC-CHIUMENTI-GRASS-AD-2019",
+  "source_url": "https://doi.org/10.3390/en12173244",
+  "source_location": "Table 2, p. 6; methods pp. 3–4; results pp. 5–6",
+  "authors": "Alessandro Chiumenti; Andrea Pezzuolo; Davide Boscaro; Francesco da Borso",
+  "publication_year": 2019,
+  "retrieval_date": "2026-11-07",
+  "persistent_identifier": "10.3390/en12173244",
+  "license": "CC BY 4.0, as stated in the article",
+  "geography": "Adige riverbanks near Boara Pisani, Veneto, Northern Italy",
+  "evidence_class": "peer-reviewed measured laboratory study; B literature evidence",
+  "experimental_context": "Early-spring mixed riverbank vegetation, mainly Poaceae with Poa and Festuca prevalence, cut to 40 mm; fresh, two-day air-dried, and ensiled without moisture correction or additives. Batch digestion used digestate inoculum from a mesophilic full-scale dairy-manure digester; reported digestate measurements are therefore not a GreenHub or grass-only system result.",
+  "reported_values": "Table 2 digestate composition and reported TS/VS/TKN removal values for fresh, dried, and ensiled grass conditions. Values and reported SDs are transcribed without conversion. Empty uncertainty fields mean no uncertainty was printed for that cell; they are not zero.",
+  "conversion_and_scaling": "No conversion or scaling. Units and bases preserve the table's wet-digestate, percent-of-TS, or reported removal basis.",
+  "applicability": "Phase 5/7 comparator for grass AD digestate composition and solids/nitrogen removal; cannot provide digestate flow, flow-weighted nutrient loads, nutrient speciation beyond TKN/ammonium, or recovery/separation efficiency.",
+  "limitations": [
+    "Italian spring riverbank grass is not Dutch roadside-grass feedstock.",
+    "Batch tests and manure-digester inoculum differ from the GreenHub route and continuous operation.",
+    "Concentration changes are not flow-corrected elemental balances; do not use as nitrogen recovery or fertilizer product yield.",
+    "No P or K measurements or nutrient recovery step are reported in the transcribed table.",
+    "Article text reports a concentration-based removal equation with an apparent sign convention ambiguity; this extract preserves the tabulated removal labels and does not recalculate them.",
+    "The article contains differing fresh-grass biogas/methane yield figures between abstract, graph, and conclusion; those disputed gas yield values were deliberately excluded from this dataset."
+  ],
+  "activation_state": "reference_only; not connected to calculation or defaults"
+}

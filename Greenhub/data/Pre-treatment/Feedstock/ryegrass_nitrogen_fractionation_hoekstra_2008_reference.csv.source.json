@@ -1,0 +1,49 @@
+{
+  "dataset_id": "SRC-HOEKSTRA-2008-NFRAC",
+  "source_file": "ryegrass_nitrogen_fractionation_hoekstra_2008_reference.csv",
+  "title": "Can herbage nitrogen fractionation in Lolium perenne be improved by herbage management?",
+  "source_id": "SRC-HOEKSTRA-2008-NFRAC",
+  "authors": [
+    "N. J. Hoekstra",
+    "P. C. Struik",
+    "E. A. Lantinga",
+    "M. E. Van Amburgh",
+    "R. P. O. Schulte"
+  ],
+  "year": 2008,
+  "journal": "NJAS - Wageningen Journal of Life Sciences",
+  "volume": "55",
+  "issue": "2",
+  "pages": "167-180",
+  "doi": "10.1016/S1573-5214(08)80035-8",
+  "source_url": "https://doi.org/10.1016/S1573-5214(08)80035-8",
+  "retrieval_date": "2026-11-10",
+  "source_location": "Results and Discussion, 'On nitrogen basis' subsection, p. 174; reported mean nitrogen fractions for lamina and sheath.",
+  "geography": "Teagasc Johnstown Castle Research Centre, Wexford, Ireland",
+  "material": "Perennial ryegrass (Lolium perenne) cultivars Aberdart and Respect; lamina and sheath fractions; four sampling seasons in 2002-2003.",
+  "study_conditions": "Factorial field study included nitrogen rates 0, 90, and 390 kg N/ha/year, regrowth intervals of 2-3, 4-5, and 6-7 weeks, and cutting heights of approximately 8 and 12 cm. The reported tissue means aggregate over management treatments.",
+  "measurement_method": "Total nitrogen by Kjeldahl analysis. Nitrogen fractions follow the Cornell Net Carbohydrate and Protein System fractionation scheme; neutral- and acid-detergent nitrogen were also determined gravimetrically.",
+  "basis": "g of nitrogen in each fraction per kg total nitrogen; the ten extracted rows reproduce the paper's rounded lamina and sheath mean values.",
+  "evidence_class": "primary_literature_measurement; source observations are class B",
+  "license": "Reuse license not identified in the accessed article record; verify before redistribution beyond this project.",
+  "activation_state": "The reported B1N, B2N, B3N, and CN means are used only to form a GreenHub-specific relative allocation between soluble and non-soluble protein pseudocomponents. B1N is the source's CNCPS buffer-soluble true-protein fraction; it is distinct from BIN, the buffer-insoluble nitrogen assay used in fraction calculations. The derived GreenHub values are class C; source observations remain class B.",
+  "readiness_state": "D4_partial_calculation_connected",
+  "calculation": {
+    "soluble_protein_n_g_per_kg_total_n": 175.0,
+    "non_soluble_protein_n_g_per_kg_total_n": 592.0,
+    "soluble_fraction_code": "B1N",
+    "non_soluble_fraction_codes": ["B2N", "B3N", "CN"],
+    "non_soluble_sum": "mean(B2N) + mean(B3N) + mean(CN) = 457.5 + 125.5 + 9.0",
+    "soluble_mass_share": "175 / (175 + 592) = 0.2281616688; the value 175 is mean B1N, not BIN",
+    "profile_mapping": "Apply the same normalized share to Smit et al.'s 0.107 kg protein/kg dry roadside grass and convert to wet feed with the VARTA dry-matter fraction 0.143. Both model protein pseudocomponents use a 0.16 nitrogen mass-fraction convention, so the N-fraction ratio is used as a mass-allocation ratio.",
+    "source_quality_class": "B",
+    "derived_profile_quality_class": "C"
+  },
+  "limitations": [
+    "Cultivated perennial ryegrass in Ireland is not the GreenHub Dutch roadside grass or the July 2026 VARTA sample.",
+    "The article's B1N label denotes buffer-soluble true-protein nitrogen; BIN denotes a separate buffer-insoluble assay in the CNCPS method. Buffer solubility under a nutritional fractionation method is not the same as recovery into industrially pressed grass juice; the mapping is a replaceable relative proxy only.",
+    "The N-fraction means differ between lamina and sheath and across season and management; their two-tissue average is not a GreenHub uncertainty distribution.",
+    "The SuspendedProtein model pool groups buffer-insoluble and cell-wall-associated fractions; it does not claim a measured physical suspension state.",
+    "GreenHub matched feed/juice/cake protein-fraction assays remain required under REQ-GH-P3-07 and REQ-GH-P4-01."
+  ]
+}

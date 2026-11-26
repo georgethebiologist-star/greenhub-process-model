@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Biorefinery material profile record",
+  "description": "Project-neutral record separating extensive mass-balance components from analytical observations. Analytical properties such as pH, CFU/g, particles/kg, and trace concentrations are not mass fractions and must never be auto-normalized into composition.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "record_id",
+    "project_id",
+    "data_scope_class",
+    "context_independent",
+    "material",
+    "mass_composition",
+    "analytical_properties",
+    "closure",
+    "activation_state",
+    "provenance",
+    "metadata_gaps"
+  ],
+  "properties": {
+    "schema_version": {"type": "string"},
+    "record_id": {"type": "string", "minLength": 1},
+    "project_id": {"type": ["string", "null"]},
+    "data_scope_class": {
+      "type": "string",
+      "enum": ["context_independent", "technology_specific", "material_or_site_specific", "technology_and_material_specific", "context_specific_unclassified"]
+    },
+    "context_independent": {"type": "boolean"},
+    "material": {
+      "type": "object",
+      "required": ["material_id", "display_name", "material_type"],
+      "properties": {
+        "material_id": {"type": "string", "minLength": 1},
+        "display_name": {"type": "string", "minLength": 1},
+        "material_type": {"type": "string", "minLength": 1},
+        "geography": {"type": ["string", "null"]},
+        "collection_stage": {"type": ["string", "null"]},
+        "sampling_time": {"type": ["string", "null"]},
+        "treatment_history": {"type": ["string", "null"]}
+      },
+      "additionalProperties": true
+    },
+    "mass_composition": {
+      "type": "array",
+      "description": "Only mutually exclusive component masses intended for the declared closure/accounting group belong here. Overlapping assays (for example crude protein and total nitrogen) belong in analytical_properties.",
+      "items": {
+        "type": "object",
+        "required": ["component_id", "value", "unit", "basis", "quality_class", "activation_state"],
+        "properties": {
+          "component_id": {"type": "string", "minLength": 1},
+          "value": {"type": ["number", "null"], "minimum": 0},
+          "unit": {"type": "string", "minLength": 1},
+          "basis": {"type": "string", "minLength": 1},
+          "accounting_group": {"type": ["string", "null"]},
+          "exclusive_for_closure": {"type": "boolean"},
+          "quality_class": {"type": ["string", "null"], "enum": ["A", "B", "C", "D", "E", null], "description": "Evidence grade. E records an unverified value or compatibility placeholder, not literature evidence. D is retained for legacy read compatibility only and should not be assigned to new records."},
+          "value_status": {
+            "type": "string",
+            "description": "Observation/model role, kept separate from evidence quality and runtime activation so unmeasured fallbacks or derived closure residuals are never mislabeled as evidence.",
+            "enum": ["measured", "literature_value", "literature_derived_assumption", "unverified_assumption", "unmeasured_numeric_fallback", "derived_residual", "structural_initial_state", "not_applicable"]
+          },
+          "source_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+          "activation_state": {"type": "string", "enum": ["active", "reference_only", "blocked", "not_measured", "retired"]},
+          "uncertainty": {"type": ["string", "number", "null"]}
+        },
+        "additionalProperties": true
+      }
+    },
+    "analytical_properties": {
+      "type": "array",
+      "description": "Measured or literature-reported material properties with their own units, methods, sample basis, censoring, and uncertainty. These values are not implicitly included in mass_composition.",
+      "items": {
+        "type": "object",
+        "required": ["property_id", "value", "unit", "sample_basis", "status", "quality_class"],
+        "properties": {
+          "property_id": {"type": "string", "minLength": 1},
+          "value": {"type": ["number", "string", "null"]},
+          "unit": {"type": "string", "minLength": 1},
+          "sample_basis": {"type": "string", "minLength": 1},
+          "method": {"type": ["string", "null"]},
+          "status": {"type": "string", "enum": ["measured", "literature_value", "not_detected", "not_reported", "not_measured", "not_applicable"]},
+          "quality_class": {"type": ["string", "null"], "enum": ["A", "B", "C", "D", "E", null], "description": "Evidence grade. E records an unverified value or compatibility placeholder, not literature evidence. D is retained for legacy read compatibility only and should not be assigned to new records."},
+          "detection_limit": {"type": ["number", "string", "null"]},
+          "uncertainty": {"type": ["number", "string", "null"]},
+          "source_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string"}}
+        },
+        "additionalProperties": true
+      }
+    },
+    "derived_analytical_properties": {
+      "type": "array",
+      "description": "Explicit calculations from analytical properties (for example N-derived crude-protein equivalent). Keep these separate from direct observations and mutually exclusive mass-composition components; preserve equation, input property IDs, method sources, limitations, and activation state.",
+      "items": {
+        "type": "object",
+        "required": ["property_id", "value", "unit", "sample_basis", "status", "quality_class", "calculation", "activation_state"],
+        "properties": {
+          "property_id": {"type": "string", "minLength": 1},
+          "value": {"type": ["number", "string", "null"]},
+          "unit": {"type": "string", "minLength": 1},
+          "sample_basis": {"type": "string", "minLength": 1},
+          "status": {"type": "string", "const": "calculated_from_analytical_properties"},
+          "quality_class": {"type": ["string", "null"], "enum": ["A", "B", "C", "D", "E", null], "description": "Evidence grade. E records an unverified value or compatibility placeholder, not literature evidence. D is retained for legacy read compatibility only and should not be assigned to new records."},
+          "source_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+          "calculation": {
+            "type": "object",
+            "required": ["equation", "input_property_ids"],
+            "properties": {
+              "equation": {"type": "string", "minLength": 1},
+              "input_property_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string"}},
+              "method_source_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+              "assumptions": {"type": "array", "items": {"type": "string"}}
+            },
+            "additionalProperties": true
+          },
+          "limitations": {"type": "array", "items": {"type": "string"}},
+          "activation_state": {"type": "string", "enum": ["active", "reference_only", "blocked", "not_measured", "retired"]},
+          "uncertainty": {"type": ["number", "string", "null"]}
+        },
+        "additionalProperties": true
+      }
+    },
+    "closure": {
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": {"type": "string", "enum": ["measured", "calculated", "not_checked", "not_applicable"]},
+        "accounting_group": {"type": ["string", "null"]},
+        "target_total": {"type": ["number", "null"]},
+        "residual_component_id": {"type": ["string", "null"]},
+        "method": {"type": ["string", "null"]}
+      },
+      "additionalProperties": true
+    },
+    "technology_family_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+    "activation_state": {"type": "string", "enum": ["active", "reference_only", "blocked", "not_measured", "retired"]},
+    "provenance": {"type": "array", "items": {"$ref": "dataset_reuse_record.schema.json#/$defs/provenance_record"}},
+    "metadata_gaps": {"type": "array", "uniqueItems": true, "items": {"type": "string"}}
+  },
+  "additionalProperties": true
+}

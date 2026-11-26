@@ -24,6 +24,7 @@ import productPriceQualityReview from '../../Greenhub/data/tea/product_price_qua
 import { buildPythonRequest, fetchRunResources, fetchRunResult, runPythonSimulation } from './data/apiClient';
 import { cloneEmpiricalBaseline, PREVIEW_BASELINE_STATUS } from './data/baselineFixtures';
 import { normalizeResult } from './data/normalizeResult';
+import { displayQualityClass } from './data/qualityClass';
 import { ReportCenter, ResultsWorkbench } from './components/ResultsWorkbench';
 import type { FeedInputs } from './components/InputStudio';
 import BaselineTimeSeries from './components/BaselineTimeSeries';
@@ -75,23 +76,25 @@ const productPriceLabels:Record<keyof typeof baselineProductPrices,{label:string
 const economicDefaults={...economicDefaultsProfile.economics,coolingCostEurMWh:'',logisticsCostEurTkm:String(economicDefaultsProfile.economics.logisticsCostEurTkm),logisticsDistanceKm:String(economicDefaultsProfile.economics.logisticsDistanceKm)};
 const monthLabels = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const qualityHelp = {
-  A: 'Measured or verified', B: 'Traceable literature, official data, or supplier source', C: 'Engineering estimate',
-  D: 'Uncertain or quarantined; do not treat as validated', E: 'Explicit assumption or structural placeholder',
+  A: 'Measured project data', B: 'Direct literature, official, or supplier evidence',
+  C: 'Assumption or proxy linked to literature; transferability is limited',
+  E: 'Unverified assumption or placeholder; no directly supporting source',
 };
 const feedQualityHelp:Record<string,string> = {
-  A: 'Measured', B: 'Literature basis', C: 'Literature-based assumption',
-  D: 'Uncertain', E: 'Explicit structural placeholder',
+  A: 'Measured', B: 'Literature record',
+  C: 'Literature assumption', E: 'Uncertain',
+  M: 'Not measured',
+  R: 'Calculated profile-closure residual; not measured and not a separately identified chemical fraction',
+  S: 'Structural model state at the selected process boundary; not a feed assay',
 };
-const feedQualityLegendEntries=Object.entries(feedQualityHelp).filter(([key])=>key!=='E');
-const feedCompositionData = feedCompositionProfile.compounds as Record<string,{label:string;wet_mass_fraction:number;data_class:'A'|'B'|'C'|'D'|'E';source?:{source:string;source_id?:string;source_title?:string;doi?:string;url?:string;source_url?:string;source_location?:string;reference_year?:number;geography?:string;basis:string;uncertainty?:string;applicability?:string}}>;
+const feedQualityLegendEntries=(['A','B','C','E','M'] as const).map(key=>[key,feedQualityHelp[key]] as const);
+const feedCompositionData = feedCompositionProfile.compounds as Record<string,{label:string;wet_mass_fraction:number;data_class:'A'|'B'|'C'|'D'|null;record_role?:string;input_status?:string;source?:{source:string;source_id?:string;source_title?:string;doi?:string;url?:string;source_url?:string;source_location?:string;reference_year?:number;geography?:string;basis:string;uncertainty?:string;applicability?:string}}>;
 type FeedCompound = {id:string;label:string};
 const feedCompoundGroups:{title:string;items:FeedCompound[]}[] = [
   {title:'Water',items:[{id:'Water',label:'Moisture'}]},
   {title:'Proteins and peptides',items:[
     {id:'SolubleProtein',label:'Soluble protein'},{id:'SuspendedProtein',label:'Suspended protein'},
-    {id:'PrecipitatedProtein',label:'Precipitated protein'},{id:'HeatCoagulatedProtein',label:'Heat-coagulated protein'},
-    {id:'DegradedProtein',label:'Degraded protein'},{id:'Peptides',label:'Peptides'},
-    {id:'AminoAcids',label:'Amino acids'},{id:'MicrobialBiomass',label:'Microbial biomass'},
+    {id:'Peptides',label:'Peptides'},{id:'AminoAcids',label:'Amino acids'},
   ]},
   {title:'Carbohydrates and plant structure',items:[
     {id:'EntrappedSugars',label:'Sugars'},{id:'Starch',label:'Starch'},
@@ -140,6 +143,20 @@ const feedCompoundGroups:{title:string;items:FeedCompound[]}[] = [
   ]},
 ];
 const baselineFeedComposition = Object.fromEntries(Object.entries(feedCompositionData).map(([id,record])=>[id,record.wet_mass_fraction*100]));
+const feedReferenceMeasurements = (feedCompositionProfile.analytical_reference as {measurements:Array<{id:string;value:number|null}>}).measurements;
+const feedReferenceValue = (id:string) => {
+  const value=feedReferenceMeasurements.find(item=>item.id===id)?.value;
+  if(typeof value!=='number'||!Number.isFinite(value))throw new Error(`Required grass reference measurement is unavailable: ${id}`);
+  return value;
+};
+const feedReferenceDryMatterPercent=feedReferenceValue('dry_matter_percent');
+const feedReferenceDryMatterFraction=feedReferenceDryMatterPercent/100;
+const feedProfileProteinWetFraction=(feedCompositionData.SolubleProtein.wet_mass_fraction+feedCompositionData.SuspendedProtein.wet_mass_fraction);
+const feedPlanningReferences={
+  moisturePct:100-feedReferenceDryMatterPercent,
+  proteinPct:feedProfileProteinWetFraction/feedReferenceDryMatterFraction*100,
+  phosphorusPct:feedReferenceValue('phosphorus_g_kg_dm')*feedReferenceDryMatterFraction/10,
+};
 const feedCompositionLimits=feedCompositionProfile.composition_limits as {minimum_total_fraction:number;maximum_total_fraction:number;normalized_total_fraction:number};
 const FEED_COMPOSITION_TOTAL_MIN_PERCENT = feedCompositionLimits.minimum_total_fraction*100;
 const FEED_COMPOSITION_TOTAL_MAX_PERCENT = feedCompositionLimits.maximum_total_fraction*100;
@@ -154,21 +171,21 @@ function normalizeFeedCompositionForRequest(values:Record<string,number>) {
 }
 const areaLabels: Record<string, string> = {
   front_end: 'Feed and front-end', feedstock_and_characterization: 'Feed characterization',
-  feed_preparation_and_primary_separation: 'Feed preparation', protein_recovery: 'Protein recovery',
+  feed_preparation_and_primary_separation: 'Pretreatment & fractionation', protein_recovery: 'Protein recovery',
   anaerobic_digestion: 'Anaerobic digestion', biogas_upgrading: 'Biogas upgrading',
-  biogas_conditioning_and_upgrading: 'Biogas upgrading', nutrient_recovery: 'Nutrient recovery',
-  digestate_treatment_and_nutrient_recovery: 'Nutrient recovery',
+  biogas_conditioning_and_upgrading: 'Biogas upgrading', nutrient_recovery: 'NPK recovery',
+  digestate_treatment_and_nutrient_recovery: 'NPK recovery',
   shared_utilities_and_supporting_operations: 'Utilities',
 };
 const modeLabels: Record<CalculationMode, string> = {
   structural: 'Structural model', literature_default: 'Literature defaults', calibrated: 'Calibrated data',
 };
 const scenarioGroups = [
-  { key: 'feed_front_end' as const, title: 'Feed preparation', affects: 'Liquid yield and solids split', options: [['F0','Measured liquid fraction','active'],['F1','Roadside grass without PEF','active']] },
+  { key: 'feed_front_end' as const, title: 'Pretreatment & fractionation', affects: 'Liquid yield and solids split', options: [['F0','Measured liquid fraction','active'],['F1','Roadside grass without PEF','active']] },
   { key: 'protein_recovery' as const, title: 'Protein recovery', affects: 'Protein yield and downstream COD', options: [['PR0','Bypass protein recovery','active'],['PR1','Acid precipitation','active'],['PR2','Heat coagulation','active'],['PR3','Combined acid and heat','active'],['PR4','Lactic fermentation','planned'],['PR5','CO₂-assisted precipitation','planned'],['PR6','Ultrafiltration','planned'],['PR7','Biostimulant membrane recovery (clarified juice; no pre-fermentation)','configurable']] },
   { key: 'anaerobic_digestion' as const, title: 'Anaerobic digestion', affects: 'Biogas production and digestate', options: [['AD0','No digestion','active'],['AD1','Baseline digestion','active'],['AD2','Protein-rich liquid route','active'],['AD3','Alternative AD configuration','active'],['AD4','Advanced digestion route','active'],['AD5','Reserved digestion route','planned']] },
   { key: 'biogas_upgrading' as const, title: 'Biogas upgrading', affects: 'Biomethane recovery and utilities', options: [['BG0','No upgrading','active'],['BG1','Conditioning only','active'],['BG2','Baseline upgrading','active'],['BG3','Water scrubbing','active'],['BG4','Membrane separation','active'],['BG5','Amine absorption','active'],['BG6','Reserved upgrading route','planned']] },
-  { key: 'nutrient_recovery' as const, title: 'Nutrient recovery', affects: 'P/N/K products and energy demand', options: [['NR0','No targeted recovery','active'],['NR1','Solid-liquid separation','active'],['NR2','Struvite recovery','active'],['NR3','Ammonia capture','active'],['NR4','Integrated P and N recovery','active'],['NR5','Calcium-phosphate recovery','active'],['NR6','Ion-exchange ammonia recovery','active'],['NR7','Integrated P/N/K recovery','active']] },
+  { key: 'nutrient_recovery' as const, title: 'NPK recovery', affects: 'P/N/K products and energy demand', options: [['NR0','No targeted recovery','active'],['NR1','Solid-liquid separation','active'],['NR2','Struvite recovery','active'],['NR3','Ammonia capture','active'],['NR4','Integrated P and N recovery','active'],['NR5','Calcium-phosphate recovery','active'],['NR6','Ion-exchange ammonia recovery','active'],['NR7','Integrated P/N/K recovery','active']] },
 ];
 const processParameterDefinitions = [
   {id:'phase4.acid_dose_kg_per_m3',label:'Protein-route acid dose',unit:'kg/m³ liquid',defaultValue:1.5,min:0,max:100,step:0.1,when:(s:ScenarioSelection)=>['PR1','PR2','PR3'].includes(s.protein_recovery)},
@@ -192,9 +209,8 @@ export default function App() {
   const [environmentInputs, setEnvironmentInputs] = useState({electricityKgCo2eKwh:economicDefaultsProfile.environment.electricityKgCo2eKwh.value,heatKgCo2eKwh:economicDefaultsProfile.environment.heatKgCo2eKwh.value});
   const [parameters, setParameters] = useState<ParameterDefinition[]>(DEFAULT_PARAMETERS);
   const [processInputParameters, setProcessInputParameters] = useState<Record<string,number>>(()=>Object.fromEntries(processParameterDefinitions.map(item=>[item.id,item.defaultValue])));
-  const [feed, setFeed] = useState<FeedInputs>({ feedAmountKgh: 500, operatingDaysPerWeek: 7, operatingHoursPerDay: 24, moisturePct: 78, liquidFractionPct: 62, proteinPct: 18, nitrogenPct: 1.1, phosphorusPct: 0.12 });
+  const [feed, setFeed] = useState<FeedInputs>({ feedAmountKgh: 500, operatingDaysPerWeek: 7, operatingHoursPerDay: 24, moisturePct: feedPlanningReferences.moisturePct, liquidFractionPct: 62, proteinPct: feedPlanningReferences.proteinPct, nitrogenPct: 1.1, phosphorusPct: feedPlanningReferences.phosphorusPct });
   const [biomassSchedule, setBiomassSchedule] = useState<EmpiricalBiomassSchedule>(scheduleDefaults);
-  const [storageConditions, setStorageConditions] = useState({enabled:false,storageDays:0,aerobicFraction:0,temperatureC:20,moistureActivity:1});
   const [feedComposition, setFeedComposition] = useState<Record<string,number>>(baselineFeedComposition);
   const fallbackPreview = useMemo(() => cloneEmpiricalBaseline(), []);
   const [result, setResult] = useState<SimulationResult>(fallbackPreview);
@@ -226,7 +242,7 @@ export default function App() {
       detail: 'Displayed results use the previous input values. Run the simulation to calculate the updated case.',
       is_live: false,
     } : current);
-  }, [biomassSchedule,feed,feedComposition,storageConditions,scenario,mode,month,economicsInputs,environmentInputs,biostimulantRoute]);
+  }, [biomassSchedule,feed,feedComposition,scenario,mode,month,economicsInputs,environmentInputs,biostimulantRoute]);
 
   function markRunStaleAfterInputEdit() {
     setSourceState(current => current.is_live ? {
@@ -246,9 +262,8 @@ export default function App() {
     try {
       const normalizedFeedComposition=normalizeFeedCompositionForRequest(feedComposition);
       setFeedComposition(Object.fromEntries(Object.entries(normalizedFeedComposition).map(([id,value])=>[id,value*100])));
-      const storage = storageConditions.enabled?{model:'grass_reactions',storage_days:storageConditions.storageDays,aerobic_fraction:storageConditions.aerobicFraction,temperature_c:storageConditions.temperatureC,moisture_activity:storageConditions.moistureActivity,allow_assumptions:true}:null;
       const pr7 = scenario.protein_recovery === 'PR7';
-      const processRequest=buildPythonRequest(mode, month, scenario, feed, biomassSchedule, 'quasi_dynamic', pr7 ? null : storage, normalizedFeedComposition, processDesignOverrides);
+      const processRequest=buildPythonRequest(mode, month, scenario, feed, biomassSchedule, 'quasi_dynamic', null, normalizedFeedComposition, processDesignOverrides);
       if (pr7) {
         // PR7 deliberately preserves uncovered liquid pools in a separate outlet.
         // Return the diagnostic result and its failed completeness validation so
@@ -394,7 +409,7 @@ export default function App() {
           ...((economicsInputs.biomethaneBonusEnabled||economicsInputs.additionalBenefitEurYear>0)?{operating_support_awarding_organization:'User-defined screening assumption; not an awarded RVO tariff',opex_support_scenario_name:'Hypothetical operating support'}:{}),
         };
         configuration.climate_factors={
-          electricity:{factor_id:'electricity',value:Number(environmentInputs.electricityKgCo2eKwh),quantity_unit:'kWh',source_status:Number(environmentInputs.electricityKgCo2eKwh)===economicDefaultsProfile.environment.electricityKgCo2eKwh.value?'official_dataset':'explicit_user_assumption',basis:'User-editable value defaults to the JRC 2021 Netherlands life-cycle electricity factor, including upstream supply-chain emissions.',geography:'Netherlands',reference_year:2021,source_url:'https://doi.org/10.2905/JRC.4800KC0; https://data.europa.eu/89h/919df040-0252-4e4e-ad82-c054896e1641',source_table_page:'Table3_EU_LC, Netherlands row, 2021 column',retrieval_date:'2026-11-05',evidence_class:Number(environmentInputs.electricityKgCo2eKwh)===economicDefaultsProfile.environment.electricityKgCo2eKwh.value?'official_dataset':'explicit_user_assumption',applicability:'National Netherlands consumption mix; lifecycle grid factor, not a site-specific supplier factor. Published series ends in 2021.',conversion_method:'1 t CO₂e/MWh = 1 kg CO₂e/kWh',uncertainty:'Dataset point estimate; no probability distribution imposed.',warning:'Includes upstream electricity supply-chain emissions and uses 2021 grid data.'},
+          electricity:{factor_id:'electricity',value:Number(environmentInputs.electricityKgCo2eKwh),quantity_unit:'kWh',source_status:Number(environmentInputs.electricityKgCo2eKwh)===economicDefaultsProfile.environment.electricityKgCo2eKwh.value?'official_dataset':'explicit_user_assumption',basis:'User-editable value defaults to the JRC 2021 Netherlands life-cycle electricity factor, including upstream supply-chain emissions.',geography:'Netherlands',reference_year:2021,source_url:'https://doi.org/10.2905/JRC.4800KC0; https://data.europa.eu/89h/919df040-0252-4e4e-ad82-c054896e1641',source_table_page:'Table3_EU_LC, Netherlands row, 2021 column',retrieval_date:'2026-11-05',evidence_class:Number(environmentInputs.electricityKgCo2eKwh)===economicDefaultsProfile.environment.electricityKgCo2eKwh.value?'official_dataset':'E',applicability:'National Netherlands consumption mix; lifecycle grid factor, not a site-specific supplier factor. Published series ends in 2021.',conversion_method:'1 t CO₂e/MWh = 1 kg CO₂e/kWh',uncertainty:'Dataset point estimate; no probability distribution imposed.',warning:'Includes upstream electricity supply-chain emissions and uses 2021 grid data.'},
           heat:{factor_id:'heat',value:Number(environmentInputs.heatKgCo2eKwh),quantity_unit:'kWh',source_status:Number(environmentInputs.heatKgCo2eKwh)===economicDefaultsProfile.environment.heatKgCo2eKwh.value?'direct_literature':'explicit_user_assumption',basis:economicDefaultsProfile.environment.heatKgCo2eKwh.basis,geography:'Netherlands',reference_year:2022,source_url:economicDefaultsProfile.environment.heatKgCo2eKwh.source_urls.join('; '),source_table_page:economicDefaultsProfile.environment.heatKgCo2eKwh.source_table_page,retrieval_date:economicDefaultsProfile.environment.heatKgCo2eKwh.retrieval_date,evidence_class:Number(environmentInputs.heatKgCo2eKwh)===economicDefaultsProfile.environment.heatKgCo2eKwh.value?'B':'E',applicability:economicDefaultsProfile.environment.heatKgCo2eKwh.applicability,conversion_method:economicDefaultsProfile.environment.heatKgCo2eKwh.conversion_method,uncertainty:economicDefaultsProfile.environment.heatKgCo2eKwh.uncertainty,warning:'Average 2022 Dutch heat-grid factor; not a supplier-specific plant factor.'},
         };
         if(options.capabilities?.reuse_completed_run_for_analysis)configuration.existing_run_id=next.run_id;
@@ -437,8 +452,6 @@ export default function App() {
     const configuration=candidate?.configuration||{};
     const request=configuration.simulation||{};
     const selected=request.scenarios||{};
-    const rate=Number(request.wet_feed_rate_kg_hr??request.plant_capacity_kg_hr);
-    const annualTarget=Number.isFinite(rate)&&rate>0?rate*8760/1000:biomassSchedule.annual_processed_biomass_tonnes;
     const econ=configuration.candidate_economics||{};
     const restoredEconomics=candidateEconomicSettings(econ,economicsInputs);
     setScenario(current=>({...current,
@@ -452,17 +465,9 @@ export default function App() {
     setMode((request.calculation_mode||'structural') as CalculationMode);
     setMonth(request.selected_month||'July');
     if(request.feed_composition)setFeedComposition(Object.fromEntries(Object.entries(request.feed_composition).map(([id,value]:[string,any])=>[id,Number(value)*100])));
-    if(request.storage_conditions)setStorageConditions({enabled:true,storageDays:Number(request.storage_conditions.storage_days)||0,aerobicFraction:Number(request.storage_conditions.aerobic_fraction)||0,temperatureC:Number(request.storage_conditions.temperature_c)||20,moistureActivity:Number(request.storage_conditions.moisture_activity)||1});
-    else setStorageConditions(current=>({...current,enabled:false,storageDays:0,aerobicFraction:0}));
     if(request.design_overrides)setProcessInputParameters(current=>({...current,...Object.fromEntries(request.design_overrides.map((item:any)=>[item.parameter_id,Number(item.value)]))}));
     if(configuration.climate_factors)setEnvironmentInputs(current=>({...current,electricityKgCo2eKwh:Number(configuration.climate_factors.electricity?.value??current.electricityKgCo2eKwh),heatKgCo2eKwh:Number(configuration.climate_factors.heat?.value??current.heatKgCo2eKwh)}));
-    setBiomassSchedule(current=>({...current,
-      annual_available_biomass_tonnes:Math.max(current.annual_available_biomass_tonnes,annualTarget),
-      annual_processed_biomass_tonnes:annualTarget,
-      collection_refinery_fraction:1,
-      feed_basis:'tonnes_per_year',
-      feed_kg_per_hr:rate>0?rate:current.feed_kg_per_hr,
-    }));
+    if(request.biomass_schedule)setBiomassSchedule(current=>({...current,...request.biomass_schedule}));
     if(request.operating_schedule)setFeed(current=>({...current,
       operatingDaysPerWeek:Number(request.operating_schedule.operating_days_per_week)||current.operatingDaysPerWeek,
       operatingHoursPerDay:Number(request.operating_schedule.operating_hours_per_day)||current.operatingHoursPerDay,
@@ -476,28 +481,22 @@ export default function App() {
     setRunning(true);setTab('explore');setExploreView('performance');
     try {
       if(!request.request_id)throw new Error('This Pareto candidate has no saved process request.');
-      // Replay Pareto routes using the same seasonal feed schedule as Configure so the
-      // Results view contains month-resolved production and utilities, not annualized rates.
-      const seasonalTarget=annualTarget;
-      const schedule={
-        ...biomassSchedule,
-        annual_available_biomass_tonnes:Math.max(biomassSchedule.annual_available_biomass_tonnes,seasonalTarget),
-        annual_processed_biomass_tonnes:seasonalTarget,
-        collection_refinery_fraction:1,
-        feed_basis:'tonnes_per_year' as const,
-        feed_kg_per_hr:1000,
-      };
-      const exactRequest={...structuredClone(request),request_id:`greenhub-pareto-${globalThis.crypto?.randomUUID?.()||Date.now()}`,
-        resolution_mode:'quasi_dynamic',start_date:`${schedule.season_start.slice(0,4)}-01-01`,end_date:`${schedule.season_start.slice(0,4)}-12-31`,time_step:'weekly',
-        wet_feed_rate_kg_hr:null,plant_capacity_kg_hr:null,annual_biomass_target:seasonalTarget*1000,biomass_schedule:schedule};
+      // Replay the exact saved process request. Only request_id changes so the API
+      // creates a fresh run; route, seasonal supply, throughput, and assumptions
+      // remain the values used when this Pareto point was evaluated.
+      const exactRequest={...structuredClone(request),request_id:`greenhub-pareto-${globalThis.crypto?.randomUUID?.()||Date.now()}`};
       const raw=await runPythonSimulation(exactRequest);
       const envelope=normalizeResult(raw,result);
       if(envelope.source!=='python-api'||!raw?.run_id||raw.request_id!==exactRequest.request_id||envelope.result.run_id!==raw.run_id)throw new Error('Backend did not return the exact Pareto process scenario.');
       const resources=await fetchRunResources(envelope.result.run_id,raw.plots||[]);
       const next={...envelope.result,plots:resources.plots.length?resources.plots:envelope.result.plots,annual:resources.annual};
-      const seasonalBiomethaneM3=Number(resources.annual?.volumetric_products?.biomethane?.value||0);
+      const biomethaneMassKg=Number(resources.annual?.products?.biomethane?.value);
+      const biomethaneDensityKgPerNm3=Number(econ.biomethane_density_kg_per_nm3)||0.71751;
+      const reportedBiomethaneM3=Number(resources.annual?.volumetric_products?.biomethane?.value||0);
+      const seasonalBiomethaneNm3=Number.isFinite(biomethaneMassKg)&&biomethaneMassKg>=0
+        ? biomethaneMassKg/biomethaneDensityKgPerNm3 : reportedBiomethaneM3;
       const candidateConfiguration={...structuredClone(configuration),simulation:exactRequest,
-        candidate_economics:{...structuredClone(econ),annual_biomethane_m3:seasonalBiomethaneM3,biomethane_support_volume_nm3_per_year:seasonalBiomethaneM3}};
+        candidate_economics:{...structuredClone(econ),annual_biomethane_m3:seasonalBiomethaneNm3,biomethane_support_volume_nm3_per_year:seasonalBiomethaneNm3}};
       const analysisOptions=await decisionApi<any>('options',undefined,'GET');
       if(analysisOptions.capabilities?.reuse_completed_run_for_analysis)candidateConfiguration.existing_run_id=envelope.result.run_id;
       const report=await decisionApi<DecisionReport>('evaluate',{configuration:candidateConfiguration});
@@ -605,12 +604,6 @@ export default function App() {
         {configureView==='Biomass'&&<>
         <SectionHeading title="Feed schedule" text="Set annual grass availability, its collection season, and the wait before processing starts."/>
         <FeedScheduleControls value={biomassSchedule} onChange={next=>{setBiomassSchedule(next);markRunStaleAfterInputEdit();}}/>
-        <section className="panel storage-controls biomass-storage-panel">
-          {scenario.protein_recovery==='PR7' ? <p className="method-note">Storage degradation is unavailable for PR7: this route starts with clarified juice and has no pre-fermentation step.</p> : <>
-            <label className="storage-toggle"><input type="checkbox" checked={storageConditions.enabled} onChange={event=>{setStorageConditions(current=>({...current,enabled:event.target.checked,storageDays:event.target.checked&&current.storageDays===0?14:current.storageDays}));markRunStaleAfterInputEdit();}}/><span><strong>Include biochemical storage degradation</strong><small>Add storage reactions separately from the processing wait above.</small></span></label>
-            {storageConditions.enabled&&<div className="ds-controls"><label>Reaction residence <span><input type="number" min="0" max="366" value={storageConditions.storageDays} onChange={event=>{setStorageConditions(current=>({...current,storageDays:Number(event.target.value)}));markRunStaleAfterInputEdit();}}/><em>days</em></span></label><label>Air exposure fraction <span><input type="number" min="0" max="1" step="0.05" value={storageConditions.aerobicFraction} onChange={event=>{setStorageConditions(current=>({...current,aerobicFraction:Number(event.target.value)}));markRunStaleAfterInputEdit();}}/><em>fraction</em></span></label><label>Storage temperature <span><input type="number" min="-20" max="60" value={storageConditions.temperatureC} onChange={event=>{setStorageConditions(current=>({...current,temperatureC:Number(event.target.value)}));markRunStaleAfterInputEdit();}}/><em>°C</em></span></label><label>Moisture activity <span><input type="number" min="0" max="1" step="0.05" value={storageConditions.moistureActivity} onChange={event=>{setStorageConditions(current=>({...current,moistureActivity:Number(event.target.value)}));markRunStaleAfterInputEdit();}}/><em>fraction</em></span></label></div>}
-          </>}
-        </section>
         <FeedCompositionEditor value={feedComposition} onChange={(id,next)=>{setFeedComposition(current=>({...current,[id]:next}));markRunStaleAfterInputEdit();}}/>
         </>}
         {configureView==='Process'&&<>
@@ -694,7 +687,7 @@ export default function App() {
           <section className="panel draft-input-panel"><div className="draft-input-grid">
             <label>Electricity emissions factor<span><input type="number" min="0" step="0.001" value={environmentInputs.electricityKgCo2eKwh} onChange={event=>{setEnvironmentInputs(current=>({...current,electricityKgCo2eKwh:Number(event.target.value)}));markRunStaleAfterInputEdit();}}/><em>kg CO₂e/kWh</em></span><small title={`${economicDefaultsProfile.environment.electricityKgCo2eKwh.basis} Applicability: ${economicDefaultsProfile.environment.electricityKgCo2eKwh.applicability} Uncertainty: ${economicDefaultsProfile.environment.electricityKgCo2eKwh.uncertainty}`}><span className={`quality q-${Number(environmentInputs.electricityKgCo2eKwh)===economicDefaultsProfile.environment.electricityKgCo2eKwh.value?'B':'E'}`}>{Number(environmentInputs.electricityKgCo2eKwh)===economicDefaultsProfile.environment.electricityKgCo2eKwh.value?'B':'E'}</span> JRC Netherlands life-cycle average, 2021 · <a href={economicDefaultsProfile.environment.electricityKgCo2eKwh.source_urls[0]} target="_blank" rel="noreferrer">Source</a></small></label>
             <label>Heat emissions factor<span><input type="number" min="0" step="0.001" value={environmentInputs.heatKgCo2eKwh} onChange={event=>{setEnvironmentInputs(current=>({...current,heatKgCo2eKwh:Number(event.target.value)}));markRunStaleAfterInputEdit();}}/><em>kg CO₂e/kWh</em></span><small title={`${economicDefaultsProfile.environment.heatKgCo2eKwh.basis} Applicability: ${economicDefaultsProfile.environment.heatKgCo2eKwh.applicability} Uncertainty: ${economicDefaultsProfile.environment.heatKgCo2eKwh.uncertainty}`}><span className={`quality q-${Number(environmentInputs.heatKgCo2eKwh)===economicDefaultsProfile.environment.heatKgCo2eKwh.value?'B':'E'}`}>{Number(environmentInputs.heatKgCo2eKwh)===economicDefaultsProfile.environment.heatKgCo2eKwh.value?'B':'E'}</span> Dutch average heat-grid factor, 2022 · <a href={economicDefaultsProfile.environment.heatKgCo2eKwh.source_urls[0]} target="_blank" rel="noreferrer">Source</a> · 30.96 kg CO₂e/GJ = 0.111456 kg CO₂e/kWh</small></label>
-          </div><p className="draft-input-note">B = cited literature/dataset default; E = user-edited assumption. National screening averages are not supplier-specific.</p></section>
+          </div></section>
         </>}
       </div>}
       {tab === 'explore' && <div className="page-stack"><PageIntro eyebrow="Results" title="Performance and decisions" text={exploreView==='optimization'?'BioSTEAM Pareto results':'Process performance and contribution data'}/><div className="section-switcher" role="tablist" aria-label="Results views">{([['performance','Performance'],['inventory','Inventory'],['hotspots','Hotspots'],['optimization','Optimization'],['model-comparison','Model comparison']] as [ExploreView,string][]).map(([id,label])=><button role="tab" aria-selected={exploreView===id} className={exploreView===id?'active':''} key={id} onClick={()=>setExploreView(id)}>{label}</button>)}</div>{exploreView==='performance'&&<ResultsWorkbench result={result} graph={graph} artifacts={artifacts} analysis={analysisReport} limitations={limitations} runtime={runtime==='python'?(result.resolution_mode==='steady_state'?'Steady-state process model':'Quasi-dynamic process model'):'Preview baseline'} sourceState={sourceState} savedRuns={savedRuns} onSaveRun={saveSnapshot}/ >}{exploreView==='inventory'&&<InventoryPage analysis={analysisReport}/ >}{exploreView==='hotspots'&&<ProcessHotspots result={result} analysis={analysisReport} limitations={limitations}/ >}{exploreView==='optimization'&&<ParetoScreening onApplyCandidate={runParetoCandidate} applying={running}/ >}{exploreView==='model-comparison'&&<ModelComparisonPanel dynamic={result} empirical={empiricalComparison} live={runtime==='python'} busy={comparisonRunning} onRun={runEmpiricalComparison} error={comparisonError}/>}</div>}
@@ -725,12 +718,17 @@ function Overview({ result, activeUnits, analysis, warnings=[], limitations=[], 
   const tea=analysis?.tea?.totals||{},candidate=analysis?.tea?.candidate_economics||{},finance=analysis?.tea?.financial_kpis||{},lca=analysis?.lca?.totals||{};
   const climateKg=lca.climate_kg_co2e_per_year??lca.partial_climate_kg_co2e_per_year;
   const value=(number:any,digits=0)=>number==null||!Number.isFinite(Number(number))?'Incomplete':Number(number).toLocaleString(undefined,{maximumFractionDigits:digits});
+  const profitIncludesGrassBonus=tea.operating_profit_including_grass_bonus_excluding_public_support_eur_per_year!=null;
+  const baseOperatingProfit=tea.partial_operating_margin_eur_per_year??tea.net_operating_margin_eur_per_year;
+  const grassBonus=candidate.grass_utilization_bonus_eur_per_year??tea.grass_utilization_bonus_eur_per_year??0;
+  const operatingProfit=tea.operating_profit_including_grass_bonus_excluding_public_support_eur_per_year??(baseOperatingProfit==null?null:Number(baseOperatingProfit)+Number(grassBonus));
+  const operatingProfitLabel='Profit';
   const outcomes=[
     ['Feed processed',value(annual?.feed_processed?.value!=null?annual.feed_processed.value/1000:null), 't/year', 'green'],
     ['NPV',value(tea.proxy_npv_eur??candidate.proxy_npv_eur??finance.npv_eur), '€', 'blue'],
     ['CAPEX',value(tea.high_direct_capex_eur??tea.partial_direct_capex_eur??tea.total_installed_capex_eur), '€', 'yellow'],
     ['OPEX',value(tea.annual_opex_eur), '€/year', 'yellow'],
-    ['Profit per year',value(tea.operating_profit_during_support_eur_per_year??tea.partial_operating_margin_eur_per_year??tea.net_operating_margin_eur_per_year), '€/year', 'rose'],
+    [operatingProfitLabel,value(operatingProfit), '€/year', 'rose'],
     ['Emissions',value(climateKg==null?null:Number(climateKg)/1000,1), 't CO₂e/year', 'blue'],
   ];
   return <div className="page-stack">
@@ -738,7 +736,7 @@ function Overview({ result, activeUnits, analysis, warnings=[], limitations=[], 
       <div><h1>Overview</h1></div>
       <div className="overview-actions"><button className="run-button" onClick={onConfigure}><Settings2 size={16}/>Configure pathway</button><button className="secondary" onClick={onResults}><Activity size={16}/>View results</button></div>
     </section>
-    <section className="kpi-grid">{outcomes.map(([label,amount,unit,color]: any[]) => <div className="kpi" key={String(label)} title={label==='Profit per year'?'Includes annual operating support while active, including the biomethane bonus. Excludes CAPEX grants, tax and capital recovery; CAPEX grants affect upfront investment and NPV.':label==='OPEX'?'Known screened OPEX lines only. Unresolved cost items remain listed as missing in the TEA report.':label==='CAPEX'?'High direct screening CAPEX. Equipment scaling and unscaled reference packages are shown in the TEA cost detail.':undefined}><span>{label}</span><div className={`kpi-value-line ${String(color)}`}><strong>{amount}</strong><small>{unit}</small></div></div>)}</section>
+    <section className="kpi-grid">{outcomes.map(([label,amount,unit,color]: any[]) => <div className="kpi" key={String(label)} title={label===operatingProfitLabel?`${profitIncludesGrassBonus?'Includes the separate grass logistics bonus. ':''}Excludes public operating support, CAPEX grants, tax and capital recovery. NPV reports support separately.`:label==='OPEX'?'Known screened OPEX lines only. Unresolved cost items remain listed as missing in the TEA report.':label==='CAPEX'?'High direct screening CAPEX. Equipment scaling and unscaled reference packages are shown in the TEA cost detail.':undefined}><span>{label}</span><div className={`kpi-value-line ${String(color)}`}><strong>{amount}</strong><small>{unit}</small></div></div>)}</section>
     <BaselineTimeSeries annual={annual} result={result} nutrientRecovery={result.scenarios.nutrient_recovery}/>
     <section className="overview-grid">
       <div className="panel"><PanelTitle icon={<Layers3/>} title="Current process pathway" text={`${activeUnits} active units across ${visibleAreas.length} process areas.`}/><div className="process-strip">{visibleAreas.map((area:any,index:number) => <React.Fragment key={area.id}><div className="process-node"><span>{String(index+1).padStart(2,'0')}</span><strong>{areaLabels[area.id] || area.name}</strong><small>{area.units.length} units</small></div>{index < visibleAreas.length-1 && <b>→</b>}</React.Fragment>)}</div></div>
@@ -777,13 +775,14 @@ function FeedCompositionEditor({value,onChange}:{value:Record<string,number>;onC
   const enteredTotalPercent=Object.values(value).reduce((sum,item)=>sum+(Number(item)||0),0);
   const compositionInRange=enteredTotalPercent>=FEED_COMPOSITION_TOTAL_MIN_PERCENT&&enteredTotalPercent<=FEED_COMPOSITION_TOTAL_MAX_PERCENT;
   return <section className="panel feed-composition-panel">
-    <div className="panel-title"><span className="title-icon"><Layers3 size={17}/></span><div><h3>Feed composition</h3><p>Wet-mass amounts are shown in g/kg or mg/kg grass. Reset restores the sourced default.</p></div></div>
+    <div className="panel-title"><span className="title-icon"><Layers3 size={17}/></span><div><h3>Feed composition</h3><p>Wet-mass amounts are shown in g/kg or mg/kg grass. Reset restores the model default.</p></div></div>
     <div className="feed-composition-layout">
-      <aside className="feed-quality-legend" aria-label="Data class legend"><strong>Data class</strong>{feedQualityLegendEntries.map(([key,text])=><div className="feed-quality-legend-row" key={key}><span className={`quality q-${key}`} title={text}>{key}</span><small>{text}</small></div>)}</aside>
+      <aside className="feed-quality-legend" aria-label="Evidence and input status legend"><strong>Evidence / status</strong>{feedQualityLegendEntries.map(([key,text])=><div className="feed-quality-legend-row" key={key}><span className={`quality q-${key}`} title={text}>{key}</span><small>{text}</small></div>)}</aside>
       <div className="feed-compound-groups">{feedCompoundGroups.map(group=><details key={group.title} className="feed-compound-group" open={openGroups.has(group.title)} onToggle={event=>{const isOpen=event.currentTarget.open;setOpenGroups(current=>{const next=new Set(current);isOpen?next.add(group.title):next.delete(group.title);return next;});}}><summary>{group.title}<span>{group.items.length} compounds</span></summary><div className="feed-compound-list">{group.items.map(item=>{
         const percent=value[item.id]??0;
         const evidence=feedCompositionData[item.id];
-        const itemQuality=evidence?.data_class??'E';
+        const sourceDoi=evidence?.source?.doi??evidence?.source?.source_url??evidence?.source?.url??'';
+        const itemQuality=evidence?.record_role==='structural_initial_state'?'S':evidence?.record_role==='unmeasured_model_fallback'?'M':evidence?.record_role==='derived_profile_residual'?'R':displayQualityClass(evidence?.data_class,sourceDoi);
         const source=evidence?.source;
         const sourceUrl=source?.url??source?.source_url??(source?.doi?`https://doi.org/${source.doi}`:undefined);
         const evidenceTooltip=`${itemQuality}: ${feedQualityHelp[itemQuality]}${source?` · ${source.source_title??source.source}${source.source_id?` · ${source.source_id}`:''}${source.doi?` · DOI ${source.doi}`:''}${sourceUrl?` · ${sourceUrl}`:''}${source.reference_year?` · ${source.reference_year}`:''}${source.geography?` · ${source.geography}`:''}${source.source_location?` · ${source.source_location}`:''} · ${source.basis}${source.uncertainty?` · Uncertainty: ${source.uncertainty}`:''}${source.applicability?` · Applicability: ${source.applicability}`:''}`:''}`;
@@ -793,15 +792,16 @@ function FeedCompositionEditor({value,onChange}:{value:Record<string,number>;onC
         return <div className="feed-compound-row" key={item.id}>
         <label className="feed-compound-name" htmlFor={`compound-${item.id}`}>{evidence?.label??item.label}{sourceUrl&&<a className="feed-source-link" href={sourceUrl} target="_blank" rel="noreferrer" aria-label={`Open source for ${item.label}`} title={source?.source_location??source?.source_title??source?.source}>Source</a>}</label>
         <div className="feed-compound-editor"><button type="button" className="compound-reset" onClick={()=>onChange(item.id,baselineFeedComposition[item.id]??0)} aria-label={`Reset ${item.label} to default`} title="Reset to default">Reset</button><span className="feed-composition-input"><input id={`compound-${item.id}`} type="number" min="0" step="any" value={Number(displayedValue.toPrecision(8))} onChange={event=>{const entered=Math.max(0,Number(event.target.value)||0);onChange(item.id,useMilligrams?entered/10000:entered/10);}} aria-label={`${item.label} amount per kilogram of wet grass`}/><em>{useMilligrams?'mg/kg':'g/kg'}{useMilligrams&&<span className="unit-caution" title="Check the unit carefully." aria-label="Check the unit carefully."><AlertTriangle size={11}/></span>}</em></span></div>
-        <span className={`quality q-${itemQuality}`} title={evidenceTooltip} aria-label={`Data class ${itemQuality}`}>{itemQuality}</span>
+        <span className={`quality q-${itemQuality}`} title={evidenceTooltip} aria-label={`Evidence or input status ${itemQuality}`}>{itemQuality}</span>
       </div>})}</div></details>)}</div>
     </div>
   </section>;
 }
 
 function ParameterRow({ parameter }: { parameter: ParameterDefinition; onChange:(value:number|string|boolean)=>void }) {
-  const evidenceDetails = [qualityHelp[parameter.quality_class], parameter.notes, parameter.basis, parameter.source_location, parameter.uncertainty ? JSON.stringify(parameter.uncertainty) : ''].filter(Boolean).join(' · ');
-  return <div className="parameter-row"><div><strong>{parameter.name}</strong><small>{areaLabels[parameter.process_area]}</small><p title={evidenceDetails}>{parameter.description}</p>{parameter.source_url&&<a className="parameter-source" href={parameter.source_url} target="_blank" rel="noreferrer">Source: {parameter.source_title||parameter.stable_identifier}</a>}</div><span className={`quality q-${parameter.quality_class}`} title={evidenceDetails}>{parameter.quality_class}</span><label><input type="number" value={Number(parameter.current_value)} disabled aria-label={`${parameter.name} planning reference`} title={evidenceDetails}/><em>{parameter.unit}</em></label><span className="parameter-state">Planning reference · not applied to runs</span></div>;
+  const quality=displayQualityClass(parameter.quality_class,parameter.stable_identifier,parameter.source_url);
+  const evidenceDetails = [qualityHelp[quality], parameter.notes, parameter.basis, parameter.source_location, parameter.uncertainty ? JSON.stringify(parameter.uncertainty) : ''].filter(Boolean).join(' · ');
+  return <div className="parameter-row"><div><strong>{parameter.name}</strong><small>{areaLabels[parameter.process_area]}</small><p title={evidenceDetails}>{parameter.description}</p>{parameter.source_url&&<a className="parameter-source" href={parameter.source_url} target="_blank" rel="noreferrer">Source: {parameter.source_title||parameter.stable_identifier}</a>}</div><span className={`quality q-${quality}`} title={evidenceDetails}>{quality}</span><label><input type="number" value={Number(parameter.current_value)} disabled aria-label={`${parameter.name} planning reference`} title={evidenceDetails}/><em>{parameter.unit}</em></label><span className="parameter-state">Planning reference · not applied to runs</span></div>;
 }
 
 function AdvancedRunDetails({ result, limitations }: { result: SimulationResult; limitations: string[] }) {
@@ -822,8 +822,9 @@ function SectionHeading({title,text}:{title:string;text:string}) { return <heade
 
 function EconomicNumberInput({label,value,defaultValue,unit,step='any',min=0,max,placeholder,onChange,provenance,...rest}:{label:string;value:string|number;defaultValue:string|number;unit:string;step?:string;min?:number;max?:number;placeholder?:string;onChange:(value:string)=>void;provenance?:{quality_class?:string;source_quality_class?:string;basis?:string;source_title?:string;source_url?:string;source_location?:string;reference_period?:string;reference_year?:number;applicability?:string;retrieval_date?:string;uncertainty?:string;market_reference?:{quality_class?:string;value?:number;unit?:string;source_title?:string;source_url?:string;source_location?:string;note?:string}};key?:string}) {
   const overridden=Math.abs(Number(value)-Number(defaultValue))>1e-10;
-  const quality=overridden?'C':(provenance?.quality_class||'C');
+  const quality=overridden?'E':displayQualityClass(provenance?.quality_class||'E',provenance?.source_url,provenance?.source_title,provenance?.source_location);
+  const marketQuality=displayQualityClass(provenance?.market_reference?.quality_class||'B',provenance?.market_reference?.source_url,provenance?.market_reference?.source_title,provenance?.market_reference?.source_location);
   const detail=overridden?'User-edited price assumption; source not supplied.':`${provenance?.basis||''} ${provenance?.source_location||''} ${provenance?.reference_period||provenance?.reference_year||''}. ${provenance?.applicability||''} Source quality ${provenance?.source_quality_class||quality}. Uncertainty: ${provenance?.uncertainty||'not supplied'}. Retrieved ${provenance?.retrieval_date||'date not recorded'}.`;
-  return <label className="economic-field">{label}<div className="economic-input-row"><button type="button" className="economic-reset" title="Reset to default" onClick={()=>onChange(String(defaultValue))}>Default</button><span><input type="number" min={min} max={max} step={step} placeholder={placeholder} value={value} onChange={event=>onChange(event.target.value)}/><em>{unit}</em></span></div><small className="price-quality-note" title={detail}><span className={`quality q-${quality}`}>{quality}</span></small>{!overridden&&provenance?.market_reference&&<small className="price-market-reference" title={provenance.market_reference.source_location}><span className={`quality q-${provenance.market_reference.quality_class||'B'}`}>{provenance.market_reference.quality_class||'B'}</span></small>}</label>;
+  return <label className="economic-field">{label}<div className="economic-input-row"><button type="button" className="economic-reset" title="Reset to default" onClick={()=>onChange(String(defaultValue))}>Default</button><span><input type="number" min={min} max={max} step={step} placeholder={placeholder} value={value} onChange={event=>onChange(event.target.value)}/><em>{unit}</em></span></div><small className="price-quality-note" title={detail}><span className={`quality q-${quality}`}>{quality}</span></small>{!overridden&&provenance?.market_reference&&<small className="price-market-reference" title={provenance.market_reference.source_location}><span className={`quality q-${marketQuality}`}>{marketQuality}</span>{provenance.market_reference.value!=null&&<> Market reference: €{provenance.market_reference.value.toLocaleString()} {provenance.market_reference.unit||''}</>}{provenance.market_reference.source_url&&<> · <a href={provenance.market_reference.source_url} target="_blank" rel="noreferrer">Source</a></>}</small>}</label>;
 }
 function PanelTitle({ icon,title,text }: any) { return <div className="panel-title"><span className="title-icon">{icon}</span><div><h3>{title}</h3><p>{text}</p></div></div>; }

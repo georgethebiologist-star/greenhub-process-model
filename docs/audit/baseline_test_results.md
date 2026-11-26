@@ -2,6 +2,9 @@
 
 Audit date: 2026-07-29
 
+> Historical baseline. These results describe the July 2026 checkout and are not a
+> substitute for the current [pre-release validation status](../PRE_RELEASE_STATUS.md).
+
 ## Environment
 
 | Item | Baseline |

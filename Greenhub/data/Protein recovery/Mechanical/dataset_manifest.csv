@@ -1,0 +1,2 @@
+filename,scope,row_count,validation_status,integration_readiness
+alfalfa_hansen_2022_repeated_pressing_quality_reference.csv,Alfalfa screw pressing and protein concentrate quality by repeated pass,10,PASS,reference_only

@@ -7,7 +7,7 @@ substituted if the proxy API fails.
 
 ## Runtime and boundary
 
-Run `.venv\Scripts\python.exe -m api` from the repository root and `npm run dev`
+Run `.venv\Scripts\python.exe -m api` from the repository root and `corepack pnpm dev`
 from `frontend`. The browser client uses `VITE_GREENHUB_API_URL`, defaulting to
 `http://127.0.0.1:8000/api/v1`. The frontend Express demo server is not the
 scientific proxy API; this feature requires the Python API.
@@ -54,6 +54,11 @@ plateau. Hourly-input mode additionally limits each month by
 `feed_kg_per_hr * operating_hours / 1000`. In either mode the annual target and
 collection fraction still bound the annual total. Infeasible targets produce
 an explicit `unmet_target_tonnes` warning, not rescaled availability.
+
+User-supplied monthly availability uses the same active-month rule: months with
+zero operating hours have zero scheduled collection/processing capacity even
+in annual-tonnes mode. Their available biomass remains reported as unused; it
+is not silently counted as collected.
 
 Available, processed, unused and utilization are all reported per month.
 `utilization_fraction = processed / available` (zero where no supply exists).
@@ -192,8 +197,8 @@ Missing front-end, extraction and recovery utilities make energy totals partial.
 New-Item -ItemType Directory -Path tmp -Force
 .venv\Scripts\python.exe -m pytest -q tests/test_dynamic_complete_reporting.py tests/test_dynamic_complete_proxy.py tests/test_dynamic_complete_biosteam.py tests/test_api_v1.py --basetemp=tmp/pytest_dynamic_reporting
 cd frontend
-npm run lint
-npm run build
+corepack pnpm lint
+corepack pnpm build
 ```
 
 There is no frontend test runner in the existing project; none was added.

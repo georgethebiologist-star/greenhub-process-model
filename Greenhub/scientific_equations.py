@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Callable
 
 from Greenhub.parameters.serialization import write_records_csv
+from Greenhub.phase6_specifications import h2s_solubility_temperature_ratio
 
 
 @dataclass(frozen=True)
@@ -107,6 +108,32 @@ EQUATION_REGISTRY = {
         limitations="Report-only typed helper; not consumed by model calculations.",
         activation_status="report_only",
         readiness_state="typed_not_active",
+    ),
+    "EQ-P6-WS-H2S-001": EquationDefinition(
+        equation_id="EQ-P6-WS-H2S-001",
+        function=h2s_solubility_temperature_ratio,
+        process_area="biogas_conditioning_and_upgrading",
+        unit_operation="water scrubbing absorber",
+        input_symbols=("temperature_c", "reference_temperature_c", "low_A", "low_B_k", "high_A", "high_B_k", "high_C", "high_D_per_k", "transition_K", "minimum_K", "maximum_K"),
+        canonical_parameter_ids=(
+            "phase6.water_scrubber_h2s_solubility_fit_low_a",
+            "phase6.water_scrubber_h2s_solubility_fit_low_b_k",
+            "phase6.water_scrubber_h2s_solubility_fit_high_a",
+            "phase6.water_scrubber_h2s_solubility_fit_high_b_k",
+            "phase6.water_scrubber_h2s_solubility_fit_high_c",
+            "phase6.water_scrubber_h2s_solubility_fit_high_d_per_k",
+            "phase6.water_scrubber_h2s_solubility_fit_transition_temperature_k",
+            "phase6.water_scrubber_h2s_solubility_fit_minimum_temperature_k",
+            "phase6.water_scrubber_h2s_solubility_fit_maximum_temperature_k",
+        ),
+        input_units=("degC", "degC", "1", "K", "1", "K", "1", "1/K", "K", "K", "K"),
+        output_units=("dimensionless relative solubility ratio",),
+        applicability="Relative dilute pure-water H2S equilibrium-solubility response in BG2 absorber A611; modifies the existing calibrated apparent-partition model only in literature_default or expert_override mode.",
+        source="Bigas production + upgrade/Water_Scrubbing/h2s_temperature_parameter.csv",
+        source_location="WS_H2S_T_001–009; piecewise IUPAC-evaluated Clarke & Glew measured-solubility fits and reported validity boundaries",
+        limitations="Does not model H2S reference removal, pH/speciation, electrolyte effects, non-ideality, kLa, packing, or stage efficiency.",
+        activation_status="active_mode_gated",
+        readiness_state="D4",
     ),
 }
 

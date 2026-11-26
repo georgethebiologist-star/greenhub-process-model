@@ -166,7 +166,7 @@ def screening_tea_product_prices(
                    source_title=user_price['source_title'], source_url=user_price['source_url'],
                    reference_year=2026, reference_period='2026',
                    source_table_or_page=user_price['source_location'],
-                   evidence_class='explicit_user_assumption', quality_class='C', source_quality_class='E',
+                   evidence_class='explicit_user_assumption', quality_class='E', source_quality_class='E',
                    stable_identifier=user_price['source_id'],
                    quality_rationale='User-supplied price range and midpoint; not the separate ACER market observation.')
     for key, product, label in (('ammonium_sulfate', 'ammonium_product', 'Ammonium sulfate (dry equivalent)'), ('struvite', 'phosphorus_product', 'Solid struvite')):

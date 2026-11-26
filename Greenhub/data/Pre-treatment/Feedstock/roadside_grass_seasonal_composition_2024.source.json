@@ -1,0 +1,41 @@
+{
+  "source_file": "roadside_grass_seasonal_composition_2024.csv",
+  "title": "Possibilities of Utilising Biomass Collected from Road Verges to Produce Biogas and Biodiesel",
+  "source_id": "SRC-CZUBASZEK-2024",
+  "authors": "Robert Czubaszek; Agnieszka Wysocka-Czubaszek; Aneta Sienkiewicz; Alicja Piotrowska-Niczyporuk; Martin J. Wassen; Andrzej Bajguz",
+  "publication_year": 2024,
+  "doi": "10.3390/en17071751",
+  "source_url": "https://doi.org/10.3390/en17071751",
+  "open_full_text_url": "https://research-portal.uu.nl/files/223408376/energies-17-01751.pdf",
+  "license": "CC BY 4.0",
+  "source_location": "Table 1, p. 4 (seasonal chemistry); Table 8, p. 12 (summed FAMEs)",
+  "retrieval_date": "2026-11-09",
+  "evidence_class": "B_literature_measurement",
+  "geography": "Białystok, Podlaskie Voivodeship, Poland (53°07′ N, 23°09′ E)",
+  "material_scope": "Street-side mowing piles dominated by Lolium perenne, with Poa pratensis and Festuca rubra; samples collected 25 April, 31 July and 7 October 2019; fresh grass and material ensiled 5–6 weeks",
+  "sample_design": "Three replicates per season and material state; report values are mean ± standard deviation",
+  "methods": "Fresh-grass moisture determined by drying at 105 ± 2 °C to constant mass; volatile solids, TKN, total P, K, Na and TOC reported on dry-matter basis. FAMEs were quantified by GC-MS/SIM after hexane extraction and methanol-KOH transesterification.",
+  "source_tables": [
+    {
+      "table": "Table 1",
+      "page": 4,
+      "fields": "Total solids, volatile solids, pH, TKN, total phosphorus, potassium, sodium, total organic carbon"
+    },
+    {
+      "table": "Table 8",
+      "page": 12,
+      "fields": "Summed MUFA, PUFA, SFA and total FAME measurements"
+    }
+  ],
+  "unit_and_basis_notes": "Table 1 composition measurements are reported on the table-specific basis recorded in each CSV row. Table 8 FAME sums are µg/g dry matter. FAME concentration is not equivalent to crude fat, ether extract, total lipid, or a directly transferable GreenHub Lipids mass fraction.",
+  "uncertainty_note": "Study reports standard deviations for n=3; between-site, interannual, species-mix, sampling, and method-transfer uncertainty for GreenHub are not quantified.",
+  "limitations": [
+    "Polish roadside material is a literature comparator, not the GreenHub/VARTA sample and not a Dutch default.",
+    "Season and preservation state materially affect composition; the six conditions must not be averaged into one assumed GreenHub feed profile.",
+    "FAME sums cannot replace the model's crude-lipid/ether-extract component because the analytes and methods differ.",
+    "Total TKN, P, K, and Na do not establish ammonium, organic/particulate N, or dissolved/particulate nutrient speciation.",
+    "Reference observations are not activated as UI inputs or process defaults."
+  ],
+  "activation_state": "reference_only",
+  "redistribution_note": "Attributed measurements and associated metadata transcribed from a CC BY 4.0 open-access article."
+}

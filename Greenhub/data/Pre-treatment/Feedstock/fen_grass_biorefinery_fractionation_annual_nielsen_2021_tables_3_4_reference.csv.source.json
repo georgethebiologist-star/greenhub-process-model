@@ -1,0 +1,30 @@
+{
+  "source_file": "fen_grass_biorefinery_fractionation_annual_nielsen_2021_tables_3_4_reference.csv",
+  "dataset_id": "NIELSEN-2021-FEN-GRASS-FRACTIONATION-ANNUAL",
+  "source_id": "SRC-NIELSEN-2021",
+  "title": "Effects of Harvest and Fertilization Frequency on Protein Yield and Extractability from Flood-Tolerant Perennial Grasses Cultivated on a Fen Peatland",
+  "authors": ["Claudia Kalla Nielsen", "Lene Stødkilde", "Uffe Jørgensen", "Poul Erik Lærke"],
+  "publication_year": 2021,
+  "doi": "10.3389/fenvs.2021.619258",
+  "source_url": "https://doi.org/10.3389/fenvs.2021.619258",
+  "source_location": "Tables 3 and 4, annual average yield rows",
+  "retrieval_date": "2026-11-07",
+  "license": "Creative Commons Attribution (CC BY), as stated in the article",
+  "geography": "Vejrumbro, Central Jutland, Denmark",
+  "measurement_year": 2019,
+  "design": "Four-block field experiment, reed canary grass and tall fescue, 2–5 harvests per year; laboratory screw pressing and acid precipitation.",
+  "record_count": 8,
+  "units": "All yield means and SDs are t/ha/year. DM fields are dry-matter mass yields; CP fields are crude-protein mass yields.",
+  "transformation": "Annual-average row values and parenthetical standard deviations transcribed into separate numeric columns. Source-reported >0.0 standard deviations remain the text >0.0. No recalculation or imputation.",
+  "process_conditions": "Biomass was stored overnight at 2°C and pressed the following morning at room temperature using a lab-scale twin-screw press. Juice was acidified to pH 4 with 14.8 mol/L phosphoric acid, held overnight at 4°C, and centrifuged for 12 min at 2000×g at 4°C. The article does not report the phosphoric-acid volume/equivalents in the accessible methods.",
+  "activation_state": "reference_only",
+  "quality_class": "B, peer-reviewed experimental literature",
+  "applicability": "Cultivated flood-tolerant forage analogue for annual press-fraction and protein-product yield context; not direct roadside-grass/GreenHub performance.",
+  "limitations": [
+    "The source reports treatment-level annual means; component-stream mean yields do not sum exactly to feed mean yield and should not be forced into a closed mass balance.",
+    "The article attributes protein-balance losses to press foaming/juice overflow and fiber residues in the press; per-stream values are not a complete measured mass balance.",
+    "Fertilization differs between one-cut and 2–5-cut treatments; this dataset includes 2–5-cut observations only, but broader cross-treatment comparisons remain confounded.",
+    "No GreenHub feed basis, scale-up law, acid dose, industrial separator performance, or product market grade is established.",
+    "The authors state raw data are available on request; only published annual-average table values are included."
+  ]
+}
